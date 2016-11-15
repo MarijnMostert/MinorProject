@@ -13,6 +13,9 @@ public class PlayerMovement : MonoBehaviour {
 	private float HorizontalInput;
 	private float VerticalInput;
 	private float cameraRayLength = 200f;
+	private RaycastHit floorHit;
+	private Ray cameraRay;
+
 
 	void Awake(){
 		mainCamera = GetComponent<Camera> ();
@@ -50,9 +53,7 @@ public class PlayerMovement : MonoBehaviour {
 	private void Turn(){
 
 		//Create a ray from the camera through the cursor on the screen (which will hit the floor)
-		Ray cameraRay = Camera.current.ScreenPointToRay (Input.mousePosition);
-
-		RaycastHit floorHit;
+		cameraRay = Camera.current.ScreenPointToRay (Input.mousePosition);
 
 		if (Physics.Raycast (cameraRay, out floorHit, cameraRayLength, floorMask)) {
 			Vector3 lookDirection = floorHit.point - transform.position;
@@ -61,5 +62,6 @@ public class PlayerMovement : MonoBehaviour {
 			Quaternion playerRotation = Quaternion.LookRotation (lookDirection);
 			transform.rotation = playerRotation;
 		}
+
 	}
 }
