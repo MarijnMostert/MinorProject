@@ -5,22 +5,33 @@ public class Enemy : MonoBehaviour {
 
 	public int health;
 	public NavMesh navMesh;
-	public float attackSpeed;
+	public float attackCooldown;
+	public int attackDamage;
 	public float refreshTime = 0.1f;
+	public float attackRange = 1f;
 
 	private GameObject target;
 	private NavMeshAgent navMeshAgent;
+	private float lastAttackTime;
 
 	void Awake() {
 		navMeshAgent = GetComponent<NavMeshAgent> ();
 	}
 
 	void Start () {
-		target = GameObject.FindGameObjectWithTag ("Player");
+		target = GameObject.FindGameObjectWithTag ("Torch");
+		lastAttackTime = Time.time;
 
 		//Start the coroutine of travelling towards
 		StartCoroutine (UpdatePath ());
 	}
+
+	void Update(){
+		doDamage ();
+
+	}
+
+
 
 	private IEnumerator UpdatePath(){
 
@@ -34,5 +45,21 @@ public class Enemy : MonoBehaviour {
 			//Make sure that the Nav Mesh Agent refreshes not every frame (to spare costs)
 			yield return new WaitForSeconds (refreshTime);
 		}
+	}
+
+	private void doDamage(){
+		float distance = distanceToTorch ();
+		if(distance < attackRange && (Time.time - lastAttackTime) > attackCooldown){
+			target.GetComponent<Torch>().health -= attackDamage;
+			lastAttackTime = Time.time;
+		}
+
+
+	}
+
+	private float distanceToTorch(){
+		Vector3 distV3 = transform.position - target.transform.position;
+		float distFl = Mathf.Abs(distV3.magnitude);
+		return distFl;
 	}
 }
