@@ -47,6 +47,7 @@ public class Enemy : MonoBehaviour {
 		}
 	}
 
+	//If the player is close enough to the torch it will do damage
 	private void doDamage(){
 		float distance = distanceToTorch ();
 		if(distance < attackRange && (Time.time - lastAttackTime) > attackCooldown){
@@ -57,6 +58,7 @@ public class Enemy : MonoBehaviour {
 
 	}
 
+	//Get the distance between the enemy and the torch
 	private float distanceToTorch(){
 		Vector3 distV3 = transform.position - target.transform.position;
 		float distFl = Mathf.Abs(distV3.magnitude);

@@ -21,15 +21,12 @@ public class PlayerMovement : MonoBehaviour {
 		mainCamera = GetComponent<Camera> ();
 	}
 
-	// Use this for initialization
 	void Start () {
-
 		//The input may differ for another player (e.g. arrow keys vs. wasd keys)
 		HorizontalAxis = "Horizontal" + playerNumber;
 		VerticalAxis = "Vertical" + playerNumber;
 	}
 	
-	// Update is called once per frame
 	void FixedUpdate () {
 		Move ();
 		Turn ();
@@ -55,6 +52,7 @@ public class PlayerMovement : MonoBehaviour {
 		//Create a ray from the camera through the cursor on the screen (which will hit the floor)
 		cameraRay = Camera.current.ScreenPointToRay (Input.mousePosition);
 
+		//If the ray intersects with the floor, update the lookdirection
 		if (Physics.Raycast (cameraRay, out floorHit, cameraRayLength, floorMask)) {
 			Vector3 lookDirection = floorHit.point - transform.position;
 			lookDirection.y = 0f;
