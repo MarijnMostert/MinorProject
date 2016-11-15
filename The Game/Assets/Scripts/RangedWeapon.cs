@@ -21,7 +21,6 @@ public class RangedWeapon : MonoBehaviour {
 
 	public void fire(){
 		if ((Time.time - lastFireTime) > cooldown) {
-			Debug.Log ("fire");
 			Projectile newProjectile = Instantiate (projectile, transform.position, transform.rotation) as Projectile;
 			newProjectile.setSpeed (projectileSpeed);
 			lastFireTime = Time.time;

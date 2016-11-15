@@ -27,12 +27,13 @@ public class Enemy : MonoBehaviour {
 	}
 
 	void Update(){
-		doDamage ();
-
+		if (target != null) {
+			doDamage ();
+		}
 	}
 
 
-
+	//A Coroutine for chasing a target
 	private IEnumerator UpdatePath(){
 
 		//First make sure there is a target
@@ -51,11 +52,9 @@ public class Enemy : MonoBehaviour {
 	private void doDamage(){
 		float distance = distanceToTorch ();
 		if(distance < attackRange && (Time.time - lastAttackTime) > attackCooldown){
-			target.GetComponent<Torch>().health -= attackDamage;
+			target.GetComponent<Torch> ().takeDamage (attackDamage);
 			lastAttackTime = Time.time;
 		}
-
-
 	}
 
 	//Get the distance between the enemy and the torch

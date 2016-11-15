@@ -22,7 +22,9 @@ public class CameraController : MonoBehaviour {
 	private Vector3 getAveragePosition(){
 		Vector3 temp = new Vector3(0,0,0);
 		for (int i = 0; i < targets.Length; i++) {
-			temp += targets[i].transform.position;
+			if (targets [i] != null) {
+				temp += targets [i].transform.position;
+			}
 		}
 		temp = temp / targets.Length;
 		return temp;

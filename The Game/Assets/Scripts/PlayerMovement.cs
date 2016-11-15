@@ -14,11 +14,10 @@ public class PlayerMovement : MonoBehaviour {
 	private float VerticalInput;
 	private float cameraRayLength = 200f;
 	private RaycastHit floorHit;
-	private Ray cameraRay;
 
 
 	void Awake(){
-		mainCamera = GetComponent<Camera> ();
+		mainCamera = Camera.current;
 	}
 
 	void Start () {
@@ -50,7 +49,7 @@ public class PlayerMovement : MonoBehaviour {
 	private void Turn(){
 
 		//Create a ray from the camera through the cursor on the screen (which will hit the floor)
-		cameraRay = Camera.current.ScreenPointToRay (Input.mousePosition);
+		Ray cameraRay = Camera.current.ScreenPointToRay (Input.mousePosition);
 
 		//If the ray intersects with the floor, update the lookdirection
 		if (Physics.Raycast (cameraRay, out floorHit, cameraRayLength, floorMask)) {

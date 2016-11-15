@@ -39,4 +39,8 @@ public class Torch : MonoBehaviour {
 		}
 		return false;
 	}
+
+	public void takeDamage(int damage){
+		health -= damage;
+	}
 }
