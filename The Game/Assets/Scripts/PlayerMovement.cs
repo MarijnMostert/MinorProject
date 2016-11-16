@@ -52,9 +52,11 @@ public class PlayerMovement : MonoBehaviour {
 		//Create a ray from the camera through the cursor on the screen (which will hit the floor)
 		cameraRay = Camera.main.ScreenPointToRay (Input.mousePosition);
 
-		//If the ray intersects with the floor, update the lookdirection
+		//Get the point where the ray intersects with the floor, make that lookdirection
 		if (Physics.Raycast (cameraRay, out floorHit, cameraRayLength, floorMask)) {
 			Vector3 lookDirection = floorHit.point - transform.position;
+
+			//Make y 0 so that the player will not look up or down.
 			lookDirection.y = 0f;
 
 			updateCursorPointer (floorHit);
@@ -65,6 +67,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	}
 
+	//Updates the position of the crosshairs to the cursor position.
 	private void updateCursorPointer(RaycastHit hit){
 		cursorPointer.transform.position = new Vector3 (hit.point.x, 0.1f, hit.point.z);
 	}

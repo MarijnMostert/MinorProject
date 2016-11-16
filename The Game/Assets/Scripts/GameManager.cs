@@ -26,6 +26,8 @@ public class GameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+		//Pauses the game
 		if (Input.GetButtonDown (pauseButton)) {
 			if (!paused) {
 				Time.timeScale = 0;
@@ -38,6 +40,7 @@ public class GameManager : MonoBehaviour {
 			}
 		}
 
+		//Turns on slowmotion mode
 		if (Input.GetButtonDown (slowMotionButton)) {
 			if (!slowMotion) {
 				Time.timeScale = slowMotionFactor;
@@ -49,6 +52,7 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
+	//(Un)mutes audio when called
 	public void MuteAudio(){
 		if (audioPlaying) {
 			audiosource.mute = true;

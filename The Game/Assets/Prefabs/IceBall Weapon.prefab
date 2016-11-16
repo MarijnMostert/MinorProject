@@ -21,7 +21,7 @@ GameObject:
   - 4: {fileID: 4000011041677056}
   - 114: {fileID: 114000013339538176}
   m_Layer: 0
-  m_Name: FireBall Weapon
+  m_Name: IceBall Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -51,7 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3cbd9dd7e5654cbf9a45acbe4ddf570, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cooldown: 0.5
-  projectile: {fileID: 114000012347710446, guid: 51ead36a15daf4b15ae484ac301e078f,
+  cooldown: 0.1
+  projectile: {fileID: 114000012347710446, guid: 79381ccc5be72415da0253db3a58922f,
     type: 2}
   projectileSpeed: 15

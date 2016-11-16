@@ -9,23 +9,22 @@ public class Enemy : MonoBehaviour, IDamagable {
 	public int attackDamage;
 	public float refreshTime = 0.1f;
 	public float attackRange = 1f;
-	public GameObject scoreManagerObject;
 	public int scoreValue = 10;
 
 	private GameObject target;
 	private NavMeshAgent navMeshAgent;
-	private float lastAttackTime;
+	private float lastAttackTime = 0f;
 	private ScoreManager scoreManager;
 	private bool dead;
 
 	void Awake() {
 		navMeshAgent = GetComponent<NavMeshAgent> ();
-		scoreManager = scoreManagerObject.GetComponent<ScoreManager> ();
+		scoreManager = GameObject.Find("Score Manager").GetComponent<ScoreManager> ();
 	}
 
 	void Start () {
+		//Define the target.
 		target = GameObject.FindGameObjectWithTag ("Torch");
-		lastAttackTime = Time.time;
 		dead = false;
 
 		//Start the coroutine of travelling towards
@@ -70,13 +69,16 @@ public class Enemy : MonoBehaviour, IDamagable {
 		return distFl;
 	}
 
+	//For when the enemy object takes damage
 	public void takeDamage(int damage){
 		health -= damage;
 		if (health <= 0)
 			die ();
 	}
 
+	//When the enemy's health drops below 0.
 	private void die(){
+		//Add a score
 		scoreManager.updateScore (scoreValue);
 		dead = true;
 		Destroy (gameObject);

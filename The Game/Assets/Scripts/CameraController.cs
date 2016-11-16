@@ -11,19 +11,20 @@ public class CameraController : MonoBehaviour {
 	private Vector3 targetPosition;
 	private Vector3 smoothDampVelocity;
 
-	// Use this for initialization
 	void Start () {
 		targetPosition = getAveragePosition();
 		offset = transform.position - targetPosition;
 	}
 	
-	// Update is called once per frame
 	void FixedUpdate () {
 		targetPosition = getAveragePosition ();
 		cameraPosition = targetPosition + offset;
+
+		//The smoothdamp makes sure the camera follows the target(s) smoothly
 		transform.position = Vector3.SmoothDamp (transform.position, cameraPosition, ref smoothDampVelocity, smoothTime);
 	}
 
+	//Calculate the average position between all targets (players).
 	private Vector3 getAveragePosition(){
 		Vector3 temp = new Vector3(0,0,0);
 		for (int i = 0; i < targets.Length; i++) {

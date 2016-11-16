@@ -12,7 +12,7 @@ public class Torch : MonoBehaviour {
 	public float smoothingTime = 1f;
 	public Text healthText;
 	public Text deathText;
-	[HideInInspector]
+	[HideInInspector] //This variable will be used by other scripts but will not be editable in the Unity GUI.
 	public bool dead;
 	public float flickerInterval = 0.5f;
 
@@ -36,6 +36,7 @@ public class Torch : MonoBehaviour {
 		health = startingHealth;
 		healthText.text = "Health: " + health;
 
+		//Every 'flickerInterval' seconds the 'torchFlickering()' function is called.
 		InvokeRepeating ("torchFlickering", 0f, flickerInterval);
 	}
 	
@@ -60,9 +61,10 @@ public class Torch : MonoBehaviour {
 		return false;
 	}
 
+	//For when the torch takes damage
 	public void takeDamage(int damage){
 		health -= damage;
-		healthText.text = "Health: " + health;
+		updateHealth ();
 
 		if (isDead ()) {
 			dead = true;
@@ -71,12 +73,23 @@ public class Torch : MonoBehaviour {
 			deathText.gameObject.SetActive(true);
 		}
 	}
+
+	//For when the player e.g. picks up a healthPickUp.
+	public void heal(int healingAmount){
+		health += healingAmount;
+		updateHealth ();
+	}
 		
+	//Random deviation from the base intensity and range.
 	private void torchFlickering(){
 		float randomValue = Random.value;
 		torchLight.intensity = Mathf.SmoothDamp (torchLight.intensity, intensityBase + ((2f * randomValue) - 1f) * randomFactorIntensity, ref smoothDampVar3, flickerInterval);
 		torchLight.range = Mathf.SmoothDamp (torchLight.range, rangeBase + ((2f * randomValue) - 1f) * randomFactorRange, ref smoothDampVar4, flickerInterval);
+	}
 
+	//Update the health of the torch.
+	private void updateHealth(){
+		healthText.text = "Health: " + health;
 	}
 
 }

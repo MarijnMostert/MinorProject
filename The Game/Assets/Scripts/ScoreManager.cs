@@ -8,16 +8,12 @@ public class ScoreManager : MonoBehaviour {
 
 	private int score;
 
-	// Use this for initialization
 	void Start () {
 		score = 0;
 		scoreText.text = "Score: " + score;
 	}
 
-	// Update is called once per frame
-	void Update () {
-	}
-
+	//Updates the score when called
 	public void updateScore(int addedScore){
 		score += addedScore;
 		scoreText.text = "Score: " + score;
