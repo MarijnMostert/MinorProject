@@ -16,14 +16,9 @@ public class CameraController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-		if (targets.Length != 0) {
-			targetPosition = getAveragePosition ();
-			cameraPosition = targetPosition + offset;
-			transform.position = cameraPosition;
-		} else
-			transform.position = cameraPosition;
-
-		Debug.Log (targets.Length);
+		targetPosition = getAveragePosition ();
+		cameraPosition = targetPosition + offset;
+		transform.position = cameraPosition;
 	}
 
 	private Vector3 getAveragePosition(){
