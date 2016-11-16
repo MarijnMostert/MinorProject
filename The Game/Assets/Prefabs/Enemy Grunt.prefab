@@ -96,6 +96,8 @@ MonoBehaviour:
   attackDamage: 20
   refreshTime: 0.1
   attackRange: 1
+  scoreManagerObject: {fileID: 0}
+  scoreValue: 10
 --- !u!136 &136000012254614112
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -105,7 +107,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.6466961
+  m_Radius: 0.74647903
   m_Height: 2.4400892
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}

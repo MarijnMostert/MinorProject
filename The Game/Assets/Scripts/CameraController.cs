@@ -5,7 +5,11 @@ public class CameraController : MonoBehaviour {
 
 	public GameObject[] targets;	//A list of targets to follow
 	public Vector3 offset;
+	public Vector3 cameraPosition;
+	public float smoothTime = 0.1f;
+
 	private Vector3 targetPosition;
+	private Vector3 smoothDampVelocity;
 
 	// Use this for initialization
 	void Start () {
@@ -15,8 +19,9 @@ public class CameraController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-		targetPosition = getAveragePosition();
-		transform.position = targetPosition + offset;
+		targetPosition = getAveragePosition ();
+		cameraPosition = targetPosition + offset;
+		transform.position = Vector3.SmoothDamp (transform.position, cameraPosition, ref smoothDampVelocity, smoothTime);
 	}
 
 	private Vector3 getAveragePosition(){

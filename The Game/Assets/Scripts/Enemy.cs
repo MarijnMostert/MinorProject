@@ -9,18 +9,24 @@ public class Enemy : MonoBehaviour, IDamagable {
 	public int attackDamage;
 	public float refreshTime = 0.1f;
 	public float attackRange = 1f;
+	public GameObject scoreManagerObject;
+	public int scoreValue = 10;
 
 	private GameObject target;
 	private NavMeshAgent navMeshAgent;
 	private float lastAttackTime;
+	private ScoreManager scoreManager;
+	private bool dead;
 
 	void Awake() {
 		navMeshAgent = GetComponent<NavMeshAgent> ();
+		scoreManager = scoreManagerObject.GetComponent<ScoreManager> ();
 	}
 
 	void Start () {
 		target = GameObject.FindGameObjectWithTag ("Torch");
 		lastAttackTime = Time.time;
+		dead = false;
 
 		//Start the coroutine of travelling towards
 		StartCoroutine (UpdatePath ());
@@ -37,7 +43,7 @@ public class Enemy : MonoBehaviour, IDamagable {
 	private IEnumerator UpdatePath(){
 
 		//First make sure there is a target
-		while (target != null) {
+		while (target != null && !dead) {
 			Vector3 targetPosition = new Vector3 (target.transform.position.x, 0, target.transform.position.z);
 
 			//Set the target position for the Nav Mesh Agent
@@ -71,6 +77,8 @@ public class Enemy : MonoBehaviour, IDamagable {
 	}
 
 	private void die(){
+		scoreManager.updateScore (scoreValue);
+		dead = true;
 		Destroy (gameObject);
 	}
 }
