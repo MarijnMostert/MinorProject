@@ -124,7 +124,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011031181652}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.5}
+  m_LocalPosition: {x: 0, y: 0, z: 0.798}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -327,7 +327,7 @@ Light:
   serializedVersion: 7
   m_Type: 2
   m_Color: {r: 1, g: 0.70892495, b: 0.4852941, a: 1}
-  m_Intensity: 7.07
+  m_Intensity: 4
   m_Range: 23.9
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -367,6 +367,9 @@ MonoBehaviour:
   floorMask:
     serializedVersion: 2
     m_Bits: 256
+  cursorPointer: {fileID: 1000012601283098, guid: ef9870d84631642b7a7e73dee2219f39,
+    type: 2}
+  obj: {fileID: 0}
 --- !u!114 &114000012238476872
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -415,6 +418,7 @@ MonoBehaviour:
   healthText: {fileID: 0}
   deathText: {fileID: 0}
   dead: 0
+  flickerInterval: 0.05
 --- !u!136 &136000014152159908
 CapsuleCollider:
   m_ObjectHideFlags: 1

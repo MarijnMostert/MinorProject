@@ -193,7 +193,7 @@ MonoBehaviour:
   - {fileID: 2013509298}
   offset: {x: 0, y: 20, z: -8}
   cameraPosition: {x: 0, y: 0, z: 0}
-  smoothTime: 0.3
+  smoothTime: 0.1
 --- !u!1 &330456757
 GameObject:
   m_ObjectHideFlags: 0
@@ -1377,20 +1377,6 @@ Prefab:
       propertyPath: deathText
       value: 
       objectReference: {fileID: 781860776}
-    - target: {fileID: 108000011247121832, guid: c3be11bbafbb646b19e5117931794200,
-        type: 2}
-      propertyPath: m_Intensity
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4000012252006604, guid: c3be11bbafbb646b19e5117931794200, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0.798
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000013467797438, guid: c3be11bbafbb646b19e5117931794200,
-        type: 2}
-      propertyPath: flickerInterval
-      value: 0.05
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c3be11bbafbb646b19e5117931794200, type: 2}
   m_IsPrefabParent: 0

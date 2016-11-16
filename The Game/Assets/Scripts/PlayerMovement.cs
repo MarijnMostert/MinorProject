@@ -6,25 +6,25 @@ public class PlayerMovement : MonoBehaviour {
 	public int playerNumber;
 	public float speed;
 	public LayerMask floorMask;
+	public GameObject cursorPointer;
 
-	private Camera mainCamera;
 	private string HorizontalAxis;
 	private string VerticalAxis;
 	private float HorizontalInput;
 	private float VerticalInput;
 	private float cameraRayLength = 200f;
 	private RaycastHit floorHit;
-	Ray cameraRay;
+	private Ray cameraRay;
 
 
 	void Awake(){
-		mainCamera = Camera.current;
 	}
 
 	void Start () {
 		//The input may differ for another player (e.g. arrow keys vs. wasd keys)
 		HorizontalAxis = "Horizontal" + playerNumber;
 		VerticalAxis = "Vertical" + playerNumber;
+		cursorPointer = Instantiate(cursorPointer);
 	}
 	
 	void FixedUpdate () {
@@ -57,9 +57,15 @@ public class PlayerMovement : MonoBehaviour {
 			Vector3 lookDirection = floorHit.point - transform.position;
 			lookDirection.y = 0f;
 
+			updateCursorPointer (floorHit);
+
 			Quaternion playerRotation = Quaternion.LookRotation (lookDirection);
 			transform.rotation = playerRotation;
 		}
 
+	}
+
+	private void updateCursorPointer(RaycastHit hit){
+		cursorPointer.transform.position = new Vector3 (hit.point.x, 0.1f, hit.point.z);
 	}
 }
