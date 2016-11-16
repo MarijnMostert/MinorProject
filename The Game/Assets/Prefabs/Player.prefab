@@ -84,7 +84,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1000014235999662
 GameObject:
   m_ObjectHideFlags: 1
@@ -327,8 +327,8 @@ Light:
   serializedVersion: 7
   m_Type: 2
   m_Color: {r: 1, g: 0.70892495, b: 0.4852941, a: 1}
-  m_Intensity: 4
-  m_Range: 50
+  m_Intensity: 7.07
+  m_Range: 23.9
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -407,11 +407,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingHealth: 100
-  torchLight: {fileID: 0}
+  torchLight: {fileID: 108000011247121832}
   startingIntensity: 4
   health: 100
-  range: 50
+  range: 5
   smoothingTime: 1
+  healthText: {fileID: 0}
+  deathText: {fileID: 0}
+  dead: 0
 --- !u!136 &136000014152159908
 CapsuleCollider:
   m_ObjectHideFlags: 1
