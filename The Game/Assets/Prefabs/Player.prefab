@@ -327,7 +327,7 @@ Light:
   serializedVersion: 7
   m_Type: 2
   m_Color: {r: 1, g: 0.70892495, b: 0.4852941, a: 1}
-  m_Intensity: 3.98
+  m_Intensity: 4
   m_Range: 50
   m_SpotAngle: 30
   m_CookieSize: 10
@@ -408,7 +408,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingHealth: 100
   torchLight: {fileID: 0}
-  intensity: 4
+  startingIntensity: 4
   health: 100
   range: 50
   smoothingTime: 1

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Enemy : MonoBehaviour {
+public class Enemy : MonoBehaviour, IDamagable {
 
 	public int health;
 	public NavMesh navMesh;
@@ -62,5 +62,15 @@ public class Enemy : MonoBehaviour {
 		Vector3 distV3 = transform.position - target.transform.position;
 		float distFl = Mathf.Abs(distV3.magnitude);
 		return distFl;
+	}
+
+	public void takeDamage(int damage){
+		health -= damage;
+		if (health <= 0)
+			die ();
+	}
+
+	private void die(){
+		Destroy (gameObject);
 	}
 }
