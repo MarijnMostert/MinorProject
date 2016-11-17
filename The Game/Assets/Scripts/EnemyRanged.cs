@@ -4,7 +4,9 @@ using System.Collections;
 public class EnemyRanged : Enemy {
 
 	public RangedWeapon weapon;
+	public LayerMask lookMask;
 
+	private float stoppingDistance;
 	private WeaponController weaponController;
 //	private GameObject weaponHolder;
 	private float distanceToTarget;
@@ -19,19 +21,43 @@ public class EnemyRanged : Enemy {
 	new void Start () {
 		base.Start ();
 		weapon = weaponController.currentWeapon as RangedWeapon;
+		stoppingDistance = navMeshAgent.stoppingDistance;
 
 	}
 	
 	void Update () {
 		StartCoroutine (UpdatePath ());
+		determineStoppingDistance ();
 		distanceToTarget = distanceToTorch ();
-		if (target != null && distanceToTarget <= attackRange && (Time.time - lastAttackTime) > attackCooldown) {
+		if (target != null && distanceToTarget <= attackRange && (Time.time - lastAttackTime) > attackCooldown && canSeePlayer()) {
 			attack ();
 		}
 	}
 
 	private void attack(){
 		weapon.fire ();
+	}
+
+	private bool canSeePlayer(){
+		Ray ray = new Ray (transform.position, transform.forward);
+		RaycastHit hit;
+
+		Physics.Raycast (ray, out hit, attackRange, lookMask);
+
+		if (hit.collider != null) {
+			if (hit.collider.gameObject.CompareTag ("Torch")) {
+				return true;
+			} 
+		}
+		return false;
+	}
+
+	private void determineStoppingDistance(){
+		if (!canSeePlayer ()) {
+			navMeshAgent.stoppingDistance = 0f;
+		} else {
+			navMeshAgent.stoppingDistance = stoppingDistance;
+		}
 	}
 
 	private IEnumerator UpdatePath(){
@@ -48,4 +74,5 @@ public class EnemyRanged : Enemy {
 			yield return new WaitForSeconds (refreshTime);
 		}
 	}
+		
 }

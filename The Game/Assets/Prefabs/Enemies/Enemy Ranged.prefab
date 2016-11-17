@@ -136,12 +136,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 50
-  attackCooldown: 1
+  attackCooldown: 0.1
   attackDamage: 10
   refreshTime: 0.1
   attackRange: 6
   scoreValue: 10
   weapon: {fileID: 114000013339538176, guid: 01b5b80244d5a4934b68ca098e6bd070, type: 2}
+  lookMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!136 &136000014248907464
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -149,7 +152,7 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012604841478}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5
   m_Height: 2
