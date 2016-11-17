@@ -5,11 +5,11 @@ public class CoinPickUp : PickUp, IPickUp {
 
 	public int value = 10;
 
-	void Start () {
+	new void Start () {
 		base.Start ();
 	}
 	
-	void Update () {
+	new void Update () {
 		base.Update ();
 		base.rotateZ ();
 	}
