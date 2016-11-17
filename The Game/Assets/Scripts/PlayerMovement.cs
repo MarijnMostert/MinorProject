@@ -6,8 +6,8 @@ public class PlayerMovement : MonoBehaviour {
 	public int playerNumber;
 	public float speed;
 	public LayerMask floorMask;
+	public GameObject cursorPointer;
 
-	private Camera mainCamera;
 	private string HorizontalAxis;
 	private string VerticalAxis;
 	private float HorizontalInput;
@@ -18,18 +18,15 @@ public class PlayerMovement : MonoBehaviour {
 
 
 	void Awake(){
-		mainCamera = GetComponent<Camera> ();
 	}
 
-	// Use this for initialization
 	void Start () {
-
 		//The input may differ for another player (e.g. arrow keys vs. wasd keys)
 		HorizontalAxis = "Horizontal" + playerNumber;
 		VerticalAxis = "Vertical" + playerNumber;
+		cursorPointer = Instantiate(cursorPointer);
 	}
 	
-	// Update is called once per frame
 	void FixedUpdate () {
 		Move ();
 		Turn ();
@@ -53,15 +50,25 @@ public class PlayerMovement : MonoBehaviour {
 	private void Turn(){
 
 		//Create a ray from the camera through the cursor on the screen (which will hit the floor)
-		cameraRay = Camera.current.ScreenPointToRay (Input.mousePosition);
+		cameraRay = Camera.main.ScreenPointToRay (Input.mousePosition);
 
+		//Get the point where the ray intersects with the floor, make that lookdirection
 		if (Physics.Raycast (cameraRay, out floorHit, cameraRayLength, floorMask)) {
 			Vector3 lookDirection = floorHit.point - transform.position;
+
+			//Make y 0 so that the player will not look up or down.
 			lookDirection.y = 0f;
+
+			updateCursorPointer (floorHit);
 
 			Quaternion playerRotation = Quaternion.LookRotation (lookDirection);
 			transform.rotation = playerRotation;
 		}
 
+	}
+
+	//Updates the position of the crosshairs to the cursor position.
+	private void updateCursorPointer(RaycastHit hit){
+		cursorPointer.transform.position = new Vector3 (hit.point.x, 0.1f, hit.point.z);
 	}
 }
