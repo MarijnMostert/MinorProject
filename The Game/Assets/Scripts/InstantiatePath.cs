@@ -26,19 +26,19 @@ public class InstantiatePath : MonoBehaviour {
                 int type = getType(surroundings);
                 switch (type){
                     case 0:
-                        Dungeon[i, j] = Instantiate(floor, new Vector3(3f * i, 0, 3f * j), findRot(type,surroundings)) as GameObject;
+                        Dungeon[i, j] = Instantiate(floor, new Vector3(2f * i, 0, 2f * j), findRot(type,surroundings)) as GameObject;
                         break;
                     case 1:
-                        Dungeon[i, j] = Instantiate(side, new Vector3(3f * i, 0, 3f * j), findRot(type, surroundings)) as GameObject;
+                        Dungeon[i, j] = Instantiate(side, new Vector3(2f * i, 0, 2f * j), findRot(type, surroundings)) as GameObject;
                         break;
                     case 2:
-                        Dungeon[i, j] = Instantiate(corner, new Vector3(3f * i, 0, 3f * j), findRot(type, surroundings)) as GameObject;
+                        Dungeon[i, j] = Instantiate(corner, new Vector3(2f * i, 0, 2f * j), findRot(type, surroundings)) as GameObject;
                         break;
                     case 3:
-                        Dungeon[i, j] = Instantiate(corner2, new Vector3(3f * i, 0, 3f * j), findRot(type, surroundings)) as GameObject;
+                        Dungeon[i, j] = Instantiate(corner2, new Vector3(2f * i, 0, 2f * j), findRot(type, surroundings)) as GameObject;
                         break;
                     default:
-                        Dungeon[i, j] = Instantiate(roof, new Vector3(3f * i, 0, 3f * j), findRot(type, surroundings)) as GameObject;
+                        Dungeon[i, j] = Instantiate(roof, new Vector3(2f * i, 0, 2f * j), findRot(type, surroundings)) as GameObject;
                         break;
                 }
             }
@@ -120,7 +120,7 @@ public class InstantiatePath : MonoBehaviour {
         surroundings[1] = getMazeValue(x, z+1);
         surroundings[2] = getMazeValue(x-1, z);
         surroundings[3] = getMazeValue(x, z-1);
-        Debug.Log("x=" + x + ", z=" + z + ", Surr=" + surroundings.ToString());
+        Debug.Log("x=" + x + ", z=" + z + ", Surr= [" + surroundings[0]+", "+surroundings[1]+"");
         
         return surroundings;
     }
