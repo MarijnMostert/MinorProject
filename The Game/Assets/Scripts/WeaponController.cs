@@ -4,8 +4,8 @@ using System.Collections;
 public class WeaponController : MonoBehaviour {
 
 	public Weapon startingWeapon;
-
 	public Weapon currentWeapon;
+
 	protected GameObject weaponHolder;
 
 	protected virtual void Start () {

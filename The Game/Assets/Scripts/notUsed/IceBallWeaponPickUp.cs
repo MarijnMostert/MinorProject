@@ -19,7 +19,7 @@ public class IceBallWeaponPickUp : PickUp, IPickUp {
 	//Equips the IceBall Weapon when picked up.
 	public void OnTriggerEnter(Collider other){
 		if(other.gameObject.CompareTag("Player")){
-			GameObject player = other.gameObject;
+//			GameObject player = other.gameObject;
 		//	WeaponController playWeapController = player.GetComponent<WeaponController>();
 //			playWeapController.Equip(iceBallWeapon);
 			Destroy(gameObject);

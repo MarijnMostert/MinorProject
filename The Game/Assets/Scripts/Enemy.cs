@@ -24,12 +24,12 @@ public class Enemy : MonoBehaviour, IDamagable {
 
 	protected virtual void Start () {
 		//Define the target.
-		target = GameObject.FindGameObjectWithTag ("Torch");
+		target = GameObject.FindGameObjectWithTag ("Torch").transform.parent.gameObject;
 		dead = false;
 	}
 
 	//Get the distance between the enemy and the torch
-	protected float distanceToTorch(){
+	protected float distanceToTarget(){
 		Vector3 distV3 = transform.position - target.transform.position;
 		float distFl = Mathf.Abs(distV3.magnitude);
 		return distFl;

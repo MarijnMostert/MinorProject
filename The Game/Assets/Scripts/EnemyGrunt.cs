@@ -23,9 +23,14 @@ public class EnemyGrunt : Enemy {
 
 	//If the player is close enough to the torch it will do damage
 	private void attack(){
-		float distance = distanceToTorch ();
+		float distance = distanceToTarget ();
 		if(distance < attackRange){
-			target.GetComponent<Torch> ().takeDamage (attackDamage);
+			if (target.CompareTag ("Torch")) {
+				target.GetComponent<Torch> ().takeDamage (attackDamage);
+			} else if (target.CompareTag ("Player")) {
+				target.transform.FindChild ("Torch").GetComponent<Torch> ().takeDamage (attackDamage);
+			}
+				
 			lastAttackTime = Time.time;
 		}
 	}

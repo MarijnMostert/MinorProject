@@ -9,7 +9,8 @@ public class EnemyRanged : Enemy {
 	private float stoppingDistance;
 	private WeaponController weaponController;
 //	private GameObject weaponHolder;
-	private float distanceToTarget;
+	private float varDistanceToTarget;
+
 
 	new void Awake(){
 		base.Awake ();
@@ -28,8 +29,8 @@ public class EnemyRanged : Enemy {
 	void Update () {
 		StartCoroutine (UpdatePath ());
 		determineStoppingDistance ();
-		distanceToTarget = distanceToTorch ();
-		if (target != null && distanceToTarget <= attackRange && (Time.time - lastAttackTime) > attackCooldown && canSeePlayer()) {
+		varDistanceToTarget = distanceToTarget ();
+		if (target != null && varDistanceToTarget <= attackRange && (Time.time - lastAttackTime) > attackCooldown && canSeeTarget()) {
 			attack ();
 		}
 	}
@@ -38,14 +39,14 @@ public class EnemyRanged : Enemy {
 		weapon.fire ();
 	}
 
-	private bool canSeePlayer(){
+	private bool canSeeTarget(){
 		Ray ray = new Ray (transform.position, transform.forward);
 		RaycastHit hit;
 
 		Physics.Raycast (ray, out hit, attackRange, lookMask);
 
 		if (hit.collider != null) {
-			if (hit.collider.gameObject.CompareTag ("Torch")) {
+			if (hit.collider.gameObject.Equals(target) || hit.collider.gameObject.CompareTag("Torch")) {
 				return true;
 			} 
 		}
@@ -53,7 +54,7 @@ public class EnemyRanged : Enemy {
 	}
 
 	private void determineStoppingDistance(){
-		if (!canSeePlayer ()) {
+		if (!canSeeTarget ()) {
 			navMeshAgent.stoppingDistance = 0f;
 		} else {
 			navMeshAgent.stoppingDistance = stoppingDistance;
