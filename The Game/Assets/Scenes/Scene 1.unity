@@ -139,11 +139,6 @@ Prefab:
       propertyPath: deathText
       value: 
       objectReference: {fileID: 781860776}
-    - target: {fileID: 0}
-      propertyPath: startingWeapon
-      value: 
-      objectReference: {fileID: 114000013339538176, guid: 01b5b80244d5a4934b68ca098e6bd070,
-        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c3be11bbafbb646b19e5117931794200, type: 2}
   m_IsPrefabParent: 0
@@ -258,6 +253,12 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d96bcf284e9ef477fa53b50fb90f95c8, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &436241304 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114000011992581854, guid: d96bcf284e9ef477fa53b50fb90f95c8,
+    type: 2}
+  m_PrefabInternal: {fileID: 431975021}
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
 --- !u!114 &526032839 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114000013423328566, guid: 3699728cf99544d65a399b02d8b3cee3,
@@ -886,6 +887,11 @@ Prefab:
       propertyPath: scoreText
       value: 
       objectReference: {fileID: 330456758}
+    - target: {fileID: 114000012552528636, guid: f9b52c7a53b0b4504970fcc2146b3096,
+        type: 2}
+      propertyPath: scoreOnDeathText
+      value: 
+      objectReference: {fileID: 436241304}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f9b52c7a53b0b4504970fcc2146b3096, type: 2}
   m_IsPrefabParent: 0

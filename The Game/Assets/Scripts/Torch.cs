@@ -67,10 +67,7 @@ public class Torch : MonoBehaviour, IDamagable {
 		updateHealth ();
 
 		if (isDead ()) {
-			dead = true;
-			CancelInvoke ();
-			transform.parent.gameObject.SetActive(false);
-			deathText.gameObject.SetActive(true);
+			onDead ();
 		}
 	}
 
@@ -92,4 +89,16 @@ public class Torch : MonoBehaviour, IDamagable {
 		healthText.text = "Health: " + health;
 	}
 
+	private void onDead(){
+		health = 0;
+		dead = true;
+		CancelInvoke ();
+		Destroy (transform.parent.gameObject);
+		//	transform.parent.gameObject.SetActive(false);
+		//	gameObject.SetActive (false);
+		deathText.gameObject.SetActive(true);
+		GameObject.Find ("UI/Score Text").SetActive (false);
+		GameObject.Find ("UI/Health Text").SetActive(false);
+		GameObject.FindWithTag ("CursorPointer").SetActive (false);
+	}
 }
