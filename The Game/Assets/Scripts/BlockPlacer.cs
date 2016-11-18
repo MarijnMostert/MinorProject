@@ -1,55 +1,77 @@
 ﻿using UnityEngine;
+using System.Threading;
 using System.Collections;
 
 public class BlockPlacer : MonoBehaviour {
-    public GameObject floor,side,corner,corner2,roof,block,player;
+    public GameObject floor,side,sideAlt1,sideAlt2,corner,cornerout,
+                            roof,block,player,trap_straight, trap_crossing;
     public GameObject[,] Dungeon;
     int[] mazeSize;
     bool[,] maze, import_maze;
-
+    float chance_trap_straight, chance_trap_crossing;
+    float chance_side_alt1, chance_side_alt2;
     // Use this for initialization
     void Start()
     {
-        mazeSize = new int[]{ 5, 5};
+        mazeSize = new int[] { 5, 5 };
+        chance_trap_straight = 1f;
+        chance_trap_crossing = 1f;
+        chance_side_alt1 = 0.2f;
+        chance_side_alt2 = 0.2f + chance_side_alt1;
+
+
+
         //import_maze = new bool[mazeSize[0], mazeSize[1]];
 
         //simulate mazecreation
-        import_maze = new bool[5, 5] {  {false,true,false,false,false},
-                                        {false,true,true,true,false},
-                                        {false,false,false,true,false},
-                                        {false,false,true,true,false},
+        import_maze = new bool[5, 5] {  {false,false,true,false,false},
+                                        {false,false,true,false,false},
+                                        {true,true,true,true,true},
+                                        {false,false,true,false,false},
                                         {false,false,true,false,false} };
         printMaze(import_maze);
 
+        updateProgress(0.2f);
         mazeSize = new int[] { mazeSize[0] * 3, mazeSize[1] * 3 };
         Dungeon = new GameObject[mazeSize[0], mazeSize[1]];
         maze = new bool[mazeSize[0], mazeSize[1]];
         maze = StretchMatrix(import_maze);
         printMaze(maze);
+        populateMaze();
+    }
 
-        for (int i = 0; i < mazeSize[0]; i++) {
-            for (int j = 0; j < mazeSize[1]; j++) {
-                if(maze[i, j]) {
+    void populateMaze()
+    {
+        float deltaprogress = 0.5f / (mazeSize[0] * mazeSize[1]);
+        for (int i = 0; i < mazeSize[0]; i++)
+        {
+            for (int j = 0; j < mazeSize[1]; j++)
+            {
+                if (maze[i, j])
+                {
                     int[] surroundings = getSurroundings(i, j);
-                    int type = getType(surroundings);
+                    int type = getSum(surroundings);
                     switch (type)
                     {
                         case 0:
-                            Dungeon[i, j] = Instantiate(floor, new Vector3(2f * i, 0, 2f * j), findRot(type, surroundings)) as GameObject;
+                            Dungeon[i, j] = Instantiate(chooseFloor(i,j), new Vector3(2f * i, 0, 2f * j), findRotFloor(i,j)) as GameObject;
                             break;
                         case 1:
-                            Dungeon[i, j] = Instantiate(side, new Vector3(2f * i, 0, 2f * j), findRot(type, surroundings)) as GameObject;
+                            Dungeon[i, j] = Instantiate(chooseSide(), new Vector3(2f * i, 0, 2f * j), findRot(type, surroundings)) as GameObject;
                             break;
                         case 2:
                             Dungeon[i, j] = Instantiate(corner, new Vector3(2f * i, 0, 2f * j), findRot(type, surroundings)) as GameObject;
                             break;
                         case 3:
-                            Dungeon[i, j] = Instantiate(corner2, new Vector3(2f * i, 0, 2f * j), findRot(type, surroundings)) as GameObject;
+                            Dungeon[i, j] = Instantiate(cornerout, new Vector3(2f * i, 0, 2f * j), findRot(type, surroundings)) as GameObject;
                             break;
                         default:
                             break;
                     }
-                } else {
+                    updateProgress(deltaprogress);
+                }
+                else
+                {
                     Dungeon[i, j] = Instantiate(roof, new Vector3(2f * i, 0, 2f * j), Quaternion.identity) as GameObject;
                 }
             }
@@ -58,8 +80,8 @@ public class BlockPlacer : MonoBehaviour {
 
     Quaternion findRot(int type, int[] surroundings){
         switch (type){
-            case 0:
-                return Quaternion.identity;
+            //  case 0:
+                //return findRotFloor(surroundings);
             case 1:
                 return findRotSide(surroundings);
             case 2:
@@ -67,6 +89,21 @@ public class BlockPlacer : MonoBehaviour {
             default:
                 return findRotCorner2(surroundings);
         } 
+    }
+
+    Quaternion findRotFloor(int x, int z)
+    {
+        int[] surroundings = getSurDists(x, z);
+        int[] diagSurroundings = getDiagSurDists(x, z);
+        if (getSum(surroundings) == 2 && getSum(diagSurroundings) == 4)
+        {
+            if (surroundings[0] == 1 && surroundings[2] == 1)
+            {
+                return Quaternion.Euler(new Vector3(0, 0, 0));
+            }
+            return Quaternion.Euler(new Vector3(0, 90, 0));
+        }
+        return Quaternion.identity;
     }
 
     Quaternion findRotSide(int[] surroundings) {
@@ -128,7 +165,31 @@ public class BlockPlacer : MonoBehaviour {
         return surroundings;
     }
 
-    int getType(int[] surroundings){
+    int[] getSurDists(int x, int z)
+    {
+        int[] surroundings = new int[4];
+        surroundings[0] = getMazeValue(x + 3, z);
+        surroundings[1] = getMazeValue(x, z + 3);
+        surroundings[2] = getMazeValue(x - 3, z);
+        surroundings[3] = getMazeValue(x, z - 3);
+        //Debug.Log("x=" + x + ", z=" + z + ", Surr= [" + surroundings[0]+", "+surroundings[1]+", "+surroundings[2]+", "+surroundings[3]+"]");
+
+        return surroundings;
+    }
+
+    int[] getDiagSurDists(int x, int z)
+    {
+        int[] surroundings = new int[4];
+        surroundings[0] = getMazeValue(x + 3, z + 3);
+        surroundings[1] = getMazeValue(x + 3, z - 3);
+        surroundings[2] = getMazeValue(x - 3, z + 3);
+        surroundings[3] = getMazeValue(x - 3, z - 3);
+        //Debug.Log("x=" + x + ", z=" + z + ", Surr= [" + surroundings[0]+", "+surroundings[1]+", "+surroundings[2]+", "+surroundings[3]+"]");
+
+        return surroundings;
+    }
+
+    int getSum(int[] surroundings){
         int sum = 0;
         foreach (int tmp in surroundings){
             sum += tmp;
@@ -170,6 +231,51 @@ public class BlockPlacer : MonoBehaviour {
         return newMatrix;
     }
 
+    GameObject chooseSide()
+    {
+        float random = Random.value;
+        if (random < chance_side_alt1)
+        {
+            return sideAlt1;
+        }
+        else if (random < chance_side_alt2)
+        {
+            return sideAlt2;
+        }
+        return side;
+    }
+
+    GameObject chooseFloor(int x, int z)
+    {
+        if ((x + 2) % 3 == 0 && (z + 2) % 3 == 0)
+        {
+            Debug.Log(x +" "+ z);
+
+            int[] surroundings = getSurDists(x, z);
+            int sum = getSum(surroundings);
+            int diagsum = getSum(getDiagSurDists(x, z));
+            Debug.Log("sum: " + sum + ", diagSum: " + diagsum);
+            if (sum == 0 && diagsum == 4)
+            {
+                float random = Random.value;
+                if (random < chance_trap_crossing)
+                {
+                    return trap_crossing;
+                }
+            }
+            else if (sum == 2 && diagsum == 4)
+            {
+                float random = Random.value;
+                if (random < chance_trap_straight)
+                {
+                    return trap_straight;
+                }
+            }
+        }
+
+        return floor;
+    }
+
     void printMaze(bool[,] maze)
     {
         string logstring = "";
@@ -191,9 +297,12 @@ public class BlockPlacer : MonoBehaviour {
         Debug.Log(logstring);
     }
 
+    void updateProgress(float percentage)
+    {
+        GameObject.Find("progress").GetComponent<progress>().updateProgress(percentage);
+    }
 
-	// Update is called once per frame
-	void Update () {
-	
+    // Update is called once per frame
+    void Update () {
 	}
 }
