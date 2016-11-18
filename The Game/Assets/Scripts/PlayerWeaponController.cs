@@ -1,43 +1,24 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerWeaponController : MonoBehaviour {
+public class PlayerWeaponController : WeaponController {
 
 	public int playerNumber;
-	public GameObject startingWeapon;
 
-	private GameObject currentWeapon;
-	private RangedWeapon currentWeaponScript;
-	private string fireButton;
-	private GameObject weaponHolder;
+	private string attackButton;
 
-	// Use this for initialization
-	void Start () {
-		fireButton = "Fire" + playerNumber;
-		weaponHolder = GameObject.Find ("Weapon Holder");
-		Equip (startingWeapon);
-		currentWeapon = gameObject.transform.FindChild("Weapon Holder").GetChild(0).gameObject;
-		currentWeaponScript = currentWeapon.GetComponent<RangedWeapon> ();
+	new void Start () {
+		base.Start ();
+		attackButton = "Attack" + playerNumber;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetButton (fireButton)) {
-			currentWeaponScript.fire ();
+		if (Input.GetButton (attackButton)) {
+			if (currentWeapon.GetType ().Equals(typeof(RangedWeapon))) {
+				RangedWeapon tempWeap = (RangedWeapon)currentWeapon;
+				tempWeap.fire();
+			}
 		}
-	}
-
-	//To Equip another weapon
-	public void Equip(GameObject weapon){
-
-		//Check if there is already a weapon equipped. If so, destroy it.
-		if (currentWeapon != null) {
-			Destroy(gameObject.transform.FindChild("Weapon Holder").GetChild(0).gameObject);
-		}
-
-		//Instantiate new weapon and equip it.
-		GameObject newWeapon = Instantiate (weapon, weaponHolder.transform.position, weaponHolder.transform.rotation, weaponHolder.GetComponent<Transform>()) as GameObject;
-		currentWeapon = newWeapon;
-		currentWeaponScript = currentWeapon.GetComponent<RangedWeapon> ();
 	}
 }

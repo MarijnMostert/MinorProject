@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class RangedWeapon : MonoBehaviour {
+public class RangedWeapon : Weapon {
 
 	public float cooldown;
 	public Projectile projectile;
