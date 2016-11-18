@@ -23,8 +23,8 @@ GameObject:
   - 136: {fileID: 136000012254614112}
   - 23: {fileID: 23000011364654638}
   - 195: {fileID: 195000010772324132}
-  - 114: {fileID: 114000011644837500}
-  m_Layer: 0
+  - 114: {fileID: 114000010852357478}
+  m_Layer: 11
   m_Name: Enemy Grunt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011344750392}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.0063558, y: 1.17, z: 3.0361414}
+  m_LocalPosition: {x: 4.961, y: 1, z: 0.8236655}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -80,7 +80,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011344750392}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &114000011644837500
+--- !u!114 &114000010852357478
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -88,15 +88,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000011344750392}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6302cb77619be4183a956c1200aefbe5, type: 3}
+  m_Script: {fileID: 11500000, guid: ab2c348252b35437180c959f63919eab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
-  attackCooldown: 2
-  attackDamage: 20
+  attackCooldown: 1
+  attackDamage: 10
   refreshTime: 0.1
   attackRange: 1
-  scoreManagerObject: {fileID: 0}
   scoreValue: 10
 --- !u!136 &136000012254614112
 CapsuleCollider:

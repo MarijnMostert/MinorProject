@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class Torch : MonoBehaviour {
+public class Torch : MonoBehaviour, IDamagable {
 
 	public int startingHealth;
 	public Light torchLight;
