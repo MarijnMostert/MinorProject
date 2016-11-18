@@ -4,12 +4,16 @@ using System.Collections;
 
 public class BlockPlacer : MonoBehaviour {
     public GameObject floor,side,sideAlt1,sideAlt2,corner,cornerout,
-                            roof,block,player,trap_straight, trap_crossing;
+                            roof,block,player,trap_straight, trap_crossing,
+                            portal;
     public GameObject[,] Dungeon;
     int[] mazeSize;
     bool[,] maze, import_maze;
     float chance_trap_straight, chance_trap_crossing;
     float chance_side_alt1, chance_side_alt2;
+    bool start_defined;
+
+
     // Use this for initialization
     void Start()
     {
@@ -18,8 +22,7 @@ public class BlockPlacer : MonoBehaviour {
         chance_trap_crossing = 1f;
         chance_side_alt1 = 0.2f;
         chance_side_alt2 = 0.2f + chance_side_alt1;
-
-
+        start_defined = false;
 
         //import_maze = new bool[mazeSize[0], mazeSize[1]];
 
@@ -38,6 +41,7 @@ public class BlockPlacer : MonoBehaviour {
         maze = StretchMatrix(import_maze);
         printMaze(maze);
         populateMaze();
+        createStartEndPoint();
     }
 
     void populateMaze()
@@ -189,10 +193,23 @@ public class BlockPlacer : MonoBehaviour {
         return surroundings;
     }
 
-    int getSum(int[] surroundings){
+    int getSum(int[] array){
         int sum = 0;
-        foreach (int tmp in surroundings){
+        foreach (int tmp in array){
             sum += tmp;
+        }
+        return sum;
+    }
+
+    int getSum2Array(bool[,] array)
+    {
+        int sum = 0;
+        foreach (bool tmp in array)
+        {
+            if (tmp)
+            {
+                sum ++;
+            }
         }
         return sum;
     }
@@ -249,12 +266,9 @@ public class BlockPlacer : MonoBehaviour {
     {
         if ((x + 2) % 3 == 0 && (z + 2) % 3 == 0)
         {
-            Debug.Log(x +" "+ z);
-
             int[] surroundings = getSurDists(x, z);
             int sum = getSum(surroundings);
             int diagsum = getSum(getDiagSurDists(x, z));
-            Debug.Log("sum: " + sum + ", diagSum: " + diagsum);
             if (sum == 0 && diagsum == 4)
             {
                 float random = Random.value;
@@ -301,6 +315,31 @@ public class BlockPlacer : MonoBehaviour {
     {
         GameObject.Find("progress").GetComponent<progress>().updateProgress(percentage);
     }
+
+    void createStartEndPoint()
+    {
+        int[] start_coor = pickRandomCoor();
+        int[] surroundings = getSurroundings(start_coor[0], start_coor[1]);
+        int type = getSum(surroundings);
+
+        Instantiate(portal, new Vector3(2f * start_coor[0], 0, 2f * start_coor[1]), findRot(type, surroundings));
+        Debug.Log("i:"+start_coor[0]+", j:"+start_coor[1]);
+    }      
+    
+    int[] pickRandomCoor()
+    {
+        while (true)
+        {
+            int random = Random.Range(0, mazeSize[0]*mazeSize[1]);
+            int i = (int)System.Math.Floor((double)random / mazeSize[0]);
+            int j = random % mazeSize[0];
+            if (getSum(getSurroundings(i, j)) == 2 && maze[i, j])
+            {
+                return new int[2] { i, j };
+            }
+        }
+    }  
+
 
     // Update is called once per frame
     void Update () {
