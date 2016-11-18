@@ -57,7 +57,6 @@ public class EnemyBomber : Enemy {
 		float forcePart3 = forcePart1 / forcePart2;
 		float forcePart4 = Mathf.Abs (forcePart3);
 		float forceFinal = Mathf.Sqrt (forcePart4);
-		Debug.Log (forceFinal);
 		weapon.force = forceFinal*45;
 		weapon.fire ();
 	}

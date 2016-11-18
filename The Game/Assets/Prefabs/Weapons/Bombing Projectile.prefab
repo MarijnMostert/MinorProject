@@ -24,7 +24,7 @@ GameObject:
   - 23: {fileID: 23000010424521542}
   - 114: {fileID: 114000014124636786}
   - 54: {fileID: 54000012997314028}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Bombing Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,9 +109,11 @@ MonoBehaviour:
   collisionMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  damage: 10
+  damage: 1
   lifeTime: 10
   rb: {fileID: 0}
+  forceV3: {x: 0, y: 0, z: 0}
+  bomberWeapon: {fileID: 0}
 --- !u!135 &135000011261328942
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -119,7 +121,7 @@ SphereCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012684523470}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
