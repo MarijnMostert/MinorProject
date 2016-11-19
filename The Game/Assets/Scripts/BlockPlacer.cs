@@ -319,7 +319,8 @@ public class BlockPlacer : MonoBehaviour {
         int[] surroundings = getSurroundings(start_coor[0], start_coor[1]);
         int type = getSum(surroundings);
 
-        Instantiate(portal, new Vector3(2f * start_coor[0], 0, 2f * start_coor[1]), findRot(type, surroundings));
+        GameObject start = Instantiate(portal, new Vector3(2f * start_coor[0], 0, 2f * start_coor[1]), findRot(type, surroundings)) as GameObject;
+        portal.transform.Translate(Vector3.forward);
         Debug.Log("i:"+start_coor[0]+", j:"+start_coor[1]);
     }      
     
