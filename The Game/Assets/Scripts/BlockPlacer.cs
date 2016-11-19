@@ -12,7 +12,7 @@ public class BlockPlacer : MonoBehaviour {
     float chance_trap_straight, chance_trap_crossing;
     float chance_side_alt1, chance_side_alt2;
     bool start_defined;
-
+    int[] count = new int[2] {0,2};
 
     // Use this for initialization
     void Start()
@@ -29,7 +29,7 @@ public class BlockPlacer : MonoBehaviour {
         //simulate mazecreation
         import_maze = new bool[5, 5] {  {false,false,true,false,false},
                                         {false,false,true,false,false},
-                                        {true,true,true,true,true},
+                                        {false,false,true,false,false},
                                         {false,false,true,false,false},
                                         {false,false,true,false,false} };
         printMaze(import_maze);
@@ -76,7 +76,7 @@ public class BlockPlacer : MonoBehaviour {
                 }
                 else
                 {
-                    Dungeon[i, j] = Instantiate(roof, new Vector3(2f * i, 0, 2f * j), Quaternion.identity) as GameObject;
+                    Dungeon[i, j] = Instantiate(roof, new Vector3(2f * i, 0, 2f * j), Quaternion.Euler(new Vector3(-90,0,0))) as GameObject;
                 }
             }
         }
@@ -103,58 +103,58 @@ public class BlockPlacer : MonoBehaviour {
         {
             if (surroundings[0] == 1 && surroundings[2] == 1)
             {
-                return Quaternion.Euler(new Vector3(0, 0, 0));
+                return Quaternion.Euler(new Vector3(-90, 0, 0));
             }
-            return Quaternion.Euler(new Vector3(0, 90, 0));
+            return Quaternion.Euler(new Vector3(-90, 90, 0));
         }
-        return Quaternion.identity;
+        return Quaternion.Euler(new Vector3(-90,0,0));
     }
 
     Quaternion findRotSide(int[] surroundings) {
 
         if(ArrayEquals(surroundings,new int[] {1,0,0,0})){
-            return Quaternion.Euler(new Vector3(0, 180, 0));
+            return Quaternion.Euler(new Vector3(-90, 180, 0));
         }
         else if (ArrayEquals(surroundings,new int[] {0,1,0,0})){
-            return Quaternion.Euler(new Vector3(0, 90, 0));
+            return Quaternion.Euler(new Vector3(-90, 90, 0));
         }
         else if (ArrayEquals(surroundings,new int[] {0,0,1,0})){
-            return Quaternion.Euler(new Vector3(0, 0, 0));
+            return Quaternion.Euler(new Vector3(-90, 0, 0));
         }
         else {
-            return Quaternion.Euler(new Vector3(0, -90, 0));
+            return Quaternion.Euler(new Vector3(-90, -90, 0));
         }
     }
 
     Quaternion findRotCorner(int[] surroundings){
         if (ArrayEquals(surroundings,new int[] {1,1,0,0})){
-            return Quaternion.Euler(new Vector3(0, 180, 0));
+            return Quaternion.Euler(new Vector3(-90, 180, 0));
         }
         else if (ArrayEquals(surroundings,new int[] {0,1,1,0})){
-            return Quaternion.Euler(new Vector3(0, 90, 0));
+            return Quaternion.Euler(new Vector3(-90, 90, 0));
         }
         else if (ArrayEquals(surroundings,new int[] {0,0,1,1})){
-            return Quaternion.Euler(new Vector3(0, 0, 0));
+            return Quaternion.Euler(new Vector3(-90, 0, 0));
         }
         else {
-            return Quaternion.Euler(new Vector3(0, -90, 0));
+            return Quaternion.Euler(new Vector3(-90, -90, 0));
         }
     }
 
     Quaternion findRotCorner2(int[] surroundings) {
         if (surroundings[0] == 1) {
-            return Quaternion.Euler(new Vector3(0, 90, 0));
+            return Quaternion.Euler(new Vector3(-90, 90, 0));
         }
         else if (surroundings[1] == 1) {
-            return Quaternion.Euler(new Vector3(0, 180, 0));
+            return Quaternion.Euler(new Vector3(-90, 180, 0));
         }
         else if (surroundings[2] == 1) {
-            return Quaternion.Euler(new Vector3(0, -90, 0));
+            return Quaternion.Euler(new Vector3(-90, -90, 0));
         }
         else if (surroundings[3] == 1) {
-            return Quaternion.Euler(new Vector3(0, 0, 0));
+            return Quaternion.Euler(new Vector3(-90, 0, 0));
         } else {
-            return Quaternion.Euler(new Vector3(0, 0, 90));
+            return Quaternion.Euler(new Vector3(-90, 0, 90));
         }
     }
 
@@ -164,8 +164,6 @@ public class BlockPlacer : MonoBehaviour {
         surroundings[1] = getMazeValue(x, z+1);
         surroundings[2] = getMazeValue(x-1, z);
         surroundings[3] = getMazeValue(x, z-1);
-        //Debug.Log("x=" + x + ", z=" + z + ", Surr= [" + surroundings[0]+", "+surroundings[1]+", "+surroundings[2]+", "+surroundings[3]+"]");
-        
         return surroundings;
     }
 
@@ -176,8 +174,6 @@ public class BlockPlacer : MonoBehaviour {
         surroundings[1] = getMazeValue(x, z + 3);
         surroundings[2] = getMazeValue(x - 3, z);
         surroundings[3] = getMazeValue(x, z - 3);
-        //Debug.Log("x=" + x + ", z=" + z + ", Surr= [" + surroundings[0]+", "+surroundings[1]+", "+surroundings[2]+", "+surroundings[3]+"]");
-
         return surroundings;
     }
 
@@ -188,8 +184,6 @@ public class BlockPlacer : MonoBehaviour {
         surroundings[1] = getMazeValue(x + 3, z - 3);
         surroundings[2] = getMazeValue(x - 3, z + 3);
         surroundings[3] = getMazeValue(x - 3, z - 3);
-        //Debug.Log("x=" + x + ", z=" + z + ", Surr= [" + surroundings[0]+", "+surroundings[1]+", "+surroundings[2]+", "+surroundings[3]+"]");
-
         return surroundings;
     }
 
@@ -279,10 +273,13 @@ public class BlockPlacer : MonoBehaviour {
             }
             else if (sum == 2 && diagsum == 4)
             {
-                float random = Random.value;
-                if (random < chance_trap_straight)
-                {
-                    return trap_straight;
+                count[0]++;
+                if (count[0]==count[1]) {
+                    float random = Random.value;
+                    if (random < chance_trap_straight)
+                    {
+                        return trap_straight;
+                    }
                 }
             }
         }
