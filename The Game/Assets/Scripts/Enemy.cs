@@ -5,7 +5,6 @@ using System.Collections;
 public class Enemy : MonoBehaviour, IDamagable {
 
 	public int startingHealth;
-	public int health;
 	public NavMesh navMesh;
 	public float attackCooldown;
 	public int attackDamage;
@@ -14,6 +13,8 @@ public class Enemy : MonoBehaviour, IDamagable {
 	public int scoreValue = 10;
 	public GameObject healthBarPrefab;
 
+	[SerializeField]
+	protected int health;
 	protected GameObject target;
 	protected NavMeshAgent navMeshAgent;
 	protected float lastAttackTime = 0f;

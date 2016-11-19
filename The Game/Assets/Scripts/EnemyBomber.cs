@@ -10,14 +10,11 @@ public class EnemyBomber : Enemy {
 	private float varDistanceToTarget;
 	private GameObject weaponHolder;
 
-	public Vector3 targetPosition;
-	public Vector3 origin;
-	public float distance;
+	private Vector3 targetPosition;
+	//public float distance;
 	public float gravity;
-	public float initialVelocity;
-	public float angle;
-	public float shootingAngleRadians;
-	public float shootingAngleDegrees;
+	//public float initialVelocity;
+	private float angle;
 
 	new void Awake(){
 		base.Awake ();
@@ -40,6 +37,7 @@ public class EnemyBomber : Enemy {
 		}
 	}
 
+	/*
 	private float calculateAngle(float gravity, float distance, float initialVelocity){
 		updateTargetPosition ();
 		float angle = 1f / 2f * Mathf.Asin (gravity * distance / Mathf.Pow (initialVelocity, 2f));
@@ -49,6 +47,7 @@ public class EnemyBomber : Enemy {
 	private float angleRadianToDegrees(float angle){
 		return angle * 360 / (2f * Mathf.PI);
 	}
+	*/
 
 	private void attack(){
 //		float force = Mathf.Sqrt (varDistanceToTarget * gravity / (Mathf.Sin (2f * (angle * 360 / (2 * Mathf.PI)))));
@@ -65,7 +64,7 @@ public class EnemyBomber : Enemy {
 
 		//First make sure there is a target
 		while (target != null && !dead) {
-			Vector3 targetPosition = new Vector3 (target.transform.position.x, 0, target.transform.position.z);
+			targetPosition = new Vector3 (target.transform.position.x, 0, target.transform.position.z);
 
 			//Set the target position for the Nav Mesh Agent
 			navMeshAgent.SetDestination (targetPosition);
