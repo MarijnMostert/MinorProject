@@ -54,7 +54,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012604841478}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5238859, y: 1.23, z: -2.3768415}
+  m_LocalPosition: {x: 1.4994699, y: 0.79, z: -3.0362992}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -135,16 +135,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8ff24006135e463b97ae6fb6873caa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 50
+  startingHealth: 100
   attackCooldown: 0.1
   attackDamage: 10
   refreshTime: 0.1
   attackRange: 6
   scoreValue: 10
-  weapon: {fileID: 114000013339538176, guid: 01b5b80244d5a4934b68ca098e6bd070, type: 2}
+  healthBarPrefab: {fileID: 1000011103493978, guid: c09f065d3cb914281a49e94a9d3e187d,
+    type: 2}
+  health: 50
+  weapon: {fileID: 114000013339538176, guid: 5de14fa6e614849258cdd517dfa7ca35, type: 2}
   lookMask:
     serializedVersion: 2
-    m_Bits: 4294963199
+    m_Bits: 4294952959
+  weaponController: {fileID: 0}
 --- !u!136 &136000014248907464
 CapsuleCollider:
   m_ObjectHideFlags: 1

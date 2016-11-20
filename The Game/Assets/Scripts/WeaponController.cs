@@ -8,6 +8,11 @@ public class WeaponController : MonoBehaviour {
 
 	protected GameObject weaponHolder;
 
+	void Awake(){
+		weaponHolder = gameObject.transform.FindChild ("Weapon Holder").gameObject;
+		Equip (startingWeapon);
+	}
+
 	protected virtual void Start () {
 		weaponHolder = gameObject.transform.FindChild ("Weapon Holder").gameObject;
 		Equip (startingWeapon);

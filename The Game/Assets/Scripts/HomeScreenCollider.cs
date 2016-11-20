@@ -3,19 +3,21 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections;
 
-public class GameStart : MonoBehaviour {
+public class HomeScreenCollider : MonoBehaviour {
 
 	public GameObject textObject;
+	public string SceneToLoad;
+	public string interactionButton = "InteractionButton";
 
 	void Start(){
-		//textObject = Instantiate (textObject, transform.position, transform.rotation) as GameObject;
+
 	}
 
 	void OnTriggerStay(Collider other){
 		if (other.gameObject.CompareTag ("Player")) {
 			textObject.SetActive (true);
-			if (Input.GetButtonDown ("InteractionButton")) {
-				SceneManager.LoadScene ("Scene 1");
+			if (Input.GetButtonDown (interactionButton)) {
+				SceneManager.LoadScene (SceneToLoad);
 			}
 		}
 	}

@@ -37,18 +37,6 @@ public class EnemyBomber : Enemy {
 		}
 	}
 
-	/*
-	private float calculateAngle(float gravity, float distance, float initialVelocity){
-		updateTargetPosition ();
-		float angle = 1f / 2f * Mathf.Asin (gravity * distance / Mathf.Pow (initialVelocity, 2f));
-		return angle;
-	}
-
-	private float angleRadianToDegrees(float angle){
-		return angle * 360 / (2f * Mathf.PI);
-	}
-	*/
-
 	private void attack(){
 //		float force = Mathf.Sqrt (varDistanceToTarget * gravity / (Mathf.Sin (2f * (angle * 360 / (2 * Mathf.PI)))));
 		float forcePart1 = varDistanceToTarget * gravity;
@@ -56,6 +44,9 @@ public class EnemyBomber : Enemy {
 		float forcePart3 = forcePart1 / forcePart2;
 		float forcePart4 = Mathf.Abs (forcePart3);
 		float forceFinal = Mathf.Sqrt (forcePart4);
+		if (weapon == null) {
+			weapon = weaponController.currentWeapon as BomberWeapon;
+		}
 		weapon.force = forceFinal*45;
 		weapon.fire ();
 	}

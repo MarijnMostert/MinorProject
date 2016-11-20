@@ -32,6 +32,8 @@ public class Enemy : MonoBehaviour, IDamagable {
 		target = GameObject.FindGameObjectWithTag ("Torch").transform.parent.gameObject;
 		dead = false;
 		health = startingHealth;
+
+		//Create the health bar
 		Vector3 healthBarPosition = transform.position + new Vector3 (0, 2, 0);
 		GameObject obj = Instantiate (healthBarPrefab, healthBarPosition, transform.rotation) as GameObject;
 		healthBar = obj.transform.FindChild ("HealthBar").GetComponent<Image> ();
@@ -41,9 +43,12 @@ public class Enemy : MonoBehaviour, IDamagable {
 
 	//Get the distance between the enemy and the torch
 	protected float distanceToTarget(){
-		Vector3 distV3 = transform.position - target.transform.position;
-		float distFl = Mathf.Abs(distV3.magnitude);
-		return distFl;
+		if (target != null) {
+			Vector3 distV3 = transform.position - target.transform.position;
+			float distFl = Mathf.Abs (distV3.magnitude);
+			return distFl;
+		}
+		return 0;
 	}
 
 	//For when the enemy object takes damage

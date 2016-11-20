@@ -66,7 +66,7 @@ public class Torch : MonoBehaviour, IDamagable {
 		health -= damage;
 		updateHealth ();
 
-		if (isDead ()) {
+		if (isDead () && !dead) {
 			onDead ();
 		}
 	}
