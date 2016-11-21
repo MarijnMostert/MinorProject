@@ -11,6 +11,8 @@ public class PlayerWeaponController : WeaponController {
 
 	void Awake(){
 		playerPrefsManager = GameObject.Find ("SceneManager").GetComponent<PlayerPrefsManager> ();
+		if (playerPrefsManager == null)
+			Debug.Log ("Add Scene Manager prefab to the scene");
 	}
 
 	new void Start () {

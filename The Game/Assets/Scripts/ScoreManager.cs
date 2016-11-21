@@ -8,12 +8,18 @@ public class ScoreManager : MonoBehaviour {
 	public Text scoreOnDeathText;
 
 	private int score;
-	private PlayerPrefsManager playerPrefsManager;
+	private PlayerPrefsManager ppM;
 
 	void Awake() {
 		scoreText = GameObject.Find ("Score Text").GetComponent<Text> ();
+		if (scoreText == null)
+			Debug.Log ("Score text is not found. Add UI Prefab to the scene.");
 		scoreOnDeathText = GameObject.Find ("UI").transform.FindChild ("Death Text").FindChild("Your Score Text").GetComponent<Text> ();
-		playerPrefsManager = GameObject.Find ("SceneManager").GetComponent<PlayerPrefsManager> ();
+		if (scoreOnDeathText == null)
+			Debug.Log ("Score on death text is not found. Add UI Prefab to the scene.");
+		ppM = GameObject.Find ("SceneManager").GetComponent<PlayerPrefsManager> ();
+		if (ppM == null)
+			Debug.Log ("Player Preferences manager is not found. Add Scene Manager prefab to the scene.");
 	}
 
 	void Start () {
@@ -34,8 +40,8 @@ public class ScoreManager : MonoBehaviour {
 	}
 
 	private void updateHighScore(){
-		if (score > playerPrefsManager.highscore) {
-			playerPrefsManager.highscore = score;
+		if (score > ppM.highscore) {
+			ppM.highscore = score;
 		}
 	}
 }
