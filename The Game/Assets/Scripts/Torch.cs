@@ -26,8 +26,13 @@ public class Torch : MonoBehaviour, IDamagable {
 	private float randomFactorIntensity;
 	private float randomFactorRange;
 
-	void Start () {
+	void Awake(){
 		torchLight = transform.GetComponentInChildren<Light> ();
+		healthText = GameObject.Find ("Health Text").GetComponent<Text>();
+		deathText = GameObject.Find("UI").transform.FindChild("Death Text").GetComponent<Text> ();
+	}
+
+	void Start () {
 		torchLight.intensity = startingIntensity;
 		intensityBase = startingIntensity;
 		randomFactorIntensity = startingIntensity / 8f;
@@ -102,5 +107,6 @@ public class Torch : MonoBehaviour, IDamagable {
 		GameObject.Find ("UI/Score Text").SetActive (false);
 		GameObject.Find ("UI/Health Text").SetActive(false);
 		GameObject.FindWithTag ("CursorPointer").SetActive (false);
+
 	}
 }

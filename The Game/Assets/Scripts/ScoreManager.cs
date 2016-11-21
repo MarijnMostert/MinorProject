@@ -11,6 +11,8 @@ public class ScoreManager : MonoBehaviour {
 	private PlayerPrefsManager playerPrefsManager;
 
 	void Awake() {
+		scoreText = GameObject.Find ("Score Text").GetComponent<Text> ();
+		scoreOnDeathText = GameObject.Find ("UI").transform.FindChild ("Death Text").FindChild("Your Score Text").GetComponent<Text> ();
 		playerPrefsManager = GameObject.Find ("SceneManager").GetComponent<PlayerPrefsManager> ();
 	}
 

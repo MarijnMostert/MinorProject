@@ -16,20 +16,26 @@ public class GameManager : MonoBehaviour {
 	private bool audioPlaying;
 
 	void Awake(){
+		pauseScreen = GameObject.Find ("UI").transform.FindChild ("Pause Screen").gameObject;
+		if (pauseScreen == null)
+			Debug.Log ("No pausescreen is found");
+		audioButtonText = pauseScreen.transform.FindChild ("Audio Button").gameObject.GetComponentInChildren<Text>();
+		if (audioButtonText == null)
+			Debug.Log ("No audio button is found");
+		audiosource = GetComponent<AudioSource> ();
+		if (audiosource == null)
+			Debug.Log ("No audiosource is found");
 	}
 
-	// Use this for initialization
 	void Start () {
 		pauseButton = "Pause";
 		slowMotionButton = "SlowMotion";
 		paused = false;
 		slowMotion = false;
 		audioPlaying = true;
-	//	pauseScreen = GameObject.FindGameObjectWithTag ("PauseScreen");
 
 	}
 	
-	// Update is called once per frame
 	void Update () {
 
 		//Pauses the game

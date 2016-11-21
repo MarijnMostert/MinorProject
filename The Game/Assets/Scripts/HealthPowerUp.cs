@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class HealthPowerUp : PickUp, IPickUp {
+public class HealthPowerUp : MonoBehaviour, IPickUp {
 
 	public int heal = 10;
 

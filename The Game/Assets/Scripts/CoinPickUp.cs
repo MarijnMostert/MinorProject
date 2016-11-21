@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CoinPickUp : PickUp, IPickUp {
+public class CoinPickUp : MonoBehaviour, IPickUp {
 
 	public int value = 10;
 

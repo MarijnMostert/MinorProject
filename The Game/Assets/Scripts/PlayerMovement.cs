@@ -7,7 +7,6 @@ public class PlayerMovement : MonoBehaviour {
 	public float speed;
 	public LayerMask floorMask;
 	public GameObject cursorPointer;
-	public bool controllerInput;
 
 	private string HorizontalAxis;
 	private string VerticalAxis;
@@ -17,7 +16,7 @@ public class PlayerMovement : MonoBehaviour {
 	private RaycastHit floorHit;
 	private Ray cameraRay;
 
-	public PlayerPrefsManager playerPrefsManager;
+	public PlayerPrefsManager ppM;
 
 	private string ControllerTurningHorizontalAxis;
 	private string ControllerTurningVerticalAxis;
@@ -29,11 +28,14 @@ public class PlayerMovement : MonoBehaviour {
 	private float ControllerMovingVerticalInput;
 
 	void Awake(){
-		playerPrefsManager = GameObject.Find ("SceneManager").GetComponent<PlayerPrefsManager> ();
+		ppM = GameObject.Find ("SceneManager").GetComponent<PlayerPrefsManager> ();
+		cursorPointer = Instantiate (cursorPointer);
 	}
 
 	void Start () {
+
 		//The input may differ for another player (e.g. arrow keys vs. wasd keys)
+		/*
 		HorizontalAxis = "Horizontal" + playerNumber;
 		VerticalAxis = "Vertical" + playerNumber;
 		cursorPointer = Instantiate(cursorPointer);
@@ -41,18 +43,19 @@ public class PlayerMovement : MonoBehaviour {
 		ControllerTurningVerticalAxis = "TurningControllerVertical" + playerNumber;
 		ControllerMovingHorizontalAxis = "MovingControllerHorizontal" + playerNumber;
 		ControllerMovingVerticalAxis = "MovingControllerVertical" + playerNumber;
+		*/
 
 	}
 	
 	void FixedUpdate () {
-		if (playerPrefsManager.controllerInput == 0) {
+		if (ppM.controllerInput == 0) {
 			if (!cursorPointer.activeInHierarchy) {
 				cursorPointer.SetActive (true);
 			}
 			MoveMouse ();
 			TurnMouse ();
 		}
-		else if (playerPrefsManager.controllerInput == 1) {
+		else if (ppM.controllerInput == 1) {
 			if (cursorPointer.activeInHierarchy) {
 				cursorPointer.SetActive (false);
 			}
@@ -63,8 +66,8 @@ public class PlayerMovement : MonoBehaviour {
 
 	private void MoveMouse(){
 		//The input is retrieved and stored
-		HorizontalInput = Input.GetAxis (HorizontalAxis);
-		VerticalInput = Input.GetAxis (VerticalAxis);
+		HorizontalInput = Input.GetAxis (ppM.moveHorizontalAxis);
+		VerticalInput = Input.GetAxis (ppM.moveVerticalAxis);
 
 		//Make the player move (Where z-axis is forwards/backwards and x-axis is sideways). No movement in Y-axis.
 		Vector3 MovementInput = new Vector3(HorizontalInput, 0, VerticalInput);
@@ -77,8 +80,8 @@ public class PlayerMovement : MonoBehaviour {
 	}
 
 	private void moveController(){
-		ControllerMovingHorizontalInput = Input.GetAxis (ControllerMovingHorizontalAxis);
-		ControllerMovingVerticalInput = Input.GetAxis (ControllerMovingVerticalAxis);
+		ControllerMovingHorizontalInput = Input.GetAxis (ppM.moveHorizontalAxis);
+		ControllerMovingVerticalInput = Input.GetAxis (ppM.moveVerticalAxis);
 
 		transform.position = transform.position + speed * Time.deltaTime * ControllerMovingHorizontalInput * new Vector3(0,0,1);
 		transform.position = transform.position + speed * Time.deltaTime * ControllerMovingVerticalInput * new Vector3(1,0,0);
@@ -105,8 +108,8 @@ public class PlayerMovement : MonoBehaviour {
 	}
 
 	private void TurnController(){
-		ControllerTurningHorizontalInput = Input.GetAxis (ControllerTurningHorizontalAxis);
-		ControllerTurningVerticalInput = Input.GetAxis (ControllerTurningVerticalAxis);
+		ControllerTurningHorizontalInput = Input.GetAxis (ppM.turnHorizontalAxis);
+		ControllerTurningVerticalInput = Input.GetAxis (ppM.turnVerticalAxis);
 
 		// We are going to read the input every frame
 		Vector3 vNewInput = new Vector3 (ControllerTurningHorizontalInput, 0.0f, ControllerTurningVerticalInput);
