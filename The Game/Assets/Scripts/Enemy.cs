@@ -34,11 +34,13 @@ public class Enemy : MonoBehaviour, IDamagable {
 		health = startingHealth;
 
 		//Create the health bar
+		/*
 		Vector3 healthBarPosition = transform.position + new Vector3 (0, 2, 0);
 		GameObject obj = Instantiate (healthBarPrefab, healthBarPosition, transform.rotation) as GameObject;
 		healthBar = obj.transform.FindChild ("HealthBar").GetComponent<Image> ();
 		obj.GetComponent<Follow> ().target = gameObject;
 		healthBar.fillAmount = 1f;
+		*/
 	}
 
 	//Get the distance between the enemy and the torch
@@ -53,6 +55,13 @@ public class Enemy : MonoBehaviour, IDamagable {
 
 	//For when the enemy object takes damage
 	public void takeDamage(int damage){
+		if (healthBar == null) {
+			Vector3 healthBarPosition = transform.position + new Vector3 (0, 2, 0);
+			GameObject obj = Instantiate (healthBarPrefab, healthBarPosition, transform.rotation) as GameObject;
+			healthBar = obj.transform.FindChild ("HealthBar").GetComponent<Image> ();
+			obj.GetComponent<Follow> ().target = gameObject;
+			healthBar.fillAmount = 1f;
+		}
 		health -= damage;
 		healthBar.fillAmount = (float)health / startingHealth;
 		if (health <= 0)

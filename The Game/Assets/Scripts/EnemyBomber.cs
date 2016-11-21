@@ -15,6 +15,7 @@ public class EnemyBomber : Enemy {
 	public float gravity;
 	//public float initialVelocity;
 	private float angle;
+	private Vector3 prevPosition;
 
 	new void Awake(){
 		base.Awake ();
@@ -27,6 +28,7 @@ public class EnemyBomber : Enemy {
 		weaponHolder = transform.FindChild ("Weapon Holder").gameObject;
 		weapon = weaponController.currentWeapon as BomberWeapon;
 		angle = weaponHolder.transform.eulerAngles.x;
+		prevPosition = target.transform.position;
 	}
 
 	void Update () {
@@ -38,6 +40,7 @@ public class EnemyBomber : Enemy {
 	}
 
 	private void attack(){
+//		varDistanceToTarget = futureTargetPosition ();
 //		float force = Mathf.Sqrt (varDistanceToTarget * gravity / (Mathf.Sin (2f * (angle * 360 / (2 * Mathf.PI)))));
 		float forcePart1 = varDistanceToTarget * gravity;
 		float forcePart2 = Mathf.Sin (2f * (angle * 2f * Mathf.PI / 360));
@@ -70,4 +73,10 @@ public class EnemyBomber : Enemy {
 		targetPosition = target.transform.position;
 	}
 
+/*	private Vector3 futureTargetPosition(){
+		Vector3 direction = target.transform.position - prevPosition;
+		Vector3 futureTargetPosition = target.transform.position + 10f * direction;
+		return futureTargetPosition;
+	}
+*/
 }

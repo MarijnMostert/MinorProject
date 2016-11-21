@@ -34,7 +34,9 @@ public class Torch : MonoBehaviour, IDamagable {
 		randomFactorRange = range / 8f;
 
 		health = startingHealth;
-		healthText.text = "Health: " + health;
+
+		if(healthText != null)
+			healthText.text = "Health: " + health;
 
 		//Every 'flickerInterval' seconds the 'torchFlickering()' function is called.
 		InvokeRepeating ("torchFlickering", 0f, flickerInterval);
