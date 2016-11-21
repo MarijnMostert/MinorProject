@@ -21,7 +21,8 @@ GameObject:
   - 4: {fileID: 4000013752010490}
   - 33: {fileID: 33000013777570756}
   - 23: {fileID: 23000012494909250}
-  m_Layer: 0
+  - 114: {fileID: 114000010337056216}
+  m_Layer: 8
   m_Name: door (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +39,8 @@ GameObject:
   - 4: {fileID: 4000013710125268}
   - 33: {fileID: 33000013870702776}
   - 23: {fileID: 23000014129701400}
-  m_Layer: 0
+  - 114: {fileID: 114000012442306236}
+  m_Layer: 8
   m_Name: door (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -55,7 +57,8 @@ GameObject:
   - 4: {fileID: 4000012003750638}
   - 33: {fileID: 33000011758786382}
   - 23: {fileID: 23000013565981892}
-  m_Layer: 0
+  - 114: {fileID: 114000014032655328}
+  m_Layer: 8
   m_Name: door (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,7 +75,7 @@ GameObject:
   - 4: {fileID: 4000014129488530}
   - 33: {fileID: 33000013429410316}
   - 23: {fileID: 23000013789520908}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: trap_crossing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,7 +92,8 @@ GameObject:
   - 4: {fileID: 4000012398103288}
   - 33: {fileID: 33000012792449230}
   - 23: {fileID: 23000013085214978}
-  m_Layer: 0
+  - 114: {fileID: 114000013811302012}
+  m_Layer: 8
   m_Name: door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -345,3 +349,47 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010934189490}
   m_Mesh: {fileID: 4300000, guid: e383db8f8a275a6439e4bf06ca3cd92b, type: 3}
+--- !u!114 &114000010337056216
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010909513114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdb6bf62c85fe264db0ff37e4f2f073b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114000012442306236
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010934189490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdb6bf62c85fe264db0ff37e4f2f073b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114000013811302012
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000014151150632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdb6bf62c85fe264db0ff37e4f2f073b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114000014032655328
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012419287258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdb6bf62c85fe264db0ff37e4f2f073b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

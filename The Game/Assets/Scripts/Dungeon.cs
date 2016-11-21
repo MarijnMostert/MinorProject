@@ -2,13 +2,13 @@
 using System.Threading;
 using System.Collections;
 
-public class BlockPlacer : MonoBehaviour {
-    public GameObject floor,side,sideAlt1,sideAlt2,corner,cornerout,
-                            roof,block,player,trap_straight, trap_crossing,
-                            portal;
-    public GameObject[,] Dungeon;
+public class Dungeon : MonoBehaviour {
+    public GameObject floor, side, sideAlt1, sideAlt2, corner, cornerout,
+                            roof, block, player, trap_straight, trap_crossing, 
+                            trap_box, portal, cam, ui, pointer;
+    public GameObject[,] dungeon;
     int[] mazeSize;
-    bool[,] maze, import_maze;
+    bool[,] maze, import_maze, trapped;
     float chance_trap_straight, chance_trap_crossing;
     float chance_side_alt1, chance_side_alt2;
     bool start_defined;
@@ -36,7 +36,7 @@ public class BlockPlacer : MonoBehaviour {
 
         updateProgress(0.2f);
         mazeSize = new int[] { mazeSize[0] * 3, mazeSize[1] * 3 };
-        Dungeon = new GameObject[mazeSize[0], mazeSize[1]];
+        dungeon = new GameObject[mazeSize[0], mazeSize[1]];
         maze = new bool[mazeSize[0], mazeSize[1]];
         maze = StretchMatrix(import_maze);
         printMaze(maze);
@@ -58,16 +58,16 @@ public class BlockPlacer : MonoBehaviour {
                     switch (type)
                     {
                         case 0:
-                            Dungeon[i, j] = Instantiate(chooseFloor(i,j), new Vector3(2f * i, 0, 2f * j), findRotFloor(i,j)) as GameObject;
+                            dungeon[i, j] = Instantiate(chooseFloor(i,j), new Vector3(2f * i, 0, 2f * j), findRotFloor(i,j)) as GameObject;
                             break;
                         case 1:
-                            Dungeon[i, j] = Instantiate(chooseSide(), new Vector3(2f * i, 0, 2f * j), findRot(type, surroundings)) as GameObject;
+                            dungeon[i, j] = Instantiate(chooseSide(), new Vector3(2f * i, 0, 2f * j), findRot(type, surroundings)) as GameObject;
                             break;
                         case 2:
-                            Dungeon[i, j] = Instantiate(corner, new Vector3(2f * i, 0, 2f * j), findRot(type, surroundings)) as GameObject;
+                            dungeon[i, j] = Instantiate(corner, new Vector3(2f * i, 0, 2f * j), findRot(type, surroundings)) as GameObject;
                             break;
                         case 3:
-                            Dungeon[i, j] = Instantiate(cornerout, new Vector3(2f * i, 0, 2f * j), findRot(type, surroundings)) as GameObject;
+                            dungeon[i, j] = Instantiate(cornerout, new Vector3(2f * i, 0, 2f * j), findRot(type, surroundings)) as GameObject;
                             break;
                         default:
                             break;
@@ -76,7 +76,7 @@ public class BlockPlacer : MonoBehaviour {
                 }
                 else
                 {
-                    Dungeon[i, j] = Instantiate(roof, new Vector3(2f * i, 0, 2f * j), Quaternion.Euler(new Vector3(-90,0,0))) as GameObject;
+                    dungeon[i, j] = Instantiate(roof, new Vector3(2f * i, 0, 2f * j), Quaternion.Euler(new Vector3(-90,0,0))) as GameObject;
                 }
             }
         }
@@ -278,13 +278,19 @@ public class BlockPlacer : MonoBehaviour {
                     float random = Random.value;
                     if (random < chance_trap_straight)
                     {
-                        return trap_straight;
+                        return trapStraight();
                     }
                 }
             }
         }
 
         return floor;
+    }
+
+    GameObject trapStraight()
+    {
+
+        return trap_box;
     }
 
     void printMaze(bool[,] maze)
@@ -310,7 +316,7 @@ public class BlockPlacer : MonoBehaviour {
 
     void updateProgress(float percentage)
     {
-        GameObject.Find("progress").GetComponent<progress>().updateProgress(percentage);
+        //GameObject.Find("progress").GetComponent<progress>().updateProgress(percentage);
     }
 
     void createStartEndPoint()
@@ -319,8 +325,9 @@ public class BlockPlacer : MonoBehaviour {
         int[] surroundings = getSurroundings(start_coor[0], start_coor[1]);
         int type = getSum(surroundings);
 
-        GameObject start = Instantiate(portal, new Vector3(2f * start_coor[0], 0, 2f * start_coor[1]), findRot(type, surroundings)) as GameObject;
-        portal.transform.Translate(Vector3.forward);
+        GameObject start_GO = Instantiate(portal, new Vector3(2f * start_coor[0], 0, 2f * start_coor[1]), findRot(type, surroundings)) as GameObject;
+        start_GO.transform.Translate(Vector3.forward);
+     
         Debug.Log("i:"+start_coor[0]+", j:"+start_coor[1]);
     }      
     
