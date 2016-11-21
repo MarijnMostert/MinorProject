@@ -4,13 +4,14 @@ using System.Collections;
 
 public class Dungeon : MonoBehaviour {
     public GameObject floor, side, sideAlt1, sideAlt2, corner, cornerout,
-                            roof, block, player, trap_straight, trap_crossing, 
-                            trap_box, portal, cam, ui, pointer;
+                            roof, block, trap_straight, trap_crossing, trap_box, 
+                            portal, cam, ui, pointer, starters_pack, scene_manager;
     public GameObject[,] dungeon;
+    GameObject[] players;
     int[] mazeSize;
     bool[,] maze, import_maze, trapped;
     float chance_trap_straight, chance_trap_crossing;
-    float chance_side_alt1, chance_side_alt2;
+    float chance_side_alt1, chance_side_alt2, step;
     bool start_defined;
     int[] count = new int[2] {0,2};
 
@@ -23,13 +24,16 @@ public class Dungeon : MonoBehaviour {
         chance_side_alt1 = 0.2f;
         chance_side_alt2 = 0.2f + chance_side_alt1;
         start_defined = false;
+        step = 2f;
 
-        //import_maze = new bool[mazeSize[0], mazeSize[1]];
+        //import starters pack
+        Instantiate(starters_pack, new Vector3(0, 0, 0),Quaternion.identity);
+        Instantiate(scene_manager, new Vector3(0, 0, 0), Quaternion.identity);
 
         //simulate mazecreation
         import_maze = new bool[5, 5] {  {false,false,true,false,false},
                                         {false,false,true,false,false},
-                                        {false,false,true,false,false},
+                                        {true,true,true,true,true},
                                         {false,false,true,false,false},
                                         {false,false,true,false,false} };
         printMaze(import_maze);
@@ -58,16 +62,16 @@ public class Dungeon : MonoBehaviour {
                     switch (type)
                     {
                         case 0:
-                            dungeon[i, j] = Instantiate(chooseFloor(i,j), new Vector3(2f * i, 0, 2f * j), findRotFloor(i,j)) as GameObject;
+                            dungeon[i, j] = Instantiate(chooseFloor(i,j), new Vector3(step * i, 0, step * j), findRotFloor(i,j)) as GameObject;
                             break;
                         case 1:
-                            dungeon[i, j] = Instantiate(chooseSide(), new Vector3(2f * i, 0, 2f * j), findRot(type, surroundings)) as GameObject;
+                            dungeon[i, j] = Instantiate(chooseSide(), new Vector3(step * i, 0, step * j), findRot(type, surroundings)) as GameObject;
                             break;
                         case 2:
-                            dungeon[i, j] = Instantiate(corner, new Vector3(2f * i, 0, 2f * j), findRot(type, surroundings)) as GameObject;
+                            dungeon[i, j] = Instantiate(corner, new Vector3(step * i, 0, step * j), findRot(type, surroundings)) as GameObject;
                             break;
                         case 3:
-                            dungeon[i, j] = Instantiate(cornerout, new Vector3(2f * i, 0, 2f * j), findRot(type, surroundings)) as GameObject;
+                            dungeon[i, j] = Instantiate(cornerout, new Vector3(step * i, 0, step * j), findRot(type, surroundings)) as GameObject;
                             break;
                         default:
                             break;
@@ -76,7 +80,7 @@ public class Dungeon : MonoBehaviour {
                 }
                 else
                 {
-                    dungeon[i, j] = Instantiate(roof, new Vector3(2f * i, 0, 2f * j), Quaternion.Euler(new Vector3(-90,0,0))) as GameObject;
+                    dungeon[i, j] = Instantiate(roof, new Vector3(step * i, 0, step * j), Quaternion.Euler(new Vector3(-90,0,0))) as GameObject;
                 }
             }
         }
@@ -325,9 +329,15 @@ public class Dungeon : MonoBehaviour {
         int[] surroundings = getSurroundings(start_coor[0], start_coor[1]);
         int type = getSum(surroundings);
 
-        GameObject start_GO = Instantiate(portal, new Vector3(2f * start_coor[0], 0, 2f * start_coor[1]), findRot(type, surroundings)) as GameObject;
+        GameObject start_GO = Instantiate(portal, new Vector3(step * start_coor[0], 0, step * start_coor[1]), findRot(type, surroundings)) as GameObject;
         start_GO.transform.Translate(Vector3.forward);
-     
+
+        players = GameObject.FindGameObjectsWithTag("Player");
+        foreach (GameObject player in players)
+        {
+            player.transform.position = new Vector3(step * start_coor[0], 0, step * start_coor[1]);
+        }
+
         Debug.Log("i:"+start_coor[0]+", j:"+start_coor[1]);
     }      
     

@@ -15,6 +15,9 @@ public class GameManager : MonoBehaviour {
 	private bool slowMotion;
 	private bool audioPlaying;
 
+	void Awake(){
+	}
+
 	// Use this for initialization
 	void Start () {
 		pauseButton = "Pause";
@@ -22,6 +25,8 @@ public class GameManager : MonoBehaviour {
 		paused = false;
 		slowMotion = false;
 		audioPlaying = true;
+	//	pauseScreen = GameObject.FindGameObjectWithTag ("PauseScreen");
+
 	}
 	
 	// Update is called once per frame

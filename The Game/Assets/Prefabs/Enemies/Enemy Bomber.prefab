@@ -54,7 +54,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012604841478}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.8097532, y: 1.06, z: -2.0905747}
+  m_LocalPosition: {x: -11.796, y: 0.84, z: 0.35800081}
   m_LocalScale: {x: 1, y: 0.6, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -67,10 +67,10 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013654726540}
-  m_LocalRotation: {x: -0.38268343, y: 0, z: 0, w: 0.92387956}
+  m_LocalRotation: {x: -0.5, y: 0, z: 0, w: 0.8660254}
   m_LocalPosition: {x: 0, y: 1.46, z: 0.81}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: -45, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -60, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000011244631168}
   m_RootOrder: 0
@@ -121,24 +121,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f674cd6c5f1624065993b86e8888e7fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 50
-  attackCooldown: 0
-  attackDamage: 0
+  startingHealth: 100
+  attackCooldown: 1
+  attackDamage: 2
   refreshTime: 0.1
-  attackRange: 5
-  scoreValue: 10
-  weapon: {fileID: 0}
+  attackRange: 10
+  scoreValue: 15
+  healthBarPrefab: {fileID: 1000011103493978, guid: c09f065d3cb914281a49e94a9d3e187d,
+    type: 2}
+  health: 0
+  weapon: {fileID: 114000012534744016, guid: 19b211b263a9f4bbba737e3f39009836, type: 2}
   lookMask:
     serializedVersion: 2
-    m_Bits: 0
-  targetPosition: {x: 5, y: 0, z: 0}
-  origin: {x: 0, y: 0, z: 0}
-  distance: 0
+    m_Bits: 4294952959
   gravity: 10
-  initialVelocity: 7
-  angle: 0
-  shootingAngleRadians: 0
-  shootingAngleDegrees: 0
 --- !u!114 &114000011036571214
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -178,7 +174,7 @@ NavMeshAgent:
   m_Acceleration: 20
   avoidancePriority: 50
   m_AngularSpeed: 50
-  m_StoppingDistance: 5
+  m_StoppingDistance: 10
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1

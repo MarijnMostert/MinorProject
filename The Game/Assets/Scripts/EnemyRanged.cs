@@ -7,7 +7,7 @@ public class EnemyRanged : Enemy {
 	public LayerMask lookMask;
 
 	private float stoppingDistance;
-	private WeaponController weaponController;
+	public WeaponController weaponController;
 //	private GameObject weaponHolder;
 	private float varDistanceToTarget;
 
@@ -36,6 +36,9 @@ public class EnemyRanged : Enemy {
 	}
 
 	private void attack(){
+		if (weapon == null) {
+			weapon = weaponController.currentWeapon as RangedWeapon;
+		}
 		weapon.fire ();
 	}
 
