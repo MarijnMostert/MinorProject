@@ -6,12 +6,12 @@ public class IceBallWeaponPickUp : PickUp, IPickUp {
 	public GameObject iceBallWeapon;
 
 	// Use this for initialization
-	void Start () {
+	new void Start () {
 		base.Start ();
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	new void Update () {
 		base.Update ();
 		base.rotateY ();
 	}
@@ -19,9 +19,9 @@ public class IceBallWeaponPickUp : PickUp, IPickUp {
 	//Equips the IceBall Weapon when picked up.
 	public void OnTriggerEnter(Collider other){
 		if(other.gameObject.CompareTag("Player")){
-			GameObject player = other.gameObject;
-			PlayerWeaponController playWeapController = player.GetComponent<PlayerWeaponController>();
-			playWeapController.Equip(iceBallWeapon);
+//			GameObject player = other.gameObject;
+		//	WeaponController playWeapController = player.GetComponent<WeaponController>();
+//			playWeapController.Equip(iceBallWeapon);
 			Destroy(gameObject);
 		}
 	}

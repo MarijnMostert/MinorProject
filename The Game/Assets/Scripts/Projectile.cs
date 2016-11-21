@@ -7,6 +7,9 @@ public class Projectile : MonoBehaviour {
 	public int damage;
 	public float lifeTime;
 
+	public IDamagable damagableObject;
+	public GameObject objectHitted;
+
 	private float speed;
 
 
@@ -37,11 +40,32 @@ public class Projectile : MonoBehaviour {
 	}
 
 	private void onHitObject(RaycastHit hit){
-		IDamagable damagableObject = hit.collider.GetComponent<IDamagable> ();
+		damagableObject = hit.collider.GetComponent<IDamagable> ();
+		objectHitted = hit.collider.gameObject;
 
 		if (damagableObject != null) {
 			damagableObject.takeDamage (damage);
+		} else if (objectHitted.CompareTag("Player")) {
+			objectHitted.transform.FindChild ("Torch").GetComponent<IDamagable> ().takeDamage (damage);
 		}
+
+		/*
+			if (objectHitted.layer.ToString ().Equals ("Player")) {
+				GameObject torch;
+
+
+
+				if (objectHitted.CompareTag ("Torch")) {
+					torch = objectHitted;
+				} else {
+					torch = objectHitted.transform.FindChild ("Torch").gameObject;
+				}
+				if (torch != null) {
+					torch.GetComponent<IDamagable> ().takeDamage (damage);
+				}
+			}
+		}
+		*/
 
 		Destroy (this.gameObject);
 	}
