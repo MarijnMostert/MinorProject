@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour {
 	public float speed;
 	public LayerMask floorMask;
 	public GameObject cursorPointer;
+	public bool controllerInput;
 
 	private string HorizontalAxis;
 	private string VerticalAxis;
@@ -16,8 +17,19 @@ public class PlayerMovement : MonoBehaviour {
 	private RaycastHit floorHit;
 	private Ray cameraRay;
 
+	public PlayerPrefsManager playerPrefsManager;
+
+	private string ControllerTurningHorizontalAxis;
+	private string ControllerTurningVerticalAxis;
+	private float ControllerTurningHorizontalInput;
+	private float ControllerTurningVerticalInput;
+	private string ControllerMovingHorizontalAxis;
+	private string ControllerMovingVerticalAxis;
+	private float ControllerMovingHorizontalInput;
+	private float ControllerMovingVerticalInput;
 
 	void Awake(){
+		playerPrefsManager = GameObject.Find ("SceneManager").GetComponent<PlayerPrefsManager> ();
 	}
 
 	void Start () {
@@ -25,14 +37,31 @@ public class PlayerMovement : MonoBehaviour {
 		HorizontalAxis = "Horizontal" + playerNumber;
 		VerticalAxis = "Vertical" + playerNumber;
 		cursorPointer = Instantiate(cursorPointer);
+		ControllerTurningHorizontalAxis = "TurningControllerHorizontal" + playerNumber;
+		ControllerTurningVerticalAxis = "TurningControllerVertical" + playerNumber;
+		ControllerMovingHorizontalAxis = "MovingControllerHorizontal" + playerNumber;
+		ControllerMovingVerticalAxis = "MovingControllerVertical" + playerNumber;
+
 	}
 	
 	void FixedUpdate () {
-		Move ();
-		Turn ();
+		if (playerPrefsManager.controllerInput == 0) {
+			if (!cursorPointer.activeInHierarchy) {
+				cursorPointer.SetActive (true);
+			}
+			MoveMouse ();
+			TurnMouse ();
+		}
+		else if (playerPrefsManager.controllerInput == 1) {
+			if (cursorPointer.activeInHierarchy) {
+				cursorPointer.SetActive (false);
+			}
+			moveController ();
+			TurnController ();
+		}
 	}
 
-	private void Move(){
+	private void MoveMouse(){
 		//The input is retrieved and stored
 		HorizontalInput = Input.GetAxis (HorizontalAxis);
 		VerticalInput = Input.GetAxis (VerticalAxis);
@@ -47,7 +76,15 @@ public class PlayerMovement : MonoBehaviour {
 		transform.position = transform.position + (MovementInput * speed * Time.deltaTime);
 	}
 
-	private void Turn(){
+	private void moveController(){
+		ControllerMovingHorizontalInput = Input.GetAxis (ControllerMovingHorizontalAxis);
+		ControllerMovingVerticalInput = Input.GetAxis (ControllerMovingVerticalAxis);
+
+		transform.position = transform.position + speed * Time.deltaTime * ControllerMovingHorizontalInput * new Vector3(0,0,1);
+		transform.position = transform.position + speed * Time.deltaTime * ControllerMovingVerticalInput * new Vector3(1,0,0);
+	}
+
+	private void TurnMouse(){
 
 		//Create a ray from the camera through the cursor on the screen (which will hit the floor)
 		cameraRay = Camera.main.ScreenPointToRay (Input.mousePosition);
@@ -64,6 +101,24 @@ public class PlayerMovement : MonoBehaviour {
 			Quaternion playerRotation = Quaternion.LookRotation (lookDirection);
 			transform.rotation = playerRotation;
 		}
+
+	}
+
+	private void TurnController(){
+		ControllerTurningHorizontalInput = Input.GetAxis (ControllerTurningHorizontalAxis);
+		ControllerTurningVerticalInput = Input.GetAxis (ControllerTurningVerticalAxis);
+
+		// We are going to read the input every frame
+		Vector3 vNewInput = new Vector3 (ControllerTurningHorizontalInput, 0.0f, ControllerTurningVerticalInput);
+
+		// Only do work if meaningful
+		if (vNewInput.sqrMagnitude < 0.1f) {
+			return;
+		}
+
+		// Apply the transform to the object  
+		var angle = Mathf.Atan2 (ControllerTurningHorizontalInput, ControllerTurningVerticalInput) * Mathf.Rad2Deg;
+		transform.rotation = Quaternion.Euler (0, angle, 0);
 
 	}
 
