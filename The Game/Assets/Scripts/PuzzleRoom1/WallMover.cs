@@ -10,7 +10,9 @@ public class WallMover : MonoBehaviour {
 
 	//If wall collides with player, decrease health
 	void OnTriggerEnter(Collider other) {
-		target.GetComponent<Torch> ().takeDamage (Damage);;
+		if (other.CompareTag ("Player")) {
+			target.GetComponent<Torch> ().takeDamage (Damage);
+		}
 	}
 
 	// Use this for initialization

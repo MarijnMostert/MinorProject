@@ -23,6 +23,7 @@ GameObject:
   - 136: {fileID: 136000010371801670}
   - 23: {fileID: 23000013304722268}
   - 114: {fileID: 114000011362191454}
+  - 114: {fileID: 114000013340550616}
   m_Layer: 0
   m_Name: EnemyNotWalking
   m_TagString: Untagged
@@ -90,12 +91,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a987ccccff35e7448940e1bb19814ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 30
+  health: 50
   attackCooldown: 0.1
   attackDamage: 10
   refreshTime: 0.1
-  attackRange: 1
-  scoreValue: 10
+  attackRange: 10
+  scoreValue: 15
+  weapon: {fileID: 114000013339538176, guid: 01b5b80244d5a4934b68ca098e6bd070, type: 2}
+  lookMask:
+    serializedVersion: 2
+    m_Bits: 4294967294
+--- !u!114 &114000013340550616
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012107629960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fafb4a7e8469647249b383df1db219e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingWeapon: {fileID: 114000013339538176, guid: 5de14fa6e614849258cdd517dfa7ca35,
+    type: 2}
+  currentWeapon: {fileID: 0}
 --- !u!136 &136000010371801670
 CapsuleCollider:
   m_ObjectHideFlags: 1

@@ -4,7 +4,9 @@ using System.Collections;
 public class ButtonTrigger : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other){
-		GameObject.Find ("WallGoingDown").GetComponent<DownMover> ().move = true;
+		if (GameObject.Find ("WallGoingDown") != null) {
+			GameObject.Find ("WallGoingDown").GetComponent<DownMover> ().move = true;
+		}
 	}
 
 }

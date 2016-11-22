@@ -36,6 +36,9 @@ public class EnemyRanged : Enemy {
 	}
 
 	private void attack(){
+		if (weapon == null) {
+			weapon = weaponController.currentWeapon as RangedWeapon;
+		}
 		weapon.fire ();
 	}
 

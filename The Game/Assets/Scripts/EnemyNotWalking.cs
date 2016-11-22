@@ -1,65 +1,50 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class EnemyNotWalking : MonoBehaviour, IDamagable {
+public class EnemyNotWalking : Enemy {
 
-	public int health;
-	public float attackCooldown;
-	public int attackDamage;
-	public float refreshTime = 0.1f;
-	public float attackRange = 1f;
-	public int scoreValue = 10;
+	public RangedWeapon weapon;
+	public LayerMask lookMask;
 
-	private GameObject target;
-	private float lastAttackTime = 0f;
-	private ScoreManager scoreManager;
-	private bool dead;
+	private float stoppingDistance;
+	private WeaponController weaponController;
+	private float varDistanceToTarget;
 
-	void Awake() {
-		scoreManager = GameObject.Find("Score Manager").GetComponent<ScoreManager> ();
+
+	new void Awake(){
+		base.Awake ();
+		weaponController = GetComponent<WeaponController> ();
 	}
 
 	// Use this for initialization
-	void Start () {
-		target = GameObject.FindGameObjectWithTag ("Torch");
-		dead = false;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-			if (target != null) {
-				doDamage ();
-			}
+	new void Start () {
+		base.Start ();
+		weapon = weaponController.currentWeapon as RangedWeapon;
 	}
 
-	private void doDamage(){
-		float distance = distanceToTorch ();
-		if(distance < attackRange && (Time.time - lastAttackTime) > attackCooldown){
-			target.GetComponent<Torch> ().takeDamage (attackDamage);
-			lastAttackTime = Time.time;
+	void Update () {
+		varDistanceToTarget = distanceToTarget ();
+		if (target != null && varDistanceToTarget <= attackRange && (Time.time - lastAttackTime) > attackCooldown && canSeeTarget()) {
+			attack ();
 		}
 	}
 
-	//Get the distance between the enemy and the torch
-	private float distanceToTorch(){
-		Vector3 distV3 = transform.position - target.transform.position;
-		float distFl = Mathf.Abs(distV3.magnitude);
-		return distFl;
+	private void attack(){
+		weapon.fire ();
 	}
 
-	//For when the enemy object takes damage
-	public void takeDamage(int damage){
-		health -= damage;
-		if (health <= 0)
-			die ();
-	}
+	private bool canSeeTarget(){
+		Ray ray = new Ray (transform.position, transform.forward);
+		RaycastHit hit;
 
-	//When the enemy's health drops below 0.
-	private void die(){
-		//Add a score
-		scoreManager.updateScore (scoreValue);
-		dead = true;
-		Destroy (gameObject);
+		Physics.Raycast (ray, out hit, attackRange, lookMask);
+
+		if (hit.collider != null) {
+			if (hit.collider.gameObject.Equals(target) || hit.collider.gameObject.CompareTag("Torch")) {
+				return true;
+			} 
+		}
+		return false;
 	}
 
 }
