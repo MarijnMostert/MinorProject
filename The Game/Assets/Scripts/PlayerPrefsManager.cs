@@ -27,6 +27,9 @@ public class PlayerPrefsManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		if(Input.GetKeyDown(KeyCode.L)){
+			SetUpControlsFirstTime();
+		}
 		if(Input.GetButtonDown(saveButton)){
 			SaveAll();
 		}
@@ -97,10 +100,14 @@ public class PlayerPrefsManager : MonoBehaviour {
 			cameraShakeButton = "CameraShake";
 			saveButton = "Save Button";
 			controllerInput = 0;
-
 		}
 			
 	}
 
+	public void SetUpControlsFirstTime(){
+		changeControllerInput ();
+		changeControllerInput ();
+		SaveAll ();
+	}
 
 }
