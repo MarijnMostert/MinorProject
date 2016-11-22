@@ -20,6 +20,9 @@ public class PlayerPrefsManager : MonoBehaviour {
 	public string cameraShakeButton;
 	public string saveButton;
 
+	private bool isRunning;
+
+
 	// Use this for initialization
 	void Start () {
 		LoadAll ();
@@ -109,5 +112,35 @@ public class PlayerPrefsManager : MonoBehaviour {
 		changeControllerInput ();
 		SaveAll ();
 	}
+
+	/*
+	public void SetButton(string button){
+		StartCoroutine (SetButtonCoroutine (button));
+	}
+
+	IEnumerator SetButtonCoroutine(string button){
+		Event e = Event.current;
+		isRunning = false;
+		StartCoroutine (WaitForKeyDown ());
+		yield return new WaitForSeconds (3f);
+		//Debug.Log (e);
+		if (e.isKey) {
+			Debug.Log (e.keyCode.ToString ());
+			button = e.keyCode.ToString ();
+		}
+		yield break;
+	}
+
+	IEnumerator WaitForKeyDown(){
+		//isRunning = true;
+		while (!Input.anyKeyDown) {
+			//Debug.Log ("no key pressed yet");
+			yield return null;
+		}
+		//isRunning = false;
+		Debug.Log ("Coroutine finished");
+	}
+	*/
+
 
 }
