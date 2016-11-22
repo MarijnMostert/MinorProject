@@ -329,7 +329,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000011055058788}
   m_Layer: 0
-  m_Name: Scene1 (1)
+  m_Name: Dungeon_scene
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1009,7 +1009,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targets:
-  - {fileID: 1000010451937848}
+  - {fileID: 0}
   offset: {x: 0, y: 20, z: -8}
   cameraPosition: {x: 0, y: 0, z: 0}
   smoothTime: 0.1
@@ -1024,8 +1024,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f4179840ed5f45d8b5e0c5a93385383, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreText: {fileID: 114000013136918994}
-  scoreOnDeathText: {fileID: 114000012255753998}
+  scoreText: {fileID: 981033316}
+  scoreOnDeathText: {fileID: 0}
 --- !u!114 &114000012255753998
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1070,9 +1070,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0f682923cbd449a9819e404156dac0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pauseScreen: {fileID: 1000013013684432}
+  pauseScreen: {fileID: 1919904303}
   slowMotionFactor: 0.5
-  audiosource: {fileID: 82000010360459714}
+  audiosource: {fileID: 0}
   audioButtonText: {fileID: 0}
 --- !u!114 &114000012524304140
 MonoBehaviour:
@@ -1118,8 +1118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7621a46fbfbc4a9b90f1c3c88e2c963, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingWeapon: {fileID: 114000013339538176, guid: 01b5b80244d5a4934b68ca098e6bd070,
-    type: 2}
+  startingWeapon: {fileID: 0, guid: 01b5b80244d5a4934b68ca098e6bd070, type: 2}
   currentWeapon: {fileID: 0}
   playerNumber: 1
 --- !u!114 &114000012580655634
@@ -1324,13 +1323,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingHealth: 100
-  torchLight: {fileID: 108000011795816414}
+  torchLight: {fileID: 0}
   startingIntensity: 4
   health: 100
   range: 5
   smoothingTime: 1
-  healthText: {fileID: 114000010002374836}
-  deathText: {fileID: 114000010057375460}
+  healthText: {fileID: 0}
+  deathText: {fileID: 0}
   dead: 0
   flickerInterval: 0.05
 --- !u!114 &114000014014044642
@@ -1351,10 +1350,10 @@ MonoBehaviour:
   min_radius: 3
   max_radius: 12
   enemiesToSpawn:
-  - {fileID: 114000010249041338, guid: be0cb142394d445a7bd3d4e177b5faa9, type: 2}
-  - {fileID: 114000010852357478, guid: dd2e72fa5d3154727b23186ded4b6eb2, type: 2}
-  - {fileID: 114000012497720316, guid: f6cb7d1c46b80433980a1819f1ccf17b, type: 2}
-  - {fileID: 114000010852357478, guid: 48a10cf2685d246c7a34e4a36479cff7, type: 2}
+  - {fileID: 0, guid: be0cb142394d445a7bd3d4e177b5faa9, type: 2}
+  - {fileID: 0, guid: dd2e72fa5d3154727b23186ded4b6eb2, type: 2}
+  - {fileID: 0, guid: f6cb7d1c46b80433980a1819f1ccf17b, type: 2}
+  - {fileID: 0, guid: 48a10cf2685d246c7a34e4a36479cff7, type: 2}
   enemiesPerWave: 5
 --- !u!114 &114000014281782318
 MonoBehaviour:
@@ -1372,8 +1371,7 @@ MonoBehaviour:
   floorMask:
     serializedVersion: 2
     m_Bits: 256
-  cursorPointer: {fileID: 1000012601283098, guid: ef9870d84631642b7a7e73dee2219f39,
-    type: 2}
+  cursorPointer: {fileID: 0, guid: ef9870d84631642b7a7e73dee2219f39, type: 2}
 --- !u!124 &124000012601333790
 Behaviour:
   m_ObjectHideFlags: 1

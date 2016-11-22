@@ -27,8 +27,8 @@ public class Dungeon : MonoBehaviour {
         step = 2f;
 
         //import starters pack
-        Instantiate(starters_pack, new Vector3(0, 0, 0),Quaternion.identity);
-        Instantiate(scene_manager, new Vector3(0, 0, 0), Quaternion.identity);
+        //Instantiate(starters_pack, new Vector3(0, 0, 0),Quaternion.identity);
+        //Instantiate(scene_manager, new Vector3(0, 0, 0), Quaternion.identity);
 
         //simulate mazecreation
         import_maze = new bool[5, 5] {  {false,false,true,false,false},
@@ -332,11 +332,11 @@ public class Dungeon : MonoBehaviour {
         GameObject start_GO = Instantiate(portal, new Vector3(step * start_coor[0], 0, step * start_coor[1]), findRot(type, surroundings)) as GameObject;
         start_GO.transform.Translate(Vector3.forward);
 
-        players = GameObject.FindGameObjectsWithTag("Player");
+        /*players = GameObject.FindGameObjectsWithTag("Player");
         foreach (GameObject player in players)
         {
             player.transform.position = new Vector3(step * start_coor[0], 0, step * start_coor[1]);
-        }
+        }*/
 
         Debug.Log("i:"+start_coor[0]+", j:"+start_coor[1]);
     }      
