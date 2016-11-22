@@ -11,8 +11,16 @@ public class BomberProjectile : MonoBehaviour {
 	public Vector3 forceV3;
 	public BomberWeapon bomberWeapon;
 
+	public float camShakeLength;
+	public float camShakeIntensity;
+	public float camShakeIterationTime;
+
+	private Camera cam;
+
+
 	void Start () {
-		rb = GetComponent<Rigidbody>();
+		rb = GetComponent<Rigidbody>();		
+		cam = Camera.main;
 		Destroy (gameObject, lifeTime);
 	}
 
@@ -20,10 +28,9 @@ public class BomberProjectile : MonoBehaviour {
 		forceV3 = transform.forward * force;
 	}
 
-	void FixedUpdate(){
-	}
-
 	void OnTriggerEnter(Collider other){
+		cam.transform.GetComponentInParent<CameraShake> ().cameraShake (camShakeLength, camShakeIntensity, camShakeIterationTime);
+
 		IDamagable damagableObject = other.GetComponent<IDamagable> ();
 		GameObject objectHitted = other.gameObject;
 

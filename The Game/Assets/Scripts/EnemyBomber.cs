@@ -10,14 +10,12 @@ public class EnemyBomber : Enemy {
 	private float varDistanceToTarget;
 	private GameObject weaponHolder;
 
-	public Vector3 targetPosition;
-	public Vector3 origin;
-	public float distance;
+	private Vector3 targetPosition;
+	//public float distance;
 	public float gravity;
-	public float initialVelocity;
-	public float angle;
-	public float shootingAngleRadians;
-	public float shootingAngleDegrees;
+	//public float initialVelocity;
+	private float angle;
+//	private Vector3 prevPosition;
 
 	new void Awake(){
 		base.Awake ();
@@ -30,6 +28,7 @@ public class EnemyBomber : Enemy {
 		weaponHolder = transform.FindChild ("Weapon Holder").gameObject;
 		weapon = weaponController.currentWeapon as BomberWeapon;
 		angle = weaponHolder.transform.eulerAngles.x;
+	//	prevPosition = target.transform.position;
 	}
 
 	void Update () {
@@ -40,23 +39,17 @@ public class EnemyBomber : Enemy {
 		}
 	}
 
-	private float calculateAngle(float gravity, float distance, float initialVelocity){
-		updateTargetPosition ();
-		float angle = 1f / 2f * Mathf.Asin (gravity * distance / Mathf.Pow (initialVelocity, 2f));
-		return angle;
-	}
-
-	private float angleRadianToDegrees(float angle){
-		return angle * 360 / (2f * Mathf.PI);
-	}
-
 	private void attack(){
+//		varDistanceToTarget = futureTargetPosition ();
 //		float force = Mathf.Sqrt (varDistanceToTarget * gravity / (Mathf.Sin (2f * (angle * 360 / (2 * Mathf.PI)))));
 		float forcePart1 = varDistanceToTarget * gravity;
 		float forcePart2 = Mathf.Sin (2f * (angle * 2f * Mathf.PI / 360));
 		float forcePart3 = forcePart1 / forcePart2;
 		float forcePart4 = Mathf.Abs (forcePart3);
 		float forceFinal = Mathf.Sqrt (forcePart4);
+		if (weapon == null) {
+			weapon = weaponController.currentWeapon as BomberWeapon;
+		}
 		weapon.force = forceFinal*45;
 		weapon.fire ();
 	}
@@ -65,7 +58,7 @@ public class EnemyBomber : Enemy {
 
 		//First make sure there is a target
 		while (target != null && !dead) {
-			Vector3 targetPosition = new Vector3 (target.transform.position.x, 0, target.transform.position.z);
+			targetPosition = new Vector3 (target.transform.position.x, 0, target.transform.position.z);
 
 			//Set the target position for the Nav Mesh Agent
 			navMeshAgent.SetDestination (targetPosition);
@@ -80,4 +73,10 @@ public class EnemyBomber : Enemy {
 		targetPosition = target.transform.position;
 	}
 
+/*	private Vector3 futureTargetPosition(){
+		Vector3 direction = target.transform.position - prevPosition;
+		Vector3 futureTargetPosition = target.transform.position + 10f * direction;
+		return futureTargetPosition;
+	}
+*/
 }

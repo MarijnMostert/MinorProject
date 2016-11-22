@@ -38,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011344750392}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.961, y: 1, z: 0.8236655}
+  m_LocalPosition: {x: 1.21, y: 1.17, z: -0.6710798}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -91,12 +91,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab2c348252b35437180c959f63919eab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  startingHealth: 100
   attackCooldown: 1
   attackDamage: 10
   refreshTime: 0.1
   attackRange: 1
   scoreValue: 10
+  healthBarPrefab: {fileID: 1000011103493978, guid: c09f065d3cb914281a49e94a9d3e187d,
+    type: 2}
+  health: 0
 --- !u!136 &136000012254614112
 CapsuleCollider:
   m_ObjectHideFlags: 1

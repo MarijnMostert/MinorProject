@@ -12,8 +12,8 @@ public class CameraController : MonoBehaviour {
 	private Vector3 smoothDampVelocity;
 
 	void Start () {
-		targetPosition = getAveragePosition();
-		offset = transform.position - targetPosition;
+		targets[0] = GameObject.Find ("Player");
+		offset = new Vector3 (0f, 20f, -8f);
 	}
 	
 	void FixedUpdate () {

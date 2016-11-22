@@ -134,7 +134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targets:
-  - {fileID: 0}
+  - {fileID: 1000010631001484, guid: c3be11bbafbb646b19e5117931794200, type: 2}
   offset: {x: 0, y: 20, z: -8}
   cameraPosition: {x: 0, y: 0, z: 0}
   smoothTime: 0.1
@@ -149,6 +149,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc1ebf9ab790b473182472e4cd25fe88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  shakeLength: 0.7
+  intensity: 0.2
+  iterationTime: 0.1
 --- !u!124 &124000011426306034
 Behaviour:
   m_ObjectHideFlags: 1
