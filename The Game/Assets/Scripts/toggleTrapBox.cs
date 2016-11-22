@@ -11,7 +11,7 @@ public class toggleTrapBox : MonoBehaviour {
 	void Start () {
         toggle = false;
         diffPos = 2f;
-        speed = .5f;
+        speed = .7f;
         Vector3 direction = determineDirection();
         org_pos = transform.position - direction*getAngle(direction)*0.05f;
         end_pos = transform.position + direction * diffPos;
@@ -19,7 +19,7 @@ public class toggleTrapBox : MonoBehaviour {
         Target_pos = org_pos;
 
         org_scale = transform.localScale;
-        end_scale= new Vector3(1, 1, 1) + new Vector3(1.5f*System.Math.Abs(direction.z), 1.5f*System.Math.Abs(direction.x), 0);
+        end_scale= new Vector3(1, 1, 1) + new Vector3(3f,0,0);
         Debug.Log(name + " end_scale" + end_scale.x + " " + end_scale.y);
         Target_scale = org_scale;
     }

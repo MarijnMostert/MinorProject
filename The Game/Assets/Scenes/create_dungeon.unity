@@ -114,7 +114,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1342815571}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3856825e98696f4394c863de2e59b79, type: 3}
+  m_Script: {fileID: 11500000, guid: 218a49c2a0ca18848a1939006810a887, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   floor: {fileID: 1000012892081170, guid: 1b12954c027060c40bebc32b9c0e88e9, type: 2}
@@ -124,20 +124,26 @@ MonoBehaviour:
   corner: {fileID: 1000011458588264, guid: 203cdec42ef47d24dbc7c396f5b56157, type: 2}
   cornerout: {fileID: 1000012173968714, guid: 13c15429757e70e4e9c286dbb3c44440, type: 2}
   roof: {fileID: 1000014059306976, guid: bffd52d5b2ef929439eea1eb6b155cb5, type: 2}
-  block: {fileID: 1000013151907876, guid: 3ba43cfb95fd24979b7b0ef0f65d442d, type: 2}
+  block: {fileID: 1000010965236408, guid: aa395b04a90001846998c9d0ca97dff3, type: 2}
   trap_straight: {fileID: 1000010129079904, guid: 0e174b0091e8dd94897582b5fddeeea8,
     type: 2}
   trap_crossing: {fileID: 1000013735283716, guid: 91396169a2b1868458a0bbb136559c8b,
     type: 2}
   trap_box: {fileID: 1000013737445450, guid: 3d95e7ccf1610634cb6f43ca99add8c9, type: 2}
   portal: {fileID: 1000010045865516, guid: e6767ee6eacefa440a1ad951da53d9f0, type: 2}
-  cam: {fileID: 1000010527591912, guid: b6ff311df5d8c46eca9cf2b21020fb69, type: 2}
-  ui: {fileID: 1000011980605034, guid: d96bcf284e9ef477fa53b50fb90f95c8, type: 2}
-  pointer: {fileID: 1000012601283098, guid: ef9870d84631642b7a7e73dee2219f39, type: 2}
-  starters_pack: {fileID: 1000013372164968, guid: 44f44f4ac88dc0748853b5f753bd7e96,
-    type: 2}
-  scene_manager: {fileID: 1000010877368854, guid: 8d7cf40e7bee4934bbafc1b2890d8fa4,
-    type: 2}
+  cam: {fileID: 0}
+  ui: {fileID: 0}
+  pointer: {fileID: 0}
+  starters_pack: {fileID: 0}
+  scene_manager: {fileID: 0}
+  width: 20
+  height: 20
+  radius: 2
+  maxlength: 3
+  timeout: 6000
+  minAmountOfRooms: 1
+  maxAmountOfRooms: 2
+  chanceOfRoom: 30
 --- !u!4 &1342815573
 Transform:
   m_ObjectHideFlags: 0

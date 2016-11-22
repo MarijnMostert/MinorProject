@@ -65,7 +65,7 @@ public class DungeonGenerator : Object {
 		this.chanceRoom = chanceOfRoom;
 
 		this.mseconds = mseconds;
-		this.loopsAllowed = true;
+		this.loopsAllowed = false;
 		this.loopsAllowedInt = (loopsAllowed) ? 1:0;
 		this.done = false;
 

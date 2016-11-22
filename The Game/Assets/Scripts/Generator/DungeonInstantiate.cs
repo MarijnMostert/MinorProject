@@ -2,11 +2,11 @@
 using System.Threading;
 using System.Collections;
 
-public class Dungeon : MonoBehaviour {
-    public GameObject floor, side, sideAlt1, sideAlt2, corner, cornerout,
+public class DungeonInstantiate : Object {
+    GameObject floor, side, sideAlt1, sideAlt2, corner, cornerout,
                             roof, block, trap_straight, trap_crossing, trap_box, 
                             portal, cam, ui, pointer, starters_pack, scene_manager;
-    public GameObject[,] dungeon;
+    GameObject[,] dungeon;
     GameObject[] players;
     int[] mazeSize;
     bool[,] maze, import_maze, trapped;
@@ -16,9 +16,33 @@ public class Dungeon : MonoBehaviour {
     int[] count = new int[2] {0,2};
 
     // Use this for initialization
-    void Start()
+    public DungeonInstantiate(GameObject floor, GameObject side, GameObject sideAlt1, GameObject sideAlt2, GameObject corner, GameObject cornerout,
+                            GameObject roof, GameObject block, GameObject trap_straight, GameObject trap_crossing, GameObject trap_box,
+                            GameObject portal, GameObject cam, GameObject ui, GameObject pointer, GameObject starters_pack, GameObject scene_manager,
+                            int[] mazeSize)
     {
-        mazeSize = new int[] { 5, 5 };
+        this.floor = floor;
+        this.side = side;
+        this.sideAlt1 = sideAlt1;
+        this.sideAlt2 = sideAlt2;
+        this.corner = corner;
+        this.cornerout = cornerout;
+        this.roof = roof;
+        this.block = block;
+        this.trap_straight = trap_straight;
+        this.trap_crossing = trap_crossing;
+        this.trap_box = trap_box;
+        this.portal = portal;
+        this.cam = cam;
+        this.ui = ui;
+        this.pointer = pointer;
+        this.starters_pack = starters_pack;
+        this.scene_manager = scene_manager;
+        this.mazeSize = new int[2] { mazeSize[0] - 2, mazeSize[1] - 2 };
+
+    }
+
+    public void createMaze(){
         chance_trap_straight = 1f;
         chance_trap_crossing = 1f;
         chance_side_alt1 = 0.2f;
@@ -31,19 +55,18 @@ public class Dungeon : MonoBehaviour {
         //Instantiate(scene_manager, new Vector3(0, 0, 0), Quaternion.identity);
 
         //simulate mazecreation
-        import_maze = new bool[5, 5] {  {false,false,true,false,false},
+        /*import_maze = new bool[5, 5] {  {false,false,true,false,false},
                                         {false,false,true,false,false},
                                         {true,true,true,true,true},
                                         {false,false,true,false,false},
                                         {false,false,true,false,false} };
-        printMaze(import_maze);
+        printMaze(import_maze);*/
 
         updateProgress(0.2f);
         mazeSize = new int[] { mazeSize[0] * 3, mazeSize[1] * 3 };
         dungeon = new GameObject[mazeSize[0], mazeSize[1]];
         maze = new bool[mazeSize[0], mazeSize[1]];
         maze = StretchMatrix(import_maze);
-        printMaze(maze);
         populateMaze();
         createStartEndPoint();
     }
@@ -293,29 +316,7 @@ public class Dungeon : MonoBehaviour {
 
     GameObject trapStraight()
     {
-
         return trap_box;
-    }
-
-    void printMaze(bool[,] maze)
-    {
-        string logstring = "";
-        for (int i = 0; i < mazeSize[0]; i++)
-        {
-            for (int j = 0; j < mazeSize[1]; j++)
-            {
-                if (maze[i, j])
-                {
-                    logstring += "1 ";
-                }
-                else
-                {
-                    logstring += "0 ";
-                }
-            }
-            logstring += "\n";
-        }
-        Debug.Log(logstring);
     }
 
     void updateProgress(float percentage)
@@ -353,10 +354,38 @@ public class Dungeon : MonoBehaviour {
                 return new int[2] { i, j };
             }
         }
-    }  
+    }
 
+    public void importMaze(int[,] maze)
+    {
+        import_maze = new bool[mazeSize[0], mazeSize[1]];
+        for (int i = 0; i < mazeSize[0]; i++) {
+            for(int j = 0; j < mazeSize[1]; j++){
+                import_maze[i,j] = (maze[i+1,j+1]==1);
+            }
+        }
+        Debug.Log(print(import_maze));
+    }
 
-    // Update is called once per frame
-    void Update () {
-	}
+    public string print(bool[,] maze)
+    {
+        string append = "";
+        for (int x = 0; x < mazeSize[0]; x++)
+        {
+            for (int y = 0; y < mazeSize[1]; y++)
+            {
+                if (maze[x, y])
+                {
+                    append += "1";
+                }
+                else
+                {
+                    append += "_";
+                }
+                append += " ";
+            }
+            append += "\n";
+        }
+        return append;
+    }
 }
