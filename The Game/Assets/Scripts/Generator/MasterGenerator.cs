@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class MasterGenerator : MonoBehaviour {
 
-    public GameObject floor, side, sideAlt1, sideAlt2, corner, cornerout,
+    GameObject floor, side, sideAlt1, sideAlt2, corner, cornerout,
                             roof, block, trap_straight, trap_crossing, trap_box,
                             portal, cam, ui, pointer, starters_pack, scene_manager;
 
@@ -32,6 +32,7 @@ public class MasterGenerator : MonoBehaviour {
 		int[,] maze = new int[width, height];
 		List<p2D> doors = new List<p2D> ();
 
+        LoadPrefabs();
         DungeonInstantiate dungeon_instantiate = new DungeonInstantiate(floor, side, sideAlt1, sideAlt2, corner, cornerout,
                                                                         roof, block, trap_straight, trap_crossing, trap_box,
                                                                         portal, cam, ui, pointer, starters_pack, scene_manager,
@@ -62,7 +63,6 @@ public class MasterGenerator : MonoBehaviour {
 		//analysis.cleanUpDeadEnds();
 
 		Debug.Log(print(maze));
-
         dungeon_instantiate.importMaze(this.endMaze);
         dungeon_instantiate.createMaze();
 
@@ -91,4 +91,24 @@ public class MasterGenerator : MonoBehaviour {
 		return append;
 	}
 
+    void LoadPrefabs()
+    {
+        floor = Resources.Load("Blocks/floor", typeof(GameObject)) as GameObject;
+        side = Resources.Load("Blocks/side", typeof(GameObject)) as GameObject;
+        sideAlt1 = Resources.Load("Blocks/side_alt1", typeof(GameObject)) as GameObject;
+        sideAlt2 = Resources.Load("Blocks/side_alt2", typeof(GameObject)) as GameObject;
+        corner = Resources.Load("Blocks/corner", typeof(GameObject)) as GameObject;
+        cornerout = Resources.Load("Blocks/cornerout", typeof(GameObject)) as GameObject;
+        roof = Resources.Load("Blocks/Roof", typeof(GameObject)) as GameObject;
+        block = Resources.Load("Blocks/box", typeof(GameObject)) as GameObject;
+        trap_straight = Resources.Load("Blocks/trap_straight", typeof(GameObject)) as GameObject;
+        trap_crossing = Resources.Load("Blocks/trap_crossing", typeof(GameObject)) as GameObject;
+        trap_box = Resources.Load("Blocks/trap_box", typeof(GameObject)) as GameObject;
+        portal = Resources.Load("Blocks/portal", typeof(GameObject)) as GameObject;
+        //cam = Resources.Load("/Prefabs/Blocks/cam", typeof(GameObject)) as GameObject;
+        //ui = Resources.Load("/Prefabs/Blocks/ui", typeof(GameObject)) as GameObject;
+        //pointer = Resources.Load("/Prefabs/Blocks/pointer", typeof(GameObject)) as GameObject;
+        //starters_pack = Resources.Load("/Prefabs/Blocks/starters_pack", typeof(GameObject)) as GameObject;
+        //scene_manager = Resources.Load("/Prefabs/Blocks/scene_manager", typeof(GameObject)) as GameObject;
+    }
 }

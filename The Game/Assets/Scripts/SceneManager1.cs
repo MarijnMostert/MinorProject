@@ -24,6 +24,10 @@ public class SceneManager1 : MonoBehaviour {
 		}
 		if (Input.GetKeyUp (KeyCode.Alpha1)) {
 			SceneManager.LoadScene (1);
-		}
-	}
+        }
+        if (Input.GetKeyUp(KeyCode.Alpha2))
+        {
+            SceneManager.LoadScene(2);
+        }
+    }
 }
