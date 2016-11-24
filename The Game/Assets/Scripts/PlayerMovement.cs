@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using System.Collections;
 
-public class PlayerMovement : MonoBehaviour {
+public class PlayerMovement : NetworkBehaviour {
 
 	public int playerNumber;
 	public float speed;
@@ -50,6 +51,11 @@ public class PlayerMovement : MonoBehaviour {
 	}
 	
 	void FixedUpdate () {
+		if (!isLocalPlayer)
+		{
+			// exit from update if this is not the local player
+			return;
+		}
 		if (ppM.controllerInput == 0) {
 			if (!cursorPointer.activeInHierarchy) {
 				cursorPointer.SetActive (true);

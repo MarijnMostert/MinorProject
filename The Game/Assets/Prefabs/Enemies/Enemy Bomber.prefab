@@ -25,6 +25,8 @@ GameObject:
   - 195: {fileID: 195000013020346284}
   - 114: {fileID: 114000010249041338}
   - 114: {fileID: 114000011036571214}
+  - 114: {fileID: 114000010072193790}
+  - 114: {fileID: 114000011591896222}
   m_Layer: 11
   m_Name: Enemy Bomber
   m_TagString: Enemy
@@ -110,6 +112,38 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012604841478}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &114000010072193790
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012604841478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 190
+    i1: 12
+    i2: 177
+    i3: 66
+    i4: 57
+    i5: 77
+    i6: 68
+    i7: 90
+    i8: 123
+    i9: 211
+    i10: 212
+    i11: 225
+    i12: 119
+    i13: 181
+    i14: 250
+    i15: 169
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!114 &114000010249041338
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -149,6 +183,26 @@ MonoBehaviour:
   startingWeapon: {fileID: 114000012534744016, guid: 19b211b263a9f4bbba737e3f39009836,
     type: 2}
   currentWeapon: {fileID: 0}
+--- !u!114 &114000011591896222
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012604841478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 1
+  m_SendInterval: 0.1
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
 --- !u!136 &136000014248907464
 CapsuleCollider:
   m_ObjectHideFlags: 1

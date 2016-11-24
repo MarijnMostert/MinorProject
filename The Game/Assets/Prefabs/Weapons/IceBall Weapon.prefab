@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000011041677056}
   - 114: {fileID: 114000013339538176}
+  - 114: {fileID: 114000010676973014}
   m_Layer: 0
   m_Name: IceBall Weapon
   m_TagString: Untagged
@@ -40,6 +41,38 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &114000010676973014
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011622651310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 59
+    i1: 115
+    i2: 75
+    i3: 161
+    i4: 127
+    i5: 103
+    i6: 4
+    i7: 211
+    i8: 248
+    i9: 37
+    i10: 197
+    i11: 120
+    i12: 64
+    i13: 131
+    i14: 223
+    i15: 74
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!114 &114000013339538176
 MonoBehaviour:
   m_ObjectHideFlags: 1

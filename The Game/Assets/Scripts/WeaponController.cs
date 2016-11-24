@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using System.Collections;
 
-public class WeaponController : MonoBehaviour {
+public class WeaponController : NetworkBehaviour {
 
 	public Weapon startingWeapon;
 	public Weapon currentWeapon;

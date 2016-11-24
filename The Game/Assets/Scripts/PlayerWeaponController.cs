@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using System.Collections;
 
 public class PlayerWeaponController : WeaponController {
@@ -23,6 +24,11 @@ public class PlayerWeaponController : WeaponController {
 	
 	// Update is called once per frame
 	void Update () {
+		if (!isLocalPlayer)
+		{
+			// exit from update if this is not the local player
+			return;
+		}
 		if (playerPrefsManager.controllerInput == 0) {
 			fireMouse ();
 		} else if (playerPrefsManager.controllerInput == 1) {
@@ -49,4 +55,6 @@ public class PlayerWeaponController : WeaponController {
 		}
 
 	}
+
+
 }

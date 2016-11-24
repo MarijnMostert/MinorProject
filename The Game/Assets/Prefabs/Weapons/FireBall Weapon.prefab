@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000011041677056}
   - 114: {fileID: 114000013339538176}
+  - 114: {fileID: 114000011869001860}
   m_Layer: 0
   m_Name: FireBall Weapon
   m_TagString: Untagged
@@ -40,6 +41,38 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &114000011869001860
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011622651310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 1
+    i1: 181
+    i2: 184
+    i3: 2
+    i4: 68
+    i5: 213
+    i6: 164
+    i7: 147
+    i8: 75
+    i9: 104
+    i10: 202
+    i11: 9
+    i12: 142
+    i13: 107
+    i14: 208
+    i15: 112
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!114 &114000013339538176
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -25,6 +25,8 @@ GameObject:
   - 54: {fileID: 54000010106643644}
   - 114: {fileID: 114000012169541724}
   - 114: {fileID: 114000011691870798}
+  - 114: {fileID: 114000010971955216}
+  - 114: {fileID: 114000014025671984}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -350,6 +352,38 @@ Light:
   m_BounceIntensity: 1.83
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!114 &114000010971955216
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010631001484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 195
+    i1: 190
+    i2: 17
+    i3: 187
+    i4: 175
+    i5: 187
+    i6: 100
+    i7: 107
+    i8: 25
+    i9: 229
+    i10: 17
+    i11: 121
+    i12: 49
+    i13: 121
+    i14: 66
+    i15: 0
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 1
 --- !u!114 &114000011691870798
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -383,7 +417,6 @@ MonoBehaviour:
     m_Bits: 256
   cursorPointer: {fileID: 1000012601283098, guid: ef9870d84631642b7a7e73dee2219f39,
     type: 2}
-  controllerInput: 0
   ppM: {fileID: 0}
 --- !u!114 &114000013467797438
 MonoBehaviour:
@@ -402,10 +435,28 @@ MonoBehaviour:
   health: 100
   range: 5
   smoothingTime: 1
-  healthText: {fileID: 0}
-  deathText: {fileID: 0}
   dead: 0
   flickerInterval: 0.05
+--- !u!114 &114000014025671984
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010631001484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 3
+  m_SendInterval: 0.1
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
 --- !u!136 &136000014152159908
 CapsuleCollider:
   m_ObjectHideFlags: 1

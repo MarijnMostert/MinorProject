@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using System.Collections;
 
-public class CameraController : MonoBehaviour {
+public class CameraController : NetworkBehaviour {
 
 	public GameObject[] targets;	//A list of targets to follow
 	public Vector3 offset;
@@ -12,16 +13,16 @@ public class CameraController : MonoBehaviour {
 	private Vector3 smoothDampVelocity;
 
 	void Start () {
-		targets[0] = GameObject.Find ("Player");
+		targets = GameObject.FindGameObjectsWithTag ("Player");
 		offset = new Vector3 (0f, 20f, -8f);
 	}
 	
 	void FixedUpdate () {
+		targets = GameObject.FindGameObjectsWithTag ("Player");
 		targetPosition = getAveragePosition ();
 		cameraPosition = targetPosition + offset;
 
-		//The smoothdamp makes sure the camera follows the target(s) smoothly
-		transform.position = Vector3.SmoothDamp (transform.position, cameraPosition, ref smoothDampVelocity, smoothTime);
+		transform.position = cameraPosition;
 	}
 
 	//Calculate the average position between all targets (players).

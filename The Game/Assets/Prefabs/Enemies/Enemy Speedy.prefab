@@ -24,6 +24,8 @@ GameObject:
   - 23: {fileID: 23000011364654638}
   - 195: {fileID: 195000010772324132}
   - 114: {fileID: 114000010852357478}
+  - 114: {fileID: 114000013887224232}
+  - 114: {fileID: 114000014276149248}
   m_Layer: 11
   m_Name: Enemy Speedy
   m_TagString: Untagged
@@ -100,6 +102,58 @@ MonoBehaviour:
   healthBarPrefab: {fileID: 1000011103493978, guid: c09f065d3cb914281a49e94a9d3e187d,
     type: 2}
   health: 0
+--- !u!114 &114000013887224232
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011344750392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 72
+    i1: 161
+    i2: 12
+    i3: 242
+    i4: 104
+    i5: 93
+    i6: 36
+    i7: 108
+    i8: 122
+    i9: 52
+    i10: 228
+    i11: 163
+    i12: 100
+    i13: 121
+    i14: 207
+    i15: 247
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
+--- !u!114 &114000014276149248
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011344750392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 1
+  m_SendInterval: 0.1
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
 --- !u!136 &136000012254614112
 CapsuleCollider:
   m_ObjectHideFlags: 1

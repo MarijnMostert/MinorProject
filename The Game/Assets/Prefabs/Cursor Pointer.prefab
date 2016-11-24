@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000013101202296}
   - 212: {fileID: 212000010627566174}
+  - 114: {fileID: 114000013247737446}
   m_Layer: 0
   m_Name: Cursor Pointer
   m_TagString: CursorPointer
@@ -40,6 +41,38 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &114000013247737446
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012601283098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 239
+    i1: 152
+    i2: 112
+    i3: 216
+    i4: 70
+    i5: 49
+    i6: 100
+    i7: 43
+    i8: 122
+    i9: 126
+    i10: 115
+    i11: 222
+    i12: 226
+    i13: 33
+    i14: 159
+    i15: 57
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!212 &212000010627566174
 SpriteRenderer:
   m_ObjectHideFlags: 1

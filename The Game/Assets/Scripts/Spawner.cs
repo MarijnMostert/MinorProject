@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Networking;
 using System.Collections;
 
 public class Spawner : MonoBehaviour {
@@ -35,7 +36,8 @@ public class Spawner : MonoBehaviour {
 		Enemy enemy = enemiesToSpawn [Random.Range (0, enemiesToSpawn.Length)];
 		float x = (float) Random.Range (mapMinX, mapMaxX);
 		float z = (float) Random.Range (mapMinZ, mapMaxZ);
-		Instantiate (enemy, new Vector3 (x, 1f, z), transform.rotation);
+		GameObject enemyReadyToSpawn = GameObject.Instantiate(enemy.gameObject, new Vector3 (x, 1f, z), transform.rotation) as GameObject;
+		NetworkServer.Spawn (enemyReadyToSpawn);
 	}
 
 	void spawnWave(){
