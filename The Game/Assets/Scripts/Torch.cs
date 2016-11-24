@@ -8,6 +8,7 @@ public class Torch : NetworkBehaviour, IDamagable {
 	public int startingHealth;
 	public Light torchLight;
 	public float startingIntensity = 4f;
+	[SyncVar(hook = "OnChangeHealth")]
 	public int health;
 	public float range = 5f;
 	public float smoothingTime = 1f;
@@ -74,7 +75,7 @@ public class Torch : NetworkBehaviour, IDamagable {
 	//For when the torch takes damage
 	public void takeDamage(int damage){
 		health -= damage;
-		updateHealth ();
+		//updateHealth ();
 
 		if (isDead () && !dead) {
 			onDead ();
@@ -84,7 +85,11 @@ public class Torch : NetworkBehaviour, IDamagable {
 	//For when the player e.g. picks up a healthPickUp.
 	public void heal(int healingAmount){
 		health += healingAmount;
-		updateHealth ();
+		//updateHealth ();
+	}
+	//function to update syncvar health across network and update healthText
+	void OnChangeHealth (int health){
+		healthText.text = "Health: " + health;
 	}
 		
 	//Random deviation from the base intensity and range.
@@ -95,9 +100,9 @@ public class Torch : NetworkBehaviour, IDamagable {
 	}
 
 	//Update the health of the torch.
-	private void updateHealth(){
-		healthText.text = "Health: " + health;
-	}
+	//private void updateHealth(){
+	//	healthText.text = "Health: " + health;
+	//}
 
 	private void onDead(){
 		health = 0;

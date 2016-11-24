@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 using System.Collections;
 
-public class Enemy : MonoBehaviour, IDamagable {
+public class Enemy : NetworkBehaviour, IDamagable {
 
 	public int startingHealth;
 	public NavMesh navMesh;
@@ -14,7 +15,7 @@ public class Enemy : MonoBehaviour, IDamagable {
 	public GameObject healthBarPrefab;
 
 	[SerializeField]
-	protected int health;
+	[SyncVar(hook = "OnChangeHealth")]protected int health;
 	protected GameObject target;
 	protected NavMeshAgent navMeshAgent;
 	protected float lastAttackTime = 0f;
@@ -29,7 +30,7 @@ public class Enemy : MonoBehaviour, IDamagable {
 
 	protected virtual void Start () {
 		//Define the target.
-		target = GameObject.FindGameObjectWithTag ("Torch").transform.parent.gameObject;
+		target = GameObject.FindGameObjectWithTag ("Torch");
 		dead = false;
 		health = startingHealth;
 
@@ -67,7 +68,9 @@ public class Enemy : MonoBehaviour, IDamagable {
 		if (health <= 0)
 			die ();
 	}
-
+	//function to update syncvar health across network
+	void OnChangeHealth (int health){
+	}
 	//When the enemy's health drops below 0.
 	private void die(){
 		//Add a score
