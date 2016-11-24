@@ -26,6 +26,7 @@ public class PlayerPrefsManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		LoadAll ();
+		SetUpControlsFirstTime ();
 	}
 	
 	// Update is called once per frame
@@ -111,6 +112,24 @@ public class PlayerPrefsManager : MonoBehaviour {
 		changeControllerInput ();
 		changeControllerInput ();
 		SaveAll ();
+	}
+
+	public void save(string profile){
+		PlayerPrefs.SetInt ("controllerInput" + profile, controllerInput);
+		PlayerPrefs.SetInt ("highscore" + profile, highscore);
+		PlayerPrefs.SetString ("moveHorizontalAxis" + profile, moveHorizontalAxis);
+		PlayerPrefs.SetString ("moveVerticalAxis" + profile, moveVerticalAxis);
+		PlayerPrefs.SetString ("turnHorizontalAxis" + profile, turnHorizontalAxis);
+		PlayerPrefs.SetString ("turnVerticalAxis" + profile, turnVerticalAxis);
+		PlayerPrefs.SetString ("interactionButton" + profile, interactionButton);
+		PlayerPrefs.SetString ("attackButton" + profile, attackButton);
+		PlayerPrefs.SetString ("pauseButton" + profile, pauseButton);
+		PlayerPrefs.SetString ("slowmotionButton" + profile, slowmotionButton);
+		PlayerPrefs.SetString ("spawnEnemyButton" + profile, spawnEnemyButton);
+		PlayerPrefs.SetString ("spawnWaveButton" + profile, spawnWaveButton);
+		PlayerPrefs.SetString ("cameraShakeButton" + profile, cameraShakeButton);
+		PlayerPrefs.SetString ("saveButton" + profile, saveButton);
+
 	}
 
 	/*
