@@ -249,7 +249,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1000012074017152
 GameObject:
   m_ObjectHideFlags: 0
@@ -2199,7 +2199,10 @@ MonoBehaviour:
 
     Spawn single enemy - T
 
-    Spawn wave - Y'
+    Spawn wave - Y
+
+
+    Save preferences - V'
 --- !u!114 &114000013032367856
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2356,6 +2359,8 @@ MonoBehaviour:
     m_Bits: 256
   cursorPointer: {fileID: 1000012601283098, guid: ef9870d84631642b7a7e73dee2219f39,
     type: 2}
+  controllerInput: 1
+  playerPrefsManager: {fileID: 0}
 --- !u!114 &114000013931959476
 MonoBehaviour:
   m_ObjectHideFlags: 1

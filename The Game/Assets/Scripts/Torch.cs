@@ -10,8 +10,6 @@ public class Torch : MonoBehaviour, IDamagable {
 	public int health;
 	public float range = 5f;
 	public float smoothingTime = 1f;
-	public Text healthText;
-	public Text deathText;
 	[HideInInspector] //This variable will be used by other scripts but will not be editable in the Unity GUI.
 	public bool dead;
 	public float flickerInterval = 0.5f;
@@ -25,9 +23,18 @@ public class Torch : MonoBehaviour, IDamagable {
 	private float rangeBase;
 	private float randomFactorIntensity;
 	private float randomFactorRange;
+	private Text healthText;
+	private Text deathText;
+
+	void Awake(){
+		torchLight = transform.GetComponentInChildren<Light> ();
+		healthText = GameObject.Find ("Health Text").GetComponent<Text>();
+		deathText = GameObject.Find("UI").transform.FindChild("Death Text").GetComponent<Text> ();
+		if (healthText == null || deathText == null)
+			Debug.Log ("Add UI Prefab to the scene");
+	}
 
 	void Start () {
-		torchLight = transform.GetComponentInChildren<Light> ();
 		torchLight.intensity = startingIntensity;
 		intensityBase = startingIntensity;
 		randomFactorIntensity = startingIntensity / 8f;
@@ -102,5 +109,6 @@ public class Torch : MonoBehaviour, IDamagable {
 		GameObject.Find ("UI/Score Text").SetActive (false);
 		GameObject.Find ("UI/Health Text").SetActive(false);
 		GameObject.FindWithTag ("CursorPointer").SetActive (false);
+
 	}
 }

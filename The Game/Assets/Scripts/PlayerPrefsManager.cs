@@ -23,10 +23,14 @@ public class PlayerPrefsManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		LoadAll ();
+		SetUpControlsFirstTime ();
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		if(Input.GetKeyDown(KeyCode.L)){
+			SetUpControlsFirstTime();
+		}
 		if(Input.GetButtonDown(saveButton)){
 			SaveAll();
 		}
@@ -96,11 +100,14 @@ public class PlayerPrefsManager : MonoBehaviour {
 			spawnWaveButton = "Spawn Wave Button";
 			cameraShakeButton = "CameraShake";
 			saveButton = "Save Button";
-			controllerInput = 0;
-
+            controllerInput = 0;
 		}
 			
 	}
-
-
+    
+	public void SetUpControlsFirstTime(){
+		changeControllerInput ();
+		changeControllerInput ();
+		SaveAll ();
+	}
 }

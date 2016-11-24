@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class RangedWeaponPickUp : PickUp, IPickUp {
+public class RangedWeaponPickUp : MonoBehaviour, IPickUp {
 
 	public RangedWeapon weaponToEquip;
 

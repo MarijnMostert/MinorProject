@@ -15,7 +15,7 @@ public class EnemyBomber : Enemy {
 	public float gravity;
 	//public float initialVelocity;
 	private float angle;
-	private Vector3 prevPosition;
+//	private Vector3 prevPosition;
 
 	new void Awake(){
 		base.Awake ();
@@ -28,7 +28,7 @@ public class EnemyBomber : Enemy {
 		weaponHolder = transform.FindChild ("Weapon Holder").gameObject;
 		weapon = weaponController.currentWeapon as BomberWeapon;
 		angle = weaponHolder.transform.eulerAngles.x;
-		prevPosition = target.transform.position;
+	//	prevPosition = target.transform.position;
 	}
 
 	void Update () {

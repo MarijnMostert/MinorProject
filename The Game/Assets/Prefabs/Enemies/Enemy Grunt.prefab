@@ -92,7 +92,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingHealth: 100
-  health: 0
   attackCooldown: 1
   attackDamage: 10
   refreshTime: 0.1
@@ -100,6 +99,7 @@ MonoBehaviour:
   scoreValue: 10
   healthBarPrefab: {fileID: 1000011103493978, guid: c09f065d3cb914281a49e94a9d3e187d,
     type: 2}
+  health: 0
 --- !u!136 &136000012254614112
 CapsuleCollider:
   m_ObjectHideFlags: 1
