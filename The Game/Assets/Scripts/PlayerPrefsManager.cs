@@ -23,6 +23,7 @@ public class PlayerPrefsManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		LoadAll ();
+		SetUpControlsFirstTime ();
 	}
 	
 	// Update is called once per frame
