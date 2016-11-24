@@ -132,11 +132,11 @@ public class DungeonGenerator : Object {
 			//The p2D Coordinate is the doorway coordinate
 			//The integer Direction 0:north, 1:east, 2:south, 3:west
 			KeyValuePair<p2D,int> checkFrom = pickDoorway ();
-			Debug.Log (checkFrom);
+			//Debug.Log (checkFrom);
 
 
 			//Check whether you can build from there (if the direction is legit)
-			if (checkFrom.Value == -1) { Debug.Log ("Continue"); continue; }
+			//if (checkFrom.Value == -1) { Debug.Log ("Continue"); continue; }
 
 			//Find out what places the door will connect (from/to "corridor" or "room")
 			string from = findPrevious (checkFrom);
@@ -161,7 +161,7 @@ public class DungeonGenerator : Object {
 					int number = Random.Range(-1,2);
 					direction += (number + 4);
 					direction %= 4;
-					Debug.Log ("Direction changed: " + direction);
+					//Debug.Log ("Direction changed: " + direction);
 
 				}
 
@@ -305,7 +305,7 @@ public class DungeonGenerator : Object {
 		int number = Random.Range (0, chooseFrom.Count);
 
 		//Save the door at the chosen index
-		if (number < 1) { Debug.Log("empty nodupes list"); }
+		//if (number < 1) { Debug.Log("empty nodupes list"); }
 		p2D choice = chooseFrom[number];
 
 		//Find out its direction

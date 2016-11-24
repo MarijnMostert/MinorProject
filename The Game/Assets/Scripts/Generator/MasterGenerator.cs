@@ -7,6 +7,7 @@ public class MasterGenerator : MonoBehaviour {
     GameObject floor, side, sideAlt1, sideAlt2, corner, cornerout,
                             roof, block, trap_straight, trap_crossing, trap_box,
                             portal, cam, ui, pointer, starters_pack, scene_manager;
+    public GameObject player;
 
     public int width;// = 100;
 	public int height;// = 90;
@@ -36,7 +37,7 @@ public class MasterGenerator : MonoBehaviour {
         DungeonInstantiate dungeon_instantiate = new DungeonInstantiate(floor, side, sideAlt1, sideAlt2, corner, cornerout,
                                                                         roof, block, trap_straight, trap_crossing, trap_box,
                                                                         portal, cam, ui, pointer, starters_pack, scene_manager,
-                                                                        new int[2] {width,height});
+                                                                        player, new int[2] {width,height});
 
 		while (!done) {
 			dungeon = new DungeonGenerator ( width,
@@ -108,7 +109,7 @@ public class MasterGenerator : MonoBehaviour {
         //cam = Resources.Load("/Prefabs/Blocks/cam", typeof(GameObject)) as GameObject;
         //ui = Resources.Load("/Prefabs/Blocks/ui", typeof(GameObject)) as GameObject;
         //pointer = Resources.Load("/Prefabs/Blocks/pointer", typeof(GameObject)) as GameObject;
-        //starters_pack = Resources.Load("/Prefabs/Blocks/starters_pack", typeof(GameObject)) as GameObject;
-        //scene_manager = Resources.Load("/Prefabs/Blocks/scene_manager", typeof(GameObject)) as GameObject;
+        starters_pack = Resources.Load("ScenePrefabs/Dungeon_scene", typeof(GameObject)) as GameObject;
+        //scene_manager = Resources.Load("ScenePrefabs/SceneManager", typeof(GameObject)) as GameObject;
     }
 }

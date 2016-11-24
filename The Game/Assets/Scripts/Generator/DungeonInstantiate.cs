@@ -5,7 +5,7 @@ using System.Collections;
 public class DungeonInstantiate : Object {
     GameObject floor, side, sideAlt1, sideAlt2, corner, cornerout,
                             roof, block, trap_straight, trap_crossing, trap_box, 
-                            portal, cam, ui, pointer, starters_pack, scene_manager;
+                            portal, cam, ui, pointer, starters_pack, scene_manager, player;
     GameObject[,] dungeon;
     GameObject[] players;
     int[] mazeSize;
@@ -19,7 +19,7 @@ public class DungeonInstantiate : Object {
     public DungeonInstantiate(GameObject floor, GameObject side, GameObject sideAlt1, GameObject sideAlt2, GameObject corner, GameObject cornerout,
                             GameObject roof, GameObject block, GameObject trap_straight, GameObject trap_crossing, GameObject trap_box,
                             GameObject portal, GameObject cam, GameObject ui, GameObject pointer, GameObject starters_pack, GameObject scene_manager,
-                            int[] mazeSize)
+                            GameObject player, int[] mazeSize)
     {
         this.floor = floor;
         this.side = side;
@@ -38,6 +38,7 @@ public class DungeonInstantiate : Object {
         this.pointer = pointer;
         this.starters_pack = starters_pack;
         this.scene_manager = scene_manager;
+        this.player = player;
         this.mazeSize = new int[2] { mazeSize[0] - 2, mazeSize[1] - 2 };
 
     }
@@ -51,7 +52,7 @@ public class DungeonInstantiate : Object {
         step = 2f;
 
         //import starters pack
-        //Instantiate(starters_pack, new Vector3(0, 0, 0),Quaternion.identity);
+        Instantiate(starters_pack, new Vector3(0, 0, 0),Quaternion.identity);
         //Instantiate(scene_manager, new Vector3(0, 0, 0), Quaternion.identity);
 
         //simulate mazecreation
@@ -333,13 +334,13 @@ public class DungeonInstantiate : Object {
         GameObject start_GO = Instantiate(portal, new Vector3(step * start_coor[0], 0, step * start_coor[1]), findRot(type, surroundings)) as GameObject;
         start_GO.transform.Translate(Vector3.forward);
 
-        /*players = GameObject.FindGameObjectsWithTag("Player");
+        players = GameObject.FindGameObjectsWithTag("Player");
         foreach (GameObject player in players)
         {
             player.transform.position = new Vector3(step * start_coor[0], 0, step * start_coor[1]);
-        }*/
+        }
 
-        Debug.Log("i:"+start_coor[0]+", j:"+start_coor[1]);
+        //Debug.Log("i:"+start_coor[0]+", j:"+start_coor[1]);
     }      
     
     int[] pickRandomCoor()
