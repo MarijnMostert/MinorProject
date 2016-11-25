@@ -13,7 +13,7 @@ public class toggleTrapDoor : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKeyDown("n"))
+        if (Input.GetKeyDown("t"))
         {
             toggleDoor();
         }

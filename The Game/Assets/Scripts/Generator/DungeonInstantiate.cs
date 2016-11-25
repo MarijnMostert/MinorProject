@@ -3,12 +3,11 @@ using System.Threading;
 using System.Collections;
 
 public class DungeonInstantiate : Object {
-    GameObject  floor, side, sideAlt1, sideAlt2, corner, cornerout,
-                roof, block, trap_straight, trap_crossing, trap_box,
-                portal, cam, pointer, scene_manager,
-                player, event_system, game_manager, UI, spawner, score_manager;
+    GameObject floor, side, sideAlt1, sideAlt2, corner, cornerout,
+                            roof, block, trap_straight, trap_crossing, trap_box, 
+                            portal, cam, ui, pointer, starters_pack, scene_manager, player;
     GameObject[,] dungeon;
-    GameObject[] players, starter;
+    GameObject[] players;
     int[] mazeSize;
     bool[,] maze, import_maze, trapped;
     float chance_trap_straight, chance_trap_crossing;
@@ -18,10 +17,9 @@ public class DungeonInstantiate : Object {
 
     // Use this for initialization
     public DungeonInstantiate(GameObject floor, GameObject side, GameObject sideAlt1, GameObject sideAlt2, GameObject corner, GameObject cornerout,
-                              GameObject roof, GameObject block, GameObject trap_straight, GameObject trap_crossing, GameObject trap_box,
-                              GameObject portal, GameObject cam, GameObject UI, GameObject pointer, GameObject scene_manager, GameObject player,
-                              GameObject event_system, GameObject game_manager, GameObject spawner,
-                              GameObject score_manager, int[] mazeSize)
+                            GameObject roof, GameObject block, GameObject trap_straight, GameObject trap_crossing, GameObject trap_box,
+                            GameObject portal, GameObject cam, GameObject ui, GameObject pointer, GameObject starters_pack, GameObject scene_manager,
+                            GameObject player, int[] mazeSize)
     {
         this.floor = floor;
         this.side = side;
@@ -36,14 +34,11 @@ public class DungeonInstantiate : Object {
         this.trap_box = trap_box;
         this.portal = portal;
         this.cam = cam;
+        this.ui = ui;
         this.pointer = pointer;
+        this.starters_pack = starters_pack;
         this.scene_manager = scene_manager;
         this.player = player;
-        this.event_system = event_system;
-        this.game_manager = game_manager;
-        this.UI = UI;
-        this.spawner = spawner;
-        this.score_manager = score_manager;
         this.mazeSize = new int[2] { mazeSize[0] - 2, mazeSize[1] - 2 };
 
     }
@@ -57,12 +52,7 @@ public class DungeonInstantiate : Object {
         step = 2f;
 
         //import starters pack
-        initiateStartPack();
-
-        GameObject.Find("Spawner").GetComponent<Spawner>().mapMinX = 5;
-        GameObject.Find("Spawner").GetComponent<Spawner>().mapMinZ = 5;
-        GameObject.Find("Spawner").GetComponent<Spawner>().mapMaxX = (mazeSize[0] - 1) * 2 * 3 + 5;
-        GameObject.Find("Spawner").GetComponent<Spawner>().mapMaxZ = (mazeSize[1] - 1) * 2 * 3 + 5;
+        Instantiate(starters_pack, new Vector3(0, 0, 0),Quaternion.identity);
         //Instantiate(scene_manager, new Vector3(0, 0, 0), Quaternion.identity);
 
         //simulate mazecreation
@@ -378,20 +368,6 @@ public class DungeonInstantiate : Object {
         }
         Debug.Log(print(import_maze));
     }
-
-    void initiateStartPack()
-    {
-        Instantiate(cam, new Vector3(0, 0, 0), Quaternion.identity);
-        Instantiate(pointer, new Vector3(0, 0, 0), Quaternion.identity);
-        Instantiate(scene_manager, new Vector3(0, 0, 0), Quaternion.identity);
-        Instantiate(player, new Vector3(0, 0, 0), Quaternion.identity);
-        Instantiate(event_system, new Vector3(0, 0, 0), Quaternion.identity);
-        Instantiate(game_manager, new Vector3(0, 0, 0), Quaternion.identity);
-        Instantiate(UI, new Vector3(0, 0, 0), Quaternion.identity);
-        Instantiate(spawner, new Vector3(0, 0, 0), Quaternion.identity);
-        Instantiate(score_manager, new Vector3(0, 0, 0), Quaternion.identity);
-    }
-
 
     public string print(bool[,] maze)
     {

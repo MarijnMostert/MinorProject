@@ -21,8 +21,6 @@ GameObject:
   - 4: {fileID: 4000012470790136}
   - 33: {fileID: 33000013079446728}
   - 23: {fileID: 23000011001503190}
-  - 208: {fileID: 208000011620073248}
-  - 64: {fileID: 64000011588391654}
   m_Layer: 8
   m_Name: Roof
   m_TagString: Untagged
@@ -79,30 +77,3 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000014059306976}
   m_Mesh: {fileID: 4300000, guid: 5e1900a123e8bab4d9ba23ef86623001, type: 3}
---- !u!64 &64000011588391654
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000014059306976}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 0
-  m_Mesh: {fileID: 4300000, guid: 5e1900a123e8bab4d9ba23ef86623001, type: 3}
---- !u!208 &208000011620073248
-NavMeshObstacle:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000014059306976}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 0.0125, y: 0.0125, z: 0.01}
-  m_MoveThreshold: 0.1
-  m_Carve: 0
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0, z: 0}
-  m_TimeToStationary: 0.5

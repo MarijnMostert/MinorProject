@@ -383,6 +383,7 @@ MonoBehaviour:
     m_Bits: 256
   cursorPointer: {fileID: 1000012601283098, guid: ef9870d84631642b7a7e73dee2219f39,
     type: 2}
+  controllerInput: 0
   ppM: {fileID: 0}
 --- !u!114 &114000013467797438
 MonoBehaviour:
@@ -401,6 +402,8 @@ MonoBehaviour:
   health: 100
   range: 5
   smoothingTime: 1
+  healthText: {fileID: 0}
+  deathText: {fileID: 0}
   dead: 0
   flickerInterval: 0.05
 --- !u!136 &136000014152159908

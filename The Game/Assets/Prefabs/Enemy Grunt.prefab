@@ -120,14 +120,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6302cb77619be4183a956c1200aefbe5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHealth: 0
+  health: 100
   attackCooldown: 2
   attackDamage: 20
   refreshTime: 0.1
   attackRange: 1
   scoreValue: 10
-  healthBarPrefab: {fileID: 0}
-  health: 100
 --- !u!136 &136000012254614112
 CapsuleCollider:
   m_ObjectHideFlags: 1

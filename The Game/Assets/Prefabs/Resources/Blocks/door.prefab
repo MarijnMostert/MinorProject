@@ -22,7 +22,6 @@ GameObject:
   - 33: {fileID: 33000012883740914}
   - 23: {fileID: 23000011894497316}
   - 114: {fileID: 114000014246890614}
-  - 208: {fileID: 208000013561526634}
   m_Layer: 8
   m_Name: door
   m_TagString: Untagged
@@ -90,18 +89,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdb6bf62c85fe264db0ff37e4f2f073b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!208 &208000013561526634
-NavMeshObstacle:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013198947722}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 1
-  m_Extents: {x: 0.021000002, y: 0.009000001, z: 0.012}
-  m_MoveThreshold: 0.1
-  m_Carve: 1
-  m_CarveOnlyStationary: 1
-  m_Center: {x: 0, y: 0.006, z: 0.002}
-  m_TimeToStationary: 0.5
