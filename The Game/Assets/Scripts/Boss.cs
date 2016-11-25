@@ -68,7 +68,11 @@ public class Boss : MonoBehaviour {
 
 	void initialiseActionThresholds(){
 		actionThreshold = new float[outputNeurons];
-		for (int i = 0; i < actionThreshold.Length; i++){
+		for (int i = 0; i < 4; i++){
+			actionThreshold [i] = 0.6f;
+		}
+
+		for (int i = 4; i < actionThreshold.Length; i++) {
 			actionThreshold [i] = 0.8f;
 		}
 	}
@@ -209,19 +213,23 @@ public class Boss : MonoBehaviour {
 
 	void action(){
 		if (finalOutput [0] > actionThreshold[0]) {
-			transform.parent.Translate(speed * Time.deltaTime * new Vector3(-1f, 0f, 0f)); //left
+			parent.transform.position = parent.transform.position + speed * Time.deltaTime * new Vector3 (-1f, 0f, 0f);
+	//		transform.parent.Translate(speed * Time.deltaTime * new Vector3(-1f, 0f, 0f)); //left
 		}
 
 		else if (finalOutput [1] > actionThreshold[1]) {
-			transform.parent.Translate(speed * Time.deltaTime * new Vector3(1f, 0f, 0f)); //right
+			parent.transform.position = parent.transform.position + speed * Time.deltaTime * new Vector3 (1f, 0f, 0f);
+	//		transform.parent.Translate(speed * Time.deltaTime * new Vector3(1f, 0f, 0f)); //right
 		}
 
 		if (finalOutput [2] > actionThreshold[2]) {
-			transform.parent.Translate(speed * Time.deltaTime * new Vector3(0f, 0f, 1f)); //up
+			parent.transform.position = parent.transform.position + speed * Time.deltaTime * new Vector3 (0f, 0f, 1f);
+	//		transform.parent.Translate(speed * Time.deltaTime * new Vector3(0f, 0f, 1f)); //up
 		}
 
 		else if (finalOutput [3] > actionThreshold[3]) {
-			transform.parent.Translate(speed * Time.deltaTime * new Vector3(0f, 0f, -1f)); //down
+			parent.transform.position = parent.transform.position + speed * Time.deltaTime * new Vector3 (0f, 0f, -1f);
+	//		transform.parent.Translate(speed * Time.deltaTime * new Vector3(0f, 0f, -1f)); //down
 		}
 
 		if (finalOutput [4] > actionThreshold[4]) {

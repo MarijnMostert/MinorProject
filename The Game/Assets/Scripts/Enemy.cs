@@ -15,7 +15,7 @@ public class Enemy : MonoBehaviour, IDamagable {
 
 	[SerializeField]
 	protected int health;
-	protected GameObject target;
+	public GameObject target;
 	protected NavMeshAgent navMeshAgent;
 	protected float lastAttackTime = 0f;
 	protected ScoreManager scoreManager;

@@ -32,7 +32,7 @@ public class WeaponController : MonoBehaviour {
 	}
 
 	public void Fire (){
-		currentWeapon.fireRangedWeapon ();
+		currentWeapon = (RangedWeapon) currentWeapon;
 
 	}
 }

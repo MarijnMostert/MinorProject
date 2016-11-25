@@ -46,8 +46,8 @@ public class GA : MonoBehaviour {
 	}
 
 	float DefineFitness(int i){
+		
 		return 0f;
-
 	}
 		
 }
