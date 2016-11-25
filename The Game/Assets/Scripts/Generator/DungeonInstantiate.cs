@@ -289,6 +289,7 @@ public class DungeonInstantiate : Object {
         if ((x + 2) % 3 == 0 && (z + 2) % 3 == 0)
         {
             int[] surroundings = getSurDists(x, z);
+            bool opp = (surroundings[0] == 0 && surroundings[2] == 0) || (surroundings[1] == 0 && surroundings[3] == 0);
             int sum = getSum(surroundings);
             int diagsum = getSum(getDiagSurDists(x, z));
             if (sum == 0 && diagsum == 4)
@@ -299,7 +300,7 @@ public class DungeonInstantiate : Object {
                     return trap_crossing;
                 }
             }
-            else if (sum == 2 && diagsum == 4)
+            else if (sum == 2 && diagsum == 4 && opp)
             {
                 count[0]++;
                 if (count[0]==count[1]) {

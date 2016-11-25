@@ -53,9 +53,9 @@ public class Spawner : MonoBehaviour {
 
     bool inBounds(float x,float z)
     {
-        Debug.Log("position " + x + " " + z);
+        //Debug.Log("position " + x + " " + z);
         bool bol = (mapMinX < x && x < mapMaxX) && (mapMinZ < z && z < mapMaxZ);
-        Debug.Log("bool" + bol);
+        //Debug.Log("bool" + bol);
 
         return (mapMinX < x && x < mapMaxX) && (mapMinZ < z && z < mapMaxZ);
     }
