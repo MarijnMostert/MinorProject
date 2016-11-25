@@ -13,7 +13,6 @@ public class CameraController : MonoBehaviour {
 
 	void Start () {
 		targets[0] = GameObject.Find ("Player");
-		offset = new Vector3 (0f, 20f, -8f);
 	}
 	
 	void FixedUpdate () {

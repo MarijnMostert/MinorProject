@@ -34,6 +34,7 @@ public class Projectile : MonoBehaviour {
 		RaycastHit hit;
 
 		if (Physics.Raycast (ray, out hit, moveDistance, collisionMask, QueryTriggerInteraction.Collide)) {
+			Debug.Log (hit);
 			onHitObject (hit);
 		}
 
@@ -66,7 +67,8 @@ public class Projectile : MonoBehaviour {
 			}
 		}
 		*/
-
-		Destroy (this.gameObject);
+		if (objectHitted != GameObject.Find ("BossVision")) {
+			Destroy (this.gameObject);
+		}
 	}
 }
