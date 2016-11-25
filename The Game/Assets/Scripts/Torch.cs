@@ -70,7 +70,9 @@ public class Torch : MonoBehaviour, IDamagable {
 		return false;
 	}
 
-	//For when the torch takes damage
+	/**
+	 * For when the torch takes damage
+	 */
 	public void takeDamage(int damage){
 		health -= damage;
 		updateHealth ();
