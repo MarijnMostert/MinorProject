@@ -30,4 +30,9 @@ public class WeaponController : MonoBehaviour {
 		Weapon newWeapon = Instantiate (weapon, weaponHolder.transform.position, weaponHolder.transform.rotation, weaponHolder.GetComponent<Transform>()) as Weapon;
 		currentWeapon = newWeapon;
 	}
+
+	public void Fire (){
+		currentWeapon.fireRangedWeapon ();
+
+	}
 }

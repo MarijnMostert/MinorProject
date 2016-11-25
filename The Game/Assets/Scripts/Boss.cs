@@ -9,6 +9,7 @@ public class Boss : MonoBehaviour {
 	public float[] threshold;
 	public float[] actionThreshold;
 	public GameObject target;
+	public GameObject parent;
 	public List<GameObject> bulletsNearby = new List<GameObject>();
 	public int inputNeurons = 6;
 	public int outputNeurons = 7;
@@ -17,21 +18,44 @@ public class Boss : MonoBehaviour {
 	public GameObject BulletA;
 	public GameObject BulletB;
 	public float speed;
+	public Color colorBoss;
+	public BossFitness bossFitness;
+	public int startingHealth;
+	private int health;
+
+	public float timeAlive;
+	public int damageDealt = 0;
+	public int usedAttacks = 0;
+	public int usedSpecAttacks = 0;
+	public float fitness;
+
+	public float timeAliveFactor;
+	public float damageDealtFactor;
+	public float ratioFactor;
 
 
 	void Start () {
+		timeAlive = Time.time;
+		parent = transform.parent.gameObject;
+		health = startingHealth;
+		bossFitness = transform.parent.GetComponent<BossFitness> ();
+		colorBoss = transform.parent.gameObject.GetComponent<MeshRenderer> ().material.color;
 		initialiseArraySizes ();
 		initialiseThresholds ();
 		initialiseActionThresholds ();
 		initialiseWeights ();
 		target = GameObject.Find ("Player");
 	}
-	
+
 	void Update () {
-		gameObject.GetComponent<MeshRenderer> ().material.color = Color.grey;
+		parent.transform.LookAt (new Vector3 (target.transform.position.x, parent.transform.position.y, target.transform.position.z));
+		colorBoss = Color.grey;
 		selectInputs ();
 		runNN ();
 		action ();
+		if (health <= 0) {
+			Die ();
+		}
 	}
 
 	void initialiseThresholds ()
@@ -45,7 +69,7 @@ public class Boss : MonoBehaviour {
 	void initialiseActionThresholds(){
 		actionThreshold = new float[outputNeurons];
 		for (int i = 0; i < actionThreshold.Length; i++){
-			actionThreshold [i] = 0.6f;
+			actionThreshold [i] = 0.8f;
 		}
 	}
 
@@ -185,35 +209,58 @@ public class Boss : MonoBehaviour {
 
 	void action(){
 		if (finalOutput [0] > actionThreshold[0]) {
-			transform.Translate(speed * Time.deltaTime * new Vector3(-1f, 0f, 0f)); //left
+			transform.parent.Translate(speed * Time.deltaTime * new Vector3(-1f, 0f, 0f)); //left
 		}
 
-		if (finalOutput [1] > actionThreshold[1]) {
-			transform.Translate(speed * Time.deltaTime * new Vector3(1f, 0f, 0f)); //right
+		else if (finalOutput [1] > actionThreshold[1]) {
+			transform.parent.Translate(speed * Time.deltaTime * new Vector3(1f, 0f, 0f)); //right
 		}
 
 		if (finalOutput [2] > actionThreshold[2]) {
-			transform.Translate(speed * Time.deltaTime * new Vector3(0f, 0f, 1f)); //up
+			transform.parent.Translate(speed * Time.deltaTime * new Vector3(0f, 0f, 1f)); //up
 		}
 
-		if (finalOutput [3] > actionThreshold[3]) {
-			transform.Translate(speed * Time.deltaTime * new Vector3(0f, 0f, -1f)); //down
+		else if (finalOutput [3] > actionThreshold[3]) {
+			transform.parent.Translate(speed * Time.deltaTime * new Vector3(0f, 0f, -1f)); //down
 		}
 
 		if (finalOutput [4] > actionThreshold[4]) {
 			//attack
-			gameObject.GetComponent<MeshRenderer>().material.color = Color.red;
+			transform.parent.GetComponent<MeshRenderer>().material.color = Color.red;
+			RangedWeapon weapon = parent.GetComponent<WeaponController>().currentWeapon as RangedWeapon;
+			weapon.fire ();
+			usedAttacks++;
 		}
 
-		if (finalOutput [5] > actionThreshold[5]) {
+		else if (finalOutput [5] > actionThreshold[5]) {
 			//block
-			gameObject.GetComponent<MeshRenderer>().material.color = Color.green;
+			transform.parent.GetComponent<MeshRenderer>().material.color = Color.green;
 		}
 
-		if (finalOutput [6] > actionThreshold[6]) {
+		else if (finalOutput [6] > actionThreshold[6]) {
 			//special attack
-			gameObject.GetComponent<MeshRenderer>().material.color = Color.blue;
+			transform.parent.GetComponent<MeshRenderer>().material.color = Color.blue;
+			RangedWeapon weapon = parent.GetComponent<WeaponController>().currentWeapon as RangedWeapon;
+			weapon.fire ();
+			usedSpecAttacks++;
 		}
 
+	}
+
+	void Die(){
+		CalculateFitness ();
+		gameObject.SetActive (false);
+	}
+
+	void CalculateFitness(){
+		float ratio = CalculateRatio();
+		float diffFromIdealRatio = 0.2f - ratio;
+		timeAlive = Time.time - timeAlive;
+
+		fitness = timeAlive * timeAliveFactor + damageDealt * damageDealtFactor + diffFromIdealRatio * ratioFactor;
+	}
+
+	public float CalculateRatio(){
+		return usedAttacks / usedSpecAttacks;
 	}
 }

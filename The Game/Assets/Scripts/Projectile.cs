@@ -67,7 +67,7 @@ public class Projectile : MonoBehaviour {
 			}
 		}
 		*/
-		if (objectHitted != GameObject.Find ("BossVision")) {
+		if (objectHitted != GameObject.Find ("BulletSenser")) {
 			Destroy (this.gameObject);
 		}
 	}
