@@ -5,9 +5,9 @@ using System.Collections.Generic;
 public class MasterGenerator : MonoBehaviour {
 
     GameObject floor, side, sideAlt1, sideAlt2, corner, cornerout,
-                            roof, block, trap_straight, trap_crossing, trap_box,
-                            portal, cam, ui, pointer, starters_pack, scene_manager;
-    public GameObject player;
+               roof, block, trap_straight, trap_crossing, trap_box,
+               portal, cam, pointer, scene_manager,
+               player, event_system, game_manager, UI, spawner, score_manager;
 
     public int width;// = 100;
 	public int height;// = 90;
@@ -17,7 +17,6 @@ public class MasterGenerator : MonoBehaviour {
 	public int minAmountOfRooms;// = 6;
 	public int maxAmountOfRooms;// = 8;
 	public int chanceOfRoom;// = 15;
-
 	public int[,] endMaze;
 
 	void Awake () {
@@ -36,10 +35,10 @@ public class MasterGenerator : MonoBehaviour {
         LoadPrefabs();
         DungeonInstantiate dungeon_instantiate = new DungeonInstantiate(floor, side, sideAlt1, sideAlt2, corner, cornerout,
                                                                         roof, block, trap_straight, trap_crossing, trap_box,
-                                                                        portal, cam, ui, pointer, starters_pack, scene_manager,
-                                                                        player, new int[2] {width,height});
-
-		while (!done) {
+                                                                        portal, cam, UI, pointer, scene_manager,
+                                                                        player, event_system, game_manager, spawner, 
+                                                                        score_manager, new int[2] {width,height});
+        while (!done) {
 			dungeon = new DungeonGenerator ( width,
 											height,
 											radius,
@@ -106,10 +105,14 @@ public class MasterGenerator : MonoBehaviour {
         trap_crossing = Resources.Load("Blocks/trap_crossing", typeof(GameObject)) as GameObject;
         trap_box = Resources.Load("Blocks/trap_box", typeof(GameObject)) as GameObject;
         portal = Resources.Load("Blocks/portal", typeof(GameObject)) as GameObject;
-        //cam = Resources.Load("/Prefabs/Blocks/cam", typeof(GameObject)) as GameObject;
-        //ui = Resources.Load("/Prefabs/Blocks/ui", typeof(GameObject)) as GameObject;
-        //pointer = Resources.Load("/Prefabs/Blocks/pointer", typeof(GameObject)) as GameObject;
-        starters_pack = Resources.Load("ScenePrefabs/Dungeon_scene", typeof(GameObject)) as GameObject;
-        //scene_manager = Resources.Load("ScenePrefabs/SceneManager", typeof(GameObject)) as GameObject;
+        scene_manager = Resources.Load("SceneManager", typeof(GameObject)) as GameObject;
+        cam = Resources.Load("Camera", typeof(GameObject)) as GameObject;
+        pointer = Resources.Load("Cursor pointer", typeof(GameObject)) as GameObject;
+        player = Resources.Load("Player", typeof(GameObject)) as GameObject;
+        event_system = Resources.Load("EventSystem", typeof(GameObject)) as GameObject;
+        game_manager = Resources.Load("Game Manager", typeof(GameObject)) as GameObject;
+        spawner = Resources.Load("Spawner", typeof(GameObject)) as GameObject;
+        score_manager = Resources.Load("Score Manager", typeof(GameObject)) as GameObject;
+        UI = Resources.Load("UI", typeof(GameObject)) as GameObject;
     }
 }
