@@ -18,8 +18,12 @@ public class EnemyGrunt : Enemy {
 	void Update () {
 		if (target != null && (Time.time - lastAttackTime) > attackCooldown) {
 			attack ();
-		}
-	}
+        }
+        if ((GameObject.Find("Player").transform.position - transform.position).magnitude > 20f)
+        {
+            die();
+        }
+    }
 
 	//If the player is close enough to the torch it will do damage
 	private void attack(){

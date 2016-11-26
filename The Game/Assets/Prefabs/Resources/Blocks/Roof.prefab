@@ -21,8 +21,8 @@ GameObject:
   - 4: {fileID: 4000012470790136}
   - 33: {fileID: 33000013079446728}
   - 23: {fileID: 23000011001503190}
-  - 64: {fileID: 64000011938958936}
   - 208: {fileID: 208000012863794092}
+  - 65: {fileID: 65000012538612142}
   m_Layer: 8
   m_Name: Roof
   m_TagString: Untagged
@@ -79,8 +79,8 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000014059306976}
   m_Mesh: {fileID: 4300000, guid: 5e1900a123e8bab4d9ba23ef86623001, type: 3}
---- !u!64 &64000011938958936
-MeshCollider:
+--- !u!65 &65000012538612142
+BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -89,8 +89,8 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Convex: 0
-  m_Mesh: {fileID: 4300000, guid: 5e1900a123e8bab4d9ba23ef86623001, type: 3}
+  m_Size: {x: 0.020000007, y: 0.020000005, z: 0}
+  m_Center: {x: -4.656613e-10, y: -0.0000000027939677, z: 0.01}
 --- !u!208 &208000012863794092
 NavMeshObstacle:
   m_ObjectHideFlags: 1

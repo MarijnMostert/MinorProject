@@ -23,7 +23,7 @@ GameObject:
   - 23: {fileID: 23000011894497316}
   - 114: {fileID: 114000014246890614}
   - 208: {fileID: 208000012150267634}
-  - 64: {fileID: 64000013478880786}
+  - 65: {fileID: 65000011843393038}
   m_Layer: 8
   m_Name: door
   m_TagString: Untagged
@@ -80,8 +80,8 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013198947722}
   m_Mesh: {fileID: 4300000, guid: e383db8f8a275a6439e4bf06ca3cd92b, type: 3}
---- !u!64 &64000013478880786
-MeshCollider:
+--- !u!65 &65000011843393038
+BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -90,8 +90,8 @@ MeshCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Convex: 0
-  m_Mesh: {fileID: 4300000, guid: e383db8f8a275a6439e4bf06ca3cd92b, type: 3}
+  m_Size: {x: 0.042112425, y: 0.018714886, z: 0.023363551}
+  m_Center: {x: -0.00015020836, y: 0.005596943, z: 0.0016817758}
 --- !u!114 &114000014246890614
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -114,7 +114,7 @@ NavMeshObstacle:
   m_Shape: 1
   m_Extents: {x: 0.021000002, y: 0.009000001, z: 0.012}
   m_MoveThreshold: 0.1
-  m_Carve: 0
+  m_Carve: 1
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: 0.006, z: 0.002}
   m_TimeToStationary: 0.5

@@ -67,6 +67,7 @@ public class MasterGenerator : MonoBehaviour {
 		Debug.Log(print(maze));
         dungeon_instantiate.importMaze(this.endMaze);
         dungeon_instantiate.createMaze();
+   
         GameObject.Find("Spawner").GetComponent<Spawner>().importMaze(dungeon_instantiate.getMaze(),mazeSize);
 	}
 

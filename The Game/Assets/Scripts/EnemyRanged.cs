@@ -32,8 +32,12 @@ public class EnemyRanged : Enemy {
 		varDistanceToTarget = distanceToTarget ();
 		if (target != null && varDistanceToTarget <= attackRange && (Time.time - lastAttackTime) > attackCooldown && canSeeTarget()) {
 			attack ();
-		}
-	}
+        }
+        if ((GameObject.Find("Player").transform.position - transform.position).magnitude > 20f)
+        {
+            die();
+        }
+    }
 
 	private void attack(){
 		if (weapon == null) {

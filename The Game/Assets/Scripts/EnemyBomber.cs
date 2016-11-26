@@ -36,13 +36,12 @@ public class EnemyBomber : Enemy {
 		varDistanceToTarget = distanceToTarget ();
 		if (target != null && varDistanceToTarget <= attackRange && (Time.time - lastAttackTime) > attackCooldown) {
 			attack ();
-		}
-
-        if ((GameObject.Find("Player").transform.position - transform.position).magnitude > 15f)
+        }
+        if ((GameObject.Find("Player").transform.position - transform.position).magnitude > 20f)
         {
             die();
         }
-	}
+    }
 
 	private void attack(){
 //		varDistanceToTarget = futureTargetPosition ();
