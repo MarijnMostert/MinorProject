@@ -21,6 +21,7 @@ GameObject:
   - 4: {fileID: 4000013416220180}
   - 33: {fileID: 33000011268778370}
   - 23: {fileID: 23000010916987602}
+  - 64: {fileID: 64000012139326312}
   m_Layer: 8
   m_Name: corner
   m_TagString: Untagged
@@ -76,4 +77,16 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011458588264}
+  m_Mesh: {fileID: 4300000, guid: cd7968790eb26fa469b95bb26ce95dd4, type: 3}
+--- !u!64 &64000012139326312
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011458588264}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
   m_Mesh: {fileID: 4300000, guid: cd7968790eb26fa469b95bb26ce95dd4, type: 3}

@@ -28,7 +28,7 @@ public class toggleTrapBox : MonoBehaviour {
     public void setTrapReady()
     {
         blocks_ready++;
-        Debug.Log("Blocks ready: "+blocks_ready);
+        //Debug.Log("Blocks ready: "+blocks_ready);
         if (blocks_ready == num_blocks)
         {
             blocks_ready = 0;

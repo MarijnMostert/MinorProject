@@ -55,6 +55,11 @@ public class DungeonInstantiate : Object {
         Instantiate(starters_pack, new Vector3(0, 0, 0),Quaternion.identity);
         //Instantiate(scene_manager, new Vector3(0, 0, 0), Quaternion.identity);
 
+        GameObject.Find("Spawner").GetComponent<Spawner>().mapMinX = 5;
+        GameObject.Find("Spawner").GetComponent<Spawner>().mapMinZ = 5;
+        GameObject.Find("Spawner").GetComponent<Spawner>().mapMaxX = (mazeSize[0]-1)*2*3+5;
+        GameObject.Find("Spawner").GetComponent<Spawner>().mapMaxZ = (mazeSize[1] - 1) * 2 * 3 + 5;
+
         //simulate mazecreation
         /*import_maze = new bool[5, 5] {  {false,false,true,false,false},
                                         {false,false,true,false,false},
@@ -338,7 +343,7 @@ public class DungeonInstantiate : Object {
         players = GameObject.FindGameObjectsWithTag("Player");
         foreach (GameObject player in players)
         {
-            player.transform.position = new Vector3(step * start_coor[0], 0, step * start_coor[1]);
+            player.transform.position = new Vector3(step * start_coor[0], -.7f, step * start_coor[1]);
         }
 
         //Debug.Log("i:"+start_coor[0]+", j:"+start_coor[1]);
@@ -367,6 +372,11 @@ public class DungeonInstantiate : Object {
             }
         }
         Debug.Log(print(import_maze));
+    }
+
+    public bool[,] getMaze()
+    {
+        return maze;
     }
 
     public string print(bool[,] maze)

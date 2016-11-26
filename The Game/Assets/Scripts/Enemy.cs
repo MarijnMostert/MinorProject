@@ -69,11 +69,14 @@ public class Enemy : MonoBehaviour, IDamagable {
 	}
 
 	//When the enemy's health drops below 0.
-	private void die(){
+	public void die(){
 		//Add a score
 		scoreManager.updateScore (scoreValue);
 		dead = true;
-		Destroy (healthBar.transform.parent.gameObject);
+        if (healthBar != null)
+        {
+            Destroy(healthBar.transform.parent.gameObject);
+        }
 		Destroy (gameObject);
 	}
 }

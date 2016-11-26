@@ -14,6 +14,8 @@ public class Spawner : MonoBehaviour {
 	private string waveButton;
 	private string spawnEnemyButton;
     private GameObject torch;
+
+    Floors floors;
 //	private int rangeX, rangeZ;
 
 	// Use this for initialization
@@ -21,9 +23,6 @@ public class Spawner : MonoBehaviour {
 		waveButton = "Spawn Wave Button";
 		spawnEnemyButton = "Spawn Enemy Button";
         torch = GameObject.FindGameObjectWithTag("Torch").transform.parent.gameObject;
-
-        //		rangeX = mapMaxX - mapMinX;
-        //		rangeZ = mapMaxZ - mapMinZ;
     }
 
     // Update is called once per frame
@@ -47,17 +46,18 @@ public class Spawner : MonoBehaviour {
         float Random_radius = Random.Range(min_radius, max_radius);
         float Random_radial = Random.Range(0, 2 * Mathf.PI);
         Vector3 point = player + new Vector3(Random_radius * Mathf.Cos(Random_radial), 0, Random_radius * Mathf.Sin(Random_radial));
-        if (inBounds(point.x, point.z)) return new Vector3(point.x, 1f, point.z);
+        if (validPosition(point.x, point.z)) return new Vector3(point.x, 1f, point.z);
         return getPosition();
     }
 
     bool inBounds(float x,float z)
     {
-        //Debug.Log("position " + x + " " + z);
-        bool bol = (mapMinX < x && x < mapMaxX) && (mapMinZ < z && z < mapMaxZ);
-        //Debug.Log("bool" + bol);
-
         return (mapMinX < x && x < mapMaxX) && (mapMinZ < z && z < mapMaxZ);
+    }
+
+    bool validPosition(float x, float z)
+    {
+        return floors.validPosition(x, z);
     }
 
     void spawnWave(){
@@ -66,4 +66,9 @@ public class Spawner : MonoBehaviour {
 		}
 	}
 
+    public void importMaze(bool[,] maze, int[] mazeSize)
+    {
+        floors = new Floors();
+        floors.importFloorList(maze, mazeSize);
+    }
 }

@@ -21,6 +21,7 @@ GameObject:
   - 4: {fileID: 4000010908311682}
   - 33: {fileID: 33000014033183818}
   - 23: {fileID: 23000012401094932}
+  - 64: {fileID: 64000013952416688}
   m_Layer: 8
   m_Name: cornerout
   m_TagString: Untagged
@@ -76,4 +77,16 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012173968714}
+  m_Mesh: {fileID: 4300000, guid: cb33a614f132a3a4d8c22659fc857dfa, type: 3}
+--- !u!64 &64000013952416688
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012173968714}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
   m_Mesh: {fileID: 4300000, guid: cb33a614f132a3a4d8c22659fc857dfa, type: 3}

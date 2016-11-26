@@ -21,6 +21,7 @@ GameObject:
   - 4: {fileID: 4000011022935616}
   - 33: {fileID: 33000013502464912}
   - 23: {fileID: 23000010275491138}
+  - 64: {fileID: 64000011972555296}
   m_Layer: 8
   m_Name: side_alt2
   m_TagString: Untagged
@@ -76,4 +77,16 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010376204028}
+  m_Mesh: {fileID: 4300000, guid: 293d04af1d28dfa43945f2a714e7bf02, type: 3}
+--- !u!64 &64000011972555296
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010376204028}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
   m_Mesh: {fileID: 4300000, guid: 293d04af1d28dfa43945f2a714e7bf02, type: 3}

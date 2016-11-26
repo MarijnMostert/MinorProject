@@ -37,6 +37,11 @@ public class EnemyBomber : Enemy {
 		if (target != null && varDistanceToTarget <= attackRange && (Time.time - lastAttackTime) > attackCooldown) {
 			attack ();
 		}
+
+        if ((GameObject.Find("Player").transform.position - transform.position).magnitude > 15f)
+        {
+            die();
+        }
 	}
 
 	private void attack(){

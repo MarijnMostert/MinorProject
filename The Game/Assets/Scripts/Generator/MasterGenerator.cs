@@ -31,13 +31,14 @@ public class MasterGenerator : MonoBehaviour {
 
 		DungeonGenerator dungeon = null;
 		int[,] maze = new int[width, height];
-		List<p2D> doors = new List<p2D> ();
+        int[] mazeSize = new int[2] {width, height};
+        List<p2D> doors = new List<p2D> ();
 
         LoadPrefabs();
         DungeonInstantiate dungeon_instantiate = new DungeonInstantiate(floor, side, sideAlt1, sideAlt2, corner, cornerout,
                                                                         roof, block, trap_straight, trap_crossing, trap_box,
                                                                         portal, cam, ui, pointer, starters_pack, scene_manager,
-                                                                        player, new int[2] {width,height});
+                                                                        player, mazeSize);
 
 		while (!done) {
 			dungeon = new DungeonGenerator ( width,
@@ -66,7 +67,7 @@ public class MasterGenerator : MonoBehaviour {
 		Debug.Log(print(maze));
         dungeon_instantiate.importMaze(this.endMaze);
         dungeon_instantiate.createMaze();
-
+        GameObject.Find("Spawner").GetComponent<Spawner>().importMaze(dungeon_instantiate.getMaze(),mazeSize);
 	}
 
     public int[,] getMaze()
