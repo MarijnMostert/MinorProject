@@ -4,22 +4,24 @@ using System.Collections;
 
 public class DungeonInstantiate : Object {
     GameObject floor, side, sideAlt1, sideAlt2, corner, cornerout,
-                            roof, block, trap_straight, trap_crossing, trap_box, 
-                            portal, cam, ui, pointer, starters_pack, scene_manager, player;
+                            roof, block, trap_straight, trap_crossing, 
+                            trap_box, portal, end_portal, cam, ui, pointer, chest, 
+                            starters_pack, scene_manager, player;
     GameObject[,] dungeon;
     GameObject[] players;
     int[] mazeSize;
     bool[,] maze, import_maze, trapped;
-    float chance_trap_straight, chance_trap_crossing;
-    float chance_side_alt1, chance_side_alt2, step;
+    float chance_trap_straight, chance_trap_crossing,
+          chance_side_alt1, chance_side_alt2, step,
+          chance_chest;
     bool start_defined;
     int[] count = new int[2] {0,2};
 
     // Use this for initialization
-    public DungeonInstantiate(GameObject floor, GameObject side, GameObject sideAlt1, GameObject sideAlt2, GameObject corner, GameObject cornerout,
-                            GameObject roof, GameObject block, GameObject trap_straight, GameObject trap_crossing, GameObject trap_box,
-                            GameObject portal, GameObject cam, GameObject ui, GameObject pointer, GameObject starters_pack, GameObject scene_manager,
-                            GameObject player, int[] mazeSize)
+    public DungeonInstantiate(GameObject floor, GameObject side, GameObject sideAlt1, GameObject sideAlt2, GameObject corner, 
+                            GameObject cornerout, GameObject roof, GameObject block, GameObject trap_straight, GameObject trap_crossing, 
+                            GameObject trap_box, GameObject portal, GameObject end_portal, GameObject cam, GameObject ui, GameObject pointer, GameObject chest, 
+                            GameObject starters_pack, GameObject scene_manager, GameObject player, int[] mazeSize)
     {
         this.floor = floor;
         this.side = side;
@@ -33,9 +35,11 @@ public class DungeonInstantiate : Object {
         this.trap_crossing = trap_crossing;
         this.trap_box = trap_box;
         this.portal = portal;
+        this.end_portal = end_portal;
         this.cam = cam;
         this.ui = ui;
         this.pointer = pointer;
+        this.chest = chest;
         this.starters_pack = starters_pack;
         this.scene_manager = scene_manager;
         this.player = player;
@@ -48,6 +52,7 @@ public class DungeonInstantiate : Object {
         chance_trap_crossing = 1f;
         chance_side_alt1 = 0.2f;
         chance_side_alt2 = 0.2f + chance_side_alt1;
+        chance_chest = 0.004f;
         start_defined = false;
         step = 2f;
 
@@ -92,12 +97,15 @@ public class DungeonInstantiate : Object {
                     {
                         case 0:
                             dungeon[i, j] = Instantiate(chooseFloor(i,j), new Vector3(step * i, 0, step * j), findRotFloor(i,j)) as GameObject;
+                            spawnChest(i, j);
                             break;
                         case 1:
                             dungeon[i, j] = Instantiate(chooseSide(), new Vector3(step * i, 0, step * j), findRot(type, surroundings)) as GameObject;
+                            spawnChest(i, j);
                             break;
                         case 2:
                             dungeon[i, j] = Instantiate(corner, new Vector3(step * i, 0, step * j), findRot(type, surroundings)) as GameObject;
+                            spawnChest(i, j);
                             break;
                         case 3:
                             dungeon[i, j] = Instantiate(cornerout, new Vector3(step * i, 0, step * j), findRot(type, surroundings)) as GameObject;
@@ -308,7 +316,8 @@ public class DungeonInstantiate : Object {
             else if (sum == 2 && diagsum == 4 && opp)
             {
                 count[0]++;
-                if (count[0]==count[1]) {
+                if (count[0] == count[1])
+                {
                     float random = Random.value;
                     if (random < chance_trap_straight)
                     {
@@ -319,6 +328,29 @@ public class DungeonInstantiate : Object {
         }
 
         return floor;
+    }
+
+    void spawnChest(float x,float z)
+    {
+        float random = Random.value;
+        if (random < chance_chest)
+        {
+            Instantiate(chest, new Vector3(x * step, -1, z * step), randomQuaternion());
+        }
+    }
+
+    Quaternion randomQuaternion()
+    {
+        float random = Random.value;
+        if (random < .25f) {
+            return Quaternion.identity;
+        } else if (random < .5f)  {
+            return Quaternion.identity * Quaternion.Euler(0, 90, 0);
+        } else if (random < .75f) {
+            return Quaternion.identity * Quaternion.Euler(0, 180, 0);
+        } else {
+            return Quaternion.identity * Quaternion.Euler(0, -90, 0);
+        }
     }
 
     GameObject trapStraight()
@@ -337,7 +369,13 @@ public class DungeonInstantiate : Object {
         int[] surroundings = getSurroundings(start_coor[0], start_coor[1]);
         int type = getSum(surroundings);
 
-        GameObject start_GO = Instantiate(portal, new Vector3(step * start_coor[0], 0, step * start_coor[1]), findRot(type, surroundings)) as GameObject;
+        GameObject start_GO = Instantiate(portal, new Vector3(step * start_coor[0], -1, step * start_coor[1]), findRot(type, surroundings)) as GameObject;
+        start_GO.transform.Translate(Vector3.forward);
+
+        int[] end_coor = pickRandomCoor();
+        int[] end_surroundings = getSurroundings(end_coor[0], end_coor[1]);
+        int end_type = getSum(end_surroundings);
+        GameObject end_GO = Instantiate(end_portal, new Vector3(step * end_coor[0], 1, step * end_coor[1]), findRot(end_type, end_surroundings)) as GameObject;
         start_GO.transform.Translate(Vector3.forward);
 
         players = GameObject.FindGameObjectsWithTag("Player");

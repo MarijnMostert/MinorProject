@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class Torch : MonoBehaviour, IDamagable {
 
@@ -25,11 +26,15 @@ public class Torch : MonoBehaviour, IDamagable {
 	private float randomFactorRange;
 	private Text healthText;
 	private Text deathText;
+    private Text winText;
+
+    AsyncOperation async;
+    bool loading;
 
 	void Awake(){
 		torchLight = transform.GetComponentInChildren<Light> ();
 		healthText = GameObject.Find ("Health Text").GetComponent<Text>();
-		deathText = GameObject.Find("UI").transform.FindChild("Death Text").GetComponent<Text> ();
+        deathText = GameObject.Find("UI").transform.FindChild("Death Text").GetComponent<Text>();
 		if (healthText == null || deathText == null)
 			Debug.Log ("Add UI Prefab to the scene");
 	}
@@ -51,6 +56,14 @@ public class Torch : MonoBehaviour, IDamagable {
 	
 	void Update () {
 		lightUpdate ();
+
+        if (loading)
+        {
+            if (Input.GetKeyDown("space"))
+            {
+                async.allowSceneActivation = true;
+            }
+        }
 	}
 
 	//Update the light intensity and range according to the health
@@ -76,7 +89,7 @@ public class Torch : MonoBehaviour, IDamagable {
 		updateHealth ();
 
 		if (isDead () && !dead) {
-			onDead ();
+            onDead();
 		}
 	}
 
@@ -98,17 +111,36 @@ public class Torch : MonoBehaviour, IDamagable {
 		healthText.text = "Health: " + health;
 	}
 
-	private void onDead(){
+	public void onDead(){
 		health = 0;
 		dead = true;
 		CancelInvoke ();
 		Destroy (transform.parent.gameObject);
-		//	transform.parent.gameObject.SetActive(false);
-		//	gameObject.SetActive (false);
-		deathText.gameObject.SetActive(true);
+        //	transform.parent.gameObject.SetActive(false);
+        //	gameObject.SetActive (false);
+        GameObject.Find("Spawner").GetComponent<Spawner>().dead = true;
+        GameObject[] allEnemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach(GameObject enemy in allEnemies)
+        {
+            enemy.GetComponent<Enemy>().die();
+        }
+        deathText.gameObject.SetActive(true);
 		GameObject.Find ("UI/Score Text").SetActive (false);
 		GameObject.Find ("UI/Health Text").SetActive(false);
 		GameObject.FindWithTag ("CursorPointer").SetActive (false);
 
+        StartCoroutine(LoadNewScene());
+        loading = true;
 	}
+
+    IEnumerator LoadNewScene()
+    {
+        yield return new WaitForSeconds(1);
+        async = SceneManager.LoadSceneAsync("Home");
+        async.allowSceneActivation = false;
+        while (!async.isDone)
+        {
+            yield return null;
+        }
+    }
 }

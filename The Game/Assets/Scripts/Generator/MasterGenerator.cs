@@ -6,7 +6,7 @@ public class MasterGenerator : MonoBehaviour {
 
     GameObject floor, side, sideAlt1, sideAlt2, corner, cornerout,
                             roof, block, trap_straight, trap_crossing, trap_box,
-                            portal, cam, ui, pointer, starters_pack, scene_manager;
+                            portal, end_portal, cam, ui, pointer, chest, starters_pack, scene_manager;
     public GameObject player;
 
     public int width;// = 100;
@@ -37,8 +37,8 @@ public class MasterGenerator : MonoBehaviour {
         LoadPrefabs();
         DungeonInstantiate dungeon_instantiate = new DungeonInstantiate(floor, side, sideAlt1, sideAlt2, corner, cornerout,
                                                                         roof, block, trap_straight, trap_crossing, trap_box,
-                                                                        portal, cam, ui, pointer, starters_pack, scene_manager,
-                                                                        player, mazeSize);
+                                                                        portal, end_portal, cam, ui, pointer, chest, starters_pack, 
+                                                                        scene_manager, player, mazeSize);
 
 		while (!done) {
 			dungeon = new DungeonGenerator ( width,
@@ -108,6 +108,8 @@ public class MasterGenerator : MonoBehaviour {
         trap_crossing = Resources.Load("Blocks/trap_crossing", typeof(GameObject)) as GameObject;
         trap_box = Resources.Load("Blocks/trap_box", typeof(GameObject)) as GameObject;
         portal = Resources.Load("Blocks/portal", typeof(GameObject)) as GameObject;
+        end_portal = Resources.Load("Blocks/endPortal", typeof(GameObject)) as GameObject;
+        chest = Resources.Load("Blocks/chest", typeof(GameObject)) as GameObject;
         //cam = Resources.Load("/Prefabs/Blocks/cam", typeof(GameObject)) as GameObject;
         //ui = Resources.Load("/Prefabs/Blocks/ui", typeof(GameObject)) as GameObject;
         //pointer = Resources.Load("/Prefabs/Blocks/pointer", typeof(GameObject)) as GameObject;

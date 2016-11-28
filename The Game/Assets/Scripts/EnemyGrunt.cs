@@ -19,7 +19,7 @@ public class EnemyGrunt : Enemy {
 		if (target != null && (Time.time - lastAttackTime) > attackCooldown) {
 			attack ();
         }
-        if ((GameObject.Find("Player").transform.position - transform.position).magnitude > 20f)
+        if ((GameObject.Find("Player").transform.position - transform.position).magnitude > 30f)
         {
             die();
         }

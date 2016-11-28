@@ -16,14 +16,18 @@ public class Spawner : MonoBehaviour {
     private GameObject torch;
 
     Floors floors;
+    public bool dead;
 //	private int rangeX, rangeZ;
 
 	// Use this for initialization
 	void Start () {
+        dead = false;
 		waveButton = "Spawn Wave Button";
 		spawnEnemyButton = "Spawn Enemy Button";
         torch = GameObject.FindGameObjectWithTag("Torch").transform.parent.gameObject;
+        StartCoroutine(SpawnEnemy());
     }
+    
 
     // Update is called once per frame
     void Update () {
@@ -70,5 +74,17 @@ public class Spawner : MonoBehaviour {
     {
         floors = new Floors();
         floors.importFloorList(maze, mazeSize);
+    }
+
+    IEnumerator SpawnEnemy()
+    {
+        while(true)
+        {
+            if (!dead)
+            {
+                spawnEnemy();
+                yield return new WaitForSecondsRealtime(3f);
+            }
+        }
     }
 }
