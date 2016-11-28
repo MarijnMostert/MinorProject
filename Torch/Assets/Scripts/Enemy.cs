@@ -16,7 +16,6 @@ public class Enemy : MonoBehaviour, IDamagable {
 	[SerializeField]
 	protected int health;
 	[SerializeField]
-	protected GameObject target;
 	protected NavMeshAgent navMeshAgent;
 	protected float lastAttackTime = 0f;
 	protected GameObject healthBar;
@@ -28,16 +27,13 @@ public class Enemy : MonoBehaviour, IDamagable {
 	}
 
 	protected virtual void Start () {
-		//Define the target.
-		target = GameObject.FindGameObjectWithTag ("Torch");
 		health = startingHealth;
 	}
 
 	//Get the distance between the enemy and the torch
 	protected float distanceToTarget(){
-		DefineTarget ();
-		if (target != null) {
-			Vector3 distV3 = transform.position - target.transform.position;
+		if (gameManager.enemyTarget != null) {
+			Vector3 distV3 = transform.position - gameManager.enemyTarget.transform.position;
 			float distFl = Mathf.Abs (distV3.magnitude);
 			return distFl;
 		}
@@ -70,15 +66,5 @@ public class Enemy : MonoBehaviour, IDamagable {
 		//Add a score
 		gameManager.updateScore(scoreValue);
 		Destroy (gameObject);
-	}
-
-	void DefineTarget(){
-		if (target != null) {
-			if (target.transform.parent != null) {
-				target = GameObject.FindGameObjectWithTag ("Torch").transform.parent.parent.gameObject;
-			} else {
-				target = GameObject.FindGameObjectWithTag ("Torch");
-			}
-		}
 	}
 }

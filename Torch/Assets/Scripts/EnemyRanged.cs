@@ -7,14 +7,12 @@ public class EnemyRanged : Enemy {
 
 	[HideInInspector] public RangedWeapon weapon;
 	private WeaponController weaponController;
-//	private GameObject weaponHolder;
 	private float varDistanceToTarget;
 	private float stoppingDistance;
 
 
 	new void Awake(){
 		base.Awake ();
-//		weaponHolder = gameObject.transform.FindChild ("Weapon Holder").gameObject;
 		weaponController = GetComponent<WeaponController> ();
 	}
 
@@ -30,7 +28,7 @@ public class EnemyRanged : Enemy {
 		StartCoroutine (UpdatePath ());
 		determineStoppingDistance ();
 		varDistanceToTarget = distanceToTarget ();
-		if (target != null && varDistanceToTarget <= attackRange && (Time.time - lastAttackTime) > attackCooldown && canSeeTarget()) {
+		if (gameManager.enemyTarget != null && varDistanceToTarget <= attackRange && (Time.time - lastAttackTime) > attackCooldown && canSeeTarget()) {
 			attack ();
 		}
 	}
@@ -49,7 +47,7 @@ public class EnemyRanged : Enemy {
 		Physics.Raycast (ray, out hit, attackRange, lookMask);
 
 		if (hit.collider != null) {
-			if (hit.collider.gameObject.Equals(target) || hit.collider.gameObject.CompareTag("Torch")) {
+			if (hit.collider.gameObject.Equals(gameManager.enemyTarget) || hit.collider.gameObject.CompareTag("Torch")) {
 				return true;
 			} 
 		}
@@ -67,8 +65,8 @@ public class EnemyRanged : Enemy {
 	private IEnumerator UpdatePath(){
 
 		//First make sure there is a target
-		while (target != null) {
-			Vector3 targetPosition = new Vector3 (target.transform.position.x, 0, target.transform.position.z);
+		while (gameManager.enemyTarget != null) {
+			Vector3 targetPosition = new Vector3 (gameManager.enemyTarget.transform.position.x, 0, gameManager.enemyTarget.transform.position.z);
 
 			//Set the target position for the Nav Mesh Agent
 			navMeshAgent.SetDestination (targetPosition);

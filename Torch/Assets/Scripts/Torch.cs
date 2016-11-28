@@ -113,6 +113,9 @@ public class Torch : InteractableItem, IDamagable {
 		transform.SetParent (triggerObject.transform.FindChild("Torch Holder"));
 		transform.position = transform.parent.position;
 		transform.rotation = transform.parent.rotation;
+		gameManager.enemyTarget = triggerObject;
+		gameManager.camTarget = triggerObject;
+
 
 		equipped = true;
 	}

@@ -11,7 +11,6 @@ public class EnemyBomber : Enemy {
 	private GameObject weaponHolder;
 
 	private Vector3 targetPosition;
-	//public float distance;
 	public float gravity;
 	//public float initialVelocity;
 	private float angle;
@@ -34,7 +33,7 @@ public class EnemyBomber : Enemy {
 	void Update () {
 		StartCoroutine (UpdatePath ());
 		varDistanceToTarget = distanceToTarget ();
-		if (target != null && varDistanceToTarget <= attackRange && (Time.time - lastAttackTime) > attackCooldown) {
+		if (gameManager.enemyTarget != null && varDistanceToTarget <= attackRange && (Time.time - lastAttackTime) > attackCooldown) {
 			attack ();
 		}
 	}
@@ -57,8 +56,8 @@ public class EnemyBomber : Enemy {
 	private IEnumerator UpdatePath(){
 
 		//First make sure there is a target
-		while (target != null) {
-			targetPosition = new Vector3 (target.transform.position.x, 0, target.transform.position.z);
+		while (gameManager.enemyTarget != null) {
+			targetPosition = new Vector3 (gameManager.enemyTarget.transform.position.x, 0, gameManager.enemyTarget.transform.position.z);
 
 			//Set the target position for the Nav Mesh Agent
 			navMeshAgent.SetDestination (targetPosition);
@@ -70,7 +69,7 @@ public class EnemyBomber : Enemy {
 	}
 
 	private void updateTargetPosition(){
-		targetPosition = target.transform.position;
+		targetPosition = gameManager.enemyTarget.transform.position;
 	}
 
 /*	private Vector3 futureTargetPosition(){

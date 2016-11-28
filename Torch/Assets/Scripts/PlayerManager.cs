@@ -37,8 +37,6 @@ public class PlayerManager {
 		}
 	}
 
-
-
 	public void Reset(){
 		playerInstance.SetActive (false);
 		playerInstance.transform.position = spawnPoint.position;

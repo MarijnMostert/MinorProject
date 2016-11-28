@@ -16,7 +16,7 @@ public class EnemyGrunt : Enemy {
 	
 	// Update is called once per frame
 	void Update () {
-		if (target != null && (Time.time - lastAttackTime) > attackCooldown) {
+		if (gameManager.enemyTarget != null && (Time.time - lastAttackTime) > attackCooldown) {
 			attack ();
 		}
 	}
@@ -25,22 +25,20 @@ public class EnemyGrunt : Enemy {
 	private void attack(){
 		float distance = distanceToTarget ();
 		if(distance < attackRange){
-			if (target.CompareTag ("Torch")) {
-				target.GetComponent<Torch> ().takeDamage (attackDamage);
-			} else if (target.CompareTag ("Player")) {
-				target.transform.FindChild ("Torch").GetComponent<Torch> ().takeDamage (attackDamage);
+			gameManager.enemyTarget.GetComponent<IDamagable> ().takeDamage (attackDamage);
+			/*if (target.CompareTag ("Torch") || target.CompareTag("Player")) {
+				target.GetComponent<IDamagable> ().takeDamage (attackDamage);
 			}
-				
+				*/
 			lastAttackTime = Time.time;
 		}
 	}
 
 	//A Coroutine for chasing a target
 	private IEnumerator UpdatePath(){
-
 		//First make sure there is a target
-		while (target != null) {
-			Vector3 targetPosition = new Vector3 (target.transform.position.x, 0, target.transform.position.z);
+		while (gameManager.enemyTarget != null) {
+			Vector3 targetPosition = new Vector3 (gameManager.enemyTarget.transform.position.x, 0, gameManager.enemyTarget.transform.position.z);
 
 			//Set the target position for the Nav Mesh Agent
 			navMeshAgent.SetDestination (targetPosition);

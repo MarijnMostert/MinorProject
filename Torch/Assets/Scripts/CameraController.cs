@@ -11,10 +11,15 @@ public class CameraController : MonoBehaviour {
 	private Vector3 targetPosition;
 	private Vector3 smoothDampVelocity;
 	private Vector3 cameraPosition;
+	private GameManager gameManager;
+
+	void Start(){
+		gameManager = GameObject.Find ("Game Manager").GetComponent<GameManager> ();
+	}
 
 	void FixedUpdate () {
 		//targetPosition = getAveragePosition ();
-		targetPosition = target.transform.position;
+		targetPosition = gameManager.camTarget.transform.position;
 		cameraPosition = targetPosition + offset;
 
 		//The smoothdamp makes sure the camera follows the target(s) smoothly

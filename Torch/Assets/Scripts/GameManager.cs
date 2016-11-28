@@ -23,7 +23,8 @@ public class GameManager : MonoBehaviour {
 	public bool paused;
 	public GameObject pauseScreen;
 	public GameObject cameraPrefab;
-	public GameObject target;
+	public GameObject camTarget;
+	public GameObject enemyTarget;
 	public Canvas UI;
 	public Spawner spawner;
 
@@ -57,8 +58,8 @@ public class GameManager : MonoBehaviour {
 			playerManagers [i].playerMovement.mainCamera = mainCamera;
 		}
 
-		//Staat voor nu op player 1. Maar moet straks veranderd worden naar de torch.
-		target = playerManagers [0].playerInstance;
+		camTarget = torch.gameObject;
+		enemyTarget = torch.gameObject;
 		SetUpCameraPart2 ();
 		torch.cam = mainCamera;
 
@@ -115,7 +116,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void SetUpCameraPart2(){
-		cameraPrefab.GetComponentInChildren<CameraController> ().target = target;
+		cameraPrefab.GetComponentInChildren<CameraController> ().target = camTarget;
 	}
 
 	public void GameOver(){
