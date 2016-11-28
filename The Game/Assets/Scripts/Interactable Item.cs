@@ -9,13 +9,12 @@ public class InteractableItem : NetworkBehaviour {
 
 	private Camera cam;
 	private GameObject canvas;
-	private string interactionButton;
+	private string interactionButton = "InteractionButton";
 
-	void Start () {
+	public virtual void Start () {
 		canvas = Instantiate (instructionPopUp, new Vector3(transform.position.x, floatingHeight, transform.position.z), transform.rotation) as GameObject;
 		canvas.SetActive (false);
 		cam = Camera.main; 
-		interactionButton = "InteractionButton";
 	}
 
 	void LateUpdate() {
@@ -27,8 +26,7 @@ public class InteractableItem : NetworkBehaviour {
 			canvas.SetActive (true);
 			if (Input.GetButtonDown (interactionButton)) {
 				action ();
-				Destroy (gameObject);
-				Destroy (canvas);
+				canvas.SetActive (false);
 			}
 		}
 	}
@@ -44,6 +42,6 @@ public class InteractableItem : NetworkBehaviour {
 	}
 
 	public virtual void action(){
-		Debug.Log ("Interactable item action triggered)");
+		Debug.Log ("Interactable item action triggered");
 	}
 }

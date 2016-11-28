@@ -38,7 +38,9 @@ GameObject:
   - 33: {fileID: 33000013875281058}
   - 136: {fileID: 136000011364308136}
   - 23: {fileID: 23000013352246804}
-  - 114: {fileID: 114000013144141894}
+  - 114: {fileID: 114000013560665670}
+  - 114: {fileID: 114000014003426280}
+  - 65: {fileID: 65000011928345616}
   m_Layer: 10
   m_Name: Torch
   m_TagString: Torch
@@ -109,6 +111,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013240204316}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &65000011928345616
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013240204316}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3, y: 3, z: 5}
+  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!108 &108000013282710222
 Light:
   m_ObjectHideFlags: 1
@@ -143,7 +157,39 @@ Light:
   m_BounceIntensity: 1.83
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &114000013144141894
+--- !u!114 &114000013560665670
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013240204316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 174
+    i1: 22
+    i2: 220
+    i3: 164
+    i4: 241
+    i5: 202
+    i6: 247
+    i7: 212
+    i8: 107
+    i9: 158
+    i10: 222
+    i11: 59
+    i12: 15
+    i13: 39
+    i14: 16
+    i15: 114
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
+--- !u!114 &114000014003426280
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -154,6 +200,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18eae0d9f41794253ad087a97570a282, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  instructionPopUp: {fileID: 1000013392744506, guid: 66a34db3c1120ad43b6a786136b41eec,
+    type: 2}
+  floatingHeight: 2
   startingHealth: 100
   torchLight: {fileID: 108000013282710222}
   startingIntensity: 4
@@ -161,7 +210,8 @@ MonoBehaviour:
   range: 5
   smoothingTime: 1
   dead: 0
-  flickerInterval: 0.05
+  flickerInterval: 0.5
+  torchPrefab: {fileID: 0}
 --- !u!136 &136000011364308136
 CapsuleCollider:
   m_ObjectHideFlags: 1

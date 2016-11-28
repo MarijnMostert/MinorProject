@@ -25,6 +25,7 @@ GameObject:
   - 114: {fileID: 114000010546296692}
   - 114: {fileID: 114000011914179240}
   - 114: {fileID: 114000011045125098}
+  - 114: {fileID: 114000011874632652}
   m_Layer: 9
   m_Name: FireBall Weapon PickUp
   m_TagString: Untagged
@@ -104,7 +105,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb4704ca4089945bda26cda750810038, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 1
   weaponToEquip: {fileID: 114000013339538176, guid: 01b5b80244d5a4934b68ca098e6bd070,
     type: 2}
 --- !u!114 &114000011045125098
@@ -121,6 +121,38 @@ MonoBehaviour:
   rotationSpeedX: 0
   rotationSpeedY: 10
   rotationSpeedZ: 0
+--- !u!114 &114000011874632652
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013538442878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 69
+    i1: 58
+    i2: 189
+    i3: 46
+    i4: 227
+    i5: 205
+    i6: 68
+    i7: 67
+    i8: 121
+    i9: 125
+    i10: 48
+    i11: 190
+    i12: 2
+    i13: 2
+    i14: 3
+    i15: 237
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!114 &114000011914179240
 MonoBehaviour:
   m_ObjectHideFlags: 1

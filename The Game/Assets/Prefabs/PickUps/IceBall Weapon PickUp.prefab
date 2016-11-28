@@ -25,6 +25,7 @@ GameObject:
   - 114: {fileID: 114000010327238466}
   - 114: {fileID: 114000014178043976}
   - 114: {fileID: 114000013829137594}
+  - 114: {fileID: 114000012809707186}
   m_Layer: 9
   m_Name: IceBall Weapon PickUp
   m_TagString: Untagged
@@ -104,9 +105,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb4704ca4089945bda26cda750810038, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 1
   weaponToEquip: {fileID: 114000013339538176, guid: 3b734ba17f6704d3f825c5784083df4a,
     type: 2}
+--- !u!114 &114000012809707186
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013538442878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 141
+    i1: 198
+    i2: 173
+    i3: 197
+    i4: 128
+    i5: 21
+    i6: 212
+    i7: 30
+    i8: 154
+    i9: 77
+    i10: 172
+    i11: 16
+    i12: 164
+    i13: 33
+    i14: 62
+    i15: 98
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
 --- !u!114 &114000013829137594
 MonoBehaviour:
   m_ObjectHideFlags: 1

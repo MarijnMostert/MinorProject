@@ -18,7 +18,6 @@ public class Chest : InteractableItem {
 		float randomZ = (1f - 2f * Random.value) * 2;
 		Vector3 spawnLocation = new Vector3(transform.position.x + randomX, .5f, transform.position.z + randomZ);
 		obj = Instantiate (obj, spawnLocation, transform.rotation) as GameObject;
-		//GameObject enemyReadyToSpawn = GameObject.Instantiate(enemy.gameObject, new Vector3 (x, 1f, z), transform.rotation) as GameObject;
 		NetworkServer.Spawn (obj);
 	}
 }

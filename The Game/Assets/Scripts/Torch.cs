@@ -3,8 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 using System.Collections;
 
-public class Torch : NetworkBehaviour, IDamagable {
-
+public class Torch : InteractableItem, IDamagable {
 	public int startingHealth;
 	public Light torchLight;
 	public float startingIntensity = 4f;
@@ -16,7 +15,6 @@ public class Torch : NetworkBehaviour, IDamagable {
 	public bool dead;
 	public float flickerInterval = 0.5f;
 
-
 	private float smoothDampVar1 = 0f;
 	private float smoothDampVar2 = 0f;
 	private float smoothDampVar3 = 0f;
@@ -27,6 +25,8 @@ public class Torch : NetworkBehaviour, IDamagable {
 	private float randomFactorRange;
 	private Text healthText;
 	private Text deathText;
+	private string interactionButton = "InteractionButton";
+	private bool releaseAllowed = false;
 
 	void Awake(){
 		torchLight = transform.GetComponentInChildren<Light> ();
@@ -36,16 +36,19 @@ public class Torch : NetworkBehaviour, IDamagable {
 			Debug.Log ("Add UI Prefab to the scene");
 	}
 
-	void Start () {
+	public override void Start () {
+		base.Start ();
 		torchLight.intensity = startingIntensity;
 		intensityBase = startingIntensity;
 		randomFactorIntensity = startingIntensity / 8f;
 		randomFactorRange = range / 8f;
-
 		health = startingHealth;
 
 		if(healthText != null)
 			healthText.text = "Health: " + health;
+
+		//GameObject torch = (GameObject)Instantiate(torchPrefab, transform.position, transform.rotation);
+		//NetworkServer.Spawn (torch);
 
 		//Every 'flickerInterval' seconds the 'torchFlickering()' function is called.
 		InvokeRepeating ("torchFlickering", 0f, flickerInterval);
@@ -53,6 +56,10 @@ public class Torch : NetworkBehaviour, IDamagable {
 	
 	void Update () {
 		lightUpdate ();
+		StartCoroutine (waitOneFrame());//every frame restart counter
+		if (releaseAllowed) {
+			releaseTorch ();
+		}
 	}
 
 	//Update the light intensity and range according to the health
@@ -108,13 +115,43 @@ public class Torch : NetworkBehaviour, IDamagable {
 		health = 0;
 		dead = true;
 		CancelInvoke ();
-		Destroy (transform.parent.gameObject);
+		foreach  (GameObject player in GameObject.FindGameObjectsWithTag("Player") ){
+		Destroy (player);
+		}// destroy all player objects; not the parent of the torch
 		//	transform.parent.gameObject.SetActive(false);
 		//	gameObject.SetActive (false);
 		deathText.gameObject.SetActive(true);
 		GameObject.Find ("UI/Score Text").SetActive (false);
 		GameObject.Find ("UI/Health Text").SetActive(false);
 		GameObject.FindWithTag ("CursorPointer").SetActive (false);
-
 	}
+
+	public override void action(){
+		Debug.Log ("into action()");
+		if (Object.ReferenceEquals(transform.parent, null)) {// if not yet picked up
+			GameObject player = GameObject.FindWithTag ("Player");
+			transform.parent = player.transform;//Pickup
+			print ("Picked up Torch");
+		}
+	}
+
+	IEnumerator waitOneFrame(){
+		yield return 0;
+		GameObject player = GameObject.FindWithTag ("Player");
+		if (Object.Equals(transform.parent, player.transform)) {//Torch with player condition
+			releaseAllowed = true;// only able to release one frame after the frame where the torch was picked up
+		}
+	}
+
+	void releaseTorch(){
+		GameObject player = GameObject.FindWithTag ("Player");
+		if (Object.Equals(transform.parent, player.transform)) {//Torch with player condition
+			waitOneFrame();// only able to release one frame after the frame where the torch was picked up
+			if (Input.GetButtonDown (interactionButton)) {
+				transform.parent = null;//Release
+				releaseAllowed = false;
+			}
+		}		
+	}
+
 }
