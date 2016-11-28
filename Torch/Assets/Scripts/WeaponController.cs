@@ -7,10 +7,18 @@ public class WeaponController : MonoBehaviour {
 
 	public Weapon currentWeapon;
 	protected Transform weaponHolder;
+	public Inventory inventory;
+
 
 	protected virtual void Start () {
+		Debug.Log ("Weaponcontroller start");
+
+		Debug.Log ("inventory ingesteld");
+		inventory = gameObject.GetComponent<Inventory> ();
+
 		weaponHolder = gameObject.transform.FindChild ("Weapon Holder");
 		Equip (startingWeapon);
+		inventory.addToInventory (startingWeapon);
 	}
 
 	//To Equip another weapon

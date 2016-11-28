@@ -5,13 +5,13 @@ public class PlayerWeaponController : WeaponController {
 
 	public int playerNumber;
 
-	private string attackButton;
+	public string attackButton;
 //	private string attackButtonController;
 
 	void Awake(){
 	}
 
-	new void Start () {
+	protected override void Start () {
 		base.Start ();
 		attackButton = "Attack" + playerNumber;
 //		attackButtonController = "ControllerAttack" + playerNumber;

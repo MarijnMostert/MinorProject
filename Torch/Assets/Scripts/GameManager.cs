@@ -76,15 +76,15 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void LoadScene(){
-		if (Input.GetKeyUp(KeyCode.Alpha0)){
+		if (Input.GetKeyUp(KeyCode.F1)){
 			SceneManager.LoadScene (0);
 			OnLevelWasLoaded ();
 		}
-		if (Input.GetKeyUp (KeyCode.Alpha1)) {
+		if (Input.GetKeyUp (KeyCode.F2)) {
 			SceneManager.LoadScene (1);
 			OnLevelWasLoaded ();
 		}
-		if (Input.GetKeyUp (KeyCode.Alpha2)) {
+		if (Input.GetKeyUp (KeyCode.F3)) {
 			SceneManager.LoadScene (2);
 		}
 	}
