@@ -1,15 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
-public class Boss : MonoBehaviour {
+public class Boss : MonoBehaviour, IDamagable {
 
+	//Neural Network Attributes
 	public float[,] weights;
 	public float[] input;
 	public float[] threshold;
 	public float[] actionThreshold;
-	public GameObject target;
-	public GameObject parent;
 	public List<GameObject> bulletsNearby = new List<GameObject>();
 	public int inputNeurons = 6;
 	public int outputNeurons = 7;
@@ -17,47 +17,55 @@ public class Boss : MonoBehaviour {
 	public float[] finalOutput;
 	public GameObject BulletA;
 	public GameObject BulletB;
-	public float speed;
-	public Color colorBoss;
-	public BossFitness bossFitness;
-	public int startingHealth;
-	private int health;
 
+	//Genetic Algorithm Attributes
 	public float timeAlive;
 	public int damageDealt = 0;
 	public int usedAttacks = 0;
 	public int usedSpecAttacks = 0;
 	public float fitness;
-
 	public float timeAliveFactor;
 	public float damageDealtFactor;
 	public float ratioFactor;
 
+	//Boss Attributes
+	public GameObject target;
+	public float speed;
+	public int startingHealth;
+	public int health;
+	public Color colorBoss;
+	public int scoreValue = 1000;
+	public GameObject healthBarPrefab;
+	protected Image healthBar;
+	protected ScoreManager scoreManager;
+	protected bool dead;
 
+	//Initialize Boss and Neural Network weights
 	void Start () {
+		dead = false;
 		timeAlive = Time.time;
-		parent = transform.parent.gameObject;
 		health = startingHealth;
-		bossFitness = transform.parent.GetComponent<BossFitness> ();
-		colorBoss = transform.parent.gameObject.GetComponent<MeshRenderer> ().material.color;
+		colorBoss = transform.GetComponent<MeshRenderer> ().material.color;
+		gameObject.transform.FindChild ("BossShield").gameObject.SetActive (false);
 		initialiseArraySizes ();
 		initialiseThresholds ();
 		initialiseActionThresholds ();
 		initialiseWeights ();
 		target = GameObject.Find ("Player");
+//		scoreManager = GameObject.Find("Score Manager").GetComponent<ScoreManager> ();
 	}
 
+	//Keep facing the player. Run the neural network.
 	void Update () {
-		parent.transform.LookAt (new Vector3 (target.transform.position.x, parent.transform.position.y, target.transform.position.z));
+		transform.LookAt (new Vector3 (target.transform.position.x, target.transform.position.y, target.transform.position.z));
 		colorBoss = Color.grey;
+		gameObject.transform.FindChild ("BossShield").gameObject.SetActive (false);
 		selectInputs ();
 		runNN ();
 		action ();
-		if (health <= 0) {
-			Die ();
-		}
 	}
 
+	//Randomly initializes the network tresholds
 	void initialiseThresholds ()
 	{
 		threshold = new float[outputNeurons];
@@ -66,19 +74,21 @@ public class Boss : MonoBehaviour {
 		}
 	}
 
+	//Randomly initializes action tresholds
 	void initialiseActionThresholds(){
 		actionThreshold = new float[outputNeurons];
+		//Action tresholds for moving
 		for (int i = 0; i < 4; i++){
 			actionThreshold [i] = 0.6f;
 		}
-
+		//Action tresholds for attacking and blocking
 		for (int i = 4; i < actionThreshold.Length; i++) {
 			actionThreshold [i] = 0.8f;
 		}
 	}
 
-	void initialiseWeights ()
-	{
+	//Randomly initializes network weights
+	void initialiseWeights () {
 		weights = new float[inputNeurons, outputNeurons];
 		for (int i = 0; i < inputNeurons; i++) {
 			for (int j = 0; j < outputNeurons; j++) {
@@ -87,32 +97,31 @@ public class Boss : MonoBehaviour {
 		}
 	}
 
+	//initializes the arrays that will hold environment information and network output
 	void initialiseArraySizes(){
 		input = new float[inputNeurons];
-		/*
-		for (int i = 0; i < input.Length; i++) {
-			input [i] = Random.value;
-		}
-		*/
-
 		rawOutput = new float[outputNeurons];
 		finalOutput = new float[outputNeurons];
 	}
 
+	//Sense the environment and store normalized and capped data
 	void selectInputs () {
+		//normalized player position
 		input [0] = normalize(target.transform.position.x - transform.position.x, 40f);
 		input [1] = normalize(target.transform.position.z - transform.position.z, 40f);
 
+		//cap player position (-1, 1)
 		if (input [0] > 1f)
 			input [0] = 1f;
 		else if (input [0] < -1f)
 			input [0] = -1f;
-		
+
 		if (input [1] > 1f)
 			input [1] = 1f;
 		else if (input [1] < -1f)
 			input [1] = -1f;
-		
+
+		//Two closest bullets
 		findClosestBullets ();
 		if (BulletA != null) {
 			input [2] = normalize(BulletA.transform.position.x - transform.position.x, 100f);
@@ -131,10 +140,12 @@ public class Boss : MonoBehaviour {
 		}
 	}
 
+	//normalize an input to a given value
 	float normalize(float value, float max){
 		return value / max;
 	}
 
+	//Finds all bullets currently in scene and pick the two closest
 	void findClosestBullets(){
 		if (bulletsNearby != null) {
 			for (int j = 0; j < bulletsNearby.Count; j++) {
@@ -170,33 +181,13 @@ public class Boss : MonoBehaviour {
 		}
 	}
 
+	//Find the distance between Boss and another object
 	float getDist(GameObject other){
 		return (other.transform.position - gameObject.transform.position).magnitude;
 	}
 
-	void OnTriggerEnter(Collider other){
-		if (other.gameObject.CompareTag("Bullet")) {
-			Debug.Log ("Bullet Enter");
-			bulletsNearby.Add (other.gameObject);
-		}
-	}
 
-
-	void OnTriggerStay(Collider other){
-		if(other.gameObject.CompareTag("Bullet") && !bulletsNearby.Contains(other.gameObject)){
-			Debug.Log ("Bullet stay");
-			bulletsNearby.Add (other.gameObject);
-		}
-	}
-
-
-	void OnTriggerExit(Collider other){
-		if (other.gameObject.CompareTag("Bullet")) {
-			Debug.Log ("Bullet exit");
-			bulletsNearby.Remove (other.gameObject);
-		}
-	}
-
+	//Runs the Neural network
 	void runNN(){
 		for (int i = 0; i < outputNeurons; i++) {
 			rawOutput[i] = 0;
@@ -207,57 +198,57 @@ public class Boss : MonoBehaviour {
 		}
 	}
 
+	//Returns the sigmoid of a float
 	float sigmoid(float x){
 		return 1 / (1 + Mathf.Exp (-x));
 	}
 
+	//Choose one ore more actions based on network output
 	void action(){
+		//move Left
 		if (finalOutput [0] > actionThreshold[0]) {
-			parent.transform.position = parent.transform.position + speed * Time.deltaTime * new Vector3 (-1f, 0f, 0f);
-	//		transform.parent.Translate(speed * Time.deltaTime * new Vector3(-1f, 0f, 0f)); //left
+			transform.position = transform.position + speed * Time.deltaTime * new Vector3 (-1f, 0f, 0f);
 		}
-
+		//move right
 		else if (finalOutput [1] > actionThreshold[1]) {
-			parent.transform.position = parent.transform.position + speed * Time.deltaTime * new Vector3 (1f, 0f, 0f);
-	//		transform.parent.Translate(speed * Time.deltaTime * new Vector3(1f, 0f, 0f)); //right
+			transform.position = transform.position + speed * Time.deltaTime * new Vector3 (1f, 0f, 0f);
 		}
-
+		//Move Up
 		if (finalOutput [2] > actionThreshold[2]) {
-			parent.transform.position = parent.transform.position + speed * Time.deltaTime * new Vector3 (0f, 0f, 1f);
-	//		transform.parent.Translate(speed * Time.deltaTime * new Vector3(0f, 0f, 1f)); //up
+			transform.position = transform.position + speed * Time.deltaTime * new Vector3 (0f, 0f, 1f);
 		}
-
+		//Move Down
 		else if (finalOutput [3] > actionThreshold[3]) {
-			parent.transform.position = parent.transform.position + speed * Time.deltaTime * new Vector3 (0f, 0f, -1f);
-	//		transform.parent.Translate(speed * Time.deltaTime * new Vector3(0f, 0f, -1f)); //down
+			transform.position = transform.position + speed * Time.deltaTime * new Vector3 (0f, 0f, -1f);
 		}
-
+		//Normal Attack
 		if (finalOutput [4] > actionThreshold[4]) {
-			//attack
-			transform.parent.GetComponent<MeshRenderer>().material.color = Color.red;
-			RangedWeapon weapon = parent.GetComponent<WeaponController>().currentWeapon as RangedWeapon;
+			transform.GetComponent<MeshRenderer>().material.color = Color.red;
+			RangedWeapon weapon = GetComponent<WeaponController>().currentWeapon as RangedWeapon;
 			weapon.fire ();
 			usedAttacks++;
 		}
-
+		//Block
 		else if (finalOutput [5] > actionThreshold[5]) {
-			//block
-			transform.parent.GetComponent<MeshRenderer>().material.color = Color.green;
+			gameObject.transform.FindChild ("BossShield").gameObject.SetActive (true);
 		}
-
+		//Special Attack
 		else if (finalOutput [6] > actionThreshold[6]) {
-			//special attack
-			transform.parent.GetComponent<MeshRenderer>().material.color = Color.blue;
-			RangedWeapon weapon = parent.GetComponent<WeaponController>().currentWeapon as RangedWeapon;
+			transform.GetComponent<MeshRenderer>().material.color = Color.blue;
+			RangedWeapon weapon = GetComponent<WeaponController>().currentWeapon as RangedWeapon;
 			weapon.fire ();
 			usedSpecAttacks++;
 		}
 
 	}
 
+	//Calculate boss fitness and set inactive
 	void Die(){
 		CalculateFitness ();
-		gameObject.SetActive (false);
+//		scoreManager.updateScore (scoreValue);
+		dead = true;
+		Destroy (healthBar.transform.parent.gameObject);
+		Destroy (gameObject);
 	}
 
 	void CalculateFitness(){
@@ -269,6 +260,24 @@ public class Boss : MonoBehaviour {
 	}
 
 	public float CalculateRatio(){
-		return usedAttacks / usedSpecAttacks;
+		if(usedSpecAttacks != 0){
+			return usedAttacks / usedSpecAttacks;
+		}
+		return usedAttacks / (usedSpecAttacks + 1);
+	}
+
+	//For when the enemy object takes damage
+	public void takeDamage(int damage){
+		if (healthBar == null) {
+			Vector3 healthBarPosition = transform.position + new Vector3 (0, 2, 0);
+			GameObject obj = Instantiate (healthBarPrefab, healthBarPosition, transform.rotation) as GameObject;
+			healthBar = obj.transform.FindChild ("HealthBar").GetComponent<Image> ();
+			obj.GetComponent<Follow> ().target = gameObject;
+			healthBar.fillAmount = 1f;
+		}
+		health -= damage;
+		healthBar.fillAmount = (float)health / startingHealth;
+		if (health <= 0)
+			Die ();
 	}
 }

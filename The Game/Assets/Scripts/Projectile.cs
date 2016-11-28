@@ -32,12 +32,10 @@ public class Projectile : MonoBehaviour {
 	private void checkCollisions(float moveDistance){
 		Ray ray = new Ray (transform.position, transform.forward);
 		RaycastHit hit;
-
 		if (Physics.Raycast (ray, out hit, moveDistance, collisionMask, QueryTriggerInteraction.Collide)) {
 			Debug.Log (hit);
 			onHitObject (hit);
 		}
-
 	}
 
 	private void onHitObject(RaycastHit hit){
@@ -67,8 +65,6 @@ public class Projectile : MonoBehaviour {
 			}
 		}
 		*/
-		if (objectHitted != GameObject.Find ("BulletSenser")) {
 			Destroy (this.gameObject);
-		}
 	}
 }

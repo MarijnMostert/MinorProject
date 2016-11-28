@@ -26,7 +26,7 @@ GameObject:
   - 54: {fileID: 54000012997314028}
   m_Layer: 12
   m_Name: Bombing Projectile
-  m_TagString: Bullet
+  m_TagString: Enemy Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -108,7 +108,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collisionMask:
     serializedVersion: 2
-    m_Bits: 4294952959
+    m_Bits: 4294936063
   damage: 1
   lifeTime: 10
   rb: {fileID: 0}

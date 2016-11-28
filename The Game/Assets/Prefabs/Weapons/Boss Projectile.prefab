@@ -25,7 +25,7 @@ GameObject:
   - 114: {fileID: 114000012347710446}
   m_Layer: 12
   m_Name: Boss Projectile
-  m_TagString: Bullet
+  m_TagString: Enemy Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -104,7 +104,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collisionMask:
     serializedVersion: 2
-    m_Bits: 4294952447
+    m_Bits: 4294936063
   damage: 5
   lifeTime: 5
   objectHitted: {fileID: 0}

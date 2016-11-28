@@ -8,7 +8,9 @@ public class BossFitness : MonoBehaviour {
 	public int usedAttacks = 0;
 	public int usedSpecAttacks = 0;
 
+
 	public float CalculateRatio(){
 		return usedAttacks / usedSpecAttacks;
 	}
+		
 }
