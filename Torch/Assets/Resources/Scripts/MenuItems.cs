@@ -9,6 +9,6 @@ public class MenuItems {
 
 	[MenuItem("Tools/LoadPrefabsIntoScene")]
 	private static void LoadPrefabs(){
-		GameObject.Find ("Game Manager").GetComponent<GameManager> ().Start ();
+		//GameObject.Find ("Game Manager").GetComponent<GameManager> ().Start ();
 	}
 }

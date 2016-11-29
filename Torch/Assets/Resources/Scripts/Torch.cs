@@ -97,7 +97,7 @@ public class Torch : InteractableItem, IDamagable {
 		Debug.Log ("Player dies");
 		health = 0;
 		CancelInvoke ();
-		gameManager.GameOver ();
+	//	gameManager.GameOver ();
 	}
 
 	public override void action(GameObject triggerObject){
