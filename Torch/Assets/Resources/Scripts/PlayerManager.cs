@@ -6,9 +6,10 @@ public class PlayerManager {
 
 	public Transform spawnPoint;
 	public Color playerColor;
-	public GameObject cursorPointer;
-	public GameObject UI;
 
+	//public GameObject UI;
+
+	[HideInInspector] public GameObject cursorPointer;
 	[HideInInspector] public int playerNumber;
 	[HideInInspector] public GameObject playerInstance;
 	[HideInInspector] public bool dead;
@@ -16,6 +17,7 @@ public class PlayerManager {
 	[HideInInspector] public PlayerWeaponController playerWeaponController;
 
 	public void Setup () {
+		cursorPointer = Resources.Load ("Prefabs/Cursor Pointer", typeof(GameObject)) as GameObject;
 		dead = false;
 	//	UI = Instantiate (UI);
 		playerInstance.GetComponent<MeshRenderer> ().material.color = playerColor;
