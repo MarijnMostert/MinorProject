@@ -44,4 +44,7 @@ public class Spawner : MonoBehaviour {
 		}
 	}
 
+	public void spawnTutorial(){
+		spawnWave ();
+	}
 }
