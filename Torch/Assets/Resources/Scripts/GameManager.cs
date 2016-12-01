@@ -6,40 +6,43 @@ using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour {
 
+	//Player data
 	public static GameManager Instance;
-
-	//Player settings
 	public PlayerManager[] playerManagers;
 	public GameObject playerPrefab;
 
-	//Torch settings
-	public int torchStartingHealth;
+	//Torch data
 	public Torch torch;
+	public Transform torchSpawnPoint;
+	public int torchStartingHealth;
 	public int torchHealth;
-	//public Transform torchSpawnPoint;
 
 	//Score info
-	public int score;
+	public int score = 0;
 
-	//Target settings
+	public bool paused;
+	public GameObject pauseScreen;
+	public GameObject cameraPrefab;
 	public GameObject camTarget;
 	public GameObject enemyTarget;
+	public GameObject UI;
+    //public Spawner spawner;
 
-	//Dungeon settings
-	//##YORAN WIL JIJ HIER DE DUNGEON SETTINGS INVULLEN?
+    //masterGenerator Vars
+    int width = 20;// = 100;
+    int height = 20;// = 90;
+    int radius = 1;// = 2;
+    int maxlength = 4;// = 3;
+    int timeout = 6000;// = 200;
+    int minAmountOfRooms = 2;// = 6;
+    int maxAmountOfRooms = 5;// = 8;
+    int chanceOfRoom = 20;// = 15;
+
+    public Camera mainCamera;
+    MasterGenerator masterGenerator;
 
 
-	//public bool paused;
-//	public GameObject pauseScreen; //Komt in scene zelf
-//	public GameObject cameraPrefab; //Komt in scene zelf
-
-//	public Canvas UI;		//Komt in scene zelf
-//	public Spawner spawner;		//Komt in scene zelf
-
-//	private Camera mainCamera;
-
-
-	void Awake () {
+    void Awake () {
 
 		//Makes sure this object is not deleted when another scene is loaded.
 		if (Instance != null) {
@@ -48,86 +51,62 @@ public class GameManager : MonoBehaviour {
 			GameObject.DontDestroyOnLoad (this.gameObject);
 			Instance = this;
 		}
-	}
+        Initialize();
+        masterGenerator = new MasterGenerator(this.gameObject, width, height, radius, maxlength, timeout, minAmountOfRooms, maxAmountOfRooms, chanceOfRoom);
+        masterGenerator.LoadPrefabs();
+        masterGenerator.Start();
+    }
 
-	void LoadPrefabs(){
-		playerPrefab = Resources.Load ("Prefabs/Player", typeof(GameObject)) as GameObject;
-		torch = Resources.Load ("Prefabs/Torch", typeof(GameObject)) as Torch;
-	}
-	
-	void Update () {
-		if (Input.GetKeyDown (KeyCode.Backspace)) {
-			SpawnPlayers ();
-		} else if (Input.GetKeyUp(KeyCode.F1)){
-			SceneManager.LoadScene (0);
-			//OnLevelWasLoaded ();
-		} else if (Input.GetKeyUp (KeyCode.F2)) {
-			SceneManager.LoadScene (1);
-			//OnLevelWasLoaded ();
-		} else if (Input.GetKeyUp (KeyCode.F3)) {
-			SceneManager.LoadScene (2);
-		} else if (Input.GetKeyUp (KeyCode.F4)) {
-			SceneManager.LoadScene (3);
-		} else if (Input.GetKeyUp (KeyCode.F5)) {
-			SceneManager.LoadScene (4);
-		} else if (Input.GetKeyUp (KeyCode.F6)) {
-			SceneManager.LoadScene (5);
-		}
-		//LoadScene ();
-		//Pause ();
-	}
+    public void Start(){
 
-	public void UpdateScore(int addedScore){
-		score += addedScore;
-		//UI.transform.FindChild ("Score Text").GetComponent<Text> ().text = "Score: " + score;
-	}
+        UI = masterGenerator.ui;
+        pauseScreen = masterGenerator.pause_screen;
 
-	public void SpawnPlayers(){
+        torch = Instantiate (torch, torchSpawnPoint.position, torchSpawnPoint.rotation) as Torch;
+		torch.health = torchStartingHealth;
+		torch.gameManager = this;
+        torch.UI = UI;
+
+		//SetUpCameraPart1 ();
 		for (int i = 0; i < playerManagers.Length; i++) {
+            Debug.Log("Create Player with id:" + i);
 			playerManagers [i].playerInstance = Instantiate (playerPrefab, playerManagers [i].spawnPoint.position, playerManagers [i].spawnPoint.rotation) as GameObject;
 			playerManagers [i].playerNumber = i + 1;
 			playerManagers [i].Setup ();
+			playerManagers [i].playerMovement.mainCamera = mainCamera;
 		}
+
+		camTarget = torch.gameObject;
+		enemyTarget = torch.gameObject;
+		//SetUpCameraPart2 ();
+		torch.cam = mainCamera;
+
+		UI.transform.FindChild ("Score Text").GetComponent<Text> ().text = "Score: " + score;
+	}
+	
+	void Update () {
+		LoadScene ();
+		Pause ();
 	}
 
-	public void SpawnTorch(Transform spawnposition){
-		torch = Instantiate (torch, spawnposition) as Torch;
-		torch.health = torchStartingHealth;
-		torch.gameManager = this;
-	}
-
-	public void SaveAll(){
-		//Settings moeten worden teruggeschreven naar file of database op de server
-		//Moet nog geimplement worden.
+	void OnLevelWasLoaded(){
+		//Start ();
 	}
 
 	void LoadScene(){
-		if (Input.GetKeyUp(KeyCode.F1)){
+		if (Input.GetKeyUp(KeyCode.Alpha0)){
 			SceneManager.LoadScene (0);
-			//OnLevelWasLoaded ();
+			OnLevelWasLoaded ();
 		}
-		if (Input.GetKeyUp (KeyCode.F2)) {
+		if (Input.GetKeyUp (KeyCode.Alpha1)) {
 			SceneManager.LoadScene (1);
-			//OnLevelWasLoaded ();
+			OnLevelWasLoaded ();
 		}
-		if (Input.GetKeyUp (KeyCode.F3)) {
+		if (Input.GetKeyUp (KeyCode.Alpha2)) {
 			SceneManager.LoadScene (2);
 		}
 	}
 
-	public void LoadScene(int sceneIndex){
-		SceneManager.LoadScene (sceneIndex);
-	}
-}
-
-	////// OUDE MEUK ////////
-	/*
-	void OnLevelWasLoaded(){
-		Start ();
-	}
-	*/
-
-	/*
 	void Pause(){
 		if (Input.GetButtonDown ("Pause")) {
 			if (!paused) {
@@ -143,12 +122,13 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void Initialize(){
-		pauseScreen = Instantiate (pauseScreen);
+		/*pauseScreen = Instantiate (pauseScreen);
 		pauseScreen.SetActive (false);
-//		UI = Instantiate (UI);
-		spawner = Instantiate (spawner);
+        pauseScreen.GetComponentInChildren<MuteAudio>().game_manager = this.gameObject;
+		UI = Instantiate (UI);
+		spawner = Instantiate (spawner);*/
 	}
-
+/*
 	void SetUpCameraPart1(){
 		cameraPrefab = Instantiate (cameraPrefab) as GameObject;
 		mainCamera = cameraPrefab.GetComponentInChildren<Camera> ();
@@ -156,40 +136,18 @@ public class GameManager : MonoBehaviour {
 
 	void SetUpCameraPart2(){
 		cameraPrefab.GetComponentInChildren<CameraController> ().target = camTarget;
-	}
-		
+	}*/
+
 	public void GameOver(){
-//		UI.transform.FindChild ("Death Text").gameObject.SetActive (true);
+		UI.transform.FindChild ("Death Text").gameObject.SetActive (true);
 		torch.gameObject.SetActive (false);
 		for (int i = 0; i < playerManagers.Length; i++) {
 			playerManagers [i].playerInstance.SetActive (false);
 		}
 	}
 
-	public void Start(){
-		//Initialize ();
-
-		//torch = Instantiate (torch, torchSpawnPoint.position, torchSpawnPoint.rotation) as Torch;
-	//	torch.health = torchStartingHealth;
-	//	torch.gameManager = this;
-//		torch.UI = UI;
-
-		//SetUpCameraPart1 ();
-
-		for (int i = 0; i < playerManagers.Length; i++) {
-			playerManagers [i].playerInstance = Instantiate (playerPrefab, playerManagers [i].spawnPoint.position, playerManagers [i].spawnPoint.rotation) as GameObject;
-			playerManagers [i].playerNumber = i + 1;
-			playerManagers [i].Setup ();
-
-			//playerManagers [i].playerMovement.mainCamera = mainCamera;
-		}
-
-	//	camTarget = torch.gameObject;
-	//	enemyTarget = torch.gameObject;
-		//SetUpCameraPart2 ();
-	//	torch.cam = mainCamera;
-
-//		UI.transform.FindChild ("Score Text").GetComponent<Text> ().text = "Score: " + score;
+	public void updateScore(int addedScore){
+		score += addedScore;
+		UI.transform.FindChild ("Score Text").GetComponent<Text> ().text = "Score: " + score;
 	}
-*/
-
+}

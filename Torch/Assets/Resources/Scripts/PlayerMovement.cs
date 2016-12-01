@@ -7,7 +7,7 @@ public class PlayerMovement : MonoBehaviour {
 	public LayerMask floorMask;
 	public GameObject cursorPointer;
 	[HideInInspector] public Camera mainCamera;
-	[HideInInspector] public int playerNumber;
+	public int playerNumber;
 
 	private string moveHorizontal;
 	private string moveVertical;
@@ -38,8 +38,8 @@ public class PlayerMovement : MonoBehaviour {
 
 	void Start () {
 
-		moveHorizontal = "moveHorizontal" + playerNumber;
-		moveVertical = "moveVertical" + playerNumber;
+		//moveHorizontal = "moveHorizontal" + playerNumber;
+		//moveVertical = "moveVertical" + playerNumber;
 
 		cursorPointer = Instantiate(cursorPointer);
 
@@ -51,8 +51,14 @@ public class PlayerMovement : MonoBehaviour {
 		ControllerMovingHorizontalAxis = "MovingControllerHorizontal" + playerNumber;
 		ControllerMovingVerticalAxis = "MovingControllerVertical" + playerNumber;
 		*/
-
 	}
+
+    public void setMoves(int playerNumber)
+    {
+        this.playerNumber = playerNumber;
+        moveHorizontal = "moveHorizontal" + playerNumber;
+        moveVertical = "moveVertical" + playerNumber;
+    }
 	
 	void FixedUpdate () {
 		Move ();

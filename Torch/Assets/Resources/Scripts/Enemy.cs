@@ -63,8 +63,8 @@ public class Enemy : MonoBehaviour, IDamagable {
 	public void Die(){
 		Debug.Log(gameObject + " died.");
 
-		//Add a score
-		gameManager.UpdateScore(scoreValue);
+        //Add a score
+        gameManager.updateScore(scoreValue);
 		Destroy (gameObject);
 	}
 }

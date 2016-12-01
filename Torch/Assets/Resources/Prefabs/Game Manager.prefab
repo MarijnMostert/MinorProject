@@ -124,24 +124,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000012150838060}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b0c1c2932e9f444a911ade755863baf, type: 3}
+  m_Script: {fileID: 11500000, guid: ba31937f569c16b4c92b74bd7ebde82e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerManagers:
-  - spawnPoint: {fileID: 0}
-    playerColor: {r: 1, g: 1, b: 1, a: 0}
-    cursorPointer: {fileID: 1000012601283098, guid: 23be7f98c9d1a496d96494fde28dc5f9,
-      type: 2}
-    UI: {fileID: 0}
-    playerNumber: 0
-    playerInstance: {fileID: 0}
-    dead: 0
-    playerMovement: {fileID: 0}
-    playerWeaponController: {fileID: 0}
+  playerManagers: []
   playerPrefab: {fileID: 1000010005094228, guid: 96b70f8172a034350bce5e9b0ef6db4d,
     type: 2}
   torch: {fileID: 114000010962005414, guid: 86f8871f16b6e4321a072873febde5a7, type: 2}
-  torchSpawnPoint: {fileID: 0}
+  torchSpawnPoint: {fileID: 4000010238434374, guid: d3153958a3d7d461c86548c1a70ff1bb,
+    type: 2}
   torchStartingHealth: 100
   torchHealth: 0
   score: 0

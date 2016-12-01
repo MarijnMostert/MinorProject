@@ -25,12 +25,11 @@ public class PlayerManager {
 
 		//Setup movement script
 		playerMovement = playerInstance.GetComponent<PlayerMovement> ();
-		playerMovement.playerNumber = playerNumber;
+        playerMovement.setMoves(playerNumber);
 		playerMovement.cursorPointer = cursorPointer;
-
 		//Setup weapon controller script
 		playerWeaponController = playerInstance.GetComponent<PlayerWeaponController>();
-		playerWeaponController.playerNumber = playerNumber;
+		playerWeaponController.setNumber(playerNumber);
 	}
 
 	void Update(){

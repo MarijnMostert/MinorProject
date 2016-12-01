@@ -22,7 +22,7 @@ public class Torch : InteractableItem, IDamagable {
 	public float randomFactorIntensity;
 	public float randomFactorRange;
 
-	public Canvas UI;
+	public GameObject UI;
 	private Text healthText;
 
 	public GameManager gameManager;

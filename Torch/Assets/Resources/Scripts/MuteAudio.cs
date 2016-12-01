@@ -5,9 +5,10 @@ public class MuteAudio : MonoBehaviour {
 
 	public bool audioMuted;
 	public AudioSource audioSource;
+    public GameObject game_manager;
 
 	void Start(){
-		audioSource = GameObject.Find ("Game Manager").GetComponent<AudioSource> ();
+		audioSource = game_manager.GetComponent<AudioSource> ();
 	}
 
 	public void muteAudio(){
