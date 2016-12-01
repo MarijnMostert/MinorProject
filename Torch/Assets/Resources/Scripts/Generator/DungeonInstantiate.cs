@@ -18,6 +18,8 @@ public class DungeonInstantiate : Object {
     bool start_defined;
     int[] count = new int[2] {0,2};
 
+    public Vector3 startPos;
+
     // Use this for initialization
     public DungeonInstantiate(GameObject floor, GameObject side, GameObject sideAlt1, GameObject sideAlt2, GameObject corner, 
                             GameObject cornerout, GameObject roof, GameObject block, GameObject trap_straight, GameObject trap_crossing, 
@@ -45,11 +47,12 @@ public class DungeonInstantiate : Object {
         this.mazeSize = new int[2] { mazeSize[0] - 2, mazeSize[1] - 2 };
         this.spawner = spawner;
         this.game_manager = game_manager;
-        this.starters_pack = new GameObject[] { player, pause_screen,
+        this.starters_pack = new GameObject[] { pause_screen,
                                                 spawner, torch, cam, ui};
     }
 
     public void createMaze(){
+
         chance_trap_straight = 1f;
         chance_trap_crossing = 1f;
         chance_side_alt1 = 0.2f;
@@ -385,6 +388,7 @@ public class DungeonInstantiate : Object {
         {
             tmp.transform.position = new Vector3(step * start_coor[0], -.7f, step * start_coor[1]);
         }
+        startPos = new Vector3(step * start_coor[0], -.7f, step * start_coor[1]);
 
         //Debug.Log("i:"+start_coor[0]+", j:"+start_coor[1]);
     }      

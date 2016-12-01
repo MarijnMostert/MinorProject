@@ -9,6 +9,7 @@ public class MasterGenerator : Object {
                             portal, end_portal, player, pause_screen,
                             spawner, torch, cam, ui, pointer, chest;
     GameObject game_manager;
+    public DungeonInstantiate dungeon_instantiate;
     int width;// = 100;
 	int height;// = 90;
 	int radius;// = 2;
@@ -35,7 +36,8 @@ public class MasterGenerator : Object {
     }
 
 	// Use this for initialization
-	public void Start () {
+	public void Start ()
+    {
         bool done = false;
 		int donerooms = 0;
 		DungeonGenerator dungeon = null;
@@ -43,7 +45,7 @@ public class MasterGenerator : Object {
         int[] mazeSize = new int[2] {width, height};
         List<p2D> doors = new List<p2D> ();
 
-        DungeonInstantiate dungeon_instantiate = new DungeonInstantiate(floor, side, sideAlt1, sideAlt2, corner, cornerout,
+        dungeon_instantiate = new DungeonInstantiate(floor, side, sideAlt1, sideAlt2, corner, cornerout,
                                                                         roof, block, trap_straight, trap_crossing, trap_box,
                                                                         portal, end_portal, player, pause_screen, game_manager,
                                                                         spawner, torch, cam, ui, pointer, chest, mazeSize);
@@ -61,9 +63,9 @@ public class MasterGenerator : Object {
 			doors = dungeon.getDoorways ();
 			done = dungeon.isDone ();
 			donerooms = dungeon.getRooms ().Count;
-		}	
+		}
 
-		this.endMaze = maze;
+        this.endMaze = maze;
 
 		//Debug.Log(donerooms);		
 		//Debug.Log(maze);
@@ -78,7 +80,8 @@ public class MasterGenerator : Object {
 
         Debug.Log(dungeon_instantiate.print(dungeon_instantiate.getMaze()));
         spawner.GetComponent<Spawner>().importMaze(dungeon_instantiate.getMaze(),mazeSize);
-	}
+
+    }
 
     public int[,] getMaze()
     {

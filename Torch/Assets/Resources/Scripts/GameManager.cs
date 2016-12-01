@@ -43,7 +43,6 @@ public class GameManager : MonoBehaviour {
 
 
     void Awake () {
-
 		//Makes sure this object is not deleted when another scene is loaded.
 		if (Instance != null) {
 			GameObject.Destroy (this.gameObject);
@@ -62,16 +61,17 @@ public class GameManager : MonoBehaviour {
         UI = masterGenerator.ui;
         pauseScreen = masterGenerator.pause_screen;
 
-        torch = Instantiate (torch, torchSpawnPoint.position, torchSpawnPoint.rotation) as Torch;
+        torch = Instantiate (torch, masterGenerator.dungeon_instantiate.startPos, torchSpawnPoint.rotation) as Torch;
 		torch.health = torchStartingHealth;
 		torch.gameManager = this;
         torch.UI = UI;
-
+        
 		//SetUpCameraPart1 ();
 		for (int i = 0; i < playerManagers.Length; i++) {
             Debug.Log("Create Player with id:" + i);
-			playerManagers [i].playerInstance = Instantiate (playerPrefab, playerManagers [i].spawnPoint.position, playerManagers [i].spawnPoint.rotation) as GameObject;
-			playerManagers [i].playerNumber = i + 1;
+            //playerManagers [i].playerInstance = Instantiate (playerPrefab, playerManagers [i].spawnPoint.position, playerManagers [i].spawnPoint.rotation) as GameObject;
+            playerManagers[i].playerInstance = Instantiate(playerPrefab, masterGenerator.dungeon_instantiate.startPos, playerManagers[i].spawnPoint.rotation) as GameObject;
+            playerManagers [i].playerNumber = i + 1;
 			playerManagers [i].Setup ();
 			playerManagers [i].playerMovement.mainCamera = mainCamera;
 		}
