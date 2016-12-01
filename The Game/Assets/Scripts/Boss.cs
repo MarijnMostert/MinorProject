@@ -6,17 +6,17 @@ using UnityEngine.UI;
 public class Boss : MonoBehaviour, IDamagable {
 
 	//Neural Network Attributes
-	public float[,] weights;
+	private float[,] weights;
 	public float[] input;
-	public float[] threshold;
+	private float[] threshold;
 	public float[] actionThreshold;
 	public List<GameObject> bulletsNearby = new List<GameObject>();
-	public int inputNeurons = 6;
+	public int inputNeurons = 8;
 	public int outputNeurons = 7;
-	public float[] rawOutput;
+	private float[] rawOutput;
 	public float[] finalOutput;
-	public GameObject BulletA;
-	public GameObject BulletB;
+	private GameObject BulletA;
+	private GameObject BulletB;
 
 	//Genetic Algorithm Attributes
 	public float timeAlive;
@@ -51,7 +51,7 @@ public class Boss : MonoBehaviour, IDamagable {
 		initialiseThresholds ();
 		initialiseActionThresholds ();
 		initialiseWeights ();
-		target = GameObject.Find ("Player");
+		target = GameObject.Find ("Enemy Ranged");
 //		scoreManager = GameObject.Find("Score Manager").GetComponent<ScoreManager> ();
 	}
 
@@ -138,6 +138,10 @@ public class Boss : MonoBehaviour, IDamagable {
 			input [4] = 1f;
 			input [5] = 1f;
 		}
+
+		//Distance to the center of the room
+		input [6] = normalize (Mathf.Abs(transform.position.z), 25);
+		input [7] = normalize (Mathf.Abs(transform.position.x), 25);
 	}
 
 	//normalize an input to a given value
