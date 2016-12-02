@@ -38,7 +38,7 @@ public class Boss : MonoBehaviour, IDamagable {
 	public GameObject healthBarPrefab;
 	protected Image healthBar;
 	protected ScoreManager scoreManager;
-	protected bool dead;
+	public bool dead;
 
 	//Initialize Boss and Neural Network weights
 	void Start () {
@@ -214,7 +214,7 @@ public class Boss : MonoBehaviour, IDamagable {
 			transform.position = transform.position + speed * Time.deltaTime * new Vector3 (-1f, 0f, 0f);
 		}
 		//move right
-		else if (finalOutput [1] > actionThreshold[1]) {
+		if (finalOutput [1] > actionThreshold[1]) {
 			transform.position = transform.position + speed * Time.deltaTime * new Vector3 (1f, 0f, 0f);
 		}
 		//Move Up
@@ -222,7 +222,7 @@ public class Boss : MonoBehaviour, IDamagable {
 			transform.position = transform.position + speed * Time.deltaTime * new Vector3 (0f, 0f, 1f);
 		}
 		//Move Down
-		else if (finalOutput [3] > actionThreshold[3]) {
+		if (finalOutput [3] > actionThreshold[3]) {
 			transform.position = transform.position + speed * Time.deltaTime * new Vector3 (0f, 0f, -1f);
 		}
 		//Normal Attack

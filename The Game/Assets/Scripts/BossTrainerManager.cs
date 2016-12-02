@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class BossTrainerManager : MonoBehaviour {
 
 	/*
-	static BossTrainerManager instantie;
+	static BossTrainerManager instance;
 	public GameObject bossPrefab;
 	public GameObject gladiatorPrefab;
 	public Transform SpawnPointBoss;
@@ -16,32 +16,31 @@ public class BossTrainerManager : MonoBehaviour {
 	public int amountOfGenerations;
 
 	void Start () {
-		if (instantie != null) {
+		if (instance != null) {
 			GameObject.Destroy (gameObject);
 		} else {
 			GameObject.DontDestroyOnLoad (gameObject);
-			instantie = this;
+			instance = this;
 		}
 
 		StartCoroutine (PopulationLoop ());
 	}
 
-	// This is called from start and will run each phase of the game one after another.
+
+
+	// This is called from start and will run each population one after another
 	private IEnumerator PopulationLoop ()
 	{
-
+		bossNumber = 0;
 		StartCoroutine (BossLoop ());
 
 		generationNumber++;
-
-		// This code is not run until 'RoundEnding' has finished.  At which point, check if a game winner has been found.
+	
 		if (generationNumber == amountOfGenerations){
-			return;
+			return null;
 		}
 		else
 		{
-			// If there isn't a winner yet, restart this coroutine so the loop continues.
-			// Note that this coroutine doesn't yield.  This means that the current version of the GameLoop will end.
 			StartCoroutine (PopulationLoop ());
 		}
 	}
@@ -65,20 +64,15 @@ public class BossTrainerManager : MonoBehaviour {
 
 		UI.text = "Generation: " + generationNumber + " | bossNumber: " + bossNumber;
 
-		// Increment the round number and display text showing the players what round it is.
 		bossNumber++;
+		yield return null;
 	}
 
 	private IEnumerator RoundPlaying ()
 	{
-		// As soon as the round begins playing let the players control the tanks.
-		EnableTankControl ();
 
-		// Clear the text from the screen.
-		m_MessageText.text = string.Empty;
-
-		// While there is not one tank left...
-		while (!OneTankLeft())
+		// While boss is alive.
+		while (!GameObject.FindGameObjectWithTag("Boss").GetComponent<Boss>().dead)
 		{
 			// ... return on the next frame.
 			yield return null;
@@ -88,28 +82,10 @@ public class BossTrainerManager : MonoBehaviour {
 
 	private IEnumerator RoundEnding ()
 	{
-		// Stop tanks from moving.
-		DisableTankControl ();
-
-		// Clear the winner from the previous round.
-		m_RoundWinner = null;
-
-		// See if there is a winner now the round is over.
-		m_RoundWinner = GetRoundWinner ();
-
-		// If there is a winner, increment their score.
-		if (m_RoundWinner != null)
-			m_RoundWinner.m_Wins++;
-
-		// Now the winner's score has been incremented, see if someone has one the game.
-		m_GameWinner = GetGameWinner ();
-
-		// Get a message based on the scores and whether or not there is a game winner and display it.
-		string message = EndMessage ();
-		m_MessageText.text = message;
-
-		// Wait for the specified length of time until yielding control back to the game loop.
-		yield return m_EndWait;
+		//Kill gladiator
+		Destroy(GameObject.FindGameObjectWithTag("Enemy"));
+	
+		yield return null;
 	}
 */
 }

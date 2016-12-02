@@ -258,6 +258,7 @@ GameObject:
   - 33: {fileID: 337005145}
   - 64: {fileID: 337005144}
   - 23: {fileID: 337005143}
+  - 114: {fileID: 337005146}
   m_Layer: 8
   m_Name: Ground
   m_TagString: Untagged
@@ -330,6 +331,17 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 337005141}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &337005146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 337005141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e18987838d4902c40840925e3e46e36f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &475604507
 Prefab:
   m_ObjectHideFlags: 0
@@ -513,7 +525,7 @@ GameObject:
   - 54: {fileID: 599545143}
   m_Layer: 0
   m_Name: Boss
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -545,12 +557,13 @@ MonoBehaviour:
   ratioFactor: 0
   target: {fileID: 1560833785}
   speed: 3
-  startingHealth: 1000
+  startingHealth: 100
   health: 0
   colorBoss: {r: 0, g: 0, b: 0, a: 0}
   scoreValue: 1000
   healthBarPrefab: {fileID: 1000011103493978, guid: c09f065d3cb914281a49e94a9d3e187d,
     type: 2}
+  dead: 0
 --- !u!23 &599545138
 MeshRenderer:
   m_ObjectHideFlags: 0
