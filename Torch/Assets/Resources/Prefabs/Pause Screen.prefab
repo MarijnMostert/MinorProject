@@ -64,7 +64,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1000012082553574
 GameObject:
   m_ObjectHideFlags: 1
@@ -404,6 +404,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioMuted: 0
   audioSource: {fileID: 0}
+  game_manager: {fileID: 0}
 --- !u!114 &114000012540611462
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -29,7 +29,7 @@ public class InteractableItem : NetworkBehaviour {
 	}
 
 	void OnTriggerStay(Collider other){
-		if (other.gameObject.CompareTag ("Player")) {
+		if (other.gameObject.CompareTag ("Player")&&canvas!=null) {
 			canvas.SetActive (true);
 			if (Input.GetButtonDown (interactionButton)) {
 				action (other.gameObject);

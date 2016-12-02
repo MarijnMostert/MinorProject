@@ -82,7 +82,7 @@ public class Spawner : MonoBehaviour {
     {
         while(true)
         {
-            if (!dead && floors!=null)
+            if (!dead)
             {
                 spawnEnemy();
             }

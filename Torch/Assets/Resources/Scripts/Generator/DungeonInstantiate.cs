@@ -7,8 +7,9 @@ public class DungeonInstantiate : Object {
                             roof, block, trap_straight, trap_crossing, 
                             trap_box, portal, end_portal, player, 
                             pause_screen, game_manager, spawner, torch, 
-                            cam, ui, pointer, chest;
-    GameObject[] starters_pack;
+                            cam, ui, pointer, chest, coin, fireball, 
+                            iceball, health;
+    GameObject[] starters_pack, chest_pack;
     GameObject[,] dungeon;
     int[] mazeSize;
     bool[,] maze, import_maze, trapped;
@@ -23,8 +24,9 @@ public class DungeonInstantiate : Object {
     // Use this for initialization
     public DungeonInstantiate(GameObject floor, GameObject side, GameObject sideAlt1, GameObject sideAlt2, GameObject corner, 
                             GameObject cornerout, GameObject roof, GameObject block, GameObject trap_straight, GameObject trap_crossing, 
-                            GameObject trap_box, GameObject portal, GameObject end_portal, GameObject player, GameObject pause_screen, GameObject game_manager,
-                            GameObject spawner, GameObject torch, GameObject cam, GameObject ui, GameObject pointer, GameObject chest, int[] mazeSize)
+                            GameObject trap_box, GameObject portal, GameObject end_portal, GameObject player, GameObject pause_screen, 
+                            GameObject game_manager, GameObject spawner, GameObject torch, GameObject cam, GameObject ui, GameObject pointer, 
+                            GameObject chest, GameObject coin, GameObject fireball, GameObject iceball, GameObject health, int[] mazeSize)
     {
         this.floor = floor;
         this.side = side;
@@ -43,12 +45,12 @@ public class DungeonInstantiate : Object {
         this.ui = ui;
         this.pointer = pointer;
         this.chest = chest;
+        this.chest_pack = new GameObject[] { coin, fireball, iceball, health };
         this.player = player;
         this.mazeSize = new int[2] { mazeSize[0] - 2, mazeSize[1] - 2 };
         this.spawner = spawner;
         this.game_manager = game_manager;
-        this.starters_pack = new GameObject[] { pause_screen,
-                                                spawner, torch, cam, ui};
+        this.starters_pack = new GameObject[] { pause_screen, torch, cam};
     }
 
     public void createMaze(){
@@ -57,7 +59,7 @@ public class DungeonInstantiate : Object {
         chance_trap_crossing = 1f;
         chance_side_alt1 = 0.2f;
         chance_side_alt2 = 0.2f + chance_side_alt1;
-        chance_chest = 0.004f;
+        chance_chest = 0.04f;
         start_defined = false;
         step = 2f;
 
@@ -69,6 +71,7 @@ public class DungeonInstantiate : Object {
         spawner.GetComponent<Spawner>().mapMinZ = 5;
         spawner.GetComponent<Spawner>().mapMaxX = (mazeSize[0]-1)*2*3+5;
         spawner.GetComponent<Spawner>().mapMaxZ = (mazeSize[1] - 1) * 2 * 3 + 5;
+        spawner = Instantiate(spawner, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
 
         //simulate mazecreation
         /*import_maze = new bool[5, 5] {  {false,false,true,false,false},
@@ -85,6 +88,7 @@ public class DungeonInstantiate : Object {
         maze = StretchMatrix(import_maze);
         populateMaze();
         createStartEndPoint();
+        this.spawner.GetComponent<Spawner>().importMaze(maze, mazeSize);
     }
 
     void populateMaze()
@@ -340,7 +344,13 @@ public class DungeonInstantiate : Object {
         float random = Random.value;
         if (random < chance_chest)
         {
-            Instantiate(chest, new Vector3(x * step, -1, z * step), randomQuaternion());
+            GameObject chest_instance = Instantiate(chest, new Vector3(x * step, -1, z * step), randomQuaternion()) as GameObject;
+            int number_of_items = Mathf.RoundToInt(Random.Range(0,4));
+            for (int i = 0; i <= number_of_items; i++)
+            {
+                int item_number = Mathf.RoundToInt(Random.Range(0, chest_pack.Length-1));
+                chest_instance.GetComponent<Chest>().addItem(chest_pack[item_number]);
+            }
         }
     }
 

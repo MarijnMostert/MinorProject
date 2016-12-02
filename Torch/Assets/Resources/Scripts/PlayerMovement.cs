@@ -6,7 +6,7 @@ public class PlayerMovement : MonoBehaviour {
 	public float speed;
 	public LayerMask floorMask;
 	public GameObject cursorPointer;
-	[HideInInspector] public Camera mainCamera;
+	public Camera mainCamera;
 	public int playerNumber;
 
 	private string moveHorizontal;
@@ -83,8 +83,8 @@ public class PlayerMovement : MonoBehaviour {
 
 	private void Turn(){
 
-		//Create a ray from the camera through the cursor on the screen (which will hit the floor)
-		cameraRay = mainCamera.ScreenPointToRay (Input.mousePosition);
+        //Create a ray from the camera through the cursor on the screen (which will hit the floor)
+		cameraRay = Camera.main.ScreenPointToRay (Input.mousePosition);
 
 		//Get the point where the ray intersects with the floor, make that lookdirection
 		if (Physics.Raycast (cameraRay, out floorHit, cameraRayLength, floorMask)) {

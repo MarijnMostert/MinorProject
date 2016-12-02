@@ -51,13 +51,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f168ebd412eb24c2e8fcc6822d9b046e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapMinX: -20
-  mapMaxX: 20
-  mapMinZ: -20
-  mapMaxZ: 20
+  mapMinX: 5
+  mapMaxX: 107
+  mapMinZ: 5
+  mapMaxZ: 107
+  min_radius: 4
+  max_radius: 8
   enemiesToSpawn:
   - {fileID: 114000010852357478, guid: 3d2842cbcc34a40708b20f303dff8f13, type: 2}
   - {fileID: 114000010852357478, guid: 12075c3877f264a8494a195696782ca5, type: 2}
   - {fileID: 114000012497720316, guid: d7fa644b4b5b34aa78537931651f6252, type: 2}
   - {fileID: 114000010249041338, guid: a01cddc94d453437787c65b386ac0c9a, type: 2}
   enemiesPerWave: 5
+  dead: 0

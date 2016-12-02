@@ -7,7 +7,8 @@ public class MasterGenerator : Object {
     public GameObject floor, side, sideAlt1, sideAlt2, corner, cornerout,
                             roof, block, trap_straight, trap_crossing, trap_box,
                             portal, end_portal, player, pause_screen,
-                            spawner, torch, cam, ui, pointer, chest;
+                            spawner, torch, cam, ui, pointer, chest,
+                            coin, fireball, iceball, health;
     GameObject game_manager;
     public DungeonInstantiate dungeon_instantiate;
     int width;// = 100;
@@ -48,7 +49,8 @@ public class MasterGenerator : Object {
         dungeon_instantiate = new DungeonInstantiate(floor, side, sideAlt1, sideAlt2, corner, cornerout,
                                                                         roof, block, trap_straight, trap_crossing, trap_box,
                                                                         portal, end_portal, player, pause_screen, game_manager,
-                                                                        spawner, torch, cam, ui, pointer, chest, mazeSize);
+                                                                        spawner, torch, cam, ui, pointer, chest, coin, 
+                                                                        fireball, iceball, health, mazeSize);
 
 		while (!done) {
 			dungeon = new DungeonGenerator ( width,
@@ -79,7 +81,7 @@ public class MasterGenerator : Object {
         dungeon_instantiate.createMaze();
 
         Debug.Log(dungeon_instantiate.print(dungeon_instantiate.getMaze()));
-        spawner.GetComponent<Spawner>().importMaze(dungeon_instantiate.getMaze(),mazeSize);
+        //spawner.GetComponent<Spawner>().importMaze(dungeon_instantiate.getMaze(),mazeSize);
 
     }
 
@@ -131,5 +133,10 @@ public class MasterGenerator : Object {
         spawner.GetComponent<Spawner>().mapMinX = 5;
         player = Resources.Load("Prefabs/Player", typeof(GameObject)) as GameObject;
         torch = Resources.Load("Prefabs/UI", typeof(GameObject)) as GameObject;
+        coin = Resources.Load("Prefabs/PickUps/Coin", typeof(GameObject)) as GameObject;
+        coin.GetComponent<ScorePickUp>().gameManager = game_manager;
+        fireball = Resources.Load("Prefabs/PickUps/FireBall Weapon PickUp", typeof(GameObject)) as GameObject;
+        iceball = Resources.Load("Prefabs/PickUps/IceBall Weapon PickUp", typeof(GameObject)) as GameObject;
+        health = Resources.Load("Prefabs/PickUps/HealthPickUp", typeof(GameObject)) as GameObject;
     }
 }
