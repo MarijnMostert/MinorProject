@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class GA : MonoBehaviour {
+public class GA {
 
 	public float[,] population;
 	public float[,] chromosomesToReproduce;
@@ -10,6 +10,20 @@ public class GA : MonoBehaviour {
 	public int sizePopulation;
 	public int sizeChromosomes;
 	public int NReproduce;
+
+	public GA(int sizePopulation, int sizeChromosomes){
+		this.sizePopulation = sizePopulation;
+		this.sizeChromosomes = sizeChromosomes;
+	}
+
+	public float[] getChrom(int index){
+		float[] temp = new float[sizeChromosomes] ;
+		for (int i = 0; i < sizeChromosomes; i++) {
+			temp [i] = population [index, i];
+		}
+		return temp;
+	}
+
 
 	// Use this for initialization
 	void Start () {
@@ -20,12 +34,13 @@ public class GA : MonoBehaviour {
 		//Reproduce and replace population
 	}
 
-	void CreatePopulation(){
+	public void CreatePopulation(){
+		Debug.Log ("Create population");
 		population = new float[sizePopulation, sizeChromosomes];
 		for (int i = 0; i < sizePopulation; i++) {
-			float[] x = RandomChromosome ();
-			for (int j = 0; j < x.Length; i++) {
-				population [i, j] = x [j];
+			float[] randchrom = RandomChromosome ();
+			for (int j = 0; j < randchrom.Length; j++) {
+				population [i, j] = randchrom[j];
 			}
 		}
 	}

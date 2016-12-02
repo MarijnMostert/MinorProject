@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Boss : MonoBehaviour, IDamagable {
 
 	//Neural Network Attributes
-	private float[,] weights;
+	public float[,] weights;
 	public float[] input;
 	private float[] threshold;
 	public float[] actionThreshold;
@@ -50,8 +50,8 @@ public class Boss : MonoBehaviour, IDamagable {
 		initialiseArraySizes ();
 		initialiseThresholds ();
 		initialiseActionThresholds ();
-		initialiseWeights ();
-		target = GameObject.Find ("Enemy Ranged");
+		//initialiseWeights ();
+		target = GameObject.FindGameObjectWithTag("Gladiator");
 //		scoreManager = GameObject.Find("Score Manager").GetComponent<ScoreManager> ();
 	}
 
@@ -64,6 +64,19 @@ public class Boss : MonoBehaviour, IDamagable {
 		runNN ();
 		action ();
 	}
+
+	public void initializeWeightsFromChromosome(float[] chromosome){
+		Debug.Log ("initialize weights from chromosome");
+		int counter = 0;
+		weights = new float[inputNeurons, outputNeurons];
+		for (int i = 0; i < inputNeurons; i++) {
+			for (int j = 0; j < outputNeurons; j++) {
+				weights [i, j] = chromosome [counter];
+				counter++;
+			}
+		}
+	}
+
 
 	//Randomly initializes the network tresholds
 	void initialiseThresholds ()
