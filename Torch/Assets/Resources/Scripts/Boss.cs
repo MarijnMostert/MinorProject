@@ -1,0 +1,310 @@
+﻿using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine.UI;
+
+public class Boss : MonoBehaviour, IDamagable {
+
+	//Neural Network Attributes
+	public float[,] weights;
+	public float[] input;
+	private float[] threshold;
+	public float[] actionThreshold;
+	public List<GameObject> bulletsNearby = new List<GameObject>();
+	public int inputNeurons = 8;
+	public int outputNeurons = 7;
+	private float[] rawOutput;
+	public float[] finalOutput;
+	private GameObject BulletA;
+	private GameObject BulletB;
+
+	//Genetic Algorithm Attributes
+	public float timeAlive;
+	public int damageDealt = 0;
+	public int usedAttacks = 0;
+	public int usedSpecAttacks = 0;
+	public float fitness;
+	public float timeAliveFactor;
+	public float damageDealtFactor;
+	public float ratioFactor;
+
+	//Boss Attributes
+	public GameObject target;
+	public float speed;
+	public int startingHealth;
+	public int health;
+	public Color colorBoss;
+	public int scoreValue = 1000;
+	public GameObject healthBarPrefab;
+	protected GameObject healthBar;
+	protected ScoreManager scoreManager;
+	public bool dead;
+
+	//Initialize Boss and Neural Network weights
+	void Start () {
+		dead = false;
+		timeAlive = Time.time;
+		health = startingHealth;
+		colorBoss = transform.GetComponent<MeshRenderer> ().material.color;
+		gameObject.transform.FindChild ("BossShield").gameObject.SetActive (false);
+		initialiseArraySizes ();
+		initialiseThresholds ();
+		initialiseActionThresholds ();
+		//initialiseWeights ();
+		target = GameObject.FindGameObjectWithTag("Gladiator");
+//		scoreManager = GameObject.Find("Score Manager").GetComponent<ScoreManager> ();
+	}
+
+	//Keep facing the player. Run the neural network.
+	void Update () {
+		transform.LookAt (new Vector3 (target.transform.position.x, target.transform.position.y, target.transform.position.z));
+		colorBoss = Color.grey;
+		gameObject.transform.FindChild ("BossShield").gameObject.SetActive (false);
+		selectInputs ();
+		runNN ();
+		action ();
+	}
+
+	public void initializeWeightsFromChromosome(float[] chromosome){
+		Debug.Log ("initialize weights from chromosome");
+		int counter = 0;
+		weights = new float[inputNeurons, outputNeurons];
+		for (int i = 0; i < inputNeurons; i++) {
+			for (int j = 0; j < outputNeurons; j++) {
+				weights [i, j] = chromosome [counter];
+				counter++;
+			}
+		}
+	}
+
+
+	//Randomly initializes the network tresholds
+	void initialiseThresholds ()
+	{
+		threshold = new float[outputNeurons];
+		for (int i = 0; i < threshold.Length; i++) {
+			threshold [i] = Random.value;
+		}
+	}
+
+	//Randomly initializes action tresholds
+	void initialiseActionThresholds(){
+		actionThreshold = new float[outputNeurons];
+		//Action tresholds for moving
+		for (int i = 0; i < 4; i++){
+			actionThreshold [i] = 0.6f;
+		}
+		//Action tresholds for attacking and blocking
+		for (int i = 4; i < actionThreshold.Length; i++) {
+			actionThreshold [i] = 0.8f;
+		}
+	}
+
+	//Randomly initializes network weights
+	void initialiseWeights () {
+		weights = new float[inputNeurons, outputNeurons];
+		for (int i = 0; i < inputNeurons; i++) {
+			for (int j = 0; j < outputNeurons; j++) {
+				weights [i, j] = Random.value;
+			}
+		}
+	}
+
+	//initializes the arrays that will hold environment information and network output
+	void initialiseArraySizes(){
+		input = new float[inputNeurons];
+		rawOutput = new float[outputNeurons];
+		finalOutput = new float[outputNeurons];
+	}
+
+	//Sense the environment and store normalized and capped data
+	void selectInputs () {
+		//normalized player position
+		input [0] = normalize(target.transform.position.x - transform.position.x, 40f);
+		input [1] = normalize(target.transform.position.z - transform.position.z, 40f);
+
+		//cap player position (-1, 1)
+		if (input [0] > 1f)
+			input [0] = 1f;
+		else if (input [0] < -1f)
+			input [0] = -1f;
+
+		if (input [1] > 1f)
+			input [1] = 1f;
+		else if (input [1] < -1f)
+			input [1] = -1f;
+
+		//Two closest bullets
+		findClosestBullets ();
+		if (BulletA != null) {
+			input [2] = normalize(BulletA.transform.position.x - transform.position.x, 100f);
+			input [3] = normalize(BulletA.transform.position.z - transform.position.z, 100f);
+		} else {
+			input [2] = 1f;
+			input [3] = 1f;
+		}
+
+		if (BulletB != null) {
+			input [4] = normalize(BulletB.transform.position.x - transform.position.x, 100);
+			input [5] = normalize(BulletB.transform.position.z - transform.position.z, 100);
+		} else {
+			input [4] = 1f;
+			input [5] = 1f;
+		}
+
+		//Distance to the center of the room
+		input [6] = normalize (Mathf.Abs(transform.position.z), 25);
+		input [7] = normalize (Mathf.Abs(transform.position.x), 25);
+	}
+
+	//normalize an input to a given value
+	float normalize(float value, float max){
+		return value / max;
+	}
+
+	//Finds all bullets currently in scene and pick the two closest
+	void findClosestBullets(){
+		if (bulletsNearby != null) {
+			for (int j = 0; j < bulletsNearby.Count; j++) {
+				if (bulletsNearby [j] == null) {
+					bulletsNearby.Remove(bulletsNearby[j]);
+				}
+			}
+
+			GameObject[] bulletsNearbyA = bulletsNearby.ToArray();
+			if (bulletsNearbyA.Length == 0) {
+				BulletA = null;
+				BulletB = null;
+			} else if (bulletsNearbyA.Length == 1) {
+				BulletA = bulletsNearbyA [0];
+				BulletB = null;
+			} else {
+				BulletA = bulletsNearbyA [0];
+				BulletB = bulletsNearbyA [1];
+				if (bulletsNearbyA.Length > 2) {
+					for (int i = 2; i < bulletsNearbyA.Length; i++) {
+						if (bulletsNearbyA [i] != null) {
+							if (getDist (bulletsNearbyA [i]) < getDist (BulletA)) {
+								BulletA = bulletsNearbyA [i];
+							} else {
+								if (getDist (bulletsNearbyA [i]) < getDist (BulletB)) {
+									BulletB = bulletsNearbyA [i];
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	//Find the distance between Boss and another object
+	float getDist(GameObject other){
+		return (other.transform.position - gameObject.transform.position).magnitude;
+	}
+
+
+	//Runs the Neural network
+	void runNN(){
+		for (int i = 0; i < outputNeurons; i++) {
+			rawOutput[i] = 0;
+			for (int j = 0; j < inputNeurons; j++) {
+				rawOutput [i] += input [j] * weights [j,i];
+			}
+			finalOutput [i] = sigmoid (rawOutput [i] - threshold[i]);
+		}
+	}
+
+	//Returns the sigmoid of a float
+	float sigmoid(float x){
+		return 1 / (1 + Mathf.Exp (-x));
+	}
+
+	//Choose one ore more actions based on network output
+	void action(){
+		//move Left
+		if (finalOutput [0] > actionThreshold[0]) {
+			transform.position = transform.position + speed * Time.deltaTime * new Vector3 (-1f, 0f, 0f);
+		}
+		//move right
+		if (finalOutput [1] > actionThreshold[1]) {
+			transform.position = transform.position + speed * Time.deltaTime * new Vector3 (1f, 0f, 0f);
+		}
+		//Move Up
+		if (finalOutput [2] > actionThreshold[2]) {
+			transform.position = transform.position + speed * Time.deltaTime * new Vector3 (0f, 0f, 1f);
+		}
+		//Move Down
+		if (finalOutput [3] > actionThreshold[3]) {
+			transform.position = transform.position + speed * Time.deltaTime * new Vector3 (0f, 0f, -1f);
+		}
+		//Normal Attack
+		if (finalOutput [4] > actionThreshold[4]) {
+			transform.GetComponent<MeshRenderer>().material.color = Color.red;
+			RangedWeapon weapon = GetComponent<WeaponController>().currentWeapon as RangedWeapon;
+			weapon.Fire ();
+			usedAttacks++;
+		}
+		//Block
+		else if (finalOutput [5] > actionThreshold[5]) {
+			gameObject.transform.FindChild ("BossShield").gameObject.SetActive (true);
+		}
+		//Special Attack
+		else if (finalOutput [6] > actionThreshold[6]) {
+			transform.GetComponent<MeshRenderer>().material.color = Color.blue;
+			RangedWeapon weapon = GetComponent<WeaponController>().currentWeapon as RangedWeapon;
+			weapon.Fire ();
+			usedSpecAttacks++;
+		}
+
+	}
+
+	//Calculate boss fitness and set inactive
+	public void Die(){
+		CalculateFitness ();
+//		scoreManager.updateScore (scoreValue);
+		dead = true;
+		Destroy (healthBar.transform.parent.gameObject);
+		Destroy (gameObject);
+	}
+
+	void CalculateFitness(){
+		float ratio = CalculateRatio();
+		float diffFromIdealRatio = 0.2f - ratio;
+		timeAlive = Time.time - timeAlive;
+
+		fitness = timeAlive * timeAliveFactor + damageDealt * damageDealtFactor + diffFromIdealRatio * ratioFactor;
+	}
+
+	public float CalculateRatio(){
+		if(usedSpecAttacks != 0){
+			return usedAttacks / usedSpecAttacks;
+		}
+		return usedAttacks / (usedSpecAttacks + 1);
+	}
+
+	//For when the enemy object takes damage
+	public void takeDamage(int damage){
+		if (healthBar == null) {
+			InstantiateHealthBar ();
+		}
+
+		//if (healthBar == null) {
+		//	Vector3 healthBarPosition = transform.position + new Vector3 (0, 2, 0);
+		//	GameObject obj = Instantiate (healthBarPrefab, healthBarPosition, transform.rotation) as GameObject;
+		//	healthBar = obj.transform.FindChild ("HealthBar").GetComponent<Image> ();
+		//	obj.GetComponent<Follow> ().target = gameObject;
+		//	healthBar.fillAmount = 1f;
+		//}
+		health -= damage;
+		healthBar.transform.FindChild("HealthBar").GetComponent<Image>().fillAmount = (float)health / startingHealth;
+		//healthBar.fillAmount = (float)health / startingHealth;
+		if (health <= 0)
+			Die ();
+	}
+
+	void InstantiateHealthBar (){
+		Vector3 healthBarPosition = transform.position + new Vector3 (0, 2, 0);
+		healthBar = Instantiate (healthBarPrefab, healthBarPosition, transform.rotation, transform) as GameObject;
+	}
+}

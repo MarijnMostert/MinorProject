@@ -14,6 +14,7 @@ public class LookAtCamera : MonoBehaviour {
 	}
 
 	void lookAtCamera(Camera cam){
-		transform.rotation = cam.transform.rotation;
+		//transform.rotation = cam.transform.rotation;
 	}
+
 }
