@@ -10,8 +10,9 @@ public class RangedWeaponPickUp : MonoBehaviour, IPickUp {
 		if (other.gameObject.CompareTag ("Player")) {
 			GameObject player = other.gameObject;
 			WeaponController playWeapController = player.GetComponent<WeaponController> ();
-			playWeapController.Equip (weaponToEquip);
-			player.GetComponent<Inventory> ().AddWeaponToInventory (weaponToEquip);
+			if (player.GetComponent<Inventory> ().AddWeaponToInventory (weaponToEquip)) {
+				playWeapController.Equip (weaponToEquip);
+			}
 			Destroy (gameObject);
 		}
 	}
