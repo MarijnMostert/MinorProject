@@ -48,7 +48,7 @@ public class Boss : MonoBehaviour, IDamagable {
 		colorBoss = transform.GetComponent<MeshRenderer> ().material.color;
 		gameObject.transform.FindChild ("BossShield").gameObject.SetActive (false);
 		initialiseArraySizes ();
-		initialiseThresholds ();
+		//initialiseThresholds ();
 		initialiseActionThresholds ();
 		//initialiseWeights ();
 		target = GameObject.FindGameObjectWithTag("Gladiator");
@@ -76,6 +76,17 @@ public class Boss : MonoBehaviour, IDamagable {
 			}
 		}
 	}
+
+	public void initializeThresholdsFromChromosome(float[] chromosome){
+		Debug.Log ("initialize thresholds from chromosome");
+		int counter = inputNeurons * outputNeurons;
+		threshold = new float[outputNeurons];
+		for (int i = 0; i < outputNeurons; i++) {
+				threshold [i] = chromosome [counter];
+				counter++;
+		}
+	}
+
 
 
 	//Randomly initializes the network tresholds
@@ -268,12 +279,13 @@ public class Boss : MonoBehaviour, IDamagable {
 		Destroy (gameObject);
 	}
 
-	void CalculateFitness(){
+	public void CalculateFitness(){
 		float ratio = CalculateRatio();
 		float diffFromIdealRatio = 0.2f - ratio;
 		timeAlive = Time.time - timeAlive;
 
 		fitness = timeAlive * timeAliveFactor + damageDealt * damageDealtFactor + diffFromIdealRatio * ratioFactor;
+		GameObject.Find ("Ground").GetComponent<TrainerManager> ().TemporaryFitness = fitness;
 	}
 
 	public float CalculateRatio(){
@@ -288,14 +300,7 @@ public class Boss : MonoBehaviour, IDamagable {
 		if (healthBar == null) {
 			InstantiateHealthBar ();
 		}
-
-		//if (healthBar == null) {
-		//	Vector3 healthBarPosition = transform.position + new Vector3 (0, 2, 0);
-		//	GameObject obj = Instantiate (healthBarPrefab, healthBarPosition, transform.rotation) as GameObject;
-		//	healthBar = obj.transform.FindChild ("HealthBar").GetComponent<Image> ();
-		//	obj.GetComponent<Follow> ().target = gameObject;
-		//	healthBar.fillAmount = 1f;
-		//}
+			
 		health -= damage;
 		healthBar.transform.FindChild("HealthBar").GetComponent<Image>().fillAmount = (float)health / startingHealth;
 		//healthBar.fillAmount = (float)health / startingHealth;

@@ -14,6 +14,7 @@ public class GA {
 	public GA(int sizePopulation, int sizeChromosomes){
 		this.sizePopulation = sizePopulation;
 		this.sizeChromosomes = sizeChromosomes;
+		this.fitness = new float[sizePopulation];
 	}
 
 	public float[] getChrom(int index){
