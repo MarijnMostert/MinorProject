@@ -6,8 +6,7 @@ public class Projectile : MonoBehaviour {
 	public int damage;
 	public float lifeTime;
 	public LayerMask collisionMask;
-
-	private float speed;
+	public float speed;
 
 	void Start () {
 		//Destroy the bullet after lifeTime seconds
@@ -36,13 +35,15 @@ public class Projectile : MonoBehaviour {
 
 	private void onHitObject(RaycastHit hit){
 		IDamagable damagableObject = hit.collider.GetComponent<IDamagable> ();
-	//	GameObject objectHitted = hit.collider.gameObject;
+		GameObject objectHitted = hit.collider.gameObject;
 
 		if (damagableObject != null) {
 			damagableObject.takeDamage (damage);
 			//Debug.Log ("hit " + damagableObject);
 		}
 			
-		Destroy (this.gameObject);
+		if (!objectHitted.CompareTag ("Shield")) {
+			Destroy (this.gameObject);
+		}
 	}
 }
