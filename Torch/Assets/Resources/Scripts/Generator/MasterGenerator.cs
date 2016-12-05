@@ -8,7 +8,8 @@ public class MasterGenerator : Object {
                             roof, block, trap_straight, trap_crossing, trap_box,
                             portal, end_portal, player, pause_screen,
                             spawner, torch, cam, ui, pointer, chest,
-                            coin, fireball, iceball, health, laser, shieldPickUp;
+                            coin, fireball, iceball, health, laser, shieldPickUp,
+							stickyPickUp;
     GameObject game_manager;
     public DungeonInstantiate dungeon_instantiate;
     int width;// = 100;
@@ -50,7 +51,8 @@ public class MasterGenerator : Object {
                                                                         roof, block, trap_straight, trap_crossing, trap_box,
                                                                         portal, end_portal, player, pause_screen, game_manager,
                                                                         spawner, torch, cam, ui, pointer, chest, coin, 
-																		fireball, iceball, health, mazeSize, laser, shieldPickUp);
+																		fireball, iceball, health, mazeSize, laser, shieldPickUp,
+																		stickyPickUp);
 
 		while (!done) {
 			dungeon = new DungeonGenerator ( width,
@@ -140,5 +142,7 @@ public class MasterGenerator : Object {
         health = Resources.Load("Prefabs/PickUps/HealthPickUp", typeof(GameObject)) as GameObject;
 		laser = Resources.Load ("Prefabs/PickUps/Laser Weapon PickUp", typeof(GameObject)) as GameObject;
 		shieldPickUp = Resources.Load ("Prefabs/PickUps/Shield PickUp", typeof(GameObject)) as GameObject;
+		stickyPickUp = Resources.Load ("Prefabs/PickUps/Sticky PickUp", typeof(GameObject)) as GameObject;
+
     }
 }
