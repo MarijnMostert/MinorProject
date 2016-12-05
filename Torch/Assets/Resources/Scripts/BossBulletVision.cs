@@ -12,7 +12,7 @@ public class BossBulletVision : MonoBehaviour {
 	//Sense bullets
 	void OnTriggerEnter(Collider other){
 		if (other.gameObject.CompareTag("Bullet")) {
-			Debug.Log ("Bullet Enter");
+			//Debug.Log ("Bullet Enter");
 			parent.GetComponent<Boss>().bulletsNearby.Add (other.gameObject);
 		}
 	}
@@ -20,7 +20,7 @@ public class BossBulletVision : MonoBehaviour {
 	//sense bullets
 	void OnTriggerStay(Collider other){
 		if(other.gameObject.CompareTag("Bullet") && !parent.GetComponent<Boss>().bulletsNearby.Contains(other.gameObject)){
-			Debug.Log ("Bullet stay");
+			//Debug.Log ("Bullet stay");
 			parent.GetComponent<Boss>().bulletsNearby.Add (other.gameObject);
 		}
 	}
@@ -28,7 +28,7 @@ public class BossBulletVision : MonoBehaviour {
 	//Remove old bullets
 	void OnTriggerExit(Collider other){
 		if (other.gameObject.CompareTag("Bullet")) {
-			Debug.Log ("Bullet exit");
+			//Debug.Log ("Bullet exit");
 			parent.GetComponent<Boss>().bulletsNearby.Remove (other.gameObject);
 		}
 	}

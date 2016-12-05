@@ -40,7 +40,7 @@ public class Projectile : MonoBehaviour {
 
 		if (damagableObject != null) {
 			damagableObject.takeDamage (damage);
-			Debug.Log ("hit " + damagableObject);
+			//Debug.Log ("hit " + damagableObject);
 		}
 			
 		Destroy (this.gameObject);
