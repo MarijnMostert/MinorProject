@@ -11,14 +11,14 @@ public class WeaponController : MonoBehaviour {
 
 
 	protected virtual void Start () {
-		Debug.Log ("Weaponcontroller start");
+		//Debug.Log ("Weaponcontroller start");
 
-		Debug.Log ("inventory ingesteld");
+		//Debug.Log ("inventory ingesteld");
 		inventory = gameObject.GetComponent<Inventory> ();
 
 		weaponHolder = gameObject.transform.FindChild ("Weapon Holder");
 		Equip (startingWeapon);
-		inventory.addToInventory (startingWeapon);
+		inventory.AddWeaponToInventory (startingWeapon);
 	}
 
 	//To Equip another weapon
@@ -32,7 +32,7 @@ public class WeaponController : MonoBehaviour {
 		//Instantiate new weapon and equip it.
 		Weapon newWeapon = Instantiate (weapon, weaponHolder.transform.position, weaponHolder.transform.rotation, weaponHolder) as Weapon;
 		currentWeapon = newWeapon;
-		Debug.Log ("New weapon equipped: " + currentWeapon);
+		//Debug.Log ("New weapon equipped: " + currentWeapon);
 	}
 
 	public void Fire(){

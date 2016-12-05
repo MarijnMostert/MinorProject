@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour {
 	public Canvas UI;
 	public Spawner spawner;
 
-	private Camera mainCamera;
+	public Camera mainCamera;
 
 
 	void Awake () {
@@ -50,7 +50,11 @@ public class GameManager : MonoBehaviour {
 		torch.gameManager = this;
 		torch.UI = UI;
 
-		SetUpCameraPart1 ();
+		if (cameraPrefab != null) {
+			SetUpCameraPart1 ();
+		} else {
+			mainCamera = GameObject.Find ("Camera").GetComponent<Camera> ();
+		}
 		for (int i = 0; i < playerManagers.Length; i++) {
 			playerManagers [i].playerInstance = Instantiate (playerPrefab, playerManagers [i].spawnPoint.position, playerManagers [i].spawnPoint.rotation) as GameObject;
 			playerManagers [i].playerNumber = i + 1;
@@ -60,7 +64,9 @@ public class GameManager : MonoBehaviour {
 
 		camTarget = torch.gameObject;
 		enemyTarget = torch.gameObject;
-		SetUpCameraPart2 ();
+		if (cameraPrefab != null) {
+			SetUpCameraPart2 ();
+		}
 		torch.cam = mainCamera;
 
 		UI.transform.FindChild ("Score Text").GetComponent<Text> ().text = "Score: " + score;

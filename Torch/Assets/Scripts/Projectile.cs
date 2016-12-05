@@ -6,8 +6,9 @@ public class Projectile : MonoBehaviour {
 	public int damage;
 	public float lifeTime;
 	public LayerMask collisionMask;
+	float moveDistance = 0f;
 
-	private float speed;
+	public float speed;
 
 	void Start () {
 		//Destroy the bullet after lifeTime seconds
@@ -15,8 +16,8 @@ public class Projectile : MonoBehaviour {
 	}
 	
 	void FixedUpdate () {
-		float moveDistance = speed * Time.deltaTime;
 		checkCollisions (moveDistance);
+		moveDistance = speed * Time.deltaTime;
 		transform.Translate(Vector3.forward * moveDistance);
 	}
 

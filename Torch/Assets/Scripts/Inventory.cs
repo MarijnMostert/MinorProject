@@ -8,17 +8,23 @@ public class Inventory : MonoBehaviour {
 	public Weapon[] weapons;
 	public List<Weapon> weaponsList;
 	public Weapon emptyWeaponPrefab;
+	public GameObject emptyPowerUpPrefab;
 	public int weaponInventorySize = 10;
+	public int powerUpInventorySize = 3;
 	public Image indicator;
 	private int activeWeapon;
-	//public PowerUps[] powerUps;
+	public GameObject[] powerUps;
 
 	void Start () {
 		indicator = GameObject.Find ("Inventory Indicator").GetComponent<Image> ();
-		weapons = new Weapon[10];
-
+		weapons = new Weapon[weaponInventorySize];
 		for (int i = 0; i < weaponInventorySize; i++) {
 			weapons [i] = emptyWeaponPrefab;
+		}
+
+		powerUps = new GameObject[powerUpInventorySize];
+		for (int i = 0; i < powerUpInventorySize; i++) {
+			powerUps [i] = emptyPowerUpPrefab;
 		}
 	}
 
@@ -28,7 +34,7 @@ public class Inventory : MonoBehaviour {
 		}
 	}
 
-	public void addToInventory(Weapon weapon){
+	public void AddWeaponToInventory(Weapon weapon){
 		for (int i = 0; i < weapons.Length; i++) {
 			if (weapons [i] == weapon) {
 				return;
@@ -47,6 +53,24 @@ public class Inventory : MonoBehaviour {
 				activeWeapon = i;
 
 				Debug.Log (weapon + " added to inventory on key " + i);
+				return;
+			}
+		}
+	}
+
+	public void AddItemToInventory(GameObject powerUp, GameObject player){
+		for (int i = 0; i < powerUps.Length; i++) {
+			if (powerUps [i] == emptyPowerUpPrefab) {
+				GameObject powerUpEquipped = Instantiate (powerUp, player.transform) as GameObject;
+				powerUps [i] = powerUpEquipped;
+				Image icon = GameObject.Find ("PowerUpIcon" + i).GetComponent<Image> ();
+				icon.sprite = powerUp.GetComponent<SpriteRenderer>().sprite;
+
+				Color temp = icon.GetComponent<Image> ().color;
+				temp.a = 1f;
+				icon.GetComponent<Image> ().color = temp;
+
+				Debug.Log (powerUp + " added to inventory on key " + i);
 				return;
 			}
 		}
@@ -73,6 +97,12 @@ public class Inventory : MonoBehaviour {
 			CheckAndEquip (8);
 		if (Input.GetKeyDown (KeyCode.Alpha0))
 			CheckAndEquip (9);
+		if (Input.GetKeyDown (KeyCode.Z))
+			UsePowerUp (0);
+		if (Input.GetKeyDown (KeyCode.X))
+			UsePowerUp (1);
+		if (Input.GetKeyDown (KeyCode.C))
+			UsePowerUp (2);
 	}
 
 	private void CheckAndEquip(int index){
@@ -83,8 +113,19 @@ public class Inventory : MonoBehaviour {
 		}
 	}
 
-	void SetIndicatorPosition(int index){
+	void UsePowerUp(int index){
+		if (powerUps [index] != null) {
+			powerUps [index].SendMessage ("Use");
 
+
+			Image icon = GameObject.Find ("PowerUpIcon" + index).GetComponent<Image> ();
+			Color temp = icon.GetComponent<Image> ().color;
+			temp.a = 0f;
+			icon.GetComponent<Image> ().color = temp;
+
+			powerUps [index] = null;
+
+		}
 	}
 
 
