@@ -3,7 +3,7 @@ using System.Collections;
 
 public class RangedWeaponPickUp : MonoBehaviour, IPickUp {
 
-	public RangedWeapon weaponToEquip;
+	public Weapon weaponToEquip;
 
 	//Equips the IceBall Weapon when picked up.
 	public void OnTriggerEnter(Collider other){
