@@ -34,10 +34,10 @@ public class Inventory : MonoBehaviour {
 		}
 	}
 
-	public void AddWeaponToInventory(Weapon weapon){
+	public bool AddWeaponToInventory(Weapon weapon){
 		for (int i = 0; i < weapons.Length; i++) {
 			if (weapons [i] == weapon) {
-				return;
+				return false;
 			} else if (weapons[i] == emptyWeaponPrefab) {
 				weapons [i] = weapon;
 				Image icon = GameObject.Find ("WeaponIcon" + i).GetComponent<Image>();
@@ -53,9 +53,10 @@ public class Inventory : MonoBehaviour {
 				activeWeapon = i;
 
 				Debug.Log (weapon + " added to inventory on key " + i);
-				return;
+				return true;
 			}
 		}
+		return false;
 	}
 
 	public void AddItemToInventory(GameObject powerUp, GameObject player){
