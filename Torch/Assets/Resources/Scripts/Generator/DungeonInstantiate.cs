@@ -348,7 +348,7 @@ public class DungeonInstantiate : Object {
             int number_of_items = Mathf.RoundToInt(Random.Range(0,4));
             for (int i = 0; i <= number_of_items; i++)
             {
-                int item_number = Mathf.RoundToInt(Random.Range(0, chest_pack.Length-1));
+				int item_number = Random.Range (0, chest_pack.Length);
                 chest_instance.GetComponent<Chest>().addItem(chest_pack[item_number]);
             }
         }
