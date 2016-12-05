@@ -10,7 +10,7 @@ public class ScorePickUp : MonoBehaviour, IPickUp {
 	public void OnTriggerEnter(Collider other){
 		if (other.gameObject.CompareTag ("Player")) {
             gameManager.GetComponent<GameManager>().updateScore(scoreValue);
-            Debug.Log ("Score increased with " + scoreValue + " by picking up " + gameObject);
+//            Debug.Log ("Score increased with " + scoreValue + " by picking up " + gameObject);
 			Destroy (gameObject);
 		}
 	}

@@ -42,7 +42,7 @@ public class Enemy : MonoBehaviour, IDamagable {
 
 	//For when the enemy object takes damage
 	public void takeDamage(int damage){
-		Debug.Log (gameObject + " takes " + damage + " damage.");
+		//Debug.Log (gameObject + " takes " + damage + " damage.");
 
 		if (healthBar == null) {
 			InstantiateHealthBar ();
@@ -61,7 +61,7 @@ public class Enemy : MonoBehaviour, IDamagable {
 
 	//When the enemy's health drops below 0.
 	public void Die(){
-		Debug.Log(gameObject + " died.");
+		//Debug.Log(gameObject + " died.");
 
         //Add a score
 		StopAllCoroutines();

@@ -64,7 +64,7 @@ public class Torch : InteractableItem, IDamagable {
 
 	//For when the torch takes damage
 	public void takeDamage(int damage){
-		Debug.Log (gameObject + " takes " + damage + " damage.");
+//		Debug.Log (gameObject + " takes " + damage + " damage.");
 		health -= damage;
 		updateHealth ();
 
@@ -75,7 +75,7 @@ public class Torch : InteractableItem, IDamagable {
 
 	//For when the player e.g. picks up a healthPickUp.
 	public void heal(int healingAmount){
-		Debug.Log (gameObject + " heals " + healingAmount + "points");
+//		Debug.Log (gameObject + " heals " + healingAmount + "points");
 		health += healingAmount;
 		updateHealth ();
 	}
