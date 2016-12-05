@@ -24,6 +24,7 @@ GameObject:
   - 23: {fileID: 23000012014192378}
   - 114: {fileID: 114000011146783058}
   - 54: {fileID: 54000013757574052}
+  - 114: {fileID: 114000010758174252}
   - 114: {fileID: 114000011305479762}
   - 114: {fileID: 114000011222896024}
   m_Layer: 9
@@ -167,6 +168,26 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114000010758174252
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010005094228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10b7cdd605aef439bbd7ad314c0d6527, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weapons: []
+  weaponsList: []
+  emptyWeaponPrefab: {fileID: 114000010122914344, guid: 97d77214615c4498d896fde0ea7af658,
+    type: 2}
+  emptyPowerUpPrefab: {fileID: 0}
+  weaponInventorySize: 10
+  powerUpInventorySize: 3
+  indicator: {fileID: 0}
+  powerUps: []
 --- !u!114 &114000011146783058
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -213,3 +234,4 @@ MonoBehaviour:
     type: 2}
   currentWeapon: {fileID: 0}
   playerNumber: 0
+  inventory: {fileID: 0}

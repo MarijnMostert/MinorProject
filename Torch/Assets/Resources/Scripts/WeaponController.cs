@@ -4,8 +4,8 @@ using System.Collections;
 public class WeaponController : MonoBehaviour {
 
 	public Weapon startingWeapon;
-
 	public Weapon currentWeapon;
+
 	protected Transform weaponHolder;
 
 	protected virtual void Start () {
@@ -14,7 +14,7 @@ public class WeaponController : MonoBehaviour {
 	}
 
 	//To Equip another weapon
-	public void Equip(Weapon weapon){
+	public virtual void Equip(Weapon weapon){
 
 		//Check if there is already a weapon equipped. If so, destroy it.
 		if (currentWeapon != null) {

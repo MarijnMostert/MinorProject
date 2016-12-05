@@ -4,6 +4,7 @@ using System.Collections;
 public class PlayerWeaponController : WeaponController {
 
 	public int playerNumber;
+	public Inventory inventory;
 
 	private string attackButton;
 //	private string attackButtonController;
@@ -13,6 +14,8 @@ public class PlayerWeaponController : WeaponController {
 
 	new void Start () {
 		base.Start ();
+		inventory = gameObject.GetComponent<Inventory> ();
+		inventory.AddWeaponToInventory (startingWeapon);
 //		attackButtonController = "ControllerAttack" + playerNumber;
 	}
     
