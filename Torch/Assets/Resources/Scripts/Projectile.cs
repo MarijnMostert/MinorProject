@@ -41,32 +41,8 @@ public class Projectile : MonoBehaviour {
 		if (damagableObject != null) {
 			damagableObject.takeDamage (damage);
 			Debug.Log ("hit " + damagableObject);
-		} 
-
-		/*
-		else if (objectHitted.CompareTag("Player")) {
-			objectHitted.transform.FindChild("Torch Holder").FindChild ("Torch").GetComponent<IDamagable> ().takeDamage (damage);
 		}
-		*/
-
-		/*
-			if (objectHitted.layer.ToString ().Equals ("Player")) {
-				GameObject torch;
-
-
-
-				if (objectHitted.CompareTag ("Torch")) {
-					torch = objectHitted;
-				} else {
-					torch = objectHitted.transform.FindChild ("Torch").gameObject;
-				}
-				if (torch != null) {
-					torch.GetComponent<IDamagable> ().takeDamage (damage);
-				}
-			}
-		}
-		*/
-
+			
 		Destroy (this.gameObject);
 	}
 }
