@@ -49,7 +49,7 @@ public class Torch : InteractableItem, IDamagable {
 	
 	void Update () {
 		lightUpdate ();
-		if (Input.GetKeyDown (KeyCode.R) && equipped) {
+		if (Input.GetButtonDown("DropTorch1") && equipped) {
 			releaseTorch ();
 		}
 	}

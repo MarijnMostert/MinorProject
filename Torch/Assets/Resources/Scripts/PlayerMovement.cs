@@ -115,7 +115,7 @@ public class PlayerMovement : MonoBehaviour {
 			//Make y 0 so that the player will not look up or down.
 			lookDirection.y = 0f;
 
-			updateCursorPointer (floorHit);
+			updateCursorPointer (floorHit.point);
 
 			Quaternion playerRotation = Quaternion.LookRotation (lookDirection);
 			transform.rotation = playerRotation;
@@ -136,11 +136,12 @@ public class PlayerMovement : MonoBehaviour {
 		// Apply the transform to the object  
 		var angle = Mathf.Atan2 (turnHorizontalInput, turnVerticalInput) * Mathf.Rad2Deg;
 		transform.rotation = Quaternion.Euler (0, angle, 0);
+		updateCursorPointer (transform.position + transform.forward * 5f);
 	}
 
 	//Updates the position of the crosshairs to the cursor position.
-	private void updateCursorPointer(RaycastHit hit){
-		cursorPointer.transform.position = new Vector3 (hit.point.x, 0.1f, hit.point.z);
+	private void updateCursorPointer(Vector3 position){
+		cursorPointer.transform.position = new Vector3 (position.x, 0.1f, position.z);
 	}
 
 	void UpdateVelocity(){
