@@ -98,11 +98,11 @@ public class Inventory : MonoBehaviour {
 			CheckAndEquip (8);
 		if (Input.GetKeyDown (KeyCode.Alpha0))
 			CheckAndEquip (9);
-		if (Input.GetKeyDown (KeyCode.Z))
+		if (Input.GetButtonDown("PowerUpButton1_1"))
 			UsePowerUp (0);
-		if (Input.GetKeyDown (KeyCode.X))
+		if (Input.GetButtonDown("PowerUpButton2_1"))
 			UsePowerUp (1);
-		if (Input.GetKeyDown (KeyCode.C))
+		if (Input.GetButtonDown("PowerUpButton3_1"))
 			UsePowerUp (2);
 	}
 
