@@ -40,6 +40,8 @@ public class GameManager : MonoBehaviour {
     int maxAmountOfRooms = 5;// = 8;
     int chanceOfRoom = 20;// = 15;
 
+	public Camera homeScreenCamera;
+	public GameObject homeScreenCanvas;
     public Camera mainCamera;
     MasterGenerator masterGenerator;
 
@@ -52,17 +54,22 @@ public class GameManager : MonoBehaviour {
 			GameObject.DontDestroyOnLoad (this.gameObject);
 			Instance = this;
 		}
+		homeScreenCamera = GameObject.Find ("Camera").GetComponent<Camera> ();
+		homeScreenCanvas = GameObject.Find ("Home Screen Canvas");
     }
 
     public void Start(){
 
-		StartGame ();
+		//StartGame ();
 
         //torch = Instantiate (torch, masterGenerator.dungeon_instantiate.startPos, torchSpawnPoint.rotation) as Torch;
 
 	}
 
-	void StartGame(){
+	public void StartGame(){
+		homeScreenCamera.gameObject.SetActive (false);
+		homeScreenCanvas.SetActive (false);
+
 		masterGenerator = new MasterGenerator(this.gameObject, width, height, radius, maxlength, timeout, minAmountOfRooms, maxAmountOfRooms, chanceOfRoom);
 		masterGenerator.LoadPrefabs();
 		masterGenerator.Start();

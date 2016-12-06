@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour {
 	public GameObject cursorPointer;
 	public Camera mainCamera;
 	public int playerNumber;
-	public bool controllerInput;
+	public bool controllerInput = false;
 
 	private string moveHorizontal;
 	private string moveVertical;
@@ -81,9 +81,9 @@ public class PlayerMovement : MonoBehaviour {
 	void FixedUpdate () {
 		Move ();
 		if (controllerInput) {
-			Turn ();
-		} else {
 			TurnController ();
+		} else {
+			Turn ();
 		}
 		UpdateVelocity ();
 	}
