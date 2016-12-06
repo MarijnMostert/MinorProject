@@ -27,7 +27,7 @@ public class DungeonInstantiate : Object {
                             GameObject trap_box, GameObject portal, GameObject end_portal, GameObject player, GameObject pause_screen, 
                             GameObject game_manager, GameObject spawner, GameObject torch, GameObject cam, GameObject pointer, 
 		GameObject chest, GameObject coin, GameObject fireball, GameObject iceball, GameObject health, int[] mazeSize, GameObject laser, GameObject shieldPickUp,
-		GameObject stickyPickUp, GameObject roofGroup)
+		GameObject stickyPickUp, GameObject roofGroup, GameObject wallPickUp)
     {
         this.floor = floor;
         this.side = side;
@@ -45,7 +45,7 @@ public class DungeonInstantiate : Object {
         this.cam = cam;
         this.pointer = pointer;
         this.chest = chest;
-		this.chest_pack = new GameObject[] { coin, fireball, iceball, health, laser, shieldPickUp, stickyPickUp};
+		this.chest_pack = new GameObject[] { coin, fireball, iceball, health, laser, shieldPickUp, stickyPickUp, wallPickUp};
         this.player = player;
         this.mazeSize = new int[2] { mazeSize[0] - 2, mazeSize[1] - 2 };
         this.spawner = spawner;

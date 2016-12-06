@@ -80,6 +80,9 @@ public class Torch : InteractableItem, IDamagable {
 	public void heal(int healingAmount){
 //		Debug.Log (gameObject + " heals " + healingAmount + "points");
 		health += healingAmount;
+		if (health > gameManager.torchHealthMax) {
+			health = gameManager.torchHealthMax;
+		}
 		updateHealth ();
 	}
 		
