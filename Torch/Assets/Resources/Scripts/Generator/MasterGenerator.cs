@@ -7,9 +7,9 @@ public class MasterGenerator : Object {
     public GameObject floor, side, sideAlt1, sideAlt2, corner, cornerout,
                             roof, block, trap_straight, trap_crossing, trap_box,
                             portal, end_portal, player, pause_screen,
-                            spawner, torch, cam, ui, pointer, chest,
+                            spawner, torch, cam, pointer, chest,
                             coin, fireball, iceball, health, laser, shieldPickUp,
-							stickyPickUp;
+							stickyPickUp, roofGroup;
     GameObject game_manager;
     public DungeonInstantiate dungeon_instantiate;
     int width;// = 100;
@@ -50,9 +50,9 @@ public class MasterGenerator : Object {
         dungeon_instantiate = new DungeonInstantiate(floor, side, sideAlt1, sideAlt2, corner, cornerout,
                                                                         roof, block, trap_straight, trap_crossing, trap_box,
                                                                         portal, end_portal, player, pause_screen, game_manager,
-                                                                        spawner, torch, cam, ui, pointer, chest, coin, 
+                                                                        spawner, torch, cam, pointer, chest, coin, 
 																		fireball, iceball, health, mazeSize, laser, shieldPickUp,
-																		stickyPickUp);
+																		stickyPickUp, roofGroup);
 
 		while (!done) {
 			dungeon = new DungeonGenerator ( width,
@@ -130,11 +130,10 @@ public class MasterGenerator : Object {
         cam.GetComponentInChildren<CameraController>().gameManager = game_manager;
         pause_screen = Resources.Load("Prefabs/Pause Screen", typeof(GameObject)) as GameObject;
         pause_screen.GetComponentInChildren<MuteAudio>().game_manager = game_manager;
-        ui = Resources.Load("Prefabs/UI", typeof(GameObject)) as GameObject;
         spawner = Resources.Load("Prefabs/Spawner", typeof(GameObject)) as GameObject;
         spawner.GetComponent<Spawner>().mapMinX = 5;
         player = Resources.Load("Prefabs/Player", typeof(GameObject)) as GameObject;
-        torch = Resources.Load("Prefabs/UI", typeof(GameObject)) as GameObject;
+        torch = Resources.Load("Prefabs/Torch", typeof(GameObject)) as GameObject;
         coin = Resources.Load("Prefabs/PickUps/Coin", typeof(GameObject)) as GameObject;
         coin.GetComponent<ScorePickUp>().gameManager = game_manager;
         fireball = Resources.Load("Prefabs/PickUps/FireBall Weapon PickUp", typeof(GameObject)) as GameObject;
@@ -143,6 +142,7 @@ public class MasterGenerator : Object {
 		laser = Resources.Load ("Prefabs/PickUps/Laser Weapon PickUp", typeof(GameObject)) as GameObject;
 		shieldPickUp = Resources.Load ("Prefabs/PickUps/Shield PickUp", typeof(GameObject)) as GameObject;
 		stickyPickUp = Resources.Load ("Prefabs/PickUps/Sticky PickUp", typeof(GameObject)) as GameObject;
+		roofGroup = Resources.Load ("Prefabs/roofGroup", typeof(GameObject)) as GameObject;
 
     }
 }

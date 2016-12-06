@@ -4,9 +4,10 @@ using System.Collections;
 public class PlayerDamagable : MonoBehaviour, IDamagable {
 
 	public void takeDamage(int damage){
+		//Debug.Log ("Player is taking damage");
 		//GameObject torch = transform.FindChild ("Torch").gameObject;
 		if (hasTorch()) {
-			transform.FindChild("Torch").GetComponent<Torch> ().takeDamage (damage);
+			gameObject.GetComponentInChildren<Torch> ().takeDamage (damage);
 		}
 	}
 
@@ -18,7 +19,8 @@ public class PlayerDamagable : MonoBehaviour, IDamagable {
 		Transform[] transforms = GetComponentsInChildren<Transform>();
 		foreach(Transform t in transforms)
 		{
-			if(t.gameObject.name == "Torch"){
+			if(t.gameObject.CompareTag("Torch")){
+				Debug.Log ("Torch is found in children");
 				return true;
 			}
 		}

@@ -36,14 +36,11 @@ public class Torch : InteractableItem, IDamagable {
 		base.Start ();
 
 		torchLight = transform.GetComponentInChildren<Light> ();
-		healthText = UI.transform.FindChild("Health Text").GetComponent<Text>();
 
 		torchLight.intensity = startingIntensity;
 		intensityBase = startingIntensity;
 		randomFactorIntensity = startingIntensity / 8f;
 		randomFactorRange = range / 8f;
-
-		healthText.text = "Health: " + health;
 
 		//Every 'flickerInterval' seconds the 'torchFlickering()' function is called.
 		InvokeRepeating ("torchFlickering", 0f, flickerInterval);
@@ -89,6 +86,9 @@ public class Torch : InteractableItem, IDamagable {
 
 	//Update the health of the torch.
 	private void updateHealth(){
+		if (healthText == null) {
+			healthText = UI.transform.Find ("Health Text").GetComponent<Text> ();
+		}
 		healthText.text = "Health: " + health;
 		gameManager.torchHealth = health;
 	}
@@ -97,7 +97,7 @@ public class Torch : InteractableItem, IDamagable {
 		Debug.Log ("Player dies");
 		health = 0;
 		CancelInvoke ();
-	//	gameManager.GameOver ();
+		Time.timeScale = 0;
 	}
 
 	public override void action(GameObject triggerObject){
@@ -123,4 +123,13 @@ public class Torch : InteractableItem, IDamagable {
 	void dropTorch(){
 		//Moet nog gemaakt worden.
 	}
+
+	/*void InitializeLinkWithUI(){
+		UI = GameObject.Find ("UI");
+		if (UI != null) {
+			healthText = UI.transform.FindChild ("Health Text").GetComponent<Text> ();
+			healthText.text = "Health: " + health;
+		}
+	}
+	*/
 }

@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour {
 	public GameObject playerPrefab;
 
 	//Torch data
+	public GameObject torchObject;
 	public Torch torch;
 	public Transform torchSpawnPoint;
 	public int torchStartingHealth;
@@ -58,10 +59,13 @@ public class GameManager : MonoBehaviour {
 
     public void Start(){
 
-        UI = masterGenerator.ui;
+		UI = Instantiate (UI);
         pauseScreen = masterGenerator.pause_screen;
 
-        torch = Instantiate (torch, masterGenerator.dungeon_instantiate.startPos, torchSpawnPoint.rotation) as Torch;
+		torch = torchObject.GetComponent<Torch>();
+		camTarget = torchObject;
+		enemyTarget = torchObject;
+        //torch = Instantiate (torch, masterGenerator.dungeon_instantiate.startPos, torchSpawnPoint.rotation) as Torch;
 		torch.health = torchStartingHealth;
 		torch.gameManager = this;
         torch.UI = UI;
@@ -76,8 +80,8 @@ public class GameManager : MonoBehaviour {
 			playerManagers [i].playerMovement.mainCamera = mainCamera;
 		}
 
-		camTarget = torch.gameObject;
-		enemyTarget = torch.gameObject;
+	//	camTarget = torch.gameObject;
+	//	enemyTarget = torch.gameObject;
 		//SetUpCameraPart2 ();
 		torch.cam = mainCamera;
 
