@@ -24,17 +24,7 @@ public class GA {
 		}
 		return temp;
 	}
-
-
-	// Use this for initialization
-	void Start () {
-		CreatePopulation ();
-		//Make every Chromosome fight
-		//Calculate Fitness
-		//Pick chromosomes to reproduce
-		//Reproduce and replace population
-	}
-
+		
 	public void CreatePopulation(){
 		Debug.Log ("Create population");
 		population = new float[sizePopulation, sizeChromosomes];

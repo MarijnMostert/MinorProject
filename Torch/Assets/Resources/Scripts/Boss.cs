@@ -103,7 +103,7 @@ public class Boss : MonoBehaviour, IDamagable {
 		actionThreshold = new float[outputNeurons];
 		//Action tresholds for moving
 		for (int i = 0; i < 4; i++){
-			actionThreshold [i] = 0.6f;
+			actionThreshold [i] = 0.5f;
 		}
 		//Action tresholds for attacking and blocking
 		for (int i = 4; i < actionThreshold.Length; i++) {
