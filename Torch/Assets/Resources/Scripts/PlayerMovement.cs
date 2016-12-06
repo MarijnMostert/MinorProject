@@ -70,7 +70,7 @@ public class PlayerMovement : MonoBehaviour {
     }
 
 	void Update(){
-		if (Input.GetKeyDown (KeyCode.U)) {
+		if (Input.GetButtonDown("ToggleInput" + playerNumber)) {
 			if (controllerInput)
 				controllerInput = false;
 			else
