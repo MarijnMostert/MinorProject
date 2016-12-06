@@ -14,9 +14,9 @@ public class TrainerManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		genAlg = new GA (5, 63);
+		genAlg = new GA (10, 5, 63);
 		genAlg.CreatePopulation ();
-		StartCoroutine(Population (10));
+		StartCoroutine(Population (genAlg.numberOfGenerations));
 	}
 
 	private IEnumerator Population(int generations){
@@ -35,7 +35,7 @@ public class TrainerManager : MonoBehaviour {
 			Instantiate (gladiatorPrefab, SpawnPointGladiator.position, SpawnPointGladiator.rotation);
 			Instantiate (bossPrefab, SpawnPointBoss.position, SpawnPointBoss.rotation);
 			GameObject.FindGameObjectWithTag ("Boss").GetComponent<Boss> ().initializeWeightsFromChromosome (genAlg.getChrom (BossCounter - 1));
-			GameObject.FindGameObjectWithTag("Boss").GetComponent<Boss> ().initializeThresholdsFromChromosome (genAlg.getChrom(BossCounter - 1));
+			GameObject.FindGameObjectWithTag ("Boss").GetComponent<Boss> ().initializeThresholdsFromChromosome (genAlg.getChrom(BossCounter - 1));
 
 			//while boss is alive
 			while (GameObject.FindGameObjectWithTag ("Boss") != null) {
@@ -52,5 +52,9 @@ public class TrainerManager : MonoBehaviour {
 
 			Debug.Log ("ff wachten...");
 			yield return new WaitForSeconds (4f);
+		}
+		Debug.Log ("Generation complete");
+		genAlg.Reproduce ();
+		yield return new WaitForSeconds (4f);
 	}
 }

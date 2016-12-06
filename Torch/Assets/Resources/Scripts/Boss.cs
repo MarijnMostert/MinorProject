@@ -285,6 +285,9 @@ public class Boss : MonoBehaviour, IDamagable {
 		timeAlive = Time.time - timeAlive;
 
 		fitness = timeAlive * timeAliveFactor + damageDealt * damageDealtFactor + diffFromIdealRatio * ratioFactor;
+		if (fitness < 0){
+			fitness = 0;
+		}
 		GameObject.Find ("Ground").GetComponent<TrainerManager> ().TemporaryFitness = fitness;
 	}
 
