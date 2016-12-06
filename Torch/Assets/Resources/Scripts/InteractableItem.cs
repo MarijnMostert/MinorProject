@@ -9,7 +9,7 @@ public class InteractableItem : NetworkBehaviour {
 
 	[HideInInspector] 
 	public Camera cam;
-	private GameObject canvas;
+	protected GameObject canvas;
 	private string interactionButton;
 
 	public virtual void Start () {
@@ -33,7 +33,7 @@ public class InteractableItem : NetworkBehaviour {
 			canvas.SetActive (true);
 			if (Input.GetButtonDown (interactionButton)) {
 				action (other.gameObject);
-				Destroy (canvas);
+				canvas.gameObject.SetActive (false);
 			}
 		}
 	}
@@ -52,5 +52,9 @@ public class InteractableItem : NetworkBehaviour {
 
 	public virtual void action(GameObject triggerObject){
 		Debug.Log ("Interactable item action triggered)");
+	}
+
+	void OnDestroy(){
+		Destroy (canvas);
 	}
 }

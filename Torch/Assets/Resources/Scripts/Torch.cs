@@ -49,6 +49,9 @@ public class Torch : InteractableItem, IDamagable {
 	
 	void Update () {
 		lightUpdate ();
+		if (Input.GetKeyDown (KeyCode.R) && equipped) {
+			releaseTorch ();
+		}
 	}
 
 	//Update the light intensity and range according to the health
@@ -104,27 +107,28 @@ public class Torch : InteractableItem, IDamagable {
 	}
 
 	public override void action(GameObject triggerObject){
-		if (equipped) {
-			dropTorch ();
-		} else {
-			pickUpTorch (triggerObject);
-		}
+		pickUpTorch (triggerObject);
 	}
 
 	void pickUpTorch(GameObject triggerObject){
-		Debug.Log ("Torch has been picked up");
+		Debug.Log ("Torch is picked up");
 		transform.SetParent (triggerObject.transform.FindChild("Torch Holder"));
 		transform.position = transform.parent.position;
 		transform.rotation = transform.parent.rotation;
 		gameManager.enemyTarget = triggerObject;
 		gameManager.camTarget = triggerObject;
-
-
+		canvas.SetActive (false);
 		equipped = true;
 	}
 
-	void dropTorch(){
-		//Moet nog gemaakt worden.
+	void releaseTorch(){
+		Debug.Log ("Torch is dropped");
+		transform.parent = null;
+		gameManager.enemyTarget = gameObject;
+		gameManager.camTarget = gameObject;
+		equipped = false;
+		canvas.transform.position = new Vector3 (transform.position.x, floatingHeight, transform.position.z);
+		canvas.SetActive (true);
 	}
 
 	/*void InitializeLinkWithUI(){
