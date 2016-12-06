@@ -6,7 +6,7 @@ public class PlayerDamagable : MonoBehaviour, IDamagable {
 	public void takeDamage(int damage){
 		//Debug.Log ("Player is taking damage");
 		//GameObject torch = transform.FindChild ("Torch").gameObject;
-		if (hasTorch()) {
+		if (hasTorch ()) {
 			gameObject.GetComponentInChildren<Torch> ().takeDamage (damage);
 		}
 	}
@@ -20,7 +20,6 @@ public class PlayerDamagable : MonoBehaviour, IDamagable {
 		foreach(Transform t in transforms)
 		{
 			if(t.gameObject.CompareTag("Torch")){
-				Debug.Log ("Torch is found in children");
 				return true;
 			}
 		}

@@ -129,5 +129,14 @@ public class Inventory : MonoBehaviour {
 		}
 	}
 
+	public bool isFull(){
+		for (int i = 0; i < powerUps.Length; i++) {
+			if (powerUps [i] == emptyPowerUpPrefab || powerUps[i] == null) {
+				return false;
+			}
+		}
+		return true;
+	}
+
 
 }

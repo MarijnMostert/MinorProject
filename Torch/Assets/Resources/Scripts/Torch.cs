@@ -27,6 +27,7 @@ public class Torch : InteractableItem, IDamagable {
 
 	public GameManager gameManager;
 	public bool equipped = false;
+	public bool isDamagable = true;
 
 	void Awake(){
 		
@@ -61,12 +62,14 @@ public class Torch : InteractableItem, IDamagable {
 
 	//For when the torch takes damage
 	public void takeDamage(int damage){
+		if (isDamagable) {
 //		Debug.Log (gameObject + " takes " + damage + " damage.");
-		health -= damage;
-		updateHealth ();
+			health -= damage;
+			updateHealth ();
 
-		if (health <= 0) {
-			Die ();
+			if (health <= 0) {
+				Die ();
+			}
 		}
 	}
 
