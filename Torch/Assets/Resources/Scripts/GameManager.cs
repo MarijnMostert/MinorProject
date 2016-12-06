@@ -52,41 +52,42 @@ public class GameManager : MonoBehaviour {
 			GameObject.DontDestroyOnLoad (this.gameObject);
 			Instance = this;
 		}
-        Initialize();
-        masterGenerator = new MasterGenerator(this.gameObject, width, height, radius, maxlength, timeout, minAmountOfRooms, maxAmountOfRooms, chanceOfRoom);
-        masterGenerator.LoadPrefabs();
-        masterGenerator.Start();
     }
 
     public void Start(){
 
-		UI = Instantiate (UI);
-        pauseScreen = masterGenerator.pause_screen;
+		StartGame ();
 
+        //torch = Instantiate (torch, masterGenerator.dungeon_instantiate.startPos, torchSpawnPoint.rotation) as Torch;
+
+	}
+
+	void StartGame(){
+		masterGenerator = new MasterGenerator(this.gameObject, width, height, radius, maxlength, timeout, minAmountOfRooms, maxAmountOfRooms, chanceOfRoom);
+		masterGenerator.LoadPrefabs();
+		masterGenerator.Start();
+		pauseScreen = masterGenerator.pause_screen;
+		UI = Instantiate (UI);
 		torch = torchObject.GetComponent<Torch>();
 		camTarget = torchObject;
 		enemyTarget = torchObject;
-        //torch = Instantiate (torch, masterGenerator.dungeon_instantiate.startPos, torchSpawnPoint.rotation) as Torch;
 		torch.health = torchStartingHealth;
 		torch.gameManager = this;
-        torch.UI = UI;
-        
-		//SetUpCameraPart1 ();
+		torch.UI = UI;
+
 		for (int i = 0; i < playerManagers.Length; i++) {
-            Debug.Log("Create Player with id:" + i);
-            //playerManagers [i].playerInstance = Instantiate (playerPrefab, playerManagers [i].spawnPoint.position, playerManagers [i].spawnPoint.rotation) as GameObject;
-            playerManagers[i].playerInstance = Instantiate(playerPrefab, masterGenerator.dungeon_instantiate.startPos, playerManagers[i].spawnPoint.rotation) as GameObject;
-            playerManagers [i].playerNumber = i + 1;
+			Debug.Log("Create Player with id:" + i);
+			//playerManagers [i].playerInstance = Instantiate (playerPrefab, playerManagers [i].spawnPoint.position, playerManagers [i].spawnPoint.rotation) as GameObject;
+			playerManagers[i].playerInstance = Instantiate(playerPrefab, masterGenerator.dungeon_instantiate.startPos, playerManagers[i].spawnPoint.rotation) as GameObject;
+			playerManagers [i].playerNumber = i + 1;
 			playerManagers [i].Setup ();
 			playerManagers [i].playerMovement.mainCamera = mainCamera;
 		}
 
-	//	camTarget = torch.gameObject;
-	//	enemyTarget = torch.gameObject;
-		//SetUpCameraPart2 ();
 		torch.cam = mainCamera;
-
 		UI.transform.FindChild ("Score Text").GetComponent<Text> ().text = "Score: " + score;
+
+
 	}
 	
 	void Update () {
