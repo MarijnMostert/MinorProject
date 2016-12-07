@@ -17,8 +17,7 @@ public class Floor : Object {
 
     public bool checkFloor(float x, float z)
     {
-        return true;
-        //return (MinX < x && x < MaxX) && (MinZ < z && z < MaxZ);
+        return (MinX < x && x < MaxX) && (MinZ < z && z < MaxZ);
     }
 
     public bool equals(float x, float z)

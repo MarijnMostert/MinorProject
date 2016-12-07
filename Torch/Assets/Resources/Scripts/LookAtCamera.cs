@@ -10,7 +10,9 @@ public class LookAtCamera : MonoBehaviour {
 	}
 
 	void Update(){
-		lookAtCamera (cam);
+		if (cam != null) {
+			lookAtCamera (cam);
+		}
 	}
 
 	void lookAtCamera(Camera cam){

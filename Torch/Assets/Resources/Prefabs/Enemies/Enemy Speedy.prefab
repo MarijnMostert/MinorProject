@@ -26,7 +26,7 @@ GameObject:
   - 114: {fileID: 114000010852357478}
   m_Layer: 10
   m_Name: Enemy Speedy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -99,6 +99,7 @@ MonoBehaviour:
   scoreValue: 10
   healthBarPrefab: {fileID: 1000011103493978, guid: 0ee5528024a8b489ab0eb87d79456ab4,
     type: 2}
+  speed: 0
   health: 0
   navMeshAgent: {fileID: 0}
 --- !u!136 &136000012254614112

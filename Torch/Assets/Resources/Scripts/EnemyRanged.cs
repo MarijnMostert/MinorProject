@@ -38,6 +38,7 @@ public class EnemyRanged : Enemy {
 			weapon = weaponController.currentWeapon as RangedWeapon;
 		}
 		weapon.Fire ();
+		lastAttackTime = Time.time;
 	}
 
 	private bool canSeeTarget(){

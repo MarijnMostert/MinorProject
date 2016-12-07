@@ -34,10 +34,10 @@ public class Inventory : MonoBehaviour {
 		}
 	}
 
-	public void AddWeaponToInventory(Weapon weapon){
+	public bool AddWeaponToInventory(Weapon weapon){
 		for (int i = 0; i < weapons.Length; i++) {
 			if (weapons [i] == weapon) {
-				return;
+				return false;
 			} else if (weapons[i] == emptyWeaponPrefab) {
 				weapons [i] = weapon;
 				Image icon = GameObject.Find ("WeaponIcon" + i).GetComponent<Image>();
@@ -53,9 +53,10 @@ public class Inventory : MonoBehaviour {
 				activeWeapon = i;
 
 				Debug.Log (weapon + " added to inventory on key " + i);
-				return;
+				return true;
 			}
 		}
+		return false;
 	}
 
 	public void AddItemToInventory(GameObject powerUp, GameObject player){
@@ -77,6 +78,10 @@ public class Inventory : MonoBehaviour {
 	}
 
 	void Update(){
+		if (Input.GetButtonDown ("NextWeapon1"))
+			NextWeapon ();
+		if (Input.GetButtonDown ("PrevWeapon1"))
+			PrevWeapon ();
 		if (Input.GetKeyDown (KeyCode.Alpha1))
 			CheckAndEquip (0);
 		if (Input.GetKeyDown (KeyCode.Alpha2))
@@ -97,11 +102,11 @@ public class Inventory : MonoBehaviour {
 			CheckAndEquip (8);
 		if (Input.GetKeyDown (KeyCode.Alpha0))
 			CheckAndEquip (9);
-		if (Input.GetKeyDown (KeyCode.Z))
+		if (Input.GetButtonDown("PowerUpButton1_1"))
 			UsePowerUp (0);
-		if (Input.GetKeyDown (KeyCode.X))
+		if (Input.GetButtonDown("PowerUpButton2_1"))
 			UsePowerUp (1);
-		if (Input.GetKeyDown (KeyCode.C))
+		if (Input.GetButtonDown("PowerUpButton3_1"))
 			UsePowerUp (2);
 	}
 
@@ -110,6 +115,18 @@ public class Inventory : MonoBehaviour {
 			Equip(index);
 			indicator.transform.position = GameObject.Find ("WeaponIcon" + index).transform.position;
 			activeWeapon = index;
+		}
+	}
+
+	void NextWeapon(){
+		if (activeWeapon != 9) {
+			CheckAndEquip (activeWeapon + 1);
+		}
+	}
+
+	void PrevWeapon(){
+		if(activeWeapon != 0) {
+			CheckAndEquip (activeWeapon - 1);
 		}
 	}
 
@@ -126,6 +143,15 @@ public class Inventory : MonoBehaviour {
 			powerUps [index] = null;
 
 		}
+	}
+
+	public bool isFull(){
+		for (int i = 0; i < powerUps.Length; i++) {
+			if (powerUps [i] == emptyPowerUpPrefab || powerUps[i] == null) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 

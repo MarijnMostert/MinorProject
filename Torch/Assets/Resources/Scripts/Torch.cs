@@ -27,6 +27,7 @@ public class Torch : InteractableItem, IDamagable {
 
 	public GameManager gameManager;
 	public bool equipped = false;
+	public bool isDamagable = true;
 
 	void Awake(){
 		
@@ -36,14 +37,11 @@ public class Torch : InteractableItem, IDamagable {
 		base.Start ();
 
 		torchLight = transform.GetComponentInChildren<Light> ();
-		healthText = UI.transform.FindChild("Health Text").GetComponent<Text>();
 
 		torchLight.intensity = startingIntensity;
 		intensityBase = startingIntensity;
 		randomFactorIntensity = startingIntensity / 8f;
 		randomFactorRange = range / 8f;
-
-		healthText.text = "Health: " + health;
 
 		//Every 'flickerInterval' seconds the 'torchFlickering()' function is called.
 		InvokeRepeating ("torchFlickering", 0f, flickerInterval);
@@ -51,6 +49,9 @@ public class Torch : InteractableItem, IDamagable {
 	
 	void Update () {
 		lightUpdate ();
+		if (Input.GetButtonDown("DropTorch1") && equipped) {
+			releaseTorch ();
+		}
 	}
 
 	//Update the light intensity and range according to the health
@@ -64,19 +65,24 @@ public class Torch : InteractableItem, IDamagable {
 
 	//For when the torch takes damage
 	public void takeDamage(int damage){
-		Debug.Log (gameObject + " takes " + damage + " damage.");
-		health -= damage;
-		updateHealth ();
+		if (isDamagable) {
+//		Debug.Log (gameObject + " takes " + damage + " damage.");
+			health -= damage;
+			updateHealth ();
 
-		if (health <= 0) {
-			Die ();
+			if (health <= 0) {
+				Die ();
+			}
 		}
 	}
 
 	//For when the player e.g. picks up a healthPickUp.
 	public void heal(int healingAmount){
-		Debug.Log (gameObject + " heals " + healingAmount + "points");
+//		Debug.Log (gameObject + " heals " + healingAmount + "points");
 		health += healingAmount;
+		if (health > gameManager.torchHealthMax) {
+			health = gameManager.torchHealthMax;
+		}
 		updateHealth ();
 	}
 		
@@ -89,6 +95,9 @@ public class Torch : InteractableItem, IDamagable {
 
 	//Update the health of the torch.
 	private void updateHealth(){
+		if (healthText == null) {
+			healthText = UI.transform.Find ("Health Text").GetComponent<Text> ();
+		}
 		healthText.text = "Health: " + health;
 		gameManager.torchHealth = health;
 	}
@@ -97,30 +106,40 @@ public class Torch : InteractableItem, IDamagable {
 		Debug.Log ("Player dies");
 		health = 0;
 		CancelInvoke ();
-	//	gameManager.GameOver ();
+		Time.timeScale = 0;
 	}
 
 	public override void action(GameObject triggerObject){
-		if (equipped) {
-			dropTorch ();
-		} else {
-			pickUpTorch (triggerObject);
-		}
+		pickUpTorch (triggerObject);
 	}
 
 	void pickUpTorch(GameObject triggerObject){
-		Debug.Log ("Torch has been picked up");
+		Debug.Log ("Torch is picked up");
 		transform.SetParent (triggerObject.transform.FindChild("Torch Holder"));
 		transform.position = transform.parent.position;
 		transform.rotation = transform.parent.rotation;
 		gameManager.enemyTarget = triggerObject;
 		gameManager.camTarget = triggerObject;
-
-
+		canvas.SetActive (false);
 		equipped = true;
 	}
 
-	void dropTorch(){
-		//Moet nog gemaakt worden.
+	void releaseTorch(){
+		Debug.Log ("Torch is dropped");
+		transform.parent = null;
+		gameManager.enemyTarget = gameObject;
+		gameManager.camTarget = gameObject;
+		equipped = false;
+		canvas.transform.position = new Vector3 (transform.position.x, floatingHeight, transform.position.z);
+		canvas.SetActive (true);
 	}
+
+	/*void InitializeLinkWithUI(){
+		UI = GameObject.Find ("UI");
+		if (UI != null) {
+			healthText = UI.transform.FindChild ("Health Text").GetComponent<Text> ();
+			healthText.text = "Health: " + health;
+		}
+	}
+	*/
 }

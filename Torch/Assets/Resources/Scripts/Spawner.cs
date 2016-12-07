@@ -16,6 +16,7 @@ public class Spawner : MonoBehaviour {
     private GameObject torch;
 
     Floors floors;
+	public float timeBetweenEnemySpawn = 3f;
     public bool dead;
 //	private int rangeX, rangeZ;
 
@@ -41,7 +42,8 @@ public class Spawner : MonoBehaviour {
 
 	void spawnEnemy(){
 		Enemy enemy = enemiesToSpawn [Random.Range (0, enemiesToSpawn.Length)];
-		Instantiate (enemy, getPosition(), transform.rotation);
+		Vector3 position = getPosition ();
+		Instantiate (enemy, position, transform.rotation);
 	}
 
     Vector3 getPosition()
@@ -86,7 +88,7 @@ public class Spawner : MonoBehaviour {
             {
                 spawnEnemy();
             }
-            yield return new WaitForSecondsRealtime(3f);
+			yield return new WaitForSecondsRealtime(timeBetweenEnemySpawn);
 
         }
     }

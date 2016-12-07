@@ -295,12 +295,12 @@ MonoBehaviour:
   usedAttacks: 0
   usedSpecAttacks: 0
   fitness: 0
-  timeAliveFactor: 0
-  damageDealtFactor: 0
-  ratioFactor: 0
+  timeAliveFactor: 1
+  damageDealtFactor: 1
+  ratioFactor: 1
   target: {fileID: 0}
   speed: 5
-  startingHealth: 1000
+  startingHealth: 100
   health: 0
   colorBoss: {r: 0, g: 0, b: 0, a: 0}
   scoreValue: 1000

@@ -16,22 +16,17 @@ public class EnemyGrunt : Enemy {
 	
 	// Update is called once per frame
 	void Update () {
-		if (gameManager.enemyTarget != null && (Time.time - lastAttackTime) > attackCooldown) {
+		if (gameManager.enemyTarget != null && distanceToTarget () < attackRange && (Time.time - lastAttackTime) > attackCooldown) {
 			attack ();
 		}
 	}
 
 	//If the player is close enough to the torch it will do damage
 	private void attack(){
-		float distance = distanceToTarget ();
-		if(distance < attackRange){
-			gameManager.enemyTarget.GetComponent<IDamagable> ().takeDamage (attackDamage);
-			/*if (target.CompareTag ("Torch") || target.CompareTag("Player")) {
-				target.GetComponent<IDamagable> ().takeDamage (attackDamage);
-			}
-				*/
-			lastAttackTime = Time.time;
-		}
+		IDamagable damagableObject = gameManager.enemyTarget.GetComponent<IDamagable> ();
+		damagableObject.takeDamage (attackDamage);
+		//Debug.Log (damagableObject);
+		lastAttackTime = Time.time;
 	}
 
 	//A Coroutine for chasing a target
