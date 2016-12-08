@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour {
     int maxAmountOfRooms = 5;// = 8;
     int chanceOfRoom = 20;// = 15;
 
-	public GameObject homeScreenCanvas;
+	//public GameObject homeScreenCanvas;
 	public GameObject loadingScreenCanvas;
 	public GameObject homeScreen;
     public Camera mainCamera;
@@ -59,24 +59,20 @@ public class GameManager : MonoBehaviour {
 			GameObject.DontDestroyOnLoad (this.gameObject);
 			Instance = this;
 		}
-		homeScreenCanvas = GameObject.Find ("Home Screen Canvas");
+		//homeScreenCanvas = GameObject.Find ("Home Screen Canvas");
 		homeScreen = GameObject.Find ("HomeScreen");
 		audioSource = GetComponent<AudioSource> ();
     }
 
     public void Start(){
-
-		//StartGame ();
-
-        //torch = Instantiate (torch, masterGenerator.dungeon_instantiate.startPos, torchSpawnPoint.rotation) as Torch;
-
+		
 	}
 
 	public void StartGame(){
 		audioSource.clip = audioDungeon;
 		audioSource.Play ();
 		homeScreen.SetActive (false);
-		homeScreenCanvas.SetActive (false);
+		//homeScreenCanvas.SetActive (false);
 		loadingScreenCanvas.SetActive (true);
 
 		masterGenerator = new MasterGenerator(this.gameObject, width, height, radius, maxlength, timeout, minAmountOfRooms, maxAmountOfRooms, chanceOfRoom);
