@@ -8,11 +8,17 @@ public class PlayerMovement : MonoBehaviour {
 	public GameObject cursorPointer;
 	public Camera mainCamera;
 	public int playerNumber;
+	public bool controllerInput;
 
 	private string moveHorizontal;
 	private string moveVertical;
 	private float HorizontalInput;
 	private float VerticalInput;
+
+	private string turnHorizontal;
+	private string turnVertical;
+	private float turnHorizontalInput;
+	private float turnVerticalInput;
 
 	private float cameraRayLength = 200f;
 	private RaycastHit floorHit;
@@ -58,11 +64,27 @@ public class PlayerMovement : MonoBehaviour {
         this.playerNumber = playerNumber;
         moveHorizontal = "moveHorizontal" + playerNumber;
         moveVertical = "moveVertical" + playerNumber;
+
+		turnHorizontal = "turnHorizontal" + playerNumber;
+		turnVertical = "turnVertical" + playerNumber;
     }
+
+	void Update(){
+		if (Input.GetButtonDown("ToggleInput" + playerNumber)) {
+			if (controllerInput)
+				controllerInput = false;
+			else
+				controllerInput = true;
+		}
+	}
 	
 	void FixedUpdate () {
 		Move ();
-		Turn ();
+		if (controllerInput) {
+			Turn ();
+		} else {
+			TurnController ();
+		}
 		UpdateVelocity ();
 	}
 		
@@ -93,17 +115,33 @@ public class PlayerMovement : MonoBehaviour {
 			//Make y 0 so that the player will not look up or down.
 			lookDirection.y = 0f;
 
-			updateCursorPointer (floorHit);
+			updateCursorPointer (floorHit.point);
 
 			Quaternion playerRotation = Quaternion.LookRotation (lookDirection);
 			transform.rotation = playerRotation;
 		}
+	}
 
+	private void TurnController(){
+		turnHorizontalInput = Input.GetAxis (turnHorizontal);
+		turnVerticalInput = Input.GetAxis (turnVertical);
+
+		// We are going to read the input every frame
+		Vector3 input = new Vector3 (turnHorizontalInput, 0.0f, turnVerticalInput);
+
+		if (input.sqrMagnitude < 0.1f) {
+			return;
+		}
+
+		// Apply the transform to the object  
+		var angle = Mathf.Atan2 (turnHorizontalInput, turnVerticalInput) * Mathf.Rad2Deg;
+		transform.rotation = Quaternion.Euler (0, angle, 0);
+		updateCursorPointer (transform.position + transform.forward * 5f);
 	}
 
 	//Updates the position of the crosshairs to the cursor position.
-	private void updateCursorPointer(RaycastHit hit){
-		cursorPointer.transform.position = new Vector3 (hit.point.x, 0.1f, hit.point.z);
+	private void updateCursorPointer(Vector3 position){
+		cursorPointer.transform.position = new Vector3 (position.x, 0.1f, position.z);
 	}
 
 	void UpdateVelocity(){
@@ -125,24 +163,9 @@ public class PlayerMovement : MonoBehaviour {
 //OUDE CONTROLS.
 //WORDEN NIET GEBRUIKT OP DIT MOMENT.
 
+
+
 /*
-	private void TurnController(){
-		ControllerTurningHorizontalInput = Input.GetAxis (ppM.turnHorizontalAxis);
-		ControllerTurningVerticalInput = Input.GetAxis (ppM.turnVerticalAxis);
-
-		// We are going to read the input every frame
-		Vector3 vNewInput = new Vector3 (ControllerTurningHorizontalInput, 0.0f, ControllerTurningVerticalInput);
-
-		// Only do work if meaningful
-		if (vNewInput.sqrMagnitude < 0.1f) {
-			return;
-		}
-
-		// Apply the transform to the object  
-		var angle = Mathf.Atan2 (ControllerTurningHorizontalInput, ControllerTurningVerticalInput) * Mathf.Rad2Deg;
-		transform.rotation = Quaternion.Euler (0, angle, 0);
-	}
-
 	private void TurnMouse(){
 
 		//Create a ray from the camera through the cursor on the screen (which will hit the floor)

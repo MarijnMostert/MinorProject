@@ -12,11 +12,10 @@ public class Enemy : MonoBehaviour, IDamagable {
 	public float attackRange = 1f;
 	public int scoreValue = 10;
 	public GameObject healthBarPrefab;
+	[HideInInspector] public float speed;
 
-	[SerializeField]
-	protected int health;
-	[SerializeField]
-	protected NavMeshAgent navMeshAgent;
+	[SerializeField] protected int health;
+	[SerializeField] protected NavMeshAgent navMeshAgent;
 	protected float lastAttackTime = 0f;
 	protected GameObject healthBar;
 	protected GameManager gameManager;
@@ -28,6 +27,7 @@ public class Enemy : MonoBehaviour, IDamagable {
 
 	protected virtual void Start () {
 		health = startingHealth;
+		speed = gameObject.GetComponent<NavMeshAgent> ().speed;
 	}
 
 	//Get the distance between the enemy and the torch
