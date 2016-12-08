@@ -24,7 +24,7 @@ GameObject:
   - 23: {fileID: 23000010458413816}
   - 114: {fileID: 114000012347710446}
   m_Layer: 11
-  m_Name: Dark Projectile 1
+  m_Name: SpecialProjectile
   m_TagString: EnemyProjectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38,7 +38,7 @@ Transform:
   m_GameObject: {fileID: 1000011777544246}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.2168, y: 0.75, z: 3.1205986}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalScale: {x: 3, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
@@ -56,7 +56,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 1da4243e275304726afb756a5746a3fe, type: 2}
+  - {fileID: 2100000, guid: 67e7c0740c5d10c44a41b420d0d630fa, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
@@ -102,7 +102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b7416781957a445795c69362da14211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
+  damage: 30
   lifeTime: 30
   collisionMask:
     serializedVersion: 2
