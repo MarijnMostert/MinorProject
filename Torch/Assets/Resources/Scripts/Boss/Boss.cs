@@ -29,6 +29,8 @@ public class Boss : MonoBehaviour, IDamagable {
 	public float ratioFactor;
 
 	//Boss Attributes
+	public Projectile normalProjectile;
+	public Projectile specialProjectile;
 	public GameObject target;
 	public float speed;
 	public int startingHealth;
@@ -59,7 +61,6 @@ public class Boss : MonoBehaviour, IDamagable {
 	void Update () {
 		transform.LookAt (new Vector3 (target.transform.position.x, target.transform.position.y, target.transform.position.z));
 		colorBoss = Color.grey;
-		gameObject.transform.FindChild ("BossShield").gameObject.SetActive (false);
 		selectInputs ();
 		runNN ();
 		action ();
@@ -252,19 +253,19 @@ public class Boss : MonoBehaviour, IDamagable {
 		//Normal Attack
 		if (finalOutput [4] > actionThreshold[4]) {
 			transform.GetComponent<MeshRenderer>().material.color = Color.red;
-			RangedWeapon weapon = GetComponent<WeaponController>().currentWeapon as RangedWeapon;
-			weapon.Fire ();
+			GetComponent<WeaponController> ().currentWeapon.GetComponent<RangedWeapon> ().setProjectile (normalProjectile, 0.2f, 9);
+			GetComponent<WeaponController> ().Fire ();
 			usedAttacks++;
 		}
 		//Block
 		else if (finalOutput [5] > actionThreshold[5]) {
-			gameObject.transform.FindChild ("BossShield").gameObject.SetActive (true);
+			gameObject.GetComponent<BossBlock>().Block();
 		}
 		//Special Attack
 		else if (finalOutput [6] > actionThreshold[6]) {
 			transform.GetComponent<MeshRenderer>().material.color = Color.blue;
-			RangedWeapon weapon = GetComponent<WeaponController>().currentWeapon as RangedWeapon;
-			weapon.Fire ();
+			GetComponent<WeaponController> ().currentWeapon.GetComponent<RangedWeapon> ().setProjectile (specialProjectile, 2, 30);
+			GetComponent<WeaponController> ().Fire ();
 			usedSpecAttacks++;
 		}
 

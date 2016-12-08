@@ -73,8 +73,9 @@ GameObject:
   - 65: {fileID: 65000013342104090}
   - 23: {fileID: 23000013512202492}
   - 114: {fileID: 114000011582654994}
-  - 114: {fileID: 114000010867685136}
   - 54: {fileID: 54000014172191018}
+  - 114: {fileID: 114000013165508896}
+  - 114: {fileID: 114000011281377804}
   m_Layer: 10
   m_Name: Boss
   m_TagString: Boss
@@ -248,7 +249,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114000010867685136
+--- !u!114 &114000010922820380
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012741807124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8e226de83e07fd4d9d8ac9bfc8aa335, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114000011281377804
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -262,17 +274,6 @@ MonoBehaviour:
   startingWeapon: {fileID: 114000013339538176, guid: eb2eaefbd4cf747a6842a07638b7a891,
     type: 2}
   currentWeapon: {fileID: 0}
---- !u!114 &114000010922820380
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012741807124}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8e226de83e07fd4d9d8ac9bfc8aa335, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114000011582654994
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -307,6 +308,19 @@ MonoBehaviour:
   healthBarPrefab: {fileID: 1000011103493978, guid: 0ee5528024a8b489ab0eb87d79456ab4,
     type: 2}
   dead: 0
+--- !u!114 &114000013165508896
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000014279397446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91500a0a276f6f945aec74dc1b3c2560, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BlockTime: 0
+  CooldownTime: 0
 --- !u!135 &135000010130256674
 SphereCollider:
   m_ObjectHideFlags: 1

@@ -13,6 +13,14 @@ public class RangedWeapon : Weapon {
 		lastFireTime = Time.time;
 	}
 
+	//This method is used by the boss to switch its attack
+	public void setProjectile(Projectile newProjectile, float cooldown, float projSpeed){
+		this.cooldown = cooldown;
+		this.projectileSpeed = projSpeed;
+		this.projectile = newProjectile;
+	}
+		
+
 	//Shooting a projectile
 	public override void Fire(){
 		if ((Time.time - lastFireTime) > cooldown) {
