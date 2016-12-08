@@ -8,7 +8,7 @@ public class PlayerMovement : MonoBehaviour {
 	public GameObject cursorPointer;
 	public Camera mainCamera;
 	public int playerNumber;
-	public bool controllerInput;
+	public bool controllerInput = false;
 
 	private string moveHorizontal;
 	private string moveVertical;
@@ -24,8 +24,17 @@ public class PlayerMovement : MonoBehaviour {
 	private RaycastHit floorHit;
 	private Ray cameraRay;
 
+	private GameObject controllerButtons;
+	private GameObject keyboardButtons;
+
 	[SerializeField] private float velocity;
 	private Vector3 prevPos = new Vector3 (0, 0, 0);
+
+	void Awake(){
+		controllerButtons = GameObject.Find ("Controller Buttons");
+		controllerButtons.SetActive (false);
+		keyboardButtons = GameObject.Find ("Key Buttons");
+	}
 
 	/*
 	private string HorizontalAxis;
@@ -71,19 +80,25 @@ public class PlayerMovement : MonoBehaviour {
 
 	void Update(){
 		if (Input.GetButtonDown("ToggleInput" + playerNumber)) {
-			if (controllerInput)
+			if (controllerInput) {
 				controllerInput = false;
-			else
+				controllerButtons.SetActive (false);
+				keyboardButtons.SetActive (true);
+			} else {
 				controllerInput = true;
+				controllerButtons.SetActive (true);
+				keyboardButtons.SetActive (false);
+			}
 		}
 	}
 	
 	void FixedUpdate () {
 		Move ();
 		if (controllerInput) {
-			Turn ();
-		} else {
 			TurnController ();
+			updateCursorPointer (transform.position + transform.forward * 5f);
+		} else {
+			Turn ();
 		}
 		UpdateVelocity ();
 	}
@@ -136,7 +151,6 @@ public class PlayerMovement : MonoBehaviour {
 		// Apply the transform to the object  
 		var angle = Mathf.Atan2 (turnHorizontalInput, turnVerticalInput) * Mathf.Rad2Deg;
 		transform.rotation = Quaternion.Euler (0, angle, 0);
-		updateCursorPointer (transform.position + transform.forward * 5f);
 	}
 
 	//Updates the position of the crosshairs to the cursor position.

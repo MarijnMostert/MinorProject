@@ -29,7 +29,7 @@ public class endPortal : MonoBehaviour {
         if (other.gameObject.CompareTag("Player"))
         {
             Debug.Log("endportal");
-            GameObject[] chests = GameObject.FindGameObjectsWithTag("chest");
+            GameObject[] chests = GameObject.FindGameObjectsWithTag("Chest");
             Debug.Log("chest length: "+ chests.Length);
             if (chests == null || chests.Length == 0)
             {

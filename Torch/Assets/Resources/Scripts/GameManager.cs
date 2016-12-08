@@ -40,8 +40,15 @@ public class GameManager : MonoBehaviour {
     int maxAmountOfRooms = 5;// = 8;
     int chanceOfRoom = 20;// = 15;
 
+	//public GameObject homeScreenCanvas;
+	public GameObject loadingScreenCanvas;
+	public GameObject homeScreen;
     public Camera mainCamera;
     MasterGenerator masterGenerator;
+
+	public AudioSource audioSource;
+	public AudioClip audioHomeScreen;
+	public AudioClip audioDungeon;
 
 
     void Awake () {
@@ -52,45 +59,51 @@ public class GameManager : MonoBehaviour {
 			GameObject.DontDestroyOnLoad (this.gameObject);
 			Instance = this;
 		}
-        Initialize();
-        masterGenerator = new MasterGenerator(this.gameObject, width, height, radius, maxlength, timeout, minAmountOfRooms, maxAmountOfRooms, chanceOfRoom);
-        masterGenerator.LoadPrefabs();
-        masterGenerator.Start();
+		//homeScreenCanvas = GameObject.Find ("Home Screen Canvas");
+		homeScreen = GameObject.Find ("HomeScreen");
+		audioSource = GetComponent<AudioSource> ();
     }
 
     public void Start(){
+		
+	}
 
+	public void StartGame(){
+		audioSource.clip = audioDungeon;
+		audioSource.Play ();
+		homeScreen.SetActive (false);
+		//homeScreenCanvas.SetActive (false);
+		loadingScreenCanvas.SetActive (true);
+
+		masterGenerator = new MasterGenerator(this.gameObject, width, height, radius, maxlength, timeout, minAmountOfRooms, maxAmountOfRooms, chanceOfRoom);
+		masterGenerator.LoadPrefabs();
+		masterGenerator.Start();
+		pauseScreen = masterGenerator.pause_screen;
 		UI = Instantiate (UI);
-        pauseScreen = masterGenerator.pause_screen;
-
 		torch = torchObject.GetComponent<Torch>();
 		camTarget = torchObject;
 		enemyTarget = torchObject;
-        //torch = Instantiate (torch, masterGenerator.dungeon_instantiate.startPos, torchSpawnPoint.rotation) as Torch;
 		torch.health = torchStartingHealth;
 		torch.gameManager = this;
-        torch.UI = UI;
-        
-		//SetUpCameraPart1 ();
+		torch.UI = UI;
+
 		for (int i = 0; i < playerManagers.Length; i++) {
-            Debug.Log("Create Player with id:" + i);
-            //playerManagers [i].playerInstance = Instantiate (playerPrefab, playerManagers [i].spawnPoint.position, playerManagers [i].spawnPoint.rotation) as GameObject;
-            playerManagers[i].playerInstance = Instantiate(playerPrefab, masterGenerator.dungeon_instantiate.startPos, playerManagers[i].spawnPoint.rotation) as GameObject;
-            playerManagers [i].playerNumber = i + 1;
+			Debug.Log("Create Player with id:" + i);
+			//playerManagers [i].playerInstance = Instantiate (playerPrefab, playerManagers [i].spawnPoint.position, playerManagers [i].spawnPoint.rotation) as GameObject;
+			playerManagers[i].playerInstance = Instantiate(playerPrefab, masterGenerator.dungeon_instantiate.startPos, playerManagers[i].spawnPoint.rotation) as GameObject;
+			playerManagers [i].playerNumber = i + 1;
 			playerManagers [i].Setup ();
 			playerManagers [i].playerMovement.mainCamera = mainCamera;
 		}
 
-	//	camTarget = torch.gameObject;
-	//	enemyTarget = torch.gameObject;
-		//SetUpCameraPart2 ();
 		torch.cam = mainCamera;
-
 		UI.transform.FindChild ("Score Text").GetComponent<Text> ().text = "Score: " + score;
+
+		loadingScreenCanvas.SetActive (false);
 	}
 	
 	void Update () {
-		LoadScene ();
+		//LoadScene ();
 		Pause ();
 	}
 
