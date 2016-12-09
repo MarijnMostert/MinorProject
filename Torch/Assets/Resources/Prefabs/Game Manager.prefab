@@ -51,7 +51,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300001, guid: 33975d0ba3fac476cb4987efebc83a81,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: 3d02f9a386baf4bea855ca88493ab372, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 7e404d8a72ce34ec98bd3c27ed1782f8, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -127,14 +127,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba31937f569c16b4c92b74bd7ebde82e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerManagers: []
+  playerManagers:
+  - spawnPoint: {fileID: 4000013396432608}
+    playerColor: {r: 0, g: 0, b: 0, a: 0}
+    cursorPointer: {fileID: 0}
+    playerNumber: 0
+    playerInstance: {fileID: 0}
+    dead: 0
+    playerMovement: {fileID: 0}
+    playerWeaponController: {fileID: 0}
   playerPrefab: {fileID: 1000010005094228, guid: 96b70f8172a034350bce5e9b0ef6db4d,
     type: 2}
+  torchObject: {fileID: 0}
   torch: {fileID: 114000010962005414, guid: 86f8871f16b6e4321a072873febde5a7, type: 2}
   torchSpawnPoint: {fileID: 4000010238434374, guid: d3153958a3d7d461c86548c1a70ff1bb,
     type: 2}
   torchStartingHealth: 100
   torchHealth: 0
+  torchHealthMax: 150
   score: 0
   paused: 0
   pauseScreen: {fileID: 1000011647558472, guid: cf3e1c810a2e94ddfa98fdcb76202dbb,
@@ -143,5 +153,11 @@ MonoBehaviour:
     type: 2}
   camTarget: {fileID: 0}
   enemyTarget: {fileID: 0}
-  UI: {fileID: 223000014191461016, guid: f54fe47253ee3425ab4109dba3089bc9, type: 2}
-  spawner: {fileID: 114000013909291790, guid: 62bbed1a9074748b7b5679fb496bf1e8, type: 2}
+  UI: {fileID: 1000011980605034, guid: ce12bf815c9354cd38ffdb78d7b15e2b, type: 2}
+  loadingScreenCanvas: {fileID: 0}
+  homeScreen: {fileID: 0}
+  homeScreenCam: {fileID: 0}
+  mainCamera: {fileID: 0}
+  audioSource: {fileID: 0}
+  audioHomeScreen: {fileID: 8300000, guid: 7e404d8a72ce34ec98bd3c27ed1782f8, type: 3}
+  audioDungeon: {fileID: 8300000, guid: 3d02f9a386baf4bea855ca88493ab372, type: 3}

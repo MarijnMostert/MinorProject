@@ -6,7 +6,7 @@ public class DungeonInstantiate : Object {
     GameObject floor, side, sideAlt1, sideAlt2, corner, cornerout,
                             roof, block, trap_straight, trap_crossing, 
                             trap_box, portal, end_portal, player, 
-                            pause_screen, game_manager, spawner, torch, 
+                            game_manager, spawner, torch, 
                             cam, pointer, chest, coin, fireball, 
                             iceball, health, roofGroup;
     GameObject[] starters_pack, chest_pack;
@@ -19,12 +19,14 @@ public class DungeonInstantiate : Object {
     bool start_defined;
     int[] count = new int[2] {0,2};
 
+	private GameObject Dungeon;
+
     public Vector3 startPos;
 
     // Use this for initialization
     public DungeonInstantiate(GameObject floor, GameObject side, GameObject sideAlt1, GameObject sideAlt2, GameObject corner, 
                             GameObject cornerout, GameObject roof, GameObject block, GameObject trap_straight, GameObject trap_crossing, 
-                            GameObject trap_box, GameObject portal, GameObject end_portal, GameObject player, GameObject pause_screen, 
+                            GameObject trap_box, GameObject portal, GameObject end_portal, GameObject player, 
                             GameObject game_manager, GameObject spawner, GameObject torch, GameObject cam, GameObject pointer, 
 		GameObject chest, GameObject coin, GameObject fireball, GameObject iceball, GameObject health, int[] mazeSize, GameObject laser, GameObject shieldPickUp,
 		GameObject stickyPickUp, GameObject roofGroup, GameObject wallPickUp)
@@ -50,7 +52,7 @@ public class DungeonInstantiate : Object {
         this.mazeSize = new int[2] { mazeSize[0] - 2, mazeSize[1] - 2 };
         this.spawner = spawner;
         this.game_manager = game_manager;
-        this.starters_pack = new GameObject[] { pause_screen, torch, cam};
+		this.starters_pack = new GameObject[] {torch, cam};
 		this.roofGroup = roofGroup;
     }
 
@@ -64,15 +66,19 @@ public class DungeonInstantiate : Object {
         start_defined = false;
         step = 2f;
 
+		//Instantiate empty Dungeon GameObject
+		Dungeon = Instantiate(new GameObject());
+		Dungeon.name = "Dungeon";
+
         //import starters pack
-        InstantiateStarterPack(starters_pack, new Vector3(0, 0, 0),Quaternion.identity);
+		InstantiateStarterPack(starters_pack, new Vector3(0, 0, 0),Quaternion.identity);
         //Instantiate(scene_manager, new Vector3(0, 0, 0), Quaternion.identity);
 
         spawner.GetComponent<Spawner>().mapMinX = 5;
         spawner.GetComponent<Spawner>().mapMinZ = 5;
         spawner.GetComponent<Spawner>().mapMaxX = (mazeSize[0]-1)*2*3+5;
         spawner.GetComponent<Spawner>().mapMaxZ = (mazeSize[1] - 1) * 2 * 3 + 5;
-        spawner = Instantiate(spawner, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
+		spawner = Instantiate(spawner, new Vector3(0, 0, 0), Quaternion.identity, Dungeon.transform) as GameObject;
 
         //simulate mazecreation
         /*import_maze = new bool[5, 5] {  {false,false,true,false,false},
@@ -94,7 +100,7 @@ public class DungeonInstantiate : Object {
 
     void populateMaze()
     {	
-		GameObject dungeonEnvironment = Instantiate (new GameObject ());
+		GameObject dungeonEnvironment = Instantiate (new GameObject (), Dungeon.transform) as GameObject;
 		dungeonEnvironment.name = "Dungeon Environment";
 		roofGroup = Instantiate(roofGroup, dungeonEnvironment.transform) as GameObject;
 		GameObject floors = Instantiate (new GameObject (), dungeonEnvironment.transform) as GameObject;
@@ -362,7 +368,7 @@ public class DungeonInstantiate : Object {
         float random = Random.value;
         if (random < chance_chest)
         {
-            GameObject chest_instance = Instantiate(chest, new Vector3(x * step, -1, z * step), randomQuaternion()) as GameObject;
+			GameObject chest_instance = Instantiate(chest, new Vector3(x * step, -1, z * step), randomQuaternion(), Dungeon.transform) as GameObject;
             int number_of_items = Random.Range(0,4);
             for (int i = 0; i <= number_of_items; i++)
             {
@@ -402,13 +408,13 @@ public class DungeonInstantiate : Object {
         int[] surroundings = getSurroundings(start_coor[0], start_coor[1]);
         int type = getSum(surroundings);
 
-        GameObject start_GO = Instantiate(portal, new Vector3(step * start_coor[0], -1, step * start_coor[1]), findRot(type, surroundings)) as GameObject;
+		GameObject start_GO = Instantiate(portal, new Vector3(step * start_coor[0], -1, step * start_coor[1]), findRot(type, surroundings), Dungeon.transform) as GameObject;
         start_GO.transform.Translate(Vector3.forward);
 
         int[] end_coor = pickRandomCoor();
         int[] end_surroundings = getSurroundings(end_coor[0], end_coor[1]);
         int end_type = getSum(end_surroundings);
-        GameObject end_GO = Instantiate(end_portal, new Vector3(step * end_coor[0], 1, step * end_coor[1]), findRot(end_type, end_surroundings)) as GameObject;
+		GameObject end_GO = Instantiate(end_portal, new Vector3(step * end_coor[0], 1, step * end_coor[1]), findRot(end_type, end_surroundings), Dungeon.transform) as GameObject;
         start_GO.transform.Translate(Vector3.forward);
 
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
@@ -455,11 +461,11 @@ public class DungeonInstantiate : Object {
         return maze;
     }
 
-    void InstantiateStarterPack(GameObject[] starters_pack, Vector3 pos, Quaternion rot)
+	void InstantiateStarterPack(GameObject[] starters_pack, Vector3 pos, Quaternion rot)
     {
         foreach(GameObject item in starters_pack)
         {
-			GameObject temp = Instantiate(item, pos, rot) as GameObject;
+			GameObject temp = Instantiate(item, pos, rot, Dungeon.transform) as GameObject;
 			if (temp.CompareTag ("Torch")) {
 				GameObject.Find ("Game Manager").GetComponent<GameManager> ().torchObject = temp;
 			}

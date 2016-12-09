@@ -1474,11 +1474,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!4 &1349752569 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4000013396432608, guid: 8e8fb98cee864437995eb9c0b0548acd,
-    type: 2}
-  m_PrefabInternal: {fileID: 1810587749}
 --- !u!114 &1389436525 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114000012126162182, guid: 8e8fb98cee864437995eb9c0b0548acd,
@@ -1588,11 +1583,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 114000012126162182, guid: 8e8fb98cee864437995eb9c0b0548acd,
-        type: 2}
-      propertyPath: playerManagers.Array.size
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4000013396432608, guid: 8e8fb98cee864437995eb9c0b0548acd, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1627,46 +1617,9 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114000012126162182, guid: 8e8fb98cee864437995eb9c0b0548acd,
         type: 2}
-      propertyPath: playerManagers.Array.data[0].spawnPoint
-      value: 
-      objectReference: {fileID: 1349752569}
-    - target: {fileID: 114000012126162182, guid: 8e8fb98cee864437995eb9c0b0548acd,
-        type: 2}
-      propertyPath: playerPrefab
-      value: 
-      objectReference: {fileID: 1000010005094228, guid: 96b70f8172a034350bce5e9b0ef6db4d,
-        type: 2}
-    - target: {fileID: 114000012126162182, guid: 8e8fb98cee864437995eb9c0b0548acd,
-        type: 2}
-      propertyPath: UI
-      value: 
-      objectReference: {fileID: 1000011980605034, guid: ce12bf815c9354cd38ffdb78d7b15e2b,
-        type: 2}
-    - target: {fileID: 114000012126162182, guid: 8e8fb98cee864437995eb9c0b0548acd,
-        type: 2}
-      propertyPath: waitingScreenCanvas
-      value: 
-      objectReference: {fileID: 1663564954}
-    - target: {fileID: 114000012126162182, guid: 8e8fb98cee864437995eb9c0b0548acd,
-        type: 2}
       propertyPath: loadingScreenCanvas
       value: 
       objectReference: {fileID: 1663564954}
-    - target: {fileID: 82000010765992802, guid: 8e8fb98cee864437995eb9c0b0548acd,
-        type: 2}
-      propertyPath: m_audioClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 7e404d8a72ce34ec98bd3c27ed1782f8, type: 3}
-    - target: {fileID: 114000012126162182, guid: 8e8fb98cee864437995eb9c0b0548acd,
-        type: 2}
-      propertyPath: audioHomeScreen
-      value: 
-      objectReference: {fileID: 8300000, guid: 7e404d8a72ce34ec98bd3c27ed1782f8, type: 3}
-    - target: {fileID: 114000012126162182, guid: 8e8fb98cee864437995eb9c0b0548acd,
-        type: 2}
-      propertyPath: audioDungeon
-      value: 
-      objectReference: {fileID: 8300000, guid: 3d02f9a386baf4bea855ca88493ab372, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8e8fb98cee864437995eb9c0b0548acd, type: 2}
   m_IsPrefabParent: 0

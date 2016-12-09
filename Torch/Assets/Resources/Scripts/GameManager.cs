@@ -67,7 +67,8 @@ public class GameManager : MonoBehaviour {
     }
 
     public void Start(){
-		
+		pauseScreen = Instantiate (pauseScreen) as GameObject;
+		pauseScreen.SetActive (false);
 	}
 
 	public void StartGame(){
@@ -81,7 +82,6 @@ public class GameManager : MonoBehaviour {
 		masterGenerator = new MasterGenerator(this.gameObject, width, height, radius, maxlength, timeout, minAmountOfRooms, maxAmountOfRooms, chanceOfRoom);
 		masterGenerator.LoadPrefabs();
 		masterGenerator.Start();
-		pauseScreen = masterGenerator.pause_screen;
 		UI = Instantiate (UI);
 		torch = torchObject.GetComponent<Torch>();
 		camTarget = torchObject;
@@ -112,26 +112,7 @@ public class GameManager : MonoBehaviour {
 	}
 	
 	void Update () {
-		//LoadScene ();
 		Pause ();
-	}
-
-	void OnLevelWasLoaded(){
-		//Start ();
-	}
-
-	void LoadScene(){
-		if (Input.GetKeyUp(KeyCode.Alpha0)){
-			SceneManager.LoadScene (0);
-			OnLevelWasLoaded ();
-		}
-		if (Input.GetKeyUp (KeyCode.Alpha1)) {
-			SceneManager.LoadScene (1);
-			OnLevelWasLoaded ();
-		}
-		if (Input.GetKeyUp (KeyCode.Alpha2)) {
-			SceneManager.LoadScene (2);
-		}
 	}
 
 	void Pause(){
@@ -148,14 +129,9 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
+	/*
 	void Initialize(){
-		/*pauseScreen = Instantiate (pauseScreen);
-		pauseScreen.SetActive (false);
-        pauseScreen.GetComponentInChildren<MuteAudio>().game_manager = this.gameObject;
-		UI = Instantiate (UI);
-		spawner = Instantiate (spawner);*/
-	}
-/*
+
 	void SetUpCameraPart1(){
 		cameraPrefab = Instantiate (cameraPrefab) as GameObject;
 		mainCamera = cameraPrefab.GetComponentInChildren<Camera> ();

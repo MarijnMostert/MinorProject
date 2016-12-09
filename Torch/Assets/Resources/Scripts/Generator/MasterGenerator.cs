@@ -6,7 +6,7 @@ public class MasterGenerator : Object {
 
     public GameObject floor, side, sideAlt1, sideAlt2, corner, cornerout,
                             roof, block, trap_straight, trap_crossing, trap_box,
-                            portal, end_portal, player, pause_screen,
+                            portal, end_portal, player,
                             spawner, torch, cam, pointer, chest,
                             coin, fireball, iceball, health, laser, shieldPickUp,
 							stickyPickUp, roofGroup, wallPickUp;
@@ -49,7 +49,7 @@ public class MasterGenerator : Object {
 
         dungeon_instantiate = new DungeonInstantiate(floor, side, sideAlt1, sideAlt2, corner, cornerout,
                                                                         roof, block, trap_straight, trap_crossing, trap_box,
-                                                                        portal, end_portal, player, pause_screen, game_manager,
+                                                                        portal, end_portal, player, game_manager,
                                                                         spawner, torch, cam, pointer, chest, coin, 
 																		fireball, iceball, health, mazeSize, laser, shieldPickUp,
 																		stickyPickUp, roofGroup, wallPickUp);
@@ -128,8 +128,8 @@ public class MasterGenerator : Object {
         chest = Resources.Load("Prefabs/chest", typeof(GameObject)) as GameObject;
         cam = Resources.Load("Prefabs/Camera", typeof(GameObject)) as GameObject;
         cam.GetComponentInChildren<CameraController>().gameManager = game_manager;
-        pause_screen = Resources.Load("Prefabs/Pause Screen", typeof(GameObject)) as GameObject;
-        pause_screen.GetComponentInChildren<MuteAudio>().game_manager = game_manager;
+   //     pause_screen = Resources.Load("Prefabs/Pause Screen", typeof(GameObject)) as GameObject;
+   //     pause_screen.GetComponentInChildren<MuteAudio>().game_manager = game_manager;
         spawner = Resources.Load("Prefabs/Spawner", typeof(GameObject)) as GameObject;
         spawner.GetComponent<Spawner>().mapMinX = 5;
         player = Resources.Load("Prefabs/Player", typeof(GameObject)) as GameObject;
