@@ -24,9 +24,10 @@ GameObject:
   - 23: {fileID: 23000013175155374}
   - 114: {fileID: 114000010746175292}
   - 54: {fileID: 54000013251365712}
+  - 114: {fileID: 114000012269686690}
   m_Layer: 13
   m_Name: Chest
-  m_TagString: Untagged
+  m_TagString: Interactable Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -144,6 +145,38 @@ MonoBehaviour:
   rotationSpeedX: 0
   rotationSpeedY: 0
   rotationSpeedZ: 20
+--- !u!114 &114000012269686690
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010346143806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: 870353891bb340e2b2a9c8707e7419ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 216
+    i1: 68
+    i2: 234
+    i3: 5
+    i4: 151
+    i5: 34
+    i6: 164
+    i7: 35
+    i8: 41
+    i9: 39
+    i10: 81
+    i11: 85
+    i12: 169
+    i13: 236
+    i14: 136
+    i15: 215
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 1
 --- !u!198 &198000010874551110
 ParticleSystem:
   m_ObjectHideFlags: 1

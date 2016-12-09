@@ -26,6 +26,7 @@ public class Torch : InteractableItem, IDamagable {
 	private Text healthText;
 	private Text deathText;
 	private string interactionButton = "InteractionButton";
+	[SyncVar]
 	private bool releaseAllowed = false;
 
 	void Awake(){
@@ -125,6 +126,7 @@ public class Torch : InteractableItem, IDamagable {
 		GameObject.Find ("UI/Health Text").SetActive(false);
 		GameObject.FindWithTag ("CursorPointer").SetActive (false);
 	}
+
 
 	public override void action(){
 		Debug.Log ("into action()");

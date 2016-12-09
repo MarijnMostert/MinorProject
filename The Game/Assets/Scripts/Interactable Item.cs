@@ -23,11 +23,13 @@ public class InteractableItem : NetworkBehaviour {
 
 	void OnTriggerStay(Collider other){
 		if (other.gameObject.CompareTag ("Player")) {
+			print ("collision detected with player");
 			canvas.SetActive (true);
-			if (Input.GetButtonDown (interactionButton)) {
+			/*if (Input.GetButtonDown (interactionButton)) {
+				print("input received");
 				action ();
 				canvas.SetActive (false);
-			}
+			}*/
 		}
 	}
 
@@ -41,6 +43,7 @@ public class InteractableItem : NetworkBehaviour {
 		obj.transform.rotation = cam.transform.rotation;
 	}
 
+	[Server]
 	public virtual void action(){
 		Debug.Log ("Interactable item action triggered");
 	}
