@@ -5,8 +5,7 @@ public class HomeScreenMovement : MonoBehaviour {
 
 	public Camera cam;
 
-	public float speedForwards = 10f;
-	public float speedSideways = 3f;
+	public float speed = 8f;
 
 	private string moveHorizontal = "moveHorizontal1";
 	private string moveVertical = "moveVertical1";
@@ -24,17 +23,20 @@ public class HomeScreenMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		inputHorizontal = -1f * Input.GetAxis (moveHorizontal);
 		inputVertical = Input.GetAxis (moveVertical);
+		Vector3 forwardsMovement = (transform.position - cam.transform.position) * inputVertical;
+		forwardsMovement = forwardsMovement.normalized;
 
-		Vector3 forwardsMovement = (transform.position - cam.transform.position).normalized;
-		forwardsMovement.y = 0f;
+		inputHorizontal = -1f * Input.GetAxis (moveHorizontal);
+		Vector3 sidewaysMovement = crossProduct ((transform.position - cam.transform.position), transform.up) * inputHorizontal;
+		sidewaysMovement = sidewaysMovement.normalized;
 
-		Vector3 sidewaysMovement = crossProduct ((transform.position - cam.transform.position), transform.up);
-		sidewaysMovement.y = 0f;
+		Vector3 movementInput = (sidewaysMovement + forwardsMovement).normalized;
+		movementInput.y = 0f;
 
-		transform.position = transform.position + inputVertical * forwardsMovement * speedForwards * Time.deltaTime;
-		transform.position = transform.position + inputHorizontal * sidewaysMovement * speedSideways * Time.deltaTime;
+
+		transform.position = transform.position + forwardsMovement * speed * Time.deltaTime;
+		transform.position = transform.position + sidewaysMovement * speed * Time.deltaTime;
 
 
 
