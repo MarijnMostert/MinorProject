@@ -67,8 +67,7 @@ public class DungeonInstantiate : Object {
         step = 2f;
 
 		//Instantiate empty Dungeon GameObject
-		Dungeon = Instantiate(new GameObject());
-		Dungeon.name = "Dungeon";
+		Dungeon = new GameObject("Dungeon");
 
         //import starters pack
 		InstantiateStarterPack(starters_pack, new Vector3(0, 0, 0),Quaternion.identity);
@@ -79,6 +78,7 @@ public class DungeonInstantiate : Object {
         spawner.GetComponent<Spawner>().mapMaxX = (mazeSize[0]-1)*2*3+5;
         spawner.GetComponent<Spawner>().mapMaxZ = (mazeSize[1] - 1) * 2 * 3 + 5;
 		spawner = Instantiate(spawner, new Vector3(0, 0, 0), Quaternion.identity, Dungeon.transform) as GameObject;
+		GameObject.Find ("Game Manager").GetComponent<GameManager> ().spawner = spawner.GetComponent<Spawner> ();
 
         //simulate mazecreation
         /*import_maze = new bool[5, 5] {  {false,false,true,false,false},
@@ -100,15 +100,16 @@ public class DungeonInstantiate : Object {
 
     void populateMaze()
     {	
-		GameObject dungeonEnvironment = Instantiate (new GameObject (), Dungeon.transform) as GameObject;
-		dungeonEnvironment.name = "Dungeon Environment";
+		GameObject dungeonEnvironment = new GameObject ("Dungeon Environment");
+		dungeonEnvironment.transform.SetParent (Dungeon.transform);
 		roofGroup = Instantiate(roofGroup, dungeonEnvironment.transform) as GameObject;
-		GameObject floors = Instantiate (new GameObject (), dungeonEnvironment.transform) as GameObject;
-		floors.name = "Floors";
-		GameObject sides = Instantiate (new GameObject (), dungeonEnvironment.transform) as GameObject;
-		sides.name = "Sides";
-		GameObject corners = Instantiate (new GameObject (), dungeonEnvironment.transform) as GameObject;
-		corners.name = "Corners";
+		GameObject floors = new GameObject ("Floors");
+		floors.transform.SetParent (dungeonEnvironment.transform);
+		GameObject sides = new GameObject ("Sides");
+		sides.transform.SetParent (dungeonEnvironment.transform);
+		GameObject corners = new GameObject ("Corners");
+		corners.transform.SetParent (dungeonEnvironment.transform);
+
         float deltaprogress = 0.5f / (mazeSize[0] * mazeSize[1]);
         for (int i = 0; i < mazeSize[0]; i++)
         {

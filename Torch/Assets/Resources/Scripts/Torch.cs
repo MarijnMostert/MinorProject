@@ -110,8 +110,9 @@ public class Torch : InteractableItem, IDamagable {
 	public void Die(){
 		Debug.Log ("Player dies");
 		health = 0;
-		CancelInvoke ();
-		Time.timeScale = 0;
+		Destroy (canvas);
+		Destroy (GameObject.FindGameObjectWithTag("CursorPointer"));
+		gameManager.GameOver();
 	}
 
 	public override void action(GameObject triggerObject){

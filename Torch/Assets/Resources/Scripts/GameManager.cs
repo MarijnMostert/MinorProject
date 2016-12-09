@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour {
 	public GameObject camTarget;
 	public GameObject enemyTarget;
 	public GameObject UI;
-    //public Spawner spawner;
+    public Spawner spawner;
 
     //masterGenerator Vars
     int width = 20;// = 100;
@@ -42,9 +42,11 @@ public class GameManager : MonoBehaviour {
 
 	//public GameObject homeScreenCanvas;
 	public GameObject loadingScreenCanvas;
+	public GameObject deathCanvas;
 	public GameObject homeScreen;
 	public GameObject homeScreenCam;
     public Camera mainCamera;
+	private Vector3 homeScreenPlayerPosition;
     MasterGenerator masterGenerator;
 
 	public AudioSource audioSource;
@@ -69,6 +71,9 @@ public class GameManager : MonoBehaviour {
     public void Start(){
 		pauseScreen = Instantiate (pauseScreen) as GameObject;
 		pauseScreen.SetActive (false);
+		loadingScreenCanvas = Instantiate (loadingScreenCanvas) as GameObject;
+		loadingScreenCanvas.SetActive (false);
+		homeScreenPlayerPosition = GameObject.Find ("HomeScreenPlayer").transform.position;
 	}
 
 	public void StartGame(){
@@ -113,6 +118,9 @@ public class GameManager : MonoBehaviour {
 	
 	void Update () {
 		Pause ();
+		if(Input.GetKeyDown(KeyCode.I)){
+			deathCanvas.SetActive (true);
+		}
 	}
 
 	void Pause(){
@@ -142,15 +150,40 @@ public class GameManager : MonoBehaviour {
 	}*/
 
 	public void GameOver(){
-		UI.transform.FindChild ("Death Text").gameObject.SetActive (true);
-		torch.gameObject.SetActive (false);
+		deathCanvas.SetActive (true);
 		for (int i = 0; i < playerManagers.Length; i++) {
 			playerManagers [i].playerInstance.SetActive (false);
 		}
+		foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy")) {
+			Destroy (enemy);
+		}
+		foreach (GameObject pickup in GameObject.FindGameObjectsWithTag("PickUp")) {
+			Destroy (pickup);
+		}
+	}
+
+	public void TransitionDeathToMain(){
+		foreach (PlayerManager playermanager in playerManagers){
+			Destroy (playermanager.playerInstance);
+		}
+
+		Destroy (torch);
+		Destroy (GameObject.Find ("Dungeon"));
+		Destroy (UI);
+		deathCanvas.SetActive (false);
+		homeScreen.SetActive (true);
+		homeScreenCam.SetActive (true);
+		audioSource.clip = audioHomeScreen;
+		audioSource.Play ();
+		resetHomeScreenPlayer ();
 	}
 
 	public void updateScore(int addedScore){
 		score += addedScore;
 		UI.transform.FindChild ("Score Text").GetComponent<Text> ().text = "Score: " + score;
+	}
+
+	public void resetHomeScreenPlayer(){
+		GameObject.Find ("HomeScreenPlayer").transform.position = homeScreenPlayerPosition;
 	}
 }
