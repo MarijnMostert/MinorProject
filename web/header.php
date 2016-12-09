@@ -10,9 +10,10 @@
   <link rel="icon" sizes="192x192" href=".png">
   <title>InTheDark</title>
   <link rel="stylesheet" type="text/css" href="css/main.css">
-  <meta name="viewport" content="initial-scale=1, user-scalable=no"/>
-  
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <meta name="viewport" content="initial-scale=1, user-scalable=no"/>  
+  <script src="js/jquery.min.js"></script>
+  <script src="js/classes.js"></script>
+  <script src="js/app.js"></script>
 </head>
 
 <body>
@@ -34,17 +35,13 @@
 			<div class="menu-item statistics-menu"><p><a>Statistics</a></p></div>
 			<div class="menu-empty"></div>
 			<div class="menu-item dropdown">
-				<p><a class="dropbtn">Friends</a></p>
-				<div class="dropdown-content">
-					<p><a>View friends</a></p>
-					<p><a>Friend Forum</a></p>
-					<p><a>Add friend</a></p>
-				</div>
+				<p><a class="dropbtn">Guilds</a></p>
+				<div id="guilds_dropdown" class="dropdown-content"></div>
 			</div>
 			<div class="menu-item"><p><a>Settings</a></p></div>
 		</div>
 		<script>
-			$('.home-menu').on('click',function(){window.location.href="main.php";});
+			$('.home-menu').on('click',function(){window.location.href="home.php";});
 			$('.statistics-menu').on('click',function(){window.location.href="statistics.php";});
 		</script>
 		

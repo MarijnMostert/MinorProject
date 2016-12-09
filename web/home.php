@@ -1,23 +1,25 @@
+<?php include('header.php')?>
 	<div class="main">
 		<div class="list mainpage">
 			<table>
-				<th colspan="2">Joran</th>
+				<th  id="name" colspan="2"></th>
 				<tr>
 					<td>Level: </td>
-					<td>14</td>
+					<td id="level"></td>
 				</tr>
 				<tr>
 					<td>Highscore: </td>
-					<td> 23640 ©</td>
+					<td id="highscore"> </td>
 				</tr>
 				<tr>
 					<td>World Ranking: </td>
-					<td> 123/6534</td>
+					<td id="ranking"> </td>
 				</tr>
 				<tr>
 					<td>Playtime: </td>
-					<td> 143 Hours</td>
+					<td id="playtime"> </td>
 				</tr>
 			</table>
 		</div>
 	</div>
+<?php include('footer.php')?>

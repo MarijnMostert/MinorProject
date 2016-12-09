@@ -16,7 +16,7 @@
 </head>
 <body>
 	<div id="container">
-		<form action="main.php" method="POST">
+		<form action="home.php" method="POST">
 			<h1>LOG IN</h1>
 			<label for="username">Username </label>
 			<input type="text" name="username" placeholder="Username">

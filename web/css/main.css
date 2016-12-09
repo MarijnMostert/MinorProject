@@ -139,11 +139,10 @@ input[type=text] {
     height: 15px;
 	border: 0;
 	right: 0;
-	margin:10px;
+	margin: 10px 0 10px 10px;
 	color: rgba(234,198,122,1);
-	margin-left:auto;
     font-size: 16px;
-    background-color: rgba(234,198,122,0.2);
+    background-color: rgba(234,198,122,0);
     background-image: url('../img/searchicon.png');
     background-position: 10px 10px;
     background-repeat: no-repeat;
@@ -155,7 +154,7 @@ input[type=text] {
 
 input[type=text]:focus, input[type=text]:hover {
     width: 200px;
-    border-bottom: 5px solid rgba(234,198,122,0.8);
+    border-bottom: 5px solid rgba(234,198,122,1);
     height: 10px;
     padding-right: 20px;
 	outline:0;
@@ -177,14 +176,13 @@ input[type=text]:-ms-input-placeholder { /* Internet Explorer 10-11 */
 }
 
 .button {
-    background-color: rgba(234,198,122,0.2); /* Green */
+    background-color: rgba(234,198,122,0); /* Green */
 	background-image: url('../img/logout.png'); 
 	background-repeat: no-repeat;
 	background-size: 27px;
     border: none;
     color: rgba(234,198,122,1);
-	margin: 10px;
-	margin-left:0;
+	margin: 7px 20px 10px 0;
     padding: 12px 0px 12px 40px;
 	height:40px;
     text-align: center;
@@ -243,6 +241,8 @@ input[type=text]:-ms-input-placeholder { /* Internet Explorer 10-11 */
 .list {
 	margin: 0 auto;
 	width: 400px;
+    max-width: 1000px;
+	padding-top: 50px; 
     border: 6px solid #984B43;
     border-radius: 10px;
 	overflow:hidden;
@@ -289,24 +289,19 @@ input[type=text]:-ms-input-placeholder { /* Internet Explorer 10-11 */
 } 
  
 #graph {
-	float:left;
-	width:48%;
+	width:100%;
 	min-width: 300px;
-	padding: 5px;
 }
  
 #myCanvas {
-	border-radius: 10px 0 0 0;
 	background-color: #EAC67A; 
 	width:100%;
 }
 
 #scoreTable {
-	float:left;
-	width: 49%;
+	width: 100%;
 	min-width: 300px;
 	background-color: #984B43; 
-	padding: 5px;
 }
 
 #scoreTable th {
