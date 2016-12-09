@@ -254,7 +254,7 @@ public class Boss : MonoBehaviour, IDamagable {
 		//Normal Attack
 		if (finalOutput [4] > actionThreshold[4]) {
 			transform.GetComponent<MeshRenderer>().material.color = Color.red;
-			GetComponent<WeaponController> ().currentWeapon.GetComponent<RangedWeapon> ().setProjectile (normalProjectile, 0.2f, 9);
+			GetComponent<WeaponController> ().currentWeapon.GetComponent<RangedWeapon> ().setProjectile (normalProjectile, 0.3f, 9);
 			GetComponent<WeaponController> ().Fire ();
 			usedAttacks++;
 		}
@@ -266,7 +266,7 @@ public class Boss : MonoBehaviour, IDamagable {
 		//Special Attack
 		else if (finalOutput [6] > actionThreshold[6]) {
 			transform.GetComponent<MeshRenderer>().material.color = Color.blue;
-			GetComponent<WeaponController> ().currentWeapon.GetComponent<RangedWeapon> ().setProjectile (specialProjectile, 2, 30);
+			GetComponent<WeaponController> ().currentWeapon.GetComponent<RangedWeapon> ().setProjectile (specialProjectile, 1.0f, 30);
 			GetComponent<WeaponController> ().Fire ();
 			usedSpecAttacks++;
 		}
@@ -294,7 +294,7 @@ public class Boss : MonoBehaviour, IDamagable {
 		timeAlive = Time.time - timeAlive;
 
 		//Actual calculation
-		fitness = timeAlive * timeAliveFactor + damageDealt * damageDealtFactor + diffFromIdealRatio * ratioFactor;
+		fitness = timeAlive * timeAliveFactor + damageDealt * damageDealtFactor - diffFromIdealRatio * ratioFactor;
 
 		//If no attacks, no blocks or no special attacks have been used, fitness is halved
 		if (usedAttacks == 0 || usedSpecAttacks == 0 || usedBlocks == 0) {

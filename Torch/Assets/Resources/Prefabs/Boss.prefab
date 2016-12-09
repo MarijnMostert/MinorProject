@@ -296,9 +296,9 @@ MonoBehaviour:
   usedAttacks: 0
   usedSpecAttacks: 0
   usedBlocks: 0
-  timeAliveFactor: 1
+  timeAliveFactor: 4
   damageDealtFactor: 1
-  ratioFactor: 10
+  ratioFactor: 40
   fitness: 0
   normalProjectile: {fileID: 114000012347710446, guid: 9386fe03180ca4651948a63f963771e9,
     type: 2}
@@ -324,8 +324,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91500a0a276f6f945aec74dc1b3c2560, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BlockTime: 0
-  CooldownTime: 0
+  BlockTime: 3
+  CooldownTime: 9
 --- !u!135 &135000010130256674
 SphereCollider:
   m_ObjectHideFlags: 1
