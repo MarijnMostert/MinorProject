@@ -24,7 +24,7 @@ public class WeaponController : MonoBehaviour {
 		//Instantiate new weapon and equip it.
 		Weapon newWeapon = Instantiate (weapon, weaponHolder.transform.position, weaponHolder.transform.rotation, weaponHolder) as Weapon;
 		currentWeapon = newWeapon;
-		Debug.Log ("New weapon equipped: " + currentWeapon);
+		//Debug.Log ("New weapon equipped: " + currentWeapon);
 	}
 
 	public void Fire(){
