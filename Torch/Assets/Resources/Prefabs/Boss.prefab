@@ -295,17 +295,18 @@ MonoBehaviour:
   damageDealt: 0
   usedAttacks: 0
   usedSpecAttacks: 0
-  fitness: 0
+  usedBlocks: 0
   timeAliveFactor: 1
   damageDealtFactor: 1
-  ratioFactor: 1
+  ratioFactor: 10
+  fitness: 0
   normalProjectile: {fileID: 114000012347710446, guid: 9386fe03180ca4651948a63f963771e9,
     type: 2}
   specialProjectile: {fileID: 114000012347710446, guid: 25dc5919c12755e42892ccf3a5ca3271,
     type: 2}
   target: {fileID: 0}
   speed: 5
-  startingHealth: 100
+  startingHealth: 600
   health: 0
   colorBoss: {r: 0, g: 0, b: 0, a: 0}
   scoreValue: 1000

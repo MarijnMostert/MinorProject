@@ -63,6 +63,12 @@ public class GA {
 		for (int i = 0; i < sizePopulation; i++) {
 			totalFitness += fitness [i];
 		}
+		if (totalFitness == 0) {
+			Debug.Log ("this generation is shit");
+			Debug.Log ("We'll start over...");
+			CreatePopulation ();
+			return null;
+		}
 		for (int i = 0; i < sizePopulation; i++) {
 			prob [i] = fitness [i] / totalFitness;
 		}
@@ -82,15 +88,18 @@ public class GA {
 
 	public void Reproduce(){
 		int[] indices = ChooseChromosomes (NReproduce);
-		chromosomesToReproduce = new float[NReproduce, sizeChromosomes];
-		for (int i = 0; i < NReproduce; i++) {
-			for (int j = 0; j < sizeChromosomes; j++) {
-				chromosomesToReproduce [i, j] = population [indices [i], j];
+		if (indices != null) {
+			chromosomesToReproduce = new float[NReproduce, sizeChromosomes];
+			for (int i = 0; i < NReproduce; i++) {
+				for (int j = 0; j < sizeChromosomes; j++) {
+					chromosomesToReproduce [i, j] = population [indices [i], j];
+				}
+				Debug.Log ("Reproducing chromosome " + indices [i]);
 			}
-			Debug.Log ("Reproducing chromosome " + indices [i]);
+			Mutate ();
 		}
-		Mutate ();
 	}
+	
 
 	void Mutate(){
 		for (int i = 0; i < NReproduce; i++) {

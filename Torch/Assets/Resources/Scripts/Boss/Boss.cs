@@ -23,10 +23,11 @@ public class Boss : MonoBehaviour, IDamagable {
 	public int damageDealt = 0;
 	public int usedAttacks = 0;
 	public int usedSpecAttacks = 0;
-	public float fitness;
+	public int usedBlocks = 0;
 	public float timeAliveFactor;
 	public float damageDealtFactor;
 	public float ratioFactor;
+	public float fitness;
 
 	//Boss Attributes
 	public Projectile normalProjectile;
@@ -260,6 +261,7 @@ public class Boss : MonoBehaviour, IDamagable {
 		//Block
 		else if (finalOutput [5] > actionThreshold[5]) {
 			gameObject.GetComponent<BossBlock>().Block();
+			usedBlocks++;
 		}
 		//Special Attack
 		else if (finalOutput [6] > actionThreshold[6]) {
@@ -281,14 +283,30 @@ public class Boss : MonoBehaviour, IDamagable {
 	}
 
 	public void CalculateFitness(){
+		//calculate ratio between normal and special attacks. ideal is 5:1.
 		float ratio = CalculateRatio();
-		float diffFromIdealRatio = 0.2f - ratio;
+		float diffFromIdealRatio = 5.0f - ratio;
+
+		//Find the amound of damage done to the gladiator
+		damageDealt = target.GetComponent<EnemyTraining>().startingHealth - target.GetComponent<EnemyTraining>().health;
+
+		//time alive
 		timeAlive = Time.time - timeAlive;
 
+		//Actual calculation
 		fitness = timeAlive * timeAliveFactor + damageDealt * damageDealtFactor + diffFromIdealRatio * ratioFactor;
+
+		//If no attacks, no blocks or no special attacks have been used, fitness is halved
+		if (usedAttacks == 0 || usedSpecAttacks == 0 || usedBlocks == 0) {
+			fitness = fitness/2;
+		}
+
+		//cap negative fitness to 0
 		if (fitness < 0){
 			fitness = 0;
 		}
+
+		//send fitness to the Trainermanager
 		GameObject.Find ("Ground").GetComponent<TrainerManager> ().TemporaryFitness = fitness;
 	}
 
