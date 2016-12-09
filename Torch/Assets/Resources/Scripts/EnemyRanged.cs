@@ -8,7 +8,7 @@ public class EnemyRanged : Enemy {
 	[HideInInspector] public RangedWeapon weapon;
 	private WeaponController weaponController;
 	private float varDistanceToTarget;
-	private float stoppingDistance = 0f;
+	private float stoppingDistance;
 
 
 	new void Awake(){
@@ -26,8 +26,8 @@ public class EnemyRanged : Enemy {
 	
 	void Update () {
 		StartCoroutine (UpdatePath ());
-		StartCoroutine (determineStoppingDistance ());
-		varDistanceToTarget = 3.0f;//distanceToTarget ();
+		determineStoppingDistance ();
+		varDistanceToTarget = distanceToTarget ();
 		if (gameManager.enemyTarget != null && varDistanceToTarget <= attackRange && (Time.time - lastAttackTime) > attackCooldown && canSeeTarget()) {
 			attack ();
 		}
@@ -55,13 +55,12 @@ public class EnemyRanged : Enemy {
 		return false;
 	}
 
-	IEnumerator determineStoppingDistance(){
+	private void determineStoppingDistance(){
 		if (!canSeeTarget ()) {
 			navMeshAgent.stoppingDistance = 0f;
 		} else {
 			navMeshAgent.stoppingDistance = stoppingDistance;
 		}
-		yield return new WaitForSeconds (0.2f);
 	}
 
 	private IEnumerator UpdatePath(){

@@ -74,12 +74,7 @@ public class GameManager : MonoBehaviour {
 		homeScreen.SetActive (false);
 		//homeScreenCanvas.SetActive (false);
 		loadingScreenCanvas.SetActive (true);
-		StartCoroutine (CreateDungeon ());
 
-	}
-
-	IEnumerator CreateDungeon(){
-		yield return new WaitForSeconds (.1f);
 		masterGenerator = new MasterGenerator(this.gameObject, width, height, radius, maxlength, timeout, minAmountOfRooms, maxAmountOfRooms, chanceOfRoom);
 		masterGenerator.LoadPrefabs();
 		masterGenerator.Start();
@@ -105,21 +100,11 @@ public class GameManager : MonoBehaviour {
 		UI.transform.FindChild ("Score Text").GetComponent<Text> ().text = "Score: " + score;
 
 		loadingScreenCanvas.SetActive (false);
-		yield return null;
 	}
 	
 	void Update () {
 		//LoadScene ();
 		Pause ();
-		if (Input.GetKeyDown (KeyCode.Escape)) {
-			Scene emptyScene = SceneManager.GetSceneAt (1);
-			SceneManager.LoadScene (emptyScene, LoadSceneMode.Additive);
-			SceneManager.SetActiveScene (emptyScene);
-			GameObject temp = Instantiate (homeScreen);
-			temp.SetActive (false);
-
-		}
-
 	}
 
 	void OnLevelWasLoaded(){

@@ -13,29 +13,16 @@ public class Projectile : MonoBehaviour {
 		Destroy (gameObject, lifeTime);
 	}
 	
-	void Update () {
+	void FixedUpdate () {
 		float moveDistance = speed * Time.deltaTime;
-		//checkCollisions (moveDistance);
-		transform.position = transform.position + (Vector3.forward * moveDistance);
+		checkCollisions (moveDistance);
+		transform.Translate(Vector3.forward * moveDistance);
 	}
 
 	public void setSpeed(float newSpeed){
 		speed = newSpeed;
 	}
 
-	void OnTriggerEnter(Collider other){
-		IDamagable damagableObject = other.GetComponent<IDamagable> ();
-		if (damagableObject != null) {
-			damagableObject.takeDamage (damage);
-		}
-
-		if (!other.gameObject.CompareTag ("Shield")) {
-			Destroy (gameObject);
-		}
-
-	}
-
-	/*
 	private void checkCollisions(float moveDistance){
 		Ray ray = new Ray (transform.position, transform.forward);
 		RaycastHit hit;
@@ -59,5 +46,4 @@ public class Projectile : MonoBehaviour {
 			Destroy (this.gameObject);
 		}
 	}
-*/
 }
