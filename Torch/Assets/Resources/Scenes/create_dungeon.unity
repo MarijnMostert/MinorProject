@@ -406,8 +406,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 6.9200006, y: -85.386, z: 0}
   m_Children: []
-  m_Father: {fileID: 1297134814}
-  m_RootOrder: 2
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
 --- !u!1 &257260304
 GameObject:
   m_ObjectHideFlags: 0
@@ -641,7 +641,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 1297134814}
-  m_RootOrder: 5
+  m_RootOrder: 3
 --- !u!114 &633549888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -759,7 +759,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 1297134814}
-  m_RootOrder: 3
+  m_RootOrder: 2
 --- !u!23 &750469955
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -972,7 +972,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 1297134814}
-  m_RootOrder: 8
+  m_RootOrder: 6
 --- !u!136 &862228014
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1105,7 +1105,7 @@ Prefab:
     - target: {fileID: 224000013442077660, guid: 3ba146cc4154c4ef784dbf697fd01bcd,
         type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 224000013442077660, guid: 3ba146cc4154c4ef784dbf697fd01bcd,
         type: 2}
@@ -1282,15 +1282,13 @@ Transform:
   m_Children:
   - {fileID: 699284157}
   - {fileID: 61623349}
-  - {fileID: 107241468}
   - {fileID: 750469954}
-  - {fileID: 1760391326}
   - {fileID: 633549887}
   - {fileID: 1320760545}
   - {fileID: 1304960976}
   - {fileID: 862228013}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
 --- !u!1 &1304960975
 GameObject:
   m_ObjectHideFlags: 0
@@ -1321,7 +1319,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 1297134814}
-  m_RootOrder: 7
+  m_RootOrder: 5
 --- !u!64 &1304960977
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -1403,7 +1401,7 @@ RectTransform:
   - {fileID: 417060350}
   - {fileID: 1974024710}
   m_Father: {fileID: 1297134814}
-  m_RootOrder: 6
+  m_RootOrder: 4
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: -14.21, y: 3.98}
@@ -1583,93 +1581,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!1 &1760391325
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1760391326}
-  - 20: {fileID: 1760391330}
-  - 124: {fileID: 1760391329}
-  - 92: {fileID: 1760391328}
-  - 81: {fileID: 1760391327}
-  m_Layer: 0
-  m_Name: Camera
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &1760391326
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1760391325}
-  m_LocalRotation: {x: 0.5735764, y: -0, z: -0, w: 0.8191521}
-  m_LocalPosition: {x: -2.6444883, y: 14.7, z: -4.88}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 70, y: 0, z: 0}
-  m_Children: []
-  m_Father: {fileID: 1297134814}
-  m_RootOrder: 4
---- !u!81 &1760391327
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1760391325}
-  m_Enabled: 1
---- !u!92 &1760391328
-Behaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1760391325}
-  m_Enabled: 1
---- !u!124 &1760391329
-Behaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1760391325}
-  m_Enabled: 1
---- !u!20 &1760391330
-Camera:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1760391325}
-  m_Enabled: 1
-  serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
-  m_NormalizedViewPortRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 103
-  orthographic: 0
-  orthographic size: 5
-  m_Depth: 0
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_RenderingPath: -1
-  m_TargetTexture: {fileID: 0}
-  m_TargetDisplay: 0
-  m_TargetEye: 3
-  m_HDR: 0
-  m_OcclusionCulling: 1
-  m_StereoConvergence: 10
-  m_StereoSeparation: 0.022
-  m_StereoMirrorMode: 0
 --- !u!1001 &1810587749
 Prefab:
   m_ObjectHideFlags: 0

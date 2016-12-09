@@ -29,6 +29,8 @@ public class Torch : InteractableItem, IDamagable {
 	public bool equipped = false;
 	public bool isDamagable = true;
 
+	public GameObject PickMeUpText;
+
 	void Awake(){
 		
 	}
@@ -43,6 +45,8 @@ public class Torch : InteractableItem, IDamagable {
 		randomFactorIntensity = startingIntensity / 8f;
 		randomFactorRange = range / 8f;
 
+		canvas.SetActive (true);
+
 		//Every 'flickerInterval' seconds the 'torchFlickering()' function is called.
 		InvokeRepeating ("torchFlickering", 0f, flickerInterval);
 	}
@@ -52,6 +56,7 @@ public class Torch : InteractableItem, IDamagable {
 		if (Input.GetButtonDown("DropTorch1") && equipped) {
 			releaseTorch ();
 		}
+
 	}
 
 	//Update the light intensity and range according to the health
@@ -132,6 +137,19 @@ public class Torch : InteractableItem, IDamagable {
 		equipped = false;
 		canvas.transform.position = new Vector3 (transform.position.x, floatingHeight, transform.position.z);
 		canvas.SetActive (true);
+	}
+
+	protected override void OnTriggerStay(Collider other){
+		if (other.gameObject.CompareTag ("Player")&&canvas!=null) {
+			if (Input.GetButtonDown (interactionButton)) {
+				action (other.gameObject);
+				canvas.gameObject.SetActive (false);
+			}
+		}
+	}
+
+	protected override void OnTriggerExit(Collider other){
+		
 	}
 
 	/*void InitializeLinkWithUI(){

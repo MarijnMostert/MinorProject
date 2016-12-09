@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour {
 	//public GameObject homeScreenCanvas;
 	public GameObject loadingScreenCanvas;
 	public GameObject homeScreen;
+	public GameObject homeScreenCam;
     public Camera mainCamera;
     MasterGenerator masterGenerator;
 
@@ -61,6 +62,7 @@ public class GameManager : MonoBehaviour {
 		}
 		//homeScreenCanvas = GameObject.Find ("Home Screen Canvas");
 		homeScreen = GameObject.Find ("HomeScreen");
+		homeScreenCam = GameObject.Find ("HomeScreenCam");
 		audioSource = GetComponent<AudioSource> ();
     }
 
@@ -69,12 +71,13 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void StartGame(){
-		audioSource.clip = audioDungeon;
-		audioSource.Play ();
-		homeScreen.SetActive (false);
-		//homeScreenCanvas.SetActive (false);
 		loadingScreenCanvas.SetActive (true);
+		StartCoroutine (CreateDungeon ());
 
+	}
+
+	IEnumerator CreateDungeon(){
+		yield return new WaitForSeconds (.1f);
 		masterGenerator = new MasterGenerator(this.gameObject, width, height, radius, maxlength, timeout, minAmountOfRooms, maxAmountOfRooms, chanceOfRoom);
 		masterGenerator.LoadPrefabs();
 		masterGenerator.Start();
@@ -99,7 +102,13 @@ public class GameManager : MonoBehaviour {
 		torch.cam = mainCamera;
 		UI.transform.FindChild ("Score Text").GetComponent<Text> ().text = "Score: " + score;
 
+		audioSource.clip = audioDungeon;
+		audioSource.Play ();
+		homeScreen.SetActive (false);
+		homeScreenCam.SetActive (false);
 		loadingScreenCanvas.SetActive (false);
+
+		yield return null;
 	}
 	
 	void Update () {
