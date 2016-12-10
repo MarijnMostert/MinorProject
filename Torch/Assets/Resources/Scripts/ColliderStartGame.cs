@@ -18,6 +18,7 @@ public class ColliderStartGame : MonoBehaviour {
 		if (other.gameObject.CompareTag ("Player")) {
 			textObject.SetActive (true);
 			if (Input.GetButtonDown (interactionButton)) {
+				textObject.SetActive (false);
 				gameManager.StartGame ();
 			}
 		}

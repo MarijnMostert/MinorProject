@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour {
 	public GameObject playerPrefab;
 
 	//Torch data
-	public GameObject torchObject;
+	public GameObject torchPrefab;
 	public Torch torch;
 	public Transform torchSpawnPoint;
 	public int torchStartingHealth = 100;
@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour {
 	public GameObject cameraPrefab;
 	public GameObject camTarget;
 	public GameObject enemyTarget;
+	public GameObject UIPrefab;
 	public GameObject UI;
     public Spawner spawner;
 
@@ -87,17 +88,17 @@ public class GameManager : MonoBehaviour {
 		masterGenerator = new MasterGenerator(this.gameObject, width, height, radius, maxlength, timeout, minAmountOfRooms, maxAmountOfRooms, chanceOfRoom);
 		masterGenerator.LoadPrefabs();
 		masterGenerator.Start();
-		UI = Instantiate (UI);
-		torch = torchObject.GetComponent<Torch>();
-		camTarget = torchObject;
-		enemyTarget = torchObject;
+
+		UI = Instantiate (UIPrefab);
+
+		camTarget = torch.gameObject;
+		enemyTarget = torch.gameObject;
 		torch.health = torchStartingHealth;
 		torch.gameManager = this;
 		torch.UI = UI;
 
 		for (int i = 0; i < playerManagers.Length; i++) {
 			Debug.Log("Create Player with id:" + i);
-			//playerManagers [i].playerInstance = Instantiate (playerPrefab, playerManagers [i].spawnPoint.position, playerManagers [i].spawnPoint.rotation) as GameObject;
 			playerManagers[i].playerInstance = Instantiate(playerPrefab, masterGenerator.dungeon_instantiate.startPos, playerManagers[i].spawnPoint.rotation) as GameObject;
 			playerManagers [i].playerNumber = i + 1;
 			playerManagers [i].Setup ();
@@ -151,6 +152,7 @@ public class GameManager : MonoBehaviour {
 
 	public void GameOver(){
 		deathCanvas.SetActive (true);
+		Destroy (spawner);
 		for (int i = 0; i < playerManagers.Length; i++) {
 			playerManagers [i].playerInstance.SetActive (false);
 		}

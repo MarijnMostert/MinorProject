@@ -10,17 +10,8 @@ public class CameraShake : MonoBehaviour {
 	private Vector3 mainPosition;
 	private Vector3 smoothDampVar;
 
-	// Use this for initialization
 	void Start () {
 		mainPosition = transform.position;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-		if (Input.GetButton ("CameraShake")) {
-			cameraShake (shakeLength, intensity, iterationTime);
-		}
 	}
 
 	public void cameraShake(float shakeLength, float intensity, float iterationTime){

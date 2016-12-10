@@ -138,7 +138,7 @@ MonoBehaviour:
     playerWeaponController: {fileID: 0}
   playerPrefab: {fileID: 1000010005094228, guid: 96b70f8172a034350bce5e9b0ef6db4d,
     type: 2}
-  torchObject: {fileID: 0}
+  torchPrefab: {fileID: 0}
   torch: {fileID: 114000010962005414, guid: 86f8871f16b6e4321a072873febde5a7, type: 2}
   torchSpawnPoint: {fileID: 4000010238434374, guid: d3153958a3d7d461c86548c1a70ff1bb,
     type: 2}
@@ -153,7 +153,8 @@ MonoBehaviour:
     type: 2}
   camTarget: {fileID: 0}
   enemyTarget: {fileID: 0}
-  UI: {fileID: 1000011980605034, guid: ce12bf815c9354cd38ffdb78d7b15e2b, type: 2}
+  UIPrefab: {fileID: 1000011980605034, guid: ce12bf815c9354cd38ffdb78d7b15e2b, type: 2}
+  UI: {fileID: 0}
   spawner: {fileID: 0}
   loadingScreenCanvas: {fileID: 1000013438309082, guid: 0ff01cb270ef14af5b80d2ec70ecc88c,
     type: 2}

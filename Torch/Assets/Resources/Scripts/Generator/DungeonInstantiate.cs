@@ -468,7 +468,8 @@ public class DungeonInstantiate : Object {
         {
 			GameObject temp = Instantiate(item, pos, rot, Dungeon.transform) as GameObject;
 			if (temp.CompareTag ("Torch")) {
-				GameObject.Find ("Game Manager").GetComponent<GameManager> ().torchObject = temp;
+				GameManager gameManager = GameObject.Find ("Game Manager").GetComponent<GameManager> ();
+				gameManager.torch = temp.GetComponent<Torch> ();
 			}
         }
         game_manager.GetComponent<GameManager>().mainCamera = cam.GetComponentInChildren<Camera>() as Camera;

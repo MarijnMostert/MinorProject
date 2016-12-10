@@ -29,12 +29,6 @@ public class Torch : InteractableItem, IDamagable {
 	public bool equipped = false;
 	public bool isDamagable = true;
 
-	public GameObject PickMeUpText;
-
-	void Awake(){
-		
-	}
-
 	new void Start () {
 		base.Start ();
 

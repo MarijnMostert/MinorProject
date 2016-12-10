@@ -14,6 +14,7 @@ public class CameraController : MonoBehaviour {
 	public GameManager gameManager;
 
 	void Start(){
+		gameManager = GameObject.Find ("Game Manager").GetComponent<GameManager> ();
 	}
 
 	void FixedUpdate () {
