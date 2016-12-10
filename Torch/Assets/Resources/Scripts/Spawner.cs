@@ -16,6 +16,7 @@ public class Spawner : MonoBehaviour {
     private GameObject torch;
 
     Floors floors;
+	public float timeTillSpawning = 5f;
 	public float timeBetweenEnemySpawn = 3f;
     public bool dead;
 //	private int rangeX, rangeZ;
@@ -82,6 +83,7 @@ public class Spawner : MonoBehaviour {
 
     IEnumerator SpawnEnemy()
     {
+		yield return new WaitForSeconds (timeTillSpawning);
         while(true)
         {
             if (!dead)

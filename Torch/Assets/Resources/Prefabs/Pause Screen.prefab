@@ -58,13 +58,14 @@ GameObject:
   - 223: {fileID: 223000011075123886}
   - 114: {fileID: 114000011429824914}
   - 114: {fileID: 114000013732991354}
+  - 114: {fileID: 114000011964149174}
   m_Layer: 5
   m_Name: Pause Screen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1000012082553574
 GameObject:
   m_ObjectHideFlags: 1
@@ -331,6 +332,19 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+--- !u!114 &114000011964149174
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011647558472}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93828427ca6c246c081d896f6845beb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  button: Pause
+  isActive: 0
 --- !u!114 &114000012181942738
 MonoBehaviour:
   m_ObjectHideFlags: 1

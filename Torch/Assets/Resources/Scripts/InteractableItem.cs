@@ -10,7 +10,7 @@ public class InteractableItem : NetworkBehaviour {
 	[HideInInspector] 
 	public Camera cam;
 	protected GameObject canvas;
-	private string interactionButton;
+	protected string interactionButton;
 
 	public virtual void Start () {
 		canvas = Instantiate (instructionPopUp, new Vector3(transform.position.x, floatingHeight, transform.position.z), transform.rotation) as GameObject;
@@ -28,7 +28,7 @@ public class InteractableItem : NetworkBehaviour {
 		}
 	}
 
-	void OnTriggerStay(Collider other){
+	protected virtual void OnTriggerStay(Collider other){
 		if (other.gameObject.CompareTag ("Player")&&canvas!=null) {
 			canvas.SetActive (true);
 			if (Input.GetButtonDown (interactionButton)) {
@@ -38,7 +38,7 @@ public class InteractableItem : NetworkBehaviour {
 		}
 	}
 
-	void OnTriggerExit(Collider other){
+	protected virtual void OnTriggerExit(Collider other){
 		if (other.gameObject.CompareTag ("Player")) {
 			if (canvas != null) {
 				canvas.SetActive (false);

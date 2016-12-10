@@ -62,7 +62,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &114000010077244296
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -84,7 +84,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 53
+    m_FontSize: 67
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 0
@@ -95,7 +95,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Press E to pick up
+  m_Text: Press E to pick me up!
 --- !u!114 &114000011184778026
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -199,7 +199,7 @@ RectTransform:
   m_GameObject: {fileID: 1000014285404956}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -3.2583447}
-  m_LocalScale: {x: 0.008114274, y: 0.005485042, z: 0.01}
+  m_LocalScale: {x: 0.008, y: 0.008, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 224000011794391806}
@@ -208,7 +208,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -6.67231, y: 0.0000023841858}
+  m_AnchoredPosition: {x: -6.67231, y: 2.16}
   m_SizeDelta: {x: 500, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224000011794391806
@@ -226,8 +226,8 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.5, y: 0.0000019073}
-  m_SizeDelta: {x: 176.1, y: 200}
+  m_AnchoredPosition: {x: -1.5, y: -4}
+  m_SizeDelta: {x: 408.1, y: 190.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224000013288549498
 RectTransform:
@@ -237,7 +237,7 @@ RectTransform:
   m_GameObject: {fileID: 1000010975339188}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.57, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 224000010537535786}
@@ -245,5 +245,5 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 265.48, y: 200}
+  m_SizeDelta: {x: 383.5, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}

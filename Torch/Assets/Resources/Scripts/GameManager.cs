@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour {
 	public GameObject playerPrefab;
 
 	//Torch data
-	public GameObject torchObject;
+	public GameObject torchPrefab;
 	public Torch torch;
 	public Transform torchSpawnPoint;
 	public int torchStartingHealth = 100;
@@ -27,8 +27,9 @@ public class GameManager : MonoBehaviour {
 	public GameObject cameraPrefab;
 	public GameObject camTarget;
 	public GameObject enemyTarget;
+	public GameObject UIPrefab;
 	public GameObject UI;
-    //public Spawner spawner;
+    public Spawner spawner;
 
     //masterGenerator Vars
     int width = 20;// = 100;
@@ -42,8 +43,11 @@ public class GameManager : MonoBehaviour {
 
 	//public GameObject homeScreenCanvas;
 	public GameObject loadingScreenCanvas;
+	public GameObject deathCanvas;
 	public GameObject homeScreen;
+	public GameObject homeScreenCam;
     public Camera mainCamera;
+	private Vector3 homeScreenPlayerPosition;
     MasterGenerator masterGenerator;
 
 	public AudioSource audioSource;
@@ -61,35 +65,40 @@ public class GameManager : MonoBehaviour {
 		}
 		//homeScreenCanvas = GameObject.Find ("Home Screen Canvas");
 		homeScreen = GameObject.Find ("HomeScreen");
+		homeScreenCam = GameObject.Find ("HomeScreenCam");
 		audioSource = GetComponent<AudioSource> ();
     }
 
     public void Start(){
-		
+		pauseScreen = Instantiate (pauseScreen) as GameObject;
+		pauseScreen.SetActive (false);
+		loadingScreenCanvas = Instantiate (loadingScreenCanvas) as GameObject;
+		loadingScreenCanvas.SetActive (false);
+		homeScreenPlayerPosition = GameObject.Find ("HomeScreenPlayer").transform.position;
 	}
 
 	public void StartGame(){
-		audioSource.clip = audioDungeon;
-		audioSource.Play ();
-		homeScreen.SetActive (false);
-		//homeScreenCanvas.SetActive (false);
 		loadingScreenCanvas.SetActive (true);
+		StartCoroutine (CreateDungeon ());
 
+	}
+
+	IEnumerator CreateDungeon(){
+		yield return new WaitForSeconds (.1f);
 		masterGenerator = new MasterGenerator(this.gameObject, width, height, radius, maxlength, timeout, minAmountOfRooms, maxAmountOfRooms, chanceOfRoom);
 		masterGenerator.LoadPrefabs();
 		masterGenerator.Start();
-		pauseScreen = masterGenerator.pause_screen;
-		UI = Instantiate (UI);
-		torch = torchObject.GetComponent<Torch>();
-		camTarget = torchObject;
-		enemyTarget = torchObject;
+
+		UI = Instantiate (UIPrefab);
+
+		camTarget = torch.gameObject;
+		enemyTarget = torch.gameObject;
 		torch.health = torchStartingHealth;
 		torch.gameManager = this;
 		torch.UI = UI;
 
 		for (int i = 0; i < playerManagers.Length; i++) {
 			Debug.Log("Create Player with id:" + i);
-			//playerManagers [i].playerInstance = Instantiate (playerPrefab, playerManagers [i].spawnPoint.position, playerManagers [i].spawnPoint.rotation) as GameObject;
 			playerManagers[i].playerInstance = Instantiate(playerPrefab, masterGenerator.dungeon_instantiate.startPos, playerManagers[i].spawnPoint.rotation) as GameObject;
 			playerManagers [i].playerNumber = i + 1;
 			playerManagers [i].Setup ();
@@ -99,29 +108,19 @@ public class GameManager : MonoBehaviour {
 		torch.cam = mainCamera;
 		UI.transform.FindChild ("Score Text").GetComponent<Text> ().text = "Score: " + score;
 
+		audioSource.clip = audioDungeon;
+		audioSource.Play ();
+		homeScreen.SetActive (false);
+		homeScreenCam.SetActive (false);
 		loadingScreenCanvas.SetActive (false);
+
+		yield return null;
 	}
 	
 	void Update () {
-		//LoadScene ();
 		Pause ();
-	}
-
-	void OnLevelWasLoaded(){
-		//Start ();
-	}
-
-	void LoadScene(){
-		if (Input.GetKeyUp(KeyCode.Alpha0)){
-			SceneManager.LoadScene (0);
-			OnLevelWasLoaded ();
-		}
-		if (Input.GetKeyUp (KeyCode.Alpha1)) {
-			SceneManager.LoadScene (1);
-			OnLevelWasLoaded ();
-		}
-		if (Input.GetKeyUp (KeyCode.Alpha2)) {
-			SceneManager.LoadScene (2);
+		if(Input.GetKeyDown(KeyCode.I)){
+			deathCanvas.SetActive (true);
 		}
 	}
 
@@ -139,14 +138,9 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
+	/*
 	void Initialize(){
-		/*pauseScreen = Instantiate (pauseScreen);
-		pauseScreen.SetActive (false);
-        pauseScreen.GetComponentInChildren<MuteAudio>().game_manager = this.gameObject;
-		UI = Instantiate (UI);
-		spawner = Instantiate (spawner);*/
-	}
-/*
+
 	void SetUpCameraPart1(){
 		cameraPrefab = Instantiate (cameraPrefab) as GameObject;
 		mainCamera = cameraPrefab.GetComponentInChildren<Camera> ();
@@ -157,15 +151,41 @@ public class GameManager : MonoBehaviour {
 	}*/
 
 	public void GameOver(){
-		UI.transform.FindChild ("Death Text").gameObject.SetActive (true);
-		torch.gameObject.SetActive (false);
+		deathCanvas.SetActive (true);
+		Destroy (spawner);
 		for (int i = 0; i < playerManagers.Length; i++) {
 			playerManagers [i].playerInstance.SetActive (false);
 		}
+		foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy")) {
+			Destroy (enemy);
+		}
+		foreach (GameObject pickup in GameObject.FindGameObjectsWithTag("PickUp")) {
+			Destroy (pickup);
+		}
+	}
+
+	public void TransitionDeathToMain(){
+		foreach (PlayerManager playermanager in playerManagers){
+			Destroy (playermanager.playerInstance);
+		}
+
+		Destroy (torch);
+		Destroy (GameObject.Find ("Dungeon"));
+		Destroy (UI);
+		deathCanvas.SetActive (false);
+		homeScreen.SetActive (true);
+		homeScreenCam.SetActive (true);
+		audioSource.clip = audioHomeScreen;
+		audioSource.Play ();
+		resetHomeScreenPlayer ();
 	}
 
 	public void updateScore(int addedScore){
 		score += addedScore;
 		UI.transform.FindChild ("Score Text").GetComponent<Text> ().text = "Score: " + score;
+	}
+
+	public void resetHomeScreenPlayer(){
+		GameObject.Find ("HomeScreenPlayer").transform.position = homeScreenPlayerPosition;
 	}
 }
