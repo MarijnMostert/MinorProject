@@ -27,12 +27,15 @@ public class Boss : MonoBehaviour, IDamagable {
 	public float timeAliveFactor;
 	public float damageDealtFactor;
 	public float ratioFactor;
+	public float distMoved = 0;
+	public float distMovedFactor;
 	public float fitness;
 
 	//Boss Attributes
 	public Projectile normalProjectile;
 	public Projectile specialProjectile;
 	public GameObject target;
+	public Vector3 oldPos;
 	public float speed;
 	public int startingHealth;
 	public int health;
@@ -56,6 +59,7 @@ public class Boss : MonoBehaviour, IDamagable {
 		//initialiseWeights ();
 		target = GameObject.FindGameObjectWithTag("Gladiator");
 //		scoreManager = GameObject.Find("Score Manager").GetComponent<ScoreManager> ();
+		StartCoroutine(DistanceMoved());
 	}
 
 	//Keep facing the player. Run the neural network.
@@ -217,6 +221,17 @@ public class Boss : MonoBehaviour, IDamagable {
 	}
 
 
+	//find the distance moved by the boss
+	private IEnumerator DistanceMoved(){
+		oldPos = transform.position;
+		while (health > 0) {
+			distMoved += (oldPos - transform.position).magnitude;
+			oldPos = transform.position;
+			yield return new WaitForSeconds (1f);
+		}
+	}
+
+
 	//Runs the Neural network
 	void runNN(){
 		for (int i = 0; i < outputNeurons; i++) {
@@ -294,7 +309,11 @@ public class Boss : MonoBehaviour, IDamagable {
 		timeAlive = Time.time - timeAlive;
 
 		//Actual calculation
-		fitness = timeAlive * timeAliveFactor + damageDealt * damageDealtFactor - diffFromIdealRatio * ratioFactor;
+		fitness = distMoved * distMovedFactor + timeAlive * timeAliveFactor + damageDealt * damageDealtFactor;// - diffFromIdealRatio * ratioFactor;
+		Debug.Log ("dist: " + distMoved);
+		Debug.Log ("time: " + timeAlive);
+		Debug.Log ("damage: " + damageDealt);
+		//Debug.Log ("diff ratio: " + diffFromIdealRatio);
 
 		//If no attacks, no blocks or no special attacks have been used, fitness is halved
 		if (usedAttacks == 0 || usedSpecAttacks == 0 || usedBlocks == 0) {
@@ -311,10 +330,10 @@ public class Boss : MonoBehaviour, IDamagable {
 	}
 
 	public float CalculateRatio(){
-		if(usedSpecAttacks != 0){
-			return usedAttacks / usedSpecAttacks;
+		if(usedAttacks != 0){
+			return usedSpecAttacks / usedAttacks;
 		}
-		return usedAttacks / (usedSpecAttacks + 1);
+		return usedSpecAttacks / (usedAttacks + 1);
 	}
 
 	//For when the enemy object takes damage
