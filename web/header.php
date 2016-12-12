@@ -38,11 +38,12 @@
 				<p><a class="dropbtn">Guilds</a></p>
 				<div id="guilds_dropdown" class="dropdown-content"></div>
 			</div>
-			<div class="menu-item"><p><a>Settings</a></p></div>
+			<div class="menu-item settings-menu"><p><a>Settings</a></p></div>
 		</div>
 		<script>
 			$('.home-menu').on('click',function(){window.location.href="home.php";});
 			$('.statistics-menu').on('click',function(){window.location.href="statistics.php";});
+			$('.settings-menu').on('click',function(){window.location.href="settings.php";});
 		</script>
 		
 	</div>

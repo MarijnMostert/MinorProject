@@ -134,7 +134,7 @@ body {
     display: flex;*/
 }
 
-input[type=text] {
+#right-top input[type=text] {
     width: 0px;
     height: 15px;
 	border: 0;
@@ -150,28 +150,30 @@ input[type=text] {
     -webkit-transition: width 0.4s ease-in-out;
     transition: width 0.4s ease-in-out;
     float: right;
+	cursor:pointer;
 }
 
-input[type=text]:focus, input[type=text]:hover {
+#right-top input[type=text]:focus,.right-top i input[type=text]:hover {
     width: 200px;
     border-bottom: 5px solid rgba(234,198,122,1);
     height: 10px;
     padding-right: 20px;
 	outline:0;
+	cursor:text;
 }
 
-input[type=text]::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+#right-top input[type=text]::-webkit-input-placeholder { /* WebKit, Blink, Edge */
     color: rgba(234,198,122,1);
 }
-input[type=text]:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-    color: rgba(234,198,122,1);
-   opacity:  .5;
-}
-input[type=text]::-moz-placeholder { /* Mozilla Firefox 19+ */
+#right-top input[type=text]:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
     color: rgba(234,198,122,1);
    opacity:  .5;
 }
-input[type=text]:-ms-input-placeholder { /* Internet Explorer 10-11 */
+#right-top input[type=text]::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: rgba(234,198,122,1);
+   opacity:  .5;
+}
+#right-top input[type=text]:-ms-input-placeholder { /* Internet Explorer 10-11 */
     color: rgba(234,198,122,.5);
 }
 
@@ -202,6 +204,7 @@ input[type=text]:-ms-input-placeholder { /* Internet Explorer 10-11 */
 	display: none;
 	min-width: 170px;
 	position: absolute;
+	z-index:4;
 	background-color: rgba(234,198,122,1);
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 }
@@ -284,21 +287,31 @@ input[type=text]:-ms-input-placeholder { /* Internet Explorer 10-11 */
 /*
  * Statistics
  */
-.statistics{
+.width-list{
 	width:initial;
 } 
  
 #graph {
 	width:100%;
 	min-width: 300px;
+	border-radius: 2px;
+	position: relative;
+	overflow: hidden;	
 }
  
 #myCanvas {
 	background-color: #EAC67A; 
-	width:100%;
+    border: 1px solid #18121e;
+	-moz-box-shadow:    inset 0 0 10px #000000;
+	-webkit-box-shadow: inset 0 0 10px #000000;
+	box-shadow:         inset 0 0 10px #000000;
+	border-radius: 2px;
+	/*width:100%;*/
+	/*height:200px;*/
 }
 
 #scoreTable {
+	margin-top: 10px;
 	width: 100%;
 	min-width: 300px;
 	background-color: #984B43; 
@@ -321,6 +334,124 @@ input[type=text]:-ms-input-placeholder { /* Internet Explorer 10-11 */
 	padding: 10px;
 }
 
+.ScoreClick {
+	width:14px;
+	height:14px;
+	top:-9px;
+	left:-9px;
+	border-radius:50%;
+	border: 2px solid #984B43;
+	background-color: #EAC67A;
+	position:absolute;
+	cursor:pointer;
+}
+
+.scoreInfo {
+	display:none;
+	position: absolute;
+	top: 30px;
+	height: 20px;
+}
+
+.scoreInfo div {
+	position: relative;
+	left:-50%;	
+	background-color: #EAC67A;
+	border: 2px solid #984B43;
+	color: #18121E;
+    width: 200px;
+    text-align: center;
+}
+
+.leftscore {
+	left:10px;
+}
+
+.rightscore {
+	left: inherit;
+	right: 10px;
+}
+
+.ScoreClick:hover > .scoreInfo{
+	display: block;
+}
+
+
+/*
+ * FORUM
+ */
+ 
+ .forum {
+	width: calc(100% - 40px);
+	margin: 2px auto;
+	border: 1px solid #18121E;
+	-moz-box-shadow:    inset 0 0 10px #000000;
+	-webkit-box-shadow: inset 0 0 10px #000000;
+	box-shadow:         inset 0 0 10px #000000;
+}
+ 
+ .forum.Name {
+	text-align: center;
+ }
+ 
+ .forum h2 {
+	margin: 0;
+ }
+ 
+ .forum.Port {
+	min-height: 200px;
+	max-height: 500px;
+	background-color: #EAC67A;
+ }
+ 
+ .forum.Form {
+	margin-top:20px;
+	display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+	flex-direction: row; 
+}
+
+#inputField {
+	flex:1;
+	resize: none;
+	background-color: #EAC67A;
+	padding:10px 10px;
+	font-size:1.1em;
+	border:none;
+}
+
+#inputField:focus {
+
+    outline: 1px solid #EAC67A;
+	border: 1px solid #18121E;
+	-moz-box-shadow:    inset 0 0 10px #000000;
+	-webkit-box-shadow: inset 0 0 10px #000000;
+	box-shadow:         inset 0 0 10px #000000;
+}
+
+#inputField::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color: #233237;
+}
+#inputField:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: #233237;
+}
+#inputField::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: #233237;
+}
+#inputField:-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #233237);
+}
+
+#sendButton {
+	width: 150px;
+	color: #EAC67A;
+	background-color: #18121E;
+	border: none;
+}
+ 
 /*
  * FOOTER
  */
