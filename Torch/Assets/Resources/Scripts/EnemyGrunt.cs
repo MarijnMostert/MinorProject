@@ -33,7 +33,7 @@ public class EnemyGrunt : Enemy {
 	private IEnumerator UpdatePath(){
 		//First make sure there is a target
 		while (gameManager.enemyTarget != null) {
-			Vector3 targetPosition = new Vector3 (gameManager.enemyTarget.transform.position.x, 0, gameManager.enemyTarget.transform.position.z);
+			Vector3 targetPosition = new Vector3 (gameManager.enemyTarget.transform.position.x, -1.25f, gameManager.enemyTarget.transform.position.z);
 
 			//Set the target position for the Nav Mesh Agent
 			navMeshAgent.SetDestination (targetPosition);
