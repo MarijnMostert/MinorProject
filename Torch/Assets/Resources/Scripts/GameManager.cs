@@ -49,13 +49,14 @@ public class GameManager : MonoBehaviour {
     public Camera mainCamera;
 	private Vector3 homeScreenPlayerPosition;
     MasterGenerator masterGenerator;
+    bool gameStarted;
 
 	public AudioSource audioSource;
 	public AudioClip audioHomeScreen;
 	public AudioClip audioDungeon;
 
-
     void Awake () {
+        gameStarted = false;
 		//Makes sure this object is not deleted when another scene is loaded.
 		if (Instance != null) {
 			GameObject.Destroy (this.gameObject);
@@ -78,9 +79,11 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void StartGame(){
-		loadingScreenCanvas.SetActive (true);
-		StartCoroutine (CreateDungeon ());
-
+        if (!gameStarted) {
+            loadingScreenCanvas.SetActive(true);
+            StartCoroutine(CreateDungeon());
+            gameStarted = true;
+        }
 	}
 
 	IEnumerator CreateDungeon(){
@@ -168,7 +171,6 @@ public class GameManager : MonoBehaviour {
 		foreach (PlayerManager playermanager in playerManagers){
 			Destroy (playermanager.playerInstance);
 		}
-
 		Destroy (torch);
 		Destroy (GameObject.Find ("Dungeon"));
 		Destroy (UI);
@@ -186,6 +188,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void resetHomeScreenPlayer(){
-		GameObject.Find ("HomeScreenPlayer").transform.position = homeScreenPlayerPosition;
+        gameStarted = false;
+        GameObject.Find ("HomeScreenPlayer").transform.position = homeScreenPlayerPosition;
 	}
 }
