@@ -35,6 +35,8 @@ public class GameManager : MonoBehaviour {
 	public GameObject enemyTarget;
 	public GameObject UIPrefab;
 	public GameObject UI;
+	public GameObject TorchFOVPrefab;
+	public GameObject TorchFOV;
     public Spawner spawner;
 
     //masterGenerator Vars
@@ -103,6 +105,7 @@ public class GameManager : MonoBehaviour {
 		masterGenerator.Start();
 
 		UI = Instantiate (UIPrefab);
+		TorchFOV = Instantiate (TorchFOVPrefab);
 
 		camTarget = torch.gameObject;
 		enemyTarget = torch.gameObject;
@@ -205,6 +208,7 @@ public class GameManager : MonoBehaviour {
 		Destroy (torch);
 		Destroy (GameObject.Find ("Dungeon"));
 		Destroy (UI);
+		Destroy (TorchFOV);
 		deathCanvas.SetActive (false);
 		gameStarted = false;
 	}

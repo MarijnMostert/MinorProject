@@ -228,8 +228,8 @@ Light:
   serializedVersion: 7
   m_Type: 2
   m_Color: {r: 1, g: 0.70892495, b: 0.4852941, a: 1}
-  m_Intensity: 4
-  m_Range: 23.9
+  m_Intensity: 4.4060507
+  m_Range: 25.507565
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -237,9 +237,9 @@ Light:
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 0.432
-    m_Bias: 0.05
-    m_NormalBias: 0.4
-    m_NearPlane: 0.77
+    m_Bias: 0
+    m_NormalBias: 0
+    m_NearPlane: 0.1
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
@@ -268,9 +268,11 @@ MonoBehaviour:
   floatingHeight: 2
   cam: {fileID: 0}
   torchLight: {fileID: 108000010351575378}
-  startingIntensity: 4
+  intensityMaximum: 2
+  intensityMinimum: 0
   health: 100
-  range: 5
+  rangeMinimum: 5
+  rangeMaximum: 40
   smoothingTime: 1
   flickerInterval: 0.05
   intensityBase: 0
@@ -278,6 +280,7 @@ MonoBehaviour:
   randomFactorIntensity: 0
   randomFactorRange: 0
   UI: {fileID: 0}
+  Particles: {fileID: 0}
   gameManager: {fileID: 0}
   equipped: 0
   isDamagable: 1

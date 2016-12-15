@@ -945,7 +945,7 @@ Prefab:
     - target: {fileID: 224000013442077660, guid: 3ba146cc4154c4ef784dbf697fd01bcd,
         type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 224000013442077660, guid: 3ba146cc4154c4ef784dbf697fd01bcd,
         type: 2}
@@ -1128,7 +1128,7 @@ Transform:
   - {fileID: 1304960976}
   - {fileID: 862228013}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
 --- !u!1 &1304960975
 GameObject:
   m_ObjectHideFlags: 0
@@ -1480,10 +1480,19 @@ Prefab:
       objectReference: {fileID: 270816652}
     - target: {fileID: 114000012126162182, guid: 8e8fb98cee864437995eb9c0b0548acd,
         type: 2}
-      propertyPath: loadingScreenCanvas
-      value: 
-      objectReference: {fileID: 1000013625541172, guid: 0ff01cb270ef14af5b80d2ec70ecc88c,
+      propertyPath: playerManagers.Array.data[0].playerColor.r
+      value: 0.89705884
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012126162182, guid: 8e8fb98cee864437995eb9c0b0548acd,
         type: 2}
+      propertyPath: playerManagers.Array.data[0].playerColor.g
+      value: 0.25064883
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012126162182, guid: 8e8fb98cee864437995eb9c0b0548acd,
+        type: 2}
+      propertyPath: playerManagers.Array.data[0].playerColor.b
+      value: 0.25064883
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8e8fb98cee864437995eb9c0b0548acd, type: 2}
   m_IsPrefabParent: 0

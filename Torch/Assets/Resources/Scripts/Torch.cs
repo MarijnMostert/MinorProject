@@ -5,9 +5,11 @@ using System.Collections;
 public class Torch : InteractableItem, IDamagable {
 
 	public Light torchLight;
-	public float startingIntensity = 4f;
+	public float intensityMinimum = 0f;
+	public float intensityMaximum = 2f;
 	public int health;
-	public float range = 5f;
+	public float rangeMinimum = 5;
+	public float rangeMaximum = 40f;
 	public float smoothingTime = 1f;
 	[HideInInspector] //This variable will be used by other scripts but will not be editable in the Unity GUI.
 	public float flickerInterval = 0.5f;
@@ -21,6 +23,8 @@ public class Torch : InteractableItem, IDamagable {
 	public float rangeBase;
 	public float randomFactorIntensity;
 	public float randomFactorRange;
+
+	private float randomValue;
 
 	public GameObject UI;
 	private Text healthText;
@@ -38,15 +42,15 @@ public class Torch : InteractableItem, IDamagable {
 		Particles.SetActive (false);
 		StartCoroutine (DamageOverTime ());
 
-		torchLight.intensity = startingIntensity;
-		intensityBase = startingIntensity;
-		randomFactorIntensity = startingIntensity / 8f;
-		randomFactorRange = range / 8f;
+		torchLight.intensity = intensityMaximum;
+		intensityBase = intensityMaximum;
+		randomFactorIntensity = (intensityMaximum - intensityMinimum) / 8f;
+		randomFactorRange = (rangeMaximum - rangeMinimum) / 8f;
 
 		canvas.SetActive (true);
 
-		//Every 'flickerInterval' seconds the 'torchFlickering()' function is called.
-		InvokeRepeating ("torchFlickering", 0f, flickerInterval);
+		//Coroutine for the flickering of the light.
+		StartCoroutine(TorchFlickering());
 	}
 	
 	void Update () {
@@ -60,9 +64,9 @@ public class Torch : InteractableItem, IDamagable {
 	//Update the light intensity and range according to the health
 	private void lightUpdate(){
 		//Met smoothdamp ga je van de ene waarde geleidelijk over in de andere met een bepaalde smoothingTime.
-		rangeBase = (float)health / gameManager.torchStartingHealth * range + 20f;
+		rangeBase = (float)health / gameManager.torchStartingHealth * (rangeMaximum - rangeMinimum) + rangeMinimum;
 		torchLight.range = Mathf.SmoothDamp(torchLight.range, rangeBase, ref smoothDampVar1, smoothingTime);
-		intensityBase = (float)health / gameManager.torchStartingHealth * startingIntensity;
+		intensityBase = (float)health / gameManager.torchStartingHealth * (intensityMaximum - intensityMinimum) + intensityMaximum;
 		torchLight.intensity = Mathf.SmoothDamp(torchLight.intensity, intensityBase, ref smoothDampVar2, smoothingTime);
 	}
 
@@ -95,12 +99,15 @@ public class Torch : InteractableItem, IDamagable {
 		yield return new WaitForSeconds (2.5f);
 		Particles.SetActive (false);
 	}
-		
+
 	//Random deviation from the base intensity and range.
-	private void torchFlickering(){
-		float randomValue = Random.value;
-		torchLight.intensity = Mathf.SmoothDamp (torchLight.intensity, intensityBase + ((2f * randomValue) - 1f) * randomFactorIntensity, ref smoothDampVar3, flickerInterval);
-		torchLight.range = Mathf.SmoothDamp (torchLight.range, rangeBase + ((2f * randomValue) - 1f) * randomFactorRange, ref smoothDampVar4, flickerInterval);
+	IEnumerator TorchFlickering(){
+		while(gameObject.activeSelf){
+			randomValue = Random.value;
+			torchLight.intensity = Mathf.SmoothDamp (torchLight.intensity, intensityBase + ((2f * randomValue) - 1f) * randomFactorIntensity, ref smoothDampVar3, flickerInterval);
+			torchLight.range = Mathf.SmoothDamp (torchLight.range, rangeBase + ((2f * randomValue) - 1f) * randomFactorRange, ref smoothDampVar4, flickerInterval);
+			yield return new WaitForSeconds (flickerInterval);
+		}
 	}
 
 	//Update the health of the torch.

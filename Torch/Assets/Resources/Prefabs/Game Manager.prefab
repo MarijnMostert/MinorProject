@@ -146,6 +146,8 @@ MonoBehaviour:
   torchHealth: 0
   torchHealthMax: 150
   score: 0
+  totalScore: 0
+  dungeonLevel: 0
   paused: 0
   pauseScreen: {fileID: 1000011647558472, guid: cf3e1c810a2e94ddfa98fdcb76202dbb,
     type: 2}
@@ -155,10 +157,14 @@ MonoBehaviour:
   enemyTarget: {fileID: 0}
   UIPrefab: {fileID: 1000011980605034, guid: ce12bf815c9354cd38ffdb78d7b15e2b, type: 2}
   UI: {fileID: 0}
+  TorchFOVPrefab: {fileID: 1000011320308738, guid: b5c950376b24a4029afee84b9656c78b,
+    type: 2}
+  TorchFOV: {fileID: 0}
   spawner: {fileID: 0}
-  loadingScreenCanvas: {fileID: 1000013438309082, guid: 0ff01cb270ef14af5b80d2ec70ecc88c,
+  loadingScreenCanvas: {fileID: 1000013625541172, guid: 0ff01cb270ef14af5b80d2ec70ecc88c,
     type: 2}
   deathCanvas: {fileID: 0}
+  endOfRoundCanvas: {fileID: 0}
   homeScreen: {fileID: 0}
   homeScreenCam: {fileID: 0}
   mainCamera: {fileID: 0}
