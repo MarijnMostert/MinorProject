@@ -4,7 +4,6 @@ $(document).ready(function(){
 	 * Generate local tmp data 
 	 */
 	player = new Player(1,'Joran', 'haksdf', 'jrout@tudelft.nl', Date.now(), 143);
-	
 	avatar = 'img/Avatar.jpg';
 	rank = new Rank(4, 45640, '09-12-2016');
 	totalplayers = 6550;
@@ -16,14 +15,11 @@ $(document).ready(function(){
 	scoreList.addScore(new Score(3,2,114, 'Joran', new Date(2016,11,5,15,5,40)));	scoreList.addScore(new Score(4,4,50, 'Joran', new Date(2016,11,7,20,16,15)));
 
 	
-	guild = new Guild(1, 'GuildName', 'Joran');
-	guild.addMember('member1');
-	guild.addMember('member2');
+	guild = new Guild(1, 'GuildName', 'Joran', ['Joran','member1','member2']);
 	/*guild = new Guild('null','null','null','null');*/
 	
 	console.log(player);
 	console.log(scoreList);
-	console.log(guild);
 
 	header()
 	var pathname = window.location.pathname;
@@ -31,14 +27,6 @@ $(document).ready(function(){
 		case '/ewi3620tu1/home.php':
 			console.log('url: home');
 			homepage();
-			break;
-		case '/ewi3620tu1/guild.php':
-			console.log('url: guild view');
-			viewguildpage();
-			break;
-		case '/ewi3620tu1/members.php':
-			console.log('url: members');
-			memberpage();
 			break;
 		default:	
 			console.log('url not recognized');
@@ -60,11 +48,15 @@ var header = function(){
 		guild_forum.className = 'GuildForum_menu';
 		guild_forum.innerHTML = 'Guild Forum';
 		$('#guilds_dropdown').append(guild_forum);
+		var guild_market = document.createElement('p').appendChild(document.createElement('a'));
+		guild_market.className = 'GuildMarket_menu';
+		guild_market.innerHTML = 'Guild Market';
+		$('#guilds_dropdown').append(guild_market);
+		
 			$('.ViewGuild_menu').on('click',function(){window.location.href="guild.php";});
 			$('.GuildForum_menu').on('click',function(){window.location.href="guildforum.php";});
+			$('.GuildMarket_menu').on('click',function(){window.location.href="guildmarket.php";});
 	}
-	$('.dropdown').on('click',function(){$('dropdown-content').css('display','block')});
-	$('#change-avatar').on('click',function(){window.location.href="settings.php";});
 }
 
 var homepage = function(){
@@ -74,23 +66,4 @@ var homepage = function(){
 	$('#highscore').html(rank.highscore + ' ©');
 	$('#ranking').html(rank.rank + " /" + totalplayers);
 	$('#playtime').html(player.playtime + " Hours");
-}
-
-var viewguildpage = function(){
-	$('#guild_name').html(guild.name);
-	$('#guild_leader').html(guild.leader);
-	$('#GuildScore').html('Undefined');
-	$('#ranking').html('Undefined');
-	$('#player_button').on('click',function(){window.location.href = "members.php";});
-}
-
-var memberpage = function(){
-	$('#guild_button').on('click',function(){window.location.href = "guild.php";});
-	guild.members.forEach(function(member){
-		var row = document.createElement('tr');
-		var name = document.createElement('td');
-		name.innerHTML = member;
-		row.appendChild(name);
-		document.getElementById('members').appendChild(row);
-	});
 }

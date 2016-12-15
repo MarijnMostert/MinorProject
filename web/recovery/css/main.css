@@ -58,14 +58,15 @@ body {
 
 #change-avatar {
  background-color: rgba(234,198,122,0.9);
- background-image: url(../img/picture.png);
- background-size:cover;
  height:200px;
  width:200px;
  opacity: 0;
  transition: all 1s ease-in-out;
  position: absolute;
  z-index: 2;
+ font-size: 8em;
+ color: #984B43;
+ text-align: center;
  cursor: pointer;
 }
 
@@ -123,7 +124,14 @@ body {
 #right-top{
 	position: absolute;
 	top:0;
-	width:100%;
+	width:100%;/*
+    -webkit-justify-content: flex-end;
+    justify-content: flex-end;
+	display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;*/
 }
 
 #right-top input[type=text] {
@@ -188,10 +196,6 @@ body {
     float: right;
 }
 
-.button:focus{
-	outline:none;
-}
-
 .dropdown p {
 	margin-bottom:0.3em;
 }
@@ -217,7 +221,6 @@ body {
 .dropdown-content p {
 	margin:0;
 }
-
 
 .dropdown:hover .dropdown-content {
 	display: block;
@@ -396,8 +399,9 @@ body {
  }
  
  .forum.Port {
+	min-height: 200px;
+	max-height: 500px;
 	background-color: #EAC67A;
-	font-size: 0.9em;
  }
  
  .forum.Form {
@@ -410,77 +414,6 @@ body {
 	flex-direction: row; 
 }
 
-.messagesPort{
-	position: relative;
-	overflow-y: scroll;
-	overflow-x: hidden;	
-	height: 500px;
-}
-
-.messagesPort {
-	color: #18121E;
-	padding: 0;
-}
-
-.messagesPort::-webkit-scrollbar-track
-{
-	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.8);
-	border-radius: 10px;
-	background-color: #EAC67A;
-	cursor: pointer;
-}
-
-.messagesPort::-webkit-scrollbar
-{
-	width: 12px;
-	background-color: #EAC67A;
-	cursor: pointer;
-}
-
-.messagesPort::-webkit-scrollbar-thumb
-{
-	border-radius: 10px;
-	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.8);
-	background-color: #984B43;
-	cursor: pointer;
-	padding: 5px 0;
-}
-
-.message {
-	float: right;
-	clear: both;
-	border-radius: 5px;
-	background-color: #EAC67A;
-	border: 5px solid #984B43;
-	max-width: 50%;
-	margin: 3px 10px;
-	
-	-moz-box-shadow:    inset 0 0 5px #000000,2px 2px 5px #000000;
-	-webkit-box-shadow: inset 0 0 5px #000000,2px 2px 5px #000000;
-	box-shadow:         inset 0 0 5px #000000,2px 2px 5px #000000;
-}
-
-.messageLeft {
-	float: left;
-}
-
-.message span {
-	display: block;
-	background-color: #984B43;
-	color: #EAC67A;
-	padding: 2px 10px;
-}
-
-.message p{
-	margin: 0;
-	padding: 5px 10px;
-	border-top: 2px solid #984B43;
-}
-
-.message p:nth-child(2) {
-	border-top: none;
-}
-
 #inputField {
 	flex:1;
 	resize: none;
@@ -491,6 +424,7 @@ body {
 }
 
 #inputField:focus {
+
     outline: 1px solid #EAC67A;
 	border: 1px solid #18121E;
 	-moz-box-shadow:    inset 0 0 10px #000000;
@@ -516,64 +450,7 @@ body {
 	color: #EAC67A;
 	background-color: #18121E;
 	border: none;
-	cursor: pointer;
-	transition: all 0.2s;
 }
-
-#sendButton:focus {
-	outline: none;
-	animation-name: flash;
-	animation-duration: 0.2s;
-
-}
-
-@keyframes flash {
-    0%   {background-color: #18121E;}
-    50% {background-color: #332640;}
-    100% {background-color: #18121E;}
-}
-
-/*
- * Guild View
- */
-#list_header {
-	padding: 0;
-}
- 
-#list_header img{
-	height: 300px;
-	margin: 0 auto;
-}
-
-#player_button,#guild_button{
-	margin: 30px 0 15px 0;
-    font-size: 1.1em;
-	font-weight: bold;
-    text-align: -internal-center;  
-	display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-	flex-direction: row; 	
-	cursor: pointer;
-}
-
-#player_button div:first-child ,
-#guild_button div:first-child {
-	flex: 1;
-	border: 1px solid #592c27; 
-	padding: 10px 20px;
-}
-
-#player_button  div:nth-child(2),
-#guild_button div:nth-child(2){
-	width: 45px;
-	border: 1px solid #592c27; 	
-	padding: 10px;
-	text-align: center;
-}
-
  
 /*
  * FOOTER

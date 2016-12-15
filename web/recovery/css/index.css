@@ -42,7 +42,7 @@ body {
 	font-weight:bold;
 }
 
-#submit {
+#container input[type=submit] {
 	background-color: #233237;
 	color:#EAC67A;
 	border: none;
@@ -55,7 +55,6 @@ body {
 	font-weight: bold;
 	font-size: 1.1em;
 	cursor: pointer;
-	text-align: center;
 }
 
 #container input[type=text], #container input[type=password]{

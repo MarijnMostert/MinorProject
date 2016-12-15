@@ -13,17 +13,16 @@
   <meta name="viewport" content="initial-scale=1, user-scalable=no"/>
   
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script src="js/index.js"></script>
 </head>
 <body>
 	<div id="container">
-		<form action="#" method="POST">
+		<form action="home.php" method="POST">
 			<h1>LOG IN</h1>
 			<label for="username">Username </label>
-			<input type="text" id="username" name="username" placeholder="Username">
+			<input type="text" name="username" placeholder="Username">
 			<label for="password">Password </label>
-			<input type="password" id="password" name="password" placeholder="Password">
-			<input id="submit" type="button" value=">>">
+			<input type="password" name="password" placeholder="Password">
+			<input type="submit" value=">>">
 		</form>
 	</div>
 </body>

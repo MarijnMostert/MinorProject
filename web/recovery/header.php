@@ -19,13 +19,13 @@
 <body>
 	<div id="avatar">
 		<div>
-			<div id="change-avatar"></div>
+			<div id="change-avatar">&#9786;</div>
 			<img src="img/Avatar.jpg">
 		</div>
 	</div>
 	<div id="header">
 		<div id="right-top">
-			<button id="logout_button" class="button"></button>
+			<button class="button"></button>
 			<form>	
 				<input type="text" name="search" placeholder="Search..">
 			</form>
@@ -40,15 +40,10 @@
 			</div>
 			<div class="menu-item settings-menu"><p><a>Settings</a></p></div>
 		</div>
-		
-		<script src="LoadImg-master/assets/js/loadimg.min.js"></script>
 		<script>
-			$(document).ready(function(){
-				$('.home-menu').on('click',function(){window.location.href="home.php";});
-				$('.statistics-menu').on('click',function(){window.location.href="statistics.php";});
-				$('.settings-menu').on('click',function(){window.location.href="settings.php";});
-				$('#logout_button').on('click',function(){window.location.href="index.php"});
-			});
+			$('.home-menu').on('click',function(){window.location.href="home.php";});
+			$('.statistics-menu').on('click',function(){window.location.href="statistics.php";});
+			$('.settings-menu').on('click',function(){window.location.href="settings.php";});
 		</script>
 		
 	</div>
