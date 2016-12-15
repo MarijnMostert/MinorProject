@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour {
 	//Score info
 	public int score = 0;
 	public int totalScore = 0;
+	public int dungeonLevel = 0;
 
 	public bool paused;
 	public GameObject pauseScreen;
@@ -83,6 +84,7 @@ public class GameManager : MonoBehaviour {
 	public void StartGame(){
         if (!gameStarted) {
 			Time.timeScale = 1f;
+			dungeonLevel++;
 			endOfRoundCanvas.SetActive (false);
             loadingScreenCanvas.SetActive(true);
             StartCoroutine(CreateDungeon());
@@ -114,6 +116,7 @@ public class GameManager : MonoBehaviour {
 
 		torch.cam = mainCamera;
 		UI.transform.FindChild ("Score Text").GetComponent<Text> ().text = "Score: " + score;
+		UI.transform.FindChild ("Dungeon Level").GetComponent<Text> ().text = "Dungeon level " + dungeonLevel;
 
 		audioSource.clip = audioDungeon;
 		audioSource.Play ();
