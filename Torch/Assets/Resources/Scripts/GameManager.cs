@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour {
 
 	//Score info
 	public int score = 0;
+	public int totalScore = 0;
 
 	public bool paused;
 	public GameObject pauseScreen;
@@ -44,6 +45,7 @@ public class GameManager : MonoBehaviour {
 	//public GameObject homeScreenCanvas;
 	public GameObject loadingScreenCanvas;
 	public GameObject deathCanvas;
+	public GameObject endOfRoundCanvas;
 	public GameObject homeScreen;
 	public GameObject homeScreenCam;
     public Camera mainCamera;
@@ -80,6 +82,8 @@ public class GameManager : MonoBehaviour {
 
 	public void StartGame(){
         if (!gameStarted) {
+			Time.timeScale = 1f;
+			endOfRoundCanvas.SetActive (false);
             loadingScreenCanvas.SetActive(true);
             StartCoroutine(CreateDungeon());
             gameStarted = true;
