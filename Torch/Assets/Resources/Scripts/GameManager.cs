@@ -3,6 +3,10 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System;
+using UnityEngine.Analytics;
+
+
 
 public class GameManager : MonoBehaviour {
 
@@ -153,7 +157,14 @@ public class GameManager : MonoBehaviour {
 		cameraPrefab.GetComponentInChildren<CameraController> ().target = camTarget;
 	}*/
 
+
 	public void GameOver(){
+
+		Dictionary<string, object> eventData = new Dictionary<string, object> {
+			{ "test", 10 }
+		};
+		UnityEngine.Analytics.Analytics.CustomEvent("test", eventData);
+
 		deathCanvas.SetActive (true);
 		Destroy (spawner);
 		for (int i = 0; i < playerManagers.Length; i++) {
