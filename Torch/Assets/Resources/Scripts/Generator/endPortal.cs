@@ -13,6 +13,8 @@ public class endPortal : MonoBehaviour {
     string scene;
     AsyncOperation async;
     GameObject continueText;
+	GameManager gameManager;
+	GameObject endOfRoundCanvas;
     //Text winText;
 
     // Use this for initialization
@@ -20,6 +22,9 @@ public class endPortal : MonoBehaviour {
         loading = false;
         start_game = false;
         continueText = GameObject.Find("ContinueText") as GameObject;
+		gameManager = GameObject.Find ("Game Manager").GetComponent<GameManager> ();
+		endOfRoundCanvas = gameManager.endOfRoundCanvas;
+
         //winText = GameObject.Find("UI").transform.FindChild("Win Text").GetComponent<Text>();
     }
 
@@ -29,42 +34,20 @@ public class endPortal : MonoBehaviour {
         if (other.gameObject.CompareTag("Player"))
         {
             Debug.Log("endportal");
-            GameObject[] chests = GameObject.FindGameObjectsWithTag("Chest");
-            Debug.Log("chest length: "+ chests.Length);
-            if (chests == null || chests.Length == 0)
-            {
-                onWin();
-            }
-        }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyUp("."))
-        {
-            onWin();
-        }
-
-        if (toHome)
-        {
-            if (!loading)
-            {
-                StartCoroutine(LoadNewScene());
-                loading = true;
-            }
-            if (async != null && loading && async.progress >= .9f)
-            {
-                if (Input.GetKeyUp("space"))
-                {
-                    async.allowSceneActivation = true;
-                }
-            }
+			onWin ();
         }
     }
 
     void onWin()
     {
+		Time.timeScale = 0f;
+		gameManager.totalScore += gameManager.score;
+		endOfRoundCanvas.transform.Find ("Score").GetComponent<Text> ().text = gameManager.score.ToString();
+		endOfRoundCanvas.transform.Find ("TotalScore").GetComponent<Text> ().text = gameManager.totalScore.ToString();
+		endOfRoundCanvas.SetActive (true);
+		gameManager.score = 0;
+
+		/*
         //winText.gameObject.SetActive(true);
         GameObject.Find("Spawner").GetComponent<Spawner>().dead = true;
         GameObject[] allEnemies = GameObject.FindGameObjectsWithTag("Enemy");
@@ -74,6 +57,7 @@ public class endPortal : MonoBehaviour {
         }
         Torch torch = GameObject.Find("Torch").GetComponent<Torch>();
         toHome = true;
+		*/
     }
 
     IEnumerator LoadNewScene()

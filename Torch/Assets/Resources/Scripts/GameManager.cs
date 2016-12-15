@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour {
 
 	//Score info
 	public int score = 0;
+	public int totalScore = 0;
+	public int dungeonLevel = 0;
 
 	public bool paused;
 	public GameObject pauseScreen;
@@ -48,6 +50,7 @@ public class GameManager : MonoBehaviour {
 	//public GameObject homeScreenCanvas;
 	public GameObject loadingScreenCanvas;
 	public GameObject deathCanvas;
+	public GameObject endOfRoundCanvas;
 	public GameObject homeScreen;
 	public GameObject homeScreenCam;
     public Camera mainCamera;
@@ -84,6 +87,9 @@ public class GameManager : MonoBehaviour {
 
 	public void StartGame(){
         if (!gameStarted) {
+			Time.timeScale = 1f;
+			dungeonLevel++;
+			endOfRoundCanvas.SetActive (false);
             loadingScreenCanvas.SetActive(true);
             StartCoroutine(CreateDungeon());
             gameStarted = true;
@@ -114,6 +120,7 @@ public class GameManager : MonoBehaviour {
 
 		torch.cam = mainCamera;
 		UI.transform.FindChild ("Score Text").GetComponent<Text> ().text = "Score: " + score;
+		UI.transform.FindChild ("Dungeon Level").GetComponent<Text> ().text = "Dungeon level " + dungeonLevel;
 
 		audioSource.clip = audioDungeon;
 		audioSource.Play ();
@@ -166,6 +173,11 @@ public class GameManager : MonoBehaviour {
 		UnityEngine.Analytics.Analytics.CustomEvent("test", eventData);
 
 		deathCanvas.SetActive (true);
+		deathCanvas.transform.Find ("Score Text").GetComponent<Text> ().text = "Your score: " + totalScore;
+		RoundEnd ();
+	}
+
+	public void RoundEnd(){
 		Destroy (spawner);
 		for (int i = 0; i < playerManagers.Length; i++) {
 			playerManagers [i].playerInstance.SetActive (false);
@@ -176,9 +188,17 @@ public class GameManager : MonoBehaviour {
 		foreach (GameObject pickup in GameObject.FindGameObjectsWithTag("PickUp")) {
 			Destroy (pickup);
 		}
+		foreach (GameObject cursor in GameObject.FindGameObjectsWithTag ("CursorPointer")) {
+			Destroy (cursor);
+		}
 	}
 
 	public void TransitionDeathToMain(){
+		DestroyDungeon ();
+		LoadHomeScreen ();
+	}
+
+	public void DestroyDungeon(){
 		foreach (PlayerManager playermanager in playerManagers){
 			Destroy (playermanager.playerInstance);
 		}
@@ -186,6 +206,10 @@ public class GameManager : MonoBehaviour {
 		Destroy (GameObject.Find ("Dungeon"));
 		Destroy (UI);
 		deathCanvas.SetActive (false);
+		gameStarted = false;
+	}
+
+	public void LoadHomeScreen(){
 		homeScreen.SetActive (true);
 		homeScreenCam.SetActive (true);
 		audioSource.clip = audioHomeScreen;
@@ -199,7 +223,12 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void resetHomeScreenPlayer(){
-        gameStarted = false;
         GameObject.Find ("HomeScreenPlayer").transform.position = homeScreenPlayerPosition;
+	}
+
+	public void Proceed(){
+		RoundEnd ();
+		DestroyDungeon ();
+		StartGame ();
 	}
 }
