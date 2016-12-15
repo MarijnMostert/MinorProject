@@ -159,6 +159,11 @@ public class GameManager : MonoBehaviour {
 
 	public void GameOver(){
 		deathCanvas.SetActive (true);
+		deathCanvas.transform.Find ("Score Text").GetComponent<Text> ().text = "Your score: " + totalScore;
+		RoundEnd ();
+	}
+
+	public void RoundEnd(){
 		Destroy (spawner);
 		for (int i = 0; i < playerManagers.Length; i++) {
 			playerManagers [i].playerInstance.SetActive (false);
@@ -169,9 +174,17 @@ public class GameManager : MonoBehaviour {
 		foreach (GameObject pickup in GameObject.FindGameObjectsWithTag("PickUp")) {
 			Destroy (pickup);
 		}
+		foreach (GameObject cursor in GameObject.FindGameObjectsWithTag ("CursorPointer")) {
+			Destroy (cursor);
+		}
 	}
 
 	public void TransitionDeathToMain(){
+		DestroyDungeon ();
+		LoadHomeScreen ();
+	}
+
+	public void DestroyDungeon(){
 		foreach (PlayerManager playermanager in playerManagers){
 			Destroy (playermanager.playerInstance);
 		}
@@ -179,6 +192,10 @@ public class GameManager : MonoBehaviour {
 		Destroy (GameObject.Find ("Dungeon"));
 		Destroy (UI);
 		deathCanvas.SetActive (false);
+		gameStarted = false;
+	}
+
+	public void LoadHomeScreen(){
 		homeScreen.SetActive (true);
 		homeScreenCam.SetActive (true);
 		audioSource.clip = audioHomeScreen;
@@ -192,7 +209,12 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void resetHomeScreenPlayer(){
-        gameStarted = false;
         GameObject.Find ("HomeScreenPlayer").transform.position = homeScreenPlayerPosition;
+	}
+
+	public void Proceed(){
+		RoundEnd ();
+		DestroyDungeon ();
+		StartGame ();
 	}
 }
