@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour {
 	public int score = 0;
 	public int totalScore = 0;
 	public int dungeonLevel = 0;
+	public float StartTime;
 
 	public bool paused;
 	public GameObject pauseScreen;
@@ -88,6 +89,7 @@ public class GameManager : MonoBehaviour {
 	public void StartGame(){
         if (!gameStarted) {
 			Time.timeScale = 1f;
+			StartTime = Time.time;
 			dungeonLevel++;
 			endOfRoundCanvas.SetActive (false);
             loadingScreenCanvas.SetActive(true);
@@ -168,11 +170,11 @@ public class GameManager : MonoBehaviour {
 	public void GameOver(){
 
 		Dictionary<string, object> eventData = new Dictionary<string, object> {
-			{ "Score", score },
-			{ "level", 0},
+			{ "Score", totalScore },
+			{ "level", dungeonLevel},
 			{ "Total Time", Time.time}
 		};
-		UnityEngine.Analytics.Analytics.CustomEvent("test", eventData);
+		UnityEngine.Analytics.Analytics.CustomEvent("Death", eventData);
 
 		deathCanvas.SetActive (true);
 		deathCanvas.transform.Find ("Score Text").GetComponent<Text> ().text = "Your score: " + totalScore;
@@ -229,6 +231,13 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void Proceed(){
+		Dictionary<string, object> eventData = new Dictionary<string, object> {
+			{ "level", dungeonLevel},
+			{ "LevelScore", score },
+			{ "TimeSpent", Time.time - StartTime}
+		};
+		UnityEngine.Analytics.Analytics.CustomEvent("LevelComplete", eventData);
+
 		RoundEnd ();
 		DestroyDungeon ();
 		StartGame ();
