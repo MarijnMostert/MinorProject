@@ -161,7 +161,9 @@ public class GameManager : MonoBehaviour {
 	public void GameOver(){
 
 		Dictionary<string, object> eventData = new Dictionary<string, object> {
-			{ "test", 10 }
+			{ "Score", score },
+			{ "level", 0},
+			{ "Total Time", Time.time}
 		};
 		UnityEngine.Analytics.Analytics.CustomEvent("test", eventData);
 
