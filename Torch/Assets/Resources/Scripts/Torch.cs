@@ -24,6 +24,7 @@ public class Torch : InteractableItem, IDamagable {
 
 	public GameObject UI;
 	private Text healthText;
+	public GameObject Particles;
 
 	public GameManager gameManager;
 	public bool equipped = false;
@@ -33,6 +34,9 @@ public class Torch : InteractableItem, IDamagable {
 		base.Start ();
 
 		torchLight = transform.GetComponentInChildren<Light> ();
+		Particles = transform.Find ("Particles").gameObject;
+		Particles.SetActive (false);
+		StartCoroutine (DamageOverTime ());
 
 		torchLight.intensity = startingIntensity;
 		intensityBase = startingIntensity;
@@ -83,6 +87,13 @@ public class Torch : InteractableItem, IDamagable {
 			health = gameManager.torchHealthMax;
 		}
 		updateHealth ();
+		StartCoroutine (ParticlesCoroutine ());
+	}
+
+	IEnumerator ParticlesCoroutine(){
+		Particles.SetActive (true);
+		yield return new WaitForSeconds (2.5f);
+		Particles.SetActive (false);
 	}
 		
 	//Random deviation from the base intensity and range.
@@ -147,12 +158,10 @@ public class Torch : InteractableItem, IDamagable {
 		
 	}
 
-	/*void InitializeLinkWithUI(){
-		UI = GameObject.Find ("UI");
-		if (UI != null) {
-			healthText = UI.transform.FindChild ("Health Text").GetComponent<Text> ();
-			healthText.text = "Health: " + health;
+	IEnumerator DamageOverTime(){
+		while (gameObject.activeSelf) {
+			takeDamage (2);
+			yield return new WaitForSeconds (5f);
 		}
 	}
-	*/
 }
