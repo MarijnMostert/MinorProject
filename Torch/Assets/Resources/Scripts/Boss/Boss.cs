@@ -51,7 +51,8 @@ public class Boss : MonoBehaviour, IDamagable {
 		dead = false;
 		timeAlive = Time.time;
 		health = startingHealth;
-		colorBoss = transform.GetComponent<MeshRenderer> ().material.color;
+		colorBoss = transform.GetComponentInChildren<SkinnedMeshRenderer> ().material.color;
+		//colorBoss = transform.GetComponent<MeshRenderer> ().material.color;
 		gameObject.transform.FindChild ("BossShield").gameObject.SetActive (false);
 		initialiseArraySizes ();
 		//initialiseThresholds ();
@@ -268,7 +269,7 @@ public class Boss : MonoBehaviour, IDamagable {
 		}
 		//Normal Attack
 		if (finalOutput [4] > actionThreshold[4]) {
-			transform.GetComponent<MeshRenderer>().material.color = Color.red;
+			transform.GetComponentInChildren<SkinnedMeshRenderer>().material.color = Color.red;
 			GetComponent<WeaponController> ().currentWeapon.GetComponent<RangedWeapon> ().setProjectile (normalProjectile, 0.3f, 9);
 			GetComponent<WeaponController> ().Fire ();
 			usedAttacks++;
@@ -280,7 +281,7 @@ public class Boss : MonoBehaviour, IDamagable {
 		}
 		//Special Attack
 		else if (finalOutput [6] > actionThreshold[6]) {
-			transform.GetComponent<MeshRenderer>().material.color = Color.blue;
+			transform.GetComponentInChildren<SkinnedMeshRenderer>().material.color = Color.blue;
 			GetComponent<WeaponController> ().currentWeapon.GetComponent<RangedWeapon> ().setProjectile (specialProjectile, 1.0f, 30);
 			GetComponent<WeaponController> ().Fire ();
 			usedSpecAttacks++;

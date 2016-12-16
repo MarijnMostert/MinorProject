@@ -18,7 +18,7 @@ public class TrainerManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		genAlg = new GA (10, 20, 63);
+		genAlg = new GA (10, 10, 63);
 		genAlg.CreatePopulation ();
 		StartCoroutine(Population (genAlg.numberOfGenerations));
 	}
@@ -28,6 +28,7 @@ public class TrainerManager : MonoBehaviour {
 			Debug.Log ("Starting generation " + (i+1));
 			BossCounter = 0;
 			yield return StartCoroutine (Boss ());
+			genAlg.WriteToFile (i);
 		}
 	}
 
@@ -36,8 +37,8 @@ public class TrainerManager : MonoBehaviour {
 
 			BossCounter++;
 			Debug.Log ("Start boss " + BossCounter);
-			SpawnPointBoss.position = new Vector3 (Random.Range (-22.0f, 22.0f), 1.0f, Random.Range (-22.0f, 22.0f));
-			SpawnPointGladiator.position = new Vector3 (Random.Range (-22.0f, 22.0f), 1.0f, Random.Range (-22.0f, 22.0f));
+			SpawnPointBoss.position = new Vector3 (Random.Range (-20.0f, 20.0f), 1.0f, Random.Range (-20.0f, 20.0f));
+			SpawnPointGladiator.position = new Vector3 (Random.Range (-20.0f, 20.0f), 1.0f, Random.Range (-20.0f, 20.0f));
 			Instantiate (gladiatorPrefab, SpawnPointGladiator.position, SpawnPointGladiator.rotation);
 			Instantiate (bossPrefab, SpawnPointBoss.position, SpawnPointBoss.rotation);
 			GameObject.FindGameObjectWithTag ("Boss").GetComponent<Boss> ().initializeWeightsFromChromosome (genAlg.getChrom (BossCounter - 1));
