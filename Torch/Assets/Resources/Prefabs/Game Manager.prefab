@@ -149,14 +149,15 @@ MonoBehaviour:
   totalScore: 0
   dungeonLevel: 0
   paused: 0
-  pauseScreen: {fileID: 1000011647558472, guid: cf3e1c810a2e94ddfa98fdcb76202dbb,
-    type: 2}
+  pauseScreen: {fileID: 0}
   cameraPrefab: {fileID: 1000010527591912, guid: 2f0d8300580bb4db9b1240053b57aeaf,
     type: 2}
   camTarget: {fileID: 0}
   enemyTarget: {fileID: 0}
   UIPrefab: {fileID: 1000011980605034, guid: ce12bf815c9354cd38ffdb78d7b15e2b, type: 2}
   UI: {fileID: 0}
+  UIHelpItems: []
+  UIHelp: 1
   TorchFOVPrefab: {fileID: 1000011320308738, guid: b5c950376b24a4029afee84b9656c78b,
     type: 2}
   TorchFOV: {fileID: 0}
@@ -173,3 +174,4 @@ MonoBehaviour:
   audioDungeon:
   - {fileID: 8300000, guid: 3d02f9a386baf4bea855ca88493ab372, type: 3}
   - {fileID: 8300000, guid: 667c3a85722394921ba0173a0e9b17b3, type: 3}
+  audioMuted: 0
