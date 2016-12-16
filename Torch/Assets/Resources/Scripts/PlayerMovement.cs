@@ -115,7 +115,7 @@ public class PlayerMovement : MonoBehaviour {
 		MovementInput = MovementInput.normalized;
 
 		//Move
-		transform.position = transform.position + (MovementInput * speed * Time.deltaTime);
+		transform.position += (MovementInput * speed * Time.deltaTime);
 	}
 
 	private void Turn(){

@@ -129,7 +129,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerManagers:
   - spawnPoint: {fileID: 4000013396432608}
-    playerColor: {r: 0, g: 0, b: 0, a: 0}
+    playerColor: {r: 0.89705884, g: 0.25064883, b: 0.25064883, a: 0}
     cursorPointer: {fileID: 0}
     playerNumber: 0
     playerInstance: {fileID: 0}
@@ -170,4 +170,6 @@ MonoBehaviour:
   mainCamera: {fileID: 0}
   audioSource: {fileID: 0}
   audioHomeScreen: {fileID: 8300000, guid: 7e404d8a72ce34ec98bd3c27ed1782f8, type: 3}
-  audioDungeon: {fileID: 8300000, guid: 3d02f9a386baf4bea855ca88493ab372, type: 3}
+  audioDungeon:
+  - {fileID: 8300000, guid: 3d02f9a386baf4bea855ca88493ab372, type: 3}
+  - {fileID: 8300000, guid: 667c3a85722394921ba0173a0e9b17b3, type: 3}

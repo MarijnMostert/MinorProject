@@ -39,6 +39,15 @@ public class Spawner : MonoBehaviour {
 		if (Input.GetButtonDown (waveButton)) {
 			spawnWave ();
 		}
+		if (Input.GetKeyDown (KeyCode.M)) {
+			if (dead) {
+				dead = false;
+				Debug.Log ("Spawner has been turned on");
+			} else {
+				dead = true;
+				Debug.Log ("Spawner has been turned off");
+			}
+		}
 	}
 
 	void spawnEnemy(){
