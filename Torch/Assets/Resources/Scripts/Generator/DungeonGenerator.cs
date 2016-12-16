@@ -26,6 +26,8 @@ public class DungeonGenerator : Object {
 
 	private List<p2D> doorways;
 	private List<Room> rooms;
+	private List<p2D> allRoomCoords;
+	private List<p2D> roomCenters;
 
 
 	//Deze functie is nodig voor in Unity, maar niet in Java.
@@ -57,6 +59,8 @@ public class DungeonGenerator : Object {
 		this.dungeonMaze = new int[width, height];
 		this.doorways = new List<p2D> ();
 		this.rooms = new List<Room> ();
+		this.allRoomCoords = new List<p2D> ();
+		this.roomCenters = new List<p2D> ();
 
 		this.maxCorridorLength = maxCorridorLength;
 		this.roomRadius = roomRadius;
@@ -110,6 +114,22 @@ public class DungeonGenerator : Object {
 		return rooms;
 	}
 
+	public List<p2D> getRoomCenters () {
+		foreach (Room room in rooms) {
+			roomCenters.Add (room.getCenter ());
+		}
+		return roomCenters;
+	}
+
+	public List<p2D> getAllRoomCoords () {
+		foreach (Room room in rooms) {
+			foreach (p2D coord in room.getAllCoords ()) {
+					allRoomCoords.Add (coord);
+			}
+		}
+		return allRoomCoords;
+	}
+
 	public bool isDone () {
 		return done;
 	}
@@ -119,10 +139,18 @@ public class DungeonGenerator : Object {
 	private void generate () {
 		int i = 0;
 		float start = Time.realtimeSinceStartup * 1000;
-		float end = start + mseconds; // 60 seconds * 1000 ms/sec
+		float endtime = start + mseconds; // 60 seconds * 1000 ms/sec
+		int i_now = 0;
+		int i_prev = -1;
 
 		//While the desired amount of rooms is built or time has not yet run out
-		while (i < minAmountOfRooms+1 && Time.realtimeSinceStartup * 1000 < end) {
+		while (i < minAmountOfRooms+1 && Time.realtimeSinceStartup * 1000 < endtime) {
+
+			if (i_prev != i_now) {
+				endtime = Time.realtimeSinceStartup * 1000 + mseconds;
+			}
+
+			i_prev = i_now;
 
 			//Pick a length for your corridor
 			this.corridorLength = Random.Range (0, maxCorridorLength)+1;
@@ -171,6 +199,9 @@ public class DungeonGenerator : Object {
 				}
 				break;
 			}
+
+			i_now = i;
+
 		}		
 	}//generate
 
@@ -354,14 +385,16 @@ public class DungeonGenerator : Object {
 
 		//Make a list of the unique elements in list, together with a list of how many times those elements appeared
 		foreach (var element in list) {
+
+			int index = p2D.myIndexOf (unique, element);
+				
 			//If not yet in it, add it and set amount to 1
-			if (!unique.Contains (element)) {
+			if (index == -1) {
 				unique.Add (element);
 				amounts.Add (1);
 			} 
 			//If already in it, up the amount by 1
 			else {
-				int index = unique.IndexOf (element);
 				amounts [index] += 1;
 			}
 		}
@@ -376,10 +409,12 @@ public class DungeonGenerator : Object {
 			}
 		}
 
+		p2D.myRemove (unique, marked);
+
 		//Remove the marked elements from the list that will be returned
-		foreach (var element in marked) {
-			unique.Remove (element);
-		}
+//		foreach (var element in marked) {
+//			unique.Remove (element);
+//		}
 
 		//Return the now cleaned up list
 		return unique;

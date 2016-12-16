@@ -36,17 +36,20 @@ public class GameManager : MonoBehaviour {
 	public GameObject enemyTarget;
 	public GameObject UIPrefab;
 	public GameObject UI;
+
+	public List<GameObject> PuzzleRooms;
     public Spawner spawner;
 
+
     //masterGenerator Vars
-    int width = 20;// = 100;
-    int height = 20;// = 90;
-    int radius = 1;// = 2;
-    int maxlength = 4;// = 3;
-    int timeout = 6000;// = 200;
-    int minAmountOfRooms = 2;// = 6;
-    int maxAmountOfRooms = 5;// = 8;
-    int chanceOfRoom = 20;// = 15;
+    int width = 40;// = 100;
+    int height = 40;// = 90;
+    int radius = 2;// = 2;
+    int maxlength = 2;// = 3;
+    int timeout = 2000;// = 200;
+    int minAmountOfRooms = 4;// = 6;
+    int maxAmountOfRooms = 7;// = 8;
+    int chanceOfRoom = 10;// = 15; Dit is de 1/n kans op een kamer, dus groter getal is kleinere kans
 
 	//public GameObject homeScreenCanvas;
 	public GameObject loadingScreenCanvas;
@@ -72,6 +75,7 @@ public class GameManager : MonoBehaviour {
 			GameObject.DontDestroyOnLoad (this.gameObject);
 			Instance = this;
 		}
+
 		//homeScreenCanvas = GameObject.Find ("Home Screen Canvas");
 		homeScreen = GameObject.Find ("HomeScreen");
 		homeScreenCam = GameObject.Find ("HomeScreenCam");
@@ -100,7 +104,7 @@ public class GameManager : MonoBehaviour {
 
 	IEnumerator CreateDungeon(){
 		yield return new WaitForSeconds (.1f);
-		masterGenerator = new MasterGenerator(this.gameObject, width, height, radius, maxlength, timeout, minAmountOfRooms, maxAmountOfRooms, chanceOfRoom);
+		masterGenerator = new MasterGenerator(this.gameObject, width, height, radius, maxlength, timeout, minAmountOfRooms, maxAmountOfRooms, chanceOfRoom, PuzzleRooms);
 		masterGenerator.LoadPrefabs();
 		masterGenerator.Start();
 
@@ -119,6 +123,9 @@ public class GameManager : MonoBehaviour {
 			playerManagers [i].Setup ();
 			playerManagers [i].playerMovement.mainCamera = mainCamera;
 		}
+
+		Vector3 startpoint = masterGenerator.MovePlayersToStart ();
+		torch.transform.position = startpoint + new Vector3 (6, 1, 0);
 
 		torch.cam = mainCamera;
 		UI.transform.FindChild ("Score Text").GetComponent<Text> ().text = "Score: " + score;
