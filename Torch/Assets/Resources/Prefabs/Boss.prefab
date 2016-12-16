@@ -72,10 +72,10 @@ GameObject:
   - 33: {fileID: 33000013800289070}
   - 65: {fileID: 65000013342104090}
   - 23: {fileID: 23000013512202492}
-  - 114: {fileID: 114000011582654994}
   - 54: {fileID: 54000014172191018}
-  - 114: {fileID: 114000013165508896}
   - 114: {fileID: 114000011281377804}
+  - 114: {fileID: 114000011632095272}
+  - 114: {fileID: 114000012804237430}
   m_Layer: 10
   m_Name: Boss
   m_TagString: Boss
@@ -274,7 +274,7 @@ MonoBehaviour:
   startingWeapon: {fileID: 114000013339538176, guid: eb2eaefbd4cf747a6842a07638b7a891,
     type: 2}
   currentWeapon: {fileID: 0}
---- !u!114 &114000011582654994
+--- !u!114 &114000011632095272
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -296,11 +296,11 @@ MonoBehaviour:
   usedAttacks: 0
   usedSpecAttacks: 0
   usedBlocks: 0
-  timeAliveFactor: 10
-  damageDealtFactor: 0.3
-  ratioFactor: 0
+  timeAliveFactor: 5
+  damageDealtFactor: 1
+  ratioFactor: 5
   distMoved: 0
-  distMovedFactor: 40
+  distMovedFactor: 10
   fitness: 0
   normalProjectile: {fileID: 114000012347710446, guid: 9386fe03180ca4651948a63f963771e9,
     type: 2}
@@ -309,14 +309,14 @@ MonoBehaviour:
   target: {fileID: 0}
   oldPos: {x: 0, y: 0, z: 0}
   speed: 5
-  startingHealth: 600
+  startingHealth: 500
   health: 0
   colorBoss: {r: 0, g: 0, b: 0, a: 0}
   scoreValue: 1000
   healthBarPrefab: {fileID: 1000011103493978, guid: 0ee5528024a8b489ab0eb87d79456ab4,
     type: 2}
   dead: 0
---- !u!114 &114000013165508896
+--- !u!114 &114000012804237430
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
