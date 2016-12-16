@@ -38,7 +38,7 @@ public class Block : MonoBehaviour
         transform.localScale = Vector3.Lerp(transform.localScale, Target_scale, 1.5f*step);
         if (transform.position == end_pos && !sprung)
         {
-            trigger.GetComponent<toggleTrapBox>().setTrapReady();
+//            trigger.GetComponent<toggleTrapBox>().setTrapReady(); //////////////////////////////////////////
             sprung = true;
         }
     }

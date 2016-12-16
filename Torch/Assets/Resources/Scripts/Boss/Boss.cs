@@ -43,7 +43,7 @@ public class Boss : MonoBehaviour, IDamagable {
 	public int scoreValue = 1000;
 	public GameObject healthBarPrefab;
 	protected GameObject healthBar;
-	protected ScoreManager scoreManager;
+	//protected ScoreManager scoreManager;
 	public bool dead;
 
 	//Initialize Boss and Neural Network weights

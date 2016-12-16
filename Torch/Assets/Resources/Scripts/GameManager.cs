@@ -104,7 +104,7 @@ public class GameManager : MonoBehaviour {
 
 	IEnumerator CreateDungeon(){
 		yield return new WaitForSeconds (.1f);
-		masterGenerator = new MasterGenerator(this.gameObject, width, height, radius, maxlength, timeout, minAmountOfRooms, maxAmountOfRooms, chanceOfRoom);
+		masterGenerator = new MasterGenerator(this.gameObject, width, height, radius, maxlength, timeout, minAmountOfRooms, maxAmountOfRooms, chanceOfRoom, PuzzleRooms);
 		masterGenerator.LoadPrefabs();
 		masterGenerator.Start();
 
