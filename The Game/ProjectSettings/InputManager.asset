@@ -6,6 +6,7 @@ InputManager:
   serializedVersion: 2
   m_Axes:
   - serializedVersion: 3
+<<<<<<< HEAD:The Game/ProjectSettings/InputManager.asset
     m_Name: Horizontal1
     descriptiveName: Keyboard keys for Horizontal movement of Player 1
     descriptiveNegativeName: 
@@ -16,21 +17,91 @@ InputManager:
     gravity: 100
     dead: 2
     sensitivity: 3
+=======
+    m_Name: moveHorizontal1
+    descriptiveName: Keyboard input
+    descriptiveNegativeName: 
+    negativeButton: left
+    positiveButton: right
+    altNegativeButton: a
+    altPositiveButton: d
+    gravity: 10
+    dead: 0
+    sensitivity: 0.1
+>>>>>>> master:Torch/ProjectSettings/InputManager.asset
     snap: 1
     invert: 0
     type: 0
     axis: 0
     joyNum: 0
   - serializedVersion: 3
+<<<<<<< HEAD:The Game/ProjectSettings/InputManager.asset
     m_Name: TurningControllerHorizontal1
     descriptiveName: 
+    descriptiveNegativeName: 
+=======
+    m_Name: moveHorizontal1
+    descriptiveName: Controller input
     descriptiveNegativeName: 
     negativeButton: 
     positiveButton: 
     altNegativeButton: 
     altPositiveButton: 
+    gravity: 0
+    dead: 0.19
+    sensitivity: 1
+    snap: 1
+    invert: 0
+    type: 2
+    axis: 0
+    joyNum: 0
+  - serializedVersion: 3
+    m_Name: moveVertical1
+    descriptiveName: Keyboard input
+    descriptiveNegativeName: 
+    negativeButton: down
+    positiveButton: up
+    altNegativeButton: s
+    altPositiveButton: w
+    gravity: 10
+    dead: 0
+    sensitivity: 0.1
+    snap: 1
+    invert: 0
+    type: 0
+    axis: 0
+    joyNum: 0
+  - serializedVersion: 3
+    m_Name: moveVertical1
+    descriptiveName: Controller Input
+    descriptiveNegativeName: 
+>>>>>>> master:Torch/ProjectSettings/InputManager.asset
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+<<<<<<< HEAD:The Game/ProjectSettings/InputManager.asset
     gravity: 100
     dead: 0.01
+=======
+    gravity: 0
+    dead: 0.19
+    sensitivity: 1
+    snap: 1
+    invert: 1
+    type: 2
+    axis: 1
+    joyNum: 0
+  - serializedVersion: 3
+    m_Name: turnHorizontal1
+    descriptiveName: Controller Input
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.19
     sensitivity: 1
     snap: 1
     invert: 0
@@ -38,6 +109,40 @@ InputManager:
     axis: 2
     joyNum: 0
   - serializedVersion: 3
+    m_Name: turnVertical1
+    descriptiveName: Controller Input
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.19
+>>>>>>> master:Torch/ProjectSettings/InputManager.asset
+    sensitivity: 1
+    snap: 1
+    invert: 1
+    type: 2
+    axis: 3
+    joyNum: 0
+  - serializedVersion: 3
+    m_Name: Attack1
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: mouse 0
+    altNegativeButton: 
+    altPositiveButton: joystick button 9
+    gravity: 1000
+    dead: 0.001
+    sensitivity: 1000
+    snap: 0
+    invert: 0
+    type: 2
+    axis: 2
+    joyNum: 0
+  - serializedVersion: 3
+<<<<<<< HEAD:The Game/ProjectSettings/InputManager.asset
     m_Name: MovingControllerHorizontal1
     descriptiveName: 
     descriptiveNegativeName: 
@@ -65,11 +170,25 @@ InputManager:
     dead: 2
     sensitivity: 3
     snap: 1
+=======
+    m_Name: InteractionButton
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: e
+    altNegativeButton: 
+    altPositiveButton: joystick button 13
+    gravity: 1000
+    dead: 0.001
+    sensitivity: 1000
+    snap: 0
+>>>>>>> master:Torch/ProjectSettings/InputManager.asset
     invert: 0
     type: 0
     axis: 0
     joyNum: 0
   - serializedVersion: 3
+<<<<<<< HEAD:The Game/ProjectSettings/InputManager.asset
     m_Name: Vertical1
     descriptiveName: Keyboard keys for Vertical movement of Player 1
     descriptiveNegativeName: 
@@ -81,11 +200,25 @@ InputManager:
     dead: 2
     sensitivity: 3
     snap: 1
+=======
+    m_Name: DropTorch1
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: r
+    altNegativeButton: 
+    altPositiveButton: joystick button 12
+    gravity: 1000
+    dead: 0.001
+    sensitivity: 1000
+    snap: 0
+>>>>>>> master:Torch/ProjectSettings/InputManager.asset
     invert: 0
     type: 0
     axis: 0
     joyNum: 0
   - serializedVersion: 3
+<<<<<<< HEAD:The Game/ProjectSettings/InputManager.asset
     m_Name: TurningControllerVertical1
     descriptiveName: 
     descriptiveNegativeName: 
@@ -129,18 +262,35 @@ InputManager:
     dead: 2
     sensitivity: 3
     snap: 1
+=======
+    m_Name: PowerUpButton1_1
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: z
+    altNegativeButton: 
+    altPositiveButton: joystick button 7
+    gravity: 1000
+    dead: 0.001
+    sensitivity: 1000
+    snap: 0
+>>>>>>> master:Torch/ProjectSettings/InputManager.asset
     invert: 0
     type: 0
     axis: 0
     joyNum: 0
   - serializedVersion: 3
-    m_Name: Attack1
+    m_Name: PowerUpButton2_1
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: mouse 0
+    positiveButton: x
     altNegativeButton: 
+<<<<<<< HEAD:The Game/ProjectSettings/InputManager.asset
     altPositiveButton: space
+=======
+    altPositiveButton: joystick button 4
+>>>>>>> master:Torch/ProjectSettings/InputManager.asset
     gravity: 1000
     dead: 0.001
     sensitivity: 1000
@@ -150,13 +300,53 @@ InputManager:
     axis: 0
     joyNum: 0
   - serializedVersion: 3
+<<<<<<< HEAD:The Game/ProjectSettings/InputManager.asset
     m_Name: ControllerAttack1
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
     positiveButton: joystick 1 button 9
+=======
+    m_Name: PowerUpButton3_1
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: c
+>>>>>>> master:Torch/ProjectSettings/InputManager.asset
     altNegativeButton: 
-    altPositiveButton: 
+    altPositiveButton: joystick button 5
+    gravity: 1000
+    dead: 0.001
+    sensitivity: 1000
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 0
+    joyNum: 0
+  - serializedVersion: 3
+    m_Name: NextWeapon1
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: joystick button 11
+    gravity: 1000
+    dead: 0.001
+    sensitivity: 1000
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 0
+    joyNum: 0
+  - serializedVersion: 3
+    m_Name: PrevWeapon1
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: joystick button 10
     gravity: 1000
     dead: 0.001
     sensitivity: 1000
@@ -182,13 +372,22 @@ InputManager:
     axis: 0
     joyNum: 0
   - serializedVersion: 3
+<<<<<<< HEAD:The Game/ProjectSettings/InputManager.asset
     m_Name: SlowMotion
     descriptiveName: SlowMotion
+=======
+    m_Name: Pause
+    descriptiveName: Keyboard Pause button
+>>>>>>> master:Torch/ProjectSettings/InputManager.asset
     descriptiveNegativeName: 
     negativeButton: 
     positiveButton: q
     altNegativeButton: 
+<<<<<<< HEAD:The Game/ProjectSettings/InputManager.asset
     altPositiveButton: joystick button 12
+=======
+    altPositiveButton: escape
+>>>>>>> master:Torch/ProjectSettings/InputManager.asset
     gravity: 1000
     dead: 0.001
     sensitivity: 1000
@@ -198,11 +397,16 @@ InputManager:
     axis: 0
     joyNum: 0
   - serializedVersion: 3
+<<<<<<< HEAD:The Game/ProjectSettings/InputManager.asset
     m_Name: CameraShake
     descriptiveName: Camera shake
+=======
+    m_Name: Pause
+    descriptiveName: Controller Pause button
+>>>>>>> master:Torch/ProjectSettings/InputManager.asset
     descriptiveNegativeName: 
     negativeButton: 
-    positiveButton: c
+    positiveButton: joystick button 3
     altNegativeButton: 
     altPositiveButton: joystick button 4
     gravity: 1000
@@ -214,8 +418,29 @@ InputManager:
     axis: 0
     joyNum: 0
   - serializedVersion: 3
+<<<<<<< HEAD:The Game/ProjectSettings/InputManager.asset
     m_Name: InteractionButton
     descriptiveName: Interaction button
+=======
+    m_Name: ToggleInput1
+    descriptiveName: 
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: u
+    altNegativeButton: 
+    altPositiveButton: joystick button 0
+    gravity: 1000
+    dead: 0.001
+    sensitivity: 1000
+    snap: 0
+    invert: 0
+    type: 0
+    axis: 0
+    joyNum: 0
+  - serializedVersion: 3
+    m_Name: SpawnEnemy
+    descriptiveName: 
+>>>>>>> master:Torch/ProjectSettings/InputManager.asset
     descriptiveNegativeName: 
     negativeButton: 
     positiveButton: e
@@ -321,6 +546,7 @@ InputManager:
     dead: 0.19
     sensitivity: 1
     snap: 0
+<<<<<<< HEAD:The Game/ProjectSettings/InputManager.asset
     invert: 0
     type: 2
     axis: 0
@@ -358,6 +584,13 @@ InputManager:
     axis: 2
     joyNum: 0
   - serializedVersion: 3
+=======
+    invert: 1
+    type: 2
+    axis: 1
+    joyNum: 0
+  - serializedVersion: 3
+>>>>>>> master:Torch/ProjectSettings/InputManager.asset
     m_Name: Submit
     descriptiveName: 
     descriptiveNegativeName: 

@@ -3,6 +3,10 @@ using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System;
+using UnityEngine.Analytics;
+
+
 
 public class GameManager : MonoBehaviour {
 
@@ -12,23 +16,30 @@ public class GameManager : MonoBehaviour {
 	public GameObject playerPrefab;
 
 	//Torch data
+	public GameObject torchPrefab;
 	public Torch torch;
 	public Transform torchSpawnPoint;
-	public int torchStartingHealth;
+	public int torchStartingHealth = 100;
 	public int torchHealth;
+	public int torchHealthMax = 150;
 
 	//Score info
 	public int score = 0;
+	public int totalScore = 0;
+	public int dungeonLevel = 0;
+	public float StartTime;
 
 	public bool paused;
 	public GameObject pauseScreen;
 	public GameObject cameraPrefab;
 	public GameObject camTarget;
 	public GameObject enemyTarget;
+	public GameObject UIPrefab;
 	public GameObject UI;
 
 	public List<GameObject> PuzzleRooms;
-    //public Spawner spawner;
+    public Spawner spawner;
+
 
     //masterGenerator Vars
     int width = 40;// = 100;
@@ -40,11 +51,23 @@ public class GameManager : MonoBehaviour {
     int maxAmountOfRooms = 7;// = 8;
     int chanceOfRoom = 10;// = 15; Dit is de 1/n kans op een kamer, dus groter getal is kleinere kans
 
+	//public GameObject homeScreenCanvas;
+	public GameObject loadingScreenCanvas;
+	public GameObject deathCanvas;
+	public GameObject endOfRoundCanvas;
+	public GameObject homeScreen;
+	public GameObject homeScreenCam;
     public Camera mainCamera;
+	private Vector3 homeScreenPlayerPosition;
     MasterGenerator masterGenerator;
+    bool gameStarted;
 
+	public AudioSource audioSource;
+	public AudioClip audioHomeScreen;
+	public AudioClip audioDungeon;
 
     void Awake () {
+        gameStarted = false;
 		//Makes sure this object is not deleted when another scene is loaded.
 		if (Instance != null) {
 			GameObject.Destroy (this.gameObject);
@@ -52,60 +75,72 @@ public class GameManager : MonoBehaviour {
 			GameObject.DontDestroyOnLoad (this.gameObject);
 			Instance = this;
 		}
-        Initialize();
-		masterGenerator = new MasterGenerator(this.gameObject, width, height, radius, maxlength, timeout, minAmountOfRooms, maxAmountOfRooms, chanceOfRoom, PuzzleRooms);
-        masterGenerator.LoadPrefabs();
-        masterGenerator.Start();
+
+		//homeScreenCanvas = GameObject.Find ("Home Screen Canvas");
+		homeScreen = GameObject.Find ("HomeScreen");
+		homeScreenCam = GameObject.Find ("HomeScreenCam");
+		audioSource = GetComponent<AudioSource> ();
     }
 
     public void Start(){
+		pauseScreen = Instantiate (pauseScreen) as GameObject;
+		pauseScreen.SetActive (false);
+		loadingScreenCanvas = Instantiate (loadingScreenCanvas) as GameObject;
+		loadingScreenCanvas.SetActive (false);
+		homeScreenPlayerPosition = GameObject.Find ("HomeScreenPlayer").transform.position;
+	}
 
-        UI = masterGenerator.ui;
-        pauseScreen = masterGenerator.pause_screen;
+	public void StartGame(){
+        if (!gameStarted) {
+			Time.timeScale = 1f;
+			StartTime = Time.time;
+			dungeonLevel++;
+			endOfRoundCanvas.SetActive (false);
+            loadingScreenCanvas.SetActive(true);
+            StartCoroutine(CreateDungeon());
+            gameStarted = true;
+        }
+	}
 
-        torch = Instantiate (torch, masterGenerator.dungeon_instantiate.startPos, torchSpawnPoint.rotation) as Torch;
+	IEnumerator CreateDungeon(){
+		yield return new WaitForSeconds (.1f);
+		masterGenerator = new MasterGenerator(this.gameObject, width, height, radius, maxlength, timeout, minAmountOfRooms, maxAmountOfRooms, chanceOfRoom);
+		masterGenerator.LoadPrefabs();
+		masterGenerator.Start();
+
+		UI = Instantiate (UIPrefab);
+
+		camTarget = torch.gameObject;
+		enemyTarget = torch.gameObject;
 		torch.health = torchStartingHealth;
 		torch.gameManager = this;
-        torch.UI = UI;
-        
-		//SetUpCameraPart1 ();
+		torch.UI = UI;
+
 		for (int i = 0; i < playerManagers.Length; i++) {
-            Debug.Log("Create Player with id:" + i);
-            //playerManagers [i].playerInstance = Instantiate (playerPrefab, playerManagers [i].spawnPoint.position, playerManagers [i].spawnPoint.rotation) as GameObject;
-            playerManagers[i].playerInstance = Instantiate(playerPrefab, masterGenerator.dungeon_instantiate.startPos, playerManagers[i].spawnPoint.rotation) as GameObject;
-            playerManagers [i].playerNumber = i + 1;
+			Debug.Log("Create Player with id:" + i);
+			playerManagers[i].playerInstance = Instantiate(playerPrefab, masterGenerator.dungeon_instantiate.startPos, playerManagers[i].spawnPoint.rotation) as GameObject;
+			playerManagers [i].playerNumber = i + 1;
 			playerManagers [i].Setup ();
 			playerManagers [i].playerMovement.mainCamera = mainCamera;
 		}
 
-		camTarget = torch.gameObject;
-		enemyTarget = torch.gameObject;
-		//SetUpCameraPart2 ();
 		torch.cam = mainCamera;
-
 		UI.transform.FindChild ("Score Text").GetComponent<Text> ().text = "Score: " + score;
+		UI.transform.FindChild ("Dungeon Level").GetComponent<Text> ().text = "Dungeon level " + dungeonLevel;
+
+		audioSource.clip = audioDungeon;
+		audioSource.Play ();
+		homeScreen.SetActive (false);
+		homeScreenCam.SetActive (false);
+		loadingScreenCanvas.SetActive (false);
+
+		yield return null;
 	}
 	
 	void Update () {
-		//LoadScene ();
 		Pause ();
-	}
-
-	void OnLevelWasLoaded(){
-		//Start ();
-	}
-
-	void LoadScene(){
-		if (Input.GetKeyUp(KeyCode.Alpha0)){
-			SceneManager.LoadScene (0);
-			OnLevelWasLoaded ();
-		}
-		if (Input.GetKeyUp (KeyCode.Alpha1)) {
-			SceneManager.LoadScene (1);
-			OnLevelWasLoaded ();
-		}
-		if (Input.GetKeyUp (KeyCode.Alpha2)) {
-			SceneManager.LoadScene (2);
+		if(Input.GetKeyDown(KeyCode.I)){
+			deathCanvas.SetActive (true);
 		}
 	}
 
@@ -123,14 +158,9 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
+	/*
 	void Initialize(){
-		/*pauseScreen = Instantiate (pauseScreen);
-		pauseScreen.SetActive (false);
-        pauseScreen.GetComponentInChildren<MuteAudio>().game_manager = this.gameObject;
-		UI = Instantiate (UI);
-		spawner = Instantiate (spawner);*/
-	}
-/*
+
 	void SetUpCameraPart1(){
 		cameraPrefab = Instantiate (cameraPrefab) as GameObject;
 		mainCamera = cameraPrefab.GetComponentInChildren<Camera> ();
@@ -140,16 +170,80 @@ public class GameManager : MonoBehaviour {
 		cameraPrefab.GetComponentInChildren<CameraController> ().target = camTarget;
 	}*/
 
+
 	public void GameOver(){
-		UI.transform.FindChild ("Death Text").gameObject.SetActive (true);
-		torch.gameObject.SetActive (false);
+
+		Dictionary<string, object> eventData = new Dictionary<string, object> {
+			{ "Score", totalScore },
+			{ "level", dungeonLevel},
+			{ "Total Time", Time.time}
+		};
+		UnityEngine.Analytics.Analytics.CustomEvent("Death", eventData);
+
+		deathCanvas.SetActive (true);
+		deathCanvas.transform.Find ("Score Text").GetComponent<Text> ().text = "Your score: " + totalScore;
+		RoundEnd ();
+	}
+
+	public void RoundEnd(){
+		Destroy (spawner);
 		for (int i = 0; i < playerManagers.Length; i++) {
 			playerManagers [i].playerInstance.SetActive (false);
 		}
+		foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy")) {
+			Destroy (enemy);
+		}
+		foreach (GameObject pickup in GameObject.FindGameObjectsWithTag("PickUp")) {
+			Destroy (pickup);
+		}
+		foreach (GameObject cursor in GameObject.FindGameObjectsWithTag ("CursorPointer")) {
+			Destroy (cursor);
+		}
+	}
+
+	public void TransitionDeathToMain(){
+		DestroyDungeon ();
+		LoadHomeScreen ();
+	}
+
+	public void DestroyDungeon(){
+		foreach (PlayerManager playermanager in playerManagers){
+			Destroy (playermanager.playerInstance);
+		}
+		Destroy (torch);
+		Destroy (GameObject.Find ("Dungeon"));
+		Destroy (UI);
+		deathCanvas.SetActive (false);
+		gameStarted = false;
+	}
+
+	public void LoadHomeScreen(){
+		homeScreen.SetActive (true);
+		homeScreenCam.SetActive (true);
+		audioSource.clip = audioHomeScreen;
+		audioSource.Play ();
+		resetHomeScreenPlayer ();
 	}
 
 	public void updateScore(int addedScore){
 		score += addedScore;
 		UI.transform.FindChild ("Score Text").GetComponent<Text> ().text = "Score: " + score;
+	}
+
+	public void resetHomeScreenPlayer(){
+        GameObject.Find ("HomeScreenPlayer").transform.position = homeScreenPlayerPosition;
+	}
+
+	public void Proceed(){
+		Dictionary<string, object> eventData = new Dictionary<string, object> {
+			{ "level", dungeonLevel},
+			{ "LevelScore", score },
+			{ "TimeSpent", Time.time - StartTime}
+		};
+		UnityEngine.Analytics.Analytics.CustomEvent("LevelComplete", eventData);
+
+		RoundEnd ();
+		DestroyDungeon ();
+		StartGame ();
 	}
 }

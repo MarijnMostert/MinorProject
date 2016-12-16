@@ -29,10 +29,11 @@ public class EnemyBomber : Enemy {
 		weapon = weaponController.currentWeapon as BomberWeapon;
 		angle = weaponHolder.transform.eulerAngles.x;
 	//	prevPosition = target.transform.position;
+		StartCoroutine (UpdatePath ());
 	}
 
 	void Update () {
-		StartCoroutine (UpdatePath ());
+		
 		varDistanceToTarget = distanceToTarget ();
 		if (target != null && varDistanceToTarget <= attackRange && (Time.time - lastAttackTime) > attackCooldown) {
 			attack ();

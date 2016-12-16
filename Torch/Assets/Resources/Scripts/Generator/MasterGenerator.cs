@@ -6,11 +6,12 @@ public class MasterGenerator : Object {
 
     public GameObject floor, side, sideAlt1, sideAlt2, corner, cornerout,
                             roof, block, trap_straight, trap_crossing, trap_box,
-                            portal, end_portal, player, pause_screen,
-                            spawner, torch, cam, ui, pointer, chest,
-                            coin, fireball, iceball, health, laser, shieldPickUp;
-	public List<GameObject> puzzleRooms;
+                            portal, end_portal, player,
+                            spawner, torch, cam, pointer, chest,
+                            coin, fireball, iceball, health, laser, shieldPickUp,
+							stickyPickUp, roofGroup, wallPickUp;
 
+	public List<GameObject> puzzleRooms;
     GameObject game_manager;
     public DungeonInstantiate dungeon_instantiate;
     int width;// = 100;
@@ -53,9 +54,10 @@ public class MasterGenerator : Object {
 
         dungeon_instantiate = new DungeonInstantiate(floor, side, sideAlt1, sideAlt2, corner, cornerout,
                                                                         roof, block, trap_straight, trap_crossing, trap_box,
-                                                                        portal, end_portal, player, pause_screen, game_manager,
-                                                                        spawner, torch, cam, ui, pointer, chest, coin, 
-																		fireball, iceball, health, mazeSize, laser, shieldPickUp, puzzleRooms);
+                                                                        portal, end_portal, player, game_manager,
+                                                                        spawner, torch, cam, pointer, chest, coin, 
+																		fireball, iceball, health, mazeSize, laser, shieldPickUp,
+																		stickyPickUp, roofGroup, wallPickUp, puzzleRooms);
 
 		while (!done) {
 			dungeon = new DungeonGenerator ( width,
@@ -136,14 +138,11 @@ public class MasterGenerator : Object {
         end_portal = Resources.Load("Prefabs/Blocks/endPortal", typeof(GameObject)) as GameObject;
         chest = Resources.Load("Prefabs/chest", typeof(GameObject)) as GameObject;
         cam = Resources.Load("Prefabs/Camera", typeof(GameObject)) as GameObject;
-        cam.GetComponentInChildren<CameraController>().gameManager = game_manager;
-        pause_screen = Resources.Load("Prefabs/Pause Screen", typeof(GameObject)) as GameObject;
-        pause_screen.GetComponentInChildren<MuteAudio>().game_manager = game_manager;
-        ui = Resources.Load("Prefabs/UI", typeof(GameObject)) as GameObject;
+		cam.GetComponentInChildren<CameraController>().gameManager = game_manager.GetComponent<GameManager>();
         spawner = Resources.Load("Prefabs/Spawner", typeof(GameObject)) as GameObject;
-        spawner.GetComponent<Spawner>().mapMinX = 5;
+//        spawner.GetComponent<Spawner>().mapMinX = 5;
         player = Resources.Load("Prefabs/Player", typeof(GameObject)) as GameObject;
-        torch = Resources.Load("Prefabs/UI", typeof(GameObject)) as GameObject;
+        torch = Resources.Load("Prefabs/Torch", typeof(GameObject)) as GameObject;
         coin = Resources.Load("Prefabs/PickUps/Coin", typeof(GameObject)) as GameObject;
         coin.GetComponent<ScorePickUp>().gameManager = game_manager;
         fireball = Resources.Load("Prefabs/PickUps/FireBall Weapon PickUp", typeof(GameObject)) as GameObject;
@@ -152,10 +151,9 @@ public class MasterGenerator : Object {
 		laser = Resources.Load ("Prefabs/PickUps/Laser Weapon PickUp", typeof(GameObject)) as GameObject;
 		shieldPickUp = Resources.Load ("Prefabs/PickUps/Shield PickUp", typeof(GameObject)) as GameObject;
 
-		//puzzleRooms.Add (Resources.Load ("Prefabs/PuzzlesScenes/FallBlockPuzzle", typeof(GameObject)) as GameObject);
-		//puzzleRooms.Add (Resources.Load ("Prefabs/PuzzlesScenes/Fliproom", typeof(GameObject)) as GameObject);
-		//puzzleRooms.Add (Resources.Load ("Prefabs/PuzzlesScenes/LaserRoom", typeof(GameObject)) as GameObject);
-		//puzzleRooms.Add (Resources.Load ("Prefabs/PuzzlesScenes/MovingBlockPuzzle", typeof(GameObject)) as GameObject);
+		stickyPickUp = Resources.Load ("Prefabs/PickUps/Sticky PickUp", typeof(GameObject)) as GameObject;
+		roofGroup = Resources.Load ("Prefabs/roofGroup", typeof(GameObject)) as GameObject;
+		wallPickUp = Resources.Load ("Prefabs/PickUps/Wall PickUp", typeof(GameObject)) as GameObject;
 
     }
 }

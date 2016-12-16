@@ -23,11 +23,10 @@ public class EnemyRanged : Enemy {
 		base.Start ();
 		weapon = weaponController.currentWeapon as RangedWeapon;
 		stoppingDistance = navMeshAgent.stoppingDistance;
-
+		StartCoroutine (UpdatePath ());
 	}
 	
 	void Update () {
-		StartCoroutine (UpdatePath ());
 		determineStoppingDistance ();
 		varDistanceToTarget = distanceToTarget ();
 		if (target != null && varDistanceToTarget <= attackRange && (Time.time - lastAttackTime) > attackCooldown && canSeeTarget()) {

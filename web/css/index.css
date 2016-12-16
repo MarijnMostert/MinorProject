@@ -1,0 +1,72 @@
+html, body {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	display: table;
+	width: 100vw;
+	height: 100vh;
+	background-color: #EAC67A;
+}
+
+#container {
+	display: table-cell;
+	text-align: center;
+	vertical-align: middle;
+}
+
+#container form {
+	display: inline-block;
+	background-color:#984B43;
+	vertical-align: top;
+	border-radius:15px;
+	overflow:hidden;
+	text-align:left;
+	width: 410px;
+}
+
+#container h1 {
+	color:#EAC67A;
+	background-color:#18121E;
+	margin: 0;
+	margin-bottom: 15px;
+	padding: 20px 0;
+	text-align: center;
+}
+
+#container label {
+	margin: 5px 10px;
+	padding: 0 10px;
+	color: #18121E;
+	font-weight:bold;
+}
+
+#submit {
+	background-color: #233237;
+	color:#EAC67A;
+	border: none;
+	width:390px;
+	padding:12px 20px;
+	margin: 8px 10px;
+	display: inline-block;
+	border-radius: 5px;
+	box-sizing: border-box;
+	font-weight: bold;
+	font-size: 1.1em;
+	cursor: pointer;
+	text-align: center;
+}
+
+#container input[type=text], #container input[type=password]{
+	width:390px;
+	padding:12px 20px;
+	margin: 8px 10px;
+	display: inline-block;
+	border-radius: 4px;
+	box-sizing: border-box;
+}
+
+#container input[type=text]:focus, #container input:focus[type=password]{
+	outline-color: #EAC67A;
+}

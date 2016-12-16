@@ -116,6 +116,7 @@ Rigidbody:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
+<<<<<<< HEAD:The Game/Assets/Resources/Prefabs/MovingPlatform.prefab
   m_GameObject: {fileID: 1000011279769678}
   serializedVersion: 2
   m_Mass: 1
@@ -128,6 +129,31 @@ Rigidbody:
   m_CollisionDetection: 0
 --- !u!65 &65000013506183638
 BoxCollider:
+=======
+  m_GameObject: {fileID: 1000012253497530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98f1b065f54b75e4dbdc09fdf6a99cb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingHealth: 1000000
+  attackCooldown: 0.1
+  attackDamage: 10
+  refreshTime: 0.1
+  attackRange: 50
+  scoreValue: 10
+  healthBarPrefab: {fileID: 1000011103493978, guid: 0ee5528024a8b489ab0eb87d79456ab4,
+    type: 2}
+  health: 0
+  target: {fileID: 0}
+  weapon: {fileID: 0}
+  lookMask:
+    serializedVersion: 2
+    m_Bits: 1847
+  weaponController: {fileID: 0}
+--- !u!114 &114000011768601104
+MonoBehaviour:
+>>>>>>> master:Torch/Assets/Resources/Prefabs/Gladiator.prefab
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -170,6 +196,7 @@ MonoBehaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011279769678}
   m_Enabled: 1
+<<<<<<< HEAD:The Game/Assets/Resources/Prefabs/MovingPlatform.prefab
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a5302cda9d183bd4e96597f3f8262430, type: 3}
   m_Name: 
@@ -178,3 +205,18 @@ MonoBehaviour:
   amplitude: 3
   speed: 0
   offset: 0
+=======
+  m_Radius: 0.5000001
+  m_Speed: 7
+  m_Acceleration: 20
+  avoidancePriority: 50
+  m_AngularSpeed: 50
+  m_StoppingDistance: 15
+  m_AutoTraverseOffMeshLink: 0
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 1
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
+>>>>>>> master:Torch/Assets/Resources/Prefabs/Gladiator.prefab

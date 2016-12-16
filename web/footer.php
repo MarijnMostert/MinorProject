@@ -1,0 +1,1 @@
+	<div id="footer">Copyright By MinorGroup01, 2016</div>

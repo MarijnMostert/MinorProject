@@ -51,6 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f168ebd412eb24c2e8fcc6822d9b046e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< HEAD:The Game/Assets/Resources/Prefabs/Spawner.prefab
   mapMinX: -20
   mapMaxX: 20
   mapMinZ: -20
@@ -61,3 +62,18 @@ MonoBehaviour:
   - {fileID: 114000012497720316, guid: f6cb7d1c46b80433980a1819f1ccf17b, type: 2}
   - {fileID: 114000010852357478, guid: 48a10cf2685d246c7a34e4a36479cff7, type: 2}
   enemiesPerWave: 5
+=======
+  mapMinX: 5
+  mapMaxX: 107
+  mapMinZ: 5
+  mapMaxZ: 107
+  min_radius: 10
+  max_radius: 15
+  enemiesToSpawn:
+  - {fileID: 114000010852357478, guid: 3d2842cbcc34a40708b20f303dff8f13, type: 2}
+  - {fileID: 114000010852357478, guid: 12075c3877f264a8494a195696782ca5, type: 2}
+  enemiesPerWave: 5
+  timeTillSpawning: 5
+  timeBetweenEnemySpawn: 5
+  dead: 0
+>>>>>>> master:Torch/Assets/Resources/Prefabs/Spawner.prefab

@@ -16,13 +16,18 @@ public class EnemyGrunt : Enemy {
 	
 	// Update is called once per frame
 	void Update () {
+<<<<<<< HEAD:The Game/Assets/Resources/Scripts/EnemyGrunt.cs
 		if (target != null && (Time.time - lastAttackTime) > attackCooldown) {
+=======
+		if (gameManager.enemyTarget != null && distanceToTarget () < attackRange && (Time.time - lastAttackTime) > attackCooldown) {
+>>>>>>> master:Torch/Assets/Resources/Scripts/EnemyGrunt.cs
 			attack ();
 		}
 	}
 
 	//If the player is close enough to the torch it will do damage
 	private void attack(){
+<<<<<<< HEAD:The Game/Assets/Resources/Scripts/EnemyGrunt.cs
 		float distance = distanceToTarget ();
 		if(distance < attackRange){
 			if (target.CompareTag ("Torch")) {
@@ -33,6 +38,12 @@ public class EnemyGrunt : Enemy {
 				
 			lastAttackTime = Time.time;
 		}
+=======
+		IDamagable damagableObject = gameManager.enemyTarget.GetComponent<IDamagable> ();
+		damagableObject.takeDamage (attackDamage);
+		//Debug.Log (damagableObject);
+		lastAttackTime = Time.time;
+>>>>>>> master:Torch/Assets/Resources/Scripts/EnemyGrunt.cs
 	}
 
 	//A Coroutine for chasing a target

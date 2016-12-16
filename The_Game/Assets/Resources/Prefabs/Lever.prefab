@@ -60,8 +60,35 @@ GameObject:
   - 65: {fileID: 65000013537440132}
   - 23: {fileID: 23000012045917456}
   m_Layer: 0
+<<<<<<< HEAD:The_Game/Assets/Resources/Prefabs/Lever.prefab
   m_Name: Base
   m_TagString: Untagged
+=======
+  m_Name: BossShield
+  m_TagString: BossShield
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!1 &1000014279397446
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 4000011792783062}
+  - 33: {fileID: 33000013800289070}
+  - 65: {fileID: 65000013342104090}
+  - 23: {fileID: 23000013512202492}
+  - 114: {fileID: 114000011582654994}
+  - 54: {fileID: 54000014172191018}
+  - 114: {fileID: 114000013165508896}
+  - 114: {fileID: 114000011281377804}
+  m_Layer: 10
+  m_Name: Boss
+  m_TagString: Boss
+>>>>>>> master:Torch/Assets/Resources/Prefabs/Boss.prefab
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -215,11 +242,16 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD:The_Game/Assets/Resources/Prefabs/Lever.prefab
 --- !u!114 &114000010861716282
+=======
+--- !u!114 &114000010922820380
+>>>>>>> master:Torch/Assets/Resources/Prefabs/Boss.prefab
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
+<<<<<<< HEAD:The_Game/Assets/Resources/Prefabs/Lever.prefab
   m_GameObject: {fileID: 1000011663677744}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -231,10 +263,20 @@ MonoBehaviour:
   EndPuzzle: 1
   center: {x: 0, y: 0, z: 0}
 --- !u!114 &114000012352094244
+=======
+  m_GameObject: {fileID: 1000012741807124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8e226de83e07fd4d9d8ac9bfc8aa335, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114000011281377804
+>>>>>>> master:Torch/Assets/Resources/Prefabs/Boss.prefab
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
+<<<<<<< HEAD:The_Game/Assets/Resources/Prefabs/Lever.prefab
   m_GameObject: {fileID: 1000011663677744}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -244,6 +286,18 @@ MonoBehaviour:
   toBeSwitched: {fileID: 0}
   rotation: {x: 0, y: 90, z: 0}
 --- !u!114 &114000013788984422
+=======
+  m_GameObject: {fileID: 1000014279397446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fafb4a7e8469647249b383df1db219e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingWeapon: {fileID: 114000013339538176, guid: eb2eaefbd4cf747a6842a07638b7a891,
+    type: 2}
+  currentWeapon: {fileID: 0}
+--- !u!114 &114000011582654994
+>>>>>>> master:Torch/Assets/Resources/Prefabs/Boss.prefab
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -254,4 +308,63 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3f0c74c3e463b040bb15df197f20c7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< HEAD:The_Game/Assets/Resources/Prefabs/Lever.prefab
   is_on: 1
+=======
+  input: []
+  actionThreshold: []
+  bulletsNearby: []
+  inputNeurons: 8
+  outputNeurons: 7
+  finalOutput: []
+  timeAlive: 0
+  damageDealt: 0
+  usedAttacks: 0
+  usedSpecAttacks: 0
+  usedBlocks: 0
+  timeAliveFactor: 10
+  damageDealtFactor: 0.3
+  ratioFactor: 0
+  distMoved: 0
+  distMovedFactor: 40
+  fitness: 0
+  normalProjectile: {fileID: 114000012347710446, guid: 9386fe03180ca4651948a63f963771e9,
+    type: 2}
+  specialProjectile: {fileID: 114000012347710446, guid: 25dc5919c12755e42892ccf3a5ca3271,
+    type: 2}
+  target: {fileID: 0}
+  oldPos: {x: 0, y: 0, z: 0}
+  speed: 5
+  startingHealth: 600
+  health: 0
+  colorBoss: {r: 0, g: 0, b: 0, a: 0}
+  scoreValue: 1000
+  healthBarPrefab: {fileID: 1000011103493978, guid: 0ee5528024a8b489ab0eb87d79456ab4,
+    type: 2}
+  dead: 0
+--- !u!114 &114000013165508896
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000014279397446}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91500a0a276f6f945aec74dc1b3c2560, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BlockTime: 3
+  CooldownTime: 9
+--- !u!135 &135000010130256674
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000014277317876}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+>>>>>>> master:Torch/Assets/Resources/Prefabs/Boss.prefab

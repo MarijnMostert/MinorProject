@@ -134,11 +134,39 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
+<<<<<<< HEAD:The Game/Assets/Resources/Prefabs/Platform.prefab
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &65000013144944850
 BoxCollider:
+=======
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18eae0d9f41794253ad087a97570a282, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  instructionPopUp: {fileID: 1000014285404956, guid: d5e973dcbea8a4238ba5bf26f70225e1,
+    type: 2}
+  floatingHeight: 2
+  cam: {fileID: 0}
+  torchLight: {fileID: 108000010351575378}
+  startingIntensity: 4
+  health: 100
+  range: 5
+  smoothingTime: 1
+  flickerInterval: 0.05
+  intensityBase: 0
+  rangeBase: 0
+  randomFactorIntensity: 0
+  randomFactorRange: 0
+  UI: {fileID: 0}
+  gameManager: {fileID: 0}
+  equipped: 0
+  isDamagable: 1
+  PickMeUpText: {fileID: 0}
+--- !u!136 &136000014218146186
+CapsuleCollider:
+>>>>>>> master:Torch/Assets/Resources/Prefabs/Torch.prefab
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}

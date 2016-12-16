@@ -51,7 +51,11 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300001, guid: e3280e183b0d846ef872c731343a69f8,
     type: 2}
+<<<<<<< HEAD:The Game/Assets/Resources/Prefabs/Game Manager.prefab
   m_audioClip: {fileID: 8300000, guid: cec088f32d4ad4add9116088c5122189, type: 3}
+=======
+  m_audioClip: {fileID: 8300000, guid: 7e404d8a72ce34ec98bd3c27ed1782f8, type: 3}
+>>>>>>> master:Torch/Assets/Resources/Prefabs/Game Manager.prefab
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -127,7 +131,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0f682923cbd449a9819e404156dac0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+<<<<<<< HEAD:The Game/Assets/Resources/Prefabs/Game Manager.prefab
   pauseScreen: {fileID: 0}
   slowMotionFactor: 0.5
   audiosource: {fileID: 82000013238722548}
   audioButtonText: {fileID: 0}
+=======
+  playerManagers:
+  - spawnPoint: {fileID: 4000013396432608}
+    playerColor: {r: 0, g: 0, b: 0, a: 0}
+    cursorPointer: {fileID: 0}
+    playerNumber: 0
+    playerInstance: {fileID: 0}
+    dead: 0
+    playerMovement: {fileID: 0}
+    playerWeaponController: {fileID: 0}
+  playerPrefab: {fileID: 1000010005094228, guid: 96b70f8172a034350bce5e9b0ef6db4d,
+    type: 2}
+  torchPrefab: {fileID: 0}
+  torch: {fileID: 114000010962005414, guid: 86f8871f16b6e4321a072873febde5a7, type: 2}
+  torchSpawnPoint: {fileID: 4000010238434374, guid: d3153958a3d7d461c86548c1a70ff1bb,
+    type: 2}
+  torchStartingHealth: 100
+  torchHealth: 0
+  torchHealthMax: 150
+  score: 0
+  paused: 0
+  pauseScreen: {fileID: 1000011647558472, guid: cf3e1c810a2e94ddfa98fdcb76202dbb,
+    type: 2}
+  cameraPrefab: {fileID: 1000010527591912, guid: 2f0d8300580bb4db9b1240053b57aeaf,
+    type: 2}
+  camTarget: {fileID: 0}
+  enemyTarget: {fileID: 0}
+  UIPrefab: {fileID: 1000011980605034, guid: ce12bf815c9354cd38ffdb78d7b15e2b, type: 2}
+  UI: {fileID: 0}
+  spawner: {fileID: 0}
+  loadingScreenCanvas: {fileID: 1000013438309082, guid: 0ff01cb270ef14af5b80d2ec70ecc88c,
+    type: 2}
+  deathCanvas: {fileID: 0}
+  homeScreen: {fileID: 0}
+  homeScreenCam: {fileID: 0}
+  mainCamera: {fileID: 0}
+  audioSource: {fileID: 0}
+  audioHomeScreen: {fileID: 8300000, guid: 7e404d8a72ce34ec98bd3c27ed1782f8, type: 3}
+  audioDungeon: {fileID: 8300000, guid: 3d02f9a386baf4bea855ca88493ab372, type: 3}
+>>>>>>> master:Torch/Assets/Resources/Prefabs/Game Manager.prefab
