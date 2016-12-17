@@ -3,7 +3,9 @@ using System.Collections;
 
 public class Projectile : MonoBehaviour {
 
-	public int damage;
+	public int minDamage;
+	public int maxDamage;
+	public float critChance = 0.05f;
 	public float lifeTime;
 	public LayerMask collisionMask;
 	public float speed;
@@ -38,7 +40,14 @@ public class Projectile : MonoBehaviour {
 		GameObject objectHitted = hit.collider.gameObject;
 
 		if (damagableObject != null) {
-			damagableObject.takeDamage (damage);
+			int damage = Random.Range (minDamage, maxDamage);
+			bool crit = false;
+			if (Random.value < critChance) {
+				damage *= 2;
+				crit = true;
+			}
+			
+			damagableObject.takeDamage (damage, crit);
 			//Debug.Log ("hit " + damagableObject);
 		}
 			

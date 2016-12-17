@@ -41,7 +41,7 @@ public class Enemy : MonoBehaviour, IDamagable {
 	}
 
 	//For when the enemy object takes damage
-	public void takeDamage(int damage){
+	public void takeDamage(int damage, bool crit){
 		//Debug.Log (gameObject + " takes " + damage + " damage.");
 
 		if (healthBar == null) {
@@ -50,6 +50,8 @@ public class Enemy : MonoBehaviour, IDamagable {
 
 		health -= damage;
 		healthBar.transform.FindChild("HealthBar").GetComponent<Image>().fillAmount = (float)health / startingHealth;
+		gameManager.damagePopUpper.CreateDamagePopUp (damage, gameObject, crit);
+
 		if (health <= 0)
 			Die ();
 	}

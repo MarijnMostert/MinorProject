@@ -31,7 +31,8 @@ public class GameManager : MonoBehaviour {
 
 	public bool paused;
 	public GameObject pauseScreen;
-	public GameObject cameraPrefab;
+	public GameObject inGameCameraPrefab;
+	public GameObject inGameCameraObject;
 	public GameObject camTarget;
 	public GameObject enemyTarget;
 	public GameObject UIPrefab;
@@ -41,6 +42,7 @@ public class GameManager : MonoBehaviour {
 	public GameObject TorchFOVPrefab;
 	public GameObject TorchFOV;
     public Spawner spawner;
+	public DamagePopUp damagePopUpper;
 
     //masterGenerator Vars
     int width = 20;// = 100;
@@ -118,6 +120,9 @@ public class GameManager : MonoBehaviour {
 		torch.gameManager = this;
 		torch.UI = UI;
 
+		inGameCameraObject = Instantiate (inGameCameraPrefab);
+		mainCamera = inGameCameraObject.GetComponentInChildren<Camera> ();
+
 		for (int i = 0; i < playerManagers.Length; i++) {
 			Debug.Log("Create Player with id:" + i);
 			playerManagers[i].playerInstance = Instantiate(playerPrefab, masterGenerator.dungeon_instantiate.startPos, playerManagers[i].spawnPoint.rotation) as GameObject;
@@ -127,6 +132,7 @@ public class GameManager : MonoBehaviour {
 		}
 
 		torch.cam = mainCamera;
+		damagePopUpper.cam = mainCamera;
 		UI.transform.FindChild ("Score Text").GetComponent<Text> ().text = "Score: " + score;
 		UI.transform.FindChild ("Dungeon Level").GetComponent<Text> ().text = "Dungeon level " + dungeonLevel;
 

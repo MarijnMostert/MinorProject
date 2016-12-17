@@ -8,7 +8,9 @@ public class LaserWeapon : Weapon {
 	public float laserLength = 200f;
 	public float laserTime = 0.05f;
 	public LayerMask collisionMask;
-	public int damage;
+	public int minDamage;
+	public int maxDamage;
+	public float critChance = 0.05f;
 
 	private LineRenderer lineRenderer;
 	private Light light;
@@ -40,7 +42,13 @@ public class LaserWeapon : Weapon {
 			lineRenderer.SetPosition (0, transform.position);
 			if (Physics.Raycast (ray, out hit, laserLength, collisionMask)) {
 				if (hit.collider.gameObject.CompareTag ("Enemy")) {
-					hit.collider.gameObject.GetComponent<Enemy> ().takeDamage (damage);
+					bool crit = false;
+					int damage = Random.Range (minDamage, maxDamage);
+					if (Random.value < critChance) {
+						damage *= 2;
+						crit = true;
+					}
+					hit.collider.gameObject.GetComponent<Enemy> ().takeDamage (damage, crit);
 				} 
 				lineRenderer.SetPosition (1, hit.point);
 			} else {

@@ -102,7 +102,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b7416781957a445795c69362da14211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 8
+  minDamage: 10
+  maxDamage: 20
   lifeTime: 1
   collisionMask:
     serializedVersion: 2
