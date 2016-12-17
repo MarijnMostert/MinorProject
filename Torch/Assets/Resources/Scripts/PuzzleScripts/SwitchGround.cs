@@ -3,11 +3,22 @@ using System.Collections;
 
 public class SwitchGround : MonoBehaviour {
 
-	public GameObject toBeSwitched;
-	public Vector3 rotation;
+	public GameObject lever;
+	public int degrees;
 
-	public void rotateGround () {
-		toBeSwitched.transform.Rotate (rotation);
+	private bool past;
+	private bool current;
+
+	void Start () {
+		current = lever.GetComponent<LeverActivator> ().is_on;
+	}
+
+	void Update () {
+		current = lever.GetComponent<LeverActivator> ().is_on;
+		if (current != past) {
+			transform.Rotate (0, degrees, 0);
+		}
+		past = current;
 	}
 
 }

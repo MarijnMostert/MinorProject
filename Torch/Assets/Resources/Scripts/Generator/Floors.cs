@@ -47,7 +47,7 @@ public class Floors : Object {
             for (int j = 0; j< mazeSize[1]; j++){
                 if(maze[i, j])
                 {
-                    addfloor(i * 2, j * 2);
+                    addfloor(i * 6, j * 6);
                 }
             }
         }

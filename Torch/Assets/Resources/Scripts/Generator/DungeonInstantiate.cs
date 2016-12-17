@@ -29,14 +29,15 @@ public class DungeonInstantiate : Object {
 	GameObject WallsParent;
 	GameObject FloorsParent;
 	GameObject RoofsParent;
-	GameObject WallObject;
 	GameObject BeginningRoom;
 	GameObject EndingRoom;
 
 	Vector3 startpoint;
 	Vector3 endpoint;
 
-	Material RoofMaterial;
+	GameObject RoofPrefab;
+	GameObject WallPrefab;
+	GameObject FloorPrefab;
 
     public Vector3 startPos;
 
@@ -77,10 +78,11 @@ public class DungeonInstantiate : Object {
 		WallsParent = GameObject.Find ("Walls");
 		FloorsParent = GameObject.Find ("Floors");
 		RoofsParent = GameObject.Find ("Roofs");
-		RoofMaterial = Resources.Load("Materials/Black", typeof(Material)) as Material;
-		Debug.Log (RoofMaterial);
 
-		WallObject = Resources.Load ("Prefabs/Blocks/CubeWall", typeof(GameObject)) as GameObject;
+		RoofPrefab = Resources.Load ("Prefabs/Blocks/RoofPrefab", typeof(GameObject)) as GameObject;
+		WallPrefab = Resources.Load ("Prefabs/Blocks/WallPrefab", typeof(GameObject)) as GameObject;
+		FloorPrefab = Resources.Load ("Prefabs/Blocks/FloorPrefab", typeof(GameObject)) as GameObject;
+
 		BeginningRoom = Resources.Load ("Prefabs/PuzzlesScenes/BeginningRoom", typeof(GameObject)) as GameObject;
 		EndingRoom = Resources.Load ("Prefabs/PuzzlesScenes/EndingRoom", typeof(GameObject)) as GameObject;
 
@@ -119,10 +121,10 @@ public class DungeonInstantiate : Object {
 		InstantiateStarterPack(starters_pack, new Vector3(0, 0, 0),Quaternion.identity);
         //Instantiate(scene_manager, new Vector3(0, 0, 0), Quaternion.identity);
 
-		spawner.GetComponent<Spawner>().mapMinX = 5;
-        spawner.GetComponent<Spawner>().mapMinZ = 5;
-        spawner.GetComponent<Spawner>().mapMaxX = (mazeSize[0]-1)*2*3+5;
-        spawner.GetComponent<Spawner>().mapMaxZ = (mazeSize[1] - 1) * 2 * 3 + 5;
+		spawner.GetComponent<Spawner>().mapMinX = 0;
+        spawner.GetComponent<Spawner>().mapMinZ = 0;
+        spawner.GetComponent<Spawner>().mapMaxX = mazeSize[0]*6;
+        spawner.GetComponent<Spawner>().mapMaxZ = mazeSize[1]*6;
 		spawner = Instantiate(spawner, new Vector3(0, 0, 0), Quaternion.identity, Dungeon.transform) as GameObject;
 
 		GameObject.Find ("Game Manager").GetComponent<GameManager> ().spawner = spawner.GetComponent<Spawner> ();
@@ -135,7 +137,7 @@ public class DungeonInstantiate : Object {
 		populteMaze2 ();
 		populatePuzzles ();
 
-		WallsParent.transform.localScale = new Vector3 (6, 1, 6);
+		WallsParent.transform.localScale = new Vector3 (6, 6, 6);
 		FloorsParent.transform.localScale = new Vector3 (6, 1, 6);
 		RoofsParent.transform.localScale = new Vector3 (6, 1, 6);
 
@@ -161,29 +163,21 @@ public class DungeonInstantiate : Object {
 	}
 
 	void buildRoof (int x, int y){
-		GameObject myplane = GameObject.CreatePrimitive (PrimitiveType.Plane);
-		myplane.transform.localScale = new Vector3 (0.1f, 1, 0.1f);
-		myplane.transform.position = new Vector3 (x+0.5f, 2.1f, y+0.5f);
-		myplane.transform.SetParent(RoofsParent.transform);
-		MeshRenderer meshr = myplane.GetComponent <MeshRenderer> () as MeshRenderer;
-		meshr.material = RoofMaterial;
+		GameObject myplane = GameObject.Instantiate (RoofPrefab, RoofsParent.transform) as GameObject;
+		myplane.transform.position = new Vector3 (x+0.5f, 3f, y+0.5f);
 
 		//Bouw navmeshblokkade
 	}
 
 	void buildOpen(int x, int y, bool puzzle) {
 		if (!puzzle) {
-			GameObject myplane = GameObject.CreatePrimitive (PrimitiveType.Plane);
-			myplane.transform.localScale = new Vector3 (0.1f, 1, 0.1f);
+			GameObject myplane = GameObject.Instantiate (FloorPrefab, FloorsParent.transform) as GameObject;
 			myplane.transform.position = new Vector3 (x + 0.5f, 0, y + 0.5f);
-			myplane.transform.SetParent (FloorsParent.transform);
-			myplane.layer = 8;
-
 			spawnChest (x,y);
 		}
 
 		int[] arrayS = getSurrounding2(x, y);
-		int rotation = 90;
+		int rotation = 180;
 		int direction = 0;
 		string total = "";
 		for (int i = 0; i < arrayS.Length ; i++) {
@@ -198,11 +192,9 @@ public class DungeonInstantiate : Object {
 	}
 
 	void BuildWall(int rotation, int direction, int x, int y){
-		GameObject myplane = GameObject.Instantiate (WallObject, WallsParent.transform) as GameObject;
-
-		//myplane.transform.localScale = new Vector3 (0.1f, 0, 0.6f);
+		GameObject myplane = GameObject.Instantiate (WallPrefab, WallsParent.transform) as GameObject;
 		Vector3 transformvector;
-		Vector3 v3location = new Vector3 (x, -1, y);
+		Vector3 v3location = new Vector3 (x, 0, y);
 		v3location += new Vector3 (0.5f, 0, 0.5f);
 
 		switch (direction) {
@@ -219,13 +211,13 @@ public class DungeonInstantiate : Object {
 			transformvector = new Vector3 (0, 0, -1);
 			break;
 		default:
-			Debug.Log (direction + " ẅent to default");
+			Debug.Log (direction + " went to default");
 			transformvector = new Vector3 (0, 0, 0);
 			break;
 		}
 		transformvector *= .5f;
 		myplane.transform.position = transformvector + v3location;
-		myplane.transform.rotation = Quaternion.Euler (0, rotation, 0);
+		myplane.transform.rotation = Quaternion.Euler (0, rotation, -90);
 	}
 
 	int[] getSurrounding2(int x, int y) {
