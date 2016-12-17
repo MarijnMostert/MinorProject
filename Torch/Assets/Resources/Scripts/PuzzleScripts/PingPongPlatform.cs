@@ -5,16 +5,18 @@ public class PingPongPlatform : MonoBehaviour {
 
 	public char choice; //x y z
 	public float amplitude;
-	public float speed;
-	public float offset = 0f;
+	public float maxSpeed;
+
+	private float speed;
+	private float offset = 0f;
 
 	private Vector3 startingPos;
 	private float useAmp;
+	private bool stayed;
 
 	void Start () {
-
 		offset = (float) Random.Range (1, 9);
-		speed = Random.Range (2.0f, 3.0f);
+		speed = Random.Range (maxSpeed - 1.5f, maxSpeed);
 
 		startingPos = transform.position;
 		useAmp = amplitude / speed;
@@ -22,6 +24,10 @@ public class PingPongPlatform : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		movePlatform ();
+	}
+
+	void movePlatform() {
 		float newPos = speed * (Mathf.PingPong (Time.time + offset, 2*useAmp) - useAmp);
 		switch (choice) {
 		case 'x':

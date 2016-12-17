@@ -4,8 +4,9 @@ using System.Collections;
 public class Laserbeam : MonoBehaviour {
 
 	public float speed;
-	Transform myTransform;
 	public float maxLength;
+
+	Transform myTransform;
 	LineRenderer lineRenderer;
 	Vector3 laserVector;
 	RaycastHit hit;
@@ -14,6 +15,9 @@ public class Laserbeam : MonoBehaviour {
 		myTransform = transform;
 		lineRenderer = (LineRenderer) GetComponent<LineRenderer>();
 		lineRenderer.SetPosition (1, new Vector3 (0, 0, maxLength));
+
+		int number = Random.Range (0, 360);
+		myTransform.Rotate (0, number, 0);
 	}
 
 	void Update() {

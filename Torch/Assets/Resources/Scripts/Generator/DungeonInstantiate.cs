@@ -38,6 +38,7 @@ public class DungeonInstantiate : Object {
 	GameObject RoofPrefab;
 	GameObject WallPrefab;
 	GameObject FloorPrefab;
+	GameObject PuzzleMist;
 
     public Vector3 startPos;
 
@@ -75,13 +76,16 @@ public class DungeonInstantiate : Object {
 		this.puzzleRooms = puzzleRooms;
 		this.puzzleCoords = new List<p2D> ();
 		this.puzzleCenters = new List<p2D> ();
-		WallsParent = GameObject.Find ("Walls");
-		FloorsParent = GameObject.Find ("Floors");
-		RoofsParent = GameObject.Find ("Roofs");
+
+		WallsParent = new GameObject("Walls");
+		FloorsParent = new GameObject("Floors");
+		RoofsParent = new GameObject("Roofs");
 
 		RoofPrefab = Resources.Load ("Prefabs/Blocks/RoofPrefab", typeof(GameObject)) as GameObject;
 		WallPrefab = Resources.Load ("Prefabs/Blocks/WallPrefab", typeof(GameObject)) as GameObject;
 		FloorPrefab = Resources.Load ("Prefabs/Blocks/FloorPrefab", typeof(GameObject)) as GameObject;
+		PuzzleMist = Resources.Load("Prefabs/PuzzlesScenes/PuzzleMist", typeof(GameObject)) as GameObject;
+
 
 		BeginningRoom = Resources.Load ("Prefabs/PuzzlesScenes/BeginningRoom", typeof(GameObject)) as GameObject;
 		EndingRoom = Resources.Load ("Prefabs/PuzzlesScenes/EndingRoom", typeof(GameObject)) as GameObject;
@@ -137,9 +141,10 @@ public class DungeonInstantiate : Object {
 		populteMaze2 ();
 		populatePuzzles ();
 
+		Debug.Log ("Localscale");
 		WallsParent.transform.localScale = new Vector3 (6, 6, 6);
 		FloorsParent.transform.localScale = new Vector3 (6, 1, 6);
-		RoofsParent.transform.localScale = new Vector3 (6, 1, 6);
+		RoofsParent.transform.localScale = new Vector3 (6, 3, 6);
 
         createStartEndPoint();
         this.spawner.GetComponent<Spawner>().importMaze(maze, mazeSize);
@@ -164,7 +169,7 @@ public class DungeonInstantiate : Object {
 
 	void buildRoof (int x, int y){
 		GameObject myplane = GameObject.Instantiate (RoofPrefab, RoofsParent.transform) as GameObject;
-		myplane.transform.position = new Vector3 (x+0.5f, 3f, y+0.5f);
+		myplane.transform.position = new Vector3 (x+0.5f, 1f, y+0.5f);
 
 		//Bouw navmeshblokkade
 	}
@@ -261,6 +266,7 @@ public class DungeonInstantiate : Object {
 			convCenter += new Vector3 (-4f, 0, -4f);
 			int number = Random.Range (0,puzzleRooms.Count);
 			Instantiate (puzzleRooms [number], convCenter, Quaternion.identity, Dungeon.transform);
+			//Instantiate (PuzzleMist, convCenter, Quaternion.identity, Dungeon.transform);
 		}
 	} 
 		
