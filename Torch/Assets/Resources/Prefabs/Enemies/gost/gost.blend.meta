@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 8832c6f769cff70458b37675ddf52d5b
-timeCreated: 1481889654
+guid: 427758a28de5625449ee422526178258
+timeCreated: 1482077470
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -57,8 +57,8 @@ ModelImporter:
     7400004: attack
     7400006: die
     7400008: DIE
-    7400010: Walk
-    7400012: Walk0
+    7400010: pre_attack
+    7400012: Walk
     9500000: //RootNode
     13700000: Cube
   materials:
@@ -83,10 +83,10 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Walk0
-      takeName: Walk
+      name: Default Take
+      takeName: Default Take
       firstFrame: -1
-      lastFrame: 39
+      lastFrame: 137
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -234,15 +234,15 @@ ModelImporter:
       name: attack
       takeName: attack
       firstFrame: -1
-      lastFrame: 23
+      lastFrame: 8
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
+      loopTime: 1
+      loopBlend: 1
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
@@ -453,6 +453,80 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
+      name: pre_attack
+      takeName: pre_attack
+      firstFrame: -1
+      lastFrame: 14
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/spine
+        weight: 1
+      - path: Armature/spine/head
+        weight: 1
+      - path: Armature/spine/head/hand_l
+        weight: 1
+      - path: Armature/spine/head/hand_l/index_l
+        weight: 1
+      - path: Armature/spine/head/hand_l/index_l/index_top_l
+        weight: 1
+      - path: Armature/spine/head/hand_l/middle_l
+        weight: 1
+      - path: Armature/spine/head/hand_l/middle_l/middle_top_l
+        weight: 1
+      - path: Armature/spine/head/hand_l/pink_l
+        weight: 1
+      - path: Armature/spine/head/hand_l/pink_l/pink_top_l
+        weight: 1
+      - path: Armature/spine/head/hand_l/thumb_l
+        weight: 1
+      - path: Armature/spine/head/hand_l/thumb_l/thumb_tp_l
+        weight: 1
+      - path: Armature/spine/head/hand_r
+        weight: 1
+      - path: Armature/spine/head/hand_r/index_r
+        weight: 1
+      - path: Armature/spine/head/hand_r/index_r/index_top_r
+        weight: 1
+      - path: Armature/spine/head/hand_r/middle_r
+        weight: 1
+      - path: Armature/spine/head/hand_r/middle_r/middle_top_r
+        weight: 1
+      - path: Armature/spine/head/hand_r/pink_r
+        weight: 1
+      - path: Armature/spine/head/hand_r/pink_r/pink_top_r
+        weight: 1
+      - path: Armature/spine/head/hand_r/tumb_r
+        weight: 1
+      - path: Armature/spine/head/hand_r/tumb_r/tumb_top_r
+        weight: 1
+      - path: Cube
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
       name: Walk
       takeName: Walk
       firstFrame: -1
@@ -463,8 +537,8 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
+      loopTime: 1
+      loopBlend: 1
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0

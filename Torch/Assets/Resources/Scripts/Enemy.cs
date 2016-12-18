@@ -20,6 +20,9 @@ public class Enemy : MonoBehaviour, IDamagable {
 	protected GameObject healthBar;
 	protected GameManager gameManager;
 
+    public Animator anim;
+    public bool dead;
+
 	protected virtual void Awake() {
 		navMeshAgent = GetComponent<NavMeshAgent> ();
 		gameManager = GameObject.Find ("Game Manager").GetComponent<GameManager>();
@@ -28,6 +31,7 @@ public class Enemy : MonoBehaviour, IDamagable {
 	protected virtual void Start () {
 		health = startingHealth;
 		speed = gameObject.GetComponent<NavMeshAgent> ().speed;
+        dead = false;
 	}
 
 	//Get the distance between the enemy and the torch
@@ -59,13 +63,29 @@ public class Enemy : MonoBehaviour, IDamagable {
 		healthBar = Instantiate (healthBarPrefab, healthBarPosition, transform.rotation, transform) as GameObject;
 	}
 
-	//When the enemy's health drops below 0.
-	public void Die(){
-		//Debug.Log(gameObject + " died.");
+    public void Die()
+    {
+        StartCoroutine(DieThread());
+    }
 
+	//When the enemy's health drops below 0.
+	private IEnumerator DieThread(){
+        //Debug.Log(gameObject + " died.");
+        dead = true;
+        Debug.Log(anim);
+        if (anim != null)
+        {
+            yield return new WaitForSeconds(.56f);
+        }
         //Add a score
-		StopAllCoroutines();
         gameManager.updateScore(scoreValue);
-		Destroy (gameObject);
+        StopAllCoroutines();
+        Destroy(gameObject);
+        yield return null;
 	}
+
+    public void setAnim(Animator animator)
+    {
+        anim = animator;
+    }
 }
