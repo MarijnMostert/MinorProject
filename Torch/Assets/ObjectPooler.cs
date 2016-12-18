@@ -4,12 +4,17 @@ using System.Collections.Generic;
 
 public class ObjectPooler : MonoBehaviour {
 
+	public static ObjectPooler current;
+
 	public GameObject ObjectToPool;
 	public int poolAmount = 20;
 	public bool willGrow = true;
 
-	List<GameObject> pooledObjects;
+	[SerializeField] List<GameObject> pooledObjects;
 
+	void Awake(){
+		current = this;
+	}
 
 	// Use this for initialization
 	void Start () {
@@ -21,7 +26,7 @@ public class ObjectPooler : MonoBehaviour {
 		}
 	}
 	
-	GameObject GetObject(){
+	public GameObject GetObject(){
 		for (int i = 0; i < pooledObjects.Count; i++) {
 			if (!pooledObjects [i].activeInHierarchy) {
 				return pooledObjects [i];
@@ -39,10 +44,12 @@ public class ObjectPooler : MonoBehaviour {
 	}
 
 	void Update(){
+		/*
 		if (Input.GetKeyDown (KeyCode.O)) {
 			GameObject obj = GetObject ();
 			obj.SetActive (true);
 		}
+		*/
 	}
 
 }

@@ -132,7 +132,7 @@ public class GameManager : MonoBehaviour {
 		}
 
 		torch.cam = mainCamera;
-		damagePopUpper.cam = mainCamera;
+		//damagePopUpper.cam = mainCamera;
 		UI.transform.FindChild ("Score Text").GetComponent<Text> ().text = "Score: " + score;
 		UI.transform.FindChild ("Dungeon Level").GetComponent<Text> ().text = "Dungeon level " + dungeonLevel;
 
@@ -150,6 +150,11 @@ public class GameManager : MonoBehaviour {
 			Pause ();
 		if(Input.GetKeyDown(KeyCode.I)){
 			deathCanvas.SetActive (true);
+		}
+		if (Input.GetKeyDown(KeyCode.O)) {
+			GameObject obj = ObjectPooler.current.GetObject ();
+			obj.SetActive (true);
+			obj.transform.position = GameObject.FindGameObjectWithTag ("Player").transform.position;
 		}
 	}
 

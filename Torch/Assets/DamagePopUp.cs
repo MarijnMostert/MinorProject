@@ -4,9 +4,9 @@ using System.Collections;
 
 public class DamagePopUp : MonoBehaviour {
 
-	public GameObject PopUp;
-	public Camera cam;
-	public float offset = 1f;
+	static public GameObject PopUp;
+	//static public Camera cam;
+	static public float offset = 1f;
 
 	void Update () {
 		if (Input.GetMouseButtonDown (1)) {
@@ -16,16 +16,20 @@ public class DamagePopUp : MonoBehaviour {
 		}
 	}
 
-	public void CreateDamagePopUp(int damage, GameObject target, bool crit){
+	public static void CreateDamagePopUp(int damage, GameObject target, bool crit){
 		Color color;
 		if (!crit) {
 			color = Color.Lerp (Color.yellow, Color.red, damage / 100f);
 		} else {
-			color = Color.blue;
+			color = Color.cyan;
 		}
 
-		Vector3 location = cam.WorldToScreenPoint (target.transform.position + new Vector3(0f, offset, 0f));
-		GameObject popup = Instantiate (PopUp, transform) as GameObject;
+		Vector3 location = target.transform.position + new Vector3 (0f, offset, 0f);
+
+			//cam.WorldToScreenPoint (target.transform.position + new Vector3(0f, offset, 0f));
+		GameObject popup = ObjectPooler.current.GetObject();
+		popup.SetActive (true);
+		//GameObject popup = Instantiate (PopUp) as GameObject;
 		popup.transform.position = location;
 		popup.GetComponentInChildren<Text> ().text = damage.ToString();
 		popup.GetComponentInChildren<Text> ().color = color;
