@@ -42,7 +42,6 @@ public class GameManager : MonoBehaviour {
 	public GameObject TorchFOVPrefab;
 	public GameObject TorchFOV;
     public Spawner spawner;
-	public DamagePopUp damagePopUpper;
 
     //masterGenerator Vars
     int width = 20;// = 100;
@@ -110,8 +109,10 @@ public class GameManager : MonoBehaviour {
 		masterGenerator.LoadPrefabs();
 		masterGenerator.Start();
 
-		UI = Instantiate (UIPrefab);
-		UIHelpItems = GameObject.FindGameObjectsWithTag ("UI Help");
+		if (UI == null) {
+			UI = Instantiate (UIPrefab);
+			UIHelpItems = GameObject.FindGameObjectsWithTag ("UI Help");
+		}
 		TorchFOV = Instantiate (TorchFOVPrefab);
 
 		camTarget = torch.gameObject;
@@ -124,15 +125,20 @@ public class GameManager : MonoBehaviour {
 		mainCamera = inGameCameraObject.GetComponentInChildren<Camera> ();
 
 		for (int i = 0; i < playerManagers.Length; i++) {
-			Debug.Log("Create Player with id:" + i);
-			playerManagers[i].playerInstance = Instantiate(playerPrefab, masterGenerator.dungeon_instantiate.startPos, playerManagers[i].spawnPoint.rotation) as GameObject;
-			playerManagers [i].playerNumber = i + 1;
-			playerManagers [i].Setup ();
-			playerManagers [i].playerMovement.mainCamera = mainCamera;
+			if (playerManagers [i].playerInstance == null) {
+				Debug.Log ("Create Player with id:" + i);
+				playerManagers [i].playerInstance = Instantiate (playerPrefab, masterGenerator.dungeon_instantiate.startPos, playerManagers [i].spawnPoint.rotation) as GameObject;
+				playerManagers [i].playerNumber = i + 1;
+				playerManagers [i].Setup ();
+				playerManagers [i].playerMovement.mainCamera = mainCamera;
+			} else {
+				playerManagers [i].playerInstance.transform.position = masterGenerator.dungeon_instantiate.startPos;
+				playerManagers [i].Setup ();
+				playerManagers [i].playerInstance.SetActive (true);
+			}
 		}
 
 		torch.cam = mainCamera;
-		//damagePopUpper.cam = mainCamera;
 		UI.transform.FindChild ("Score Text").GetComponent<Text> ().text = "Score: " + score;
 		UI.transform.FindChild ("Dungeon Level").GetComponent<Text> ().text = "Dungeon level " + dungeonLevel;
 
@@ -217,35 +223,36 @@ public class GameManager : MonoBehaviour {
 		foreach (GameObject cursor in GameObject.FindGameObjectsWithTag ("CursorPointer")) {
 			Destroy (cursor);
 		}
+		Destroy(GameObject.FindGameObjectWithTag ("Torch"));
 	}
 
 	public void TransitionDeathToMain(){
 		RoundEnd ();
 		DestroyDungeon ();
+		if (UI != null) {
+			Destroy (UI);
+		}
 		LoadHomeScreen ();
 		if (paused)
 			Pause ();
 	}
 
 	public void DestroyDungeon(){
-		foreach (PlayerManager playermanager in playerManagers){
-			Destroy (playermanager.playerInstance);
-		}
 		if(torch != null)
 			Destroy (torch);
 		if(GameObject.Find("Dungeon") != null)
 			Destroy (GameObject.Find ("Dungeon"));
-		if (UI != null) {
-			Destroy (UI);
-			UIHelpItems = new GameObject[0];
-		}
 		if(TorchFOV != null)
 			Destroy (TorchFOV);
 		deathCanvas.SetActive (false);
 		gameStarted = false;
+		Destroy (inGameCameraObject);
 	}
 
 	public void LoadHomeScreen(){
+		foreach (PlayerManager playermanager in playerManagers){
+			Destroy (playermanager.playerInstance);
+		}
 		homeScreen.SetActive (true);
 		homeScreenCam.SetActive (true);
 		audioSource.clip = audioHomeScreen;

@@ -148,10 +148,12 @@ MonoBehaviour:
   score: 0
   totalScore: 0
   dungeonLevel: 0
+  StartTime: 0
   paused: 0
   pauseScreen: {fileID: 0}
-  cameraPrefab: {fileID: 1000010527591912, guid: 2f0d8300580bb4db9b1240053b57aeaf,
+  inGameCameraPrefab: {fileID: 1000010527591912, guid: 2f0d8300580bb4db9b1240053b57aeaf,
     type: 2}
+  inGameCameraObject: {fileID: 0}
   camTarget: {fileID: 0}
   enemyTarget: {fileID: 0}
   UIPrefab: {fileID: 1000011980605034, guid: ce12bf815c9354cd38ffdb78d7b15e2b, type: 2}
@@ -162,7 +164,6 @@ MonoBehaviour:
     type: 2}
   TorchFOV: {fileID: 0}
   spawner: {fileID: 0}
-  damagePopUpper: {fileID: 0}
   loadingScreenCanvas: {fileID: 1000013625541172, guid: 0ff01cb270ef14af5b80d2ec70ecc88c,
     type: 2}
   deathCanvas: {fileID: 0}
