@@ -5,6 +5,9 @@ public class Laserbeam : MonoBehaviour {
 
 	public float speed;
 	public float maxLength;
+	public int damage;
+	public float cooldown;
+	private float timestamp = 0f;
 
 	Transform myTransform;
 	LineRenderer lineRenderer;
@@ -26,11 +29,12 @@ public class Laserbeam : MonoBehaviour {
 	}
 
 	void UpdateLength(){
-		if (Physics.Raycast (myTransform.position, myTransform.forward, out hit)) {
+		if (Physics.Raycast (myTransform.position, myTransform.forward, out hit) && Time.time - timestamp > cooldown) {
 			lineRenderer.SetPosition (1, new Vector3 (0, 0, hit.distance));
 
 			if (hit.collider.gameObject.CompareTag("Player")) {
-				KillPlayer ();
+				hit.collider.gameObject.GetComponent<IDamagable> ().takeDamage (damage, false);
+				timestamp = Time.time;
 			}
 		} else
 			lineRenderer.SetPosition (1, new Vector3 (0, 0, maxLength));
