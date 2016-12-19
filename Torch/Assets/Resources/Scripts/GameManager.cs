@@ -50,14 +50,14 @@ public class GameManager : MonoBehaviour {
 
 
     //masterGenerator Vars
-    int width = 40;// = 100;
-    int height = 40;// = 90;
-    int radius = 2;// = 2;
-    int maxlength = 2;// = 3;
-    int timeout = 2000;// = 200;
-    int minAmountOfRooms = 4;// = 6;
-    int maxAmountOfRooms = 7;// = 8;
-    int chanceOfRoom = 10;// = 15; Dit is de 1/n kans op een kamer, dus groter getal is kleinere kans
+    int width = 10;// = 40;
+    int height = 40;// = 40;
+    int radius = 1;// = 2;
+    int maxlength = 2;// = 2;
+    int timeout = 200;// = 2000;
+    int minAmountOfRooms = 4;// = 4;
+    int maxAmountOfRooms = 4;// = 7;
+    int chanceOfRoom = 5;// = 10; Dit is de 1/n kans op een kamer, dus groter getal is kleinere kans
 
 	//public GameObject homeScreenCanvas;
 	public GameObject loadingScreenCanvas;
