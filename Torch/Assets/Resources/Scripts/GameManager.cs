@@ -131,6 +131,7 @@ public class GameManager : MonoBehaviour {
 		torch.health = torchStartingHealth;
 		torch.gameManager = this;
 		torch.UI = UI;
+		torch.TorchFOV = TorchFOV.GetComponentInChildren<Animator> ();
 
 		inGameCameraObject = Instantiate (inGameCameraPrefab);
 		mainCamera = inGameCameraObject.GetComponentInChildren<Camera> ();
