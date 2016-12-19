@@ -254,19 +254,27 @@ public class Boss : MonoBehaviour, IDamagable {
 	void action(){
 		//move Left
 		if (finalOutput [0] > actionThreshold[0]) {
-			transform.position = transform.position + speed * Time.deltaTime * new Vector3 (-1f, 0f, 0f);
+			if (transform.position.magnitude < 25.0f) {
+				transform.position = transform.position + speed * Time.deltaTime * new Vector3 (-1f, 0f, 0f);
+			}
 		}
 		//move right
 		if (finalOutput [1] > actionThreshold[1]) {
-			transform.position = transform.position + speed * Time.deltaTime * new Vector3 (1f, 0f, 0f);
+			if (transform.position.magnitude < 25.0f) {
+				transform.position = transform.position + speed * Time.deltaTime * new Vector3 (1f, 0f, 0f);
+			}
 		}
 		//Move Up
 		if (finalOutput [2] > actionThreshold[2]) {
-			transform.position = transform.position + speed * Time.deltaTime * new Vector3 (0f, 0f, 1f);
+			if (transform.position.magnitude < 25.0f) {
+				transform.position = transform.position + speed * Time.deltaTime * new Vector3 (0f, 0f, 1f);
+			}
 		}
 		//Move Down
 		if (finalOutput [3] > actionThreshold[3]) {
-			transform.position = transform.position + speed * Time.deltaTime * new Vector3 (0f, 0f, -1f);
+			if (transform.position.magnitude < 25.0f) {
+				transform.position = transform.position + speed * Time.deltaTime * new Vector3 (0f, 0f, -1f);
+			}
 		}
 		//Normal Attack
 		if (finalOutput [4] > actionThreshold[4]) {

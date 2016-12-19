@@ -132,6 +132,7 @@ public class GA {
 			file.WriteLine("Generation " + (generation + 1));
 			for (int i = 0; i < sizeChromosomes; i++) {
 				file.Write (population [best, i]);
+				file.Write (" ");
 			}
 			file.WriteLine ();
 		}

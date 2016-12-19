@@ -18,7 +18,7 @@ public class TrainerManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		genAlg = new GA (10, 10, 63);
+		genAlg = new GA (500, 20, 63);
 		genAlg.CreatePopulation ();
 		StartCoroutine(Population (genAlg.numberOfGenerations));
 	}
