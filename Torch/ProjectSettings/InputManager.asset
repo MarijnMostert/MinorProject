@@ -7,15 +7,15 @@ InputManager:
   m_Axes:
   - serializedVersion: 3
     m_Name: moveHorizontal1
-    descriptiveName: Keyboard input
+    descriptiveName: Horizontal keyboard player 1
     descriptiveNegativeName: 
     negativeButton: left
     positiveButton: right
     altNegativeButton: a
     altPositiveButton: d
-    gravity: 10
-    dead: 0
-    sensitivity: 0.1
+    gravity: 100
+    dead: 100
+    sensitivity: 100
     snap: 1
     invert: 0
     type: 0
@@ -23,7 +23,7 @@ InputManager:
     joyNum: 0
   - serializedVersion: 3
     m_Name: moveHorizontal1
-    descriptiveName: Controller input
+    descriptiveName: Horizontal controller player 1
     descriptiveNegativeName: 
     negativeButton: 
     positiveButton: 
@@ -39,15 +39,15 @@ InputManager:
     joyNum: 0
   - serializedVersion: 3
     m_Name: moveVertical1
-    descriptiveName: Keyboard input
+    descriptiveName: Vertical keyboard player 1
     descriptiveNegativeName: 
     negativeButton: down
     positiveButton: up
     altNegativeButton: s
     altPositiveButton: w
-    gravity: 10
-    dead: 0
-    sensitivity: 0.1
+    gravity: 100
+    dead: 100
+    sensitivity: 100
     snap: 1
     invert: 0
     type: 0

@@ -24,16 +24,18 @@ public class PlayerMovement : MonoBehaviour {
 	private RaycastHit floorHit;
 	private Ray cameraRay;
 
-	private GameObject controllerButtons;
-	private GameObject keyboardButtons;
+	private GameObject[] controllerButtons;
+	private GameObject[] keyboardButtons;
 
 	[SerializeField] private float velocity;
 	private Vector3 prevPos = new Vector3 (0, 0, 0);
 
 	void Awake(){
-		controllerButtons = GameObject.Find ("Controller Buttons");
-		controllerButtons.SetActive (false);
-		keyboardButtons = GameObject.Find ("Key Buttons");
+		controllerButtons = GameObject.FindGameObjectsWithTag("UI Help Controller");
+		foreach(GameObject obj in controllerButtons){
+			obj.SetActive (false);
+		}
+		keyboardButtons = GameObject.FindGameObjectsWithTag("UI Help Key");
 	}
 
 	/*
@@ -82,12 +84,20 @@ public class PlayerMovement : MonoBehaviour {
 		if (Input.GetButtonDown("ToggleInput" + playerNumber)) {
 			if (controllerInput) {
 				controllerInput = false;
-				controllerButtons.SetActive (false);
-				keyboardButtons.SetActive (true);
+				foreach (GameObject obj in controllerButtons) {
+					obj.SetActive (false);
+				}
+				foreach (GameObject obj in keyboardButtons) {
+					obj.SetActive (true);
+				}
 			} else {
 				controllerInput = true;
-				controllerButtons.SetActive (true);
-				keyboardButtons.SetActive (false);
+				foreach (GameObject obj in controllerButtons) {
+					obj.SetActive (true);
+				}
+				foreach (GameObject obj in keyboardButtons) {
+					obj.SetActive (false);
+				}
 			}
 		}
 	}
@@ -115,7 +125,7 @@ public class PlayerMovement : MonoBehaviour {
 		MovementInput = MovementInput.normalized;
 
 		//Move
-		transform.position = transform.position + (MovementInput * speed * Time.deltaTime);
+		transform.position += (MovementInput * speed * Time.deltaTime);
 	}
 
 	private void Turn(){

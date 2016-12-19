@@ -1,6 +1,10 @@
 fileFormatVersion: 2
 guid: 11c03810258671d4f9d736da12c42e39
+<<<<<<< HEAD
 timeCreated: 1481884497
+=======
+timeCreated: 1481896531
+>>>>>>> master
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -45,7 +49,11 @@ ModelImporter:
     400036: Neck
     4300000: Monster
     7400000: Default Take
+<<<<<<< HEAD
     7400002: ArmatureAction
+=======
+    7400002: Walk
+>>>>>>> master
     9500000: //RootNode
     13700000: Monster
   materials:
@@ -68,7 +76,143 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
+<<<<<<< HEAD
     clipAnimations: []
+=======
+    clipAnimations:
+    - serializedVersion: 16
+      name: Default Take
+      takeName: Default Take
+      firstFrame: 0
+      lastFrame: 80
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/AfterUp_L
+        weight: 1
+      - path: Armature/AfterUp_L/AfterDown_L
+        weight: 1
+      - path: Armature/AfterUp_R
+        weight: 1
+      - path: Armature/AfterUp_R/AfterDown_R
+        weight: 1
+      - path: Armature/FrontUp_L
+        weight: 1
+      - path: Armature/FrontUp_L/FrontDown_L
+        weight: 1
+      - path: Armature/FrontUp_R
+        weight: 1
+      - path: Armature/FrontUp_R/FrontDown_R
+        weight: 1
+      - path: Armature/MidUp_L
+        weight: 1
+      - path: Armature/MidUp_L/MidDown_L
+        weight: 1
+      - path: Armature/MidUp_R
+        weight: 1
+      - path: Armature/MidUp_R/MidDown_R
+        weight: 1
+      - path: Armature/Neck
+        weight: 1
+      - path: Armature/Neck/EyeSupport
+        weight: 1
+      - path: Armature/Neck/MouthDown
+        weight: 1
+      - path: Armature/Neck/MouthUp
+        weight: 1
+      - path: Monster
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Walk
+      takeName: Walk
+      firstFrame: 0
+      lastFrame: 80
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/AfterUp_L
+        weight: 1
+      - path: Armature/AfterUp_L/AfterDown_L
+        weight: 1
+      - path: Armature/AfterUp_R
+        weight: 1
+      - path: Armature/AfterUp_R/AfterDown_R
+        weight: 1
+      - path: Armature/FrontUp_L
+        weight: 1
+      - path: Armature/FrontUp_L/FrontDown_L
+        weight: 1
+      - path: Armature/FrontUp_R
+        weight: 1
+      - path: Armature/FrontUp_R/FrontDown_R
+        weight: 1
+      - path: Armature/MidUp_L
+        weight: 1
+      - path: Armature/MidUp_L/MidDown_L
+        weight: 1
+      - path: Armature/MidUp_R
+        weight: 1
+      - path: Armature/MidUp_R/MidDown_R
+        weight: 1
+      - path: Armature/Neck
+        weight: 1
+      - path: Armature/Neck/EyeSupport
+        weight: 1
+      - path: Armature/Neck/MouthDown
+        weight: 1
+      - path: Armature/Neck/MouthUp
+        weight: 1
+      - path: Monster
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+>>>>>>> master
     isReadable: 1
   meshes:
     lODScreenPercentages: []

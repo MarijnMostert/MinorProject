@@ -12,6 +12,7 @@ public class GA {
 	public int sizeChromosomes;
 	public int NReproduce;
 	public float deviation;
+	public int best;
 
 	public GA(int numberOfGenerations, int sizePopulation, int sizeChromosomes){
 		this.sizePopulation = sizePopulation;
@@ -19,7 +20,7 @@ public class GA {
 		this.fitness = new float[sizePopulation];
 		this.numberOfGenerations = numberOfGenerations;
 		this.NReproduce = 5;
-		this.deviation = 0.2f;
+		this.deviation = 0.05f;
 	}
 
 	public float[] getChrom(int index){
@@ -116,5 +117,23 @@ public class GA {
 		float randStdNormal = Mathf.Sqrt (-2.0f * Mathf.Log (u1)) * Mathf.Sin (2.0f * Mathf.PI * u2);
 		float randNormal = mean + stdDev * randStdNormal;
 		return randNormal;
+	}
+
+	public void WriteToFile(int generation){
+		for (int i = 1; i < fitness.Length; i++) {
+			best = 0;
+			if (fitness [i] > fitness [best]) {
+				best = i;
+			}
+		}
+		using (System.IO.StreamWriter file = 
+			new System.IO.StreamWriter(@"C:\Users\Marijn\Documents\School\Software Design & Application\MinorProject\Torch\Assets\Resources\Scripts\Boss\weights.txt", true))
+		{
+			file.WriteLine("Generation " + (generation + 1));
+			for (int i = 0; i < sizeChromosomes; i++) {
+				file.Write (population [best, i]);
+			}
+			file.WriteLine ();
+		}
 	}
 }

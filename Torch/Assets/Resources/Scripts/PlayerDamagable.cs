@@ -3,11 +3,11 @@ using System.Collections;
 
 public class PlayerDamagable : MonoBehaviour, IDamagable {
 
-	public void takeDamage(int damage){
+	public void takeDamage(int damage, bool crit){
 		//Debug.Log ("Player is taking damage");
 		//GameObject torch = transform.FindChild ("Torch").gameObject;
 		if (hasTorch ()) {
-			gameObject.GetComponentInChildren<Torch> ().takeDamage (damage);
+			gameObject.GetComponentInChildren<Torch> ().takeDamage (damage, crit);
 		}
 	}
 
