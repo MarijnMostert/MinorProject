@@ -300,18 +300,24 @@ MonoBehaviour:
   cam: {fileID: 0}
   torchLight: {fileID: 108000010351575378}
   intensityMinimum: 0
-  intensityMaximum: 2
+  intensityMaximum: 3
   health: 100
-  rangeMinimum: 5
+  rangeMinimum: 1
   rangeMaximum: 40
   smoothingTime: 1
   flickerInterval: 0.05
+  damageOverTimeVarDamage: 2
+  damageOverTimeVarTime: 5
   intensityBase: 0
   rangeBase: 0
   randomFactorIntensity: 0
   randomFactorRange: 0
   UI: {fileID: 0}
   Particles: {fileID: 0}
+  TorchFOV: {fileID: 0}
+  TorchFOVSize:
+  - 3000
+  - 3000
   gameManager: {fileID: 0}
   equipped: 0
   isDamagable: 1

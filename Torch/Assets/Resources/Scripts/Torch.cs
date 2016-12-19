@@ -14,6 +14,9 @@ public class Torch : InteractableItem, IDamagable {
 	[HideInInspector] //This variable will be used by other scripts but will not be editable in the Unity GUI.
 	public float flickerInterval = 0.5f;
 
+	public int damageOverTimeVarDamage = 2;
+	public float damageOverTimeVarTime = 5f;
+
 
 	private float smoothDampVar1 = 0f;
 	private float smoothDampVar2 = 0f;
@@ -29,6 +32,8 @@ public class Torch : InteractableItem, IDamagable {
 	public GameObject UI;
 	private Text healthText;
 	public GameObject Particles;
+	public Animator TorchFOV;
+	public float[] TorchFOVSize = {3000,3000};
 
 	public GameManager gameManager;
 	public bool equipped = false;
@@ -76,6 +81,7 @@ public class Torch : InteractableItem, IDamagable {
 //		Debug.Log (gameObject + " takes " + damage + " damage.");
 			health -= damage;
 			updateHealth ();
+			TorchFOV.SetTrigger ("TakeDamage");
 
 			if (health <= 0) {
 				Die ();
@@ -167,8 +173,16 @@ public class Torch : InteractableItem, IDamagable {
 
 	IEnumerator DamageOverTime(){
 		while (gameObject.activeSelf) {
-			takeDamage (2, false);
-			yield return new WaitForSeconds (5f);
+			if (isDamagable) {
+				//		Debug.Log (gameObject + " takes " + damage + " damage.");
+				health -= damageOverTimeVarDamage;
+				updateHealth ();
+
+				if (health <= 0) {
+					Die ();
+				}
+			}
+			yield return new WaitForSeconds (damageOverTimeVarTime);
 		}
 	}
 }
