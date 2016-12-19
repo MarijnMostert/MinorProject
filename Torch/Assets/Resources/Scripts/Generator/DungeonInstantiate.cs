@@ -112,7 +112,7 @@ public class DungeonInstantiate : Object {
         start_defined = false;
         */
         step = 6f;
-		chance_chest = 0.05f;
+		chance_chest = 0.5f;
 
 		//Instantiate empty Dungeon GameObject
 		Dungeon = new GameObject("Dungeon");
