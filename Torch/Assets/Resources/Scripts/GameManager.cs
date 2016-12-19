@@ -133,7 +133,7 @@ public class GameManager : MonoBehaviour {
 		}
 
 		Vector3 startpoint = masterGenerator.MovePlayersToStart ();
-		torch.transform.position = startpoint + new Vector3 (6, 1, 0);
+		torch.transform.position = startpoint + new Vector3 (6, .5f, 0);
 
 		torch.cam = mainCamera;
 		UI.transform.FindChild ("Score Text").GetComponent<Text> ().text = "Score: " + score;

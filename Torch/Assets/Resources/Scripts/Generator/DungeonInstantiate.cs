@@ -146,6 +146,8 @@ public class DungeonInstantiate : Object {
 		FloorsParent.transform.localScale = new Vector3 (6, 1, 6);
 		RoofsParent.transform.localScale = new Vector3 (6, 3, 6);
 
+		Dungeon.transform.position = new Vector3 (0, 0, 0);
+
         createStartEndPoint();
         this.spawner.GetComponent<Spawner>().importMaze(maze, mazeSize);
     }
@@ -266,7 +268,7 @@ public class DungeonInstantiate : Object {
 			convCenter += new Vector3 (-4f, 0, -4f);
 			int number = Random.Range (0,puzzleRooms.Count);
 			Instantiate (puzzleRooms [number], convCenter, Quaternion.identity, Dungeon.transform);
-			//Instantiate (PuzzleMist, convCenter, Quaternion.identity, Dungeon.transform);
+			Instantiate (PuzzleMist, convCenter, Quaternion.identity, Dungeon.transform);
 		}
 	} 
 		
@@ -332,7 +334,7 @@ public class DungeonInstantiate : Object {
 	public Vector3 MovePlayersToStart () {
 		GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
 		foreach (GameObject tmp in players) {
-			tmp.transform.position = startpoint + new Vector3 (7, 1, 0);
+			tmp.transform.position = startpoint + new Vector3 (7, 0.5f, 0);
 		}
 		return startpoint;
 	}
