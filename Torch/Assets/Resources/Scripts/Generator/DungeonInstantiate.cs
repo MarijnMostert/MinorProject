@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Threading;
 using System.Collections;
+using System.Collections.Generic;
 
 public class DungeonInstantiate : Object {
     GameObject floor, side, sideAlt1, sideAlt2, corner, cornerout,
@@ -10,16 +11,34 @@ public class DungeonInstantiate : Object {
                             cam, pointer, chest, coin, fireball, 
                             iceball, health, roofGroup;
     GameObject[] starters_pack, chest_pack;
-    GameObject[,] dungeon;
+    //GameObject[,] dungeon;
     int[] mazeSize;
-    bool[,] maze, import_maze, trapped;
+	bool[,] maze, import_maze, trapped;
     float chance_trap_straight, chance_trap_crossing,
           chance_side_alt1, chance_side_alt2, step,
           chance_chest;
     bool start_defined;
     int[] count = new int[2] {0,2};
-
 	private GameObject Dungeon;
+
+	List<GameObject> puzzleRooms;
+
+	List<p2D> puzzleCoords;
+	List<p2D> puzzleCenters;
+
+	GameObject WallsParent;
+	GameObject FloorsParent;
+	GameObject RoofsParent;
+	GameObject BeginningRoom;
+	GameObject EndingRoom;
+
+	Vector3 startpoint;
+	Vector3 endpoint;
+
+	GameObject RoofPrefab;
+	GameObject WallPrefab;
+	GameObject FloorPrefab;
+	GameObject PuzzleMist;
 
     public Vector3 startPos;
 
@@ -29,7 +48,8 @@ public class DungeonInstantiate : Object {
                             GameObject trap_box, GameObject portal, GameObject end_portal, GameObject player, 
                             GameObject game_manager, GameObject spawner, GameObject torch, GameObject cam, GameObject pointer, 
 		GameObject chest, GameObject coin, GameObject fireball, GameObject iceball, GameObject health, int[] mazeSize, GameObject laser, GameObject shieldPickUp,
-		GameObject stickyPickUp, GameObject roofGroup, GameObject wallPickUp)
+	GameObject stickyPickUp, GameObject roofGroup, GameObject wallPickUp, List<GameObject> puzzleRooms)
+
     {
         this.floor = floor;
         this.side = side;
@@ -52,236 +72,205 @@ public class DungeonInstantiate : Object {
         this.mazeSize = new int[2] { mazeSize[0] - 2, mazeSize[1] - 2 };
         this.spawner = spawner;
         this.game_manager = game_manager;
+		this.puzzleRooms = puzzleRooms;
+		this.puzzleCoords = new List<p2D> ();
+		this.puzzleCenters = new List<p2D> ();
+
+		WallsParent = new GameObject("Walls");
+		FloorsParent = new GameObject("Floors");
+		RoofsParent = new GameObject("Roofs");
+
+		RoofPrefab = Resources.Load ("Prefabs/Blocks/RoofPrefab", typeof(GameObject)) as GameObject;
+		WallPrefab = Resources.Load ("Prefabs/Blocks/WallPrefab", typeof(GameObject)) as GameObject;
+		FloorPrefab = Resources.Load ("Prefabs/Blocks/FloorPrefab", typeof(GameObject)) as GameObject;
+		PuzzleMist = Resources.Load("Prefabs/PuzzlesScenes/PuzzleMist", typeof(GameObject)) as GameObject;
+
+
+		BeginningRoom = Resources.Load ("Prefabs/PuzzlesScenes/BeginningRoom", typeof(GameObject)) as GameObject;
+		EndingRoom = Resources.Load ("Prefabs/PuzzlesScenes/EndingRoom", typeof(GameObject)) as GameObject;
+
+
 		this.starters_pack = new GameObject[] {torch};
 		this.roofGroup = roofGroup;
+
     }
 
-    public void createMaze(){
+	public void setPuzzleCoords (List<p2D> coordList) {
+		puzzleCoords = coordList;
+	}
 
+	public void setPuzzleCenters (List<p2D> coordList) {
+		puzzleCenters = coordList;
+	}
+
+    public void createMaze(){
+		/*
         chance_trap_straight = 1f;
         chance_trap_crossing = 1f;
         chance_side_alt1 = 0.2f;
         chance_side_alt2 = 0.2f + chance_side_alt1;
-        chance_chest = 0.04f;
         start_defined = false;
-        step = 2f;
+        */
+        step = 6f;
+		chance_chest = 0.05f;
 
 		//Instantiate empty Dungeon GameObject
 		Dungeon = new GameObject("Dungeon");
+		WallsParent.transform.SetParent(Dungeon.transform);
+		FloorsParent.transform.SetParent(Dungeon.transform);
+		RoofsParent.transform.SetParent(Dungeon.transform);
 
         //import starters pack
 		InstantiateStarterPack(starters_pack, new Vector3(0, 0, 0),Quaternion.identity);
         //Instantiate(scene_manager, new Vector3(0, 0, 0), Quaternion.identity);
 
-        spawner.GetComponent<Spawner>().mapMinX = 5;
-        spawner.GetComponent<Spawner>().mapMinZ = 5;
-        spawner.GetComponent<Spawner>().mapMaxX = (mazeSize[0]-1)*2*3+5;
-        spawner.GetComponent<Spawner>().mapMaxZ = (mazeSize[1] - 1) * 2 * 3 + 5;
+		spawner.GetComponent<Spawner>().mapMinX = 0;
+        spawner.GetComponent<Spawner>().mapMinZ = 0;
+        spawner.GetComponent<Spawner>().mapMaxX = mazeSize[0]*6;
+        spawner.GetComponent<Spawner>().mapMaxZ = mazeSize[1]*6;
 		spawner = Instantiate(spawner, new Vector3(0, 0, 0), Quaternion.identity, Dungeon.transform) as GameObject;
+
 		GameObject.Find ("Game Manager").GetComponent<GameManager> ().spawner = spawner.GetComponent<Spawner> ();
 
-        //simulate mazecreation
-        /*import_maze = new bool[5, 5] {  {false,false,true,false,false},
-                                        {false,false,true,false,false},
-                                        {true,true,true,true,true},
-                                        {false,false,true,false,false},
-                                        {false,false,true,false,false} };
-        printMaze(import_maze);*/
-
-        updateProgress(0.2f);
-        mazeSize = new int[] { mazeSize[0] * 3, mazeSize[1] * 3 };
-        dungeon = new GameObject[mazeSize[0], mazeSize[1]];
+        mazeSize = new int[] { mazeSize[0], mazeSize[1]};
+        //dungeon = new GameObject[mazeSize[0], mazeSize[1]];
         maze = new bool[mazeSize[0], mazeSize[1]];
-        maze = StretchMatrix(import_maze);
-        populateMaze();
+        maze = import_maze;
+
+		populteMaze2 ();
+		populatePuzzles ();
+
+		Debug.Log ("Localscale");
+		WallsParent.transform.localScale = new Vector3 (6, 6, 6);
+		FloorsParent.transform.localScale = new Vector3 (6, 1, 6);
+		RoofsParent.transform.localScale = new Vector3 (6, 3, 6);
+
+		Dungeon.transform.position = new Vector3 (0, 0, 0);
+
         createStartEndPoint();
         this.spawner.GetComponent<Spawner>().importMaze(maze, mazeSize);
     }
 
-    void populateMaze()
-    {	
-		GameObject dungeonEnvironment = new GameObject ("Dungeon Environment");
-		dungeonEnvironment.transform.SetParent (Dungeon.transform);
-		roofGroup = Instantiate(roofGroup, dungeonEnvironment.transform) as GameObject;
-		GameObject floors = new GameObject ("Floors");
-		floors.transform.SetParent (dungeonEnvironment.transform);
-		GameObject sides = new GameObject ("Sides");
-		sides.transform.SetParent (dungeonEnvironment.transform);
-		GameObject corners = new GameObject ("Corners");
-		corners.transform.SetParent (dungeonEnvironment.transform);
 
-        float deltaprogress = 0.5f / (mazeSize[0] * mazeSize[1]);
-        for (int i = 0; i < mazeSize[0]; i++)
-        {
-            for (int j = 0; j < mazeSize[1]; j++)
-            {
-				if (maze [i, j]) {
-					int[] surroundings = getSurroundings (i, j);
-					int type = getSum (surroundings);
-					switch (type) {
-					case 0:
-						dungeon [i, j] = Instantiate (chooseFloor (i, j), new Vector3 (step * i, 0, step * j), findRotFloor (i, j), floors.transform) as GameObject;
-						spawnChest (i, j);
-						break;
-					case 1:
-						dungeon [i, j] = Instantiate (chooseSide (), new Vector3 (step * i, 0, step * j), findRot (type, surroundings), sides.transform) as GameObject;
-						spawnChest (i, j);
-						break;
-					case 2:
-						dungeon [i, j] = Instantiate (corner, new Vector3 (step * i, 0, step * j), findRot (type, surroundings), corners.transform) as GameObject;
-						spawnChest (i, j);
-						break;
-					case 3:
-						dungeon [i, j] = Instantiate (cornerout, new Vector3 (step * i, 0, step * j), findRot (type, surroundings), corners.transform) as GameObject;
-						break;
-					default:
-						break;
-					}
-					updateProgress (deltaprogress);
-				} else {
-					dungeon [i, j] = Instantiate (roof, new Vector3 (step * i, 0, step * j), Quaternion.Euler (new Vector3 (-90, 0, 0)), roofGroup.transform) as GameObject;
-					if (getSum (getSurroundings (i, j)) == 4 && getSum (getDiagSurroundings (i, j)) == 4) {
-						dungeon [i, j].GetComponent<NavMeshObstacle> ().enabled = false;
-					}
-				}
-            }
-        }
-    }
-
-    Quaternion findRot(int type, int[] surroundings){
-        switch (type){
-            //  case 0:
-                //return findRotFloor(surroundings);
-            case 1:
-                return findRotSide(surroundings);
-            case 2:
-                return findRotCorner(surroundings);
-            default:
-                return findRotCorner2(surroundings);
-        } 
-    }
-
-    Quaternion findRotFloor(int x, int z)
-    {
-        int[] surroundings = getSurDists(x, z);
-        int[] diagSurroundings = getDiagSurDists(x, z);
-        if (getSum(surroundings) == 2 && getSum(diagSurroundings) == 4)
-        {
-            if (surroundings[0] == 1 && surroundings[2] == 1)
-            {
-                return Quaternion.Euler(new Vector3(-90, 0, 0));
-            }
-            return Quaternion.Euler(new Vector3(-90, 90, 0));
-        }
-        return Quaternion.Euler(new Vector3(-90,0,0));
-    }
-
-    Quaternion findRotSide(int[] surroundings) {
-
-        if(ArrayEquals(surroundings,new int[] {1,0,0,0})){
-            return Quaternion.Euler(new Vector3(-90, 180, 0));
-        }
-        else if (ArrayEquals(surroundings,new int[] {0,1,0,0})){
-            return Quaternion.Euler(new Vector3(-90, 90, 0));
-        }
-        else if (ArrayEquals(surroundings,new int[] {0,0,1,0})){
-            return Quaternion.Euler(new Vector3(-90, 0, 0));
-        }
-        else {
-            return Quaternion.Euler(new Vector3(-90, -90, 0));
-        }
-    }
-
-    Quaternion findRotCorner(int[] surroundings){
-        if (ArrayEquals(surroundings,new int[] {1,1,0,0})){
-            return Quaternion.Euler(new Vector3(-90, 180, 0));
-        }
-        else if (ArrayEquals(surroundings,new int[] {0,1,1,0})){
-            return Quaternion.Euler(new Vector3(-90, 90, 0));
-        }
-        else if (ArrayEquals(surroundings,new int[] {0,0,1,1})){
-            return Quaternion.Euler(new Vector3(-90, 0, 0));
-        }
-        else {
-            return Quaternion.Euler(new Vector3(-90, -90, 0));
-        }
-    }
-
-    Quaternion findRotCorner2(int[] surroundings) {
-        if (surroundings[0] == 1) {
-            return Quaternion.Euler(new Vector3(-90, 90, 0));
-        }
-        else if (surroundings[1] == 1) {
-            return Quaternion.Euler(new Vector3(-90, 180, 0));
-        }
-        else if (surroundings[2] == 1) {
-            return Quaternion.Euler(new Vector3(-90, -90, 0));
-        }
-        else if (surroundings[3] == 1) {
-            return Quaternion.Euler(new Vector3(-90, 0, 0));
-        } else {
-            return Quaternion.Euler(new Vector3(-90, 0, 90));
-        }
-    }
-
-    int[] getSurroundings(int x, int z) {
-        int[] surroundings= new int[4];
-        surroundings[0] = getMazeValue(x+1, z);
-        surroundings[1] = getMazeValue(x, z+1);
-        surroundings[2] = getMazeValue(x-1, z);
-        surroundings[3] = getMazeValue(x, z-1);
-        return surroundings;
-    }
-
-	int[] getDiagSurroundings(int x, int z) {
-		int[] surroundings= new int[4];
-		surroundings[0] = getMazeValue(x+1, z+1);
-		surroundings[1] = getMazeValue(x+1, z-1);
-		surroundings[2] = getMazeValue(x-1, z+1);
-		surroundings[3] = getMazeValue(x-1, z-1);
-		return surroundings;
+	void populteMaze2() {
+		for (int x = 0; x < mazeSize[0]; x++) {
+			for (int y = 0; y < mazeSize[1]; y++) {
+				bool puzzle = false;
+				if (p2D.myContains (puzzleCoords, new p2D (x+1, y+1))) {
+					puzzle = true; } // sla over
+				if (maze[x,y]) {
+					buildOpen (x,y,puzzle);
+				} 
+				else {
+					buildRoof (x, y);
+				} 
+			}
+		}
 	}
 
-    int[] getSurDists(int x, int z)
-    {
-        int[] surroundings = new int[4];
-        surroundings[0] = getMazeValue(x + 3, z);
-        surroundings[1] = getMazeValue(x, z + 3);
-        surroundings[2] = getMazeValue(x - 3, z);
-        surroundings[3] = getMazeValue(x, z - 3);
-        return surroundings;
-    }
+	void buildRoof (int x, int y){
+		GameObject myplane = GameObject.Instantiate (RoofPrefab, RoofsParent.transform) as GameObject;
+		myplane.transform.position = new Vector3 (x+0.5f, 1f, y+0.5f);
 
-    int[] getDiagSurDists(int x, int z)
-    {
-        int[] surroundings = new int[4];
-        surroundings[0] = getMazeValue(x + 3, z + 3);
-        surroundings[1] = getMazeValue(x + 3, z - 3);
-        surroundings[2] = getMazeValue(x - 3, z + 3);
-        surroundings[3] = getMazeValue(x - 3, z - 3);
-        return surroundings;
-    }
+		//Bouw navmeshblokkade
+	}
 
-    int getSum(int[] array){
-        int sum = 0;
-        foreach (int tmp in array){
-            sum += tmp;
-        }
-        return sum;
-    }
+	void buildOpen(int x, int y, bool puzzle) {
+		if (!puzzle) {
+			GameObject myplane = GameObject.Instantiate (FloorPrefab, FloorsParent.transform) as GameObject;
+			myplane.transform.position = new Vector3 (x + 0.5f, 0, y + 0.5f);
+			spawnChest (x,y);
+		}
 
-    int getSum2Array(bool[,] array)
-    {
-        int sum = 0;
-        foreach (bool tmp in array)
-        {
-            if (tmp)
-            {
-                sum ++;
-            }
-        }
-        return sum;
-    }
+		int[] arrayS = getSurrounding2(x, y);
+		int rotation = 180;
+		int direction = 0;
+		string total = "";
+		for (int i = 0; i < arrayS.Length ; i++) {
+			total += arrayS[i].ToString();
+			total += " ";
+			if (arrayS[i] == 0) {
+				BuildWall(rotation, direction%4, x, y);
+			}
+			rotation -= 90;
+			direction++;
+		}
+	}
+
+	void BuildWall(int rotation, int direction, int x, int y){
+		GameObject myplane = GameObject.Instantiate (WallPrefab, WallsParent.transform) as GameObject;
+		Vector3 transformvector;
+		Vector3 v3location = new Vector3 (x, 0, y);
+		v3location += new Vector3 (0.5f, 0, 0.5f);
+
+		switch (direction) {
+		case 0:
+			transformvector = new Vector3 (1, 0, 0);
+			break;
+		case 1:
+			transformvector = new Vector3 (0, 0, 1);
+			break;
+		case 2:
+			transformvector = new Vector3 (-1, 0, 0);
+			break;
+		case 3:
+			transformvector = new Vector3 (0, 0, -1);
+			break;
+		default:
+			Debug.Log (direction + " went to default");
+			transformvector = new Vector3 (0, 0, 0);
+			break;
+		}
+		transformvector *= .5f;
+		myplane.transform.position = transformvector + v3location;
+		myplane.transform.rotation = Quaternion.Euler (0, rotation, -90);
+	}
+
+	int[] getSurrounding2(int x, int y) {
+		int[] surroundings= new int[4];
+		surroundings [0] = (maze [x + 1, y]) ? 1 : 0;
+		surroundings [1] = (maze [x, y + 1]) ? 1 : 0;
+		surroundings [2] = (maze [x - 1, y]) ? 1 : 0;
+		surroundings [3] = (maze [x, y - 1]) ? 1 : 0;
+		return surroundings;
+	}
+	
+	void populatePuzzles () {
+		int random = 0;
+
+		//Make beginningRoom
+		random = Random.Range (0,puzzleCenters.Count);
+		p2D beginning = puzzleCenters [random];
+		startpoint = new Vector3 (beginning.getX () * 6 + 1, 0, beginning.getY () * 6 + 1);
+		startpoint += new Vector3 (-4f, 0, -4f);
+		Instantiate (BeginningRoom, startpoint, Quaternion.Euler(new Vector3(0,Random.Range(0,4)*90,0)), Dungeon.transform);
+
+		//Remove from list
+		List<p2D> temp1 = new List<p2D> ();
+		temp1.Add (beginning);
+		p2D.myRemove (puzzleCenters, temp1);
+
+		//Make endRoom
+		random = Random.Range (0,puzzleCenters.Count);
+		p2D ending = puzzleCenters [random];
+		endpoint = new Vector3 (ending.getX () * 6 + 1, 0, ending.getY () * 6 + 1);
+		endpoint += new Vector3 (-4f, 0, -4f);
+		Instantiate (EndingRoom, endpoint, Quaternion.Euler(new Vector3(0,Random.Range(0,4)*90,0)), Dungeon.transform);
+
+		//Remove from list
+		List<p2D> temp2 = new List<p2D> ();
+		temp2.Add (ending);
+		p2D.myRemove (puzzleCenters, temp2);
+
+		foreach (p2D center in puzzleCenters) {
+			Vector3 convCenter = new Vector3 (center.getX () * 6 + 1, 0, center.getY () * 6 + 1);
+			convCenter += new Vector3 (-4f, 0, -4f);
+			int number = Random.Range (0,puzzleRooms.Count);
+			Instantiate (puzzleRooms [number], convCenter, Quaternion.identity, Dungeon.transform);
+			Instantiate (PuzzleMist, convCenter, Quaternion.identity, Dungeon.transform);
+		}
+	} 
+		
 
     int getMazeValue(int x, int z){
         if (inBounds(x, z)){
@@ -291,8 +280,7 @@ public class DungeonInstantiate : Object {
         }    
         return 1;
     }
-
-
+		
 
     bool inBounds(int x, int z){
         return 0<=x && x<mazeSize[0] && 0<=z && z<mazeSize[1];
@@ -302,74 +290,12 @@ public class DungeonInstantiate : Object {
         return a[0] == b[0] && a[1] == b[1] && a[2] == b[2] && a[3] == b[3];
     }
 
-    bool[,] StretchMatrix(bool[,] matrix)
-    {
-        bool[,] newMatrix = new bool[mazeSize[0], mazeSize[1]];
-        for (int i = 0; i < mazeSize[0]/3; i++) {
-            for (int j = 0; j < mazeSize[1]/3; j++) {
-                for (int k = 0; k < 3; k++) {
-                    for (int l = 0; l < 3; l++) {
-                        newMatrix[3*i + k, 3*j + l] = matrix[i, j];
-                    }
-                }
-            }
-        }
-        return newMatrix;
-    }
-
-    GameObject chooseSide()
-    {
-        float random = Random.value;
-        if (random < chance_side_alt1)
-        {
-            return sideAlt1;
-        }
-        else if (random < chance_side_alt2)
-        {
-            return sideAlt2;
-        }
-        return side;
-    }
-
-    GameObject chooseFloor(int x, int z)
-    {
-        if ((x + 2) % 3 == 0 && (z + 2) % 3 == 0)
-        {
-            int[] surroundings = getSurDists(x, z);
-            bool opp = (surroundings[0] == 0 && surroundings[2] == 0) || (surroundings[1] == 0 && surroundings[3] == 0);
-            int sum = getSum(surroundings);
-            int diagsum = getSum(getDiagSurDists(x, z));
-            if (sum == 0 && diagsum == 4)
-            {
-                float random = Random.value;
-                if (random < chance_trap_crossing)
-                {
-                    return trap_crossing;
-                }
-            }
-            else if (sum == 2 && diagsum == 4 && opp)
-            {
-                count[0]++;
-                if (count[0] == count[1])
-                {
-                    float random = Random.value;
-                    if (random < chance_trap_straight)
-                    {
-                        return trapStraight();
-                    }
-                }
-            }
-        }
-
-        return floor;
-    }
-
     void spawnChest(float x,float z)
     {
         float random = Random.value;
         if (random < chance_chest)
         {
-			GameObject chest_instance = Instantiate(chest, new Vector3(x * step, -1, z * step), randomQuaternion(), Dungeon.transform) as GameObject;
+			GameObject chest_instance = Instantiate(chest, new Vector3(x*6 + 3f, 0, z*6 + 3f), randomQuaternion(), Dungeon.transform) as GameObject;
             int number_of_items = Random.Range(0,4);
             for (int i = 0; i <= number_of_items; i++)
             {
@@ -398,56 +324,22 @@ public class DungeonInstantiate : Object {
         return trap_box;
     }
 
-    void updateProgress(float percentage)
-    {
-        //GameObject.Find("progress").GetComponent<progress>().updateProgress(percentage);
-    }
+	void createStartEndPoint() {
+    	GameObject start_GO = Instantiate(portal, startpoint, Quaternion.identity, Dungeon.transform) as GameObject;
+		GameObject end_GO = Instantiate(end_portal, endpoint, Quaternion.identity, Dungeon.transform) as GameObject;
 
-    void createStartEndPoint()
-    {
-        int[] start_coor = pickRandomCoor();
-        int[] surroundings = getSurroundings(start_coor[0], start_coor[1]);
-        int type = getSum(surroundings);
-
-		GameObject start_GO = Instantiate(portal, new Vector3(step * start_coor[0], -1, step * start_coor[1]), findRot(type, surroundings), Dungeon.transform) as GameObject;
-        start_GO.transform.Translate(Vector3.forward);
-
-        int[] end_coor = pickRandomCoor();
-        int[] end_surroundings = getSurroundings(end_coor[0], end_coor[1]);
-        int end_type = getSum(end_surroundings);
-		GameObject end_GO = Instantiate(end_portal, new Vector3(step * end_coor[0], 1, step * end_coor[1]), findRot(end_type, end_surroundings), Dungeon.transform) as GameObject;
-        start_GO.transform.Translate(Vector3.forward);
-
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-        foreach (GameObject tmp in players)
-        {
-            tmp.transform.position = new Vector3(step * start_coor[0], -.7f, step * start_coor[1]);
-        }
-
-		GameObject torch = GameObject.FindGameObjectWithTag ("Torch");
-		torch.transform.position = new Vector3 (step * start_coor [0], -.7f, step * start_coor [1]);
-
-        startPos = new Vector3(step * start_coor[0], -.7f, step * start_coor[1]);
-
-        //Debug.Log("i:"+start_coor[0]+", j:"+start_coor[1]);
     }      
-    
-    int[] pickRandomCoor()
-    {
-        while (true)
-        {
-            int random = Random.Range(0, mazeSize[0]*mazeSize[1]);
-            int i = (int)System.Math.Floor((double)random / mazeSize[0]);
-            int j = random % mazeSize[0];
-            if (getSum(getSurroundings(i, j)) == 2 && maze[i, j])
-            {
-                return new int[2] { i, j };
-            }
-        }
-    }
 
-    public void importMaze(int[,] maze)
-    {
+	public Vector3 MovePlayersToStart () {
+		GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+		foreach (GameObject tmp in players) {
+			tmp.transform.position = startpoint + new Vector3 (7, 0.5f, 0);
+		}
+		return startpoint;
+	}
+  
+	public void importMaze(int[,] maze)
+	{
         import_maze = new bool[mazeSize[0], mazeSize[1]];
         for (int i = 0; i < mazeSize[0]; i++) {
             for(int j = 0; j < mazeSize[1]; j++){
@@ -456,6 +348,7 @@ public class DungeonInstantiate : Object {
         }
         Debug.Log(print(import_maze));
     }
+
 
     public bool[,] getMaze()
     {

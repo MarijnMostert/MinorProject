@@ -62,7 +62,7 @@ public class Spawner : MonoBehaviour {
         float Random_radius = Random.Range(min_radius, max_radius);
         float Random_radial = Random.Range(0, 2 * Mathf.PI);
         Vector3 point = player + new Vector3(Random_radius * Mathf.Cos(Random_radial), 0, Random_radius * Mathf.Sin(Random_radial));
-        if (validPosition(point.x, point.z)) return new Vector3(point.x, 1f, point.z);
+        if (validPosition(point.x, point.z)) return new Vector3(point.x, 0, point.z);
         return getPosition();
     }
 

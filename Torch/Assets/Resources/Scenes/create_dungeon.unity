@@ -505,6 +505,15 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1389436525}
+    - target: {fileID: 1000011647558472, guid: cf3e1c810a2e94ddfa98fdcb76202dbb, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011964149174, guid: cf3e1c810a2e94ddfa98fdcb76202dbb,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cf3e1c810a2e94ddfa98fdcb76202dbb, type: 2}
   m_IsPrefabParent: 0
@@ -562,20 +571,27 @@ Prefab:
         type: 2}
       propertyPath: deathCanvas
       value: 
-      objectReference: {fileID: 1952887293}
+      objectReference: {fileID: 1000012072622622, guid: cd5f1f8f72b3345d4bff037206099816,
+        type: 2}
     - target: {fileID: 114000012126162182, guid: 8e8fb98cee864437995eb9c0b0548acd,
         type: 2}
       propertyPath: endOfRoundCanvas
       value: 
       objectReference: {fileID: 270816652}
+    - target: {fileID: 82000010765992802, guid: 8e8fb98cee864437995eb9c0b0548acd,
+        type: 2}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 0.452
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012126162182, guid: 8e8fb98cee864437995eb9c0b0548acd,
+        type: 2}
+      propertyPath: triggerFloorPrefab
+      value: 
+      objectReference: {fileID: 1000012485642322, guid: e38f8103c4fde44d1a4cf4066fa8ebde,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8e8fb98cee864437995eb9c0b0548acd, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &1952887293 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1000012072622622, guid: cd5f1f8f72b3345d4bff037206099816,
-    type: 2}
-  m_PrefabInternal: {fileID: 2116005888}
 --- !u!1001 &2116005888
 Prefab:
   m_ObjectHideFlags: 0
@@ -678,6 +694,10 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1389436525}
+    - target: {fileID: 1000012072622622, guid: cd5f1f8f72b3345d4bff037206099816, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cd5f1f8f72b3345d4bff037206099816, type: 2}
   m_IsPrefabParent: 0
