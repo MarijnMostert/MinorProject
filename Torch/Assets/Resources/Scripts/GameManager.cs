@@ -93,6 +93,7 @@ public class GameManager : MonoBehaviour {
     }
 
     public void Start(){
+		WriteStart ();
 		pauseScreen.SetActive (false);
 		loadingScreenCanvas = Instantiate (loadingScreenCanvas) as GameObject;
 		loadingScreenCanvas.SetActive (false);
@@ -290,6 +291,15 @@ public class GameManager : MonoBehaviour {
 		StartGame ();
 	}
 
+	public void WriteStart(){
+		Dictionary<string, object> eventData = new Dictionary<string, object> {
+			{ "Event", "StartGame"},
+			{ "Time", DateTime.UtcNow}
+		};
+		UnityEngine.Analytics.Analytics.CustomEvent("LevelStart", eventData);
+		WriteToFile (eventData);
+	}
+		
 	public void WriteFinishLevel(){
 		Dictionary<string, object> eventData = new Dictionary<string, object> {
 			{ "Event", "FinishLevel"},
