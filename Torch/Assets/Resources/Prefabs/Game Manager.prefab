@@ -129,7 +129,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerManagers:
   - spawnPoint: {fileID: 4000013396432608}
-    playerColor: {r: 0, g: 0, b: 0, a: 0}
+    playerColor: {r: 0.89705884, g: 0.25064883, b: 0.25064883, a: 0}
     cursorPointer: {fileID: 0}
     playerNumber: 0
     playerInstance: {fileID: 0}
@@ -146,22 +146,41 @@ MonoBehaviour:
   torchHealth: 0
   torchHealthMax: 150
   score: 0
+  totalScore: 0
+  dungeonLevel: 0
+  StartTime: 0
   paused: 0
-  pauseScreen: {fileID: 1000011647558472, guid: cf3e1c810a2e94ddfa98fdcb76202dbb,
+  pauseScreen: {fileID: 0}
+  inGameCameraPrefab: {fileID: 1000010527591912, guid: 2f0d8300580bb4db9b1240053b57aeaf,
     type: 2}
-  cameraPrefab: {fileID: 1000010527591912, guid: 2f0d8300580bb4db9b1240053b57aeaf,
-    type: 2}
+  inGameCameraObject: {fileID: 0}
   camTarget: {fileID: 0}
   enemyTarget: {fileID: 0}
   UIPrefab: {fileID: 1000011980605034, guid: ce12bf815c9354cd38ffdb78d7b15e2b, type: 2}
   UI: {fileID: 0}
+  PuzzleRooms:
+  - {fileID: 1000010275947170, guid: 2c69b9685e818ec4f810ceb0a5e12c7d, type: 2}
+  - {fileID: 1000010275947170, guid: 2c69b9685e818ec4f810ceb0a5e12c7d, type: 2}
+  - {fileID: 1000013095267004, guid: 5288fcd4fb05339498a5d9c9dc49a76c, type: 2}
+  - {fileID: 1000011832919986, guid: fb219ecc626f53d498ba9b7b66e404be, type: 2}
+  - {fileID: 1000010173967298, guid: e72c1f558cafdfb4d8814a1f26d633dc, type: 2}
+  - {fileID: 1000013309580604, guid: 64a22ead90fa46542b9274c81372775a, type: 2}
+  UIHelpItems: []
+  UIHelp: 1
+  TorchFOVPrefab: {fileID: 1000011320308738, guid: b5c950376b24a4029afee84b9656c78b,
+    type: 2}
+  TorchFOV: {fileID: 0}
   spawner: {fileID: 0}
-  loadingScreenCanvas: {fileID: 1000013438309082, guid: 0ff01cb270ef14af5b80d2ec70ecc88c,
+  loadingScreenCanvas: {fileID: 1000013625541172, guid: 0ff01cb270ef14af5b80d2ec70ecc88c,
     type: 2}
   deathCanvas: {fileID: 0}
+  endOfRoundCanvas: {fileID: 0}
   homeScreen: {fileID: 0}
   homeScreenCam: {fileID: 0}
   mainCamera: {fileID: 0}
   audioSource: {fileID: 0}
   audioHomeScreen: {fileID: 8300000, guid: 7e404d8a72ce34ec98bd3c27ed1782f8, type: 3}
-  audioDungeon: {fileID: 8300000, guid: 3d02f9a386baf4bea855ca88493ab372, type: 3}
+  audioDungeon:
+  - {fileID: 8300000, guid: 3d02f9a386baf4bea855ca88493ab372, type: 3}
+  - {fileID: 8300000, guid: 667c3a85722394921ba0173a0e9b17b3, type: 3}
+  audioMuted: 0

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class p2D : Object {
 
@@ -49,11 +50,51 @@ public class p2D : Object {
 		return "p:[" + this.X + ", " + this.Y + "]";		
 	}
 
-	public override bool Equals(object other){
-		var that = other as p2D;
-		if(that != null){
-			return that.X == this.X && that.Y == this.Y;
+	public override bool Equals(System.Object other) {
+		if (other == null) {
+			return false;
 		}
-		return false;
+		p2D that = (p2D)other;
+		if (that == null) {
+			return false;
+		}
+		return (that.X == this.X && that.Y == this.Y);
 	}
+
+	public bool Equals(p2D other) {
+		if ((object)other == null) {
+			return false;
+		}
+		return (other.getX() == this.X && other.getY() == this.Y);
+	}
+
+	public override int GetHashCode () {
+		int hash = 23;
+		hash = hash * 31 + this.X;
+		hash = hash * 31 + this.Y;
+		return hash;
+	}
+
+	public static bool myContains(List<p2D> list, p2D point) {
+		return myIndexOf (list, point) != -1;
+	}
+
+	public static int myIndexOf(List<p2D> list, p2D point) {
+		int i = 0;
+		foreach (p2D item in list) {
+			if (point.Equals (item)) {
+				return i;
+			}
+			i++;
+		}
+		return -1;
+	}
+
+	public static void myRemove (List<p2D> list, List<p2D> marked) {
+		foreach (p2D item in marked) {
+			int index = myIndexOf (list, item);
+			list.RemoveAt (index);
+		}
+	}
+
 }

@@ -18,6 +18,7 @@ public class Enemy : MonoBehaviour, IDamagable {
 	[SerializeField] protected NavMeshAgent navMeshAgent;
 	protected float lastAttackTime = 0f;
 	protected GameObject healthBar;
+	protected Image healthBarImage;
 	protected GameManager gameManager;
 
 	protected virtual void Awake() {
@@ -41,7 +42,7 @@ public class Enemy : MonoBehaviour, IDamagable {
 	}
 
 	//For when the enemy object takes damage
-	public void takeDamage(int damage){
+	public void takeDamage(int damage, bool crit){
 		//Debug.Log (gameObject + " takes " + damage + " damage.");
 
 		if (healthBar == null) {
@@ -49,7 +50,18 @@ public class Enemy : MonoBehaviour, IDamagable {
 		}
 
 		health -= damage;
-		healthBar.transform.FindChild("HealthBar").GetComponent<Image>().fillAmount = (float)health / startingHealth;
+		healthBarImage.fillAmount = (float)health / startingHealth;
+		float lerp = (float)health / (float)startingHealth;
+		if (lerp <= .5f) {
+			lerp *= 2f;
+			healthBarImage.color = Color.Lerp (Color.red, Color.yellow, lerp);
+		} else if (lerp > .5f) {
+			lerp -= .5f;
+			lerp *= 2f;
+			healthBarImage.color = Color.Lerp (Color.yellow, Color.green, lerp);
+		}
+		DamagePopUp.CreateDamagePopUp(damage, gameObject, crit);
+
 		if (health <= 0)
 			Die ();
 	}
@@ -57,6 +69,7 @@ public class Enemy : MonoBehaviour, IDamagable {
 	void InstantiateHealthBar (){
 		Vector3 healthBarPosition = transform.position + new Vector3 (0, 2, 0);
 		healthBar = Instantiate (healthBarPrefab, healthBarPosition, transform.rotation, transform) as GameObject;
+		healthBarImage = healthBar.transform.FindChild ("HealthBar").GetComponent<Image> ();
 	}
 
 	//When the enemy's health drops below 0.

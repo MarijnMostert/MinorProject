@@ -10,6 +10,8 @@ public class MasterGenerator : Object {
                             spawner, torch, cam, pointer, chest,
                             coin, fireball, iceball, health, laser, shieldPickUp,
 							stickyPickUp, roofGroup, wallPickUp;
+
+	public List<GameObject> puzzleRooms;
     GameObject game_manager;
     public DungeonInstantiate dungeon_instantiate;
     int width;// = 100;
@@ -24,7 +26,7 @@ public class MasterGenerator : Object {
 	int[,] endMaze;
 
     public MasterGenerator(GameObject game_manager, int width, int height, int radius, int maxlength, 
-                            int timeout, int minAmountOfRooms, int maxAmountOfRooms, int chanceOfRoom)
+		int timeout, int minAmountOfRooms, int maxAmountOfRooms, int chanceOfRoom, List<GameObject> puzzleRooms)
     {
         this.game_manager = game_manager;
         this.width = width;
@@ -35,6 +37,7 @@ public class MasterGenerator : Object {
         this.minAmountOfRooms = minAmountOfRooms;
         this.maxAmountOfRooms = maxAmountOfRooms;
         this.chanceOfRoom = chanceOfRoom;
+		this.puzzleRooms = puzzleRooms;
     }
 
 	// Use this for initialization
@@ -46,13 +49,15 @@ public class MasterGenerator : Object {
 		int[,] maze = new int[width, height];
         int[] mazeSize = new int[2] {width, height};
         List<p2D> doors = new List<p2D> ();
+		List<p2D> puzzleCenters = new List<p2D> ();
+		List<p2D> allRoomCoords = new List<p2D> ();
 
         dungeon_instantiate = new DungeonInstantiate(floor, side, sideAlt1, sideAlt2, corner, cornerout,
                                                                         roof, block, trap_straight, trap_crossing, trap_box,
                                                                         portal, end_portal, player, game_manager,
                                                                         spawner, torch, cam, pointer, chest, coin, 
 																		fireball, iceball, health, mazeSize, laser, shieldPickUp,
-																		stickyPickUp, roofGroup, wallPickUp);
+																		stickyPickUp, roofGroup, wallPickUp, puzzleRooms);
 
 		while (!done) {
 			dungeon = new DungeonGenerator ( width,
@@ -62,12 +67,15 @@ public class MasterGenerator : Object {
 											timeout,
 											minAmountOfRooms,
 											maxAmountOfRooms,
-											chanceOfRoom );
-			maze = dungeon.getMaze ();
-			doors = dungeon.getDoorways ();
+											chanceOfRoom ); 
 			done = dungeon.isDone ();
-			donerooms = dungeon.getRooms ().Count;
 		}
+
+		maze = dungeon.getMaze ();
+		doors = dungeon.getDoorways ();
+		donerooms = dungeon.getRooms ().Count;
+		allRoomCoords = dungeon.getAllRoomCoords ();
+		puzzleCenters = dungeon.getRoomCenters ();
 
         this.endMaze = maze;
 
@@ -78,14 +86,22 @@ public class MasterGenerator : Object {
 		//Debug.Log(analysis.deadEnds());
 		//analysis.cleanUpDeadEnds();
 
+		dungeon_instantiate.setPuzzleCoords (allRoomCoords);
+		dungeon_instantiate.setPuzzleCenters (puzzleCenters);
+
 		Debug.Log(print(maze));
         dungeon_instantiate.importMaze(this.endMaze);
+
         dungeon_instantiate.createMaze();
 
         Debug.Log(dungeon_instantiate.print(dungeon_instantiate.getMaze()));
         //spawner.GetComponent<Spawner>().importMaze(dungeon_instantiate.getMaze(),mazeSize);
 
     }
+
+	public Vector3 MovePlayersToStart () {
+		return dungeon_instantiate.MovePlayersToStart ();
+	}
 
     public int[,] getMaze()
     {
@@ -139,6 +155,7 @@ public class MasterGenerator : Object {
         health = Resources.Load("Prefabs/PickUps/HealthPickUp", typeof(GameObject)) as GameObject;
 		laser = Resources.Load ("Prefabs/PickUps/Laser Weapon PickUp", typeof(GameObject)) as GameObject;
 		shieldPickUp = Resources.Load ("Prefabs/PickUps/Shield PickUp", typeof(GameObject)) as GameObject;
+
 		stickyPickUp = Resources.Load ("Prefabs/PickUps/Sticky PickUp", typeof(GameObject)) as GameObject;
 		roofGroup = Resources.Load ("Prefabs/roofGroup", typeof(GameObject)) as GameObject;
 		wallPickUp = Resources.Load ("Prefabs/PickUps/Wall PickUp", typeof(GameObject)) as GameObject;

@@ -35,9 +35,9 @@ public class BomberProjectile : MonoBehaviour {
 		GameObject objectHitted = other.gameObject;
 
 		if (damagableObject != null) {
-			damagableObject.takeDamage (damage);
+			damagableObject.takeDamage (damage, false);
 		} else if (objectHitted.CompareTag("Player")) {
-			objectHitted.transform.FindChild ("Torch").GetComponent<IDamagable> ().takeDamage (damage);
+			objectHitted.transform.FindChild ("Torch").GetComponent<IDamagable> ().takeDamage (damage, false);
 		}
 
 		Destroy (this.gameObject);

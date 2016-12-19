@@ -339,7 +339,7 @@ public class Boss : MonoBehaviour, IDamagable {
 	}
 
 	//For when the enemy object takes damage
-	public void takeDamage(int damage){
+	public void takeDamage(int damage, bool crit){
 		if (healthBar == null) {
 			InstantiateHealthBar ();
 		}
