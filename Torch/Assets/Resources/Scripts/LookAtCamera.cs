@@ -3,10 +3,12 @@ using System.Collections;
 
 public class LookAtCamera : MonoBehaviour {
 
-	private Camera cam;
+	public Camera cam;
+	public GameManager gameManager;
 
 	void Start(){
-		cam = Camera.main;
+		gameManager = GameObject.Find ("Game Manager").GetComponent<GameManager> ();
+		cam = gameManager.mainCamera;
 	}
 
 	void Update(){

@@ -39,7 +39,7 @@ public class Laserbeam : MonoBehaviour {
 	void KillPlayer () {
 		Torch torch = hit.collider.gameObject.GetComponentInChildren <Torch> ();
 		int currentH = torch.health;
-		torch.takeDamage (currentH);
+		torch.takeDamage (currentH, false);
 	}
 
 }

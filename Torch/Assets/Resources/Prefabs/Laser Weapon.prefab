@@ -94,7 +94,8 @@ MonoBehaviour:
   collisionMask:
     serializedVersion: 2
     m_Bits: 4294886911
-  damage: 50
+  minDamage: 70
+  maxDamage: 90
 --- !u!120 &120000010160733730
 LineRenderer:
   m_ObjectHideFlags: 1

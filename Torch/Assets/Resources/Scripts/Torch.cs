@@ -71,7 +71,7 @@ public class Torch : InteractableItem, IDamagable {
 	}
 
 	//For when the torch takes damage
-	public void takeDamage(int damage){
+	public void takeDamage(int damage, bool crit){
 		if (isDamagable) {
 //		Debug.Log (gameObject + " takes " + damage + " damage.");
 			health -= damage;
@@ -167,7 +167,7 @@ public class Torch : InteractableItem, IDamagable {
 
 	IEnumerator DamageOverTime(){
 		while (gameObject.activeSelf) {
-			takeDamage (2);
+			takeDamage (2, false);
 			yield return new WaitForSeconds (5f);
 		}
 	}

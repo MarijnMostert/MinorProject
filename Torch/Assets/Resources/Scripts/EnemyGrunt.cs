@@ -24,7 +24,7 @@ public class EnemyGrunt : Enemy {
 	//If the player is close enough to the torch it will do damage
 	private void attack(){
 		IDamagable damagableObject = gameManager.enemyTarget.GetComponent<IDamagable> ();
-		damagableObject.takeDamage (attackDamage);
+		damagableObject.takeDamage (attackDamage, false);
 		//Debug.Log (damagableObject);
 		lastAttackTime = Time.time;
 	}

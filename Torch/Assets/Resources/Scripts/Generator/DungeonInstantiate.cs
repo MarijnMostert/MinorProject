@@ -72,7 +72,6 @@ public class DungeonInstantiate : Object {
         this.mazeSize = new int[2] { mazeSize[0] - 2, mazeSize[1] - 2 };
         this.spawner = spawner;
         this.game_manager = game_manager;
-
 		this.puzzleRooms = puzzleRooms;
 		this.puzzleCoords = new List<p2D> ();
 		this.puzzleCenters = new List<p2D> ();
@@ -91,7 +90,7 @@ public class DungeonInstantiate : Object {
 		EndingRoom = Resources.Load ("Prefabs/PuzzlesScenes/EndingRoom", typeof(GameObject)) as GameObject;
 
 
-		this.starters_pack = new GameObject[] {torch, cam};
+		this.starters_pack = new GameObject[] {torch};
 		this.roofGroup = roofGroup;
 
     }
@@ -358,15 +357,18 @@ public class DungeonInstantiate : Object {
 
 	void InstantiateStarterPack(GameObject[] starters_pack, Vector3 pos, Quaternion rot)
     {
+		GameManager gameManager = GameObject.Find ("Game Manager").GetComponent<GameManager> ();
         foreach(GameObject item in starters_pack)
         {
 			GameObject temp = Instantiate(item, pos, rot, Dungeon.transform) as GameObject;
 			if (temp.CompareTag ("Torch")) {
-				GameManager gameManager = GameObject.Find ("Game Manager").GetComponent<GameManager> ();
 				gameManager.torch = temp.GetComponent<Torch> ();
+			} /*else if (temp.CompareTag ("Camera")) {
+				gameManager.mainCamera = temp.GetComponentInChildren<Camera> ();
 			}
+			*/
         }
-        game_manager.GetComponent<GameManager>().mainCamera = cam.GetComponentInChildren<Camera>() as Camera;
+       // game_manager.GetComponent<GameManager>().mainCamera = cam.GetComponentInChildren<Camera>() as Camera;
     }
 
     public string print(bool[,] maze)
