@@ -168,13 +168,14 @@ public class GameManager : MonoBehaviour {
 
 
 	public void GameOver(){
-
 		Dictionary<string, object> eventData = new Dictionary<string, object> {
+			{ "Event", "Death" },
 			{ "Score", totalScore },
-			{ "level", dungeonLevel},
-			{ "Total Time", Time.time}
+			{ "Level", dungeonLevel},
+			{ "TotalTime", Time.time}
 		};
 		UnityEngine.Analytics.Analytics.CustomEvent("Death", eventData);
+		WriteToFile (eventData);
 
 		deathCanvas.SetActive (true);
 		deathCanvas.transform.Find ("Score Text").GetComponent<Text> ().text = "Your score: " + totalScore;
@@ -231,15 +232,29 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void Proceed(){
+		RoundEnd ();
+		DestroyDungeon ();
+		StartGame ();
+	}
+
+	public void WriteFinishLevel(){
 		Dictionary<string, object> eventData = new Dictionary<string, object> {
-			{ "level", dungeonLevel},
+			{ "Event", "FinishLevel"},
+			{ "Level", dungeonLevel},
 			{ "LevelScore", score },
 			{ "TimeSpent", Time.time - StartTime}
 		};
 		UnityEngine.Analytics.Analytics.CustomEvent("LevelComplete", eventData);
+		WriteToFile (eventData);
+	}
 
-		RoundEnd ();
-		DestroyDungeon ();
-		StartGame ();
+	public void WriteToFile(Dictionary<string, object> dict){
+		using (System.IO.StreamWriter file = new System.IO.StreamWriter ("data.txt", true)) {
+			file.WriteLine ("{");
+			foreach (KeyValuePair<string, object> entry in dict) {
+				file.WriteLine (entry.Key + ":" + entry.Value);	
+			}
+			file.WriteLine ("}");
+		}
 	}
 }
