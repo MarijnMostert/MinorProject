@@ -209,6 +209,7 @@ public class GameManager : MonoBehaviour {
 
 
 	public void GameOver(){
+		totalScore += score;
 		Dictionary<string, object> eventData = new Dictionary<string, object> {
 			{ "Event", "Death" },
 			{ "Score", totalScore },
