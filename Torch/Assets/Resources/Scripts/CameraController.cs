@@ -19,12 +19,14 @@ public class CameraController : MonoBehaviour {
 
 	void FixedUpdate () {
 		//targetPosition = getAveragePosition ();
-		targetPosition = gameManager.camTarget.transform.position;
-		cameraPosition = targetPosition + offset;
+		if (gameManager.camTarget != null) {
+			targetPosition = gameManager.camTarget.transform.position;
+			cameraPosition = targetPosition + offset;
 
-		//The smoothdamp makes sure the camera follows the target(s) smoothly
-		transform.position = Vector3.SmoothDamp (transform.position, cameraPosition, ref smoothDampVelocity, smoothTime);
-		transform.eulerAngles = rotation;
+			//The smoothdamp makes sure the camera follows the target(s) smoothly
+			transform.position = Vector3.SmoothDamp (transform.position, cameraPosition, ref smoothDampVelocity, smoothTime);
+			transform.eulerAngles = rotation;
+		}
 	}
 		
 	/*

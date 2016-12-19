@@ -31,22 +31,34 @@ public class GameManager : MonoBehaviour {
 
 	public bool paused;
 	public GameObject pauseScreen;
-	public GameObject cameraPrefab;
+	public GameObject inGameCameraPrefab;
+	public GameObject inGameCameraObject;
 	public GameObject camTarget;
 	public GameObject enemyTarget;
 	public GameObject UIPrefab;
 	public GameObject UI;
+
+	public List<GameObject> PuzzleRooms;
+
+	public GameObject[] UIHelpItems;
+	public bool UIHelp = true;
+	public GameObject TorchFOVPrefab;
+	public GameObject TorchFOV;
+
     public Spawner spawner;
+	public GameObject triggerFloorPrefab;
+	private GameObject triggerFloorObject;
+
 
     //masterGenerator Vars
-    int width = 20;// = 100;
-    int height = 20;// = 90;
-    int radius = 1;// = 2;
-    int maxlength = 4;// = 3;
-    int timeout = 6000;// = 200;
-    int minAmountOfRooms = 2;// = 6;
-    int maxAmountOfRooms = 5;// = 8;
-    int chanceOfRoom = 20;// = 15;
+    int width = 40;// = 100;
+    int height = 40;// = 90;
+    int radius = 2;// = 2;
+    int maxlength = 2;// = 3;
+    int timeout = 2000;// = 200;
+    int minAmountOfRooms = 4;// = 6;
+    int maxAmountOfRooms = 7;// = 8;
+    int chanceOfRoom = 10;// = 15; Dit is de 1/n kans op een kamer, dus groter getal is kleinere kans
 
 	//public GameObject homeScreenCanvas;
 	public GameObject loadingScreenCanvas;
@@ -61,7 +73,8 @@ public class GameManager : MonoBehaviour {
 
 	public AudioSource audioSource;
 	public AudioClip audioHomeScreen;
-	public AudioClip audioDungeon;
+	public AudioClip[] audioDungeon;
+	public bool audioMuted;
 
     void Awake () {
         gameStarted = false;
@@ -72,6 +85,7 @@ public class GameManager : MonoBehaviour {
 			GameObject.DontDestroyOnLoad (this.gameObject);
 			Instance = this;
 		}
+
 		//homeScreenCanvas = GameObject.Find ("Home Screen Canvas");
 		homeScreen = GameObject.Find ("HomeScreen");
 		homeScreenCam = GameObject.Find ("HomeScreenCam");
@@ -79,7 +93,6 @@ public class GameManager : MonoBehaviour {
     }
 
     public void Start(){
-		pauseScreen = Instantiate (pauseScreen) as GameObject;
 		pauseScreen.SetActive (false);
 		loadingScreenCanvas = Instantiate (loadingScreenCanvas) as GameObject;
 		loadingScreenCanvas.SetActive (false);
@@ -100,11 +113,17 @@ public class GameManager : MonoBehaviour {
 
 	IEnumerator CreateDungeon(){
 		yield return new WaitForSeconds (.1f);
-		masterGenerator = new MasterGenerator(this.gameObject, width, height, radius, maxlength, timeout, minAmountOfRooms, maxAmountOfRooms, chanceOfRoom);
+		masterGenerator = new MasterGenerator(this.gameObject, width, height, radius, maxlength, timeout, minAmountOfRooms, maxAmountOfRooms, chanceOfRoom, PuzzleRooms);
 		masterGenerator.LoadPrefabs();
 		masterGenerator.Start();
 
-		UI = Instantiate (UIPrefab);
+		if (UI == null) {
+			UI = Instantiate (UIPrefab);
+			UIHelpItems = GameObject.FindGameObjectsWithTag ("UI Help");
+		}
+		TorchFOV = Instantiate (TorchFOVPrefab);
+		if(triggerFloorObject == null)
+			triggerFloorObject = Instantiate (triggerFloorPrefab);
 
 		camTarget = torch.gameObject;
 		enemyTarget = torch.gameObject;
@@ -112,19 +131,31 @@ public class GameManager : MonoBehaviour {
 		torch.gameManager = this;
 		torch.UI = UI;
 
+		inGameCameraObject = Instantiate (inGameCameraPrefab);
+		mainCamera = inGameCameraObject.GetComponentInChildren<Camera> ();
+
 		for (int i = 0; i < playerManagers.Length; i++) {
-			Debug.Log("Create Player with id:" + i);
-			playerManagers[i].playerInstance = Instantiate(playerPrefab, masterGenerator.dungeon_instantiate.startPos, playerManagers[i].spawnPoint.rotation) as GameObject;
-			playerManagers [i].playerNumber = i + 1;
-			playerManagers [i].Setup ();
-			playerManagers [i].playerMovement.mainCamera = mainCamera;
+			if (playerManagers [i].playerInstance == null) {
+				Debug.Log ("Create Player with id:" + i);
+				playerManagers [i].playerInstance = Instantiate (playerPrefab, masterGenerator.dungeon_instantiate.startPos, playerManagers [i].spawnPoint.rotation) as GameObject;
+				playerManagers [i].playerNumber = i + 1;
+				playerManagers [i].Setup ();
+				playerManagers [i].playerMovement.mainCamera = mainCamera;
+			} else {
+				playerManagers [i].playerInstance.transform.position = masterGenerator.dungeon_instantiate.startPos;
+				playerManagers [i].Setup ();
+				playerManagers [i].playerInstance.SetActive (true);
+			}
 		}
+
+		Vector3 startpoint = masterGenerator.MovePlayersToStart ();
+		torch.transform.position = startpoint + new Vector3 (6, .5f, 0);
 
 		torch.cam = mainCamera;
 		UI.transform.FindChild ("Score Text").GetComponent<Text> ().text = "Score: " + score;
 		UI.transform.FindChild ("Dungeon Level").GetComponent<Text> ().text = "Dungeon level " + dungeonLevel;
 
-		audioSource.clip = audioDungeon;
+		audioSource.clip = audioDungeon [UnityEngine.Random.Range (0, audioDungeon.Length)];
 		audioSource.Play ();
 		homeScreen.SetActive (false);
 		homeScreenCam.SetActive (false);
@@ -134,23 +165,31 @@ public class GameManager : MonoBehaviour {
 	}
 	
 	void Update () {
-		Pause ();
+		if (Input.GetButtonDown ("Pause"))
+			Pause ();
 		if(Input.GetKeyDown(KeyCode.I)){
 			deathCanvas.SetActive (true);
+		}
+		if (Input.GetKeyDown(KeyCode.O)) {
+			GameObject obj = ObjectPooler.current.GetObject ();
+			obj.SetActive (true);
+			obj.transform.position = GameObject.FindGameObjectWithTag ("Player").transform.position;
 		}
 	}
 
 	void Pause(){
-		if (Input.GetButtonDown ("Pause")) {
-			if (!paused) {
-				Time.timeScale = 0;
-				paused = true;
-				pauseScreen.SetActive (true);
-			} else {
-				Time.timeScale = 1;
-				paused = false;
-				pauseScreen.SetActive (false);
-			}
+		if (!paused) {
+			Time.timeScale = 0;
+			paused = true;
+			pauseScreen.SetActive (true);
+			if(spawner != null)
+				spawner.dead = true;
+		} else {
+			Time.timeScale = 1;
+			paused = false;
+			pauseScreen.SetActive (false);
+			if (spawner != null)
+				spawner.dead = false;
 		}
 	}
 
@@ -182,9 +221,11 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void RoundEnd(){
-		Destroy (spawner);
+		if(spawner != null)
+			Destroy (spawner);
 		for (int i = 0; i < playerManagers.Length; i++) {
-			playerManagers [i].playerInstance.SetActive (false);
+			if(playerManagers[i].playerInstance != null)
+				playerManagers [i].playerInstance.SetActive (false);
 		}
 		foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy")) {
 			Destroy (enemy);
@@ -195,25 +236,37 @@ public class GameManager : MonoBehaviour {
 		foreach (GameObject cursor in GameObject.FindGameObjectsWithTag ("CursorPointer")) {
 			Destroy (cursor);
 		}
+		Destroy(GameObject.FindGameObjectWithTag ("Torch"));
 	}
 
 	public void TransitionDeathToMain(){
+		RoundEnd ();
 		DestroyDungeon ();
+		if (UI != null)
+			Destroy (UI);
+		if (triggerFloorObject != null)
+			Destroy (triggerFloorObject);
 		LoadHomeScreen ();
+		if (paused)
+			Pause ();
 	}
 
 	public void DestroyDungeon(){
-		foreach (PlayerManager playermanager in playerManagers){
-			Destroy (playermanager.playerInstance);
-		}
-		Destroy (torch);
-		Destroy (GameObject.Find ("Dungeon"));
-		Destroy (UI);
+		if(torch != null)
+			Destroy (torch);
+		if(GameObject.Find("Dungeon") != null)
+			Destroy (GameObject.Find ("Dungeon"));
+		if(TorchFOV != null)
+			Destroy (TorchFOV);
 		deathCanvas.SetActive (false);
 		gameStarted = false;
+		Destroy (inGameCameraObject);
 	}
 
 	public void LoadHomeScreen(){
+		foreach (PlayerManager playermanager in playerManagers){
+			Destroy (playermanager.playerInstance);
+		}
 		homeScreen.SetActive (true);
 		homeScreenCam.SetActive (true);
 		audioSource.clip = audioHomeScreen;
@@ -241,5 +294,35 @@ public class GameManager : MonoBehaviour {
 		RoundEnd ();
 		DestroyDungeon ();
 		StartGame ();
+	}
+
+	public void MuteAudio(){
+		if (audioMuted) {
+			audioSource.mute = false;
+			audioMuted = false;
+			Debug.Log ("Audio is unmuted");
+		} else {
+			audioSource.mute = true;
+			audioMuted = true;
+			Debug.Log ("Audio is muted");
+		}
+	}
+
+	public void HideUIHelp(){
+		if (UI != null) {
+			if (UIHelp) {
+				foreach (GameObject obj in UIHelpItems) {
+					obj.SetActive (false);
+				}
+				UIHelp = false;
+				Debug.Log ("UI help is turned off");
+			} else {
+				foreach (GameObject obj in UIHelpItems) {
+					obj.SetActive (true);
+				}
+				UIHelp = true;
+				Debug.Log ("UI help is turned on");
+			}
+		}
 	}
 }

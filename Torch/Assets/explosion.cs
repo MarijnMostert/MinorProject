@@ -27,11 +27,11 @@ public class explosion : MonoBehaviour {
 
         if (damagableObject != null)
         {
-            damagableObject.takeDamage(damage);
+            damagableObject.takeDamage(damage,false);
         }
         else if (objectHitted.CompareTag("Player"))
         {
-            objectHitted.transform.FindChild("Torch").GetComponent<IDamagable>().takeDamage(damage);
+            objectHitted.transform.FindChild("Torch").GetComponent<IDamagable>().takeDamage(damage,false);
         }
     }
 

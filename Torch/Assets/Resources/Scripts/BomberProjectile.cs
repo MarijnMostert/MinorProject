@@ -30,9 +30,10 @@ public class BomberProjectile : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other){
         GameObject objectHitted = other.gameObject;
-        if (!objectHitted.CompareTag("EnemyProjectile")&&!objectHitted.CompareTag("Enemy")) {
+        if (!objectHitted.CompareTag("EnemyProjectile") && !objectHitted.CompareTag("Enemy"))
+        {
             cam.transform.GetComponentInParent<CameraShake>().cameraShake(camShakeLength, camShakeIntensity, camShakeIterationTime);
-            GameObject exp = Instantiate(explosion, new Vector3(transform.position.x,0,transform.position.z), Quaternion.Euler(new Vector3(90, 0, 0))) as GameObject;
+            GameObject exp = Instantiate(explosion, new Vector3(transform.position.x, 0, transform.position.z), Quaternion.Euler(new Vector3(90, 0, 0))) as GameObject;
             exp.GetComponent<explosion>().damage = damage;
 
             /*IDamagable damagableObject = other.GetComponent<IDamagable> ();

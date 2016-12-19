@@ -17,7 +17,7 @@ public class Chest : InteractableItem {
 	void flyOut(GameObject obj){
 		float randomX = (1f - 2f * Random.value) * 2;
 		float randomZ = (1f - 2f * Random.value) * 2;
-		Vector3 spawnLocation = new Vector3(transform.position.x + randomX, -.5f, transform.position.z + randomZ);
+		Vector3 spawnLocation = new Vector3(transform.position.x + randomX, .5f, transform.position.z + randomZ);
 		Instantiate (obj, spawnLocation, transform.rotation);
 	}
 

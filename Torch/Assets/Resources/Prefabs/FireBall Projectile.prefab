@@ -137,8 +137,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b7416781957a445795c69362da14211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 20
+  minDamage: 20
+  maxDamage: 30
   lifeTime: 2
   collisionMask:
     serializedVersion: 2
-    m_Bits: 4294936063
+    m_Bits: 4294870527
+  speed: 0

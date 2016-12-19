@@ -30,4 +30,19 @@ public class Room : Object {
 		return this.doorways;
 	}
 
+	public p2D getCenter () {
+		return center;
+	}
+
+	public List<p2D> getAllCoords () {
+		List<p2D> returnable = new List<p2D> ();
+
+		for (int x = center.getX () - radius; x <= center.getX () + radius; x++) {
+			for (int y = center.getY () - radius; y <= center.getY () + radius; y++) {
+				returnable.Add (new p2D (x, y));
+			}
+		}
+		return returnable;
+	}
+
 }
