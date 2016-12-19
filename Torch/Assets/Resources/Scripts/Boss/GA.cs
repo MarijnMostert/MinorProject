@@ -20,7 +20,7 @@ public class GA {
 		this.fitness = new float[sizePopulation];
 		this.numberOfGenerations = numberOfGenerations;
 		this.NReproduce = 5;
-		this.deviation = 0.2f;
+		this.deviation = 0.05f;
 	}
 
 	public float[] getChrom(int index){

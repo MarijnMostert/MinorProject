@@ -250,6 +250,7 @@ public class Boss : MonoBehaviour, IDamagable {
 	}
 
 	//Choose one ore more actions based on network output
+
 	void action(){
 		//move Left
 		if (finalOutput [0] > actionThreshold[0]) {

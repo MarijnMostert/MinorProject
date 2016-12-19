@@ -93,6 +93,7 @@ public class GameManager : MonoBehaviour {
     }
 
     public void Start(){
+		WriteStart ();
 		pauseScreen.SetActive (false);
 		loadingScreenCanvas = Instantiate (loadingScreenCanvas) as GameObject;
 		loadingScreenCanvas.SetActive (false);
@@ -130,6 +131,7 @@ public class GameManager : MonoBehaviour {
 		torch.health = torchStartingHealth;
 		torch.gameManager = this;
 		torch.UI = UI;
+		torch.TorchFOV = TorchFOV.GetComponentInChildren<Animator> ();
 
 		inGameCameraObject = Instantiate (inGameCameraPrefab);
 		mainCamera = inGameCameraObject.GetComponentInChildren<Camera> ();
@@ -207,13 +209,15 @@ public class GameManager : MonoBehaviour {
 
 
 	public void GameOver(){
-
+		totalScore += score;
 		Dictionary<string, object> eventData = new Dictionary<string, object> {
+			{ "Event", "Death" },
 			{ "Score", totalScore },
-			{ "level", dungeonLevel},
-			{ "Total Time", Time.time}
+			{ "Level", dungeonLevel},
+			{ "TotalTime", Time.time}
 		};
 		UnityEngine.Analytics.Analytics.CustomEvent("Death", eventData);
+		WriteToFile (eventData);
 
 		deathCanvas.SetActive (true);
 		deathCanvas.transform.Find ("Score Text").GetComponent<Text> ().text = "Your score: " + totalScore;
@@ -284,16 +288,39 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void Proceed(){
+		RoundEnd ();
+		DestroyDungeon ();
+		StartGame ();
+	}
+
+	public void WriteStart(){
 		Dictionary<string, object> eventData = new Dictionary<string, object> {
-			{ "level", dungeonLevel},
+			{ "Event", "StartGame"},
+			{ "Time", DateTime.UtcNow}
+		};
+		UnityEngine.Analytics.Analytics.CustomEvent("LevelStart", eventData);
+		WriteToFile (eventData);
+	}
+		
+	public void WriteFinishLevel(){
+		Dictionary<string, object> eventData = new Dictionary<string, object> {
+			{ "Event", "FinishLevel"},
+			{ "Level", dungeonLevel},
 			{ "LevelScore", score },
 			{ "TimeSpent", Time.time - StartTime}
 		};
 		UnityEngine.Analytics.Analytics.CustomEvent("LevelComplete", eventData);
+		WriteToFile (eventData);
+	}
 
-		RoundEnd ();
-		DestroyDungeon ();
-		StartGame ();
+	public void WriteToFile(Dictionary<string, object> dict){
+		using (System.IO.StreamWriter file = new System.IO.StreamWriter ("data.txt", true)) {
+			file.WriteLine ("{");
+			foreach (KeyValuePair<string, object> entry in dict) {
+				file.WriteLine (entry.Key + ":" + entry.Value);	
+			}
+			file.WriteLine ("}");
+		}
 	}
 
 	public void MuteAudio(){
