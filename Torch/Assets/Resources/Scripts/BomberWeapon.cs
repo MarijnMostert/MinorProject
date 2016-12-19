@@ -17,7 +17,7 @@ public class BomberWeapon : Weapon {
 	//Shooting a projectile
 	public void fire(){
 		if ((Time.time - lastFireTime) > cooldown) {
-			BomberProjectile obj = Instantiate (projectile, transform.position, transform.rotation) as BomberProjectile;
+			BomberProjectile obj = Instantiate (projectile, transform.position, Quaternion.identity) as BomberProjectile;
 			obj.GetComponent<Rigidbody>().AddForce(force * transform.forward);
 			lastFireTime = Time.time;
 		}

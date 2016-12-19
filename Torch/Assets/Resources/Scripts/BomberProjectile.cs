@@ -16,7 +16,7 @@ public class BomberProjectile : MonoBehaviour {
 	public float camShakeIterationTime;
 
 	private Camera cam;
-
+    public GameObject explosion;
 
 	void Start () {
 		rb = GetComponent<Rigidbody>();		
@@ -29,18 +29,23 @@ public class BomberProjectile : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other){
-		cam.transform.GetComponentInParent<CameraShake> ().cameraShake (camShakeLength, camShakeIntensity, camShakeIterationTime);
+        GameObject objectHitted = other.gameObject;
+        if (!objectHitted.CompareTag("EnemyProjectile")&&!objectHitted.CompareTag("Enemy")) {
+            cam.transform.GetComponentInParent<CameraShake>().cameraShake(camShakeLength, camShakeIntensity, camShakeIterationTime);
+            GameObject exp = Instantiate(explosion, new Vector3(transform.position.x,0,transform.position.z), Quaternion.Euler(new Vector3(90, 0, 0))) as GameObject;
+            exp.GetComponent<explosion>().damage = damage;
 
-		IDamagable damagableObject = other.GetComponent<IDamagable> ();
-		GameObject objectHitted = other.gameObject;
+            /*IDamagable damagableObject = other.GetComponent<IDamagable> ();
+		    GameObject objectHitted = other.gameObject;
 
-		if (damagableObject != null) {
-			damagableObject.takeDamage (damage);
-		} else if (objectHitted.CompareTag("Player")) {
-			objectHitted.transform.FindChild ("Torch").GetComponent<IDamagable> ().takeDamage (damage);
-		}
-
-		Destroy (this.gameObject);
+		    if (damagableObject != null) {
+			    damagableObject.takeDamage (damage);
+		    } else if (objectHitted.CompareTag("Player")) {
+			    objectHitted.transform.FindChild ("Torch").GetComponent<IDamagable> ().takeDamage (damage);
+		    }
+            */
+            Destroy(this.gameObject);
+        }
 	}
 
 }
