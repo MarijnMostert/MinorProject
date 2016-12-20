@@ -9,7 +9,7 @@ public class DungeonInstantiate : Object {
                             trap_box, portal, end_portal, player, 
                             game_manager, spawner, torch, 
                             cam, pointer, chest, coin, fireball, 
-                            iceball, health, roofGroup;
+                            iceball, health, roofGroup, wallTorch;
     GameObject[] starters_pack, chest_pack;
     //GameObject[,] dungeon;
     int[] mazeSize;
@@ -48,7 +48,7 @@ public class DungeonInstantiate : Object {
                             GameObject trap_box, GameObject portal, GameObject end_portal, GameObject player, 
                             GameObject game_manager, GameObject spawner, GameObject torch, GameObject cam, GameObject pointer, 
 		GameObject chest, GameObject coin, GameObject fireball, GameObject iceball, GameObject health, int[] mazeSize, GameObject laser, GameObject shieldPickUp,
-	GameObject stickyPickUp, GameObject roofGroup, GameObject wallPickUp, List<GameObject> puzzleRooms)
+		GameObject stickyPickUp, GameObject roofGroup, GameObject wallPickUp, List<GameObject> puzzleRooms, GameObject wallTorch)
 
     {
         this.floor = floor;
@@ -92,6 +92,7 @@ public class DungeonInstantiate : Object {
 
 		this.starters_pack = new GameObject[] {torch};
 		this.roofGroup = roofGroup;
+		this.wallTorch = wallTorch;
 
     }
 
@@ -180,6 +181,7 @@ public class DungeonInstantiate : Object {
 			GameObject myplane = GameObject.Instantiate (FloorPrefab, FloorsParent.transform) as GameObject;
 			myplane.transform.position = new Vector3 (x + 0.5f, 0, y + 0.5f);
 			spawnChest (x,y);
+			spawnWallTorch (x, y);
 		}
 
 		int[] arrayS = getSurrounding2(x, y);
@@ -304,6 +306,25 @@ public class DungeonInstantiate : Object {
             }
         }
     }
+
+	void spawnWallTorch(float x, float z)
+	{
+		int[] surroundings = getSurrounding2 ((int)x, (int)z);
+		if (surroundings [0] == 0 && surroundings [1] == 1 && surroundings [2] == 0 && surroundings [3] == 1) {
+			GameObject walltorch = Instantiate (wallTorch, new Vector3 (x * 6f + 3f, 0, z * 6f + Random.Range(2f, 4f)), Quaternion.identity, Dungeon.transform) as GameObject;
+			if (Random.value > .5) {
+				walltorch.transform.eulerAngles = new Vector3 (0f, 90f, 0f);
+			} else {
+				walltorch.transform.eulerAngles = new Vector3 (0f, 270f, 0f);
+			}
+		} else if (surroundings [0] == 1 && surroundings [1] == 0 && surroundings [2] == 1 && surroundings [3] == 0) {
+			GameObject walltorch = Instantiate (wallTorch, new Vector3 (x * 6f + Random.Range(2f, 4f), 0, z * 6f + 3f), Quaternion.identity, Dungeon.transform) as GameObject;
+			if (Random.value > .5) {
+				walltorch.transform.eulerAngles = new Vector3 (0f, 180f, 0f);
+			}
+		}
+	
+	}
 
     Quaternion randomQuaternion()
     {
