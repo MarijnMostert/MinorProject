@@ -11,11 +11,13 @@ public class LaserWeapon : Weapon {
 	public int minDamage;
 	public int maxDamage;
 	public float critChance = 0.05f;
+	public ParticleSystem particlesOnHit;
 
 	private LineRenderer lineRenderer;
 	private Light light;
 	private float lastFireTime;
 	private RaycastHit hit;
+
 
 	void Awake(){
 		lastFireTime = Time.time;
@@ -41,6 +43,8 @@ public class LaserWeapon : Weapon {
 			Ray ray = new Ray(transform.position, transform.forward);
 			lineRenderer.SetPosition (0, transform.position);
 			if (Physics.Raycast (ray, out hit, laserLength, collisionMask)) {
+				ParticleSystem particles = Instantiate (particlesOnHit, hit.point, Quaternion.identity) as ParticleSystem;
+				Destroy (particles.gameObject, 2f);
 				if (hit.collider.gameObject.CompareTag ("Enemy")) {
 					bool crit = false;
 					int damage = Random.Range (minDamage, maxDamage);
