@@ -644,6 +644,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114000012126162182, guid: 8e8fb98cee864437995eb9c0b0548acd,
+        type: 2}
+      propertyPath: PuzzleRooms.Array.size
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 4000013396432608, guid: 8e8fb98cee864437995eb9c0b0548acd, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -701,6 +706,12 @@ Prefab:
       propertyPath: triggerFloorPrefab
       value: 
       objectReference: {fileID: 1000012485642322, guid: e38f8103c4fde44d1a4cf4066fa8ebde,
+        type: 2}
+    - target: {fileID: 114000012126162182, guid: 8e8fb98cee864437995eb9c0b0548acd,
+        type: 2}
+      propertyPath: PuzzleRooms.Array.data[6]
+      value: 
+      objectReference: {fileID: 1000011553212682, guid: eb740adea754c4786b778353d8c564d7,
         type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8e8fb98cee864437995eb9c0b0548acd, type: 2}
