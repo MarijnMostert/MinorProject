@@ -85,7 +85,7 @@ public class Enemy : MonoBehaviour, IDamagable {
 	private IEnumerator DieThread(){
         //Debug.Log(gameObject + " died.");
         dead = true;
-        Debug.Log(anim);
+//        Debug.Log(anim);
         if (anim != null)
         {
             yield return new WaitForSeconds(.56f);
