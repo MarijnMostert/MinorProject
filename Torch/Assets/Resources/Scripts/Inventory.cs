@@ -15,6 +15,8 @@ public class Inventory : MonoBehaviour {
 	private int activeWeapon;
 	public GameObject[] powerUps;
 
+	public static GameObject[] availableWeapons;
+
 	void Start () {
 		indicator = GameObject.Find ("Inventory Indicator").GetComponent<Image> ();
 		resetInventory ();
@@ -157,5 +159,11 @@ public class Inventory : MonoBehaviour {
 			powerUps [i] = emptyPowerUpPrefab;
 		}
 	}
+	/*
+	public static void EquipAllWeapons(){
+		foreach (GameObject weapon in availableWeapons) {
 
+		}
+	}
+*/
 }

@@ -24,9 +24,9 @@ GameObject:
   - 23: {fileID: 23000010424521542}
   - 114: {fileID: 114000014124636786}
   - 54: {fileID: 54000012997314028}
-  m_Layer: 12
+  m_Layer: 11
   m_Name: Bombing Projectile
-  m_TagString: Untagged
+  m_TagString: EnemyProjectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -37,10 +37,10 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012684523470}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.4206587, y: 0.28628397, z: -3.5058746}
+  m_LocalRotation: {x: -0.7071071, y: -0, z: -0, w: 0.70710653}
+  m_LocalPosition: {x: -0.28622591, y: 2.86, z: -3}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -89.981, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -108,8 +108,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collisionMask:
     serializedVersion: 2
-    m_Bits: 4294887423
-  damage: 1
+    m_Bits: 4294755327
+  damage: 10
   lifeTime: 10
   rb: {fileID: 0}
   forceV3: {x: 0, y: 0, z: 0}
@@ -117,6 +117,7 @@ MonoBehaviour:
   camShakeLength: 1.4
   camShakeIntensity: 1
   camShakeIterationTime: 0.2
+  explosion: {fileID: 1000011222185908, guid: 7cbe7adcb3d822f46970b1de557fbb9f, type: 2}
 --- !u!135 &135000011261328942
 SphereCollider:
   m_ObjectHideFlags: 1
