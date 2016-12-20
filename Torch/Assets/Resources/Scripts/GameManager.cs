@@ -186,12 +186,18 @@ public class GameManager : MonoBehaviour {
 			pauseScreen.SetActive (true);
 			if(spawner != null)
 				spawner.dead = true;
+			foreach (PlayerManager PM in playerManagers) {
+				PM.ToggleMovement ();
+			}
 		} else {
 			Time.timeScale = 1;
 			paused = false;
 			pauseScreen.SetActive (false);
 			if (spawner != null)
 				spawner.dead = false;
+			foreach (PlayerManager PM in playerManagers) {
+				PM.ToggleMovement();
+			}
 		}
 	}
 

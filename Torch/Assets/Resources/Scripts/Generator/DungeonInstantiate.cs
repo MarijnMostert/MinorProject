@@ -141,7 +141,7 @@ public class DungeonInstantiate : Object {
 		populteMaze2 ();
 		populatePuzzles ();
 
-		Debug.Log ("Localscale");
+		//Debug.Log ("Localscale");
 		WallsParent.transform.localScale = new Vector3 (6, 6, 6);
 		FloorsParent.transform.localScale = new Vector3 (6, 1, 6);
 		RoofsParent.transform.localScale = new Vector3 (6, 3, 6);
@@ -149,7 +149,7 @@ public class DungeonInstantiate : Object {
 		Dungeon.transform.position = new Vector3 (0, 0, 0);
 
         createStartEndPoint();
-        this.spawner.GetComponent<Spawner>().importMaze(maze, mazeSize);
+        spawner.GetComponent<Spawner>().importMaze(maze, mazeSize);
     }
 
 
@@ -297,7 +297,7 @@ public class DungeonInstantiate : Object {
         float random = Random.value;
         if (random < chance_chest)
         {
-			GameObject chest_instance = Instantiate(chest, new Vector3(x*6 + 3f, 0, z*6 + 3f), randomQuaternion(), Dungeon.transform) as GameObject;
+			GameObject chest_instance = Instantiate(chest, new Vector3(x*6 + Random.Range(1f, 5f), 0, z*6 + Random.Range(1f,5f)), randomQuaternion(), Dungeon.transform) as GameObject;
             int number_of_items = Random.Range(0,4);
             for (int i = 0; i <= number_of_items; i++)
             {

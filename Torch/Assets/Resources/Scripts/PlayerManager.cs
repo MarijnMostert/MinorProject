@@ -15,6 +15,7 @@ public class PlayerManager {
 	[HideInInspector] public bool dead;
 	[HideInInspector] public PlayerMovement playerMovement;
 	[HideInInspector] public PlayerWeaponController playerWeaponController;
+	[HideInInspector] public bool movementEnabled = true;
 
 	public void Setup () {
 		cursorPointer = Resources.Load ("Prefabs/Cursor Pointer", typeof(GameObject)) as GameObject;
@@ -43,5 +44,17 @@ public class PlayerManager {
 		playerInstance.transform.position = spawnPoint.position;
 		playerInstance.transform.rotation = spawnPoint.rotation;
 		playerInstance.SetActive (true);
+	}
+
+	public void ToggleMovement(){
+		if (movementEnabled) {
+			playerMovement.enabled = false;
+			playerWeaponController.enabled = false;
+			movementEnabled = false;
+		} else {
+			playerMovement.enabled = true;
+			playerWeaponController.enabled = true;
+			movementEnabled = true;
+		}
 	}
 }
