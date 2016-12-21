@@ -5,6 +5,7 @@ public class EnemyGrunt : Enemy {
 
 	NavMeshAgent agent;
 	Animator animator;
+	bool attacknow;
 
 	protected override void Awake(){
 		base.Awake ();
@@ -16,12 +17,19 @@ public class EnemyGrunt : Enemy {
 		StartCoroutine (UpdatePath ());
 		agent = GetComponent<NavMeshAgent> ();
 		animator = GetComponent<Animator> ();
+		attacknow = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		if (gameManager.enemyTarget != null && distanceToTarget () < attackRange && (Time.time - lastAttackTime) > attackCooldown) {
 			attack ();
+			attacknow = true;
+		} else if (attacknow = true && (Time.time - lastAttackTime) > (attackCooldown / 2)) {
+			attacknow = false;
+			if (animator != null) {
+				animator.SetBool ("Attack", false);
+			}
 		}
 		if (animator != null) {
 			if (agent.velocity.magnitude > 0.1f) {
@@ -35,15 +43,13 @@ public class EnemyGrunt : Enemy {
 	//If the player is close enough to the torch it will do damage
 	private void attack(){
 		if (animator != null) {
+			Debug.Log ("jump");
 			animator.SetBool ("Attack", true);
 		}
 		IDamagable damagableObject = gameManager.enemyTarget.GetComponent<IDamagable> ();
 		damagableObject.takeDamage (attackDamage, false);
 		//Debug.Log (damagableObject);
 		lastAttackTime = Time.time;
-		if (animator != null) {
-			animator.SetBool ("Attack", false);
-		}
 	}
 
 	//A Coroutine for chasing a target
