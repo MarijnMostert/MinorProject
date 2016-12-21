@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class WeaponController : MonoBehaviour {
 
@@ -10,12 +11,12 @@ public class WeaponController : MonoBehaviour {
 
 	protected virtual void Start () {
 		weaponHolder = gameObject.transform.FindChild ("Weapon Holder");
-		Equip (startingWeapon);
+		Weapon newWeapon = Instantiate (Weapon, weaponHolder.transform.position, weaponHolder.transform.position, weaponHolder) as Weapon;
+		currentWeapon = newWeapon;
 	}
 
 	//To Equip another weapon
 	public virtual void Equip(Weapon weapon){
-
 		//Check if there is already a weapon equipped. If so, destroy it.
 		if (currentWeapon != null) {
 			Destroy(currentWeapon.gameObject);

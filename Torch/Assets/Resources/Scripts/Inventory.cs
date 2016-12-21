@@ -5,20 +5,17 @@ using System.Collections.Generic;
 
 public class Inventory : MonoBehaviour {
 
-	public Weapon[] weapons;
-	public List<Weapon> weaponsList;
+	public List<Weapon> weapons;
 	public Weapon emptyWeaponPrefab;
 	public GameObject emptyPowerUpPrefab;
 	public int weaponInventorySize = 10;
 	public int powerUpInventorySize = 3;
-	public Image indicator;
-	private int activeWeapon;
 	public GameObject[] powerUps;
 
-	public static GameObject[] availableWeapons;
-
 	void Start () {
-		indicator = GameObject.Find ("Inventory Indicator").GetComponent<Image> ();
+/*		indicatorP1 = GameObject.Find ("Inventory Indicator P1").GetComponent<Image> ();
+		indicatorP2 = GameObject.Find ("Inventory Indicator P2").GetComponent<Image> ();
+*/
 		resetInventory ();
 	}
 
@@ -28,12 +25,16 @@ public class Inventory : MonoBehaviour {
 		}
 	}
 
-	public bool AddWeaponToInventory(Weapon weapon){
-		for (int i = 0; i < weapons.Length; i++) {
-			if (weapons [i] == weapon) {
+	public void setIcon(Weapon weapon){
+		GameObject.Find ("WeaponIcon" + weapons.Count).GetComponent<Image> ().sprite = weapon.icon;
+	}
+
+	public bool AddWeaponToInventory(Weapon weapon, int playerNumber){
+		for (int i = 0; i < weapons.Count; i++) {
+			if (weapons[i] == weapon) {
 				return false;
 			} else if (weapons[i] == emptyWeaponPrefab) {
-				weapons [i] = weapon;
+				weapons[i] = weapon;
 				Image icon = GameObject.Find ("WeaponIcon" + i).GetComponent<Image>();
 				icon.sprite = weapon.icon;
 				//	icon.gameObject.SetActive ();
@@ -42,9 +43,6 @@ public class Inventory : MonoBehaviour {
 				Color temp = icon.GetComponent<Image>().color;
 				temp.a = 1f;
 				icon.GetComponent<Image>().color = temp;
-
-				indicator.transform.position = icon.transform.position;
-				activeWeapon = i;
 
 				Debug.Log (weapon + " added to inventory on key " + i);
 				return true;
@@ -72,10 +70,15 @@ public class Inventory : MonoBehaviour {
 	}
 
 	void Update(){
+		/*
 		if (Input.GetButtonDown ("NextWeapon1"))
-			NextWeapon ();
+			NextWeapon (1);
 		if (Input.GetButtonDown ("PrevWeapon1"))
-			PrevWeapon ();
+			PrevWeapon (1);
+		if (Input.GetButtonDown ("NextWeapon2"))
+			NextWeapon (2);
+		if (Input.GetButtonDown ("PrevWeapon2"))
+			PrevWeapon (2);
 		if (Input.GetKeyDown (KeyCode.Alpha1))
 			CheckAndEquip (0);
 		if (Input.GetKeyDown (KeyCode.Alpha2))
@@ -96,6 +99,7 @@ public class Inventory : MonoBehaviour {
 			CheckAndEquip (8);
 		if (Input.GetKeyDown (KeyCode.Alpha0))
 			CheckAndEquip (9);
+			*/
 		if (Input.GetButtonDown("PowerUpButton1_1"))
 			UsePowerUp (0);
 		if (Input.GetButtonDown("PowerUpButton2_1"))
@@ -104,25 +108,39 @@ public class Inventory : MonoBehaviour {
 			UsePowerUp (2);
 	}
 
+	/*
 	private void CheckAndEquip(int index){
-		if (weapons [index] != emptyWeaponPrefab && activeWeapon != index) {
+		if (weapons [index] != emptyWeaponPrefab && activeWeaponP1 != index) {
 			Equip(index);
-			indicator.transform.position = GameObject.Find ("WeaponIcon" + index).transform.position;
-			activeWeapon = index;
+			indicatorP1.transform.position = GameObject.Find ("WeaponIcon" + index).transform.position;
+			activeWeaponP1 = index;
 		}
 	}
 
-	void NextWeapon(){
-		if (activeWeapon != 9) {
-			CheckAndEquip (activeWeapon + 1);
+	void NextWeapon(int playerNumber){
+		if (playerNumber == 1) {
+			if (activeWeaponP1 != 9) {
+				CheckAndEquip (activeWeaponP1 + 1);
+			}
+		} else if (playerNumber == 2) {
+			if (activeWeaponP2 != 9) {
+				CheckAndEquip (activeWeaponP2 + 1);
+			}
 		}
 	}
 
-	void PrevWeapon(){
-		if(activeWeapon != 0) {
-			CheckAndEquip (activeWeapon - 1);
+	void PrevWeapon(int playerNumber){
+		if (playerNumber == 1) {
+			if (activeWeaponP1 != 0) {
+				CheckAndEquip (activeWeaponP1 - 1);
+			}
+		} else if (playerNumber == 2) {
+			if (activeWeaponP2 != 0) {
+				CheckAndEquip (activeWeaponP2 - 1);
+			}
 		}
 	}
+	*/
 
 	void UsePowerUp(int index){
 		if (powerUps [index] != null) {
@@ -149,10 +167,7 @@ public class Inventory : MonoBehaviour {
 	}
 
 	public void resetInventory(){
-		weapons = new Weapon[weaponInventorySize];
-		for (int i = 0; i < weaponInventorySize; i++) {
-			weapons [i] = emptyWeaponPrefab;
-		}
+		weapons = new List<Weapon>();
 
 		powerUps = new GameObject[powerUpInventorySize];
 		for (int i = 0; i < powerUpInventorySize; i++) {

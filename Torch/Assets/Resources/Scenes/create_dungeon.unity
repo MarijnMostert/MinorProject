@@ -6431,6 +6431,22 @@ Prefab:
       propertyPath: DebuggerPanel
       value: 
       objectReference: {fileID: 1101234924}
+    - target: {fileID: 114000012126162182, guid: 8e8fb98cee864437995eb9c0b0548acd,
+        type: 2}
+      propertyPath: InventoryPrefab
+      value: 
+      objectReference: {fileID: 1000013790567420, guid: c49d6a74ab7c645549a81d60a3137a63,
+        type: 2}
+    - target: {fileID: 114000012126162182, guid: 8e8fb98cee864437995eb9c0b0548acd,
+        type: 2}
+      propertyPath: playerManagers.Array.data[0].playerColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012126162182, guid: 8e8fb98cee864437995eb9c0b0548acd,
+        type: 2}
+      propertyPath: playerManagers.Array.data[1].playerColor.a
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8e8fb98cee864437995eb9c0b0548acd, type: 2}
   m_IsPrefabParent: 0

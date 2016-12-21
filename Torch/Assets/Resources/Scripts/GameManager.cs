@@ -37,6 +37,8 @@ public class GameManager : MonoBehaviour {
 	public GameObject enemyTarget;
 	public GameObject UIPrefab;
 	public GameObject UI;
+	public GameObject InventoryPrefab;
+	public GameObject inventory;
 
 	public List<GameObject> PuzzleRooms;
 
@@ -125,6 +127,11 @@ public class GameManager : MonoBehaviour {
 			UI = Instantiate (UIPrefab);
 			UIHelpItems = GameObject.FindGameObjectsWithTag ("UI Help");
 		}
+
+		if (inventory == null) {
+			inventory = Instantiate (InventoryPrefab);
+		}
+
 		TorchFOV = Instantiate (TorchFOVPrefab);
 		if(triggerFloorObject == null)
 			triggerFloorObject = Instantiate (triggerFloorPrefab);
@@ -144,9 +151,9 @@ public class GameManager : MonoBehaviour {
 				Debug.Log ("Create Player with id:" + i);
 				playerManagers [i].playerInstance = Instantiate (playerPrefab, masterGenerator.dungeon_instantiate.startPos, playerManagers [i].spawnPoint.rotation) as GameObject;
 				playerManagers [i].playerNumber = i + 1;
+				playerManagers [i].gameManager = this;
 				playerManagers [i].Setup ();
 				playerManagers [i].playerMovement.mainCamera = mainCamera;
-				playerManagers [i].gameManager = this;
 			} else {
 				playerManagers [i].playerInstance.transform.position = masterGenerator.dungeon_instantiate.startPos;
 				playerManagers [i].Setup ();
@@ -273,6 +280,8 @@ public class GameManager : MonoBehaviour {
 		DestroyDungeon ();
 		if (UI != null)
 			Destroy (UI);
+		if (inventory != null)
+			Destroy (inventory);
 		if (triggerFloorObject != null)
 			Destroy (triggerFloorObject);
 		LoadHomeScreen ();

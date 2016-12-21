@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 [Serializable]
 public class PlayerManager {
@@ -18,9 +19,11 @@ public class PlayerManager {
 	[HideInInspector] public bool movementEnabled = true;
 	[HideInInspector] public bool active = true;
 	[HideInInspector] public GameManager gameManager;
+	[HideInInspector] public GameObject weaponIndicator;
 
 	public void Setup () {
 		cursorPointer = Resources.Load ("Prefabs/Cursor Pointer", typeof(GameObject)) as GameObject;
+		weaponIndicator = Resources.Load ("Prefabs/Inventory Indicator", typeof(GameObject)) as GameObject;
 		dead = false;
 	//	UI = Instantiate (UI);
 		playerInstance.GetComponent<MeshRenderer> ().material.color = playerColor;
@@ -33,6 +36,13 @@ public class PlayerManager {
 		//Setup weapon controller script
 		playerWeaponController = playerInstance.GetComponent<PlayerWeaponController>();
 		playerWeaponController.setNumber(playerNumber);
+		/*playerWeaponController.inventory = gameManager.inventory.GetComponent<Inventory>();
+		playerWeaponController.inventory.AddWeaponToInventory (playerWeaponController.startingWeapon, playerNumber);
+		*/
+		playerWeaponController.inventory = gameManager.inventory.GetComponent<Inventory>();
+		playerWeaponController.indicator = weaponIndicator;
+		playerWeaponController.setIndicator (playerColor);
+
 		active = true;
 		movementEnabled = true;
 	}
