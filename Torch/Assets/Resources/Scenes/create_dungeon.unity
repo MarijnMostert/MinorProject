@@ -6342,6 +6342,11 @@ GameObject:
   m_PrefabParentObject: {fileID: 1000012150838060, guid: 8e8fb98cee864437995eb9c0b0548acd,
     type: 2}
   m_PrefabInternal: {fileID: 1810587749}
+--- !u!4 &1516755102 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4000013396432608, guid: 8e8fb98cee864437995eb9c0b0548acd,
+    type: 2}
+  m_PrefabInternal: {fileID: 1810587749}
 --- !u!1 &1691106494
 GameObject:
   m_ObjectHideFlags: 0
@@ -6431,6 +6436,11 @@ Prefab:
       propertyPath: PuzzleRooms.Array.size
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 114000012126162182, guid: 8e8fb98cee864437995eb9c0b0548acd,
+        type: 2}
+      propertyPath: playerManagers.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4000013396432608, guid: 8e8fb98cee864437995eb9c0b0548acd, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -6500,6 +6510,31 @@ Prefab:
       propertyPath: DebuggerPanel
       value: 
       objectReference: {fileID: 1101234924}
+    - target: {fileID: 114000012126162182, guid: 8e8fb98cee864437995eb9c0b0548acd,
+        type: 2}
+      propertyPath: playerManagers.Array.data[1].spawnPoint
+      value: 
+      objectReference: {fileID: 1516755102}
+    - target: {fileID: 114000012126162182, guid: 8e8fb98cee864437995eb9c0b0548acd,
+        type: 2}
+      propertyPath: playerManagers.Array.data[1].playerColor.r
+      value: 0.021247858
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012126162182, guid: 8e8fb98cee864437995eb9c0b0548acd,
+        type: 2}
+      propertyPath: playerManagers.Array.data[1].playerColor.g
+      value: 0.41753218
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012126162182, guid: 8e8fb98cee864437995eb9c0b0548acd,
+        type: 2}
+      propertyPath: playerManagers.Array.data[1].playerColor.b
+      value: 0.9632353
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012126162182, guid: 8e8fb98cee864437995eb9c0b0548acd,
+        type: 2}
+      propertyPath: playerManagers.Array.data[1].movementEnabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8e8fb98cee864437995eb9c0b0548acd, type: 2}
   m_IsPrefabParent: 0
