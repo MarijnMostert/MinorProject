@@ -5,7 +5,7 @@ public class EnemyGrunt : Enemy {
 
 	NavMeshAgent agent;
 	Animator animator;
-	bool attacknow;
+	public bool attacknow;
 
 	protected override void Awake(){
 		base.Awake ();
@@ -25,9 +25,10 @@ public class EnemyGrunt : Enemy {
 		if (gameManager.enemyTarget != null && distanceToTarget () < attackRange && (Time.time - lastAttackTime) > attackCooldown) {
 			attack ();
 			attacknow = true;
-		} else if (attacknow = true && (Time.time - lastAttackTime) > (attackCooldown / 2)) {
+		} else if(attacknow == true && ((Time.time - lastAttackTime) > (0.9f * attackCooldown))) {
 			attacknow = false;
 			if (animator != null) {
+				Debug.Log ("set false");
 				animator.SetBool ("Attack", false);
 			}
 		}
