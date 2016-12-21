@@ -77,6 +77,7 @@ public class GameManager : MonoBehaviour {
 	public bool audioMuted;
 
 	public GameObject DebuggerPanel;
+	public GameObject[] allWeaponsAvailable;
 
     void Awake () {
         gameStarted = false;
@@ -188,6 +189,10 @@ public class GameManager : MonoBehaviour {
 			else
 				DebuggerPanel.SetActive (true);
 		}
+
+		if (Input.GetKeyDown (KeyCode.N)) {
+			SpawnAllWeapons ();
+		}
 	}
 
 	void Pause(){
@@ -246,6 +251,8 @@ public class GameManager : MonoBehaviour {
 	public void RoundEnd(){
 		if(spawner != null)
 			Destroy (spawner);
+		if (torch != null)
+			Destroy (torch.gameObject);
 		for (int i = 0; i < playerManagers.Length; i++) {
 			if(playerManagers[i].playerInstance != null)
 				playerManagers [i].playerInstance.SetActive (false);
@@ -259,7 +266,6 @@ public class GameManager : MonoBehaviour {
 		foreach (GameObject cursor in GameObject.FindGameObjectsWithTag ("CursorPointer")) {
 			Destroy (cursor);
 		}
-		Destroy(GameObject.FindGameObjectWithTag ("Torch"));
 	}
 
 	public void TransitionDeathToMain(){
@@ -275,8 +281,6 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void DestroyDungeon(){
-		if(torch != null)
-			Destroy (torch);
 		if(GameObject.Find("Dungeon") != null)
 			Destroy (GameObject.Find ("Dungeon"));
 		if(TorchFOV != null)
@@ -381,6 +385,12 @@ public class GameManager : MonoBehaviour {
 			playerManagers [1].Enable (true);
 			if (mainCamera != null)
 				mainCamera.GetComponent<CameraController> ().UpdateTargets ();
+		}
+	}
+
+	void SpawnAllWeapons(){
+		foreach (GameObject weapon in allWeaponsAvailable) {
+			Instantiate (weapon, torch.transform.position + new Vector3 (UnityEngine.Random.Range (-2f, 2f), 0f, UnityEngine.Random.Range (-2f, 2f)), Quaternion.identity);
 		}
 	}
 }

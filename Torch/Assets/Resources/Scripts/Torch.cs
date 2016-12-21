@@ -60,10 +60,12 @@ public class Torch : InteractableItem, IDamagable {
 	
 	void Update () {
 		lightUpdate ();
-		if (Input.GetButtonDown("DropTorch1") && equipped) {
+		if (Input.GetButtonDown("DropTorch1") && equipped && gameManager.playerManagers[0].playerInstance.GetComponentInChildren<Torch>() != null) {
 			releaseTorch ();
 		}
-
+		if (Input.GetButtonDown ("DropTorch2") && equipped && gameManager.playerManagers [1].playerInstance.GetComponentInChildren<Torch>() != null) {
+			releaseTorch ();
+		}
 	}
 
 	//Update the light intensity and range according to the health
