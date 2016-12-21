@@ -6,7 +6,7 @@ public class Chest : InteractableItem {
 
 	public GameObject[] contents;
 
-	public Transform Target;
+	[Header ("- Flyout properties")]
 	public float firingAngle = 45.0f;
 	public float gravity = 9.8f;
 	private bool used = false;
@@ -17,7 +17,7 @@ public class Chest : InteractableItem {
 				flyOut (contents [i]);
 			}
 			used = true;
-			Destroy (gameObject, 1f);
+			Destroy (gameObject, 1.5f);
 		}
 	}
 
@@ -41,7 +41,10 @@ public class Chest : InteractableItem {
 		//yield return new WaitForSeconds(1.5f);
 		Projectile = Instantiate(Projectile, transform.position, Quaternion.identity) as GameObject;
 		TogglePickUpScripts (Projectile, false);
-		Projectile.GetComponent<Collider> ().enabled = false;
+		//Projectile.GetComponent<Collider> ().enabled = false;
+		foreach (Collider col in Projectile.GetComponentsInChildren<Collider> ()) {
+			col.enabled = false;
+		}
 
 		// Move projectile to the position of throwing object + add some offset if needed.
 		Projectile.transform.position = transform.position + new Vector3(0, 0.0f, 0);
@@ -77,7 +80,10 @@ public class Chest : InteractableItem {
 			}
 		}
 		TogglePickUpScripts (Projectile, true);
-		Projectile.GetComponent<Collider> ().enabled = true;
+		//Projectile.GetComponent<Collider> ().enabled = true;
+		foreach (Collider col in Projectile.GetComponentsInChildren<Collider> ()) {
+			col.enabled = true;
+		}
 	}  
 
 	static void TogglePickUpScripts (GameObject Object, bool boolean)

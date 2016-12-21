@@ -149,7 +149,7 @@ public class MasterGenerator : Object {
         player = Resources.Load("Prefabs/Player", typeof(GameObject)) as GameObject;
         torch = Resources.Load("Prefabs/Torch", typeof(GameObject)) as GameObject;
         coin = Resources.Load("Prefabs/PickUps/Coin", typeof(GameObject)) as GameObject;
-        coin.GetComponent<ScorePickUp>().gameManager = game_manager;
+        coin.GetComponentInChildren<ScorePickUp>().gameManager = game_manager;
         fireball = Resources.Load("Prefabs/PickUps/FireBall Weapon PickUp", typeof(GameObject)) as GameObject;
         iceball = Resources.Load("Prefabs/PickUps/IceBall Weapon PickUp", typeof(GameObject)) as GameObject;
         health = Resources.Load("Prefabs/PickUps/HealthPickUp", typeof(GameObject)) as GameObject;
