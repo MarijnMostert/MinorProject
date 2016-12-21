@@ -148,7 +148,7 @@ public class Torch : InteractableItem, IDamagable {
 		equipped = true;
 	}
 
-	void releaseTorch(){
+	public void releaseTorch(){
 		Debug.Log ("Torch is dropped");
 		transform.parent = null;
 		gameManager.enemyTarget = gameObject;

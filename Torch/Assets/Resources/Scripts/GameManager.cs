@@ -145,6 +145,7 @@ public class GameManager : MonoBehaviour {
 				playerManagers [i].playerNumber = i + 1;
 				playerManagers [i].Setup ();
 				playerManagers [i].playerMovement.mainCamera = mainCamera;
+				playerManagers [i].gameManager = this;
 			} else {
 				playerManagers [i].playerInstance.transform.position = masterGenerator.dungeon_instantiate.startPos;
 				playerManagers [i].Setup ();
@@ -197,7 +198,8 @@ public class GameManager : MonoBehaviour {
 			if(spawner != null)
 				spawner.dead = true;
 			foreach (PlayerManager PM in playerManagers) {
-				PM.ToggleMovement ();
+				if(PM.playerInstance != null)
+					PM.EnableMovement (false);
 			}
 		} else {
 			Time.timeScale = 1;
@@ -206,7 +208,8 @@ public class GameManager : MonoBehaviour {
 			if (spawner != null)
 				spawner.dead = false;
 			foreach (PlayerManager PM in playerManagers) {
-				PM.ToggleMovement();
+				if(PM.playerInstance != null)
+					PM.EnableMovement(true);
 			}
 		}
 	}
@@ -366,6 +369,18 @@ public class GameManager : MonoBehaviour {
 				UIHelp = true;
 				Debug.Log ("UI help is turned on");
 			}
+		}
+	}
+
+	public void SetNumberOfPlayers(int number){
+		if (number == 1) {
+			playerManagers [1].Enable (false);
+			if (mainCamera != null)
+				mainCamera.GetComponent<CameraController> ().UpdateTargets ();
+		} else if (number == 2 && !playerManagers[1].active) {
+			playerManagers [1].Enable (true);
+			if (mainCamera != null)
+				mainCamera.GetComponent<CameraController> ().UpdateTargets ();
 		}
 	}
 }
