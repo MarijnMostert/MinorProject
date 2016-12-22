@@ -21,9 +21,13 @@ public class Enemy : MonoBehaviour, IDamagable {
 	protected Image healthBarImage;
 	protected GameManager gameManager;
 
+	public Animator anim;
+	public bool dead;
+
 	protected virtual void Awake() {
 		navMeshAgent = GetComponent<NavMeshAgent> ();
 		gameManager = GameObject.Find ("Game Manager").GetComponent<GameManager>();
+		dead = false;
 	}
 
 	protected virtual void Start () {
@@ -62,8 +66,15 @@ public class Enemy : MonoBehaviour, IDamagable {
 		}
 		DamagePopUp.CreateDamagePopUp(damage, gameObject, crit);
 
-		if (health <= 0)
+		if (health <= 0) {
+			if (anim != null)
+			{
+				Debug.Log ("animation time");
+				anim.SetTrigger ("Die");
+			}
+			Debug.Log ("dead");
 			Die ();
+		}
 	}
 
 	void InstantiateHealthBar (){
@@ -73,12 +84,30 @@ public class Enemy : MonoBehaviour, IDamagable {
 	}
 
 	//When the enemy's health drops below 0.
-	public void Die(){
-		//Debug.Log(gameObject + " died.");
+	public void Die()
+	{
+		
+		StartCoroutine(DieThread());
+	}
 
-        //Add a score
+	//When the enemy's health drops below 0.
+	private IEnumerator DieThread(){
+		//Debug.Log(gameObject + " died.");
+		dead = true;
+		Debug.Log(anim);
+		if (anim != null)
+		{
+			yield return new WaitForSeconds(1.25f);//.56f
+		}
+		//Add a score
+		gameManager.updateScore(scoreValue);
 		StopAllCoroutines();
-        gameManager.updateScore(scoreValue);
-		Destroy (gameObject);
+		Destroy(gameObject);
+		yield return null;
+	}
+
+	public void setAnim(Animator animator)
+	{
+		anim = animator;
 	}
 }

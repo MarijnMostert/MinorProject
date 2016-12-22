@@ -3,21 +3,30 @@ using System.Collections;
 
 public class EnemyGrunt : Enemy {
 
+	//private Animator anim;
+	bool attack_anim;
+
 	protected override void Awake(){
 		base.Awake ();
+		anim = GetComponent<Animator>();
+		setAnim(anim);
 	}
 
 	// Use this for initialization
 	protected override void Start () {
 		base.Start ();
 		StartCoroutine (UpdatePath ());
-
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (gameManager.enemyTarget != null && distanceToTarget () < attackRange && (Time.time - lastAttackTime) > attackCooldown) {
-			attack ();
+		if (!dead) {
+			if (gameManager.enemyTarget != null && distanceToTarget () < attackRange && (Time.time - lastAttackTime) > attackCooldown) {
+				attack ();
+			}
+		} else
+		{
+			anim.SetTrigger("Die");
 		}
 	}
 
@@ -25,6 +34,7 @@ public class EnemyGrunt : Enemy {
 	private void attack(){
 		IDamagable damagableObject = gameManager.enemyTarget.GetComponent<IDamagable> ();
 		damagableObject.takeDamage (attackDamage, false);
+		anim.SetTrigger("Attack");
 		//Debug.Log (damagableObject);
 		lastAttackTime = Time.time;
 	}
