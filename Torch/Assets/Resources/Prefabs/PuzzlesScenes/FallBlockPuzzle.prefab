@@ -90,6 +90,7 @@ GameObject:
   - 4: {fileID: 4000013385773346}
   - 114: {fileID: 114000012392429760}
   - 114: {fileID: 114000014001986706}
+  - 208: {fileID: 208000011419547242}
   m_Layer: 0
   m_Name: FallBlockPuzzle
   m_TagString: Untagged
@@ -287,7 +288,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013095267004}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 52.046238, y: 17.260208, z: 79.929504}
+  m_LocalPosition: {x: 180.97725, y: 210.89291, z: 240.53185}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -712,7 +713,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   is_on: 0
-  handle: {fileID: 1000013000360928}
+  handle: {fileID: 0}
 --- !u!114 &114000014001986706
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -725,3 +726,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   alltimes: 1
+--- !u!208 &208000011419547242
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013095267004}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 15, y: 0.5, z: 15}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
