@@ -165,6 +165,8 @@ public class GameManager : MonoBehaviour {
 			}
 		}
 
+		SetNumberOfPlayers (1);
+
 		Vector3 startpoint = masterGenerator.MovePlayersToStart ();
 		torch.transform.position = startpoint + new Vector3 (6, .5f, 0);
 
