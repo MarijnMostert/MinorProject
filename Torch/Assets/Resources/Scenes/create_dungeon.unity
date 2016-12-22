@@ -1445,6 +1445,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114000012126162182, guid: 8e8fb98cee864437995eb9c0b0548acd,
+        type: 2}
+      propertyPath: substances.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4000013396432608, guid: 8e8fb98cee864437995eb9c0b0548acd, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1492,6 +1497,18 @@ Prefab:
       propertyPath: endOfRoundCanvas
       value: 
       objectReference: {fileID: 270816652}
+    - target: {fileID: 114000012126162182, guid: 8e8fb98cee864437995eb9c0b0548acd,
+        type: 2}
+      propertyPath: substances.Array.data[0]
+      value: 
+      objectReference: {fileID: -2071217773, guid: d1a7136aa6bb0f14ea8cf2c26e6a77b4,
+        type: 3}
+    - target: {fileID: 114000012126162182, guid: 8e8fb98cee864437995eb9c0b0548acd,
+        type: 2}
+      propertyPath: substances.Array.data[1]
+      value: 
+      objectReference: {fileID: -1486117434, guid: 4295a4d021870f64c8437abd704a3d02,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8e8fb98cee864437995eb9c0b0548acd, type: 2}
   m_IsPrefabParent: 0
