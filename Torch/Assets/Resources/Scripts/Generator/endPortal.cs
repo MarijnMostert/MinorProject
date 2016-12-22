@@ -45,7 +45,6 @@ public class endPortal : MonoBehaviour {
 		endOfRoundCanvas.transform.Find ("Score").GetComponent<Text> ().text = gameManager.score.ToString();
 		endOfRoundCanvas.transform.Find ("TotalScore").GetComponent<Text> ().text = gameManager.totalScore.ToString();
 		endOfRoundCanvas.SetActive (true);
-		gameManager.score = 0;
 
 		/*
         //winText.gameObject.SetActive(true);

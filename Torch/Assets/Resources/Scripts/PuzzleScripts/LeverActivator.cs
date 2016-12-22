@@ -13,7 +13,7 @@ public class LeverActivator : MonoBehaviour {
 	}
 	
 	void OnTriggerStay(Collider other){
-		if (other.gameObject.CompareTag ("Bullet")) { 
+		if (other.gameObject.CompareTag ("EnemyProjectile")) { 
 			SwitchLever (); 
 		}
 	
@@ -27,10 +27,10 @@ public class LeverActivator : MonoBehaviour {
 
 	void SwitchLever () {
 		if (is_on) {
-			handle.transform.Rotate (0, 0, -60);
+			handle.transform.Rotate (0, 0, 60);
 		}
 		else {
-			handle.transform.Rotate (0, 0, 60);
+			handle.transform.Rotate (0, 0, -60);
 		}
 		is_on = !is_on;
 	}

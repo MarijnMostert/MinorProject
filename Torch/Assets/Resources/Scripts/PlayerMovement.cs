@@ -27,6 +27,8 @@ public class PlayerMovement : MonoBehaviour {
 	private GameObject[] controllerButtons;
 	private GameObject[] keyboardButtons;
 
+	public bool godMode = false;
+
 	[SerializeField] private float velocity;
 	private Vector3 prevPos = new Vector3 (0, 0, 0);
 
@@ -60,6 +62,9 @@ public class PlayerMovement : MonoBehaviour {
 
 		cursorPointer = Instantiate(cursorPointer);
 
+		if (playerNumber == 2)
+			ToggleInput ();
+
 		/*
 		HorizontalAxis = "Horizontal" + playerNumber;
 		VerticalAxis = "Vertical" + playerNumber;
@@ -82,23 +87,10 @@ public class PlayerMovement : MonoBehaviour {
 
 	void Update(){
 		if (Input.GetButtonDown("ToggleInput" + playerNumber)) {
-			if (controllerInput) {
-				controllerInput = false;
-				foreach (GameObject obj in controllerButtons) {
-					obj.SetActive (false);
-				}
-				foreach (GameObject obj in keyboardButtons) {
-					obj.SetActive (true);
-				}
-			} else {
-				controllerInput = true;
-				foreach (GameObject obj in controllerButtons) {
-					obj.SetActive (true);
-				}
-				foreach (GameObject obj in keyboardButtons) {
-					obj.SetActive (false);
-				}
-			}
+			ToggleInput ();
+		}
+		if (Input.GetKeyDown (KeyCode.G)) {
+			GodMode ();
 		}
 	}
 	
@@ -168,11 +160,46 @@ public class PlayerMovement : MonoBehaviour {
 		cursorPointer.transform.position = new Vector3 (position.x, 0.1f, position.z);
 	}
 
+	void ToggleInput () {
+		if (controllerInput) {
+			controllerInput = false;
+			foreach (GameObject obj in controllerButtons) {
+				obj.SetActive (false);
+			}
+			foreach (GameObject obj in keyboardButtons) {
+				obj.SetActive (true);
+			}
+		}
+		else {
+			controllerInput = true;
+			foreach (GameObject obj in controllerButtons) {
+				obj.SetActive (true);
+			}
+			foreach (GameObject obj in keyboardButtons) {
+				obj.SetActive (false);
+			}
+		}
+	}
+
 	void UpdateVelocity(){
 		Vector3 currentPos = transform.position;
 		velocity = (currentPos - prevPos).magnitude / Time.deltaTime;
 
 		prevPos = currentPos;
+	}
+
+	void GodMode(){
+		if (!godMode) {
+			Debug.Log ("Godmode turned on");
+			GetComponent<Collider> ().enabled = false;
+			speed *= 3;
+			godMode = true;
+		} else {
+			Debug.Log ("Godmode turned off");
+			GetComponent<Collider> ().enabled = true;
+			speed /= 3;
+			godMode = false;
+		}
 	}
 		
 }

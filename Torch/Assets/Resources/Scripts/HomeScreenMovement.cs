@@ -3,50 +3,49 @@ using System.Collections;
 
 public class HomeScreenMovement : MonoBehaviour {
 
-	public Camera cam;
 
-	public float speed = 8f;
+    GameObject target;
+    public float rotateSpeed = 5;
+    Vector3 offset;
 
-	private string moveHorizontal = "moveHorizontal1";
-	private string moveVertical = "moveVertical1";
-	private float inputHorizontal;
-	private float inputVertical;
 
-	void Awake(){
-		cam = GameObject.Find ("HomeScreenCam").GetComponent<Camera> ();
-	}
+    void Awake()
+    {
+        target = GameObject.Find("HomeScreenPlayer");
+    }
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
+    void Start()
+    {
+        offset = target.transform.position - transform.position;
+    }
+
 	// Update is called once per frame
 	void Update () {
-		inputVertical = Input.GetAxis (moveVertical);
-		Vector3 forwardsMovement = (transform.position - cam.transform.position) * inputVertical;
-		forwardsMovement = forwardsMovement.normalized;
+        if (Input.GetKey("d"))
+        {
+            target.transform.Translate(new Vector3(0, 0, .1f));
+        }
+        if (Input.GetKey("a"))
+        {
+            target.transform.Translate(new Vector3(0, 0, -.1f));
+        }
+        if (Input.GetKey("w"))
+        {
+            target.transform.Translate(new Vector3(-.1f, 0, 0));
+        }
+        if (Input.GetKey("s"))
+        {
+            target. transform.Translate(new Vector3(.1f, 0, 0));
+        }
+        float horizontal = Input.GetAxis("Mouse X") * rotateSpeed;
+        target.transform.Rotate(0, horizontal, 0);
 
-		inputHorizontal = -1f * Input.GetAxis (moveHorizontal);
-		Vector3 sidewaysMovement = crossProduct ((transform.position - cam.transform.position), transform.up) * inputHorizontal;
-		sidewaysMovement = sidewaysMovement.normalized;
+        float desiredAngle = target.transform.eulerAngles.y;
+        Quaternion rotation = Quaternion.Euler(0, desiredAngle, 0);
+        transform.position = target.transform.position - (rotation * offset);
+    }
 
-		Vector3 movementInput = (sidewaysMovement + forwardsMovement).normalized;
-		movementInput.y = 0f;
-
-
-		transform.position = transform.position + forwardsMovement * speed * Time.deltaTime;
-		transform.position = transform.position + sidewaysMovement * speed * Time.deltaTime;
-
-
-
-	}
-
-	void LateUpdate(){
-		cam.transform.LookAt (transform);
-	}
-
-	Vector3 crossProduct(Vector3 v1, Vector3 v2){
-		return new Vector3 ((v1.y * v2.z - v1.z * v2.y), (v1.z * v2.x - v1.x * v2.z), (v1.x * v2.y - v1.y * v2.x));
+    void LateUpdate(){
+		transform.LookAt(target.transform);
 	}
 }

@@ -3,38 +3,52 @@ using System.Collections;
 
 public class EnemyGrunt : Enemy {
 
-	//private Animator anim;
-	bool attack_anim;
+	NavMeshAgent agent;
+	Animator animator;
+	public bool attacknow;
 
 	protected override void Awake(){
 		base.Awake ();
-		anim = GetComponent<Animator>();
-		setAnim(anim);
 	}
 
 	// Use this for initialization
 	protected override void Start () {
 		base.Start ();
 		StartCoroutine (UpdatePath ());
+		agent = GetComponent<NavMeshAgent> ();
+		animator = GetComponent<Animator> ();
+		attacknow = false;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (!dead) {
-			if (gameManager.enemyTarget != null && distanceToTarget () < attackRange && (Time.time - lastAttackTime) > attackCooldown) {
-				attack ();
+		if (gameManager.enemyTarget != null && distanceToTarget () < attackRange && (Time.time - lastAttackTime) > attackCooldown) {
+			attack ();
+			attacknow = true;
+		} else if(attacknow == true && ((Time.time - lastAttackTime) > (0.9f * attackCooldown))) {
+			attacknow = false;
+			if (animator != null) {
+				Debug.Log ("set false");
+				animator.SetBool ("Attack", false);
 			}
-		} else
-		{
-			anim.SetTrigger("Die");
+		}
+		if (animator != null) {
+			if (agent.velocity.magnitude > 0.1f) {
+				animator.SetBool ("Walk", true);
+			} else {
+				animator.SetBool ("Walk", false);
+			}
 		}
 	}
 
 	//If the player is close enough to the torch it will do damage
 	private void attack(){
+		if (animator != null) {
+			Debug.Log ("jump");
+			animator.SetBool ("Attack", true);
+		}
 		IDamagable damagableObject = gameManager.enemyTarget.GetComponent<IDamagable> ();
 		damagableObject.takeDamage (attackDamage, false);
-		anim.SetTrigger("Attack");
 		//Debug.Log (damagableObject);
 		lastAttackTime = Time.time;
 	}

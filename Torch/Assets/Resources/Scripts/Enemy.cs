@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
@@ -21,18 +21,36 @@ public class Enemy : MonoBehaviour, IDamagable {
 	protected Image healthBarImage;
 	protected GameManager gameManager;
 
-	public Animator anim;
-	public bool dead;
+    public Animator anim;
+    public bool dead;
+	public AudioClip clip_takeDamage;
+	public AudioClip clip_attack;
+	public AudioClip clip_spawn;
+	public AudioClip clip_die;
+	public AudioClip clip_battleCry;
+	protected AudioSource audioSource;
+
 
 	protected virtual void Awake() {
 		navMeshAgent = GetComponent<NavMeshAgent> ();
 		gameManager = GameObject.Find ("Game Manager").GetComponent<GameManager>();
+
 		dead = false;
+
+		audioSource = GetComponent<AudioSource> ();
+
 	}
 
 	protected virtual void Start () {
 		health = startingHealth;
 		speed = gameObject.GetComponent<NavMeshAgent> ().speed;
+        dead = false;
+
+		if (clip_spawn != null) {
+			audioSource.clip = clip_spawn;
+			audioSource.pitch = Random.Range (0.9f, 1.1f);
+			audioSource.Play ();
+		}
 	}
 
 	//Get the distance between the enemy and the torch
@@ -66,6 +84,15 @@ public class Enemy : MonoBehaviour, IDamagable {
 		}
 		DamagePopUp.CreateDamagePopUp(damage, gameObject, crit);
 
+
+		
+
+		if (clip_takeDamage != null) {
+			audioSource.clip = clip_takeDamage;
+			audioSource.pitch = Random.Range (0.9f, 1.1f);
+			audioSource.Play ();
+		}
+
 		if (health <= 0) {
 			if (anim != null)
 			{
@@ -83,31 +110,35 @@ public class Enemy : MonoBehaviour, IDamagable {
 		healthBarImage = healthBar.transform.FindChild ("HealthBar").GetComponent<Image> ();
 	}
 
-	//When the enemy's health drops below 0.
-	public void Die()
-	{
-		
-		StartCoroutine(DieThread());
-	}
+    public void Die()
+    {
+		if (clip_die != null) {
+			audioSource.clip = clip_die;
+			audioSource.pitch = Random.Range (0.9f, 1.1f);
+			audioSource.Play ();
+		}
+        StartCoroutine(DieThread());
+    }
 
 	//When the enemy's health drops below 0.
 	private IEnumerator DieThread(){
-		//Debug.Log(gameObject + " died.");
-		dead = true;
-		Debug.Log(anim);
-		if (anim != null)
-		{
-			yield return new WaitForSeconds(1.25f);//.56f
-		}
-		//Add a score
-		gameManager.updateScore(scoreValue);
-		StopAllCoroutines();
-		Destroy(gameObject);
-		yield return null;
+        //Debug.Log(gameObject + " died.");
+        dead = true;
+//        Debug.Log(anim);
+        if (anim != null)
+        {
+            yield return new WaitForSeconds(1.25f);//.56f
+        }
+        //Add a score
+        gameManager.updateScore(scoreValue);
+        StopAllCoroutines();
+        Destroy(gameObject);
+        yield return null;
+
 	}
 
-	public void setAnim(Animator animator)
-	{
-		anim = animator;
-	}
+    public void setAnim(Animator animator)
+    {
+        anim = animator;
+    }
 }

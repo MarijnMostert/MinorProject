@@ -11,7 +11,7 @@ public class ScorePickUp : MonoBehaviour, IPickUp {
 		if (other.gameObject.CompareTag ("Player")) {
             gameManager.GetComponent<GameManager>().updateScore(scoreValue);
 //            Debug.Log ("Score increased with " + scoreValue + " by picking up " + gameObject);
-			Destroy (gameObject);
+			Destroy (transform.parent.gameObject);
 		}
 	}
 

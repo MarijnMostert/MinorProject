@@ -15,17 +15,11 @@ public class Inventory : MonoBehaviour {
 	private int activeWeapon;
 	public GameObject[] powerUps;
 
+	public static GameObject[] availableWeapons;
+
 	void Start () {
 		indicator = GameObject.Find ("Inventory Indicator").GetComponent<Image> ();
-		weapons = new Weapon[weaponInventorySize];
-		for (int i = 0; i < weaponInventorySize; i++) {
-			weapons [i] = emptyWeaponPrefab;
-		}
-
-		powerUps = new GameObject[powerUpInventorySize];
-		for (int i = 0; i < powerUpInventorySize; i++) {
-			powerUps [i] = emptyPowerUpPrefab;
-		}
+		resetInventory ();
 	}
 
 	void Equip(int index){
@@ -154,4 +148,22 @@ public class Inventory : MonoBehaviour {
 		return true;
 	}
 
+	public void resetInventory(){
+		weapons = new Weapon[weaponInventorySize];
+		for (int i = 0; i < weaponInventorySize; i++) {
+			weapons [i] = emptyWeaponPrefab;
+		}
+
+		powerUps = new GameObject[powerUpInventorySize];
+		for (int i = 0; i < powerUpInventorySize; i++) {
+			powerUps [i] = emptyPowerUpPrefab;
+		}
+	}
+	/*
+	public static void EquipAllWeapons(){
+		foreach (GameObject weapon in availableWeapons) {
+
+		}
+	}
+*/
 }

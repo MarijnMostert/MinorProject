@@ -87,7 +87,7 @@ AudioSource:
     serializedVersion: 2
     m_Curve:
     - time: 0
-      value: 0
+      value: 0.452
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -136,6 +136,20 @@ MonoBehaviour:
     dead: 0
     playerMovement: {fileID: 0}
     playerWeaponController: {fileID: 0}
+    movementEnabled: 1
+    active: 1
+    gameManager: {fileID: 0}
+  - spawnPoint: {fileID: 4000013396432608}
+    playerColor: {r: 0.021247858, g: 0.41753218, b: 0.9632353, a: 0}
+    cursorPointer: {fileID: 0}
+    playerNumber: 0
+    playerInstance: {fileID: 0}
+    dead: 0
+    playerMovement: {fileID: 0}
+    playerWeaponController: {fileID: 0}
+    movementEnabled: 1
+    active: 0
+    gameManager: {fileID: 0}
   playerPrefab: {fileID: 1000010005094228, guid: 96b70f8172a034350bce5e9b0ef6db4d,
     type: 2}
   torchPrefab: {fileID: 0}
@@ -162,8 +176,8 @@ MonoBehaviour:
   - {fileID: 1000010275947170, guid: 2c69b9685e818ec4f810ceb0a5e12c7d, type: 2}
   - {fileID: 1000010275947170, guid: 2c69b9685e818ec4f810ceb0a5e12c7d, type: 2}
   - {fileID: 1000013095267004, guid: 5288fcd4fb05339498a5d9c9dc49a76c, type: 2}
-  - {fileID: 1000011832919986, guid: fb219ecc626f53d498ba9b7b66e404be, type: 2}
   - {fileID: 1000010173967298, guid: e72c1f558cafdfb4d8814a1f26d633dc, type: 2}
+  - {fileID: 1000011832919986, guid: fb219ecc626f53d498ba9b7b66e404be, type: 2}
   - {fileID: 1000013309580604, guid: 64a22ead90fa46542b9274c81372775a, type: 2}
   UIHelpItems: []
   UIHelp: 1
@@ -171,7 +185,8 @@ MonoBehaviour:
     type: 2}
   TorchFOV: {fileID: 0}
   spawner: {fileID: 0}
-  damagePopUpper: {fileID: 0}
+  triggerFloorPrefab: {fileID: 1000012485642322, guid: e38f8103c4fde44d1a4cf4066fa8ebde,
+    type: 2}
   loadingScreenCanvas: {fileID: 1000013625541172, guid: 0ff01cb270ef14af5b80d2ec70ecc88c,
     type: 2}
   deathCanvas: {fileID: 0}
@@ -185,3 +200,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 3d02f9a386baf4bea855ca88493ab372, type: 3}
   - {fileID: 8300000, guid: 667c3a85722394921ba0173a0e9b17b3, type: 3}
   audioMuted: 0
+  DebuggerPanel: {fileID: 0}
+  allWeaponsAvailable:
+  - {fileID: 1000013538442878, guid: 3fc544d2b1e1b4b2487700e752433bfb, type: 2}
+  - {fileID: 1000013538442878, guid: 754b92d26cdd8421fb0eed83baf2fb1a, type: 2}
+  - {fileID: 1000013906124734, guid: 4ae8fee883fe347bf8306d5ec2e28cc2, type: 2}
+  - {fileID: 1000013538442878, guid: ca38a5fb88da24c4e9bc748a2bba3449, type: 2}

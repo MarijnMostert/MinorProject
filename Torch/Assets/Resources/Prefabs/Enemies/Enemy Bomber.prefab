@@ -132,6 +132,13 @@ MonoBehaviour:
   speed: 0
   health: 0
   navMeshAgent: {fileID: 0}
+  anim: {fileID: 0}
+  dead: 0
+  clip_takeDamage: {fileID: 0}
+  clip_attack: {fileID: 0}
+  clip_spawn: {fileID: 0}
+  clip_die: {fileID: 0}
+  clip_battleCry: {fileID: 0}
   weapon: {fileID: 0}
   lookMask:
     serializedVersion: 2

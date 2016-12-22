@@ -13,20 +13,24 @@ public class Spawner : MonoBehaviour {
 
 	private string waveButton;
 	private string spawnEnemyButton;
-    private GameObject torch;
+	private GameManager gameManager;
 
     Floors floors;
 	public float timeTillSpawning = 5f;
-	public float timeBetweenEnemySpawn = 3f;
+	public float timeBetweenEnemySpawn;
     public bool dead;
 //	private int rangeX, rangeZ;
 
 	// Use this for initialization
 	void Start () {
-        dead = false;
+		gameManager = GameObject.Find ("Game Manager").GetComponent<GameManager> ();
+		timeBetweenEnemySpawn = 15.0f - (gameManager.dungeonLevel);
+		if (timeBetweenEnemySpawn < 1.0f) {
+			timeBetweenEnemySpawn = 1.0f;
+		}
+        dead = true;
 		waveButton = "SpawnWave";
 		spawnEnemyButton = "SpawnEnemy";
-        torch = GameObject.FindGameObjectWithTag("Torch");
         StartCoroutine(SpawnEnemy());
     }
     
@@ -58,11 +62,12 @@ public class Spawner : MonoBehaviour {
 
     Vector3 getPosition()
     {
-        Vector3 player = torch.transform.position;
+		Vector3 player = gameManager.torch.transform.position;
         float Random_radius = Random.Range(min_radius, max_radius);
         float Random_radial = Random.Range(0, 2 * Mathf.PI);
         Vector3 point = player + new Vector3(Random_radius * Mathf.Cos(Random_radial), 0, Random_radius * Mathf.Sin(Random_radial));
-        if (validPosition(point.x, point.z)) return new Vector3(point.x, 0, point.z);
+		if (validPosition (point.x, point.z))
+			return new Vector3 (point.x, 0, point.z);
         return getPosition();
     }
 

@@ -96,6 +96,11 @@ public class DungeonGenerator : Object {
 		finish ();		//This function will tie up the ends of the maze
 						//By adding rooms at the loose ends if possible
 
+		Room.setMaze (dungeonMaze);
+		foreach (Room room in rooms) {
+			room.goRound ();
+		}
+
 		this.done = (rooms.Count >= minAmountOfRooms);
 	}//constructor
 
@@ -167,8 +172,8 @@ public class DungeonGenerator : Object {
 			//if (checkFrom.Value == -1) { Debug.Log ("Continue"); continue; }
 
 			//Find out what places the door will connect (from/to "corridor" or "room")
-			string from = findPrevious (checkFrom);
-			string choice = chooseBuild (from);
+			string myfrom = findPrevious (checkFrom);
+			string choice = chooseBuild (myfrom);
 
 
 			switch (choice) {
@@ -183,7 +188,7 @@ public class DungeonGenerator : Object {
 			case "corridor":			
 				//If you come from another corridor; maybe put in 90d turn
 				int direction = checkFrom.Value;
-				if (from.Equals ("corridor")) { 
+				if (myfrom.Equals ("corridor")) { 
 					//Add a number -1, 0, 1 to the current direction.
 					//(%4 so the directions stay between 0 and 3)
 					int number = Random.Range(-1,2);
@@ -194,7 +199,7 @@ public class DungeonGenerator : Object {
 				}
 
 				//If there is space for a room then build it and show the updated map
-				if (corridorFree (checkFrom.Key, direction, from)) {
+				if (corridorFree (checkFrom.Key, direction, myfrom)) {
 					buildCorridor (checkFrom.Key, direction);
 				}
 				break;

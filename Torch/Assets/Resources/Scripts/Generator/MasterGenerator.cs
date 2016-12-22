@@ -9,7 +9,7 @@ public class MasterGenerator : Object {
                             portal, end_portal, player,
                             spawner, torch, cam, pointer, chest,
                             coin, fireball, iceball, health, laser, shieldPickUp,
-							stickyPickUp, roofGroup, wallPickUp;
+							stickyPickUp, roofGroup, wallPickUp, wallTorch, piercingWeapon;
 
 	public List<GameObject> puzzleRooms;
     GameObject game_manager;
@@ -51,13 +51,14 @@ public class MasterGenerator : Object {
         List<p2D> doors = new List<p2D> ();
 		List<p2D> puzzleCenters = new List<p2D> ();
 		List<p2D> allRoomCoords = new List<p2D> ();
+		List<int[]> allDoors = new List<int[]> ();
 
         dungeon_instantiate = new DungeonInstantiate(floor, side, sideAlt1, sideAlt2, corner, cornerout,
                                                                         roof, block, trap_straight, trap_crossing, trap_box,
                                                                         portal, end_portal, player, game_manager,
                                                                         spawner, torch, cam, pointer, chest, coin, 
 																		fireball, iceball, health, mazeSize, laser, shieldPickUp,
-																		stickyPickUp, roofGroup, wallPickUp, puzzleRooms);
+			stickyPickUp, roofGroup, wallPickUp, puzzleRooms, wallTorch, piercingWeapon);
 
 		while (!done) {
 			dungeon = new DungeonGenerator ( width,
@@ -77,6 +78,8 @@ public class MasterGenerator : Object {
 		allRoomCoords = dungeon.getAllRoomCoords ();
 		puzzleCenters = dungeon.getRoomCenters ();
 
+		List<Room> allrooms = dungeon.getRooms ();
+
         this.endMaze = maze;
 
 		//Debug.Log(donerooms);		
@@ -88,6 +91,7 @@ public class MasterGenerator : Object {
 
 		dungeon_instantiate.setPuzzleCoords (allRoomCoords);
 		dungeon_instantiate.setPuzzleCenters (puzzleCenters);
+		dungeon_instantiate.setPuzzleRoomsDG (allrooms);
 
 		Debug.Log(print(maze));
         dungeon_instantiate.importMaze(this.endMaze);
@@ -149,7 +153,7 @@ public class MasterGenerator : Object {
         player = Resources.Load("Prefabs/Player", typeof(GameObject)) as GameObject;
         torch = Resources.Load("Prefabs/Torch", typeof(GameObject)) as GameObject;
         coin = Resources.Load("Prefabs/PickUps/Coin", typeof(GameObject)) as GameObject;
-        coin.GetComponent<ScorePickUp>().gameManager = game_manager;
+        coin.GetComponentInChildren<ScorePickUp>().gameManager = game_manager;
         fireball = Resources.Load("Prefabs/PickUps/FireBall Weapon PickUp", typeof(GameObject)) as GameObject;
         iceball = Resources.Load("Prefabs/PickUps/IceBall Weapon PickUp", typeof(GameObject)) as GameObject;
         health = Resources.Load("Prefabs/PickUps/HealthPickUp", typeof(GameObject)) as GameObject;
@@ -159,6 +163,8 @@ public class MasterGenerator : Object {
 		stickyPickUp = Resources.Load ("Prefabs/PickUps/Sticky PickUp", typeof(GameObject)) as GameObject;
 		roofGroup = Resources.Load ("Prefabs/roofGroup", typeof(GameObject)) as GameObject;
 		wallPickUp = Resources.Load ("Prefabs/PickUps/Wall PickUp", typeof(GameObject)) as GameObject;
+		wallTorch = Resources.Load ("Prefabs/WallTorch", typeof(GameObject)) as GameObject;
+		piercingWeapon = Resources.Load ("Prefabs/PickUps/Piercing Weapon PickUp", typeof(GameObject)) as GameObject;
 
     }
 }

@@ -10,8 +10,11 @@ public class EnemyRanged : Enemy {
 	private float varDistanceToTarget;
 	private float stoppingDistance;
 
+    private Animator anim;
+    bool attack_anim;
+    bool first_attack;
 
-	new void Awake(){
+    new void Awake(){
 		base.Awake ();
 		weaponController = GetComponent<WeaponController> ();
 	}
@@ -20,6 +23,8 @@ public class EnemyRanged : Enemy {
 	new void Start () {
 		base.Start ();
 		weapon = weaponController.currentWeapon as RangedWeapon;
+        anim = GetComponent<Animator>();
+        setAnim(anim);
 		stoppingDistance = navMeshAgent.stoppingDistance;
 		StartCoroutine (UpdatePath ());
 	}
@@ -27,17 +32,36 @@ public class EnemyRanged : Enemy {
 	void Update () {
 		determineStoppingDistance ();
 		varDistanceToTarget = distanceToTarget ();
-		if (gameManager.enemyTarget != null && varDistanceToTarget <= attackRange && (Time.time - lastAttackTime) > attackCooldown && canSeeTarget()) {
-			attack ();
-		}
+		if (Time.realtimeSinceStartup > .5f && gameManager.enemyTarget != null && varDistanceToTarget <= attackRange && canSeeTarget()) {
+            anim.SetBool("attack", true);
+            if ((Time.time - lastAttackTime) > attackCooldown) {
+                StartCoroutine(attack());
+            }
+		} else
+        {
+            anim.SetBool("attack", false);
+            first_attack = true;
+            attack_anim = false;
+        }
 	}
 
-	private void attack(){
+	private IEnumerator attack(){
+        if (first_attack)
+        {
+            yield return new WaitForSeconds(.5f);
+        }
+        yield return new WaitForSeconds(.1f);
 		if (weapon == null) {
 			weapon = weaponController.currentWeapon as RangedWeapon;
 		}
 		weapon.Fire ();
+		if (clip_attack != null) {
+			audioSource.clip = clip_attack;
+			audioSource.Play ();
+		}
 		lastAttackTime = Time.time;
+        first_attack = false;
+        yield return null;
 	}
 
 	private bool canSeeTarget(){

@@ -6,8 +6,6 @@ using System.Collections.Generic;
 using System;
 using UnityEngine.Analytics;
 
-
-
 public class GameManager : MonoBehaviour {
 
 	//Player data
@@ -38,6 +36,8 @@ public class GameManager : MonoBehaviour {
 	public GameObject UIPrefab;
 	public GameObject UI;
 
+	public GameAnalytics analytics = new GameAnalytics();
+
 	public List<GameObject> PuzzleRooms;
 
 	public GameObject[] UIHelpItems;
@@ -46,19 +46,20 @@ public class GameManager : MonoBehaviour {
 	public GameObject TorchFOV;
 
     public Spawner spawner;
-	public DamagePopUp damagePopUpper;
+	public GameObject triggerFloorPrefab;
+	private GameObject triggerFloorObject;
 
 	public ProceduralMaterial[] substances;
 
     //masterGenerator Vars
-    int width = 40;// = 100;
-    int height = 40;// = 90;
+    int width = 40;// = 40;
+    int height = 40;// = 40;
     int radius = 2;// = 2;
-    int maxlength = 2;// = 3;
-    int timeout = 2000;// = 200;
-    int minAmountOfRooms = 4;// = 6;
-    int maxAmountOfRooms = 7;// = 8;
-    int chanceOfRoom = 10;// = 15; Dit is de 1/n kans op een kamer, dus groter getal is kleinere kans
+    int maxlength = 2;// = 2;
+    int timeout = 200;// = 2000;
+    int minAmountOfRooms = 4;// = 4;
+    int maxAmountOfRooms = 47;// = 7;
+    int chanceOfRoom = 5;// = 10; Dit is de 1/n kans op een kamer, dus groter getal is kleinere kans
 
 	//public GameObject homeScreenCanvas;
 	public GameObject loadingScreenCanvas;
@@ -75,6 +76,9 @@ public class GameManager : MonoBehaviour {
 	public AudioClip audioHomeScreen;
 	public AudioClip[] audioDungeon;
 	public bool audioMuted;
+
+	public GameObject DebuggerPanel;
+	public GameObject[] allWeaponsAvailable;
 
     void Awake () {
         gameStarted = false;
@@ -93,6 +97,7 @@ public class GameManager : MonoBehaviour {
     }
 
     public void Start(){
+		analytics.WriteStart ();
 		pauseScreen.SetActive (false);
 		loadingScreenCanvas = Instantiate (loadingScreenCanvas) as GameObject;
 		loadingScreenCanvas.SetActive (false);
@@ -108,7 +113,18 @@ public class GameManager : MonoBehaviour {
             loadingScreenCanvas.SetActive(true);
             StartCoroutine(CreateDungeon());
             gameStarted = true;
+			StartCoroutine (WaitSpawning ());
         }
+	}
+
+	IEnumerator WaitSpawning(){
+		float wait = 11.0f - dungeonLevel;
+		if (wait < 1.0f) {
+			wait = 1.0f;
+		}
+		yield return new WaitForSeconds (wait);
+		spawner.dead = false;
+		Debug.Log ("spawner activated");
 	}
 
 	IEnumerator CreateDungeon(){
@@ -118,32 +134,45 @@ public class GameManager : MonoBehaviour {
 		masterGenerator.LoadPrefabs();
 		masterGenerator.Start();
 
-		UI = Instantiate (UIPrefab);
-		UIHelpItems = GameObject.FindGameObjectsWithTag ("UI Help");
+		if (UI == null) {
+			UI = Instantiate (UIPrefab);
+			UIHelpItems = GameObject.FindGameObjectsWithTag ("UI Help");
+		}
 		TorchFOV = Instantiate (TorchFOVPrefab);
+		if(triggerFloorObject == null)
+			triggerFloorObject = Instantiate (triggerFloorPrefab);
 
 		camTarget = torch.gameObject;
 		enemyTarget = torch.gameObject;
 		torch.health = torchStartingHealth;
 		torch.gameManager = this;
 		torch.UI = UI;
+		torch.TorchFOV = TorchFOV.GetComponentInChildren<Animator> ();
 
 		inGameCameraObject = Instantiate (inGameCameraPrefab);
 		mainCamera = inGameCameraObject.GetComponentInChildren<Camera> ();
 
 		for (int i = 0; i < playerManagers.Length; i++) {
-			Debug.Log("Create Player with id:" + i);
-			playerManagers[i].playerInstance = Instantiate(playerPrefab, masterGenerator.dungeon_instantiate.startPos, playerManagers[i].spawnPoint.rotation) as GameObject;
-			playerManagers [i].playerNumber = i + 1;
-			playerManagers [i].Setup ();
-			playerManagers [i].playerMovement.mainCamera = mainCamera;
+			if (playerManagers [i].playerInstance == null) {
+				Debug.Log ("Create Player with id:" + i);
+				playerManagers [i].playerInstance = Instantiate (playerPrefab, masterGenerator.dungeon_instantiate.startPos, playerManagers [i].spawnPoint.rotation) as GameObject;
+				playerManagers [i].playerNumber = i + 1;
+				playerManagers [i].Setup ();
+				playerManagers [i].playerMovement.mainCamera = mainCamera;
+				playerManagers [i].gameManager = this;
+			} else {
+				playerManagers [i].playerInstance.transform.position = masterGenerator.dungeon_instantiate.startPos;
+				playerManagers [i].Setup ();
+				playerManagers [i].playerInstance.SetActive (true);
+			}
 		}
+
+		SetNumberOfPlayers (1);
 
 		Vector3 startpoint = masterGenerator.MovePlayersToStart ();
 		torch.transform.position = startpoint + new Vector3 (6, .5f, 0);
 
 		torch.cam = mainCamera;
-		//damagePopUpper.cam = mainCamera;
 		UI.transform.FindChild ("Score Text").GetComponent<Text> ().text = "Score: " + score;
 		UI.transform.FindChild ("Dungeon Level").GetComponent<Text> ().text = "Dungeon level " + dungeonLevel;
 
@@ -168,6 +197,7 @@ public class GameManager : MonoBehaviour {
 	void Update () {
 		if (Input.GetButtonDown ("Pause"))
 			Pause ();
+		/*
 		if(Input.GetKeyDown(KeyCode.I)){
 			deathCanvas.SetActive (true);
 		}
@@ -175,6 +205,17 @@ public class GameManager : MonoBehaviour {
 			GameObject obj = ObjectPooler.current.GetObject ();
 			obj.SetActive (true);
 			obj.transform.position = GameObject.FindGameObjectWithTag ("Player").transform.position;
+		}
+		*/
+		if (Input.GetKeyDown (KeyCode.H)) {
+			if (DebuggerPanel.activeInHierarchy)
+				DebuggerPanel.SetActive (false);
+			else
+				DebuggerPanel.SetActive (true);
+		}
+
+		if (Input.GetKeyDown (KeyCode.N)) {
+			SpawnAllWeapons ();
 		}
 	}
 
@@ -185,12 +226,20 @@ public class GameManager : MonoBehaviour {
 			pauseScreen.SetActive (true);
 			if(spawner != null)
 				spawner.dead = true;
+			foreach (PlayerManager PM in playerManagers) {
+				if(PM.playerInstance != null)
+					PM.EnableMovement (false);
+			}
 		} else {
 			Time.timeScale = 1;
 			paused = false;
 			pauseScreen.SetActive (false);
 			if (spawner != null)
 				spawner.dead = false;
+			foreach (PlayerManager PM in playerManagers) {
+				if(PM.playerInstance != null)
+					PM.EnableMovement(true);
+			}
 		}
 	}
 
@@ -208,22 +257,19 @@ public class GameManager : MonoBehaviour {
 
 
 	public void GameOver(){
-
-		Dictionary<string, object> eventData = new Dictionary<string, object> {
-			{ "Score", totalScore },
-			{ "level", dungeonLevel},
-			{ "Total Time", Time.time}
-		};
-		UnityEngine.Analytics.Analytics.CustomEvent("Death", eventData);
-
+		totalScore += score;
+		analytics.WriteDeath (totalScore, dungeonLevel);
 		deathCanvas.SetActive (true);
 		deathCanvas.transform.Find ("Score Text").GetComponent<Text> ().text = "Your score: " + totalScore;
 		RoundEnd ();
+		dungeonLevel = 0;
 	}
 
 	public void RoundEnd(){
 		if(spawner != null)
 			Destroy (spawner);
+		if (torch != null)
+			Destroy (torch.gameObject);
 		for (int i = 0; i < playerManagers.Length; i++) {
 			if(playerManagers[i].playerInstance != null)
 				playerManagers [i].playerInstance.SetActive (false);
@@ -242,30 +288,29 @@ public class GameManager : MonoBehaviour {
 	public void TransitionDeathToMain(){
 		RoundEnd ();
 		DestroyDungeon ();
+		if (UI != null)
+			Destroy (UI);
+		if (triggerFloorObject != null)
+			Destroy (triggerFloorObject);
 		LoadHomeScreen ();
 		if (paused)
 			Pause ();
 	}
 
 	public void DestroyDungeon(){
-		foreach (PlayerManager playermanager in playerManagers){
-			Destroy (playermanager.playerInstance);
-		}
-		if(torch != null)
-			Destroy (torch);
 		if(GameObject.Find("Dungeon") != null)
 			Destroy (GameObject.Find ("Dungeon"));
-		if (UI != null) {
-			Destroy (UI);
-			UIHelpItems = new GameObject[0];
-		}
 		if(TorchFOV != null)
 			Destroy (TorchFOV);
 		deathCanvas.SetActive (false);
 		gameStarted = false;
+		Destroy (inGameCameraObject);
 	}
 
 	public void LoadHomeScreen(){
+		foreach (PlayerManager playermanager in playerManagers){
+			Destroy (playermanager.playerInstance);
+		}
 		homeScreen.SetActive (true);
 		homeScreenCam.SetActive (true);
 		audioSource.clip = audioHomeScreen;
@@ -283,13 +328,8 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void Proceed(){
-		Dictionary<string, object> eventData = new Dictionary<string, object> {
-			{ "level", dungeonLevel},
-			{ "LevelScore", score },
-			{ "TimeSpent", Time.time - StartTime}
-		};
-		UnityEngine.Analytics.Analytics.CustomEvent("LevelComplete", eventData);
-
+		analytics.WriteFinishLevel (dungeonLevel, score, StartTime);
+		score = 0;
 		RoundEnd ();
 		DestroyDungeon ();
 		StartGame ();
@@ -322,6 +362,24 @@ public class GameManager : MonoBehaviour {
 				UIHelp = true;
 				Debug.Log ("UI help is turned on");
 			}
+		}
+	}
+
+	public void SetNumberOfPlayers(int number){
+		if (number == 1) {
+			playerManagers [1].Enable (false);
+			if (mainCamera != null)
+				mainCamera.GetComponent<CameraController> ().UpdateTargets ();
+		} else if (number == 2 && !playerManagers[1].active) {
+			playerManagers [1].Enable (true);
+			if (mainCamera != null)
+				mainCamera.GetComponent<CameraController> ().UpdateTargets ();
+		}
+	}
+
+	void SpawnAllWeapons(){
+		foreach (GameObject weapon in allWeaponsAvailable) {
+			Instantiate (weapon, torch.transform.position + new Vector3 (UnityEngine.Random.Range (-2f, 2f), 0f, UnityEngine.Random.Range (-2f, 2f)), Quaternion.identity);
 		}
 	}
 }

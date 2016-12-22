@@ -1,0 +1,752 @@
+fileFormatVersion: 2
+guid: f3e32bd9282118b4782c17457fbaa77f
+timeCreated: 1482241298
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Armature
+    100002: armature
+    100004: clawLowL
+    100006: clawLowR
+    100008: clawMidL
+    100010: clawMidR
+    100012: clawupL
+    100014: clawUpR
+    100016: leg1lowL
+    100018: leg1lowR
+    100020: leg1midL
+    100022: leg1midR
+    100024: leg1upL
+    100026: leg1upR
+    100028: leg2lowL
+    100030: leg2LowR
+    100032: leg2midL
+    100034: leg2midR
+    100036: leg2upL
+    100038: leg2upR
+    100040: leg3lowL
+    100042: leg3lowR
+    100044: leg3midL
+    100046: leg3midR
+    100048: leg3upL
+    100050: leg3upR
+    100052: Sphere
+    100054: //RootNode
+    100056: tail
+    100058: torso
+    100060: torso_L
+    100062: torso_L_001
+    100064: torso_L_002
+    100066: torso_R
+    100068: torso_R_001
+    100070: torso_R_002
+    400000: Armature
+    400002: armature
+    400004: clawLowL
+    400006: clawLowR
+    400008: clawMidL
+    400010: clawMidR
+    400012: clawupL
+    400014: clawUpR
+    400016: leg1lowL
+    400018: leg1lowR
+    400020: leg1midL
+    400022: leg1midR
+    400024: leg1upL
+    400026: leg1upR
+    400028: leg2lowL
+    400030: leg2LowR
+    400032: leg2midL
+    400034: leg2midR
+    400036: leg2upL
+    400038: leg2upR
+    400040: leg3lowL
+    400042: leg3lowR
+    400044: leg3midL
+    400046: leg3midR
+    400048: leg3upL
+    400050: leg3upR
+    400052: Sphere
+    400054: //RootNode
+    400056: tail
+    400058: torso
+    400060: torso_L
+    400062: torso_L_001
+    400064: torso_L_002
+    400066: torso_R
+    400068: torso_R_001
+    400070: torso_R_002
+    4300000: Sphere
+    7400000: Default Take
+    7400002: Attack
+    7400004: jumpAttack
+    7400006: SpecialAttack
+    7400008: Walk
+    7400010: rest
+    9500000: //RootNode
+    13700000: Sphere
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Default Take
+      takeName: Default Take
+      firstFrame: 0
+      lastFrame: 23
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: armature
+        weight: 1
+      - path: armature/tail
+        weight: 1
+      - path: armature/torso
+        weight: 1
+      - path: armature/torso/clawupL
+        weight: 1
+      - path: armature/torso/clawupL/clawMidL
+        weight: 1
+      - path: armature/torso/clawupL/clawMidL/clawLowL
+        weight: 1
+      - path: armature/torso/clawUpR
+        weight: 1
+      - path: armature/torso/clawUpR/clawMidR
+        weight: 1
+      - path: armature/torso/clawUpR/clawMidR/clawLowR
+        weight: 1
+      - path: armature/torso/leg1upL
+        weight: 1
+      - path: armature/torso/leg1upL/leg1midL
+        weight: 1
+      - path: armature/torso/leg1upL/leg1midL/leg1lowL
+        weight: 1
+      - path: armature/torso/leg1upR
+        weight: 1
+      - path: armature/torso/leg1upR/leg1midR
+        weight: 1
+      - path: armature/torso/leg1upR/leg1midR/leg1lowR
+        weight: 1
+      - path: armature/torso/leg2upL
+        weight: 1
+      - path: armature/torso/leg2upL/leg2midL
+        weight: 1
+      - path: armature/torso/leg2upL/leg2midL/leg2lowL
+        weight: 1
+      - path: armature/torso/leg2upR
+        weight: 1
+      - path: armature/torso/leg2upR/leg2midR
+        weight: 1
+      - path: armature/torso/leg2upR/leg2midR/leg2LowR
+        weight: 1
+      - path: armature/torso/leg3upL
+        weight: 1
+      - path: armature/torso/leg3upL/leg3midL
+        weight: 1
+      - path: armature/torso/leg3upL/leg3midL/leg3lowL
+        weight: 1
+      - path: armature/torso/leg3upR
+        weight: 1
+      - path: armature/torso/leg3upR/leg3midR
+        weight: 1
+      - path: armature/torso/leg3upR/leg3midR/leg3lowR
+        weight: 1
+      - path: armature/torso/torso_L
+        weight: 1
+      - path: armature/torso/torso_L/torso_L_001
+        weight: 1
+      - path: armature/torso/torso_L/torso_L_001/torso_L_002
+        weight: 1
+      - path: armature/torso/torso_R
+        weight: 1
+      - path: armature/torso/torso_R/torso_R_001
+        weight: 1
+      - path: armature/torso/torso_R/torso_R_001/torso_R_002
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Sphere
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Attack
+      takeName: Attack
+      firstFrame: 0
+      lastFrame: 11
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: armature
+        weight: 1
+      - path: armature/tail
+        weight: 1
+      - path: armature/torso
+        weight: 1
+      - path: armature/torso/clawupL
+        weight: 1
+      - path: armature/torso/clawupL/clawMidL
+        weight: 1
+      - path: armature/torso/clawupL/clawMidL/clawLowL
+        weight: 1
+      - path: armature/torso/clawUpR
+        weight: 1
+      - path: armature/torso/clawUpR/clawMidR
+        weight: 1
+      - path: armature/torso/clawUpR/clawMidR/clawLowR
+        weight: 1
+      - path: armature/torso/leg1upL
+        weight: 1
+      - path: armature/torso/leg1upL/leg1midL
+        weight: 1
+      - path: armature/torso/leg1upL/leg1midL/leg1lowL
+        weight: 1
+      - path: armature/torso/leg1upR
+        weight: 1
+      - path: armature/torso/leg1upR/leg1midR
+        weight: 1
+      - path: armature/torso/leg1upR/leg1midR/leg1lowR
+        weight: 1
+      - path: armature/torso/leg2upL
+        weight: 1
+      - path: armature/torso/leg2upL/leg2midL
+        weight: 1
+      - path: armature/torso/leg2upL/leg2midL/leg2lowL
+        weight: 1
+      - path: armature/torso/leg2upR
+        weight: 1
+      - path: armature/torso/leg2upR/leg2midR
+        weight: 1
+      - path: armature/torso/leg2upR/leg2midR/leg2LowR
+        weight: 1
+      - path: armature/torso/leg3upL
+        weight: 1
+      - path: armature/torso/leg3upL/leg3midL
+        weight: 1
+      - path: armature/torso/leg3upL/leg3midL/leg3lowL
+        weight: 1
+      - path: armature/torso/leg3upR
+        weight: 1
+      - path: armature/torso/leg3upR/leg3midR
+        weight: 1
+      - path: armature/torso/leg3upR/leg3midR/leg3lowR
+        weight: 1
+      - path: armature/torso/torso_L
+        weight: 1
+      - path: armature/torso/torso_L/torso_L_001
+        weight: 1
+      - path: armature/torso/torso_L/torso_L_001/torso_L_002
+        weight: 1
+      - path: armature/torso/torso_R
+        weight: 1
+      - path: armature/torso/torso_R/torso_R_001
+        weight: 1
+      - path: armature/torso/torso_R/torso_R_001/torso_R_002
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Sphere
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: jumpAttack
+      takeName: jumpAttack
+      firstFrame: 0
+      lastFrame: 23
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: armature
+        weight: 1
+      - path: armature/tail
+        weight: 1
+      - path: armature/torso
+        weight: 1
+      - path: armature/torso/clawupL
+        weight: 1
+      - path: armature/torso/clawupL/clawMidL
+        weight: 1
+      - path: armature/torso/clawupL/clawMidL/clawLowL
+        weight: 1
+      - path: armature/torso/clawUpR
+        weight: 1
+      - path: armature/torso/clawUpR/clawMidR
+        weight: 1
+      - path: armature/torso/clawUpR/clawMidR/clawLowR
+        weight: 1
+      - path: armature/torso/leg1upL
+        weight: 1
+      - path: armature/torso/leg1upL/leg1midL
+        weight: 1
+      - path: armature/torso/leg1upL/leg1midL/leg1lowL
+        weight: 1
+      - path: armature/torso/leg1upR
+        weight: 1
+      - path: armature/torso/leg1upR/leg1midR
+        weight: 1
+      - path: armature/torso/leg1upR/leg1midR/leg1lowR
+        weight: 1
+      - path: armature/torso/leg2upL
+        weight: 1
+      - path: armature/torso/leg2upL/leg2midL
+        weight: 1
+      - path: armature/torso/leg2upL/leg2midL/leg2lowL
+        weight: 1
+      - path: armature/torso/leg2upR
+        weight: 1
+      - path: armature/torso/leg2upR/leg2midR
+        weight: 1
+      - path: armature/torso/leg2upR/leg2midR/leg2LowR
+        weight: 1
+      - path: armature/torso/leg3upL
+        weight: 1
+      - path: armature/torso/leg3upL/leg3midL
+        weight: 1
+      - path: armature/torso/leg3upL/leg3midL/leg3lowL
+        weight: 1
+      - path: armature/torso/leg3upR
+        weight: 1
+      - path: armature/torso/leg3upR/leg3midR
+        weight: 1
+      - path: armature/torso/leg3upR/leg3midR/leg3lowR
+        weight: 1
+      - path: armature/torso/torso_L
+        weight: 1
+      - path: armature/torso/torso_L/torso_L_001
+        weight: 1
+      - path: armature/torso/torso_L/torso_L_001/torso_L_002
+        weight: 1
+      - path: armature/torso/torso_R
+        weight: 1
+      - path: armature/torso/torso_R/torso_R_001
+        weight: 1
+      - path: armature/torso/torso_R/torso_R_001/torso_R_002
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Sphere
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: rest
+      takeName: rest
+      firstFrame: 2
+      lastFrame: 3
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: armature
+        weight: 1
+      - path: armature/tail
+        weight: 1
+      - path: armature/torso
+        weight: 1
+      - path: armature/torso/clawupL
+        weight: 1
+      - path: armature/torso/clawupL/clawMidL
+        weight: 1
+      - path: armature/torso/clawupL/clawMidL/clawLowL
+        weight: 1
+      - path: armature/torso/clawUpR
+        weight: 1
+      - path: armature/torso/clawUpR/clawMidR
+        weight: 1
+      - path: armature/torso/clawUpR/clawMidR/clawLowR
+        weight: 1
+      - path: armature/torso/leg1upL
+        weight: 1
+      - path: armature/torso/leg1upL/leg1midL
+        weight: 1
+      - path: armature/torso/leg1upL/leg1midL/leg1lowL
+        weight: 1
+      - path: armature/torso/leg1upR
+        weight: 1
+      - path: armature/torso/leg1upR/leg1midR
+        weight: 1
+      - path: armature/torso/leg1upR/leg1midR/leg1lowR
+        weight: 1
+      - path: armature/torso/leg2upL
+        weight: 1
+      - path: armature/torso/leg2upL/leg2midL
+        weight: 1
+      - path: armature/torso/leg2upL/leg2midL/leg2lowL
+        weight: 1
+      - path: armature/torso/leg2upR
+        weight: 1
+      - path: armature/torso/leg2upR/leg2midR
+        weight: 1
+      - path: armature/torso/leg2upR/leg2midR/leg2LowR
+        weight: 1
+      - path: armature/torso/leg3upL
+        weight: 1
+      - path: armature/torso/leg3upL/leg3midL
+        weight: 1
+      - path: armature/torso/leg3upL/leg3midL/leg3lowL
+        weight: 1
+      - path: armature/torso/leg3upR
+        weight: 1
+      - path: armature/torso/leg3upR/leg3midR
+        weight: 1
+      - path: armature/torso/leg3upR/leg3midR/leg3lowR
+        weight: 1
+      - path: armature/torso/torso_L
+        weight: 1
+      - path: armature/torso/torso_L/torso_L_001
+        weight: 1
+      - path: armature/torso/torso_L/torso_L_001/torso_L_002
+        weight: 1
+      - path: armature/torso/torso_R
+        weight: 1
+      - path: armature/torso/torso_R/torso_R_001
+        weight: 1
+      - path: armature/torso/torso_R/torso_R_001/torso_R_002
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Sphere
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: SpecialAttack
+      takeName: SpecialAttack
+      firstFrame: 0
+      lastFrame: 15
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: armature
+        weight: 1
+      - path: armature/tail
+        weight: 1
+      - path: armature/torso
+        weight: 1
+      - path: armature/torso/clawupL
+        weight: 1
+      - path: armature/torso/clawupL/clawMidL
+        weight: 1
+      - path: armature/torso/clawupL/clawMidL/clawLowL
+        weight: 1
+      - path: armature/torso/clawUpR
+        weight: 1
+      - path: armature/torso/clawUpR/clawMidR
+        weight: 1
+      - path: armature/torso/clawUpR/clawMidR/clawLowR
+        weight: 1
+      - path: armature/torso/leg1upL
+        weight: 1
+      - path: armature/torso/leg1upL/leg1midL
+        weight: 1
+      - path: armature/torso/leg1upL/leg1midL/leg1lowL
+        weight: 1
+      - path: armature/torso/leg1upR
+        weight: 1
+      - path: armature/torso/leg1upR/leg1midR
+        weight: 1
+      - path: armature/torso/leg1upR/leg1midR/leg1lowR
+        weight: 1
+      - path: armature/torso/leg2upL
+        weight: 1
+      - path: armature/torso/leg2upL/leg2midL
+        weight: 1
+      - path: armature/torso/leg2upL/leg2midL/leg2lowL
+        weight: 1
+      - path: armature/torso/leg2upR
+        weight: 1
+      - path: armature/torso/leg2upR/leg2midR
+        weight: 1
+      - path: armature/torso/leg2upR/leg2midR/leg2LowR
+        weight: 1
+      - path: armature/torso/leg3upL
+        weight: 1
+      - path: armature/torso/leg3upL/leg3midL
+        weight: 1
+      - path: armature/torso/leg3upL/leg3midL/leg3lowL
+        weight: 1
+      - path: armature/torso/leg3upR
+        weight: 1
+      - path: armature/torso/leg3upR/leg3midR
+        weight: 1
+      - path: armature/torso/leg3upR/leg3midR/leg3lowR
+        weight: 1
+      - path: armature/torso/torso_L
+        weight: 1
+      - path: armature/torso/torso_L/torso_L_001
+        weight: 1
+      - path: armature/torso/torso_L/torso_L_001/torso_L_002
+        weight: 1
+      - path: armature/torso/torso_R
+        weight: 1
+      - path: armature/torso/torso_R/torso_R_001
+        weight: 1
+      - path: armature/torso/torso_R/torso_R_001/torso_R_002
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Sphere
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Walk
+      takeName: Walk
+      firstFrame: 0
+      lastFrame: 23
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: armature
+        weight: 1
+      - path: armature/tail
+        weight: 1
+      - path: armature/torso
+        weight: 1
+      - path: armature/torso/clawupL
+        weight: 1
+      - path: armature/torso/clawupL/clawMidL
+        weight: 1
+      - path: armature/torso/clawupL/clawMidL/clawLowL
+        weight: 1
+      - path: armature/torso/clawUpR
+        weight: 1
+      - path: armature/torso/clawUpR/clawMidR
+        weight: 1
+      - path: armature/torso/clawUpR/clawMidR/clawLowR
+        weight: 1
+      - path: armature/torso/leg1upL
+        weight: 1
+      - path: armature/torso/leg1upL/leg1midL
+        weight: 1
+      - path: armature/torso/leg1upL/leg1midL/leg1lowL
+        weight: 1
+      - path: armature/torso/leg1upR
+        weight: 1
+      - path: armature/torso/leg1upR/leg1midR
+        weight: 1
+      - path: armature/torso/leg1upR/leg1midR/leg1lowR
+        weight: 1
+      - path: armature/torso/leg2upL
+        weight: 1
+      - path: armature/torso/leg2upL/leg2midL
+        weight: 1
+      - path: armature/torso/leg2upL/leg2midL/leg2lowL
+        weight: 1
+      - path: armature/torso/leg2upR
+        weight: 1
+      - path: armature/torso/leg2upR/leg2midR
+        weight: 1
+      - path: armature/torso/leg2upR/leg2midR/leg2LowR
+        weight: 1
+      - path: armature/torso/leg3upL
+        weight: 1
+      - path: armature/torso/leg3upL/leg3midL
+        weight: 1
+      - path: armature/torso/leg3upL/leg3midL/leg3lowL
+        weight: 1
+      - path: armature/torso/leg3upR
+        weight: 1
+      - path: armature/torso/leg3upR/leg3midR
+        weight: 1
+      - path: armature/torso/leg3upR/leg3midR/leg3lowR
+        weight: 1
+      - path: armature/torso/torso_L
+        weight: 1
+      - path: armature/torso/torso_L/torso_L_001
+        weight: 1
+      - path: armature/torso/torso_L/torso_L_001/torso_L_002
+        weight: 1
+      - path: armature/torso/torso_R
+        weight: 1
+      - path: armature/torso/torso_R/torso_R_001
+        weight: 1
+      - path: armature/torso/torso_R/torso_R_001/torso_R_002
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Sphere
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
