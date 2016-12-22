@@ -129,6 +129,12 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 114000012847703538, guid: 0d75b378b9e7442b99096e54c7987653,
+        type: 2}
+      propertyPath: ObjectToPool
+      value: 
+      objectReference: {fileID: 1000010161926496, guid: 3cc4c1f74b7a7456bb5aa09725eaec98,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0d75b378b9e7442b99096e54c7987653, type: 2}
   m_IsPrefabParent: 0
@@ -6375,6 +6381,11 @@ Light:
   m_BounceIntensity: 0.77
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!4 &1800492649 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4000013396432608, guid: 8e8fb98cee864437995eb9c0b0548acd,
+    type: 2}
+  m_PrefabInternal: {fileID: 1810587749}
 --- !u!1001 &1810587749
 Prefab:
   m_ObjectHideFlags: 0
@@ -6434,6 +6445,11 @@ Prefab:
       propertyPath: DebuggerPanel
       value: 
       objectReference: {fileID: 1101234924}
+    - target: {fileID: 114000012126162182, guid: 8e8fb98cee864437995eb9c0b0548acd,
+        type: 2}
+      propertyPath: playerManagers.Array.data[0].spawnPoint
+      value: 
+      objectReference: {fileID: 1800492649}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8e8fb98cee864437995eb9c0b0548acd, type: 2}
   m_IsPrefabParent: 0

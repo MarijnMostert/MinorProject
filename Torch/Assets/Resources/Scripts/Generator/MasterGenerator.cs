@@ -51,6 +51,7 @@ public class MasterGenerator : Object {
         List<p2D> doors = new List<p2D> ();
 		List<p2D> puzzleCenters = new List<p2D> ();
 		List<p2D> allRoomCoords = new List<p2D> ();
+		List<int[]> allDoors = new List<int[]> ();
 
         dungeon_instantiate = new DungeonInstantiate(floor, side, sideAlt1, sideAlt2, corner, cornerout,
                                                                         roof, block, trap_straight, trap_crossing, trap_box,
@@ -77,6 +78,8 @@ public class MasterGenerator : Object {
 		allRoomCoords = dungeon.getAllRoomCoords ();
 		puzzleCenters = dungeon.getRoomCenters ();
 
+		List<Room> allrooms = dungeon.getRooms ();
+
         this.endMaze = maze;
 
 		//Debug.Log(donerooms);		
@@ -88,6 +91,7 @@ public class MasterGenerator : Object {
 
 		dungeon_instantiate.setPuzzleCoords (allRoomCoords);
 		dungeon_instantiate.setPuzzleCenters (puzzleCenters);
+		dungeon_instantiate.setPuzzleRoomsDG (allrooms);
 
 		Debug.Log(print(maze));
         dungeon_instantiate.importMaze(this.endMaze);
