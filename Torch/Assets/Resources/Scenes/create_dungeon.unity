@@ -477,7 +477,7 @@ ParticleSystem:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 764612025}
-  serializedVersion: 4
+  serializedVersion: 2
   lengthInSec: 5
   startDelay:
     scalar: 0
@@ -515,13 +515,12 @@ ParticleSystem:
       m_RotationOrder: 4
     minMaxState: 0
   speed: 1
+  randomSeed: 63433504
   looping: 1
   prewarm: 0
   playOnAwake: 1
   moveWithTransform: 0
-  autoRandomSeed: 0
   scalingMode: 1
-  randomSeed: 63433504
   InitialModule:
     serializedVersion: 2
     enabled: 1
@@ -2384,7 +2383,7 @@ ParticleSystem:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 947244866}
-  serializedVersion: 4
+  serializedVersion: 2
   lengthInSec: 5
   startDelay:
     scalar: 0
@@ -2422,13 +2421,12 @@ ParticleSystem:
       m_RotationOrder: 4
     minMaxState: 0
   speed: 1
+  randomSeed: 63433504
   looping: 1
   prewarm: 0
   playOnAwake: 1
   moveWithTransform: 0
-  autoRandomSeed: 0
   scalingMode: 1
-  randomSeed: 63433504
   InitialModule:
     serializedVersion: 2
     enabled: 1
@@ -4373,17 +4371,7 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114000012640107866, guid: cf3e1c810a2e94ddfa98fdcb76202dbb,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1389436525}
-    - target: {fileID: 114000010908676012, guid: cf3e1c810a2e94ddfa98fdcb76202dbb,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1389436525}
-    - target: {fileID: 114000013508966688, guid: cf3e1c810a2e94ddfa98fdcb76202dbb,
+    - target: {fileID: 114000011324823678, guid: cf3e1c810a2e94ddfa98fdcb76202dbb,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -4393,11 +4381,34 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 1389436525}
-    - target: {fileID: 114000011324823678, guid: cf3e1c810a2e94ddfa98fdcb76202dbb,
+    - target: {fileID: 114000013508966688, guid: cf3e1c810a2e94ddfa98fdcb76202dbb,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1389436525}
+    - target: {fileID: 114000010908676012, guid: cf3e1c810a2e94ddfa98fdcb76202dbb,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1389436525}
+    - target: {fileID: 114000012640107866, guid: cf3e1c810a2e94ddfa98fdcb76202dbb,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1389436525}
+    - target: {fileID: 1000012118417654, guid: cf3e1c810a2e94ddfa98fdcb76202dbb, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000011647558472, guid: cf3e1c810a2e94ddfa98fdcb76202dbb, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012346217826, guid: cf3e1c810a2e94ddfa98fdcb76202dbb,
+        type: 2}
+      propertyPath: m_Color.a
+      value: 0.722
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cf3e1c810a2e94ddfa98fdcb76202dbb, type: 2}
   m_IsPrefabParent: 0
@@ -4569,7 +4580,7 @@ ParticleSystem:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1293690408}
-  serializedVersion: 4
+  serializedVersion: 2
   lengthInSec: 5
   startDelay:
     scalar: 0
@@ -4607,13 +4618,12 @@ ParticleSystem:
       m_RotationOrder: 4
     minMaxState: 0
   speed: 1
+  randomSeed: 63433504
   looping: 1
   prewarm: 0
   playOnAwake: 1
   moveWithTransform: 0
-  autoRandomSeed: 0
   scalingMode: 1
-  randomSeed: 63433504
   InitialModule:
     serializedVersion: 2
     enabled: 1
@@ -6537,7 +6547,7 @@ ParticleSystem:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1992218659}
-  serializedVersion: 4
+  serializedVersion: 2
   lengthInSec: 5
   startDelay:
     scalar: 0
@@ -6575,13 +6585,12 @@ ParticleSystem:
       m_RotationOrder: 4
     minMaxState: 0
   speed: 1
+  randomSeed: 63433504
   looping: 1
   prewarm: 0
   playOnAwake: 1
   moveWithTransform: 0
-  autoRandomSeed: 0
   scalingMode: 1
-  randomSeed: 63433504
   InitialModule:
     serializedVersion: 2
     enabled: 1
