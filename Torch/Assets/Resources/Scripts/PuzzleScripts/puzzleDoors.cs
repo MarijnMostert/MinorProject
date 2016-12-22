@@ -43,6 +43,10 @@ public class puzzleDoors : MonoBehaviour {
 		Debug.Log ("SPAWNER STOPPED");
 		gameManager.spawner.dead = true;
 		active = true;
+
+		for (int i = 0; i < gameManager.playerManagers.Length; i++) {
+			//gameManager.playerManagers[i].playerInstance.GetComponent<Rigidbody>().constraints // verander
+		}
 	}
 
 	void EndPuzzle () {
