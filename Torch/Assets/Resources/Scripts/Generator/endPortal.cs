@@ -40,13 +40,11 @@ public class endPortal : MonoBehaviour {
 
     void onWin()
     {
-		gameManager.WriteFinishLevel ();
 		Time.timeScale = 0f;
 		gameManager.totalScore += gameManager.score;
 		endOfRoundCanvas.transform.Find ("Score").GetComponent<Text> ().text = gameManager.score.ToString();
 		endOfRoundCanvas.transform.Find ("TotalScore").GetComponent<Text> ().text = gameManager.totalScore.ToString();
 		endOfRoundCanvas.SetActive (true);
-		gameManager.score = 0;
 
 		/*
         //winText.gameObject.SetActive(true);

@@ -6,8 +6,6 @@ using System.Collections.Generic;
 using System;
 using UnityEngine.Analytics;
 
-
-
 public class GameManager : MonoBehaviour {
 
 	//Player data
@@ -37,6 +35,8 @@ public class GameManager : MonoBehaviour {
 	public GameObject enemyTarget;
 	public GameObject UIPrefab;
 	public GameObject UI;
+
+	public GameAnalytics analytics = new GameAnalytics();
 
 	public List<GameObject> PuzzleRooms;
 
@@ -96,7 +96,7 @@ public class GameManager : MonoBehaviour {
     }
 
     public void Start(){
-		WriteStart ();
+		analytics.WriteStart ();
 		pauseScreen.SetActive (false);
 		loadingScreenCanvas = Instantiate (loadingScreenCanvas) as GameObject;
 		loadingScreenCanvas.SetActive (false);
@@ -112,7 +112,18 @@ public class GameManager : MonoBehaviour {
             loadingScreenCanvas.SetActive(true);
             StartCoroutine(CreateDungeon());
             gameStarted = true;
+			StartCoroutine (WaitSpawning ());
         }
+	}
+
+	IEnumerator WaitSpawning(){
+		float wait = 11.0f - dungeonLevel;
+		if (wait < 1.0f) {
+			wait = 1.0f;
+		}
+		yield return new WaitForSeconds (wait);
+		spawner.dead = false;
+		Debug.Log ("spawner activated");
 	}
 
 	IEnumerator CreateDungeon(){
@@ -234,15 +245,7 @@ public class GameManager : MonoBehaviour {
 
 	public void GameOver(){
 		totalScore += score;
-		Dictionary<string, object> eventData = new Dictionary<string, object> {
-			{ "Event", "Death" },
-			{ "Score", totalScore },
-			{ "Level", dungeonLevel},
-			{ "TotalTime", Time.time}
-		};
-		UnityEngine.Analytics.Analytics.CustomEvent("Death", eventData);
-		WriteToFile (eventData);
-
+		analytics.WriteDeath (totalScore, dungeonLevel);
 		deathCanvas.SetActive (true);
 		deathCanvas.transform.Find ("Score Text").GetComponent<Text> ().text = "Your score: " + totalScore;
 		RoundEnd ();
@@ -311,39 +314,11 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void Proceed(){
+		analytics.WriteFinishLevel (dungeonLevel, score, StartTime);
+		score = 0;
 		RoundEnd ();
 		DestroyDungeon ();
 		StartGame ();
-	}
-
-	public void WriteStart(){
-		Dictionary<string, object> eventData = new Dictionary<string, object> {
-			{ "Event", "StartGame"},
-			{ "Time", DateTime.UtcNow}
-		};
-		UnityEngine.Analytics.Analytics.CustomEvent("LevelStart", eventData);
-		WriteToFile (eventData);
-	}
-		
-	public void WriteFinishLevel(){
-		Dictionary<string, object> eventData = new Dictionary<string, object> {
-			{ "Event", "FinishLevel"},
-			{ "Level", dungeonLevel},
-			{ "LevelScore", score },
-			{ "TimeSpent", Time.time - StartTime}
-		};
-		UnityEngine.Analytics.Analytics.CustomEvent("LevelComplete", eventData);
-		WriteToFile (eventData);
-	}
-
-	public void WriteToFile(Dictionary<string, object> dict){
-		using (System.IO.StreamWriter file = new System.IO.StreamWriter ("data.txt", true)) {
-			file.WriteLine ("{");
-			foreach (KeyValuePair<string, object> entry in dict) {
-				file.WriteLine (entry.Key + ":" + entry.Value);	
-			}
-			file.WriteLine ("}");
-		}
 	}
 
 	public void MuteAudio(){
