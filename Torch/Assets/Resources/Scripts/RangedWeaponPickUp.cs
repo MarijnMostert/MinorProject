@@ -13,7 +13,7 @@ public class RangedWeaponPickUp : MonoBehaviour, IPickUp {
 			if (player.GetComponent<Inventory> ().AddWeaponToInventory (weaponToEquip)) {
 				playWeapController.Equip (weaponToEquip);
 			}
-			Destroy (gameObject);
+			Destroy (transform.parent.gameObject);
 		}
 	}
 }
