@@ -14,11 +14,16 @@ public class EnemyBomber : Enemy {
 	public float gravity;
 	//public float initialVelocity;
 	private float angle;
-//	private Vector3 prevPosition;
+    //private Vector3 prevPosition;
+
+    private Animator anim;
+    bool attack_anim;
 
 	new void Awake(){
 		base.Awake ();
 		weaponController = GetComponent<WeaponController> ();
+        anim = GetComponent<Animator>();
+        setAnim(anim);
 	}
 
 	// Use this for initialization
@@ -31,28 +36,41 @@ public class EnemyBomber : Enemy {
 		StartCoroutine (UpdatePath ());
 	}
 
-	void Update () {
-		
-		varDistanceToTarget = distanceToTarget ();
-		if (gameManager.enemyTarget != null && varDistanceToTarget <= attackRange && (Time.time - lastAttackTime) > attackCooldown) {
-			attack ();
-		}
+    void Update()
+    {
+        if (!dead) {
+            varDistanceToTarget = distanceToTarget();
+            anim.SetBool("attack", false);
+            if (Time.realtimeSinceStartup > .5f && gameManager.enemyTarget != null && varDistanceToTarget <= attackRange && (Time.time - lastAttackTime) > attackCooldown)
+            {
+                StartCoroutine(attack());
+            }
+        } else
+        {
+            anim.SetBool("dead",true);
+        }
 	}
 
-	private void attack(){
-//		varDistanceToTarget = futureTargetPosition ();
-//		float force = Mathf.Sqrt (varDistanceToTarget * gravity / (Mathf.Sin (2f * (angle * 360 / (2 * Mathf.PI)))));
-		float forcePart1 = varDistanceToTarget * gravity;
-		float forcePart2 = Mathf.Sin (2f * (angle * 2f * Mathf.PI / 360));
-		float forcePart3 = forcePart1 / forcePart2;
-		float forcePart4 = Mathf.Abs (forcePart3);
-		float forceFinal = Mathf.Sqrt (forcePart4);
-		if (weapon == null) {
-			weapon = weaponController.currentWeapon as BomberWeapon;
-		}
-		weapon.force = forceFinal*45;
-		weapon.fire ();
-	}
+    private IEnumerator attack()
+    {
+        //		varDistanceToTarget = futureTargetPosition ();
+        //		float force = Mathf.Sqrt (varDistanceToTarget * gravity / (Mathf.Sin (2f * (angle * 360 / (2 * Mathf.PI)))));
+                  
+        anim.SetBool("attack", true);
+        yield return new WaitForSeconds(.8f);
+        float forcePart1 = varDistanceToTarget * gravity;
+        float forcePart2 = Mathf.Sin(2f * (angle * 2f * Mathf.PI / 360));
+        float forcePart3 = forcePart1 / forcePart2;
+        float forcePart4 = Mathf.Abs(forcePart3);
+        float forceFinal = Mathf.Sqrt(forcePart4);
+        if (weapon == null)
+        {
+            weapon = weaponController.currentWeapon as BomberWeapon;
+        }
+        weapon.force = forceFinal * 45;
+        weapon.fire();
+        yield return null;
+    }
 
 	private IEnumerator UpdatePath(){
 

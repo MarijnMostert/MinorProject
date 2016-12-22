@@ -40,6 +40,7 @@ public class endPortal : MonoBehaviour {
 
     void onWin()
     {
+		gameManager.WriteFinishLevel ();
 		Time.timeScale = 0f;
 		gameManager.totalScore += gameManager.score;
 		endOfRoundCanvas.transform.Find ("Score").GetComponent<Text> ().text = gameManager.score.ToString();

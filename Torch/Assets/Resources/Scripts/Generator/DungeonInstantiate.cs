@@ -25,6 +25,7 @@ public class DungeonInstantiate : Object {
 
 	List<p2D> puzzleCoords;
 	List<p2D> puzzleCenters;
+	List<Room> puzzleRoomsDG;
 
 	GameObject WallsParent;
 	GameObject FloorsParent;
@@ -39,6 +40,8 @@ public class DungeonInstantiate : Object {
 	GameObject WallPrefab;
 	GameObject FloorPrefab;
 	GameObject PuzzleMist;
+	GameObject WoodenDoors;
+	GameObject PuzzleDoors;
 
     public Vector3 startPos;
 
@@ -75,6 +78,7 @@ public class DungeonInstantiate : Object {
 		this.puzzleRooms = puzzleRooms;
 		this.puzzleCoords = new List<p2D> ();
 		this.puzzleCenters = new List<p2D> ();
+		this.puzzleRoomsDG = new List<Room> ();
 
 		WallsParent = new GameObject("Walls");
 		FloorsParent = new GameObject("Floors");
@@ -84,7 +88,8 @@ public class DungeonInstantiate : Object {
 		WallPrefab = Resources.Load ("Prefabs/Blocks/WallPrefab", typeof(GameObject)) as GameObject;
 		FloorPrefab = Resources.Load ("Prefabs/Blocks/FloorPrefab", typeof(GameObject)) as GameObject;
 		PuzzleMist = Resources.Load("Prefabs/PuzzlesScenes/PuzzleMist", typeof(GameObject)) as GameObject;
-
+		WoodenDoors =  Resources.Load("Prefabs/PuzzlesScenes/WoodenDoor", typeof(GameObject)) as GameObject;
+		PuzzleDoors = Resources.Load("Prefabs/PuzzlesScenes/PuzzleDoors", typeof(GameObject)) as GameObject;
 
 		BeginningRoom = Resources.Load ("Prefabs/PuzzlesScenes/BeginningRoom", typeof(GameObject)) as GameObject;
 		EndingRoom = Resources.Load ("Prefabs/PuzzlesScenes/EndingRoom", typeof(GameObject)) as GameObject;
@@ -103,6 +108,10 @@ public class DungeonInstantiate : Object {
 		puzzleCenters = coordList;
 	}
 
+	public void setPuzzleRoomsDG (List<Room> list) {
+		puzzleRoomsDG = list;
+	}
+
     public void createMaze(){
 		/*
         chance_trap_straight = 1f;
@@ -112,7 +121,7 @@ public class DungeonInstantiate : Object {
         start_defined = false;
         */
         step = 6f;
-		chance_chest = 0.04f;
+		chance_chest = 0.5f;
 
 		//Instantiate empty Dungeon GameObject
 		Dungeon = new GameObject("Dungeon");
@@ -226,6 +235,23 @@ public class DungeonInstantiate : Object {
 		myplane.transform.rotation = Quaternion.Euler (0, rotation, -90);
 	}
 
+	void buildDoors (p2D center, Vector3 convCenter, GameObject thesedoors){
+		int[] surrounding = null;
+		foreach (Room myroom in puzzleRoomsDG) {
+			if (myroom.getCenter ().Equals (center)) {
+				surrounding = myroom.getDirectiondoors ();
+				break;
+			}
+		}
+			
+		Debug.Log (surrounding[0] + "." + surrounding[1] + "." + surrounding[2] + "." + surrounding[3] + " " + center);
+		for (int i = 0; i < 4; i++) {
+			if (surrounding [i] == 1) {
+				Instantiate (WoodenDoors, convCenter, Quaternion.Euler (0, i * 90, 0), thesedoors.transform);
+			}
+		}
+	}
+
 	int[] getSurrounding2(int x, int y) {
 		int[] surroundings= new int[4];
 		surroundings [0] = (maze [x + 1, y]) ? 1 : 0;
@@ -266,8 +292,12 @@ public class DungeonInstantiate : Object {
 			Vector3 convCenter = new Vector3 (center.getX () * 6 + 1, 0, center.getY () * 6 + 1);
 			convCenter += new Vector3 (-4f, 0, -4f);
 			int number = Random.Range (0,puzzleRooms.Count);
-			Instantiate (puzzleRooms [number], convCenter, Quaternion.identity, Dungeon.transform);
-			Instantiate (PuzzleMist, convCenter, Quaternion.identity, Dungeon.transform);
+
+			GameObject thispuzzle = Instantiate (puzzleRooms [number], convCenter, Quaternion.identity, Dungeon.transform) as GameObject;
+			GameObject thesedoors = Instantiate (PuzzleDoors, convCenter, Quaternion.identity, thispuzzle.transform) as GameObject;
+			thesedoors.GetComponent<puzzleDoors> ().RoomType = thispuzzle.name;
+			buildDoors (center, convCenter, thesedoors);
+			Instantiate (PuzzleMist, convCenter, Quaternion.identity, thispuzzle.transform);
 		}
 	} 
 		
@@ -295,7 +325,7 @@ public class DungeonInstantiate : Object {
         float random = Random.value;
         if (random < chance_chest)
         {
-			GameObject chest_instance = Instantiate(chest, new Vector3(x * step, -1, z * step), randomQuaternion(), Dungeon.transform) as GameObject;
+			GameObject chest_instance = Instantiate(chest, new Vector3(x*6 + 3f, 0, z*6 + 3f), randomQuaternion(), Dungeon.transform) as GameObject;
             int number_of_items = Random.Range(0,4);
             for (int i = 0; i <= number_of_items; i++)
             {

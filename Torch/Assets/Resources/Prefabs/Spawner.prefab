@@ -22,7 +22,7 @@ GameObject:
   - 114: {fileID: 114000013909291790}
   m_Layer: 0
   m_Name: Spawner
-  m_TagString: Untagged
+  m_TagString: Spawner
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -34,7 +34,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011252651104}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 184.72035, y: 209.74567, z: 247.3243}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -51,15 +51,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f168ebd412eb24c2e8fcc6822d9b046e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapMinX: 5
-  mapMaxX: 107
-  mapMinZ: 5
-  mapMaxZ: 107
+  mapMinX: 0
+  mapMaxX: 228
+  mapMinZ: 0
+  mapMaxZ: 228
   min_radius: 10
   max_radius: 15
   enemiesToSpawn:
   - {fileID: 114000010852357478, guid: 3d2842cbcc34a40708b20f303dff8f13, type: 2}
   - {fileID: 114000010852357478, guid: 12075c3877f264a8494a195696782ca5, type: 2}
+  - {fileID: 114000012585250292, guid: 61cb62caa4a78134c8e4de355997cb1c, type: 2}
+  - {fileID: 114000012613288934, guid: e0da318d91b3b6c4db716d5f497f62bb, type: 2}
   enemiesPerWave: 5
   timeTillSpawning: 5
   timeBetweenEnemySpawn: 5
