@@ -21,11 +21,11 @@ public class HomeScreenMovement : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKey("s"))
+        if (Input.GetKey("d"))
         {
             target.transform.Translate(new Vector3(0, 0, .1f));
         }
-        if (Input.GetKey("d"))
+        if (Input.GetKey("a"))
         {
             target.transform.Translate(new Vector3(0, 0, -.1f));
         }

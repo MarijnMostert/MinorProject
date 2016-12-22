@@ -76,6 +76,8 @@ public class GameManager : MonoBehaviour {
 	public AudioClip[] audioDungeon;
 	public bool audioMuted;
 
+	public GameObject DebuggerPanel;
+
     void Awake () {
         gameStarted = false;
 		//Makes sure this object is not deleted when another scene is loaded.
@@ -169,6 +171,7 @@ public class GameManager : MonoBehaviour {
 	void Update () {
 		if (Input.GetButtonDown ("Pause"))
 			Pause ();
+		/*
 		if(Input.GetKeyDown(KeyCode.I)){
 			deathCanvas.SetActive (true);
 		}
@@ -176,6 +179,13 @@ public class GameManager : MonoBehaviour {
 			GameObject obj = ObjectPooler.current.GetObject ();
 			obj.SetActive (true);
 			obj.transform.position = GameObject.FindGameObjectWithTag ("Player").transform.position;
+		}
+		*/
+		if (Input.GetKeyDown (KeyCode.H)) {
+			if (DebuggerPanel.activeInHierarchy)
+				DebuggerPanel.SetActive (false);
+			else
+				DebuggerPanel.SetActive (true);
 		}
 	}
 
@@ -186,12 +196,18 @@ public class GameManager : MonoBehaviour {
 			pauseScreen.SetActive (true);
 			if(spawner != null)
 				spawner.dead = true;
+			foreach (PlayerManager PM in playerManagers) {
+				PM.ToggleMovement ();
+			}
 		} else {
 			Time.timeScale = 1;
 			paused = false;
 			pauseScreen.SetActive (false);
 			if (spawner != null)
 				spawner.dead = false;
+			foreach (PlayerManager PM in playerManagers) {
+				PM.ToggleMovement();
+			}
 		}
 	}
 

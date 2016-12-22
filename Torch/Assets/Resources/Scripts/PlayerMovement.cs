@@ -27,6 +27,8 @@ public class PlayerMovement : MonoBehaviour {
 	private GameObject[] controllerButtons;
 	private GameObject[] keyboardButtons;
 
+	public bool godMode = false;
+
 	[SerializeField] private float velocity;
 	private Vector3 prevPos = new Vector3 (0, 0, 0);
 
@@ -99,6 +101,9 @@ public class PlayerMovement : MonoBehaviour {
 					obj.SetActive (false);
 				}
 			}
+		}
+		if (Input.GetKeyDown (KeyCode.G)) {
+			GodMode ();
 		}
 	}
 	
@@ -173,6 +178,20 @@ public class PlayerMovement : MonoBehaviour {
 		velocity = (currentPos - prevPos).magnitude / Time.deltaTime;
 
 		prevPos = currentPos;
+	}
+
+	void GodMode(){
+		if (!godMode) {
+			Debug.Log ("Godmode turned on");
+			GetComponent<Collider> ().enabled = false;
+			speed *= 3;
+			godMode = true;
+		} else {
+			Debug.Log ("Godmode turned off");
+			GetComponent<Collider> ().enabled = true;
+			speed /= 3;
+			godMode = false;
+		}
 	}
 		
 }
