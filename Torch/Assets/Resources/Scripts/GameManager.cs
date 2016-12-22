@@ -48,6 +48,7 @@ public class GameManager : MonoBehaviour {
     public Spawner spawner;
 	public DamagePopUp damagePopUpper;
 
+	public ProceduralMaterial[] substances;
 
     //masterGenerator Vars
     int width = 40;// = 100;
@@ -112,6 +113,7 @@ public class GameManager : MonoBehaviour {
 
 	IEnumerator CreateDungeon(){
 		yield return new WaitForSeconds (.1f);
+		RandomizeTextures ();
 		masterGenerator = new MasterGenerator(this.gameObject, width, height, radius, maxlength, timeout, minAmountOfRooms, maxAmountOfRooms, chanceOfRoom, PuzzleRooms);
 		masterGenerator.LoadPrefabs();
 		masterGenerator.Start();
@@ -153,7 +155,16 @@ public class GameManager : MonoBehaviour {
 
 		yield return null;
 	}
-	
+
+	public void RandomizeTextures () {
+		foreach (ProceduralMaterial substance in substances){
+			UnityEngine.Random.InitState( (int)Time.time);
+			float random_value = (float)UnityEngine.Random.Range(0,100000);
+			substance.SetProceduralFloat("$randomseed", random_value);
+			substance.RebuildTextures();
+		}
+	}
+
 	void Update () {
 		if (Input.GetButtonDown ("Pause"))
 			Pause ();
