@@ -55,6 +55,10 @@ public class EnemyRanged : Enemy {
 			weapon = weaponController.currentWeapon as RangedWeapon;
 		}
 		weapon.Fire ();
+		if (clip_attack != null) {
+			audioSource.clip = clip_attack;
+			audioSource.Play ();
+		}
 		lastAttackTime = Time.time;
         first_attack = false;
         yield return null;
