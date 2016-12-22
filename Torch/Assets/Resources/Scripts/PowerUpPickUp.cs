@@ -10,7 +10,7 @@ public class PowerUpPickUp : MonoBehaviour, IPickUp {
 			GameObject player = collider.gameObject;
 			if (!player.GetComponent<Inventory> ().isFull ()) {
 				player.GetComponent<Inventory> ().AddItemToInventory (PowerUp, player);
-				Destroy (gameObject);
+				Destroy (transform.parent.gameObject);
 			}
 		}
 	}
