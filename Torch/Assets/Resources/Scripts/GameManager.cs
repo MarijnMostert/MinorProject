@@ -249,6 +249,7 @@ public class GameManager : MonoBehaviour {
 		deathCanvas.SetActive (true);
 		deathCanvas.transform.Find ("Score Text").GetComponent<Text> ().text = "Your score: " + totalScore;
 		RoundEnd ();
+		dungeonLevel = 0;
 	}
 
 	public void RoundEnd(){
