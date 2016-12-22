@@ -111,7 +111,18 @@ public class GameManager : MonoBehaviour {
             loadingScreenCanvas.SetActive(true);
             StartCoroutine(CreateDungeon());
             gameStarted = true;
+			StartCoroutine (WaitSpawning ());
         }
+	}
+
+	IEnumerator WaitSpawning(){
+		float wait = 11.0f - dungeonLevel;
+		if (wait < 1.0f) {
+			wait = 1.0f;
+		}
+		yield return new WaitForSeconds (wait);
+		spawner.dead = false;
+		Debug.Log ("spawner activated");
 	}
 
 	IEnumerator CreateDungeon(){

@@ -17,14 +17,18 @@ public class Spawner : MonoBehaviour {
 
     Floors floors;
 	public float timeTillSpawning = 5f;
-	public float timeBetweenEnemySpawn = 3f;
+	public float timeBetweenEnemySpawn;
     public bool dead;
 //	private int rangeX, rangeZ;
 
 	// Use this for initialization
 	void Start () {
 		gameManager = GameObject.Find ("Game Manager").GetComponent<GameManager> ();
-        dead = false;
+		timeBetweenEnemySpawn = 15.0f - (gameManager.dungeonLevel);
+		if (timeBetweenEnemySpawn < 1.0f) {
+			timeBetweenEnemySpawn = 1.0f;
+		}
+        dead = true;
 		waveButton = "SpawnWave";
 		spawnEnemyButton = "SpawnEnemy";
         StartCoroutine(SpawnEnemy());
