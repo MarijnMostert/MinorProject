@@ -16,6 +16,8 @@ public class PlayerManager {
 	[HideInInspector] public PlayerMovement playerMovement;
 	[HideInInspector] public PlayerWeaponController playerWeaponController;
 	[HideInInspector] public bool movementEnabled = true;
+	[HideInInspector] public bool active = true;
+	[HideInInspector] public GameManager gameManager;
 
 	public void Setup () {
 		cursorPointer = Resources.Load ("Prefabs/Cursor Pointer", typeof(GameObject)) as GameObject;
@@ -31,6 +33,8 @@ public class PlayerManager {
 		//Setup weapon controller script
 		playerWeaponController = playerInstance.GetComponent<PlayerWeaponController>();
 		playerWeaponController.setNumber(playerNumber);
+		active = true;
+		movementEnabled = true;
 	}
 
 	void Update(){
@@ -46,15 +50,40 @@ public class PlayerManager {
 		playerInstance.SetActive (true);
 	}
 
-	public void ToggleMovement(){
-		if (movementEnabled) {
-			playerMovement.enabled = false;
-			playerWeaponController.enabled = false;
-			movementEnabled = false;
-		} else {
+	public void EnableMovement(bool Bool){
+		if (Bool) {
+			//Enable player movement
 			playerMovement.enabled = true;
 			playerWeaponController.enabled = true;
 			movementEnabled = true;
+		} else {
+			//Disable player movement
+			playerMovement.enabled = false;
+			playerWeaponController.enabled = false;
+			movementEnabled = false;
 		}
+	}
+
+	public void Enable(bool Bool){
+		if (Bool) {
+			//Enable player
+			EnableMovement (true);
+			playerMovement.cursorPointer.SetActive (true);
+			Vector3 spawnLocation = gameManager.torch.transform.position;
+			spawnLocation.y = .5f;
+			playerInstance.transform.position = spawnLocation;
+			playerInstance.SetActive(true);
+			active = true;
+		} else {
+			//Disable player
+			if (playerInstance.gameObject.GetComponentInChildren<Torch> () != null) {
+				gameManager.torch.releaseTorch ();
+			}
+			EnableMovement (false);
+			playerMovement.cursorPointer.SetActive (false);
+			playerInstance.SetActive(false);
+			active = false;
+		}
+
 	}
 }

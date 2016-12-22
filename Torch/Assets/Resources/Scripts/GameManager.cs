@@ -6,8 +6,6 @@ using System.Collections.Generic;
 using System;
 using UnityEngine.Analytics;
 
-
-
 public class GameManager : MonoBehaviour {
 
 	//Player data
@@ -37,6 +35,8 @@ public class GameManager : MonoBehaviour {
 	public GameObject enemyTarget;
 	public GameObject UIPrefab;
 	public GameObject UI;
+
+	public GameAnalytics analytics = new GameAnalytics();
 
 	public List<GameObject> PuzzleRooms;
 
@@ -77,6 +77,7 @@ public class GameManager : MonoBehaviour {
 	public bool audioMuted;
 
 	public GameObject DebuggerPanel;
+	public GameObject[] allWeaponsAvailable;
 
     void Awake () {
         gameStarted = false;
@@ -95,7 +96,7 @@ public class GameManager : MonoBehaviour {
     }
 
     public void Start(){
-		WriteStart ();
+		analytics.WriteStart ();
 		pauseScreen.SetActive (false);
 		loadingScreenCanvas = Instantiate (loadingScreenCanvas) as GameObject;
 		loadingScreenCanvas.SetActive (false);
@@ -111,7 +112,18 @@ public class GameManager : MonoBehaviour {
             loadingScreenCanvas.SetActive(true);
             StartCoroutine(CreateDungeon());
             gameStarted = true;
+			StartCoroutine (WaitSpawning ());
         }
+	}
+
+	IEnumerator WaitSpawning(){
+		float wait = 11.0f - dungeonLevel;
+		if (wait < 1.0f) {
+			wait = 1.0f;
+		}
+		yield return new WaitForSeconds (wait);
+		spawner.dead = false;
+		Debug.Log ("spawner activated");
 	}
 
 	IEnumerator CreateDungeon(){
@@ -145,6 +157,7 @@ public class GameManager : MonoBehaviour {
 				playerManagers [i].playerNumber = i + 1;
 				playerManagers [i].Setup ();
 				playerManagers [i].playerMovement.mainCamera = mainCamera;
+				playerManagers [i].gameManager = this;
 			} else {
 				playerManagers [i].playerInstance.transform.position = masterGenerator.dungeon_instantiate.startPos;
 				playerManagers [i].Setup ();
@@ -187,6 +200,10 @@ public class GameManager : MonoBehaviour {
 			else
 				DebuggerPanel.SetActive (true);
 		}
+
+		if (Input.GetKeyDown (KeyCode.N)) {
+			SpawnAllWeapons ();
+		}
 	}
 
 	void Pause(){
@@ -197,7 +214,8 @@ public class GameManager : MonoBehaviour {
 			if(spawner != null)
 				spawner.dead = true;
 			foreach (PlayerManager PM in playerManagers) {
-				PM.ToggleMovement ();
+				if(PM.playerInstance != null)
+					PM.EnableMovement (false);
 			}
 		} else {
 			Time.timeScale = 1;
@@ -206,7 +224,8 @@ public class GameManager : MonoBehaviour {
 			if (spawner != null)
 				spawner.dead = false;
 			foreach (PlayerManager PM in playerManagers) {
-				PM.ToggleMovement();
+				if(PM.playerInstance != null)
+					PM.EnableMovement(true);
 			}
 		}
 	}
@@ -226,15 +245,7 @@ public class GameManager : MonoBehaviour {
 
 	public void GameOver(){
 		totalScore += score;
-		Dictionary<string, object> eventData = new Dictionary<string, object> {
-			{ "Event", "Death" },
-			{ "Score", totalScore },
-			{ "Level", dungeonLevel},
-			{ "TotalTime", Time.time}
-		};
-		UnityEngine.Analytics.Analytics.CustomEvent("Death", eventData);
-		WriteToFile (eventData);
-
+		analytics.WriteDeath (totalScore, dungeonLevel);
 		deathCanvas.SetActive (true);
 		deathCanvas.transform.Find ("Score Text").GetComponent<Text> ().text = "Your score: " + totalScore;
 		RoundEnd ();
@@ -243,6 +254,8 @@ public class GameManager : MonoBehaviour {
 	public void RoundEnd(){
 		if(spawner != null)
 			Destroy (spawner);
+		if (torch != null)
+			Destroy (torch.gameObject);
 		for (int i = 0; i < playerManagers.Length; i++) {
 			if(playerManagers[i].playerInstance != null)
 				playerManagers [i].playerInstance.SetActive (false);
@@ -256,7 +269,6 @@ public class GameManager : MonoBehaviour {
 		foreach (GameObject cursor in GameObject.FindGameObjectsWithTag ("CursorPointer")) {
 			Destroy (cursor);
 		}
-		Destroy(GameObject.FindGameObjectWithTag ("Torch"));
 	}
 
 	public void TransitionDeathToMain(){
@@ -272,8 +284,6 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void DestroyDungeon(){
-		if(torch != null)
-			Destroy (torch);
 		if(GameObject.Find("Dungeon") != null)
 			Destroy (GameObject.Find ("Dungeon"));
 		if(TorchFOV != null)
@@ -304,39 +314,11 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void Proceed(){
+		analytics.WriteFinishLevel (dungeonLevel, score, StartTime);
+		score = 0;
 		RoundEnd ();
 		DestroyDungeon ();
 		StartGame ();
-	}
-
-	public void WriteStart(){
-		Dictionary<string, object> eventData = new Dictionary<string, object> {
-			{ "Event", "StartGame"},
-			{ "Time", DateTime.UtcNow}
-		};
-		UnityEngine.Analytics.Analytics.CustomEvent("LevelStart", eventData);
-		WriteToFile (eventData);
-	}
-		
-	public void WriteFinishLevel(){
-		Dictionary<string, object> eventData = new Dictionary<string, object> {
-			{ "Event", "FinishLevel"},
-			{ "Level", dungeonLevel},
-			{ "LevelScore", score },
-			{ "TimeSpent", Time.time - StartTime}
-		};
-		UnityEngine.Analytics.Analytics.CustomEvent("LevelComplete", eventData);
-		WriteToFile (eventData);
-	}
-
-	public void WriteToFile(Dictionary<string, object> dict){
-		using (System.IO.StreamWriter file = new System.IO.StreamWriter ("data.txt", true)) {
-			file.WriteLine ("{");
-			foreach (KeyValuePair<string, object> entry in dict) {
-				file.WriteLine (entry.Key + ":" + entry.Value);	
-			}
-			file.WriteLine ("}");
-		}
 	}
 
 	public void MuteAudio(){
@@ -366,6 +348,24 @@ public class GameManager : MonoBehaviour {
 				UIHelp = true;
 				Debug.Log ("UI help is turned on");
 			}
+		}
+	}
+
+	public void SetNumberOfPlayers(int number){
+		if (number == 1) {
+			playerManagers [1].Enable (false);
+			if (mainCamera != null)
+				mainCamera.GetComponent<CameraController> ().UpdateTargets ();
+		} else if (number == 2 && !playerManagers[1].active) {
+			playerManagers [1].Enable (true);
+			if (mainCamera != null)
+				mainCamera.GetComponent<CameraController> ().UpdateTargets ();
+		}
+	}
+
+	void SpawnAllWeapons(){
+		foreach (GameObject weapon in allWeaponsAvailable) {
+			Instantiate (weapon, torch.transform.position + new Vector3 (UnityEngine.Random.Range (-2f, 2f), 0f, UnityEngine.Random.Range (-2f, 2f)), Quaternion.identity);
 		}
 	}
 }

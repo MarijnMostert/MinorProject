@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Projectile : MonoBehaviour {
 
@@ -9,8 +10,14 @@ public class Projectile : MonoBehaviour {
 	public float lifeTime;
 	public LayerMask collisionMask;
 	public float speed;
+	public bool piercing = false;
+	private List<Enemy> enemiesHit;
+	public ParticleSystem particlesOnHit;
 
 	void Start () {
+		if (piercing) {
+			enemiesHit = new List<Enemy> ();
+		}
 		//Destroy the bullet after lifeTime seconds
 		Destroy (gameObject, lifeTime);
 	}
@@ -40,6 +47,9 @@ public class Projectile : MonoBehaviour {
 		GameObject objectHitted = hit.collider.gameObject;
 
 		if (damagableObject != null) {
+			if (piercing && enemiesHit.Contains(objectHitted.GetComponent<Enemy>())){
+				return;
+			}
 			int damage = Random.Range (minDamage, maxDamage);
 			bool crit = false;
 			if (Random.value < critChance) {
@@ -50,9 +60,21 @@ public class Projectile : MonoBehaviour {
 			damagableObject.takeDamage (damage, crit);
 			//Debug.Log ("hit " + damagableObject);
 		}
-			
-		if (!objectHitted.CompareTag ("Shield")) {
-			Destroy (this.gameObject);
+
+		if (objectHitted.CompareTag ("Shield")) {
+			return;
 		}
+
+		if (particlesOnHit != null) {
+			ParticleSystem particles = Instantiate (particlesOnHit, hit.point, Quaternion.identity) as ParticleSystem;
+			Destroy (particles.gameObject, particles.duration);
+		}
+			
+		if (piercing && objectHitted.CompareTag ("Enemy")) {
+			enemiesHit.Add(objectHitted.GetComponent<Enemy>());
+			return;
+		}
+		
+		Destroy (gameObject);
 	}
 }

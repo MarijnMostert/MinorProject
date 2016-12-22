@@ -60,10 +60,12 @@ public class Torch : InteractableItem, IDamagable {
 	
 	void Update () {
 		lightUpdate ();
-		if (Input.GetButtonDown("DropTorch1") && equipped) {
+		if (Input.GetButtonDown("DropTorch1") && equipped && gameManager.playerManagers[0].playerInstance.GetComponentInChildren<Torch>() != null) {
 			releaseTorch ();
 		}
-
+		if (Input.GetButtonDown ("DropTorch2") && equipped && gameManager.playerManagers [1].playerInstance.GetComponentInChildren<Torch>() != null) {
+			releaseTorch ();
+		}
 	}
 
 	//Update the light intensity and range according to the health
@@ -139,6 +141,7 @@ public class Torch : InteractableItem, IDamagable {
 
 	void pickUpTorch(GameObject triggerObject){
 		Debug.Log ("Torch is picked up");
+		gameManager.analytics.WriteTorchPickup ();
 		transform.SetParent (triggerObject.transform.FindChild("Torch Holder"));
 		transform.position = transform.parent.position;
 		transform.rotation = transform.parent.rotation;
@@ -148,7 +151,7 @@ public class Torch : InteractableItem, IDamagable {
 		equipped = true;
 	}
 
-	void releaseTorch(){
+	public void releaseTorch(){
 		Debug.Log ("Torch is dropped");
 		transform.parent = null;
 		gameManager.enemyTarget = gameObject;

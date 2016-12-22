@@ -23,16 +23,29 @@ public class Enemy : MonoBehaviour, IDamagable {
 
     public Animator anim;
     public bool dead;
+	public AudioClip clip_takeDamage;
+	public AudioClip clip_attack;
+	public AudioClip clip_spawn;
+	public AudioClip clip_die;
+	public AudioClip clip_battleCry;
+	protected AudioSource audioSource;
 
 	protected virtual void Awake() {
 		navMeshAgent = GetComponent<NavMeshAgent> ();
 		gameManager = GameObject.Find ("Game Manager").GetComponent<GameManager>();
+		audioSource = GetComponent<AudioSource> ();
 	}
 
 	protected virtual void Start () {
 		health = startingHealth;
 		speed = gameObject.GetComponent<NavMeshAgent> ().speed;
         dead = false;
+
+		if (clip_spawn != null) {
+			audioSource.clip = clip_spawn;
+			audioSource.pitch = Random.Range (0.9f, 1.1f);
+			audioSource.Play ();
+		}
 	}
 
 	//Get the distance between the enemy and the torch
@@ -66,6 +79,12 @@ public class Enemy : MonoBehaviour, IDamagable {
 		}
 		DamagePopUp.CreateDamagePopUp(damage, gameObject, crit);
 
+		if (clip_takeDamage != null) {
+			audioSource.clip = clip_takeDamage;
+			audioSource.pitch = Random.Range (0.9f, 1.1f);
+			audioSource.Play ();
+		}
+
 		if (health <= 0)
 			Die ();
 	}
@@ -78,6 +97,11 @@ public class Enemy : MonoBehaviour, IDamagable {
 
     public void Die()
     {
+		if (clip_die != null) {
+			audioSource.clip = clip_die;
+			audioSource.pitch = Random.Range (0.9f, 1.1f);
+			audioSource.Play ();
+		}
         StartCoroutine(DieThread());
     }
 

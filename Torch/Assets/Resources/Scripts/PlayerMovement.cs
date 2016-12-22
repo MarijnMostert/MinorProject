@@ -62,6 +62,9 @@ public class PlayerMovement : MonoBehaviour {
 
 		cursorPointer = Instantiate(cursorPointer);
 
+		if (playerNumber == 2)
+			ToggleInput ();
+
 		/*
 		HorizontalAxis = "Horizontal" + playerNumber;
 		VerticalAxis = "Vertical" + playerNumber;
@@ -84,23 +87,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	void Update(){
 		if (Input.GetButtonDown("ToggleInput" + playerNumber)) {
-			if (controllerInput) {
-				controllerInput = false;
-				foreach (GameObject obj in controllerButtons) {
-					obj.SetActive (false);
-				}
-				foreach (GameObject obj in keyboardButtons) {
-					obj.SetActive (true);
-				}
-			} else {
-				controllerInput = true;
-				foreach (GameObject obj in controllerButtons) {
-					obj.SetActive (true);
-				}
-				foreach (GameObject obj in keyboardButtons) {
-					obj.SetActive (false);
-				}
-			}
+			ToggleInput ();
 		}
 		if (Input.GetKeyDown (KeyCode.G)) {
 			GodMode ();
@@ -171,6 +158,27 @@ public class PlayerMovement : MonoBehaviour {
 	//Updates the position of the crosshairs to the cursor position.
 	private void updateCursorPointer(Vector3 position){
 		cursorPointer.transform.position = new Vector3 (position.x, 0.1f, position.z);
+	}
+
+	void ToggleInput () {
+		if (controllerInput) {
+			controllerInput = false;
+			foreach (GameObject obj in controllerButtons) {
+				obj.SetActive (false);
+			}
+			foreach (GameObject obj in keyboardButtons) {
+				obj.SetActive (true);
+			}
+		}
+		else {
+			controllerInput = true;
+			foreach (GameObject obj in controllerButtons) {
+				obj.SetActive (true);
+			}
+			foreach (GameObject obj in keyboardButtons) {
+				obj.SetActive (false);
+			}
+		}
 	}
 
 	void UpdateVelocity(){
