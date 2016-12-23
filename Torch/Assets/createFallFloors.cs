@@ -7,12 +7,17 @@ public class createFallFloors : MonoBehaviour {
 	GameObject blocks;
 	GameObject platform;
 	List<Vector3> places;
+	LeverActivator lever;
+	bool current = false;
+	List<GameObject> fallingblocks;
+	bool finished = false;
 
 	// Use this for initialization
 	void Start () {
 		blocks = new GameObject("AllPlatforms");
 		blocks.transform.SetParent (transform);
 		platform = Resources.Load("Prefabs/PuzzlesScenes/FallPlatform", typeof(GameObject)) as GameObject;
+		lever = GetComponent<myLever> ().lever;
 
 		makeList ();
 		makeBlocks ();
@@ -22,9 +27,27 @@ public class createFallFloors : MonoBehaviour {
 		GetComponent<AllTimes> ().Restart ();
 	}
 
+	void Update () {
+		if (!finished && current != lever.is_on && lever.is_on) {
+			finished = true;
+			foreach (GameObject block in fallingblocks) {
+				block.SetActive = false;
+			}
+			platform.GetComponent<FallPlatform> ().active = false;
+			Vector3 counter = new Vector3 (4.0f, 11.0f, 1.5f);
+			buildOppositeX (counter);
+			buildOppositeX (-counter);
+			buildOppositeZ (counter);
+			buildOppositeZ (counter);
+			platform.GetComponent<FallPlatform> ().active = true;
+		}
+		current = lever.is_on;
+	}
+
 	void makeBlocks () {
 		foreach (Vector3 place in places) {
 			GameObject floor = GameObject.Instantiate (platform, place, Quaternion.identity, blocks.transform) as GameObject;
+			fallingblocks.Add (floor);
 		}
 	}
 
@@ -67,7 +90,8 @@ public class createFallFloors : MonoBehaviour {
 		float i = counter.x;
 		while (i < counter.y) {
 			Vector3 place = transform.position + new Vector3 (i, 0, 0);
-			GameObject.Instantiate (platform, place, Quaternion.identity, blocks.transform);
+			GameObject block = GameObject.Instantiate (platform, place, Quaternion.identity, blocks.transform) as GameObject;
+			fallingblocks.Add (block);
 			i += counter.z;
 		}
 	}
@@ -75,7 +99,8 @@ public class createFallFloors : MonoBehaviour {
 		float i = counter.x;
 		while (i < counter.y) {
 			Vector3 place = transform.position + new Vector3 (0, 0, i);
-			GameObject.Instantiate (platform, place, Quaternion.identity, blocks.transform);
+			GameObject block = GameObject.Instantiate (platform, place, Quaternion.identity, blocks.transform) as GameObject;
+			fallingblocks.Add (block);
 			i += counter.z;
 		}
 	}

@@ -3,11 +3,15 @@ using System.Collections;
 
 public class SwitchGround : MonoBehaviour {
 
-	public LeverActivator lever;
 	public int degrees;
+	LeverActivator lever;
 
 	private bool past;
 	private bool current;
+
+	void Start () {
+		lever = GetComponent<myLever> ().lever;
+	}
 
 	void Update () {
 		current = lever.is_on;
@@ -15,10 +19,6 @@ public class SwitchGround : MonoBehaviour {
 			transform.Rotate (0, degrees, 0);
 		}
 		past = current;
-	}
-
-	public void Reread () {
-		lever = GetComponentInChildren<LeverActivator> ();
 	}
 
 }

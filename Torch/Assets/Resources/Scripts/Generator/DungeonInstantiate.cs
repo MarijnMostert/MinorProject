@@ -298,8 +298,8 @@ public class DungeonInstantiate : Object {
 			GameObject thispuzzle = Instantiate (puzzleRooms [number], convCenter, Quaternion.identity, Dungeon.transform) as GameObject;
 			GameObject thesedoors = Instantiate (PuzzleDoors, convCenter, Quaternion.identity, thispuzzle.transform) as GameObject;
 
-			if (thispuzzle.GetComponent<SwitchGround> () != null) {
-				thispuzzle.GetComponent<SwitchGround> ().Reread ();
+			if (thispuzzle.GetComponent<myLever> () != null) {
+				thispuzzle.GetComponent<myLever> ().Reread ();
 			}
 
 			thesedoors.GetComponent<puzzleDoors> ().RoomType = thispuzzle.name;
