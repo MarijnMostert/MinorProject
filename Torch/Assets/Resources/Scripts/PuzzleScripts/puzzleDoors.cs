@@ -11,6 +11,7 @@ public class puzzleDoors : MonoBehaviour {
 	Doors[] doors;
 	GameManager gameManager;
 	public LeverActivator myLever;
+	private float StartTime;
 
 	// Use this for initialization
 	void Start () {
@@ -29,8 +30,8 @@ public class puzzleDoors : MonoBehaviour {
 	// Update is called once per frame
 	void OnTriggerEnter (Collider other) {
 		if (!done && !locked && other.gameObject.CompareTag("Player")) {
-			StartPuzzle ();		
-			Debug.Log ("PUZZLE LOCKED");
+			StartPuzzle ();	
+			gameManager.analytics.WritePuzzleStart (RoomType);
 			locked = true;
 		}
 	}
@@ -43,7 +44,7 @@ public class puzzleDoors : MonoBehaviour {
 		Debug.Log ("SPAWNER STOPPED");
 		gameManager.spawner.dead = true;
 		active = true;
-
+		StartTime = Time.time;
 		for (int i = 0; i < gameManager.playerManagers.Length; i++) {
 			gameManager.playerManagers [i].playerInstance.GetComponent<Rigidbody> ().constraints &= ~RigidbodyConstraints.FreezePositionY;
 		}
@@ -56,5 +57,6 @@ public class puzzleDoors : MonoBehaviour {
 		done = true;
 		active = false;
 		gameManager.spawner.dead = false;
+		gameManager.analytics.WritePuzzleComplete (RoomType, (Time.time - StartTime));
 	}
 }

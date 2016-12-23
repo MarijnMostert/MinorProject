@@ -1112,6 +1112,11 @@ MonoBehaviour:
   navMeshAgent: {fileID: 0}
   anim: {fileID: 0}
   dead: 0
+  clip_takeDamage: {fileID: 0}
+  clip_attack: {fileID: 0}
+  clip_spawn: {fileID: 0}
+  clip_die: {fileID: 0}
+  clip_battleCry: {fileID: 0}
   attacknow: 0
 --- !u!137 &137000011260341548
 SkinnedMeshRenderer:
@@ -1126,7 +1131,7 @@ SkinnedMeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: fb4f0438efe5f114da6554529a067575, type: 2}
+  - {fileID: 664861472, guid: 88718db18893c1a47b108f74e03c4f8a, type: 3}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}

@@ -46,7 +46,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1000013177254194
 GameObject:
   m_ObjectHideFlags: 0
@@ -57,7 +57,7 @@ GameObject:
   - 4: {fileID: 4000012516889660}
   m_Layer: 8
   m_Name: endPortal
-  m_TagString: Untagged
+  m_TagString: EndPortal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -95,7 +95,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013177254194}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 81.95831, y: 0.61077356, z: 64.374}
+  m_LocalPosition: {x: 96.2309, y: 2.104742, z: 64.434715}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -202,3 +202,4 @@ MonoBehaviour:
   loading: 0
   start_game: 0
   scene: Home
+  enabled: 0

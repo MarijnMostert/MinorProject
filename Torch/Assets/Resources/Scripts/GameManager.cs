@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour {
 	public GameObject camTarget;
 	public GameObject enemyTarget;
 	public GameObject UIPrefab;
-	private GameObject UI;
+	public GameObject UI;
 
 	public GameAnalytics analytics = new GameAnalytics();
 
@@ -49,15 +49,16 @@ public class GameManager : MonoBehaviour {
 	public GameObject triggerFloorPrefab;
 	private GameObject triggerFloorObject;
 
+	public ProceduralMaterial[] substances;
 
     //masterGenerator Vars
-	public int width = 40;// = 40;
-	public int height = 40;// = 40;
+	public int width = 20;//40;// = 40;
+	public int height = 20;//40;// = 40;
     int radius = 2;// = 2;
     int maxlength = 2;// = 2;
     int timeout = 200;// = 2000;
-    int minAmountOfRooms = 4;// = 4;
-    int maxAmountOfRooms = 47;// = 7;
+	int minAmountOfRooms = 2;//4;// = 4;
+	int maxAmountOfRooms = 4;//47;// = 7;
     int chanceOfRoom = 5;// = 10; Dit is de 1/n kans op een kamer, dus groter getal is kleinere kans
 
 
@@ -80,6 +81,9 @@ public class GameManager : MonoBehaviour {
 
 	private GameObject DebuggerPanel;
 	public GameObject[] allWeaponsAvailable;
+
+	public int collectedKeys;
+	public int requiredCollectedKeys;
 
     void Awake () {
         gameStarted = false;
@@ -106,11 +110,51 @@ public class GameManager : MonoBehaviour {
 		homeScreenPlayerPosition = GameObject.Find ("HomeScreenPlayer").transform.position;
 	}
 
+	void Parameters(int level){
+		if (level == 1) {
+			width = 20;
+			height = 20;
+			minAmountOfRooms = 2;
+			maxAmountOfRooms = 3;
+		}
+		if (level == 2) {
+			width = 25;
+			height = 25;
+			minAmountOfRooms = 4;
+			maxAmountOfRooms = 5;
+		}
+		if (level == 3) {
+			width = 30;
+			height = 30;
+			minAmountOfRooms = 5;
+			maxAmountOfRooms = 6;
+		}
+		if (level == 4) {
+			width = 35;
+			height = 35;
+			minAmountOfRooms = 5;
+			maxAmountOfRooms = 8;
+		}
+		if (level == 5) {
+			width = 40;
+			height = 40;
+			minAmountOfRooms = 6;
+			maxAmountOfRooms = 10;
+		}
+		if (level > 5) {
+			width = 50;
+			height = 50;
+			minAmountOfRooms = 7;
+			maxAmountOfRooms = 20;
+		}
+	}
+
 	public void StartGame(){
         if (!gameStarted) {
 			Time.timeScale = 1f;
 			StartTime = Time.time;
 			dungeonLevel++;
+			Parameters (dungeonLevel);
 			endOfRoundCanvas.SetActive (false);
             loadingScreenCanvas.SetActive(true);
             StartCoroutine(CreateDungeon());
@@ -133,6 +177,7 @@ public class GameManager : MonoBehaviour {
 
 	IEnumerator CreateDungeon(){
 		yield return new WaitForSeconds (.1f);
+		RandomizeTextures ();
 		masterGenerator = new MasterGenerator(this.gameObject, width, height, radius, maxlength, timeout, minAmountOfRooms, maxAmountOfRooms, chanceOfRoom, PuzzleRooms);
 		masterGenerator.LoadPrefabs();
 		masterGenerator.Start();
@@ -154,6 +199,8 @@ public class GameManager : MonoBehaviour {
 
 		inGameCameraObject = Instantiate (inGameCameraPrefab);
 		mainCamera = inGameCameraObject.GetComponentInChildren<Camera> ();
+
+		collectedKeys = 0;
 
 		for (int i = 0; i < playerManagers.Length; i++) {
 			if (playerManagers [i].playerInstance == null) {
@@ -187,7 +234,16 @@ public class GameManager : MonoBehaviour {
 
 		yield return null;
 	}
-	
+
+	public void RandomizeTextures () {
+		foreach (ProceduralMaterial substance in substances){
+			UnityEngine.Random.InitState( (int)Time.time);
+			float random_value = (float)UnityEngine.Random.Range(0,100000);
+			substance.SetProceduralFloat("$randomseed", random_value);
+			substance.RebuildTextures();
+		}
+	}
+
 	void Update () {
 		if (Input.GetButtonDown ("Pause"))
 			Pause ();
