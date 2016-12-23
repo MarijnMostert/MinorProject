@@ -13,7 +13,7 @@ public class LeverActivator : MonoBehaviour {
 	}
 	
 	void OnTriggerStay(Collider other){
-		if (other.gameObject.CompareTag ("Bullet")) { 
+		if (other.gameObject.CompareTag ("EnemyProjectile")) { 
 			SwitchLever (); 
 		}
 	

@@ -144,6 +144,7 @@ GameObject:
   - 4: {fileID: 4000013610441788}
   - 114: {fileID: 114000014110339338}
   - 114: {fileID: 114000010119458502}
+  - 208: {fileID: 208000011619877808}
   m_Layer: 0
   m_Name: MovingBlockPuzzle
   m_TagString: Untagged
@@ -292,7 +293,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013309580604}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 51.909313, y: 17.229958, z: 79.06823}
+  m_LocalPosition: {x: 177.30516, y: 213.35243, z: 177.82356}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -700,7 +701,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 590e7db1fc893fe4e8ad3267cb3338f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  allspeeds: 1
+  allspeeds: 3
   allamps: 3
 --- !u!114 &114000013891162914
 MonoBehaviour:
@@ -726,3 +727,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7cffabcace1de80429316783a0973a85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!208 &208000011619877808
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013309580604}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 15, y: 0.5, z: 15}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5

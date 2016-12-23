@@ -7,11 +7,18 @@ public class Room : Object {
 	private p2D center;
 	private List<p2D> doorways;
 	private int radius;
+	private int[] directiondoors;
+	private static int[,] mymaze;
+
+	public static void setMaze(int[,] maze) {
+		mymaze = maze;
+	}
 
 	public Room (p2D c, int radius) {
 		this.center = c;
 		this.radius = radius;
 		this.doorways = new List<p2D> ();
+		this.directiondoors = new int[] {0,0,0,0};
 		assignDoorways ();
 	}
 
@@ -34,6 +41,10 @@ public class Room : Object {
 		return center;
 	}
 
+	public int[] getDirectiondoors () {
+		return directiondoors;
+	}
+
 	public List<p2D> getAllCoords () {
 		List<p2D> returnable = new List<p2D> ();
 
@@ -43,6 +54,21 @@ public class Room : Object {
 			}
 		}
 		return returnable;
+	}
+
+	public void goRound() {
+		if (mymaze [center.getX () + radius + 1, center.getY ()] == 1) {
+			directiondoors [2] = 1;
+		}
+		if (mymaze [center.getX () - radius - 1, center.getY ()] == 1) {
+			directiondoors [0] = 1;
+		}
+		if (mymaze [center.getX (), center.getY () + radius + 1] == 1) {
+			directiondoors [1] = 1;
+		}
+		if (mymaze [center.getX (), center.getY () - radius - 1] == 1) {
+			directiondoors [3] = 1;
+		}				
 	}
 
 }

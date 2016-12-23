@@ -4,7 +4,12 @@ using System.Collections;
 public class Doors : MonoBehaviour {
 
 	Animator animator;
-	bool doorOpen;
+	public bool doorOpen;
+	public bool locked = false;
+
+	public Animator getAnimator() {
+		return animator;
+	}
 
 	void Start()
 	{
@@ -15,22 +20,36 @@ public class Doors : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other)
 	{
-		if (other.gameObject.CompareTag ("Player")) {
-			doorOpen = true;
-			DoorController ("Open");
+		if (!locked) {
+			if (other.gameObject.CompareTag ("Player")) {
+				Open ();
+			}
 		}
 	}
 
 	void OnTriggerExit(Collider other)
 	{
+		if (!locked) {
+			Close ();
+		}
+	}
+
+	public void DoorController(string direction)
+	{
+		animator.SetTrigger (direction);
+	}
+
+	public void Close() {
 		if (doorOpen) {
 			doorOpen = false;
 			DoorController ("Close");
 		}
 	}
 
-	void DoorController(string direction)
-	{
-		animator.SetTrigger (direction);
+	public void Open () {
+		if (!doorOpen) {
+			doorOpen = true;
+			DoorController ("Open");
+		}
 	}
 }
