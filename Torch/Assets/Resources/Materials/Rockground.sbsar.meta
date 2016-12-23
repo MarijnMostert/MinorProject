@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 9100c33a71d3bc34297f459ae70777f9
-timeCreated: 1482431469
+timeCreated: 1482494222
 licenseType: Free
 SubstanceImporter:
   serializedVersion: 5
@@ -194,7 +194,7 @@ SubstanceImporter:
       textureFormat: 0
       loadingBehavior: 1
   - serializedVersion: 16
-    name: Rock
+    name: Rockground
     prototypeName: Rock
     shaderName: 
     shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
@@ -358,27 +358,27 @@ SubstanceImporter:
           name: _EmissionColor
         second: {r: 0, g: 0, b: 0, a: 1}
     textureParameters:
-    - name: Rock_basecolor
+    - name: Rockground_basecolor
       alphaSource: 6
       filterMode: 1
       aniso: 1
       wrapMode: 0
-    - name: Rock_normal
+    - name: Rockground_normal
       alphaSource: 0
       filterMode: 1
       aniso: 1
       wrapMode: 0
-    - name: Rock_metallic
+    - name: Rockground_metallic
       alphaSource: 7
       filterMode: 1
       aniso: 1
       wrapMode: 0
-    - name: Rock_ambient_occlusion
+    - name: Rockground_ambient_occlusion
       alphaSource: 0
       filterMode: 1
       aniso: 1
       wrapMode: 0
-    - name: Rock_height
+    - name: Rockground_height
       alphaSource: 0
       filterMode: 1
       aniso: 1

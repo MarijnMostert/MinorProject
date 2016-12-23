@@ -92,8 +92,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000011313781502}
   - 33: {fileID: 33000010482637276}
-  - 136: {fileID: 136000013448831728}
   - 23: {fileID: 23000010283184390}
+  - 136: {fileID: 136000010459276126}
   m_Layer: 8
   m_Name: Start
   m_TagString: Untagged
@@ -631,10 +631,10 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011047798778}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 9, y: 1, z: 9}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: -2.63, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000013676979324}
   m_RootOrder: 0
@@ -840,7 +840,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011833665370}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 39.851166, y: 13.493155, z: 86.71154}
+  m_LocalPosition: {x: 11.9, y: 5.92, z: 3.6548674}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -1674,7 +1674,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011047798778}
-  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 4300000, guid: 81a29e01b4f9748f7b2bbd90d0a2fffe, type: 3}
 --- !u!33 &33000010525175992
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -2136,7 +2136,7 @@ MeshCollider:
   serializedVersion: 2
   m_Convex: 0
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!136 &136000013448831728
+--- !u!136 &136000010459276126
 CapsuleCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -2145,7 +2145,7 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 3.800611
+  m_Height: 14.116743
+  m_Direction: 2
+  m_Center: {x: -0.12889254, y: 0.057221055, z: 3.96}

@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class DispayText : MonoBehaviour {
 
+	private Text BoldText;
+
+
 	public bool keyboard;
 
 	[TextArea(3,10)]
@@ -17,21 +20,22 @@ public class DispayText : MonoBehaviour {
 
 	// Use this for initialization
 		void Start () {
-		myUI = GameObject.Find ("TutText");
-		myUI.GetComponent<Text> ().text = "";
+		BoldText = GameObject.Find ("Game Manager").GetComponent<GameManager> ().Bold.GetComponentInChildren<Text> ();
+//		myUI = GameObject.Find ("TutText");
+//		myUI.GetComponent<Text> ().text = "";
 
 	}
 
 	void OnTriggerEnter () {
 		Debug.Log ("Entered");
 		if (keyboard) {
-			myUI.GetComponent<Text> ().text =  myKeyboardText;
+			BoldText.text =  myKeyboardText;
 		} else {
-			myUI.GetComponent<Text> ().text =  myControllerText;
+			BoldText.text =  myControllerText;
 		}
 	}
 
 	void OnTriggerExit() {
-		myUI.GetComponent<Text> ().text =  "";
+		BoldText.text =  "";
 	}
 }

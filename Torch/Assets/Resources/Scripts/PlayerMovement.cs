@@ -64,6 +64,7 @@ public class PlayerMovement : MonoBehaviour {
 		//moveVertical = "moveVertical" + playerNumber;
 
 		cursorPointer = Instantiate(cursorPointer);
+		cursorPointer.SetActive (true);
 
 		if (playerNumber == 2)
 			ToggleInput ();

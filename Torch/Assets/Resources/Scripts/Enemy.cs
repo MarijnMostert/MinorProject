@@ -108,6 +108,7 @@ public class Enemy : MonoBehaviour, IDamagable {
 		Vector3 healthBarPosition = transform.position + new Vector3 (0, 2, 0);
 		healthBar = Instantiate (healthBarPrefab, healthBarPosition, transform.rotation, transform) as GameObject;
 		healthBarImage = healthBar.transform.FindChild ("HealthBar").GetComponent<Image> ();
+		healthBar.transform.localScale.Scale(new Vector3(3, 3, 3));
 	}
 
     public void Die()

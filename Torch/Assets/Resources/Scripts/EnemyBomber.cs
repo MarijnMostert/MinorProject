@@ -16,7 +16,7 @@ public class EnemyBomber : Enemy {
 	private float angle;
     //private Vector3 prevPosition;
 
-    private Animator anim;
+    //private Animator anim;
     bool attack_anim;
 
 	new void Awake(){
