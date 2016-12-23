@@ -7,7 +7,7 @@ public class HomeScreenMovement : MonoBehaviour {
     GameObject target;
     public float rotateSpeed = 5;
     Vector3 offset;
-
+    float min_height;
 
     void Awake()
     {
@@ -41,9 +41,11 @@ public class HomeScreenMovement : MonoBehaviour {
         target.transform.Rotate(0, horizontal, 0);
 
         float desiredAngle = target.transform.eulerAngles.y;
+        float vertical = Input.GetAxis("Mouse Y") * rotateSpeed/10f;
         Quaternion rotation = Quaternion.Euler(0, desiredAngle, 0);
-        transform.position = target.transform.position - (rotation * offset);
-    }
+        min_height += vertical;
+        transform.position = target.transform.position - (rotation * offset) + new Vector3(0,min_height,0);
+    }    
 
     void LateUpdate(){
 		transform.LookAt(target.transform);
