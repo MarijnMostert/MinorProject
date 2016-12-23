@@ -263,14 +263,20 @@ public class GameManager : MonoBehaviour {
 		}
 		*/
 		if (Input.GetKeyDown (KeyCode.H)) {
-			if (DebuggerPanel.activeInHierarchy)
-				DebuggerPanel.SetActive (false);
-			else
-				DebuggerPanel.SetActive (true);
+			if (DebuggerPanel != null) {
+				if (DebuggerPanel.activeInHierarchy)
+					DebuggerPanel.SetActive (false);
+				else
+					DebuggerPanel.SetActive (true);
+			}
 		}
 
 		if (Input.GetKeyDown (KeyCode.N)) {
 			SpawnAllWeapons ();
+		}
+
+		if (Input.GetKeyDown (KeyCode.L)) {
+			Proceed ();
 		}
 	}
 

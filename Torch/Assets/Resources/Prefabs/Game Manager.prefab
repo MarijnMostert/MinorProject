@@ -152,7 +152,6 @@ MonoBehaviour:
     gameManager: {fileID: 0}
   playerPrefab: {fileID: 1000010005094228, guid: 96b70f8172a034350bce5e9b0ef6db4d,
     type: 2}
-  torchPrefab: {fileID: 0}
   torch: {fileID: 114000010962005414, guid: 86f8871f16b6e4321a072873febde5a7, type: 2}
   torchSpawnPoint: {fileID: 4000010238434374, guid: d3153958a3d7d461c86548c1a70ff1bb,
     type: 2}
@@ -167,7 +166,6 @@ MonoBehaviour:
   pauseScreen: {fileID: 0}
   inGameCameraPrefab: {fileID: 1000010527591912, guid: 2f0d8300580bb4db9b1240053b57aeaf,
     type: 2}
-  inGameCameraObject: {fileID: 0}
   camTarget: {fileID: 0}
   enemyTarget: {fileID: 0}
   UIPrefab: {fileID: 1000011980605034, guid: ce12bf815c9354cd38ffdb78d7b15e2b, type: 2}
@@ -183,27 +181,25 @@ MonoBehaviour:
   UIHelp: 1
   TorchFOVPrefab: {fileID: 1000011320308738, guid: b5c950376b24a4029afee84b9656c78b,
     type: 2}
-  TorchFOV: {fileID: 0}
   spawner: {fileID: 0}
   triggerFloorPrefab: {fileID: 1000012485642322, guid: e38f8103c4fde44d1a4cf4066fa8ebde,
     type: 2}
   substances:
-  - {fileID: 1165194220, guid: 9100c33a71d3bc34297f459ae70777f9, type: 3}
-  - {fileID: 1165194220, guid: de1d36f093b73c943a0a0e67025b5e15, type: 3}
+  - {fileID: -2071217773, guid: 9100c33a71d3bc34297f459ae70777f9, type: 3}
+  - {fileID: -1486117434, guid: de1d36f093b73c943a0a0e67025b5e15, type: 3}
+  width: 20
+  height: 20
   loadingScreenCanvas: {fileID: 1000013625541172, guid: 0ff01cb270ef14af5b80d2ec70ecc88c,
     type: 2}
   deathCanvas: {fileID: 0}
   endOfRoundCanvas: {fileID: 0}
-  homeScreen: {fileID: 0}
-  homeScreenCam: {fileID: 0}
   mainCamera: {fileID: 0}
-  audioSource: {fileID: 0}
+  minimap: {fileID: 0}
   audioHomeScreen: {fileID: 8300000, guid: 7e404d8a72ce34ec98bd3c27ed1782f8, type: 3}
   audioDungeon:
   - {fileID: 8300000, guid: 3d02f9a386baf4bea855ca88493ab372, type: 3}
   - {fileID: 8300000, guid: 667c3a85722394921ba0173a0e9b17b3, type: 3}
   audioMuted: 0
-  DebuggerPanel: {fileID: 0}
   allWeaponsAvailable:
   - {fileID: 1000013538442878, guid: 3fc544d2b1e1b4b2487700e752433bfb, type: 2}
   - {fileID: 1000013538442878, guid: 754b92d26cdd8421fb0eed83baf2fb1a, type: 2}
@@ -211,3 +207,4 @@ MonoBehaviour:
   - {fileID: 1000013538442878, guid: ca38a5fb88da24c4e9bc748a2bba3449, type: 2}
   collectedKeys: 0
   requiredCollectedKeys: 0
+  Bold: {fileID: 1000010787105900, guid: 34e435e0d20414bb0ad3cd7e62be2d41, type: 2}
