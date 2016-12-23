@@ -11,15 +11,18 @@ public class LeverActivator : MonoBehaviour {
 	void Start () {
 		interactionButton = "InteractionButton";
 	}
-	
-	void OnTriggerStay(Collider other){
-		if (other.gameObject.CompareTag ("EnemyProjectile")) { 
-			SwitchLever (); 
+
+	void OnTriggerEnter(Collider other) {
+		if (other.gameObject.layer == LayerMask.NameToLayer("PlayerProjectile")) { 
+			if (Input.GetButtonDown (interactionButton)) {
+				SwitchLever (); 
+			}
 		}
-	
+	}
+
+	void OnTriggerStay(Collider other){
 		if (other.gameObject.CompareTag ("Player")) {
 			if (Input.GetButtonDown (interactionButton)) {
-				Debug.Log ("Push");
 				SwitchLever ();
 			}
 		}

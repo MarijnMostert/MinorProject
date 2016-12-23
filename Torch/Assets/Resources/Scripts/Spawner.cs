@@ -54,7 +54,7 @@ public class Spawner : MonoBehaviour {
 		}
 	}
 
-	void spawnEnemy(){
+	public void spawnEnemy(){
 		Enemy enemy = enemiesToSpawn [Random.Range (0, enemiesToSpawn.Length)];
 		Vector3 position = getPosition ();
 		Instantiate (enemy, position, transform.rotation);
