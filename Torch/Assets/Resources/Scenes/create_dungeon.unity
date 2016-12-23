@@ -1255,6 +1255,10 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SetNumberOfPlayers
       objectReference: {fileID: 0}
+    - target: {fileID: 1000012118417654, guid: cf3e1c810a2e94ddfa98fdcb76202dbb, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cf3e1c810a2e94ddfa98fdcb76202dbb, type: 2}
   m_IsPrefabParent: 0
@@ -2394,6 +2398,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114000012126162182, guid: 8e8fb98cee864437995eb9c0b0548acd,
+        type: 2}
+      propertyPath: substances.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4000013396432608, guid: 8e8fb98cee864437995eb9c0b0548acd, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2441,17 +2450,18 @@ Prefab:
       propertyPath: endOfRoundCanvas
       value: 
       objectReference: {fileID: 270816652}
-    - target: {fileID: 82000010765992802, guid: 8e8fb98cee864437995eb9c0b0548acd,
-        type: 2}
-      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
-      value: 0.452
-      objectReference: {fileID: 0}
     - target: {fileID: 114000012126162182, guid: 8e8fb98cee864437995eb9c0b0548acd,
         type: 2}
-      propertyPath: triggerFloorPrefab
+      propertyPath: substances.Array.data[0]
       value: 
-      objectReference: {fileID: 1000012485642322, guid: e38f8103c4fde44d1a4cf4066fa8ebde,
+      objectReference: {fileID: 1165194220, guid: 9100c33a71d3bc34297f459ae70777f9,
+        type: 3}
+    - target: {fileID: 114000012126162182, guid: 8e8fb98cee864437995eb9c0b0548acd,
         type: 2}
+      propertyPath: substances.Array.data[1]
+      value: 
+      objectReference: {fileID: 1165194220, guid: de1d36f093b73c943a0a0e67025b5e15,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8e8fb98cee864437995eb9c0b0548acd, type: 2}
   m_IsPrefabParent: 0

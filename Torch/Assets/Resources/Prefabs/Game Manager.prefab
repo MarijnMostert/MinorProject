@@ -176,8 +176,8 @@ MonoBehaviour:
   - {fileID: 1000010275947170, guid: 2c69b9685e818ec4f810ceb0a5e12c7d, type: 2}
   - {fileID: 1000010275947170, guid: 2c69b9685e818ec4f810ceb0a5e12c7d, type: 2}
   - {fileID: 1000013095267004, guid: 5288fcd4fb05339498a5d9c9dc49a76c, type: 2}
-  - {fileID: 1000011832919986, guid: fb219ecc626f53d498ba9b7b66e404be, type: 2}
   - {fileID: 1000010173967298, guid: e72c1f558cafdfb4d8814a1f26d633dc, type: 2}
+  - {fileID: 1000011832919986, guid: fb219ecc626f53d498ba9b7b66e404be, type: 2}
   - {fileID: 1000013309580604, guid: 64a22ead90fa46542b9274c81372775a, type: 2}
   UIHelpItems: []
   UIHelp: 1
@@ -187,6 +187,9 @@ MonoBehaviour:
   spawner: {fileID: 0}
   triggerFloorPrefab: {fileID: 1000012485642322, guid: e38f8103c4fde44d1a4cf4066fa8ebde,
     type: 2}
+  substances:
+  - {fileID: -2071217773, guid: d1a7136aa6bb0f14ea8cf2c26e6a77b4, type: 3}
+  - {fileID: -1486117434, guid: 4295a4d021870f64c8437abd704a3d02, type: 3}
   loadingScreenCanvas: {fileID: 1000013625541172, guid: 0ff01cb270ef14af5b80d2ec70ecc88c,
     type: 2}
   deathCanvas: {fileID: 0}

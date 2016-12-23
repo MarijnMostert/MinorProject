@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
@@ -30,10 +30,15 @@ public class Enemy : MonoBehaviour, IDamagable {
 	public AudioClip clip_battleCry;
 	protected AudioSource audioSource;
 
+
 	protected virtual void Awake() {
 		navMeshAgent = GetComponent<NavMeshAgent> ();
 		gameManager = GameObject.Find ("Game Manager").GetComponent<GameManager>();
+
+		dead = false;
+
 		audioSource = GetComponent<AudioSource> ();
+
 	}
 
 	protected virtual void Start () {
@@ -79,14 +84,24 @@ public class Enemy : MonoBehaviour, IDamagable {
 		}
 		DamagePopUp.CreateDamagePopUp(damage, gameObject, crit);
 
+
+		
+
 		if (clip_takeDamage != null) {
 			audioSource.clip = clip_takeDamage;
 			audioSource.pitch = Random.Range (0.9f, 1.1f);
 			audioSource.Play ();
 		}
 
-		if (health <= 0)
+		if (health <= 0) {
+			if (anim != null)
+			{
+				Debug.Log ("animation time");
+				anim.SetTrigger ("Die");
+			}
+			Debug.Log ("dead");
 			Die ();
+		}
 	}
 
 	void InstantiateHealthBar (){
@@ -112,13 +127,14 @@ public class Enemy : MonoBehaviour, IDamagable {
 //        Debug.Log(anim);
         if (anim != null)
         {
-            yield return new WaitForSeconds(.56f);
+            yield return new WaitForSeconds(1.25f);//.56f
         }
         //Add a score
         gameManager.updateScore(scoreValue);
         StopAllCoroutines();
         Destroy(gameObject);
         yield return null;
+
 	}
 
     public void setAnim(Animator animator)
