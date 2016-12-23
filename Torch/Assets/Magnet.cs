@@ -5,8 +5,8 @@ public class Magnet : MonoBehaviour {
 
 	public float strength = 1f;
 	public float range = 5f;
+	public float distanceToKeep = 0f;
 
-	private Collider collider;
 	private bool activated = false;
 	private Vector3 target;
 	private Vector3 smoothDampVar;
@@ -19,7 +19,7 @@ public class Magnet : MonoBehaviour {
 
 	void OnTriggerStay(Collider other){
 		if (other.gameObject.CompareTag ("Player")) {
-			target = other.transform.position;
+			target = (transform.parent.position - other.transform.position).normalized * distanceToKeep + other.transform.position;
 		}
 	}
 
@@ -31,6 +31,7 @@ public class Magnet : MonoBehaviour {
 
 	void Update(){
 		if (activated) {
+			
 			if ((transform.parent.position - target).magnitude < range) {
 				transform.parent.position = Vector3.SmoothDamp (transform.parent.position, target, ref smoothDampVar, 1/strength);
 			}
