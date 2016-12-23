@@ -80,6 +80,9 @@ public class GameManager : MonoBehaviour {
 	public GameObject DebuggerPanel;
 	public GameObject[] allWeaponsAvailable;
 
+	public int collectedKeys;
+	public int requiredCollectedKeys;
+
     void Awake () {
         gameStarted = false;
 		//Makes sure this object is not deleted when another scene is loaded.
@@ -191,6 +194,8 @@ public class GameManager : MonoBehaviour {
 
 		inGameCameraObject = Instantiate (inGameCameraPrefab);
 		mainCamera = inGameCameraObject.GetComponentInChildren<Camera> ();
+
+		collectedKeys = 0;
 
 		for (int i = 0; i < playerManagers.Length; i++) {
 			if (playerManagers [i].playerInstance == null) {
