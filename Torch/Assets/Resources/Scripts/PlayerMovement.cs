@@ -32,12 +32,15 @@ public class PlayerMovement : MonoBehaviour {
 	[SerializeField] private float velocity;
 	private Vector3 prevPos = new Vector3 (0, 0, 0);
 
+    Animator anim1;
+
 	void Awake(){
 		controllerButtons = GameObject.FindGameObjectsWithTag("UI Help Controller");
 		foreach(GameObject obj in controllerButtons){
 			obj.SetActive (false);
 		}
 		keyboardButtons = GameObject.FindGameObjectsWithTag("UI Help Key");
+        anim1 = GetComponentInChildren<Animator>();
 	}
 
 	/*
@@ -116,7 +119,17 @@ public class PlayerMovement : MonoBehaviour {
 		//Normalize to account for diagonal walking lines
 		MovementInput = MovementInput.normalized;
 
-		//Move
+        //Move
+        if (anim1!=null) {
+            Debug.Log((MovementInput * speed * Time.deltaTime).magnitude);
+            if ((MovementInput * speed * Time.deltaTime).magnitude > .1f)
+            {
+                anim1.SetBool("walking",true);
+            } else
+            {
+                anim1.SetBool("walking", false);
+            }
+        }
 		transform.position += (MovementInput * speed * Time.deltaTime);
 	}
 

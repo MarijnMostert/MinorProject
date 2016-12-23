@@ -12,6 +12,8 @@ public class PlayerWeaponController : WeaponController {
 	public AudioClip clip_attack;
 	private AudioSource audioSource;
 
+    Animator anim;
+
 	void Awake(){
 		audioSource = GetComponent<AudioSource> ();
 	}
@@ -20,6 +22,7 @@ public class PlayerWeaponController : WeaponController {
 		base.Start ();
 		inventory = gameObject.GetComponent<Inventory> ();
 		inventory.AddWeaponToInventory (startingWeapon);
+        anim = GetComponentInChildren<Animator>();
 //		attackButtonController = "ControllerAttack" + playerNumber;
 	}
     
@@ -31,6 +34,11 @@ public class PlayerWeaponController : WeaponController {
 
     void Update () {
 		if (Input.GetButton (attackButton)) {
+            if (anim != null)
+            {
+                anim.SetBool("Attack",true);
+                anim.SetBool("Attack", false);
+            }
 			Attack ();
 		}
 	}
