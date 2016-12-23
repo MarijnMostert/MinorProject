@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour {
 	public GameObject UI;
 
 	public GameAnalytics analytics = new GameAnalytics();
+	public Save saver = new Save();
 
 	public List<GameObject> PuzzleRooms;
 
@@ -157,6 +158,7 @@ public class GameManager : MonoBehaviour {
         if (!gameStarted) {
 			Time.timeScale = 1f;
 			StartTime = Time.time;
+			dungeonLevel = saver.Read ();
 			dungeonLevel++;
 			Parameters (dungeonLevel);
 			endOfRoundCanvas.SetActive (false);
@@ -389,6 +391,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void Proceed(){
+		saver.ToFile (dungeonLevel);
 		analytics.WriteFinishLevel (dungeonLevel, score, StartTime);
 		score = 0;
 		RoundEnd ();
