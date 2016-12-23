@@ -73,6 +73,7 @@ public class GameManager : MonoBehaviour {
 	private Vector3 homeScreenPlayerPosition;
     MasterGenerator masterGenerator;
     bool gameStarted;
+	bool tutorialStarted;
 
 	private AudioSource audioSource;
 	public AudioClip audioHomeScreen;
@@ -84,9 +85,11 @@ public class GameManager : MonoBehaviour {
 
 	public int collectedKeys;
 	public int requiredCollectedKeys;
+	public GameObject Bold;
 
     void Awake () {
         gameStarted = false;
+		tutorialStarted = false;
 		//Makes sure this object is not deleted when another scene is loaded.
 		if (Instance != null) {
 			GameObject.Destroy (this.gameObject);
@@ -108,6 +111,7 @@ public class GameManager : MonoBehaviour {
 		loadingScreenCanvas = Instantiate (loadingScreenCanvas) as GameObject;
 		loadingScreenCanvas.SetActive (false);
 		homeScreenPlayerPosition = GameObject.Find ("HomeScreenPlayer").transform.position;
+		Bold = Instantiate (Bold);
 	}
 
 	void Parameters(int level){
@@ -157,6 +161,7 @@ public class GameManager : MonoBehaviour {
 			Parameters (dungeonLevel);
 			endOfRoundCanvas.SetActive (false);
             loadingScreenCanvas.SetActive(true);
+			homeScreen.SetActive (false);
             StartCoroutine(CreateDungeon());
             gameStarted = true;
 			StartCoroutine (WaitSpawning ());
@@ -221,6 +226,7 @@ public class GameManager : MonoBehaviour {
 
 		Vector3 startpoint = masterGenerator.MovePlayersToStart ();
 		torch.transform.position = startpoint + new Vector3 (6, .5f, 0);
+		Bold.transform.position = startpoint;
 
 		torch.cam = mainCamera;
 		UI.transform.FindChild ("Score Text").GetComponent<Text> ().text = "Score: " + score;
@@ -228,7 +234,6 @@ public class GameManager : MonoBehaviour {
 
 		audioSource.clip = audioDungeon [UnityEngine.Random.Range (0, audioDungeon.Length)];
 		audioSource.Play ();
-		homeScreen.SetActive (false);
 		homeScreenCam.SetActive (false);
 		loadingScreenCanvas.SetActive (false);
 
@@ -431,5 +436,27 @@ public class GameManager : MonoBehaviour {
 		foreach (GameObject weapon in allWeaponsAvailable) {
 			Instantiate (weapon, torch.transform.position + new Vector3 (UnityEngine.Random.Range (-2f, 2f), 0f, UnityEngine.Random.Range (-2f, 2f)), Quaternion.identity);
 		}
+	}
+
+	public void StartTutorial(){
+		if (!tutorialStarted) {
+			Time.timeScale = 1f;
+			StartTime = Time.time;
+			loadingScreenCanvas.SetActive (true);
+			homeScreen.SetActive (false);
+			StartCoroutine (LoadTutorial ());
+			tutorialStarted = true;
+
+
+		}
+	}
+
+	IEnumerator LoadTutorial(){
+		yield return new WaitForSeconds (.1f);
+
+		//Tutorial moet hier geladen worden
+
+		loadingScreenCanvas.SetActive (false);
+		yield return null;
 	}
 }
