@@ -75,6 +75,10 @@ public class GameManager : MonoBehaviour {
     MasterGenerator masterGenerator;
     bool gameStarted;
 	bool tutorialStarted;
+	public GameObject tutorialPrefab;
+	private GameObject tutorialObject;
+	public GameObject tutorialTorchPrefab;
+	private GameObject tutorialTorchObject;
 
 	private AudioSource audioSource;
 	public AudioClip audioHomeScreen;
@@ -168,7 +172,7 @@ public class GameManager : MonoBehaviour {
             gameStarted = true;
 			StartCoroutine (WaitSpawning ());
 
-			Instantiate (minimap);
+			//Instantiate (minimap);
 		}
 	}
 
@@ -367,6 +371,9 @@ public class GameManager : MonoBehaviour {
 			Destroy (TorchFOV);
 		deathCanvas.SetActive (false);
 		gameStarted = false;
+		tutorialStarted = false;
+		if (tutorialObject != null)
+			Destroy (tutorialObject);
 		Destroy (inGameCameraObject);
 	}
 
@@ -461,11 +468,63 @@ public class GameManager : MonoBehaviour {
 	}
 
 	IEnumerator LoadTutorial(){
+
 		yield return new WaitForSeconds (.1f);
 
-		//Tutorial moet hier geladen worden
+		//Load tutorial prefab
+		tutorialObject = Instantiate(tutorialPrefab);
+		Transform Spawnpoint = tutorialObject.transform.Find ("Spawnpoint");
 
+		tutorialTorchObject = Instantiate (tutorialTorchPrefab, Spawnpoint.position + new Vector3(0f, -.5f, 0f), Quaternion.identity, tutorialObject.transform) as GameObject;
+		Torch tutTorch = tutorialTorchObject.GetComponent<Torch> ();
+
+		if (UI == null) {
+			UI = Instantiate (UIPrefab, tutorialObject.transform) as GameObject;
+			UIHelpItems = GameObject.FindGameObjectsWithTag ("UI Help");
+		}
+
+		TorchFOV = Instantiate (TorchFOVPrefab, tutorialObject.transform) as GameObject;
+
+		camTarget = tutorialTorchObject;
+		enemyTarget = tutTorch.gameObject;
+		tutTorch.health = torchStartingHealth;
+		tutTorch.gameManager = this;
+		tutTorch.UI = UI;
+		tutTorch.TorchFOV = TorchFOV.GetComponentInChildren<Animator> ();
+		torch = tutTorch;
+
+		inGameCameraObject = Instantiate (inGameCameraPrefab, tutorialObject.transform) as GameObject;
+		mainCamera = inGameCameraObject.GetComponentInChildren<Camera> ();
+		Bold.GetComponentInChildren<LookAtCamera> ().cam = mainCamera;
+
+		for (int i = 0; i < playerManagers.Length; i++) {
+			if (playerManagers [i].playerInstance == null) {
+				Debug.Log ("Create Player with id:" + i);
+				playerManagers [i].playerInstance = Instantiate (playerPrefab, Spawnpoint.position, Quaternion.identity, tutorialObject.transform) as GameObject;
+				playerManagers [i].playerNumber = i + 1;
+				playerManagers [i].Setup ();
+				playerManagers [i].playerMovement.mainCamera = mainCamera;
+				playerManagers [i].gameManager = this;
+			} else {
+				playerManagers [i].playerInstance.transform.position = Spawnpoint.position;
+				playerManagers [i].Setup ();
+				playerManagers [i].playerInstance.SetActive (true);
+			}
+		}
+
+		Bold.transform.position = Spawnpoint.position;
+
+		tutTorch.cam = mainCamera;
+		UI.transform.FindChild ("Score Text").GetComponent<Text> ().text = "Score: " + score;
+		UI.transform.FindChild ("Dungeon Level").GetComponent<Text> ().text = "Dungeon level " + dungeonLevel;
+
+		audioSource.clip = audioDungeon [UnityEngine.Random.Range (0, audioDungeon.Length)];
+		audioSource.Play ();
+		homeScreenCam.SetActive (false);
 		loadingScreenCanvas.SetActive (false);
+
+		SetNumberOfPlayers (1);
+
 		yield return null;
 	}
 }

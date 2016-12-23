@@ -2,16 +2,15 @@
 using System.Collections;
 
 public class SpawnOneEnemy : MonoBehaviour {
-	Spawner mySpawner;
 
-	// Use this for initialization
-	void Start () {
-		mySpawner = GameObject.Find ("Game Manager").GetComponent<GameManager> ().spawner as Spawner;	
-	}
+	public Enemy enemyToSpawn;
+	public Transform spawnPoint;
+	private bool enemySpawned = false;
 
 	void OnTriggerEnter (Collider other) {
-		if (other.gameObject.CompareTag ("Player")) {
-			mySpawner.spawnEnemy ();
+		if (!enemySpawned && other.gameObject.CompareTag ("Player")) {
+			Instantiate (enemyToSpawn, spawnPoint.position, spawnPoint.rotation);
+			enemySpawned = true;
 		}
 	}
 }
