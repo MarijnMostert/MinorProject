@@ -18,6 +18,9 @@ public class EnemyGrunt : Enemy {
 		agent = GetComponent<NavMeshAgent> ();
 		animator = GetComponent<Animator> ();
 		attacknow = false;
+		if (gameObject.name.Equals("spider(clone)")){
+			base.healthBar.transform.localScale.Scale(new Vector3(3, 3, 3));
+		}
 	}
 	
 	// Update is called once per frame
