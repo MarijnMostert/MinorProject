@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour {
 	public GameObject playerPrefab;
 
 	//Torch data
-	public GameObject torchPrefab;
+	private GameObject torchPrefab;
 	public Torch torch;
 	public Transform torchSpawnPoint;
 	public int torchStartingHealth = 100;
@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour {
 	public bool paused;
 	public GameObject pauseScreen;
 	public GameObject inGameCameraPrefab;
-	public GameObject inGameCameraObject;
+	private GameObject inGameCameraObject;
 	public GameObject camTarget;
 	public GameObject enemyTarget;
 	public GameObject UIPrefab;
@@ -43,17 +43,17 @@ public class GameManager : MonoBehaviour {
 	public GameObject[] UIHelpItems;
 	public bool UIHelp = true;
 	public GameObject TorchFOVPrefab;
-	public GameObject TorchFOV;
+	private GameObject TorchFOV;
 
-    public Spawner spawner;
+	public Spawner spawner;
 	public GameObject triggerFloorPrefab;
 	private GameObject triggerFloorObject;
 
 	public ProceduralMaterial[] substances;
 
     //masterGenerator Vars
-	int width = 20;//40;// = 40;
-	int height = 20;//40;// = 40;
+	public int width = 20;//40;// = 40;
+	public int height = 20;//40;// = 40;
     int radius = 2;// = 2;
     int maxlength = 2;// = 2;
     int timeout = 200;// = 2000;
@@ -61,24 +61,29 @@ public class GameManager : MonoBehaviour {
 	int maxAmountOfRooms = 4;//47;// = 7;
     int chanceOfRoom = 5;// = 10; Dit is de 1/n kans op een kamer, dus groter getal is kleinere kans
 
+
 	//public GameObject homeScreenCanvas;
 	public GameObject loadingScreenCanvas;
 	public GameObject deathCanvas;
 	public GameObject endOfRoundCanvas;
-	public GameObject homeScreen;
-	public GameObject homeScreenCam;
-    public Camera mainCamera;
+	private GameObject homeScreen;
+	private GameObject homeScreenCam;
+	public Camera mainCamera;
+	public Camera minimap;
 	private Vector3 homeScreenPlayerPosition;
     MasterGenerator masterGenerator;
     bool gameStarted;
 
-	public AudioSource audioSource;
+	private AudioSource audioSource;
 	public AudioClip audioHomeScreen;
 	public AudioClip[] audioDungeon;
 	public bool audioMuted;
 
-	public GameObject DebuggerPanel;
+	private GameObject DebuggerPanel;
 	public GameObject[] allWeaponsAvailable;
+
+	public int collectedKeys;
+	public int requiredCollectedKeys;
 
     void Awake () {
         gameStarted = false;
@@ -94,6 +99,7 @@ public class GameManager : MonoBehaviour {
 		homeScreen = GameObject.Find ("HomeScreen");
 		homeScreenCam = GameObject.Find ("HomeScreenCam");
 		audioSource = GetComponent<AudioSource> ();
+		minimap = Resources.Load ("Prefabs/Minimap", typeof (Camera)) as Camera;
     }
 
     public void Start(){
@@ -154,7 +160,9 @@ public class GameManager : MonoBehaviour {
             StartCoroutine(CreateDungeon());
             gameStarted = true;
 			StartCoroutine (WaitSpawning ());
-        }
+
+			Instantiate (minimap);
+		}
 	}
 
 	IEnumerator WaitSpawning(){
@@ -191,6 +199,8 @@ public class GameManager : MonoBehaviour {
 
 		inGameCameraObject = Instantiate (inGameCameraPrefab);
 		mainCamera = inGameCameraObject.GetComponentInChildren<Camera> ();
+
+		collectedKeys = 0;
 
 		for (int i = 0; i < playerManagers.Length; i++) {
 			if (playerManagers [i].playerInstance == null) {

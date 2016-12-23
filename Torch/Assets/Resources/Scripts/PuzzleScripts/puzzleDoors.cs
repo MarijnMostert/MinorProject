@@ -46,7 +46,7 @@ public class puzzleDoors : MonoBehaviour {
 		active = true;
 		StartTime = Time.time;
 		for (int i = 0; i < gameManager.playerManagers.Length; i++) {
-			//gameManager.playerManagers[i].playerInstance.GetComponent<Rigidbody>().constraints // verander
+			gameManager.playerManagers [i].playerInstance.GetComponent<Rigidbody> ().constraints &= ~RigidbodyConstraints.FreezePositionY;
 		}
 	}
 
