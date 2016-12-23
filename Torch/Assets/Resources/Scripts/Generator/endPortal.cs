@@ -16,6 +16,7 @@ public class endPortal : MonoBehaviour {
 	GameManager gameManager;
 	GameObject endOfRoundCanvas;
     //Text winText;
+	public bool enabled = false;
 
     // Use this for initialization
     void Start () {
@@ -31,7 +32,7 @@ public class endPortal : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (enabled && other.gameObject.CompareTag("Player"))
         {
             Debug.Log("endportal");
 			onWin ();

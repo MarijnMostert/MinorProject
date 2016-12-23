@@ -80,6 +80,8 @@ public class MasterGenerator : Object {
 
 		List<Room> allrooms = dungeon.getRooms ();
 
+		GameObject.Find ("Game Manager").GetComponent<GameManager> ().requiredCollectedKeys = allrooms.Count;
+
         this.endMaze = maze;
 
 		//Debug.Log(donerooms);		
