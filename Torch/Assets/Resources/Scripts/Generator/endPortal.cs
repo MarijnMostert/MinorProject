@@ -25,6 +25,10 @@ public class endPortal : MonoBehaviour {
         continueText = GameObject.Find("ContinueText") as GameObject;
 		gameManager = GameObject.Find ("Game Manager").GetComponent<GameManager> ();
 		endOfRoundCanvas = gameManager.endOfRoundCanvas;
+		if (gameManager.collectedKeys == gameManager.requiredCollectedKeys) {
+			enabled = true;
+		}
+		UpdateKeyText ();
 
         //winText = GameObject.Find("UI").transform.FindChild("Win Text").GetComponent<Text>();
     }
@@ -32,12 +36,23 @@ public class endPortal : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        if (enabled && other.gameObject.CompareTag("Player"))
-        {
-            Debug.Log("endportal");
+		if (enabled && other.gameObject.CompareTag ("Player")) {
 			onWin ();
-        }
+		} else {
+			Debug.Log (gameManager.collectedKeys + " keys out of " + gameManager.requiredCollectedKeys + 
+				" keys are collected.\nYou need " + (gameManager.requiredCollectedKeys - gameManager.collectedKeys) + " more keys.");
+		}
     }
+
+	public void UpdateKeyText ()
+	{
+		Debug.Log (gameManager.collectedKeys + " keys out of " + gameManager.requiredCollectedKeys + " keys are collected.");
+		Text keyText = gameManager.UI.transform.Find ("Keys Text").GetComponent<Text> ();
+		keyText.text = "Keys collected: " + gameManager.collectedKeys + "/" + gameManager.requiredCollectedKeys;
+		if (gameManager.collectedKeys == gameManager.requiredCollectedKeys) {
+			Debug.Log ("Endportal is enabled.");
+		}
+	}
 
     void onWin()
     {
