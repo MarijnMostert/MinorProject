@@ -4,6 +4,7 @@ using System.Collections;
 public class EnemyRanged : Enemy {
 
 	public LayerMask lookMask;
+	public float deviation = 20f;
 
 	[HideInInspector] public RangedWeapon weapon;
 	private WeaponController weaponController;
@@ -54,7 +55,14 @@ public class EnemyRanged : Enemy {
 		if (weapon == null) {
 			weapon = weaponController.currentWeapon as RangedWeapon;
 		}
+
+		//Apply a deviation to the aiming of the enemy
+		Vector3 weaponRotOriginal = weapon.gameObject.transform.eulerAngles;
+		Vector3 newWeaponRot = weaponRotOriginal + new Vector3 (0f, Random.Range (-deviation, deviation), 0f);
+		weapon.gameObject.transform.eulerAngles = newWeaponRot;
 		weapon.Fire ();
+		weapon.gameObject.transform.eulerAngles = weaponRotOriginal;
+
 		if (clip_attack != null) {
 			audioSource.clip = clip_attack;
 			audioSource.Play ();
