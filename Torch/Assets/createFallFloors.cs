@@ -41,4 +41,43 @@ public class createFallFloors : MonoBehaviour {
 			j--;
 		}
 	}
+
+	void OnTriggerEnter (Collider other) {
+		if(other.gameObject.CompareTag("Player")) {
+			Vector3 relativepos = other.gameObject.transform.position - transform.position;
+			Debug.Log (relativepos.x + " " + relativepos.y + " " + relativepos.z);
+			makeOppositeBlocks (relativepos);
+		}
+	}
+
+	public void makeOppositeBlocks (Vector3 relativepos) {
+		Vector3 counter = new Vector3 (4.0f, 11.0f, 1.5f);
+
+		if (relativepos.x > 12 || relativepos.z > 12) {
+			counter *= -1;
+		}
+		if (relativepos.x < -12 || relativepos.x > 12) {
+			buildOppositeX (counter);
+		} else if (relativepos.z < -12 || relativepos.z > 12) {
+			buildOppositeZ (counter);
+		}
+	}
+
+	void buildOppositeX(Vector3 counter) {
+		float i = counter.x;
+		while (i < counter.y) {
+			Vector3 place = transform.position + new Vector3 (i, 0, 0);
+			GameObject.Instantiate (platform, place, Quaternion.identity, blocks.transform);
+			i += counter.z;
+		}
+	}
+	void buildOppositeZ(Vector3 counter) {
+		float i = counter.x;
+		while (i < counter.y) {
+			Vector3 place = transform.position + new Vector3 (0, 0, i);
+			GameObject.Instantiate (platform, place, Quaternion.identity, blocks.transform);
+			i += counter.z;
+		}
+	}
+
 }
