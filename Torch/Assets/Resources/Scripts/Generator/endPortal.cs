@@ -16,10 +16,12 @@ public class endPortal : MonoBehaviour {
 	GameManager gameManager;
 	GameObject endOfRoundCanvas;
     //Text winText;
-	public bool enabled = false;
+	public bool enabled = true; //Moet false worden nadat puzzlerooms en keys goed geintegreerd zijn.
 
     // Use this for initialization
     void Start () {
+		//deze regel hieronder moet weg wanneer keys goed geintegreerd zijn
+		enabled = true;
         loading = false;
         start_game = false;
         continueText = GameObject.Find("ContinueText") as GameObject;
