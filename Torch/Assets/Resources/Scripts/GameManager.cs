@@ -91,6 +91,8 @@ public class GameManager : MonoBehaviour {
 	public int requiredCollectedKeys;
 	public GameObject Bold;
 
+	public int money;
+
     void Awake () {
         gameStarted = false;
 		tutorialStarted = false;
