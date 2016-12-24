@@ -31,7 +31,7 @@ public class createFallFloors : MonoBehaviour {
 		if (!finished && current != lever.is_on && lever.is_on) {
 			finished = true;
 			foreach (GameObject block in fallingblocks) {
-				block.SetActive = false;
+				block.SetActive (false);
 			}
 			platform.GetComponent<FallPlatform> ().active = false;
 			Vector3 counter = new Vector3 (4.0f, 11.0f, 1.5f);

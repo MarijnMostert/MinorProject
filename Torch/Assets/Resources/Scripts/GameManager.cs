@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour {
 	public GameObject UI;
 
 	public GameAnalytics analytics = new GameAnalytics();
+	public Save saver = new Save();
 
 	public List<GameObject> PuzzleRooms;
 
@@ -73,6 +74,11 @@ public class GameManager : MonoBehaviour {
 	private Vector3 homeScreenPlayerPosition;
     MasterGenerator masterGenerator;
     bool gameStarted;
+	bool tutorialStarted;
+	public GameObject tutorialPrefab;
+	private GameObject tutorialObject;
+	public GameObject tutorialTorchPrefab;
+	private GameObject tutorialTorchObject;
 
 	private AudioSource audioSource;
 	public AudioClip audioHomeScreen;
@@ -84,9 +90,11 @@ public class GameManager : MonoBehaviour {
 
 	public int collectedKeys;
 	public int requiredCollectedKeys;
+	public GameObject Bold;
 
     void Awake () {
         gameStarted = false;
+		tutorialStarted = false;
 		//Makes sure this object is not deleted when another scene is loaded.
 		if (Instance != null) {
 			GameObject.Destroy (this.gameObject);
@@ -108,6 +116,7 @@ public class GameManager : MonoBehaviour {
 		loadingScreenCanvas = Instantiate (loadingScreenCanvas) as GameObject;
 		loadingScreenCanvas.SetActive (false);
 		homeScreenPlayerPosition = GameObject.Find ("HomeScreenPlayer").transform.position;
+		Bold = Instantiate (Bold);
 	}
 
 	void Parameters(int level){
@@ -153,15 +162,17 @@ public class GameManager : MonoBehaviour {
         if (!gameStarted) {
 			Time.timeScale = 1f;
 			StartTime = Time.time;
+			dungeonLevel = saver.Read ();
 			dungeonLevel++;
 			Parameters (dungeonLevel);
 			endOfRoundCanvas.SetActive (false);
             loadingScreenCanvas.SetActive(true);
+			homeScreen.SetActive (false);
             StartCoroutine(CreateDungeon());
             gameStarted = true;
 			StartCoroutine (WaitSpawning ());
 
-			Instantiate (minimap);
+			//Instantiate (minimap);
 		}
 	}
 
@@ -221,6 +232,7 @@ public class GameManager : MonoBehaviour {
 
 		Vector3 startpoint = masterGenerator.MovePlayersToStart ();
 		torch.transform.position = startpoint + new Vector3 (6, .5f, 0);
+		Bold.transform.position = startpoint;
 
 		torch.cam = mainCamera;
 		UI.transform.FindChild ("Score Text").GetComponent<Text> ().text = "Score: " + score;
@@ -228,7 +240,6 @@ public class GameManager : MonoBehaviour {
 
 		audioSource.clip = audioDungeon [UnityEngine.Random.Range (0, audioDungeon.Length)];
 		audioSource.Play ();
-		homeScreen.SetActive (false);
 		homeScreenCam.SetActive (false);
 		loadingScreenCanvas.SetActive (false);
 
@@ -258,14 +269,20 @@ public class GameManager : MonoBehaviour {
 		}
 		*/
 		if (Input.GetKeyDown (KeyCode.H)) {
-			if (DebuggerPanel.activeInHierarchy)
-				DebuggerPanel.SetActive (false);
-			else
-				DebuggerPanel.SetActive (true);
+			if (DebuggerPanel != null) {
+				if (DebuggerPanel.activeInHierarchy)
+					DebuggerPanel.SetActive (false);
+				else
+					DebuggerPanel.SetActive (true);
+			}
 		}
 
 		if (Input.GetKeyDown (KeyCode.N)) {
 			SpawnAllWeapons ();
+		}
+
+		if (Input.GetKeyDown (KeyCode.L)) {
+			Proceed ();
 		}
 	}
 
@@ -354,6 +371,9 @@ public class GameManager : MonoBehaviour {
 			Destroy (TorchFOV);
 		deathCanvas.SetActive (false);
 		gameStarted = false;
+		tutorialStarted = false;
+		if (tutorialObject != null)
+			Destroy (tutorialObject);
 		Destroy (inGameCameraObject);
 	}
 
@@ -378,6 +398,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void Proceed(){
+		saver.ToFile (dungeonLevel);
 		analytics.WriteFinishLevel (dungeonLevel, score, StartTime);
 		score = 0;
 		RoundEnd ();
@@ -431,5 +452,79 @@ public class GameManager : MonoBehaviour {
 		foreach (GameObject weapon in allWeaponsAvailable) {
 			Instantiate (weapon, torch.transform.position + new Vector3 (UnityEngine.Random.Range (-2f, 2f), 0f, UnityEngine.Random.Range (-2f, 2f)), Quaternion.identity);
 		}
+	}
+
+	public void StartTutorial(){
+		if (!tutorialStarted) {
+			Time.timeScale = 1f;
+			StartTime = Time.time;
+			loadingScreenCanvas.SetActive (true);
+			homeScreen.SetActive (false);
+			StartCoroutine (LoadTutorial ());
+			tutorialStarted = true;
+
+
+		}
+	}
+
+	IEnumerator LoadTutorial(){
+
+		yield return new WaitForSeconds (.1f);
+
+		//Load tutorial prefab
+		tutorialObject = Instantiate(tutorialPrefab);
+		Transform Spawnpoint = tutorialObject.transform.Find ("Spawnpoint");
+
+		tutorialTorchObject = Instantiate (tutorialTorchPrefab, Spawnpoint.position + new Vector3(0f, -.5f, 0f), Quaternion.identity, tutorialObject.transform) as GameObject;
+		Torch tutTorch = tutorialTorchObject.GetComponent<Torch> ();
+
+		if (UI == null) {
+			UI = Instantiate (UIPrefab, tutorialObject.transform) as GameObject;
+			UIHelpItems = GameObject.FindGameObjectsWithTag ("UI Help");
+		}
+
+		TorchFOV = Instantiate (TorchFOVPrefab, tutorialObject.transform) as GameObject;
+
+		camTarget = tutorialTorchObject;
+		enemyTarget = tutTorch.gameObject;
+		tutTorch.health = torchStartingHealth;
+		tutTorch.gameManager = this;
+		tutTorch.UI = UI;
+		tutTorch.TorchFOV = TorchFOV.GetComponentInChildren<Animator> ();
+		torch = tutTorch;
+
+		inGameCameraObject = Instantiate (inGameCameraPrefab, tutorialObject.transform) as GameObject;
+		mainCamera = inGameCameraObject.GetComponentInChildren<Camera> ();
+		Bold.GetComponentInChildren<LookAtCamera> ().cam = mainCamera;
+
+		for (int i = 0; i < playerManagers.Length; i++) {
+			if (playerManagers [i].playerInstance == null) {
+				Debug.Log ("Create Player with id:" + i);
+				playerManagers [i].playerInstance = Instantiate (playerPrefab, Spawnpoint.position, Quaternion.identity, tutorialObject.transform) as GameObject;
+				playerManagers [i].playerNumber = i + 1;
+				playerManagers [i].Setup ();
+				playerManagers [i].playerMovement.mainCamera = mainCamera;
+				playerManagers [i].gameManager = this;
+			} else {
+				playerManagers [i].playerInstance.transform.position = Spawnpoint.position;
+				playerManagers [i].Setup ();
+				playerManagers [i].playerInstance.SetActive (true);
+			}
+		}
+
+		Bold.transform.position = Spawnpoint.position;
+
+		tutTorch.cam = mainCamera;
+		UI.transform.FindChild ("Score Text").GetComponent<Text> ().text = "Score: " + score;
+		UI.transform.FindChild ("Dungeon Level").GetComponent<Text> ().text = "Dungeon level " + dungeonLevel;
+
+		audioSource.clip = audioDungeon [UnityEngine.Random.Range (0, audioDungeon.Length)];
+		audioSource.Play ();
+		homeScreenCam.SetActive (false);
+		loadingScreenCanvas.SetActive (false);
+
+		SetNumberOfPlayers (1);
+
+		yield return null;
 	}
 }

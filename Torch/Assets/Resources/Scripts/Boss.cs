@@ -51,15 +51,15 @@ public class Boss : MonoBehaviour, IDamagable {
 		dead = false;
 		timeAlive = Time.time;
 		health = startingHealth;
-		colorBoss = transform.GetComponentInChildren<SkinnedMeshRenderer> ().material.color;
-		//colorBoss = transform.GetComponent<MeshRenderer> ().material.color;
+		//colorBoss = transform.GetComponentInChildren<SkinnedMeshRenderer> ().material.color;
+		colorBoss = transform.GetComponent<MeshRenderer> ().material.color;
 		gameObject.transform.FindChild ("BossShield").gameObject.SetActive (false);
 		initialiseArraySizes ();
-		//initialiseThresholds ();
+		initialiseThresholds ();
 		initialiseActionThresholds ();
-		//initialiseWeights ();
-		target = GameObject.FindGameObjectWithTag("Gladiator");
-//		scoreManager = GameObject.Find("Score Manager").GetComponent<ScoreManager> ();
+		initialiseWeights ();
+		target = GameObject.FindGameObjectWithTag("Player");
+		//		scoreManager = GameObject.Find("Score Manager").GetComponent<ScoreManager> ();
 		StartCoroutine(DistanceMoved());
 	}
 
@@ -89,8 +89,8 @@ public class Boss : MonoBehaviour, IDamagable {
 		int counter = inputNeurons * outputNeurons;
 		threshold = new float[outputNeurons];
 		for (int i = 0; i < outputNeurons; i++) {
-				threshold [i] = chromosome [counter];
-				counter++;
+			threshold [i] = chromosome [counter];
+			counter++;
 		}
 	}
 
@@ -254,23 +254,31 @@ public class Boss : MonoBehaviour, IDamagable {
 	void action(){
 		//move Left
 		if (finalOutput [0] > actionThreshold[0]) {
-			transform.position = transform.position + speed * Time.deltaTime * new Vector3 (-1f, 0f, 0f);
+			if (transform.position.magnitude < 14.0f) {
+				transform.position = transform.position + speed * Time.deltaTime * new Vector3 (-1f, 0f, 0f);
+			}
 		}
 		//move right
 		if (finalOutput [1] > actionThreshold[1]) {
-			transform.position = transform.position + speed * Time.deltaTime * new Vector3 (1f, 0f, 0f);
+			if (transform.position.magnitude < 14.0f) {
+				transform.position = transform.position + speed * Time.deltaTime * new Vector3 (1f, 0f, 0f);
+			}
 		}
 		//Move Up
 		if (finalOutput [2] > actionThreshold[2]) {
-			transform.position = transform.position + speed * Time.deltaTime * new Vector3 (0f, 0f, 1f);
+			if (transform.position.magnitude < 14.0f) {
+				transform.position = transform.position + speed * Time.deltaTime * new Vector3 (0f, 0f, 1f);
+			}
 		}
 		//Move Down
 		if (finalOutput [3] > actionThreshold[3]) {
-			transform.position = transform.position + speed * Time.deltaTime * new Vector3 (0f, 0f, -1f);
+			if (transform.position.magnitude < 14.0f) {
+				transform.position = transform.position + speed * Time.deltaTime * new Vector3 (0f, 0f, -1f);
+			}
 		}
 		//Normal Attack
 		if (finalOutput [4] > actionThreshold[4]) {
-			transform.GetComponentInChildren<SkinnedMeshRenderer>().material.color = Color.red;
+			colorBoss = Color.red;
 			GetComponent<WeaponController> ().currentWeapon.GetComponent<RangedWeapon> ().setProjectile (normalProjectile, 0.3f, 9);
 			GetComponent<WeaponController> ().Fire ();
 			usedAttacks++;
@@ -282,7 +290,7 @@ public class Boss : MonoBehaviour, IDamagable {
 		}
 		//Special Attack
 		else if (finalOutput [6] > actionThreshold[6]) {
-			transform.GetComponentInChildren<SkinnedMeshRenderer>().material.color = Color.blue;
+			colorBoss = Color.blue;
 			GetComponent<WeaponController> ().currentWeapon.GetComponent<RangedWeapon> ().setProjectile (specialProjectile, 1.0f, 30);
 			GetComponent<WeaponController> ().Fire ();
 			usedSpecAttacks++;
@@ -292,8 +300,6 @@ public class Boss : MonoBehaviour, IDamagable {
 
 	//Calculate boss fitness and set inactive
 	public void Die(){
-		CalculateFitness ();
-//		scoreManager.updateScore (scoreValue);
 		dead = true;
 		Destroy (healthBar.transform.parent.gameObject);
 		Destroy (gameObject);
@@ -343,7 +349,7 @@ public class Boss : MonoBehaviour, IDamagable {
 		if (healthBar == null) {
 			InstantiateHealthBar ();
 		}
-			
+
 		health -= damage;
 		healthBar.transform.FindChild("HealthBar").GetComponent<Image>().fillAmount = (float)health / startingHealth;
 		//healthBar.fillAmount = (float)health / startingHealth;
