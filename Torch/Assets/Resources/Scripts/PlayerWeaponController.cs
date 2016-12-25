@@ -33,7 +33,7 @@ public class PlayerWeaponController : WeaponController {
     }
 
     void Update () {
-		if (Input.GetButton (attackButton)) {
+		if (Input.GetButton (attackButton)||(Mathf.Abs(Input.GetAxis (attackButton))>0.1f)) {
             if (anim != null)
             {
                 anim.SetBool("Attack",true);
