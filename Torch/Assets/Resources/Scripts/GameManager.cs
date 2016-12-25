@@ -92,6 +92,8 @@ public class GameManager : MonoBehaviour {
 	public GameObject Bold;
 
 	public int money;
+	private bool shopActive = false;
+	public GameObject Shop;
 
     void Awake () {
         gameStarted = false;
@@ -118,6 +120,8 @@ public class GameManager : MonoBehaviour {
 		loadingScreenCanvas.SetActive (false);
 		homeScreenPlayerPosition = GameObject.Find ("HomeScreenPlayer").transform.position;
 		Bold = Instantiate (Bold);
+		Shop = Instantiate (Shop);
+		Shop.SetActive (false);
 	}
 
 	void Parameters(int level){
@@ -519,5 +523,16 @@ public class GameManager : MonoBehaviour {
 		SetNumberOfPlayers (1);
 
 		yield return null;
+	}
+
+	public void ToggleShop(){
+		if (shopActive) {
+			Shop.SetActive (false);
+			homeScreen.SetActive (true);
+		} else {
+			Shop.SetActive (true);
+			homeScreen.SetActive (false);
+		}
+		shopActive = !shopActive;
 	}
 }
