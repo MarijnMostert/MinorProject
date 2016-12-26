@@ -96,11 +96,11 @@ public class Inventory : MonoBehaviour {
 			CheckAndEquip (8);
 		if (Input.GetKeyDown (KeyCode.Alpha0))
 			CheckAndEquip (9);
-		if (Input.GetButtonDown("PowerUpButton1_1"))
+		if (Input.GetButtonDown("PowerUpButton1_1")||(Input.GetAxis ("PowerUpButton1_1")<-0.1f))
 			UsePowerUp (0);
-		if (Input.GetButtonDown("PowerUpButton2_1"))
+		if (Input.GetButtonDown("PowerUpButton2_1")||(Input.GetAxis ("PowerUpButton2_1")<-0.1f))
 			UsePowerUp (1);
-		if (Input.GetButtonDown("PowerUpButton3_1"))
+		if (Input.GetButtonDown("PowerUpButton3_1")||(Input.GetAxis ("PowerUpButton3_1")>0.1f))
 			UsePowerUp (2);
 	}
 

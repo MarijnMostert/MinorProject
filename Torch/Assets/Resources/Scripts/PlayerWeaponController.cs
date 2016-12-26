@@ -33,7 +33,7 @@ public class PlayerWeaponController : WeaponController {
     }
 
     void Update () {
-		if (Input.GetButton (attackButton)) {
+		if (Input.GetButton (attackButton)||(Mathf.Abs(Input.GetAxis (attackButton))>0.1f)) {
             if (anim != null)
             {
                 anim.SetBool("Attack",true);
@@ -43,7 +43,7 @@ public class PlayerWeaponController : WeaponController {
 		}
 	}
 
-	private void Attack(){
+	public void Attack(){
 		currentWeapon.Fire();
 		if (clip_attack != null) {
 			audioSource.clip = clip_attack;
