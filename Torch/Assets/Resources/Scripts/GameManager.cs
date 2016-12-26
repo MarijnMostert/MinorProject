@@ -528,4 +528,8 @@ public class GameManager : MonoBehaviour {
 
 		yield return null;
 	}
+
+	public void ExitGame(){
+		Application.Quit ();
+	}
 }
