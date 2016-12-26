@@ -206,11 +206,13 @@ public class PlayerMovement : MonoBehaviour {
 		if (!godMode) {
 			Debug.Log ("Godmode turned on");
 			GetComponent<Collider> ().enabled = false;
+			GetComponent<Rigidbody> ().constraints = RigidbodyConstraints.FreezeAll;
 			speed *= 3;
 			godMode = true;
 		} else {
 			Debug.Log ("Godmode turned off");
 			GetComponent<Collider> ().enabled = true;
+			GetComponent<Rigidbody> ().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
 			speed /= 3;
 			godMode = false;
 		}
