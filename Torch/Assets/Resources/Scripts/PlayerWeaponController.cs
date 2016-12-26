@@ -43,7 +43,7 @@ public class PlayerWeaponController : WeaponController {
 		}
 	}
 
-	private void Attack(){
+	public void Attack(){
 		currentWeapon.Fire();
 		if (clip_attack != null) {
 			audioSource.clip = clip_attack;
