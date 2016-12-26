@@ -5,7 +5,8 @@ public class HomeScreenMovement : MonoBehaviour {
 
 
     GameObject target;
-    public float rotateSpeed = 5;
+    public float rotateSpeed = 5f;
+	public float walkingSpeed = .1f;
     Vector3 offset;
     float min_height;
 
@@ -27,22 +28,22 @@ public class HomeScreenMovement : MonoBehaviour {
         anim.SetBool("walking", false);
         if (Input.GetKey("d"))
         {
-            target.transform.Translate(new Vector3(0, 0, .05f));
+			target.transform.Translate(new Vector3(0, 0, walkingSpeed));
             anim.SetBool("walking",true);
         }
         if (Input.GetKey("a"))
         {
-            target.transform.Translate(new Vector3(0, 0, -.05f));
+			target.transform.Translate(new Vector3(0, 0, -walkingSpeed));
             anim.SetBool("walking", true);
         }
         if (Input.GetKey("w"))
         {
-            target.transform.Translate(new Vector3(-.05f, 0, 0));
+			target.transform.Translate(new Vector3(-walkingSpeed, 0, 0));
             anim.SetBool("walking", true);
         }
         if (Input.GetKey("s"))
         {
-            target. transform.Translate(new Vector3(.05f, 0, 0));
+            target. transform.Translate(new Vector3(walkingSpeed, 0, 0));
             anim.SetBool("walking", true);
         }
         float horizontal = Input.GetAxis("Mouse X") * rotateSpeed;
