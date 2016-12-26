@@ -23,7 +23,7 @@ public class PlayerManager {
 		cursorPointer = Resources.Load ("Prefabs/Cursor Pointer", typeof(GameObject)) as GameObject;
 		dead = false;
 	//	UI = Instantiate (UI);
-		playerInstance.GetComponent<MeshRenderer> ().material.color = playerColor;
+	//	playerInstance.GetComponent<MeshRenderer> ().material.color = playerColor;
 	//	cursorPointer = Instantiate (cursorPointer, playerInstance.transform) as Sprite;
 
 		//Setup movement script
