@@ -72,6 +72,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000011149649400}
   - 114: {fileID: 114000010426883604}
+  - 114: {fileID: 114000011611006552}
   m_Layer: 0
   m_Name: Fliproom
   m_TagString: Untagged
@@ -197,7 +198,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011832919986}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -30.888996, y: 122.05224, z: 32.375923}
+  m_LocalPosition: {x: 93.877106, y: 135.71718, z: -171.51764}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -542,6 +543,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lever: {fileID: 0}
   degrees: 90
+--- !u!114 &114000011611006552
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011832919986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dff42c0fca609214190e6534cba15a5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lever: {fileID: 0}
 --- !u!208 &208000013046790206
 NavMeshObstacle:
   m_ObjectHideFlags: 1
