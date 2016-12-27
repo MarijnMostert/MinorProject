@@ -34,6 +34,8 @@ public class PlayerMovement : MonoBehaviour {
 
     Animator anim1;
 
+	public PlayerWeaponController playerWeaponController;
+
 	void Awake(){
 		controllerButtons = GameObject.FindGameObjectsWithTag("UI Help Controller");
 		foreach(GameObject obj in controllerButtons){
@@ -59,7 +61,7 @@ public class PlayerMovement : MonoBehaviour {
 
 
 	void Start () {
-
+		playerWeaponController = gameObject.GetComponent<PlayerWeaponController> ();
 		//moveHorizontal = "moveHorizontal" + playerNumber;
 		//moveVertical = "moveVertical" + playerNumber;
 
@@ -163,7 +165,7 @@ public class PlayerMovement : MonoBehaviour {
 		if (input.sqrMagnitude < 0.1f) {
 			return;
 		}
-
+		playerWeaponController.Attack ();
 		// Apply the transform to the object  
 		var angle = Mathf.Atan2 (turnHorizontalInput, turnVerticalInput) * Mathf.Rad2Deg;
 		transform.rotation = Quaternion.Euler (0, angle, 0);
@@ -206,11 +208,13 @@ public class PlayerMovement : MonoBehaviour {
 		if (!godMode) {
 			Debug.Log ("Godmode turned on");
 			GetComponent<Collider> ().enabled = false;
+			GetComponent<Rigidbody> ().constraints = RigidbodyConstraints.FreezeAll;
 			speed *= 3;
 			godMode = true;
 		} else {
 			Debug.Log ("Godmode turned off");
 			GetComponent<Collider> ().enabled = true;
+			GetComponent<Rigidbody> ().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
 			speed /= 3;
 			godMode = false;
 		}
