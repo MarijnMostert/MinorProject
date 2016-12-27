@@ -122,7 +122,7 @@ public class PlayerMovement : MonoBehaviour {
 
         //Move
         if (anim1!=null) {
-            Debug.Log((MovementInput * speed * Time.deltaTime).magnitude);
+//            Debug.Log((MovementInput * speed * Time.deltaTime).magnitude);
             if ((MovementInput * speed * Time.deltaTime).magnitude > .1f)
             {
                 anim1.SetBool("walking",true);

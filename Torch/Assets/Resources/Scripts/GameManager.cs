@@ -116,7 +116,7 @@ public class GameManager : MonoBehaviour {
 		loadingScreenCanvas = Instantiate (loadingScreenCanvas) as GameObject;
 		loadingScreenCanvas.SetActive (false);
 		homeScreenPlayerPosition = GameObject.Find ("HomeScreenPlayer").transform.position;
-		Bold = Instantiate (Bold);
+		Bold = Instantiate (Bold, homeScreenPlayerPosition, Quaternion.identity) as GameObject;
 	}
 
 	void Parameters(int level){
