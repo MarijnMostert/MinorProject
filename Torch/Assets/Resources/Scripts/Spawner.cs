@@ -8,7 +8,7 @@ public class Spawner : MonoBehaviour {
     public float min_radius;
     public float max_radius;
 
-	public Enemy[] enemiesToSpawn;
+	public GameObject[] enemiesToSpawn;
 	public int enemiesPerWave;
 
 	private string waveButton;
@@ -55,7 +55,7 @@ public class Spawner : MonoBehaviour {
 	}
 
 	public void spawnEnemy(){
-		Enemy enemy = enemiesToSpawn [Random.Range (0, enemiesToSpawn.Length)];
+		GameObject enemy = enemiesToSpawn [Random.Range (0, enemiesToSpawn.Length)];
 		Vector3 position = getPosition ();
 		Instantiate (enemy, position, transform.rotation);
 	}
