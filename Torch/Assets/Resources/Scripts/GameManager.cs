@@ -87,6 +87,7 @@ public class GameManager : MonoBehaviour {
 
 	private GameObject DebuggerPanel;
 	public GameObject[] allWeaponsAvailable;
+	public GameObject[] allPowerUpsAvailable;
 
 	public int collectedKeys;
 	public int requiredCollectedKeys;
@@ -282,6 +283,10 @@ public class GameManager : MonoBehaviour {
 			SpawnAllWeapons ();
 		}
 
+		if (Input.GetKeyDown (KeyCode.B)) {
+			SpawnAllPowerUps ();
+		}
+
 		if (Input.GetKeyDown (KeyCode.L)) {
 			Proceed ();
 		}
@@ -452,6 +457,12 @@ public class GameManager : MonoBehaviour {
 	void SpawnAllWeapons(){
 		foreach (GameObject weapon in allWeaponsAvailable) {
 			Instantiate (weapon, torch.transform.position + new Vector3 (UnityEngine.Random.Range (-2f, 2f), 0f, UnityEngine.Random.Range (-2f, 2f)), Quaternion.identity);
+		}
+	}
+
+	void SpawnAllPowerUps(){
+		foreach (GameObject powerup in allPowerUpsAvailable) {
+			Instantiate (powerup, torch.transform.position + new Vector3 (UnityEngine.Random.Range (-2f, 2f), 0f, UnityEngine.Random.Range (-2f, 2f)), Quaternion.identity);
 		}
 	}
 
