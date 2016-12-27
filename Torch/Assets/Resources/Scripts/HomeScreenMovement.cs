@@ -10,6 +10,8 @@ public class HomeScreenMovement : MonoBehaviour {
     Vector3 offset;
     float min_height;
 
+	bool invertY = false;
+
 	private string moveHorizontal;
 	private string moveVertical;
 	private float HorizontalInput;
@@ -63,6 +65,10 @@ public class HomeScreenMovement : MonoBehaviour {
 		if (Mathf.Abs(vertical) < .1f){//no controllerinput then use mouse
 			vertical = Input.GetAxis("Mouse Y") * rotateSpeed/10f;
 		}
+		//implementation of inverted Y axis
+		if (invertY) {
+			vertical = -1f * vertical;
+		}
         Quaternion rotation = Quaternion.Euler(0, desiredAngle, 0);
         min_height += vertical;
         transform.position = target.transform.position - (rotation * offset) + new Vector3(0,min_height,0);
@@ -94,6 +100,15 @@ public class HomeScreenMovement : MonoBehaviour {
 		target.transform.Translate(MovementInput * walkingSpeed * Time.deltaTime);
 	}
 
+	public void InvertY(){
+		if (invertY) {
+			invertY = false;
+			Debug.Log ("Y-axis  not inverted");
+		} else {
+			invertY = true;
+			Debug.Log ("Y-axis inverted");
+		}
+	}
     void LateUpdate(){
 		transform.LookAt(target.transform);
 	}
