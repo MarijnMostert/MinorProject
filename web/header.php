@@ -25,7 +25,7 @@
 	</div>
 	<div id="header">
 		<div id="right-top">
-			<button class="button"></button>
+			<button id="logout" class="button"></button>
 			<form>	
 				<input type="text" name="search" placeholder="Search..">
 			</form>
@@ -44,6 +44,7 @@
 			$('.home-menu').on('click',function(){window.location.href="home.php";});
 			$('.statistics-menu').on('click',function(){window.location.href="statistics.php";});
 			$('.settings-menu').on('click',function(){window.location.href="settings.php";});
+			$('#logout').on('click',function(){window.location.href="index.php";});
 		</script>
 		
 	</div>

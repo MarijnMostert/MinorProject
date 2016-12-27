@@ -7,13 +7,15 @@ body {
 	display: table;
 	width: 100vw;
 	height: 100vh;
-	background-color: #EAC67A;
+	background: url('../img/mountain.png') #EAC67A;
+	background-size: cover;
 }
 
 #container {
 	display: table-cell;
 	text-align: center;
 	vertical-align: middle;
+	position: relative;
 }
 
 #container form {
@@ -24,15 +26,11 @@ body {
 	overflow:hidden;
 	text-align:left;
 	width: 410px;
+	border: 2px solid #18121E;
 }
 
-#container h1 {
-	color:#EAC67A;
-	background-color:#18121E;
-	margin: 0;
-	margin-bottom: 15px;
-	padding: 20px 0;
-	text-align: center;
+#container img {
+	width:100%;
 }
 
 #container label {
@@ -68,4 +66,23 @@ body {
 
 #container input[type=text]:focus, #container input:focus[type=password]{
 	outline-color: #EAC67A;
+}
+
+.downloadArea {
+	text-align:center;
+	position: relative;
+}
+
+.downloadText {
+	font-size:.6em;
+	border: 1px solid #18121E;
+	border-radius: 5px;
+	background-color: #EAC67A;
+	position: relative;
+	top:-15px;
+	padding:5px;
+	border:none;
+	border-radius:0 0 5px 5px;
+	margin: 0 10px;
+	cursor: pointer;
 }

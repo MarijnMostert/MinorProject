@@ -17,12 +17,15 @@
 <body>
 	<div id="container">
 		<form action="home.php" method="POST">
-			<h1>LOG IN</h1>
+			<img src="./img/logo.png"></img>
 			<label for="username">Username </label>
 			<input type="text" name="username" placeholder="Username">
 			<label for="password">Password </label>
 			<input type="password" name="password" placeholder="Password">
-			<input type="submit" value=">>">
+			<input type="submit" value="Log In">
+			<div class="downloadArea">
+				<div class="downloadText"><a href="https://drive.google.com/open?id=0B_njtF94esgmdXJPc1dlWE5UUTg" target="_blank">Don't have the game? Click here to download it</a></div>
+			</div>
 		</form>
 	</div>
 </body>
