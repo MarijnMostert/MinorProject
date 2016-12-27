@@ -9,7 +9,7 @@ public class createMovingFloors : MonoBehaviour {
 	List<Vector3> placesx;
 	List<Vector3> placesz;
 	List<GameObject> movingblocks;
-	LeverActivator lever { get; set; }
+	public LeverActivator lever;
 	bool current = false;
 	public bool finished = false;
 
@@ -35,9 +35,19 @@ public class createMovingFloors : MonoBehaviour {
 			foreach (GameObject block in movingblocks) {
 				block.SetActive (false);
 			}
+
+			//Needed becase blocks otherwise center on 0,0,0 - detatch parent, set to 0,0,0, build bloks
+			blocks.transform.SetParent (null);
+			blocks.transform.localPosition = Vector3.zero;
 			platform.GetComponent<PingPongPlatform> ().active = false;
+
 			makeBlocks ();
-			//platform.GetComponent<PingPongPlatform> ().amplitude = 3;
+
+			//And then move it back to the place it was at - 
+			platform.GetComponent<PingPongPlatform> ().active = true;
+			blocks.transform.SetParent (transform);
+			blocks.transform.localPosition = Vector3.zero;
+
 		}
 		current = lever.is_on;
 	}
