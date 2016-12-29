@@ -31,7 +31,7 @@ public class EnemyGrunt : Enemy {
 		} else if(attacknow == true && ((Time.time - lastAttackTime) > (0.9f * attackCooldown))) {
 			attacknow = false;
 			if (animator != null) {
-				Debug.Log ("set false");
+//				Debug.Log ("set false");
 				animator.SetBool ("Attack", false);
 			}
 		}
@@ -47,7 +47,7 @@ public class EnemyGrunt : Enemy {
 	//If the player is close enough to the torch it will do damage
 	private void attack(){
 		if (animator != null) {
-			Debug.Log ("jump");
+//			Debug.Log ("jump");
 			animator.SetBool ("Attack", true);
 		}
 		IDamagable damagableObject = gameManager.enemyTarget.GetComponent<IDamagable> ();

@@ -6,6 +6,7 @@ public class Magnet : MonoBehaviour {
 	public float strength = 1f;
 	public float range = 5f;
 	public float distanceToKeep = 0f;
+	public bool lookAtTarget = false;
 
 	private bool activated = false;
 	private Vector3 target;
@@ -34,6 +35,9 @@ public class Magnet : MonoBehaviour {
 			
 			if ((transform.parent.position - target).magnitude < range) {
 				transform.parent.position = Vector3.SmoothDamp (transform.parent.position, target, ref smoothDampVar, 1/strength);
+				if (lookAtTarget) {
+					transform.parent.LookAt (new Vector3 (target.x, transform.parent.position.y, target.z));
+				}
 			}
 		}
 	}
