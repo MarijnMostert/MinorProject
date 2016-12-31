@@ -51,8 +51,10 @@ public class EnemyGrunt : Enemy {
 			animator.SetBool ("Attack", true);
 		}
 		IDamagable damagableObject = gameManager.enemyTarget.GetComponent<IDamagable> ();
-		damagableObject.takeDamage (attackDamage, false);
-		//Debug.Log (damagableObject);
+		if(damagableObject != null){
+			damagableObject.takeDamage (attackDamage, false);
+			//Debug.Log (damagableObject);
+		}
 		lastAttackTime = Time.time;
 	}
 
