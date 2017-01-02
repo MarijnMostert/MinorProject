@@ -141,7 +141,7 @@ public class Torch : InteractableItem, IDamagable {
 
 	void pickUpTorch(GameObject triggerObject){
 		Debug.Log ("Torch is picked up");
-		gameManager.analytics.WriteTorchPickup ();
+		gameManager.WriteTorchPickup ();
 		transform.SetParent (triggerObject.transform.FindChild("Torch Holder"));
 		transform.position = transform.parent.position;
 		transform.rotation = transform.parent.rotation;
