@@ -465,6 +465,7 @@ public class GameManager : MonoBehaviour {
 		foreach (GameObject powerup in allPowerUpsAvailable) {
 			Instantiate (powerup, torch.transform.position + new Vector3 (UnityEngine.Random.Range (-2f, 2f), 0f, UnityEngine.Random.Range (-2f, 2f)), Quaternion.identity);
 		}
+	}
 
 	public void WriteTorchPickup(){
 		analytics.WriteTorchPickup (dungeonLevel, StartTime);
