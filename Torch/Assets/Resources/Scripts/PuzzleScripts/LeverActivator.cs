@@ -14,9 +14,7 @@ public class LeverActivator : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other) {
 		if (other.gameObject.layer == LayerMask.NameToLayer("PlayerProjectile")) { 
-			if (Input.GetButtonDown (interactionButton)) {
 				SwitchLever (); 
-			}
 		}
 	}
 

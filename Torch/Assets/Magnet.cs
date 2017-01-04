@@ -6,6 +6,8 @@ public class Magnet : MonoBehaviour {
 	public float strength = 1f;
 	public float range = 5f;
 	public float distanceToKeep = 0f;
+	public bool lookAtTarget = false;
+	public bool stayActivated = false;
 
 	private bool activated = false;
 	private Vector3 target;
@@ -24,7 +26,7 @@ public class Magnet : MonoBehaviour {
 	}
 
 	void OnTriggerExit(Collider other){
-		if (other.gameObject.CompareTag ("Player")) {
+		if (other.gameObject.CompareTag ("Player") && !stayActivated) {
 			activated = false;
 		}
 	}
@@ -32,8 +34,11 @@ public class Magnet : MonoBehaviour {
 	void Update(){
 		if (activated) {
 			
-			if ((transform.parent.position - target).magnitude < range) {
+			if ((transform.parent.position - target).magnitude < range || stayActivated) {
 				transform.parent.position = Vector3.SmoothDamp (transform.parent.position, target, ref smoothDampVar, 1/strength);
+				if (lookAtTarget) {
+					transform.parent.LookAt (new Vector3 (target.x, transform.parent.position.y, target.z));
+				}
 			}
 		}
 	}

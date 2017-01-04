@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour {
 	public int totalScore = 0;
 	public int dungeonLevel = 0;
 	public float StartTime;
+	public string Roomtype;
 
 	public bool paused;
 	public GameObject pauseScreen;
@@ -87,6 +88,7 @@ public class GameManager : MonoBehaviour {
 
 	private GameObject DebuggerPanel;
 	public GameObject[] allWeaponsAvailable;
+	public GameObject[] allPowerUpsAvailable;
 
 	public int collectedKeys;
 	public int requiredCollectedKeys;
@@ -116,7 +118,7 @@ public class GameManager : MonoBehaviour {
 		loadingScreenCanvas = Instantiate (loadingScreenCanvas) as GameObject;
 		loadingScreenCanvas.SetActive (false);
 		homeScreenPlayerPosition = GameObject.Find ("HomeScreenPlayer").transform.position;
-		Bold = Instantiate (Bold);
+		Bold = Instantiate (Bold, homeScreenPlayerPosition, Quaternion.identity) as GameObject;
 	}
 
 	void Parameters(int level){
@@ -282,6 +284,10 @@ public class GameManager : MonoBehaviour {
 			SpawnAllWeapons ();
 		}
 
+		if (Input.GetKeyDown (KeyCode.B)) {
+			SpawnAllPowerUps ();
+		}
+
 		if (Input.GetKeyDown (KeyCode.L)) {
 			Proceed ();
 		}
@@ -400,7 +406,7 @@ public class GameManager : MonoBehaviour {
 
 	public void Proceed(){
 		saver.ToFile (dungeonLevel);
-		analytics.WriteFinishLevel (dungeonLevel, score, StartTime);
+		analytics.WriteFinishLevel (dungeonLevel, score, totalScore, StartTime);
 		score = 0;
 		RoundEnd ();
 		DestroyDungeon ();
@@ -453,6 +459,24 @@ public class GameManager : MonoBehaviour {
 		foreach (GameObject weapon in allWeaponsAvailable) {
 			Instantiate (weapon, torch.transform.position + new Vector3 (UnityEngine.Random.Range (-2f, 2f), 0f, UnityEngine.Random.Range (-2f, 2f)), Quaternion.identity);
 		}
+	}
+
+	void SpawnAllPowerUps(){
+		foreach (GameObject powerup in allPowerUpsAvailable) {
+			Instantiate (powerup, torch.transform.position + new Vector3 (UnityEngine.Random.Range (-2f, 2f), 0f, UnityEngine.Random.Range (-2f, 2f)), Quaternion.identity);
+		}
+	}
+
+	public void WriteTorchPickup(){
+		analytics.WriteTorchPickup (dungeonLevel, StartTime);
+	}
+		
+	public void WritePuzzleStart (){
+		analytics.WritePuzzleStart (Roomtype, dungeonLevel);
+	}
+
+	public void WritePuzzleComplete(float Time){
+		analytics.WritePuzzleComplete (Roomtype, Time, dungeonLevel);
 	}
 
 	public void StartTutorial(){

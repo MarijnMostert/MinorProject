@@ -96,10 +96,10 @@ public class Enemy : MonoBehaviour, IDamagable {
 		if (health <= 0) {
 			if (anim != null)
 			{
-				Debug.Log ("animation time");
+//				Debug.Log ("animation time");
 				anim.SetTrigger ("Die");
 			}
-			Debug.Log ("dead");
+//			Debug.Log ("dead");
 			Die ();
 		}
 	}

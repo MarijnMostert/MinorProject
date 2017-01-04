@@ -7,6 +7,7 @@ public class Torch : InteractableItem, IDamagable {
 	public Light torchLight;
 	public float intensityMinimum = 0f;
 	public float intensityMaximum = 2f;
+	public int startingHealth;
 	public int health;
 	public float rangeMinimum = 5;
 	public float rangeMaximum = 40f;
@@ -31,6 +32,7 @@ public class Torch : InteractableItem, IDamagable {
 
 	public GameObject UI;
 	private Text healthText;
+	private Image healthBar;
 	public GameObject Particles;
 	public Animator TorchFOV;
 	public float[] TorchFOVSize = {3000,3000};
@@ -41,6 +43,8 @@ public class Torch : InteractableItem, IDamagable {
 
 	new void Start () {
 		base.Start ();
+
+		health = startingHealth;
 
 		torchLight = transform.GetComponentInChildren<Light> ();
 		Particles = transform.Find ("Particles").gameObject;
@@ -125,6 +129,11 @@ public class Torch : InteractableItem, IDamagable {
 		}
 		healthText.text = "Health: " + health;
 		gameManager.torchHealth = health;
+
+		if (healthBar == null) {
+			healthBar = UI.transform.Find ("HealthBar").Find("Torch Healthbar Fill").GetComponent<Image> ();
+		}
+		healthBar.fillAmount = (float)health / (float)startingHealth * 0.4f + 0.6f;
 	}
 
 	public void Die(){
@@ -141,7 +150,7 @@ public class Torch : InteractableItem, IDamagable {
 
 	void pickUpTorch(GameObject triggerObject){
 		Debug.Log ("Torch is picked up");
-		gameManager.analytics.WriteTorchPickup ();
+		gameManager.WriteTorchPickup ();
 		transform.SetParent (triggerObject.transform.FindChild("Torch Holder"));
 		transform.position = transform.parent.position;
 		transform.rotation = transform.parent.rotation;

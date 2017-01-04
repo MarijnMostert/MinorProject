@@ -31,7 +31,8 @@ public class puzzleDoors : MonoBehaviour {
 	void OnTriggerEnter (Collider other) {
 		if (!done && !locked && other.gameObject.CompareTag("Player")) {
 			StartPuzzle ();	
-			gameManager.analytics.WritePuzzleStart (RoomType);
+			gameManager.Roomtype = RoomType;
+			gameManager.WritePuzzleStart ();
 			locked = true;
 		}
 	}
@@ -57,6 +58,7 @@ public class puzzleDoors : MonoBehaviour {
 		done = true;
 		active = false;
 		gameManager.spawner.dead = false;
-		gameManager.analytics.WritePuzzleComplete (RoomType, (Time.time - StartTime));
+		gameManager.WritePuzzleComplete (Time.time - StartTime);
+		gameManager.Roomtype = null;
 	}
 }
