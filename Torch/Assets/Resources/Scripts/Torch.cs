@@ -70,6 +70,9 @@ public class Torch : InteractableItem, IDamagable {
 		if (Input.GetButtonDown ("DropTorch2") && equipped && gameManager.playerManagers [1].playerInstance.GetComponentInChildren<Torch>() != null) {
 			releaseTorch ();
 		}
+		if (transform.position.y < -12) {
+			Die ();
+		}
 	}
 
 	//Update the light intensity and range according to the health
