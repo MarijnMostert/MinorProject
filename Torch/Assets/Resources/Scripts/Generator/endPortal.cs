@@ -59,6 +59,7 @@ public class endPortal : MonoBehaviour {
     void onWin()
     {
 		Time.timeScale = 0f;
+		gameManager.spawner.activated = false;
 		gameManager.totalScore += gameManager.score;
 		endOfRoundCanvas.transform.Find ("Score").GetComponent<Text> ().text = gameManager.score.ToString();
 		endOfRoundCanvas.transform.Find ("TotalScore").GetComponent<Text> ().text = gameManager.totalScore.ToString();
