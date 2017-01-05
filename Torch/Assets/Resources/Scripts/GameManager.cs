@@ -184,7 +184,7 @@ public class GameManager : MonoBehaviour {
 			wait = 1.0f;
 		}
 		yield return new WaitForSeconds (wait);
-		spawner.dead = false;
+		spawner.activated = true;
 		Debug.Log ("spawner activated");
 	}
 

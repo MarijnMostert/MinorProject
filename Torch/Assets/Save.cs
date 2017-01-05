@@ -24,7 +24,7 @@ public class Save {
 //		}
 		string temp = System.IO.File.ReadAllText("save.txt");
 		int level = Int32.Parse (temp);
-		Debug.Log (level);
+		Debug.Log ("Dungeon level: " + level);
 		return level;
 	}
 

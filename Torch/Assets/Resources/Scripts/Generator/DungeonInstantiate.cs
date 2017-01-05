@@ -246,7 +246,7 @@ public class DungeonInstantiate : Object {
 			}
 		}
 			
-		Debug.Log (surrounding[0] + "." + surrounding[1] + "." + surrounding[2] + "." + surrounding[3] + " " + center);
+//		Debug.Log (surrounding[0] + "." + surrounding[1] + "." + surrounding[2] + "." + surrounding[3] + " " + center);
 		for (int i = 0; i < 4; i++) {
 			if (surrounding [i] == 1) {
 				Instantiate (WoodenDoors, convCenter, Quaternion.Euler (0, i * 90, 0), thesedoors.transform);

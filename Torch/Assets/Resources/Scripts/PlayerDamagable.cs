@@ -27,7 +27,7 @@ public class PlayerDamagable : MonoBehaviour, IDamagable {
 		while (true) {
 			if (transform.position.y>=0.24f){
 				lastKnownPosition = transform.position;
-				Debug.Log ("lastKnownPosition: " + lastKnownPosition);
+//				Debug.Log ("lastKnownPosition: " + lastKnownPosition);
 			}
 			yield return new WaitForSeconds (positionIsSavedEveryXSeconds);
 		}

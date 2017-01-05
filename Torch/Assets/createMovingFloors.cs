@@ -60,7 +60,7 @@ public class createMovingFloors : MonoBehaviour {
 		}
 
 		foreach (Vector3 place in placesz) {
-			Debug.Log (place);
+//			Debug.Log (place);
 			GameObject floor = GameObject.Instantiate (platform, place, Quaternion.identity, blocks.transform) as GameObject;
 			floor.GetComponent<PingPongPlatform> ().choice = 'x';
 			movingblocks.Add (floor);
