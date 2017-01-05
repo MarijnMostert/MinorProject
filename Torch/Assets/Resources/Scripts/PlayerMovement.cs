@@ -65,7 +65,9 @@ public class PlayerMovement : MonoBehaviour {
 	}
 
 	void OnDisable(){
-		cursorPointer.SetActive (false);
+		if (cursorPointer != null) {
+			cursorPointer.SetActive (false);
+		}
 	}
 
 	void Start () {
