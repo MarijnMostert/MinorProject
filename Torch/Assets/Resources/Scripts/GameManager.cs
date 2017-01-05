@@ -94,6 +94,8 @@ public class GameManager : MonoBehaviour {
 	public int requiredCollectedKeys;
 	public GameObject Bold;
 
+	private int numberOfPlayers = 1;
+
     void Awake () {
         gameStarted = false;
 		tutorialStarted = false;
@@ -230,7 +232,7 @@ public class GameManager : MonoBehaviour {
 			}
 		}
 
-		SetNumberOfPlayers (1);
+		SetNumberOfPlayers (numberOfPlayers);
 
 		Vector3 startpoint = masterGenerator.MovePlayersToStart ();
 		torch.transform.position = startpoint + new Vector3 (6, .5f, 0);
@@ -445,10 +447,12 @@ public class GameManager : MonoBehaviour {
 			playerManagers [1].Enable (false);
 			if (mainCamera != null)
 				mainCamera.GetComponent<CameraController> ().UpdateTargets ();
+			numberOfPlayers = 1;
 		} else if (number == 2 && !playerManagers[1].active) {
 			playerManagers [1].Enable (true);
 			if (mainCamera != null)
 				mainCamera.GetComponent<CameraController> ().UpdateTargets ();
+			numberOfPlayers = 2;
 		}
 	}
 
