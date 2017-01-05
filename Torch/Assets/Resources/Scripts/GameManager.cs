@@ -170,6 +170,7 @@ public class GameManager : MonoBehaviour {
 			dungeonLevel++;
 			Parameters (dungeonLevel);
 			endOfRoundCanvas.SetActive (false);
+			loadingScreenCanvas.transform.Find ("LevelText").GetComponent<Text> ().text = (dungeonLevel-1).ToString();
             loadingScreenCanvas.SetActive(true);
 			homeScreen.SetActive (false);
             StartCoroutine(CreateDungeon());
