@@ -354,9 +354,6 @@ public class GameManager : MonoBehaviour {
 		foreach (GameObject pickup in GameObject.FindGameObjectsWithTag("PickUp")) {
 			Destroy (pickup);
 		}
-		foreach (GameObject cursor in GameObject.FindGameObjectsWithTag ("CursorPointer")) {
-			Destroy (cursor);
-		}
 	}
 
 	public void TransitionDeathToMain(){

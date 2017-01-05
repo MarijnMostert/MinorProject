@@ -24,12 +24,11 @@ public class PlayerManager {
 		dead = false;
 	//	UI = Instantiate (UI);
 	//	playerInstance.GetComponent<MeshRenderer> ().material.color = playerColor;
-	//	cursorPointer = Instantiate (cursorPointer, playerInstance.transform) as Sprite;
 
 		//Setup movement script
 		playerMovement = playerInstance.GetComponent<PlayerMovement> ();
         playerMovement.setMoves(playerNumber);
-		playerMovement.cursorPointer = cursorPointer;
+		playerMovement.cursorPointerPrefab = cursorPointer;
 		//Setup weapon controller script
 		playerWeaponController = playerInstance.GetComponent<PlayerWeaponController>();
 		playerWeaponController.setNumber(playerNumber);
@@ -68,7 +67,6 @@ public class PlayerManager {
 		if (Bool) {
 			//Enable player
 			EnableMovement (true);
-			playerMovement.cursorPointer.SetActive (true);
 			Vector3 spawnLocation = gameManager.torch.transform.position;
 			spawnLocation.y = .5f;
 			playerInstance.transform.position = spawnLocation;
@@ -80,7 +78,6 @@ public class PlayerManager {
 				gameManager.torch.releaseTorch ();
 			}
 			EnableMovement (false);
-			playerMovement.cursorPointer.SetActive (false);
 			playerInstance.SetActive(false);
 			active = false;
 		}

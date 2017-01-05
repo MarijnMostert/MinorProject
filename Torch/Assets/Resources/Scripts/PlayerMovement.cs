@@ -5,7 +5,8 @@ public class PlayerMovement : MonoBehaviour {
 
 	public float speed;
 	public LayerMask floorMask;
-	public GameObject cursorPointer;
+	[HideInInspector] public GameObject cursorPointerPrefab;
+	[SerializeField] private GameObject cursorPointer;
 	public Camera mainCamera;
 	public int playerNumber;
 	public bool controllerInput = false;
@@ -59,13 +60,20 @@ public class PlayerMovement : MonoBehaviour {
 	private float ControllerMovingVerticalInput;
 	*/
 
+	void OnEnable(){
+		cursorPointer.SetActive (true);
+	}
+
+	void OnDisable(){
+		cursorPointer.SetActive (false);
+	}
 
 	void Start () {
 		playerWeaponController = gameObject.GetComponent<PlayerWeaponController> ();
 		//moveHorizontal = "moveHorizontal" + playerNumber;
 		//moveVertical = "moveVertical" + playerNumber;
 
-		cursorPointer = Instantiate(cursorPointer);
+		cursorPointer = Instantiate(cursorPointerPrefab);
 		cursorPointer.SetActive (true);
 
 		if (playerNumber == 2)
