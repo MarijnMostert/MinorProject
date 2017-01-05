@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour {
 	public LayerMask floorMask;
 	[HideInInspector] public GameObject cursorPointerPrefab;
 	[SerializeField] private GameObject cursorPointer;
+	[HideInInspector] public Color playerColor;
 	public Camera mainCamera;
 	public int playerNumber;
 	public bool controllerInput = false;
@@ -76,6 +77,7 @@ public class PlayerMovement : MonoBehaviour {
 		//moveVertical = "moveVertical" + playerNumber;
 
 		cursorPointer = Instantiate(cursorPointerPrefab);
+		cursorPointer.GetComponent<SpriteRenderer> ().color = playerColor;
 		cursorPointer.SetActive (true);
 
 		if (playerNumber == 2)

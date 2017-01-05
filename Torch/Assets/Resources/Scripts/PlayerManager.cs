@@ -29,6 +29,7 @@ public class PlayerManager {
 		playerMovement = playerInstance.GetComponent<PlayerMovement> ();
         playerMovement.setMoves(playerNumber);
 		playerMovement.cursorPointerPrefab = cursorPointer;
+		playerMovement.playerColor = playerColor;
 		//Setup weapon controller script
 		playerWeaponController = playerInstance.GetComponent<PlayerWeaponController>();
 		playerWeaponController.setNumber(playerNumber);
