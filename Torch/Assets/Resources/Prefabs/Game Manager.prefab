@@ -87,7 +87,7 @@ AudioSource:
     serializedVersion: 2
     m_Curve:
     - time: 0
-      value: 0.452
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -104,7 +104,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -162,6 +162,7 @@ MonoBehaviour:
   totalScore: 0
   dungeonLevel: 0
   StartTime: 0
+  Roomtype: 
   paused: 0
   pauseScreen: {fileID: 0}
   inGameCameraPrefab: {fileID: 1000010527591912, guid: 2f0d8300580bb4db9b1240053b57aeaf,
