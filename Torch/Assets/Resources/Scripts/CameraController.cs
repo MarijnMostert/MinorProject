@@ -59,11 +59,14 @@ public class CameraController : MonoBehaviour {
 		//Add torch to the list of targets 3 times. (or player holding the torch).
 		if (gameManager.torch.equipped) {
 			for (int i = 0; i < 3; i++) {
-				targets.Add (gameManager.torch.transform.parent.parent.gameObject);
+				if(gameManager.torch != null && gameManager.torch.transform.parent.parent.gameObject != null)
+					targets.Add (gameManager.torch.transform.parent.parent.gameObject);
 			}
 		} else {
 			for (int i = 0; i < 3; i++) {
-				targets.Add (gameManager.torch.gameObject);
+				if (gameManager.torch.gameObject != null) {
+					targets.Add (gameManager.torch.gameObject);
+				}
 			}
 		}
 	}
