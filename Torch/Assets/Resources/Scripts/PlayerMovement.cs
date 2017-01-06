@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour {
 
@@ -8,6 +9,7 @@ public class PlayerMovement : MonoBehaviour {
 	[HideInInspector] public GameObject cursorPointerPrefab;
 	[SerializeField] private GameObject cursorPointer;
 	[HideInInspector] public Color playerColor;
+	public Image playerIndicator;
 	public Camera mainCamera;
 	public int playerNumber;
 	public bool controllerInput = false;
@@ -79,6 +81,7 @@ public class PlayerMovement : MonoBehaviour {
 		cursorPointer = Instantiate(cursorPointerPrefab);
 		cursorPointer.GetComponent<SpriteRenderer> ().color = playerColor;
 		cursorPointer.SetActive (true);
+		playerIndicator.color = playerColor;
 
 		if (playerNumber == 2)
 			ToggleInput ();
