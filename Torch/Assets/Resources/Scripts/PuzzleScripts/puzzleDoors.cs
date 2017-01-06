@@ -12,6 +12,7 @@ public class puzzleDoors : MonoBehaviour {
 	GameManager gameManager;
 	public LeverActivator myLever;
 	private float StartTime;
+	public GameObject key;
 
 	// Use this for initialization
 	void Start () {
@@ -60,5 +61,10 @@ public class puzzleDoors : MonoBehaviour {
 		gameManager.spawner.dead = false;
 		gameManager.WritePuzzleComplete (Time.time - StartTime);
 		gameManager.Roomtype = null;
+
+		//Instantiate a key
+		Vector3 keyPosition = transform.position + new Vector3(0f, 1f, 0f);
+		Instantiate (key, keyPosition, transform.rotation);
+		Destroy (myLever.gameObject);
 	}
 }

@@ -13,7 +13,7 @@ public class PuzzleBlockPad : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other){
 		if(other.gameObject.name.Equals(TriggerObjectName)){
-			Debug.Log(true);
+			//Debug.Log(true);
 			activated = true;
 			block = other.gameObject;
 			other.GetComponent<Rigidbody> ().isKinematic = true;
@@ -28,7 +28,7 @@ public class PuzzleBlockPad : MonoBehaviour {
 
 	void OnTriggerExit(Collider other){
 		if (other.gameObject.name.Equals (TriggerObjectName)) {
-			Debug.Log (false);
+			//Debug.Log (false);
 			activated = false;
 		}
 	}
