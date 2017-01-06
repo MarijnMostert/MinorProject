@@ -283,16 +283,25 @@ public class GameManager : MonoBehaviour {
 			}
 		}
 
+		//Cheatcode to spawn all weapons around the torch
 		if (Input.GetKeyDown (KeyCode.N)) {
 			SpawnAllWeapons ();
 		}
-
+		//Cheatcode to spawn all powerups around the torch
 		if (Input.GetKeyDown (KeyCode.B)) {
 			SpawnAllPowerUps ();
 		}
-
+		//Cheatcode to proceed to the next level
 		if (Input.GetKeyDown (KeyCode.L)) {
 			Proceed ();
+		}
+		//Cheatcode to get full health
+		if (Input.GetKeyDown (KeyCode.K) && torch != null) {
+			torch.HealToStartingHealth ();
+		}
+		//Cheatcode to toggle if the torch is damagable or not
+		if (Input.GetKeyDown (KeyCode.J) && torch != null) {
+			torch.ToggleDamagable ();
 		}
 	}
 

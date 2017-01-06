@@ -20,7 +20,7 @@ public class LaserRoom : MonoBehaviour {
 			LineRenderer[] renderers = GetComponentsInChildren<LineRenderer>();
 
 			foreach (Laserbeam laser in lasers) {
-				Debug.Log ("found 1");
+	//			Debug.Log ("found 1");
 				laser.active = false;
 			}
 			foreach (LineRenderer renderer in renderers) {

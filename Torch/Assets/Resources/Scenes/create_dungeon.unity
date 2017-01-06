@@ -31,7 +31,7 @@ RenderSettings:
   m_FlareFadeSpeed: 3
   m_HaloTexture: {fileID: 0}
   m_SpotCookie: {fileID: 10001, guid: 0000000000000000e000000000000000, type: 0}
-  m_DefaultReflectionMode: 0
+  m_DefaultReflectionMode: 1
   m_DefaultReflectionResolution: 128
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
@@ -49,7 +49,7 @@ LightmapSettings:
     m_IndirectOutputScale: 1
     m_AlbedoBoost: 1
     m_TemporalCoherenceThreshold: 1
-    m_EnvironmentLightingMode: 0
+    m_EnvironmentLightingMode: 1
     m_EnableBakedLightmaps: 1
     m_EnableRealtimeLightmaps: 1
   m_LightmapEditorSettings:
@@ -286,6 +286,11 @@ Prefab:
         type: 2}
       propertyPath: m_Pivot.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012923635810, guid: 62264218f00cc40b2b1f384d6b761f68,
+        type: 2}
+      propertyPath: m_MatchWidthOrHeight
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 62264218f00cc40b2b1f384d6b761f68, type: 2}
@@ -721,7 +726,7 @@ Prefab:
     - target: {fileID: 224000013986348150, guid: ca5e0ad2c3e72490abafc257c55554f4,
         type: 2}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 224000013986348150, guid: ca5e0ad2c3e72490abafc257c55554f4,
         type: 2}
@@ -3581,7 +3586,7 @@ Transform:
   - {fileID: 193019481}
   - {fileID: 1573953687}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
 --- !u!4 &1573953687 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4000011795795662, guid: df7feea12222d4fa591ffa62fa93389a,
@@ -3933,11 +3938,11 @@ Light:
   m_GameObject: {fileID: 1881483136}
   m_Enabled: 1
   serializedVersion: 7
-  m_Type: 0
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 5.3
+  m_Type: 1
+  m_Color: {r: 1, g: 0.897, b: 0.809, a: 1}
+  m_Intensity: 0.85
   m_Range: 139.19548
-  m_SpotAngle: 100.72628
+  m_SpotAngle: 109.5
   m_CookieSize: 10
   m_Shadows:
     m_Type: 2
