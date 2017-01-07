@@ -94,7 +94,7 @@ public class GameManager : MonoBehaviour {
 	public int requiredCollectedKeys;
 	public GameObject Bold;
 
-	private int numberOfPlayers = 1;
+	[HideInInspector] public int numberOfPlayers = 1;
 
     void Awake () {
         gameStarted = false;

@@ -59,6 +59,11 @@ public class Torch : InteractableItem, IDamagable {
 
 		canvas.SetActive (true);
 
+		//If the number of players is 1, the torch is automatically picked up by player 1
+		if (gameManager.numberOfPlayers == 1) {
+			pickUpTorch (gameManager.playerManagers [0].playerInstance);
+		}
+
 		//Coroutine for the flickering of the light.
 		StartCoroutine(TorchFlickering());
 	}
