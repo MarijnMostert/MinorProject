@@ -39,7 +39,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000013437015594}
   - 114: {fileID: 114000011428812948}
-  - 65: {fileID: 65000010624554762}
+  - 135: {fileID: 135000011052769706}
   m_Layer: 16
   m_Name: Object
   m_TagString: Untagged
@@ -84,8 +84,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010896598750}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.96326077, y: -0.077304006, z: -1.7403342}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 1.133, y: -3.99, z: -3.31}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 4000012625039090}
@@ -141,18 +141,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010896598750}
   m_Mesh: {fileID: 4300002, guid: 79efa750e340145baa9e55e1aa16e8da, type: 3}
---- !u!65 &65000010624554762
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010920748742}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 21.040962, y: 10.168557, z: 2.3844266}
-  m_Center: {x: 0.10172725, y: 4.584279, z: 0.03250718}
 --- !u!114 &114000011428812948
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -212,6 +200,18 @@ MonoBehaviour:
   hoverSpeedY: 4
   hoverAmplitudeZ: 0
   hoverSpeedZ: 0
+--- !u!135 &135000011052769706
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010920748742}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.62199306
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &135000012335233152
 SphereCollider:
   m_ObjectHideFlags: 1

@@ -21,9 +21,9 @@ GameObject:
   - 4: {fileID: 4000012766961234}
   - 33: {fileID: 33000011333695330}
   - 23: {fileID: 23000010903370670}
-  - 64: {fileID: 64000012697648242}
   - 54: {fileID: 54000013949144958}
   - 114: {fileID: 114000010314145874}
+  - 95: {fileID: 95000012139437988}
   m_Layer: 0
   m_Name: Bomb
   m_TagString: Untagged
@@ -38,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010286330134}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.235664, y: -2.636304e-17, z: 3.5618572}
+  m_LocalPosition: {x: 1.4239111, y: -4.07, z: -2.99}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -95,18 +95,23 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
---- !u!64 &64000012697648242
-MeshCollider:
+--- !u!95 &95000012139437988
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010286330134}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 1
-  m_Mesh: {fileID: 4300000, guid: d7e38bc0b30cd470da5427303f6958d6, type: 3}
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b108362d3bce940f19ef5c45447d77a5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114000010314145874
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -121,6 +126,8 @@ MonoBehaviour:
   timeTillExplode: 3
   maxDamage: 180
   blastRange: 6
-  particles: {fileID: 198000011984316936, guid: 4329bc11782144fd2a3874a63f45d24d,
+  particles: {fileID: 114000010730151826, guid: 917ce2d2cbb34482396c8decd1ae8d0b,
+    type: 2}
+  ExplosionMark: {fileID: 223000012738086210, guid: e27e7faafb3e34ec48af654296d41a7d,
     type: 2}
   canHitPlayer: 0

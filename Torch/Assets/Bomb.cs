@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class Bomb : MonoBehaviour {
@@ -6,7 +7,8 @@ public class Bomb : MonoBehaviour {
 	public float timeTillExplode = 3f;
 	public int maxDamage = 120;
 	public float blastRange = 3f;
-	public ParticleSystem particles;
+	public ParticlePlayer particles;
+	public Canvas ExplosionMark;
 	public bool canHitPlayer = false;
 
 
@@ -22,16 +24,20 @@ public class Bomb : MonoBehaviour {
 			if (damagableObject != null) {
 				float distanceFromBomb = Mathf.Abs ((collider.transform.position - transform.position).magnitude);
 				int damage = (int)((1 - (distanceFromBomb / blastRange)) * maxDamage);
-				if (!canHitPlayer && (collider.gameObject.CompareTag ("Player") || collider.gameObject.CompareTag("Torch"))) {
-					damage = 0;
-				}
 				Debug.Log (damage + " damage on " + collider.gameObject);
-				damagableObject.takeDamage (damage, false);
+				if (canHitPlayer || (!collider.gameObject.CompareTag ("Player") && !collider.gameObject.CompareTag ("Torch"))) {
+					damagableObject.takeDamage (damage, false);
+				}
 			}
 		}
-		particles = Instantiate (particles, transform.position, Quaternion.Euler(new Vector3(-90f, 0f, 0f))) as ParticleSystem;
+		particles = Instantiate (particles, transform.position, Quaternion.identity) as ParticlePlayer;
 		particles.Play ();
-		Destroy (particles.gameObject, particles.duration - 0.2f);
+
+		Vector3 pos = transform.position;
+		pos.y = 0.01f;
+		Instantiate (ExplosionMark, pos, Quaternion.Euler(new Vector3(-90f, 0f, 0f)));
+
+		Destroy (particles.gameObject, 2f);
 		Destroy (gameObject);
 	}
 }
