@@ -312,8 +312,6 @@ public class GameManager : MonoBehaviour {
 			Time.timeScale = 0;
 			paused = true;
 			pauseScreen.SetActive (true);
-			if(spawner != null)
-				spawner.dead = true;
 			foreach (PlayerManager PM in playerManagers) {
 				if(PM.playerInstance != null)
 					PM.EnableMovement (false);
@@ -322,8 +320,6 @@ public class GameManager : MonoBehaviour {
 			Time.timeScale = 1;
 			paused = false;
 			pauseScreen.SetActive (false);
-			if (spawner != null)
-				spawner.dead = false;
 			foreach (PlayerManager PM in playerManagers) {
 				if(PM.playerInstance != null)
 					PM.EnableMovement(true);
