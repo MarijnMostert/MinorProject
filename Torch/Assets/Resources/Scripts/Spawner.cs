@@ -24,7 +24,7 @@ public class Spawner : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		gameManager = GameObject.Find ("Game Manager").GetComponent<GameManager> ();
+		gameManager = GameManager.Instance;
 		timeBetweenEnemySpawn = 15.0f - (gameManager.dungeonLevel);
 		if (timeBetweenEnemySpawn < 1.0f) {
 			timeBetweenEnemySpawn = 1.0f;
@@ -102,7 +102,7 @@ public class Spawner : MonoBehaviour {
 		//yield return new WaitForSeconds (timeTillSpawning);
         while(true)
         {
-            if (!dead && activated)
+			if (!dead && activated && !gameManager.paused)
             {
                 spawnEnemy();
             }

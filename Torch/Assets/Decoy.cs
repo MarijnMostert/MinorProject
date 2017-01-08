@@ -13,6 +13,7 @@ public class Decoy : MonoBehaviour {
 		Invoke ("Reset", activeTime);
 	}
 
+	//Reset target to original.
 	void Reset(){
 		Torch torch = gameManager.torch;
 		if (torch.equipped) {
@@ -21,9 +22,5 @@ public class Decoy : MonoBehaviour {
 			gameManager.enemyTarget = torch.gameObject;
 		}
 		Destroy (gameObject);
-	}
-
-	void Update(){
-
 	}
 }
