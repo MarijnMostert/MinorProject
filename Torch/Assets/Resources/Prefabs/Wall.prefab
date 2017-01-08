@@ -24,6 +24,7 @@ GameObject:
   - 65: {fileID: 65000010614624718}
   - 114: {fileID: 114000012669239834}
   - 208: {fileID: 208000012705197590}
+  - 95: {fileID: 95000010868361568}
   m_Layer: 14
   m_Name: Wall
   m_TagString: Shield
@@ -38,7 +39,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010105165842}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.186972, y: -7.8776843e-17, z: 10.64338}
+  m_LocalPosition: {x: -3.7753572, y: -3.71, z: 4.568529}
   m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -92,6 +93,23 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 21.04733, y: 8.861687, z: 1.1601739}
   m_Center: {x: 0, y: 4.4588337, z: 0.008507997}
+--- !u!95 &95000010868361568
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010105165842}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 361cd3066070d4156865e76b0e10c615, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114000012669239834
 MonoBehaviour:
   m_ObjectHideFlags: 1

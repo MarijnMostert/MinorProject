@@ -24,8 +24,8 @@ public class Bomb : MonoBehaviour {
 			if (damagableObject != null) {
 				float distanceFromBomb = Mathf.Abs ((collider.transform.position - transform.position).magnitude);
 				int damage = (int)((1 - (distanceFromBomb / blastRange)) * maxDamage);
-				Debug.Log (damage + " damage on " + collider.gameObject);
 				if (canHitPlayer || (!collider.gameObject.CompareTag ("Player") && !collider.gameObject.CompareTag ("Torch"))) {
+					Debug.Log (damage + " damage on " + collider.gameObject);
 					damagableObject.takeDamage (damage, false);
 				}
 			}

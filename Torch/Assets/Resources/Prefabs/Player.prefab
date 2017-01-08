@@ -26,6 +26,7 @@ GameObject:
   - 114: {fileID: 114000011305479762}
   - 114: {fileID: 114000011222896024}
   - 82: {fileID: 82000010914581714}
+  - 114: {fileID: 114000010002503192}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -1278,7 +1279,7 @@ Light:
   m_BounceIntensity: 1.47
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &114000010758174252
+--- !u!114 &114000010002503192
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -1286,11 +1287,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000010005094228}
   m_Enabled: 1
   m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1c70f1a900c849918fd2104ab4ade49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerNumber: 0
+  emptyPowerUpPrefab: {fileID: 0}
+  powerUpInventorySize: 3
+  powerUps: []
+--- !u!114 &114000010758174252
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010005094228}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 10b7cdd605aef439bbd7ad314c0d6527, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   weapons: []
-  weaponsList: []
   emptyWeaponPrefab: {fileID: 114000010122914344, guid: 97d77214615c4498d896fde0ea7af658,
     type: 2}
   emptyPowerUpPrefab: {fileID: 0}
@@ -1350,8 +1365,9 @@ MonoBehaviour:
   startingWeapon: {fileID: 114000013339538176, guid: e428b4fa935a649f58b92c4bb19efe0e,
     type: 2}
   currentWeapon: {fileID: 0}
+  weaponHolder: {fileID: 4000013804077052}
   playerNumber: 0
-  inventory: {fileID: 0}
+  weaponInventory: {fileID: 0}
   clip_attack: {fileID: 8300000, guid: 1953bdcf99c984a718723504c9b8348d, type: 3}
 --- !u!114 &114000011358515012
 MonoBehaviour:

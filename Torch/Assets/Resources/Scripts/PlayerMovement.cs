@@ -28,8 +28,11 @@ public class PlayerMovement : MonoBehaviour {
 	private RaycastHit floorHit;
 	private Ray cameraRay;
 
-	private GameObject[] controllerButtons;
-	private GameObject[] keyboardButtons;
+	private UIInventory uiInventory;
+	private Image[] playerControllerButtons;
+	private Image[] playerKeyboardButtons;
+	private Image[] generalControllerButtons;
+	private Image[] generalKeyboardButtons;
 
 	public bool godMode = false;
 
@@ -41,11 +44,14 @@ public class PlayerMovement : MonoBehaviour {
 	public PlayerWeaponController playerWeaponController;
 
 	void Awake(){
+
+		/*
 		controllerButtons = GameObject.FindGameObjectsWithTag("UI Help Controller");
 		foreach(GameObject obj in controllerButtons){
 			obj.SetActive (false);
 		}
 		keyboardButtons = GameObject.FindGameObjectsWithTag("UI Help Key");
+		*/
         anim1 = GetComponentInChildren<Animator>();
 	}
 
@@ -82,6 +88,19 @@ public class PlayerMovement : MonoBehaviour {
 		cursorPointer.GetComponent<SpriteRenderer> ().color = playerColor;
 		cursorPointer.SetActive (true);
 		playerIndicator.color = playerColor;
+
+		//setup controller and key buttons in UI.
+		uiInventory = UIInventory.Instance;
+
+		if (playerNumber == 1) {
+			playerControllerButtons = uiInventory.ControllerButtonsP1;
+			playerKeyboardButtons = uiInventory.KeyboardButtonsP1;
+			generalControllerButtons = uiInventory.ControllerButtonsGeneral;
+			generalKeyboardButtons = uiInventory.KeyboardButtonsGeneral;
+			foreach (Image img in playerControllerButtons) {
+				img.gameObject.SetActive (false);
+			}
+		}
 
 		if (playerNumber == 2)
 			ToggleInput ();
@@ -192,22 +211,22 @@ public class PlayerMovement : MonoBehaviour {
 	}
 
 	void ToggleInput () {
-		if (controllerInput) {
-			controllerInput = false;
-			foreach (GameObject obj in controllerButtons) {
-				obj.SetActive (false);
+		controllerInput = !controllerInput;
+		if (playerNumber == 1) {
+			foreach (Image img in playerControllerButtons) {
+				img.gameObject.SetActive (controllerInput);
 			}
-			foreach (GameObject obj in keyboardButtons) {
-				obj.SetActive (true);
+			//Check if second player is active. If it is, general controller buttons should not be toggled.
+			if (!GameManager.Instance.playerManagers [1].active) {
+				foreach (Image img in generalControllerButtons) {
+					img.gameObject.SetActive (controllerInput);
+				}
 			}
-		}
-		else {
-			controllerInput = true;
-			foreach (GameObject obj in controllerButtons) {
-				obj.SetActive (true);
+			foreach (Image img in playerKeyboardButtons) {
+				img.gameObject.SetActive (!controllerInput);
 			}
-			foreach (GameObject obj in keyboardButtons) {
-				obj.SetActive (false);
+			foreach (Image img in generalKeyboardButtons) {
+				img.gameObject.SetActive (!controllerInput);
 			}
 		}
 	}

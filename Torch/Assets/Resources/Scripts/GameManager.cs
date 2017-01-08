@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour {
 	public GameObject enemyTarget;
 	public GameObject UIPrefab;
 	public GameObject UI;
+	public UIInventory uiInventory;
 
 	public GameAnalytics analytics = new GameAnalytics();
 	public Save saver = new Save();
@@ -201,6 +202,7 @@ public class GameManager : MonoBehaviour {
 		if (UI == null) {
 			UI = Instantiate (UIPrefab);
 			UIHelpItems = GameObject.FindGameObjectsWithTag ("UI Help");
+			uiInventory = UI.GetComponentInChildren<UIInventory> ();
 		}
 		TorchFOV = Instantiate (TorchFOVPrefab);
 		if(triggerFloorObject == null)
@@ -329,19 +331,6 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
-	/*
-	void Initialize(){
-
-	void SetUpCameraPart1(){
-		cameraPrefab = Instantiate (cameraPrefab) as GameObject;
-		mainCamera = cameraPrefab.GetComponentInChildren<Camera> ();
-	}
-
-	void SetUpCameraPart2(){
-		cameraPrefab.GetComponentInChildren<CameraController> ().target = camTarget;
-	}*/
-
-
 	public void GameOver(){
 		totalScore += score;
 		analytics.WriteDeath (totalScore, dungeonLevel);
@@ -457,11 +446,19 @@ public class GameManager : MonoBehaviour {
 			playerManagers [1].Enable (false);
 			if (mainCamera != null)
 				mainCamera.GetComponent<CameraController> ().UpdateTargets ();
+			if (uiInventory != null) {
+				uiInventory.SetNumberOfPlayers (number);
+				uiInventory.weaponInventory.RemoveIndicatorOffset ();
+			}
 			numberOfPlayers = 1;
 		} else if (number == 2 && !playerManagers[1].active) {
 			playerManagers [1].Enable (true);
 			if (mainCamera != null)
 				mainCamera.GetComponent<CameraController> ().UpdateTargets ();
+			if (uiInventory != null) {
+				uiInventory.SetNumberOfPlayers (number);
+				uiInventory.weaponInventory.ApplyIndicatorOffset ();
+			}
 			numberOfPlayers = 2;
 		}
 	}
