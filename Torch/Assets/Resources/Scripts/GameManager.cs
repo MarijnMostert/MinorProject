@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour {
 	public GameObject playerPrefab;
 
 	//Torch data
-	private GameObject torchPrefab;
+	public Torch torchPrefab;
 	public Torch torch;
 	public Transform torchSpawnPoint;
 	public int torchStartingHealth = 100;
@@ -96,6 +96,7 @@ public class GameManager : MonoBehaviour {
 	public int collectedKeys;
 	public int requiredCollectedKeys;
 	public GameObject Bold;
+	private Bold BoldScript;
 
 	[HideInInspector] public int numberOfPlayers = 1;
 
@@ -123,6 +124,9 @@ public class GameManager : MonoBehaviour {
 		loadingScreenCanvas.SetActive (false);
 		homeScreenPlayerPosition = GameObject.Find ("HomeScreenPlayer").transform.position;
 		Bold = Instantiate (Bold, homeScreenPlayerPosition, Quaternion.identity) as GameObject;
+		BoldScript = Bold.GetComponent<Bold> ();
+		BoldScript.speechText.text = "";
+		BoldScript.speechImage.gameObject.SetActive (false);
 	}
 
 	void Parameters(int level){
@@ -172,10 +176,10 @@ public class GameManager : MonoBehaviour {
 			dungeonLevel++;
 			Parameters (dungeonLevel);
 			endOfRoundCanvas.SetActive (false);
-			loadingScreenCanvas.transform.Find ("LevelText").GetComponent<Text> ().text = (dungeonLevel-1).ToString();
+			loadingScreenCanvas.transform.Find ("LevelText").GetComponent<Text> ().text = "Dungeon level: " + (dungeonLevel-1).ToString();
             loadingScreenCanvas.SetActive(true);
 			homeScreen.SetActive (false);
-            StartCoroutine(CreateDungeon());
+            StartCoroutine(CreateLevel(1));
             gameStarted = true;
 			StartCoroutine (WaitSpawning ());
 
@@ -193,21 +197,31 @@ public class GameManager : MonoBehaviour {
 		Debug.Log ("spawner activated");
 	}
 
-	IEnumerator CreateDungeon(){
+	//where type 0 is tutorial and type 1 is dungeon.
+	IEnumerator CreateLevel(int type){
 		yield return new WaitForSeconds (.1f);
 		RandomizeTextures ();
-		masterGenerator = new MasterGenerator(this.gameObject, width, height, radius, maxlength, timeout, minAmountOfRooms, maxAmountOfRooms, chanceOfRoom, PuzzleRooms);
-		masterGenerator.LoadPrefabs();
-		masterGenerator.Start();
+
+		if (type == 1) {
+			masterGenerator = new MasterGenerator (this.gameObject, width, height, radius, maxlength, timeout, minAmountOfRooms, maxAmountOfRooms, chanceOfRoom, PuzzleRooms);
+			masterGenerator.LoadPrefabs ();
+			masterGenerator.Start ();
+		} else if (type == 0) {
+			tutorialObject = Instantiate(tutorialPrefab);
+		}
 
 		if (UI == null) {
 			UI = Instantiate (UIPrefab);
 			UIHelpItems = GameObject.FindGameObjectsWithTag ("UI Help");
 			uiInventory = UI.GetComponentInChildren<UIInventory> ();
 		}
+
 		TorchFOV = Instantiate (TorchFOVPrefab);
+
 		if(triggerFloorObject == null)
 			triggerFloorObject = Instantiate (triggerFloorPrefab);
+
+		torch = Instantiate (torchPrefab) as Torch;
 
 		camTarget = torch.gameObject;
 		enemyTarget = torch.gameObject;
@@ -224,13 +238,13 @@ public class GameManager : MonoBehaviour {
 		for (int i = 0; i < playerManagers.Length; i++) {
 			if (playerManagers [i].playerInstance == null) {
 				Debug.Log ("Create Player with id:" + i);
-				playerManagers [i].playerInstance = Instantiate (playerPrefab, masterGenerator.dungeon_instantiate.startPos, playerManagers [i].spawnPoint.rotation) as GameObject;
+				playerManagers [i].playerInstance = Instantiate (playerPrefab) as GameObject;
 				playerManagers [i].playerNumber = i + 1;
 				playerManagers [i].Setup ();
 				playerManagers [i].playerMovement.mainCamera = mainCamera;
 				playerManagers [i].gameManager = this;
 			} else {
-				playerManagers [i].playerInstance.transform.position = masterGenerator.dungeon_instantiate.startPos;
+	//			playerManagers [i].playerInstance.transform.position = masterGenerator.dungeon_instantiate.startPos;
 				playerManagers [i].Setup ();
 				playerManagers [i].playerInstance.SetActive (true);
 			}
@@ -238,14 +252,30 @@ public class GameManager : MonoBehaviour {
 
 		SetNumberOfPlayers (numberOfPlayers);
 
-		Vector3 startpoint = masterGenerator.MovePlayersToStart ();
+		//Moving players, torch and Bold to the correct place
+		Vector3 startpoint = new Vector3(0f,0f,0f);
+		if (type == 1) {
+			startpoint = masterGenerator.MovePlayersToStart ();
+			torch.isDamagable = true;
+		} else if (type == 0) {
+			startpoint = tutorialObject.transform.Find ("Spawnpoint").transform.position;
+			playerManagers [0].playerInstance.transform.position = startpoint;
+			playerManagers [1].playerInstance.transform.position = startpoint + new Vector3 (-2f, 0f, -2f);
+			torch.isDamagable = false;
+		}
+
 		torch.transform.position = startpoint + new Vector3 (6, .5f, 0);
 		Bold.transform.position = startpoint;
-		Bold.GetComponentInChildren<Text> ().text = "";
 
 		torch.cam = mainCamera;
 		UI.transform.FindChild ("Score Text").GetComponent<Text> ().text = "Score: " + score;
-		UI.transform.FindChild ("Dungeon Level").GetComponent<Text> ().text = "Dungeon level " + dungeonLevel;
+		if (type == 1) {
+			UI.transform.FindChild ("Dungeon Level").GetComponent<Text> ().text = "Dungeon level " + dungeonLevel;
+		} else if (type == 0) {
+			UI.transform.FindChild ("Dungeon Level").GetComponent<Text> ().text = "Dungeon Tutorial";
+			BoldScript.speechText.text = "Welcome to this tutorial! My name is Bold. Use the WASD-keys to move.";
+			BoldScript.speechImage.gameObject.SetActive (true);
+		}
 
 		audioSourceMusic.clip = audioDungeon [UnityEngine.Random.Range (0, audioDungeon.Length)];
 		audioSourceMusic.Play ();
@@ -490,13 +520,14 @@ public class GameManager : MonoBehaviour {
 			StartTime = Time.time;
 			loadingScreenCanvas.SetActive (true);
 			homeScreen.SetActive (false);
-			StartCoroutine (LoadTutorial ());
+			StartCoroutine (CreateLevel (0));
 			tutorialStarted = true;
 
 
 		}
 	}
 
+	/*
 	IEnumerator LoadTutorial(){
 
 		yield return new WaitForSeconds (.1f);
@@ -557,6 +588,7 @@ public class GameManager : MonoBehaviour {
 
 		yield return null;
 	}
+	*/
 
 	public void ExitGame(){
 		Application.Quit ();

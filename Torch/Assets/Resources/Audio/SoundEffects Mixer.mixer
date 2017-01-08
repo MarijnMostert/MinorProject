@@ -5,8 +5,9 @@ AudioMixerController:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: NewAudioMixer
-  m_OutputGroup: {fileID: 0}
+  m_Name: SoundEffects Mixer
+  m_OutputGroup: {fileID: 243000011960170076, guid: 33975d0ba3fac476cb4987efebc83a81,
+    type: 2}
   m_MasterGroup: {fileID: 24300001}
   m_Snapshots:
   - {fileID: 24500003}
@@ -15,7 +16,10 @@ AudioMixerController:
   m_EnableSuspend: 1
   m_UpdateMode: 0
   m_ExposedParameters: []
-  m_AudioMixerGroupViews: []
+  m_AudioMixerGroupViews:
+  - guids:
+    - bfff57c05ed324b82a4c720f67b01d49
+    name: View
   m_CurrentViewIndex: 0
   m_TargetSnapshot: {fileID: 24500003}
 --- !u!243 &24300001

@@ -207,7 +207,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	//Updates the position of the crosshairs to the cursor position.
 	private void updateCursorPointer(Vector3 position){
-		cursorPointer.transform.position = new Vector3 (position.x, 0.1f, position.z);
+		cursorPointer.transform.position = position;
 	}
 
 	void ToggleInput () {

@@ -1144,10 +1144,10 @@ AudioSource:
   m_GameObject: {fileID: 1000010005094228}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 24300001, guid: 33975d0ba3fac476cb4987efebc83a81,
+  OutputAudioMixerGroup: {fileID: 243000012618909108, guid: 33975d0ba3fac476cb4987efebc83a81,
     type: 2}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.53
   m_Pitch: 1.25
   Loop: 0
@@ -1369,6 +1369,7 @@ MonoBehaviour:
   playerNumber: 0
   weaponInventory: {fileID: 0}
   clip_attack: {fileID: 8300000, guid: 1953bdcf99c984a718723504c9b8348d, type: 3}
+  audioSource: {fileID: 82000010914581714}
 --- !u!114 &114000011358515012
 MonoBehaviour:
   m_ObjectHideFlags: 1

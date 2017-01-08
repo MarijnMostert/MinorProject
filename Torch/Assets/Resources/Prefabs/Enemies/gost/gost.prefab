@@ -721,7 +721,7 @@ AudioSource:
   m_GameObject: {fileID: 1000012827283380}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 24300001, guid: 33975d0ba3fac476cb4987efebc83a81,
+  OutputAudioMixerGroup: {fileID: 243000011220735294, guid: 33975d0ba3fac476cb4987efebc83a81,
     type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
@@ -819,6 +819,7 @@ MonoBehaviour:
   startingWeapon: {fileID: 114000013339538176, guid: eb2eaefbd4cf747a6842a07638b7a891,
     type: 2}
   currentWeapon: {fileID: 0}
+  weaponHolder: {fileID: 0}
 --- !u!114 &114000012613288934
 MonoBehaviour:
   m_ObjectHideFlags: 1

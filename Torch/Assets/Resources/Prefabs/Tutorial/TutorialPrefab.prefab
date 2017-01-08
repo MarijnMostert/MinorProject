@@ -3491,6 +3491,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1000011329596852
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 4000010109094386}
+  - 33: {fileID: 33000010418211462}
+  - 64: {fileID: 64000010147826106}
+  m_Layer: 18
+  m_Name: Trigger Floor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1000011333366216
 GameObject:
   m_ObjectHideFlags: 1
@@ -11275,6 +11292,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4000010537385806}
   m_RootOrder: 64
+--- !u!4 &4000010109094386
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011329596852}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 21.7, y: 0.005, z: 91.4}
+  m_LocalScale: {x: 9.032862, y: 1, z: 27.648415}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 4000010715586828}
+  m_RootOrder: 12
 --- !u!4 &4000010112524956
 Transform:
   m_ObjectHideFlags: 1
@@ -12583,7 +12613,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012528916838}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 135.52963, y: 67.30624, z: 247.52269}
+  m_LocalPosition: {x: 1048.669, y: 203.89888, z: 286.69156}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -12599,6 +12629,7 @@ Transform:
   - {fileID: 4000011876068890}
   - {fileID: 4000011704683790}
   - {fileID: 4000010287693070}
+  - {fileID: 4000010109094386}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &4000010720016318
@@ -16477,7 +16508,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013940314092}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -19.5, y: 1, z: -96}
+  m_LocalPosition: {x: -18.86, y: 1, z: -96}
   m_LocalScale: {x: 15, y: 2, z: 6}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -34638,6 +34669,13 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013188292204}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!33 &33000010418211462
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011329596852}
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &33000010425931700
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -37965,6 +38003,18 @@ MeshCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012701010622}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!64 &64000010147826106
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011329596852}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
@@ -45070,14 +45120,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000013940314092}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdc7ccf2f1bc0394ca9fdabc29ebe509, type: 3}
+  m_Script: {fileID: 11500000, guid: 403898b3b6b8d4c8e9afed4147e29246, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keyboard: 1
+  boldTalkingClip: {fileID: 8300000, guid: e7668d0252dfa43eaba923367896696c, type: 3}
+  keyboard: 0
   myKeyboardText: Welcome to this tutorial! My name is Bold. Use the WASD-keys to
     move.
-  myControllerText: Welcome to this tutorial! My name is Bold. Use the left stick
-    to move.
+  myControllerText: Welcome to this tutorial! My name is Bold. Use the WASD-keys to
+    move.
 --- !u!114 &114000010391782614
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -45099,14 +45150,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000011743447476}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdc7ccf2f1bc0394ca9fdabc29ebe509, type: 3}
+  m_Script: {fileID: 11500000, guid: 403898b3b6b8d4c8e9afed4147e29246, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boldTalkingClip: {fileID: 8300000, guid: e33b141468f5a420bb9cf3569a65b19b, type: 3}
   keyboard: 0
-  myKeyboardText: 'Torches you come by will get lit to help you navigate. Scoured
-    areas will show up on the minimap. '
-  myControllerText: 'Torches you come by will get lit to help you navigate. Scoured
-    areas will show up on the minimap. '
+  myKeyboardText: Torches you come by will get lit to help you navigate. Scoured areas
+    will show up on the minimap.
+  myControllerText: Torches you come by will get lit to help you navigate. Scoured
+    areas will show up on the minimap.
 --- !u!114 &114000010515555216
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -45231,14 +45283,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000010396493788}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdc7ccf2f1bc0394ca9fdabc29ebe509, type: 3}
+  m_Script: {fileID: 11500000, guid: 403898b3b6b8d4c8e9afed4147e29246, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keyboard: 1
+  boldTalkingClip: {fileID: 8300000, guid: 21642a7a139ac422eb678f80ffe95377, type: 3}
+  keyboard: 0
   myKeyboardText: Along the way you will find chests. They may contain torch fuel,
     new weapons or power ups. Press E to open a chest.
   myControllerText: Along the way you will find chests. They may contain torch fuel,
-    new weapons or power ups. Press O to open a chest.
+    new weapons or power ups. Press E to open a chest.
 --- !u!114 &114000011106219378
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -45247,9 +45300,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000010872847956}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdc7ccf2f1bc0394ca9fdabc29ebe509, type: 3}
+  m_Script: {fileID: 11500000, guid: 403898b3b6b8d4c8e9afed4147e29246, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boldTalkingClip: {fileID: 8300000, guid: 16a7d0682677f44208b6ff333dbc7fac, type: 3}
   keyboard: 0
   myKeyboardText: It is your goal to reach the center of the earth and rekindle its
     fire.
@@ -45276,14 +45330,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000013509501746}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdc7ccf2f1bc0394ca9fdabc29ebe509, type: 3}
+  m_Script: {fileID: 11500000, guid: 403898b3b6b8d4c8e9afed4147e29246, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keyboard: 1
-  myKeyboardText: "Use the numbers on your keyboard to swith weapons, and space or
-    left click to fire! \nNow brace yourself for your first enemy!"
-  myControllerText: "Use the L1 and R1 on your controller to swith weapons, and R2
-    to fire! \nNow brace yourself for your first enemy!"
+  boldTalkingClip: {fileID: 8300000, guid: 42f2e67b4a78943cb92425bba41be584, type: 3}
+  keyboard: 0
+  myKeyboardText: Use the numbers on your keyboard to switch weapons and space or
+    left click to fire. Now brace yourself for your first enemy!
+  myControllerText: Use the numbers on your keyboard to switch weapons and space or
+    left click to fire. Now brace yourself for your first enemy!
 --- !u!114 &114000011542644546
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -45292,14 +45347,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000010040618224}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdc7ccf2f1bc0394ca9fdabc29ebe509, type: 3}
+  m_Script: {fileID: 11500000, guid: 403898b3b6b8d4c8e9afed4147e29246, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boldTalkingClip: {fileID: 8300000, guid: 151a7f821d04649e88a882d8c4801a8e, type: 3}
   keyboard: 0
-  myKeyboardText: You will encounter more types of enemies along your quest. As well
+  myKeyboardText: You will encouter more types of enemies along your quest. As well
     as other challenges.
-  myControllerText: You will encounter more types of enemies along your quest. As
-    well as other challenges.
+  myControllerText: You will encouter more types of enemies along your quest. As well
+    as other challenges.
 --- !u!114 &114000011664571266
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -45321,9 +45377,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000010139770454}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdc7ccf2f1bc0394ca9fdabc29ebe509, type: 3}
+  m_Script: {fileID: 11500000, guid: 403898b3b6b8d4c8e9afed4147e29246, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boldTalkingClip: {fileID: 8300000, guid: f37659a5859c343cda80efcd62965b79, type: 3}
   keyboard: 0
   myKeyboardText: It is your job to protect the torch you are carrying. Enemies will
     try to quench its fire. It will slowly run out of fuel over time.
@@ -45443,9 +45500,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000014051409136}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdc7ccf2f1bc0394ca9fdabc29ebe509, type: 3}
+  m_Script: {fileID: 11500000, guid: 403898b3b6b8d4c8e9afed4147e29246, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boldTalkingClip: {fileID: 8300000, guid: b19affa440edf4118814eda335717832, type: 3}
   keyboard: 0
   myKeyboardText: 'Be ware: the stairs that bring you downward will only open when
     you have collected all keys in the level.'
@@ -45538,9 +45596,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000010416160700}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdc7ccf2f1bc0394ca9fdabc29ebe509, type: 3}
+  m_Script: {fileID: 11500000, guid: 403898b3b6b8d4c8e9afed4147e29246, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boldTalkingClip: {fileID: 8300000, guid: 54c617eed595d44dbb6c8697d585aaad, type: 3}
   keyboard: 0
   myKeyboardText: Enemies spawn around you and will do anything to extinguish the
     fire you're carrying.
@@ -45576,6 +45635,7 @@ MonoBehaviour:
   start_game: 0
   scene: Home
   enabled: 1
+  anim: {fileID: 0}
 --- !u!114 &114000013845293428
 MonoBehaviour:
   m_ObjectHideFlags: 1

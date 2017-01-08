@@ -132,7 +132,7 @@ public class DungeonInstantiate : Object {
 		RoofsParent.transform.SetParent(Dungeon.transform);
 
         //import starters pack
-		InstantiateStarterPack(starters_pack, new Vector3(0, 0, 0),Quaternion.identity);
+		//InstantiateStarterPack(starters_pack, new Vector3(0, 0, 0),Quaternion.identity);
         //Instantiate(scene_manager, new Vector3(0, 0, 0), Quaternion.identity);
 
 		spawner.GetComponent<Spawner>().mapMinX = 0;
@@ -413,6 +413,7 @@ public class DungeonInstantiate : Object {
         return maze;
     }
 
+	/*
 	void InstantiateStarterPack(GameObject[] starters_pack, Vector3 pos, Quaternion rot)
     {
 		GameManager gameManager = GameObject.Find ("Game Manager").GetComponent<GameManager> ();
@@ -421,13 +422,14 @@ public class DungeonInstantiate : Object {
 			GameObject temp = Instantiate(item, pos, rot, Dungeon.transform) as GameObject;
 			if (temp.CompareTag ("Torch")) {
 				gameManager.torch = temp.GetComponent<Torch> ();
-			} /*else if (temp.CompareTag ("Camera")) {
+			} else if (temp.CompareTag ("Camera")) {
 				gameManager.mainCamera = temp.GetComponentInChildren<Camera> ();
 			}
-			*/
+
         }
        // game_manager.GetComponent<GameManager>().mainCamera = cam.GetComponentInChildren<Camera>() as Camera;
     }
+*/
 
     public string print(bool[,] maze)
     {
