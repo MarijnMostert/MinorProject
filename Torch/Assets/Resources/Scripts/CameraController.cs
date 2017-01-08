@@ -9,6 +9,10 @@ public class CameraController : MonoBehaviour {
 	public Vector3 rotation;
 	public float smoothTime = 0.1f;
 
+	public int importanceFactorP1;
+	public int importanceFactorP2;
+	public int importanceFactorTorch;
+
 	private Vector3 targetPosition;
 	private Vector3 smoothDampVelocity;
 	private Vector3 cameraPosition;
@@ -52,18 +56,30 @@ public class CameraController : MonoBehaviour {
 		foreach (PlayerManager PM in gameManager.playerManagers) {
 			//If this player is active
 			if (PM.active) {
-				targets.Add (PM.playerInstance);
+				int importanceFactor = 0;
+				if (PM.playerNumber == 1) {
+					importanceFactor = importanceFactorP1;
+				} else if (PM.playerNumber == 2) {
+					importanceFactor = importanceFactorP2;
+				}
+
+				for (int i = 0; i < importanceFactor; i++) {
+					targets.Add (PM.playerInstance);
+				}
 			}
 		}
 
 		//Add torch to the list of targets 3 times. (or player holding the torch).
 		if (gameManager.torch.equipped) {
-			for (int i = 0; i < 3; i++) {
-				targets.Add (gameManager.torch.transform.parent.parent.gameObject);
+			for (int i = 0; i < importanceFactorTorch; i++) {
+				if(gameManager.torch != null && gameManager.torch.transform.parent.parent.gameObject != null)
+					targets.Add (gameManager.torch.transform.parent.parent.gameObject);
 			}
 		} else {
-			for (int i = 0; i < 3; i++) {
-				targets.Add (gameManager.torch.gameObject);
+			for (int i = 0; i < importanceFactorTorch; i++) {
+				if (gameManager.torch.gameObject != null) {
+					targets.Add (gameManager.torch.gameObject);
+				}
 			}
 		}
 	}

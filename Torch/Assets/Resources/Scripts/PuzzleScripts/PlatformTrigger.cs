@@ -18,43 +18,7 @@ public class PlatformTrigger : MonoBehaviour {
 	void OnTriggerExit (Collider other) {
 		if (other.gameObject.CompareTag ("Player")) {
 			stayed = false;
-			myParent.transform.DetachChildren ();
+			other.gameObject.transform.parent = null;
 		}
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

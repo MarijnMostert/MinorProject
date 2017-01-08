@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour {
 	public int totalScore = 0;
 	public int dungeonLevel = 0;
 	public float StartTime;
+	public string Roomtype;
 
 	public bool paused;
 	public GameObject pauseScreen;
@@ -35,6 +36,7 @@ public class GameManager : MonoBehaviour {
 	public GameObject enemyTarget;
 	public GameObject UIPrefab;
 	public GameObject UI;
+	public UIInventory uiInventory;
 
 	public GameAnalytics analytics = new GameAnalytics();
 	public Save saver = new Save();
@@ -87,10 +89,13 @@ public class GameManager : MonoBehaviour {
 
 	private GameObject DebuggerPanel;
 	public GameObject[] allWeaponsAvailable;
+	public GameObject[] allPowerUpsAvailable;
 
 	public int collectedKeys;
 	public int requiredCollectedKeys;
 	public GameObject Bold;
+
+	[HideInInspector] public int numberOfPlayers = 1;
 
     void Awake () {
         gameStarted = false;
@@ -116,7 +121,7 @@ public class GameManager : MonoBehaviour {
 		loadingScreenCanvas = Instantiate (loadingScreenCanvas) as GameObject;
 		loadingScreenCanvas.SetActive (false);
 		homeScreenPlayerPosition = GameObject.Find ("HomeScreenPlayer").transform.position;
-		Bold = Instantiate (Bold);
+		Bold = Instantiate (Bold, homeScreenPlayerPosition, Quaternion.identity) as GameObject;
 	}
 
 	void Parameters(int level){
@@ -166,6 +171,7 @@ public class GameManager : MonoBehaviour {
 			dungeonLevel++;
 			Parameters (dungeonLevel);
 			endOfRoundCanvas.SetActive (false);
+			loadingScreenCanvas.transform.Find ("LevelText").GetComponent<Text> ().text = (dungeonLevel-1).ToString();
             loadingScreenCanvas.SetActive(true);
 			homeScreen.SetActive (false);
             StartCoroutine(CreateDungeon());
@@ -182,7 +188,7 @@ public class GameManager : MonoBehaviour {
 			wait = 1.0f;
 		}
 		yield return new WaitForSeconds (wait);
-		spawner.dead = false;
+		spawner.activated = true;
 		Debug.Log ("spawner activated");
 	}
 
@@ -196,6 +202,7 @@ public class GameManager : MonoBehaviour {
 		if (UI == null) {
 			UI = Instantiate (UIPrefab);
 			UIHelpItems = GameObject.FindGameObjectsWithTag ("UI Help");
+			uiInventory = UI.GetComponentInChildren<UIInventory> ();
 		}
 		TorchFOV = Instantiate (TorchFOVPrefab);
 		if(triggerFloorObject == null)
@@ -228,11 +235,12 @@ public class GameManager : MonoBehaviour {
 			}
 		}
 
-		SetNumberOfPlayers (1);
+		SetNumberOfPlayers (numberOfPlayers);
 
 		Vector3 startpoint = masterGenerator.MovePlayersToStart ();
 		torch.transform.position = startpoint + new Vector3 (6, .5f, 0);
 		Bold.transform.position = startpoint;
+		Bold.GetComponentInChildren<Text> ().text = "";
 
 		torch.cam = mainCamera;
 		UI.transform.FindChild ("Score Text").GetComponent<Text> ().text = "Score: " + score;
@@ -277,12 +285,25 @@ public class GameManager : MonoBehaviour {
 			}
 		}
 
+		//Cheatcode to spawn all weapons around the torch
 		if (Input.GetKeyDown (KeyCode.N)) {
 			SpawnAllWeapons ();
 		}
-
+		//Cheatcode to spawn all powerups around the torch
+		if (Input.GetKeyDown (KeyCode.B)) {
+			SpawnAllPowerUps ();
+		}
+		//Cheatcode to proceed to the next level
 		if (Input.GetKeyDown (KeyCode.L)) {
 			Proceed ();
+		}
+		//Cheatcode to get full health
+		if (Input.GetKeyDown (KeyCode.K) && torch != null) {
+			torch.HealToStartingHealth ();
+		}
+		//Cheatcode to toggle if the torch is damagable or not
+		if (Input.GetKeyDown (KeyCode.J) && torch != null) {
+			torch.ToggleDamagable ();
 		}
 	}
 
@@ -310,19 +331,6 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
-	/*
-	void Initialize(){
-
-	void SetUpCameraPart1(){
-		cameraPrefab = Instantiate (cameraPrefab) as GameObject;
-		mainCamera = cameraPrefab.GetComponentInChildren<Camera> ();
-	}
-
-	void SetUpCameraPart2(){
-		cameraPrefab.GetComponentInChildren<CameraController> ().target = camTarget;
-	}*/
-
-
 	public void GameOver(){
 		totalScore += score;
 		analytics.WriteDeath (totalScore, dungeonLevel);
@@ -346,9 +354,6 @@ public class GameManager : MonoBehaviour {
 		}
 		foreach (GameObject pickup in GameObject.FindGameObjectsWithTag("PickUp")) {
 			Destroy (pickup);
-		}
-		foreach (GameObject cursor in GameObject.FindGameObjectsWithTag ("CursorPointer")) {
-			Destroy (cursor);
 		}
 	}
 
@@ -399,7 +404,7 @@ public class GameManager : MonoBehaviour {
 
 	public void Proceed(){
 		saver.ToFile (dungeonLevel);
-		analytics.WriteFinishLevel (dungeonLevel, score, StartTime);
+		analytics.WriteFinishLevel (dungeonLevel, score, totalScore, StartTime);
 		score = 0;
 		RoundEnd ();
 		DestroyDungeon ();
@@ -441,10 +446,20 @@ public class GameManager : MonoBehaviour {
 			playerManagers [1].Enable (false);
 			if (mainCamera != null)
 				mainCamera.GetComponent<CameraController> ().UpdateTargets ();
+			if (uiInventory != null) {
+				uiInventory.SetNumberOfPlayers (number);
+				uiInventory.weaponInventory.RemoveIndicatorOffset ();
+			}
+			numberOfPlayers = 1;
 		} else if (number == 2 && !playerManagers[1].active) {
 			playerManagers [1].Enable (true);
 			if (mainCamera != null)
 				mainCamera.GetComponent<CameraController> ().UpdateTargets ();
+			if (uiInventory != null) {
+				uiInventory.SetNumberOfPlayers (number);
+				uiInventory.weaponInventory.ApplyIndicatorOffset ();
+			}
+			numberOfPlayers = 2;
 		}
 	}
 
@@ -452,6 +467,24 @@ public class GameManager : MonoBehaviour {
 		foreach (GameObject weapon in allWeaponsAvailable) {
 			Instantiate (weapon, torch.transform.position + new Vector3 (UnityEngine.Random.Range (-2f, 2f), 0f, UnityEngine.Random.Range (-2f, 2f)), Quaternion.identity);
 		}
+	}
+
+	void SpawnAllPowerUps(){
+		foreach (GameObject powerup in allPowerUpsAvailable) {
+			Instantiate (powerup, torch.transform.position + new Vector3 (UnityEngine.Random.Range (-2f, 2f), 0f, UnityEngine.Random.Range (-2f, 2f)), Quaternion.identity);
+		}
+	}
+
+	public void WriteTorchPickup(){
+		analytics.WriteTorchPickup (dungeonLevel, StartTime);
+	}
+		
+	public void WritePuzzleStart (){
+		analytics.WritePuzzleStart (Roomtype, dungeonLevel);
+	}
+
+	public void WritePuzzleComplete(float Time){
+		analytics.WritePuzzleComplete (Roomtype, Time, dungeonLevel);
 	}
 
 	public void StartTutorial(){
@@ -526,5 +559,9 @@ public class GameManager : MonoBehaviour {
 		SetNumberOfPlayers (1);
 
 		yield return null;
+	}
+
+	public void ExitGame(){
+		Application.Quit ();
 	}
 }

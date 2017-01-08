@@ -25,7 +25,7 @@ public class explosion : MonoBehaviour {
 
             float distance = Vector3.Distance(objectHitted.transform.position, transform.position);
             float splash_damage = (Mathf.Abs(distance - 1.5f) * damage);
-            Debug.Log("Debug explosion: " + objectHitted.name + " distance: " + distance + " damage: " + splash_damage);
+//            Debug.Log("Debug explosion: " + objectHitted.name + " distance: " + distance + " damage: " + splash_damage);
 
 
             if (damagableObject != null)

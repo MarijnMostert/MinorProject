@@ -115,7 +115,7 @@ InputManager:
     snap: 1
     invert: 0
     type: 2
-    axis: 2
+    axis: 3
     joyNum: 1
   - serializedVersion: 3
     m_Name: turnHorizontal2
@@ -131,7 +131,7 @@ InputManager:
     snap: 1
     invert: 0
     type: 2
-    axis: 2
+    axis: 3
     joyNum: 2
   - serializedVersion: 3
     m_Name: turnVertical1
@@ -147,7 +147,7 @@ InputManager:
     snap: 1
     invert: 1
     type: 2
-    axis: 3
+    axis: 4
     joyNum: 1
   - serializedVersion: 3
     m_Name: turnVertical2
@@ -163,7 +163,7 @@ InputManager:
     snap: 1
     invert: 1
     type: 2
-    axis: 3
+    axis: 4
     joyNum: 2
   - serializedVersion: 3
     m_Name: Attack1
@@ -181,6 +181,38 @@ InputManager:
     type: 0
     axis: 0
     joyNum: 1
+  - serializedVersion: 3
+    m_Name: Attack1
+    descriptiveName: Attack 1 with xbox R trigger
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.19
+    sensitivity: 1
+    snap: 1
+    invert: 0
+    type: 2
+    axis: 2
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: Attack2
+    descriptiveName: Attack 2 with xbox R trigger
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.19
+    sensitivity: 1
+    snap: 1
+    invert: 0
+    type: 2
+    axis: 2
+    joyNum: 2
   - serializedVersion: 3
     m_Name: Attack2
     descriptiveName: Attack 2
@@ -204,7 +236,7 @@ InputManager:
     negativeButton: 
     positiveButton: e
     altNegativeButton: 
-    altPositiveButton: joystick button 13
+    altPositiveButton: joystick button 0
     gravity: 1000
     dead: 0.001
     sensitivity: 1000
@@ -220,7 +252,7 @@ InputManager:
     negativeButton: 
     positiveButton: r
     altNegativeButton: 
-    altPositiveButton: joystick 1 button 12
+    altPositiveButton: joystick 1 button 2
     gravity: 1000
     dead: 0.001
     sensitivity: 1000
@@ -236,7 +268,7 @@ InputManager:
     negativeButton: 
     positiveButton: 
     altNegativeButton: 
-    altPositiveButton: joystick 2 button 12
+    altPositiveButton: joystick 2 button 2
     gravity: 1000
     dead: 0.001
     sensitivity: 1000
@@ -262,6 +294,22 @@ InputManager:
     axis: 0
     joyNum: 1
   - serializedVersion: 3
+    m_Name: PowerUpButton1_1
+    descriptiveName: Power Up 1_1 xbox
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.19
+    sensitivity: 1
+    snap: 1
+    invert: 0
+    type: 2
+    axis: 5
+    joyNum: 1
+  - serializedVersion: 3
     m_Name: PowerUpButton1_2
     descriptiveName: Power Up 1_2
     descriptiveNegativeName: 
@@ -278,6 +326,22 @@ InputManager:
     axis: 0
     joyNum: 2
   - serializedVersion: 3
+    m_Name: PowerUpButton1_2
+    descriptiveName: Power Up 1_2 xbox
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.19
+    sensitivity: 1
+    snap: 1
+    invert: 0
+    type: 2
+    axis: 5
+    joyNum: 2
+  - serializedVersion: 3
     m_Name: PowerUpButton2_1
     descriptiveName: Power Up 2_1
     descriptiveNegativeName: 
@@ -292,6 +356,22 @@ InputManager:
     invert: 0
     type: 0
     axis: 0
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: PowerUpButton2_1
+    descriptiveName: Power Up 2_1
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.19
+    sensitivity: 1
+    snap: 1
+    invert: 0
+    type: 2
+    axis: 6
     joyNum: 1
   - serializedVersion: 3
     m_Name: PowerUpButton2_2
@@ -324,6 +404,22 @@ InputManager:
     invert: 0
     type: 0
     axis: 0
+    joyNum: 1
+  - serializedVersion: 3
+    m_Name: PowerUpButton3_1
+    descriptiveName: Power Up 3_1
+    descriptiveNegativeName: 
+    negativeButton: 
+    positiveButton: 
+    altNegativeButton: 
+    altPositiveButton: 
+    gravity: 0
+    dead: 0.19
+    sensitivity: 1
+    snap: 1
+    invert: 0
+    type: 2
+    axis: 5
     joyNum: 1
   - serializedVersion: 3
     m_Name: PowerUpButton3_2
@@ -460,7 +556,7 @@ InputManager:
     negativeButton: 
     positiveButton: u
     altNegativeButton: 
-    altPositiveButton: joystick 1 button 0
+    altPositiveButton: joystick 1 button 6
     gravity: 1000
     dead: 0.001
     sensitivity: 1000

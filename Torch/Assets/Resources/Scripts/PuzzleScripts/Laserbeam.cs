@@ -8,6 +8,7 @@ public class Laserbeam : MonoBehaviour {
 	public int damage;
 	public float cooldown;
 	private float timestamp = 0f;
+	public bool active = true;
 
 	Transform myTransform;
 	LineRenderer lineRenderer;
@@ -24,8 +25,10 @@ public class Laserbeam : MonoBehaviour {
 	}
 
 	void Update() {
-		myTransform.Rotate (0, speed, 0);
-		UpdateLength ();
+		if (active) {
+			myTransform.Rotate (0, speed, 0);
+			UpdateLength ();
+		}
 	}
 
 	void UpdateLength(){
@@ -39,20 +42,4 @@ public class Laserbeam : MonoBehaviour {
 		} else
 			lineRenderer.SetPosition (1, new Vector3 (0, 0, maxLength));
 	}
-
-	void KillPlayer () {
-		Torch torch = hit.collider.gameObject.GetComponentInChildren <Torch> ();
-		int currentH = torch.health;
-		torch.takeDamage (currentH, false);
-	}
-
 }
-
-
-
-
-
-
-
-
-

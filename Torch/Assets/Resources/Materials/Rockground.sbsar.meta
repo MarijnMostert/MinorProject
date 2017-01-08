@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 9100c33a71d3bc34297f459ae70777f9
-timeCreated: 1482494222
+timeCreated: 1482936669
 licenseType: Free
 SubstanceImporter:
   serializedVersion: 5
@@ -179,13 +179,13 @@ SubstanceImporter:
       material: {instanceID: 0}
       baseUID: 1518974538
     - shaderProp:
-        name: _OcclusionMap
-      material: {instanceID: 0}
-      baseUID: 1496299895
-    - shaderProp:
         name: _ParallaxMap
       material: {instanceID: 0}
       baseUID: 1496290151
+    - shaderProp:
+        name: _OcclusionMap
+      material: {instanceID: 0}
+      baseUID: 1496299895
     buildTargetSettings:
     - serializedVersion: 2
       buildTarget: 
@@ -232,7 +232,7 @@ SubstanceImporter:
         texture: {instanceID: 0}
     - name: water_amount
       value:
-        scalar[0]: 0.73
+        scalar[0]: 1
         scalar[1]: 0
         scalar[2]: 0
         scalar[3]: 0
@@ -397,13 +397,13 @@ SubstanceImporter:
       material: {instanceID: 0}
       baseUID: 1456298601
     - shaderProp:
-        name: _OcclusionMap
-      material: {instanceID: 0}
-      baseUID: 1432619474
-    - shaderProp:
         name: _ParallaxMap
       material: {instanceID: 0}
       baseUID: 1432619464
+    - shaderProp:
+        name: _OcclusionMap
+      material: {instanceID: 0}
+      baseUID: 1432619474
     buildTargetSettings:
     - serializedVersion: 2
       buildTarget: 

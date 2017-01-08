@@ -8,9 +8,13 @@ public class RangedWeaponPickUp : MonoBehaviour, IPickUp {
 	//Equips the IceBall Weapon when picked up.
 	public void OnTriggerEnter(Collider other){
 		if (other.gameObject.CompareTag ("Player")) {
+			
 			GameObject player = other.gameObject;
 			WeaponController playWeapController = player.GetComponent<WeaponController> ();
-			if (player.GetComponent<Inventory> ().AddWeaponToInventory (weaponToEquip)) {
+			int playerNumber = player.GetComponent<PlayerMovement> ().playerNumber;
+			WeaponInventory weaponInventory = UIInventory.Instance.weaponInventory;
+
+			if (weaponInventory.AddWeaponToInventory (weaponToEquip, playerNumber)) {
 				playWeapController.Equip (weaponToEquip);
 			}
 			Destroy (transform.parent.gameObject);

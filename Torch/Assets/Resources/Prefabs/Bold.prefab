@@ -21,7 +21,7 @@ GameObject:
   - 224: {fileID: 224000011117894212}
   - 222: {fileID: 222000013371574706}
   - 114: {fileID: 114000013663808758}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: Speech
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   - 108: {fileID: 108000011930531408}
   - 199: {fileID: 199000010507691906}
   - 198: {fileID: 198000012230919298}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: Bold
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -60,7 +60,7 @@ GameObject:
   - 114: {fileID: 114000011362134278}
   - 114: {fileID: 114000013183536416}
   - 114: {fileID: 114000012805679436}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -77,7 +77,7 @@ GameObject:
   - 4: {fileID: 4000010914691434}
   - 135: {fileID: 135000010202449164}
   - 114: {fileID: 114000013378346462}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: Magnet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -246,6 +246,7 @@ MonoBehaviour:
   strength: 1
   range: 20
   distanceToKeep: 2
+  lookAtTarget: 1
 --- !u!114 &114000013663808758
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -506,7 +507,7 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       minMaxState: 0
     startSize:
-      scalar: 1
+      scalar: 0.3
       maxCurve:
         serializedVersion: 2
         m_Curve:

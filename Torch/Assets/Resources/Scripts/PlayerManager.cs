@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.UI;
 
 [Serializable]
 public class PlayerManager {
@@ -15,6 +16,7 @@ public class PlayerManager {
 	[HideInInspector] public bool dead;
 	[HideInInspector] public PlayerMovement playerMovement;
 	[HideInInspector] public PlayerWeaponController playerWeaponController;
+	[HideInInspector] public PowerUpInventory powerUpInventory;
 	[HideInInspector] public bool movementEnabled = true;
 	[HideInInspector] public bool active = true;
 	[HideInInspector] public GameManager gameManager;
@@ -22,14 +24,18 @@ public class PlayerManager {
 	public void Setup () {
 		cursorPointer = Resources.Load ("Prefabs/Cursor Pointer", typeof(GameObject)) as GameObject;
 		dead = false;
-	//	UI = Instantiate (UI);
-		playerInstance.GetComponent<MeshRenderer> ().material.color = playerColor;
-	//	cursorPointer = Instantiate (cursorPointer, playerInstance.transform) as Sprite;
 
 		//Setup movement script
 		playerMovement = playerInstance.GetComponent<PlayerMovement> ();
         playerMovement.setMoves(playerNumber);
-		playerMovement.cursorPointer = cursorPointer;
+		playerMovement.cursorPointerPrefab = cursorPointer;
+		playerMovement.playerColor = playerColor;
+
+		//Setup Inventory references
+		powerUpInventory = playerInstance.GetComponent<PowerUpInventory> ();
+		powerUpInventory.playerNumber = playerNumber;
+		GameManager.Instance.uiInventory.SetColor (playerNumber, playerColor);
+
 		//Setup weapon controller script
 		playerWeaponController = playerInstance.GetComponent<PlayerWeaponController>();
 		playerWeaponController.setNumber(playerNumber);
@@ -68,11 +74,14 @@ public class PlayerManager {
 		if (Bool) {
 			//Enable player
 			EnableMovement (true);
-			playerMovement.cursorPointer.SetActive (true);
 			Vector3 spawnLocation = gameManager.torch.transform.position;
 			spawnLocation.y = .5f;
 			playerInstance.transform.position = spawnLocation;
 			playerInstance.SetActive(true);
+
+			if (playerNumber == 2) {
+				ToggleGeneralControllerButtons (true);
+			}
 			active = true;
 		} else {
 			//Disable player
@@ -80,10 +89,20 @@ public class PlayerManager {
 				gameManager.torch.releaseTorch ();
 			}
 			EnableMovement (false);
-			playerMovement.cursorPointer.SetActive (false);
 			playerInstance.SetActive(false);
+
+			//Set the general controller buttons to inactive, only if player 1 uses keyboard
+			if (playerNumber == 2 && !gameManager.playerManagers [0].playerMovement.controllerInput) {
+				ToggleGeneralControllerButtons (false);
+			}
 			active = false;
 		}
 
+	}
+
+	void ToggleGeneralControllerButtons(bool Enable){
+		foreach (Image img in gameManager.uiInventory.ControllerButtonsGeneral) {
+			img.gameObject.SetActive (Enable);
+		}
 	}
 }

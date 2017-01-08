@@ -13,9 +13,10 @@ public class PingPongPlatform : MonoBehaviour {
 	private Vector3 startingPos;
 	private float useAmp;
 	private bool stayed;
+	public bool active = true;
 
-	void Start () {
-		offset = (float) Random.Range (1, 9);
+	void Start () { 
+		offset = (float)Random.Range (1, 9);
 		speed = Random.Range (maxSpeed - 1.5f, maxSpeed);
 
 		startingPos = transform.position;
@@ -24,7 +25,9 @@ public class PingPongPlatform : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		movePlatform ();
+		if (active) {
+			movePlatform ();
+		}
 	}
 
 	void movePlatform() {

@@ -1,11 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour {
 
 	public float speed;
 	public LayerMask floorMask;
-	public GameObject cursorPointer;
+	[HideInInspector] public GameObject cursorPointerPrefab;
+	[SerializeField] private GameObject cursorPointer;
+	[HideInInspector] public Color playerColor;
+	public Image playerIndicator;
 	public Camera mainCamera;
 	public int playerNumber;
 	public bool controllerInput = false;
@@ -24,8 +28,11 @@ public class PlayerMovement : MonoBehaviour {
 	private RaycastHit floorHit;
 	private Ray cameraRay;
 
-	private GameObject[] controllerButtons;
-	private GameObject[] keyboardButtons;
+	private UIInventory uiInventory;
+	private Image[] playerControllerButtons;
+	private Image[] playerKeyboardButtons;
+	private Image[] generalControllerButtons;
+	private Image[] generalKeyboardButtons;
 
 	public bool godMode = false;
 
@@ -34,12 +41,17 @@ public class PlayerMovement : MonoBehaviour {
 
     Animator anim1;
 
+	public PlayerWeaponController playerWeaponController;
+
 	void Awake(){
+
+		/*
 		controllerButtons = GameObject.FindGameObjectsWithTag("UI Help Controller");
 		foreach(GameObject obj in controllerButtons){
 			obj.SetActive (false);
 		}
 		keyboardButtons = GameObject.FindGameObjectsWithTag("UI Help Key");
+		*/
         anim1 = GetComponentInChildren<Animator>();
 	}
 
@@ -57,14 +69,38 @@ public class PlayerMovement : MonoBehaviour {
 	private float ControllerMovingVerticalInput;
 	*/
 
+	void OnEnable(){
+		cursorPointer.SetActive (true);
+	}
+
+	void OnDisable(){
+		if (cursorPointer != null) {
+			cursorPointer.SetActive (false);
+		}
+	}
 
 	void Start () {
-
+		playerWeaponController = gameObject.GetComponent<PlayerWeaponController> ();
 		//moveHorizontal = "moveHorizontal" + playerNumber;
 		//moveVertical = "moveVertical" + playerNumber;
 
-		cursorPointer = Instantiate(cursorPointer);
+		cursorPointer = Instantiate(cursorPointerPrefab);
+		cursorPointer.GetComponent<SpriteRenderer> ().color = playerColor;
 		cursorPointer.SetActive (true);
+		playerIndicator.color = playerColor;
+
+		//setup controller and key buttons in UI.
+		uiInventory = UIInventory.Instance;
+
+		if (playerNumber == 1) {
+			playerControllerButtons = uiInventory.ControllerButtonsP1;
+			playerKeyboardButtons = uiInventory.KeyboardButtonsP1;
+			generalControllerButtons = uiInventory.ControllerButtonsGeneral;
+			generalKeyboardButtons = uiInventory.KeyboardButtonsGeneral;
+			foreach (Image img in playerControllerButtons) {
+				img.gameObject.SetActive (false);
+			}
+		}
 
 		if (playerNumber == 2)
 			ToggleInput ();
@@ -122,7 +158,7 @@ public class PlayerMovement : MonoBehaviour {
 
         //Move
         if (anim1!=null) {
-            Debug.Log((MovementInput * speed * Time.deltaTime).magnitude);
+//            Debug.Log((MovementInput * speed * Time.deltaTime).magnitude);
             if ((MovementInput * speed * Time.deltaTime).magnitude > .1f)
             {
                 anim1.SetBool("walking",true);
@@ -163,7 +199,7 @@ public class PlayerMovement : MonoBehaviour {
 		if (input.sqrMagnitude < 0.1f) {
 			return;
 		}
-
+		playerWeaponController.Attack ();
 		// Apply the transform to the object  
 		var angle = Mathf.Atan2 (turnHorizontalInput, turnVerticalInput) * Mathf.Rad2Deg;
 		transform.rotation = Quaternion.Euler (0, angle, 0);
@@ -175,22 +211,22 @@ public class PlayerMovement : MonoBehaviour {
 	}
 
 	void ToggleInput () {
-		if (controllerInput) {
-			controllerInput = false;
-			foreach (GameObject obj in controllerButtons) {
-				obj.SetActive (false);
+		controllerInput = !controllerInput;
+		if (playerNumber == 1) {
+			foreach (Image img in playerControllerButtons) {
+				img.gameObject.SetActive (controllerInput);
 			}
-			foreach (GameObject obj in keyboardButtons) {
-				obj.SetActive (true);
+			//Check if second player is active. If it is, general controller buttons should not be toggled.
+			if (!GameManager.Instance.playerManagers [1].active) {
+				foreach (Image img in generalControllerButtons) {
+					img.gameObject.SetActive (controllerInput);
+				}
 			}
-		}
-		else {
-			controllerInput = true;
-			foreach (GameObject obj in controllerButtons) {
-				obj.SetActive (true);
+			foreach (Image img in playerKeyboardButtons) {
+				img.gameObject.SetActive (!controllerInput);
 			}
-			foreach (GameObject obj in keyboardButtons) {
-				obj.SetActive (false);
+			foreach (Image img in generalKeyboardButtons) {
+				img.gameObject.SetActive (!controllerInput);
 			}
 		}
 	}
@@ -206,11 +242,13 @@ public class PlayerMovement : MonoBehaviour {
 		if (!godMode) {
 			Debug.Log ("Godmode turned on");
 			GetComponent<Collider> ().enabled = false;
+			GetComponent<Rigidbody> ().constraints = RigidbodyConstraints.FreezeAll;
 			speed *= 3;
 			godMode = true;
 		} else {
 			Debug.Log ("Godmode turned off");
 			GetComponent<Collider> ().enabled = true;
+			GetComponent<Rigidbody> ().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
 			speed /= 3;
 			godMode = false;
 		}

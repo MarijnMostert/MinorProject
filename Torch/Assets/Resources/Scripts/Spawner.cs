@@ -18,7 +18,8 @@ public class Spawner : MonoBehaviour {
     Floors floors;
 	public float timeTillSpawning = 5f;
 	public float timeBetweenEnemySpawn;
-    public bool dead;
+    public bool dead = false;
+	public bool activated = false;
 //	private int rangeX, rangeZ;
 
 	// Use this for initialization
@@ -28,7 +29,8 @@ public class Spawner : MonoBehaviour {
 		if (timeBetweenEnemySpawn < 1.0f) {
 			timeBetweenEnemySpawn = 1.0f;
 		}
-        dead = true;
+        dead = false;
+		activated = false;
 		waveButton = "SpawnWave";
 		spawnEnemyButton = "SpawnEnemy";
         StartCoroutine(SpawnEnemy());
@@ -97,10 +99,10 @@ public class Spawner : MonoBehaviour {
 
     IEnumerator SpawnEnemy()
     {
-		yield return new WaitForSeconds (timeTillSpawning);
+		//yield return new WaitForSeconds (timeTillSpawning);
         while(true)
         {
-            if (!dead)
+            if (!dead && activated)
             {
                 spawnEnemy();
             }

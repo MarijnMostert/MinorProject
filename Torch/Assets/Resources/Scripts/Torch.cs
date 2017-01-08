@@ -7,6 +7,7 @@ public class Torch : InteractableItem, IDamagable {
 	public Light torchLight;
 	public float intensityMinimum = 0f;
 	public float intensityMaximum = 2f;
+	public int startingHealth;
 	public int health;
 	public float rangeMinimum = 5;
 	public float rangeMaximum = 40f;
@@ -31,7 +32,9 @@ public class Torch : InteractableItem, IDamagable {
 
 	public GameObject UI;
 	private Text healthText;
-	public GameObject Particles;
+	private Image healthBar;
+	public GameObject HealingParticles;
+	public ParticleSystem MainParticles;
 	public Animator TorchFOV;
 	public float[] TorchFOVSize = {3000,3000};
 
@@ -42,9 +45,11 @@ public class Torch : InteractableItem, IDamagable {
 	new void Start () {
 		base.Start ();
 
+		health = startingHealth;
+
 		torchLight = transform.GetComponentInChildren<Light> ();
-		Particles = transform.Find ("Particles").gameObject;
-		Particles.SetActive (false);
+		HealingParticles = transform.Find ("Particles").gameObject;
+		HealingParticles.SetActive (false);
 		StartCoroutine (DamageOverTime ());
 
 		torchLight.intensity = intensityMaximum;
@@ -53,6 +58,11 @@ public class Torch : InteractableItem, IDamagable {
 		randomFactorRange = (rangeMaximum - rangeMinimum) / 8f;
 
 		canvas.SetActive (true);
+
+		//If the number of players is 1, the torch is automatically picked up by player 1
+		if (gameManager.numberOfPlayers == 1) {
+			pickUpTorch (gameManager.playerManagers [0].playerInstance);
+		}
 
 		//Coroutine for the flickering of the light.
 		StartCoroutine(TorchFlickering());
@@ -65,6 +75,9 @@ public class Torch : InteractableItem, IDamagable {
 		}
 		if (Input.GetButtonDown ("DropTorch2") && equipped && gameManager.playerManagers [1].playerInstance.GetComponentInChildren<Torch>() != null) {
 			releaseTorch ();
+		}
+		if (transform.position.y < -12) {
+			Die ();
 		}
 	}
 
@@ -103,9 +116,9 @@ public class Torch : InteractableItem, IDamagable {
 	}
 
 	IEnumerator ParticlesCoroutine(){
-		Particles.SetActive (true);
+		HealingParticles.SetActive (true);
 		yield return new WaitForSeconds (2.5f);
-		Particles.SetActive (false);
+		HealingParticles.SetActive (false);
 	}
 
 	//Random deviation from the base intensity and range.
@@ -125,6 +138,13 @@ public class Torch : InteractableItem, IDamagable {
 		}
 		healthText.text = "Health: " + health;
 		gameManager.torchHealth = health;
+
+		if (healthBar == null) {
+			healthBar = UI.transform.Find ("HealthBar").Find("Torch Healthbar Fill").GetComponent<Image> ();
+		}
+		healthBar.fillAmount = (float)health / (float)startingHealth * 0.4f + 0.6f;
+
+		MainParticles.startSize = 0.5f + (0.5f * health / startingHealth);
 	}
 
 	public void Die(){
@@ -141,7 +161,7 @@ public class Torch : InteractableItem, IDamagable {
 
 	void pickUpTorch(GameObject triggerObject){
 		Debug.Log ("Torch is picked up");
-		gameManager.analytics.WriteTorchPickup ();
+		gameManager.WriteTorchPickup ();
 		transform.SetParent (triggerObject.transform.FindChild("Torch Holder"));
 		transform.position = transform.parent.position;
 		transform.rotation = transform.parent.rotation;
@@ -174,6 +194,7 @@ public class Torch : InteractableItem, IDamagable {
 		
 	}
 
+	//Coroutine to receive damage over time
 	IEnumerator DamageOverTime(){
 		while (gameObject.activeSelf) {
 			if (isDamagable) {
@@ -187,5 +208,18 @@ public class Torch : InteractableItem, IDamagable {
 			}
 			yield return new WaitForSeconds (damageOverTimeVarTime);
 		}
+	}
+
+	//Cheatcode to regain full health
+	public void HealToStartingHealth(){
+		health = startingHealth;
+		updateHealth ();
+		Debug.Log ("Health is set to " + startingHealth);
+	}
+
+	//Toggle if the torch can receive damage or not.
+	public void ToggleDamagable(){
+		isDamagable = !isDamagable;
+		Debug.Log("Torch isDamagable is set to " + isDamagable);
 	}
 }

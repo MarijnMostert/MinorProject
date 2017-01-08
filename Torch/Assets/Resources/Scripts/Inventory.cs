@@ -6,7 +6,6 @@ using System.Collections.Generic;
 public class Inventory : MonoBehaviour {
 
 	public Weapon[] weapons;
-	public List<Weapon> weaponsList;
 	public Weapon emptyWeaponPrefab;
 	public GameObject emptyPowerUpPrefab;
 	public int weaponInventorySize = 10;
@@ -18,7 +17,7 @@ public class Inventory : MonoBehaviour {
 	public static GameObject[] availableWeapons;
 
 	void Start () {
-		indicator = GameObject.Find ("Inventory Indicator").GetComponent<Image> ();
+		indicator = UIInventory.Instance.IndicatorP1;
 		resetInventory ();
 	}
 
@@ -58,7 +57,7 @@ public class Inventory : MonoBehaviour {
 			if (powerUps [i] == emptyPowerUpPrefab) {
 				GameObject powerUpEquipped = Instantiate (powerUp, player.transform) as GameObject;
 				powerUps [i] = powerUpEquipped;
-				Image icon = GameObject.Find ("PowerUpIcon" + i).GetComponent<Image> ();
+				Image icon = UIInventory.Instance.PowerUpImagesP1 [i];
 				icon.sprite = powerUp.GetComponent<SpriteRenderer>().sprite;
 
 				Color temp = icon.GetComponent<Image> ().color;
@@ -96,12 +95,14 @@ public class Inventory : MonoBehaviour {
 			CheckAndEquip (8);
 		if (Input.GetKeyDown (KeyCode.Alpha0))
 			CheckAndEquip (9);
-		if (Input.GetButtonDown("PowerUpButton1_1"))
+		/*
+		if (Input.GetButtonDown("PowerUpButton1_1")||(Input.GetAxis ("PowerUpButton1_1")<-0.1f))
 			UsePowerUp (0);
-		if (Input.GetButtonDown("PowerUpButton2_1"))
+		if (Input.GetButtonDown("PowerUpButton2_1")||(Input.GetAxis ("PowerUpButton2_1")<-0.1f))
 			UsePowerUp (1);
-		if (Input.GetButtonDown("PowerUpButton3_1"))
+		if (Input.GetButtonDown("PowerUpButton3_1")||(Input.GetAxis ("PowerUpButton3_1")>0.1f))
 			UsePowerUp (2);
+			*/
 	}
 
 	private void CheckAndEquip(int index){
@@ -124,12 +125,12 @@ public class Inventory : MonoBehaviour {
 		}
 	}
 
+	/*
 	void UsePowerUp(int index){
 		if (powerUps [index] != null) {
 			powerUps [index].SendMessage ("Use");
 
-
-			Image icon = GameObject.Find ("PowerUpIcon" + index).GetComponent<Image> ();
+			Image icon = UIInventory.Instance.PowerUpImagesP1 [index];
 			Color temp = icon.GetComponent<Image> ().color;
 			temp.a = 0f;
 			icon.GetComponent<Image> ().color = temp;
@@ -138,6 +139,7 @@ public class Inventory : MonoBehaviour {
 
 		}
 	}
+	*/
 
 	public bool isFull(){
 		for (int i = 0; i < powerUps.Length; i++) {
@@ -159,11 +161,4 @@ public class Inventory : MonoBehaviour {
 			powerUps [i] = emptyPowerUpPrefab;
 		}
 	}
-	/*
-	public static void EquipAllWeapons(){
-		foreach (GameObject weapon in availableWeapons) {
-
-		}
-	}
-*/
 }

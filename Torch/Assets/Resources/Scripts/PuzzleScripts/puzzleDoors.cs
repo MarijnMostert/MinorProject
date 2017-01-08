@@ -12,6 +12,7 @@ public class puzzleDoors : MonoBehaviour {
 	GameManager gameManager;
 	public LeverActivator myLever;
 	private float StartTime;
+	public GameObject key;
 
 	// Use this for initialization
 	void Start () {
@@ -31,7 +32,8 @@ public class puzzleDoors : MonoBehaviour {
 	void OnTriggerEnter (Collider other) {
 		if (!done && !locked && other.gameObject.CompareTag("Player")) {
 			StartPuzzle ();	
-			gameManager.analytics.WritePuzzleStart (RoomType);
+			gameManager.Roomtype = RoomType;
+			gameManager.WritePuzzleStart ();
 			locked = true;
 		}
 	}
@@ -57,6 +59,12 @@ public class puzzleDoors : MonoBehaviour {
 		done = true;
 		active = false;
 		gameManager.spawner.dead = false;
-		gameManager.analytics.WritePuzzleComplete (RoomType, (Time.time - StartTime));
+		gameManager.WritePuzzleComplete (Time.time - StartTime);
+		gameManager.Roomtype = null;
+
+		//Instantiate a key
+		Vector3 keyPosition = transform.position + new Vector3(0f, 1f, 0f);
+		Instantiate (key, keyPosition, transform.rotation);
+		Destroy (myLever.gameObject);
 	}
 }

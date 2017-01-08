@@ -6,7 +6,7 @@ public class WeaponController : MonoBehaviour {
 	public Weapon startingWeapon;
 	public Weapon currentWeapon;
 
-	protected Transform weaponHolder;
+	public Transform weaponHolder;
 
 	protected virtual void Start () {
 		weaponHolder = gameObject.transform.FindChild ("Weapon Holder");
