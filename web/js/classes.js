@@ -48,13 +48,13 @@ ScoreList.prototype.getScoreScale = function(canvas_height){
 	this.maxscore = maxscore;
 	this.minscore = minscore;
 		
-	console.log("maxscore: " + maxscore+", minscore: " + minscore);
+	//console.log("maxscore: " + maxscore+", minscore: " + minscore);
 	this.scoreScale = canvas_height/Math.abs(maxscore-minscore);
 	return this.scoreScale;
 }
 					
 ScoreList.prototype.getScale = function(canvas_width,canvas_height){
-	console.log('canvas_width: '+canvas_width + ' canvas_height' + canvas_height);
+	//console.log('canvas_width: '+canvas_width + ' canvas_height' + canvas_height);
 	this.scale = (canvas_width)/Math.abs(this.getLast().score.getDays()-(this.getFirst().score.getDays()));
 	return this.scale;
 };
@@ -91,7 +91,7 @@ ScoreList.prototype.Draw = function(context, canvas_height, canvas_width){
 	var first_day = this.scores[0].score.getDays();
 	var scale = this.scale;
 	var scoreScale = this.getScoreScale(canvas_height);
-	console.log("scale: " + scale + ", first day: " + first_day);
+	//console.log("scale: " + scale + ", first day: " + first_day);
 	for (var tmp in this.scores){
 		var score = this.scores[tmp].score;
 		console.log("score: "+score.id + ", "+ score.getPosX(first_day,scale), canvas_height-(scoreScale*(score.score-this.minscore)));

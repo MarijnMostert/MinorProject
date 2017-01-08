@@ -3,20 +3,18 @@ $(document).ready(function(){
     $("#submit").click(function(){
         username =$("#username").val();
         pass=$("#password").val();
-		window.location.href ='home.php';
-		/*
-        * Perform some validation here.
-        */
-		/*
-         $.ajax({
-			url: 'https://insyprojects.ewi.tudelft.nl:8081/login',
-			type: 'POST',
+		
+		$.ajax({
+			url: '/login',
+			type: 'GET',
 			contentType: 'application/json',
-			data: JSON.stringify(this),
+			data: JSON.stringify([username,pass]),
 			dataType: 'json'
 		});
-		$.getJSON("https://insyprojects.ewi.tudelft.nl:8081/getUser", function(data) {
-			this.id = data.id;
-		});*/
+		$.getJSON("https://insyprojects.ewi.tudelft.nl:8081/login", function(data) {
+			console.log(data);
+		});/*
+		window.location.href ='home.php';*/
+		
     });
 });
