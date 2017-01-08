@@ -82,7 +82,9 @@ public class GameManager : MonoBehaviour {
 	public GameObject tutorialTorchPrefab;
 	private GameObject tutorialTorchObject;
 
-	private AudioSource audioSource;
+	public AudioSource audioSourceMusic;
+	public AudioSource audioSourceUI;
+	public AudioClip[] audioClipsUI;
 	public AudioClip audioHomeScreen;
 	public AudioClip[] audioDungeon;
 	public bool audioMuted;
@@ -111,7 +113,6 @@ public class GameManager : MonoBehaviour {
 		//homeScreenCanvas = GameObject.Find ("Home Screen Canvas");
 		homeScreen = GameObject.Find ("HomeScreen");
 		homeScreenCam = GameObject.Find ("HomeScreenCam");
-		audioSource = GetComponent<AudioSource> ();
 		minimap = Resources.Load ("Prefabs/Minimap", typeof (Camera)) as Camera;
     }
 
@@ -246,8 +247,8 @@ public class GameManager : MonoBehaviour {
 		UI.transform.FindChild ("Score Text").GetComponent<Text> ().text = "Score: " + score;
 		UI.transform.FindChild ("Dungeon Level").GetComponent<Text> ().text = "Dungeon level " + dungeonLevel;
 
-		audioSource.clip = audioDungeon [UnityEngine.Random.Range (0, audioDungeon.Length)];
-		audioSource.Play ();
+		audioSourceMusic.clip = audioDungeon [UnityEngine.Random.Range (0, audioDungeon.Length)];
+		audioSourceMusic.Play ();
 		homeScreenCam.SetActive (false);
 		loadingScreenCanvas.SetActive (false);
 
@@ -384,8 +385,8 @@ public class GameManager : MonoBehaviour {
 		}
 		homeScreen.SetActive (true);
 		homeScreenCam.SetActive (true);
-		audioSource.clip = audioHomeScreen;
-		audioSource.Play ();
+		audioSourceMusic.clip = audioHomeScreen;
+		audioSourceMusic.Play ();
 		resetHomeScreenPlayer ();
 	}
 
@@ -409,11 +410,11 @@ public class GameManager : MonoBehaviour {
 
 	public void MuteAudio(){
 		if (audioMuted) {
-			audioSource.mute = false;
+			audioSourceMusic.mute = false;
 			audioMuted = false;
 			Debug.Log ("Audio is unmuted");
 		} else {
-			audioSource.mute = true;
+			audioSourceMusic.mute = true;
 			audioMuted = true;
 			Debug.Log ("Audio is muted");
 		}
@@ -547,8 +548,8 @@ public class GameManager : MonoBehaviour {
 		UI.transform.FindChild ("Score Text").GetComponent<Text> ().text = "Score: " + score;
 		UI.transform.FindChild ("Dungeon Level").GetComponent<Text> ().text = "Dungeon level " + dungeonLevel;
 
-		audioSource.clip = audioDungeon [UnityEngine.Random.Range (0, audioDungeon.Length)];
-		audioSource.Play ();
+		audioSourceMusic.clip = audioDungeon [UnityEngine.Random.Range (0, audioDungeon.Length)];
+		audioSourceMusic.Play ();
 		homeScreenCam.SetActive (false);
 		loadingScreenCanvas.SetActive (false);
 
@@ -559,5 +560,10 @@ public class GameManager : MonoBehaviour {
 
 	public void ExitGame(){
 		Application.Quit ();
+	}
+
+	public void playUISound(int soundNumber){
+		audioSourceUI.clip = audioClipsUI [soundNumber];
+		audioSourceUI.Play ();
 	}
 }

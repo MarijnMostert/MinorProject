@@ -10,13 +10,9 @@ public class PlayerWeaponController : WeaponController {
 //	private string attackButtonController;
 
 	public AudioClip clip_attack;
-	private AudioSource audioSource;
+	public AudioSource audioSource;
 
     Animator anim;
-
-	void Awake(){
-		audioSource = GetComponent<AudioSource> ();
-	}
 
 	new void Start () {
 		base.Start ();

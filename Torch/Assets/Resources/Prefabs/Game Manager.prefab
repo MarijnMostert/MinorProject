@@ -21,6 +21,7 @@ GameObject:
   - 4: {fileID: 4000013396432608}
   - 114: {fileID: 114000012126162182}
   - 82: {fileID: 82000010765992802}
+  - 82: {fileID: 82000013135790204}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -49,7 +50,7 @@ AudioSource:
   m_GameObject: {fileID: 1000012150838060}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 24300001, guid: 33975d0ba3fac476cb4987efebc83a81,
+  OutputAudioMixerGroup: {fileID: 243000012027690752, guid: 33975d0ba3fac476cb4987efebc83a81,
     type: 2}
   m_audioClip: {fileID: 8300000, guid: 7e404d8a72ce34ec98bd3c27ed1782f8, type: 3}
   m_PlayOnAwake: 1
@@ -116,6 +117,81 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!82 &82000013135790204
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012150838060}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 243000012865624082, guid: 33975d0ba3fac476cb4987efebc83a81,
+    type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!114 &114000012126162182
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -136,6 +212,7 @@ MonoBehaviour:
     dead: 0
     playerMovement: {fileID: 0}
     playerWeaponController: {fileID: 0}
+    powerUpInventory: {fileID: 0}
     movementEnabled: 1
     active: 1
     gameManager: {fileID: 0}
@@ -147,6 +224,7 @@ MonoBehaviour:
     dead: 0
     playerMovement: {fileID: 0}
     playerWeaponController: {fileID: 0}
+    powerUpInventory: {fileID: 0}
     movementEnabled: 1
     active: 0
     gameManager: {fileID: 0}
@@ -171,6 +249,7 @@ MonoBehaviour:
   enemyTarget: {fileID: 0}
   UIPrefab: {fileID: 1000011980605034, guid: ce12bf815c9354cd38ffdb78d7b15e2b, type: 2}
   UI: {fileID: 0}
+  uiInventory: {fileID: 0}
   PuzzleRooms:
   - {fileID: 1000010275947170, guid: 2c69b9685e818ec4f810ceb0a5e12c7d, type: 2}
   - {fileID: 1000011553212682, guid: eb740adea754c4786b778353d8c564d7, type: 2}
@@ -200,6 +279,10 @@ MonoBehaviour:
     type: 2}
   tutorialTorchPrefab: {fileID: 1000013673994516, guid: 86f8871f16b6e4321a072873febde5a7,
     type: 2}
+  audioSourceMusic: {fileID: 82000010765992802}
+  audioSourceUI: {fileID: 82000013135790204}
+  audioClipsUI:
+  - {fileID: 8300000, guid: 733a8cc43207248d88f596e458742c40, type: 3}
   audioHomeScreen: {fileID: 8300000, guid: 7e404d8a72ce34ec98bd3c27ed1782f8, type: 3}
   audioDungeon:
   - {fileID: 8300000, guid: 3d02f9a386baf4bea855ca88493ab372, type: 3}
@@ -219,3 +302,4 @@ MonoBehaviour:
   collectedKeys: 0
   requiredCollectedKeys: 0
   Bold: {fileID: 1000010787105900, guid: 34e435e0d20414bb0ad3cd7e62be2d41, type: 2}
+  numberOfPlayers: 1
