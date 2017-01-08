@@ -819,7 +819,8 @@ MonoBehaviour:
   startingWeapon: {fileID: 114000013339538176, guid: eb2eaefbd4cf747a6842a07638b7a891,
     type: 2}
   currentWeapon: {fileID: 0}
-  weaponHolder: {fileID: 0}
+  weaponHolder: {fileID: 4000012377008898}
+  audioSource: {fileID: 82000010732532616}
 --- !u!114 &114000012613288934
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -832,7 +833,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingHealth: 100
-  attackCooldown: 0.6
+  attackCooldown: 0.5
   attackDamage: 10
   refreshTime: 0.1
   attackRange: 10

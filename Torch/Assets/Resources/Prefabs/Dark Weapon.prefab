@@ -52,7 +52,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   icon: {fileID: 0}
-  cooldown: 0.2
+  cooldown: 0.5
   projectile: {fileID: 114000012347710446, guid: 88027f588069f4068b6ac9f7fda2183a,
     type: 2}
   projectileSpeed: 7
+  audioOnFire: {fileID: 8300000, guid: fd1303ee1daa24c4bb684d01d65cb0aa, type: 3}
+  pitchShiftMinimal: 0.9
+  pitchShiftMaximal: 1.05

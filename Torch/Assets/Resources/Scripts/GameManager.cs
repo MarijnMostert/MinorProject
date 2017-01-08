@@ -199,6 +199,11 @@ public class GameManager : MonoBehaviour {
 
 	//where type 0 is tutorial and type 1 is dungeon.
 	IEnumerator CreateLevel(int type){
+		if (inGameCameraObject == null) {
+			inGameCameraObject = Instantiate (inGameCameraPrefab);
+			mainCamera = inGameCameraObject.GetComponentInChildren<Camera> ();
+		}
+
 		yield return new WaitForSeconds (.1f);
 		RandomizeTextures ();
 
@@ -229,9 +234,6 @@ public class GameManager : MonoBehaviour {
 		torch.gameManager = this;
 		torch.UI = UI;
 		torch.TorchFOV = TorchFOV.GetComponentInChildren<Animator> ();
-
-		inGameCameraObject = Instantiate (inGameCameraPrefab);
-		mainCamera = inGameCameraObject.GetComponentInChildren<Camera> ();
 
 		collectedKeys = 0;
 
@@ -382,6 +384,9 @@ public class GameManager : MonoBehaviour {
 		foreach (GameObject pickup in GameObject.FindGameObjectsWithTag("PickUp")) {
 			Destroy (pickup);
 		}
+		foreach (GameObject projectile in GameObject.FindGameObjectsWithTag("EnemyProjectile")) {
+			Destroy (projectile);
+		}
 	}
 
 	public void TransitionDeathToMain(){
@@ -406,10 +411,10 @@ public class GameManager : MonoBehaviour {
 		tutorialStarted = false;
 		if (tutorialObject != null)
 			Destroy (tutorialObject);
-		Destroy (inGameCameraObject);
 	}
 
 	public void LoadHomeScreen(){
+		Destroy (inGameCameraObject);
 		foreach (PlayerManager playermanager in playerManagers){
 			Destroy (playermanager.playerInstance);
 		}

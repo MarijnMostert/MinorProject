@@ -8,8 +8,9 @@ public class WeaponController : MonoBehaviour {
 
 	public Transform weaponHolder;
 
+	public AudioSource audioSource;
+
 	protected virtual void Start () {
-		weaponHolder = gameObject.transform.FindChild ("Weapon Holder");
 		Equip (startingWeapon);
 	}
 

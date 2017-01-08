@@ -23,10 +23,10 @@ public class Torch : InteractableItem, IDamagable {
 	private float smoothDampVar2 = 0f;
 	private float smoothDampVar3 = 0f;
 	private float smoothDampVar4 = 0f;
-	public float intensityBase;
-	public float rangeBase;
-	public float randomFactorIntensity;
-	public float randomFactorRange;
+	private float intensityBase;
+	private float rangeBase;
+	private float randomFactorIntensity;
+	private float randomFactorRange;
 
 	private float randomValue;
 
@@ -35,10 +35,9 @@ public class Torch : InteractableItem, IDamagable {
 	private Image healthBar;
 	public GameObject HealingParticles;
 	public ParticleSystem MainParticles;
-	public Animator TorchFOV;
-	public float[] TorchFOVSize = {3000,3000};
+	[HideInInspector] public Animator TorchFOV;
 
-	public GameManager gameManager;
+	[HideInInspector] public GameManager gameManager;
 	public bool equipped = false;
 	public bool isDamagable = true;
 
@@ -48,7 +47,6 @@ public class Torch : InteractableItem, IDamagable {
 		health = startingHealth;
 
 		torchLight = transform.GetComponentInChildren<Light> ();
-		HealingParticles = transform.Find ("Particles").gameObject;
 		HealingParticles.SetActive (false);
 		StartCoroutine (DamageOverTime ());
 
@@ -172,12 +170,13 @@ public class Torch : InteractableItem, IDamagable {
 	}
 
 	public void releaseTorch(){
+		activated = false;
 		Debug.Log ("Torch is dropped");
 		transform.parent = null;
 		gameManager.enemyTarget = gameObject;
 		gameManager.camTarget = gameObject;
 		equipped = false;
-		canvas.transform.position = new Vector3 (transform.position.x, floatingHeight, transform.position.z);
+		canvas.transform.position = new Vector3 (transform.position.x, canvasFloatingHeight, transform.position.z);
 		canvas.SetActive (true);
 	}
 

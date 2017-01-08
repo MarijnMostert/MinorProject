@@ -333,8 +333,8 @@ public class DungeonInstantiate : Object {
         float random = Random.value;
         if (random < chance_chest)
         {
-			GameObject chest_instance = Instantiate(chest, new Vector3(x*6 + Random.Range(1f, 5f), 0, z*6 + Random.Range(1f,5f)), Quaternion.identity, Dungeon.transform) as GameObject;
-			chest_instance.transform.eulerAngles = new Vector3(-90f, 0f, 0f);
+			GameObject chest_instance = Instantiate(chest, new Vector3(x*6 + Random.Range(1f, 5f), 0, z*6 + Random.Range(1f,5f)),
+				Quaternion.Euler(new Vector3(-90f, Random.Range(0f, 360f), 0f)), Dungeon.transform) as GameObject;
 			int number_of_items = Random.Range(0,4);
             for (int i = 0; i <= number_of_items; i++)
             {

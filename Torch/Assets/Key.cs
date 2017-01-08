@@ -4,7 +4,9 @@ using UnityEngine.UI;
 
 public class Key : MonoBehaviour {
 
-	GameManager gameManager;
+	private GameManager gameManager;
+	[SerializeField] private AudioSource audioSource;
+	public Collider collideR;
 
 	void Start(){
 		gameManager = GameObject.Find ("Game Manager").GetComponent<GameManager> ();
@@ -23,7 +25,13 @@ public class Key : MonoBehaviour {
 				//End portal is enabled.
 				EndPortal.enabled = true;
 			}
-			Destroy (gameObject);
+
+			audioSource.Play ();
+
+			GetComponent<MeshRenderer> ().enabled = false;
+			collideR.enabled = false;
+
+			Destroy (transform.parent.gameObject);
 		}
 	}
 }

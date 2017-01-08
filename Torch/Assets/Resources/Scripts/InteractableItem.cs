@@ -4,17 +4,15 @@ using UnityEngine.Networking;
 using System.Collections;
 
 public class InteractableItem : NetworkBehaviour {
-	public GameObject instructionPopUp;
-	public float floatingHeight = 2f;
-
-	[HideInInspector] 
-	public Camera cam;
-	protected GameObject canvas;
+	
+	public float canvasFloatingHeight = 2f;
+	[HideInInspector] public Camera cam;
+	[SerializeField] protected GameObject canvas;
 	protected string interactionButton;
+	[SerializeField] protected bool activated = false;
 
 	public virtual void Start () {
-		canvas = Instantiate (instructionPopUp, new Vector3(transform.position.x, floatingHeight, transform.position.z), transform.rotation) as GameObject;
-		canvas.SetActive (false);
+		canvas.gameObject.SetActive (false);
 		cam = Camera.main; 
 		interactionButton = "InteractionButton";
 	}
@@ -22,18 +20,18 @@ public class InteractableItem : NetworkBehaviour {
 	void LateUpdate() {
 		if (canvas != null) {
 			if (cam == null) {
-				cam = Camera.main;
+				cam = GameManager.Instance.mainCamera;
 			}
-			lookAtCamera (canvas, cam);
 		}
 	}
 
 	protected virtual void OnTriggerStay(Collider other){
-		if (other.gameObject.CompareTag ("Player")&&canvas!=null) {
+		if (other.gameObject.CompareTag ("Player") && canvas!=null && !activated) {
 			canvas.SetActive (true);
 			if (Input.GetButtonDown (interactionButton)) {
 				action (other.gameObject);
 				canvas.gameObject.SetActive (false);
+				activated = true;
 			}
 		}
 	}
@@ -46,15 +44,7 @@ public class InteractableItem : NetworkBehaviour {
 		}
 	}
 
-	void lookAtCamera(GameObject obj, Camera cam){
-		obj.transform.rotation = cam.transform.rotation;
-	}
-
 	public virtual void action(GameObject triggerObject){
 		Debug.Log ("Interactable item action triggered)");
-	}
-
-	void OnDestroy(){
-		Destroy (canvas);
 	}
 }

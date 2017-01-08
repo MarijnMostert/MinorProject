@@ -7,6 +7,8 @@ public class RangedWeapon : Weapon {
 	public Projectile projectile;
 	public float projectileSpeed;
 	public AudioClip audioOnFire;
+	public float pitchShiftMinimal = 0.8f;
+	public float pitchShiftMaximal = 1.1f;
 
 	private float lastFireTime;
 
@@ -29,11 +31,11 @@ public class RangedWeapon : Weapon {
 			newProjectile.setSpeed (projectileSpeed);
 			lastFireTime = Time.time;
 
-			PlayerWeaponController playWeapController = transform.parent.parent.GetComponent<PlayerWeaponController> ();
-			if (playWeapController != null) {
-				playWeapController.audioSource.clip = audioOnFire;
-				playWeapController.audioSource.pitch = Random.Range (.8f, 1.5f);
-				playWeapController.audioSource.Play ();
+			WeaponController weaponController = transform.parent.parent.GetComponent<WeaponController> ();
+			if (weaponController != null) {
+				weaponController.audioSource.clip = audioOnFire;
+				weaponController.audioSource.pitch = Random.Range (pitchShiftMinimal, pitchShiftMaximal);
+				weaponController.audioSource.Play ();
 			}
 		}
 

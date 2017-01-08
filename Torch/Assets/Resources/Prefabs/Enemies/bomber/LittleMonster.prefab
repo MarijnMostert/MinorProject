@@ -24,7 +24,6 @@ GameObject:
   - 136: {fileID: 136000010554833640}
   - 195: {fileID: 195000013806470742}
   - 114: {fileID: 114000012585250292}
-  - 114: {fileID: 114000012777428704}
   - 82: {fileID: 82000012220841494}
   m_Layer: 10
   m_Name: LittleMonster
@@ -443,6 +442,8 @@ MonoBehaviour:
   startingWeapon: {fileID: 114000012534744016, guid: 8c28b42782c3a4b20abb49cf0fdbaae8,
     type: 2}
   currentWeapon: {fileID: 0}
+  weaponHolder: {fileID: 4000011083287538}
+  audioSource: {fileID: 82000012220841494}
 --- !u!114 &114000012585250292
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -477,20 +478,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 25399
   gravity: 10
---- !u!114 &114000012777428704
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010060495606}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fafb4a7e8469647249b383df1db219e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startingWeapon: {fileID: 114000012534744016, guid: 8c28b42782c3a4b20abb49cf0fdbaae8,
-    type: 2}
-  currentWeapon: {fileID: 0}
 --- !u!136 &136000010554833640
 CapsuleCollider:
   m_ObjectHideFlags: 1

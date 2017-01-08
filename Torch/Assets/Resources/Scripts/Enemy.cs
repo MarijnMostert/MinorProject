@@ -125,6 +125,9 @@ public class Enemy : MonoBehaviour, IDamagable {
 	private IEnumerator DieThread(){
         //Debug.Log(gameObject + " died.");
         dead = true;
+		GetComponent<Collider> ().enabled = false;
+		navMeshAgent.enabled = false;
+		Destroy (healthBar);
 //        Debug.Log(anim);
         if (anim != null)
         {

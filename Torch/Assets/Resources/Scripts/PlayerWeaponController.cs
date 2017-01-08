@@ -9,8 +9,7 @@ public class PlayerWeaponController : WeaponController {
 	private string attackButton;
 //	private string attackButtonController;
 
-	public AudioClip clip_attack;
-	public AudioSource audioSource;
+
 
     Animator anim;
 
@@ -41,11 +40,6 @@ public class PlayerWeaponController : WeaponController {
 
 	public void Attack(){
 		currentWeapon.Fire();
-		if (clip_attack != null) {
-			audioSource.clip = clip_attack;
-			audioSource.pitch = Random.Range (0.8f, 1.1f);
-			audioSource.Play ();
-		}
 	}
 
 	//OLD CONTROLLER INPUT. NOT USED ANYMORE
