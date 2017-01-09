@@ -13,6 +13,8 @@ public class Bold : MonoBehaviour {
 	public float interval = 5f;
 
 	void Start(){
+		speechImage.gameObject.SetActive (false);
+		speechText.text =  "";
 		StartCoroutine (RandomSayings ());
 	}
 

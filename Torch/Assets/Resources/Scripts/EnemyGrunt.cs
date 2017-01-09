@@ -6,6 +6,7 @@ public class EnemyGrunt : Enemy {
 	NavMeshAgent agent;
 	Animator animator;
 	public bool attacknow;
+    float starttime;
 
 	protected override void Awake(){
 		base.Awake ();
@@ -16,32 +17,37 @@ public class EnemyGrunt : Enemy {
 		base.Start ();
 		StartCoroutine (UpdatePath ());
 		agent = GetComponent<NavMeshAgent> ();
+        agent.enabled = false;
 		animator = GetComponent<Animator> ();
 		attacknow = false;
 		if (gameObject.name.Equals("spider(clone)")){
 			base.healthBar.transform.localScale.Scale(new Vector3(3, 3, 3));
 		}
+        starttime = Time.time;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (gameManager.enemyTarget != null && distanceToTarget () < attackRange && (Time.time - lastAttackTime) > attackCooldown) {
-			attack ();
-			attacknow = true;
-		} else if(attacknow == true && ((Time.time - lastAttackTime) > (0.9f * attackCooldown))) {
-			attacknow = false;
-			if (animator != null) {
-//				Debug.Log ("set false");
-				animator.SetBool ("Attack", false);
-			}
-		}
-		if (animator != null) {
-			if (agent.velocity.magnitude > 0.1f) {
-				animator.SetBool ("Walk", true);
-			} else {
-				animator.SetBool ("Walk", false);
-			}
-		}
+        if (Time.time>starttime+1.03) {
+            if (!agent.enabled) { agent.enabled = true; }
+            if (gameManager.enemyTarget != null && distanceToTarget() < attackRange && (Time.time - lastAttackTime) > attackCooldown) {
+                attack();
+                attacknow = true;
+            } else if (attacknow == true && ((Time.time - lastAttackTime) > (0.9f * attackCooldown))) {
+                attacknow = false;
+                if (animator != null) {
+                    //				Debug.Log ("set false");
+                    animator.SetBool("Attack", false);
+                }
+            }
+            if (animator != null) {
+                if (agent.velocity.magnitude > 0.1f) {
+                    animator.SetBool("Walk", true);
+                } else {
+                    animator.SetBool("Walk", false);
+                }
+            }
+        }
 	}
 
 	//If the player is close enough to the torch it will do damage
