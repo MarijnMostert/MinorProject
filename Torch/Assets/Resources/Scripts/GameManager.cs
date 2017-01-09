@@ -270,7 +270,7 @@ public class GameManager : MonoBehaviour {
 		torch.transform.position = startpoint + new Vector3 (6, .5f, 0);
 		Bold.transform.position = startpoint;
 
-		torch.cam = mainCamera;
+		torch.torchPickUp.cam = mainCamera;
 		UI.transform.FindChild ("Score Text").GetComponent<Text> ().text = "Score: " + score;
 		if (type == 1) {
 			UI.transform.FindChild ("Dungeon Level").GetComponent<Text> ().text = "Dungeon level " + dungeonLevel;
