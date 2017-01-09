@@ -7,7 +7,7 @@ public class InteractableItem : NetworkBehaviour {
 	
 	public float canvasFloatingHeight = 2f;
 	[HideInInspector] public Camera cam;
-	[SerializeField] protected GameObject canvas;
+	public GameObject canvas;
 	protected string interactionButton;
 	[SerializeField] protected bool activated = false;
 

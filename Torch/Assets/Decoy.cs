@@ -16,7 +16,7 @@ public class Decoy : MonoBehaviour {
 	//Reset target to original.
 	void Reset(){
 		Torch torch = gameManager.torch;
-		if (torch.equipped) {
+		if (torch.torchPickUp.equipped) {
 			gameManager.enemyTarget = torch.transform.parent.parent.gameObject;
 		} else {
 			gameManager.enemyTarget = torch.gameObject;
