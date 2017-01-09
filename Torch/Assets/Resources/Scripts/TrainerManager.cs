@@ -41,8 +41,8 @@ public class TrainerManager : MonoBehaviour {
 			SpawnPointGladiator.position = new Vector3 (Random.Range (-20.0f, 20.0f), 1.0f, Random.Range (-20.0f, 20.0f));
 			Instantiate (gladiatorPrefab, SpawnPointGladiator.position, SpawnPointGladiator.rotation);
 			Instantiate (bossPrefab, SpawnPointBoss.position, SpawnPointBoss.rotation);
-			GameObject.FindGameObjectWithTag ("Boss").GetComponent<Boss> ().initializeWeightsFromChromosome (genAlg.getChrom (BossCounter - 1));
-			GameObject.FindGameObjectWithTag ("Boss").GetComponent<Boss> ().initializeThresholdsFromChromosome (genAlg.getChrom(BossCounter - 1));
+			GameObject.FindGameObjectWithTag ("Boss").GetComponent<BossTraining> ().initializeWeightsFromChromosome (genAlg.getChrom (BossCounter - 1));
+			GameObject.FindGameObjectWithTag ("Boss").GetComponent<BossTraining> ().initializeThresholdsFromChromosome (genAlg.getChrom(BossCounter - 1));
 
 			//while boss is alive
 			while (GameObject.FindGameObjectWithTag ("Boss") != null) {
