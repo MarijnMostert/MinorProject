@@ -4,24 +4,19 @@ using System.Collections;
 public class PlayerWeaponController : WeaponController {
 
 	public int playerNumber;
-	public Inventory inventory;
+	public WeaponInventory weaponInventory;
 
 	private string attackButton;
 //	private string attackButtonController;
 
-	public AudioClip clip_attack;
-	private AudioSource audioSource;
+
 
     Animator anim;
 
-	void Awake(){
-		audioSource = GetComponent<AudioSource> ();
-	}
-
 	new void Start () {
 		base.Start ();
-		inventory = gameObject.GetComponent<Inventory> ();
-		inventory.AddWeaponToInventory (startingWeapon);
+		weaponInventory = UIInventory.Instance.weaponInventory;
+		weaponInventory.AddWeaponToInventory (startingWeapon, playerNumber);
         anim = GetComponentInChildren<Animator>();
 //		attackButtonController = "ControllerAttack" + playerNumber;
 	}
@@ -45,11 +40,6 @@ public class PlayerWeaponController : WeaponController {
 
 	public void Attack(){
 		currentWeapon.Fire();
-		if (clip_attack != null) {
-			audioSource.clip = clip_attack;
-			audioSource.pitch = Random.Range (0.8f, 1.1f);
-			audioSource.Play ();
-		}
 	}
 
 	//OLD CONTROLLER INPUT. NOT USED ANYMORE

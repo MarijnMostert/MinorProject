@@ -191,7 +191,7 @@ MonoBehaviour:
   lifeTime: 1
   collisionMask:
     serializedVersion: 2
-    m_Bits: 4294510079
+    m_Bits: 4294444543
   speed: 0
   piercing: 0
   particlesOnHit: {fileID: 198000013706233544, guid: 48b8d3ef1487e47f8a0ac9362da9b011,
@@ -243,7 +243,7 @@ ParticleSystem:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010417169694}
-  serializedVersion: 4
+  serializedVersion: 2
   lengthInSec: 5
   startDelay:
     scalar: 0
@@ -281,13 +281,12 @@ ParticleSystem:
       m_RotationOrder: 4
     minMaxState: 0
   speed: 1
+  randomSeed: 63433504
   looping: 1
   prewarm: 1
   playOnAwake: 1
   moveWithTransform: 0
-  autoRandomSeed: 0
   scalingMode: 1
-  randomSeed: 63433504
   InitialModule:
     serializedVersion: 2
     enabled: 1

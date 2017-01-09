@@ -13,6 +13,10 @@ public class Chest : InteractableItem {
 
 	public override void action(GameObject triggerObject){
 		if (!used) {
+			AudioSource audio = GetComponent<AudioSource> ();
+			audio.pitch = Random.Range (0.8f, 1.1f);
+			audio.Play ();
+			GetComponent<Animator> ().SetTrigger ("Open Chest");
 			for (int i = 0; i < contents.Length; i++) {
 				flyOut (contents [i]);
 			}
