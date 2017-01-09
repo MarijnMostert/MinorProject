@@ -66,6 +66,7 @@ public class GameManager : MonoBehaviour {
 
 
 	//public GameObject homeScreenCanvas;
+	public GameObject startingScreen;
 	public GameObject loadingScreenCanvas;
 	public GameObject deathCanvas;
 	public GameObject endOfRoundCanvas;
@@ -101,6 +102,8 @@ public class GameManager : MonoBehaviour {
 	[HideInInspector] public int numberOfPlayers = 1;
 
     void Awake () {
+		startingScreen.SetActive (true);
+
         gameStarted = false;
 		tutorialStarted = false;
 		//Makes sure this object is not deleted when another scene is loaded.

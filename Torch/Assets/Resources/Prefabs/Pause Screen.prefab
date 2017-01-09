@@ -74,7 +74,7 @@ GameObject:
   - 222: {fileID: 222000013812859802}
   - 114: {fileID: 114000013924930630}
   m_Layer: 5
-  m_Name: Audio Credits Audio
+  m_Name: Graphics Credits Graphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -92,6 +92,23 @@ GameObject:
   - 114: {fileID: 114000011108600116}
   m_Layer: 5
   m_Name: 2 Player text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1000010592021834
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 224: {fileID: 224000011891921320}
+  - 222: {fileID: 222000011071153994}
+  - 114: {fileID: 114000011511109846}
+  m_Layer: 5
+  m_Name: Audio Credits Author
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -353,6 +370,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1000012508079812
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 224: {fileID: 224000010769566086}
+  - 222: {fileID: 222000013824223240}
+  - 114: {fileID: 114000013531820812}
+  m_Layer: 5
+  m_Name: Audio Credits Audio
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1000012514273652
 GameObject:
   m_ObjectHideFlags: 1
@@ -364,7 +398,7 @@ GameObject:
   - 222: {fileID: 222000013405315352}
   - 114: {fileID: 114000013371762648}
   m_Layer: 5
-  m_Name: Audio Title
+  m_Name: Graphics Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -592,7 +626,7 @@ GameObject:
   - 222: {fileID: 222000011058201552}
   - 114: {fileID: 114000013328080376}
   m_Layer: 5
-  m_Name: Audio Credits Author
+  m_Name: Graphics Credits Author
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -611,6 +645,23 @@ GameObject:
   - 114: {fileID: 114000011324823678}
   m_Layer: 5
   m_Name: UI Help
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1000013969926622
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 224: {fileID: 224000011002200106}
+  - 222: {fileID: 222000013139266592}
+  - 114: {fileID: 114000014233050248}
+  m_Layer: 5
+  m_Name: Audio Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1494,6 +1545,55 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114000011511109846
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010592021834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 20
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 2
+    m_MaxSize: 40
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 'Unknown (From ourmusicbox.com)
+
+    Brandon Morris
+
+    Unknown (From dl-sounds.com)
+
+    Bart K.
+
+    Little Robot Sound Factory\
+
+    Kenny.nl
+
+    Brandon Morris
+
+    Author
+
+    Author'
 --- !u!114 &114000011537776270
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2277,23 +2377,14 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Unknown (From ourmusicbox.com)
+  m_Text: 'Substance Designer by Allegorithmic
 
-    Brandon Morris
 
-    Unknown (From dl-sounds.com)
+    author
 
-    Bart K.
+    author
 
-    Little Robot Sound Factory\
-
-    Kenny.nl
-
-    Brandon Morris
-
-    Author
-
-    Author'
+'
 --- !u!114 &114000013371762648
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2326,9 +2417,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Audio
-
-'
+  m_Text: Graphics
 --- !u!114 &114000013397888432
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2447,6 +2536,53 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114000013531820812
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012508079812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 20
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 2
+    m_MaxSize: 40
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 'Home screen music
+
+    Dungeon Music 1
+
+    Dungeon Music 2
+
+    Fireball sound
+
+    UI click sound
+
+    Chest open sound
+
+    Coin pickup sound
+
+    Audio'
 --- !u!114 &114000013540186172
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2673,23 +2809,11 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Home screen music
+  m_Text: 'Procedurally generated textures
 
-    Dungeon Music 1
+    graphics
 
-    Dungeon Music 2
-
-    Fireball sound
-
-    UI click sound
-
-    Chest open sound
-
-    Coin pickup sound
-
-    Audio
-
-    Audio'
+    graphics'
 --- !u!114 &114000014020309692
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2753,6 +2877,41 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114000014233050248
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013969926622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: 82f1eea7d30cf4024892b6f51bc77391, type: 3}
+    m_FontSize: 53
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 10
+    m_MaxSize: 132
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 'Audio
+
+'
 --- !u!114 &114000014251242514
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2822,6 +2981,12 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013841872038}
+--- !u!222 &222000011071153994
+CanvasRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010592021834}
 --- !u!222 &222000011134632502
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -2900,6 +3065,12 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010027314334}
+--- !u!222 &222000013139266592
+CanvasRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013969926622}
 --- !u!222 &222000013153847648
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -2966,6 +3137,12 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010260021820}
+--- !u!222 &222000013824223240
+CanvasRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012508079812}
 --- !u!222 &222000013905042132
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -3082,10 +3259,10 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 224000010489516002}
-  m_RootOrder: 3
+  m_RootOrder: 11
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -550, y: -102}
+  m_AnchoredPosition: {x: -550, y: -435}
   m_SizeDelta: {x: 252, y: 497}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224000010489516002
@@ -3101,14 +3278,17 @@ RectTransform:
   m_Children:
   - {fileID: 224000012797276812}
   - {fileID: 224000013424965872}
-  - {fileID: 224000011476925562}
-  - {fileID: 224000010360607782}
-  - {fileID: 224000010746286790}
+  - {fileID: 224000011002200106}
+  - {fileID: 224000010769566086}
+  - {fileID: 224000011891921320}
   - {fileID: 224000013075989688}
   - {fileID: 224000012213375556}
   - {fileID: 224000011835870062}
   - {fileID: 224000011563944116}
   - {fileID: 224000010167121564}
+  - {fileID: 224000011476925562}
+  - {fileID: 224000010360607782}
+  - {fileID: 224000010746286790}
   m_Father: {fileID: 224000011599578652}
   m_RootOrder: 15
   m_AnchorMin: {x: 0, y: 0}
@@ -3194,17 +3374,35 @@ RectTransform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013841872038}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 224000010489516002}
-  m_RootOrder: 4
+  m_RootOrder: 12
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -159, y: -102}
+  m_AnchoredPosition: {x: -158.99997, y: -435}
   m_SizeDelta: {x: 496, y: 497}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!224 &224000010769566086
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012508079812}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.0000001, y: 1.0000001, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 224000010489516002}
+  m_RootOrder: 3
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -550, y: -102}
+  m_SizeDelta: {x: 252, y: 497}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224000010936629364
 RectTransform:
@@ -3241,6 +3439,24 @@ RectTransform:
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 185.80016, y: -63.9999}
   m_SizeDelta: {x: 237, y: 65}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!224 &224000011002200106
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013969926622}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.0000001, y: 1.0000001, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 224000010489516002}
+  m_RootOrder: 2
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -424, y: 204}
+  m_SizeDelta: {x: 160, y: 72}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224000011353350584
 RectTransform:
@@ -3290,11 +3506,11 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 224000010489516002}
-  m_RootOrder: 2
+  m_RootOrder: 10
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -424, y: 204}
-  m_SizeDelta: {x: 160, y: 72}
+  m_AnchoredPosition: {x: -424, y: -129}
+  m_SizeDelta: {x: 261, y: 72}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224000011563944116
 RectTransform:
@@ -3382,6 +3598,24 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 489.1, y: -102}
+  m_SizeDelta: {x: 496, y: 497}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!224 &224000011891921320
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010592021834}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 224000010489516002}
+  m_RootOrder: 4
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -159, y: -102}
   m_SizeDelta: {x: 496, y: 497}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224000012049652510
