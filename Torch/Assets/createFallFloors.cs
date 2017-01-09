@@ -70,7 +70,7 @@ public class createFallFloors : MonoBehaviour {
 	void OnTriggerEnter (Collider other) {
 		if(other.gameObject.CompareTag("Player")) {
 			Vector3 relativepos = other.gameObject.transform.position - transform.position;
-			Debug.Log (relativepos.x + " " + relativepos.y + " " + relativepos.z);
+//			Debug.Log (relativepos.x + " " + relativepos.y + " " + relativepos.z);
 			makeOppositeBlocks (relativepos);
 		}
 	}

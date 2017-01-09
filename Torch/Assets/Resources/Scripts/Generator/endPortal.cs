@@ -16,16 +16,16 @@ public class endPortal : MonoBehaviour {
 	GameManager gameManager;
 	GameObject endOfRoundCanvas;
     //Text winText;
-	public bool enabled = true; //Moet false worden nadat puzzlerooms en keys goed geintegreerd zijn.
+	public bool enabled = false;
+	public Animator anim;
 
     // Use this for initialization
     void Start () {
-		//deze regel hieronder moet weg wanneer keys goed geintegreerd zijn
-		enabled = true;
         loading = false;
         start_game = false;
         continueText = GameObject.Find("ContinueText") as GameObject;
 		gameManager = GameObject.Find ("Game Manager").GetComponent<GameManager> ();
+		anim = gameManager.UI.transform.Find ("Keys Text").GetComponent<Animator> ();
 		endOfRoundCanvas = gameManager.endOfRoundCanvas;
 		if (gameManager.collectedKeys == gameManager.requiredCollectedKeys) {
 			enabled = true;
@@ -41,6 +41,7 @@ public class endPortal : MonoBehaviour {
 		if (enabled && other.gameObject.CompareTag ("Player")) {
 			onWin ();
 		} else {
+			anim.SetTrigger ("Flash");
 			Debug.Log (gameManager.collectedKeys + " keys out of " + gameManager.requiredCollectedKeys + 
 				" keys are collected.\nYou need " + (gameManager.requiredCollectedKeys - gameManager.collectedKeys) + " more keys.");
 		}
@@ -48,7 +49,7 @@ public class endPortal : MonoBehaviour {
 
 	public void UpdateKeyText ()
 	{
-		Debug.Log (gameManager.collectedKeys + " keys out of " + gameManager.requiredCollectedKeys + " keys are collected.");
+//		Debug.Log (gameManager.collectedKeys + " keys out of " + gameManager.requiredCollectedKeys + " keys are collected.");
 		Text keyText = gameManager.UI.transform.Find ("Keys Text").GetComponent<Text> ();
 		keyText.text = "Keys collected: " + gameManager.collectedKeys + "/" + gameManager.requiredCollectedKeys;
 		if (gameManager.collectedKeys == gameManager.requiredCollectedKeys) {

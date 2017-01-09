@@ -9,7 +9,8 @@ public class MasterGenerator : Object {
                             portal, end_portal, player,
                             spawner, torch, cam, pointer, chest,
                             coin, fireball, iceball, health, laser, shieldPickUp,
-							stickyPickUp, roofGroup, wallPickUp, wallTorch, piercingWeapon;
+							stickyPickUp, roofGroup, wallPickUp, wallTorch, piercingWeapon,
+							bombPickUp;
 
 	public List<GameObject> puzzleRooms;
     GameObject game_manager;
@@ -58,7 +59,7 @@ public class MasterGenerator : Object {
                                                                         portal, end_portal, player, game_manager,
                                                                         spawner, torch, cam, pointer, chest, coin, 
 																		fireball, iceball, health, mazeSize, laser, shieldPickUp,
-			stickyPickUp, roofGroup, wallPickUp, puzzleRooms, wallTorch, piercingWeapon);
+			stickyPickUp, roofGroup, wallPickUp, puzzleRooms, wallTorch, piercingWeapon, bombPickUp);
 
 		while (!done) {
 			dungeon = new DungeonGenerator ( width,
@@ -155,7 +156,6 @@ public class MasterGenerator : Object {
         player = Resources.Load("Prefabs/Player", typeof(GameObject)) as GameObject;
         torch = Resources.Load("Prefabs/Torch", typeof(GameObject)) as GameObject;
         coin = Resources.Load("Prefabs/PickUps/Coin", typeof(GameObject)) as GameObject;
-        coin.GetComponentInChildren<ScorePickUp>().gameManager = game_manager;
         fireball = Resources.Load("Prefabs/PickUps/FireBall Weapon PickUp", typeof(GameObject)) as GameObject;
         iceball = Resources.Load("Prefabs/PickUps/IceBall Weapon PickUp", typeof(GameObject)) as GameObject;
         health = Resources.Load("Prefabs/PickUps/HealthPickUp", typeof(GameObject)) as GameObject;
@@ -167,6 +167,7 @@ public class MasterGenerator : Object {
 		wallPickUp = Resources.Load ("Prefabs/PickUps/Wall PickUp", typeof(GameObject)) as GameObject;
 		wallTorch = Resources.Load ("Prefabs/WallTorch", typeof(GameObject)) as GameObject;
 		piercingWeapon = Resources.Load ("Prefabs/PickUps/Piercing Weapon PickUp", typeof(GameObject)) as GameObject;
+		bombPickUp = Resources.Load ("Prefabs/PickUps/Bomb PickUp", typeof(GameObject)) as GameObject;
 
     }
 }

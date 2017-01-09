@@ -120,23 +120,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1000010045847094
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
-  m_Component:
-  - 224: {fileID: 224000011555079346}
-  - 222: {fileID: 222000010840162846}
-  - 114: {fileID: 114000011802146406}
-  m_Layer: 13
-  m_Name: Instruction Text
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1000010048466036
 GameObject:
   m_ObjectHideFlags: 1
@@ -3491,6 +3474,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1000011329596852
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 4000010109094386}
+  - 33: {fileID: 33000010418211462}
+  - 64: {fileID: 64000010147826106}
+  m_Layer: 18
+  m_Name: Trigger Floor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1000011333366216
 GameObject:
   m_ObjectHideFlags: 1
@@ -4066,24 +4066,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1000011581491914
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
-  m_Component:
-  - 224: {fileID: 224000010592094748}
-  - 223: {fileID: 223000012661072664}
-  - 114: {fileID: 114000010643286090}
-  - 114: {fileID: 114000014131759218}
-  m_Layer: 13
-  m_Name: Chest Instruction PopUp
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
 --- !u!1 &1000011584588310
 GameObject:
   m_ObjectHideFlags: 1
@@ -7872,23 +7854,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1000013140502044
-GameObject:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
-  m_Component:
-  - 224: {fileID: 224000014218716724}
-  - 222: {fileID: 222000012839506016}
-  - 114: {fileID: 114000012962824892}
-  m_Layer: 13
-  m_Name: Image
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
 --- !u!1 &1000013159795048
 GameObject:
   m_ObjectHideFlags: 0
@@ -11275,6 +11240,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4000010537385806}
   m_RootOrder: 64
+--- !u!4 &4000010109094386
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011329596852}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 21.7, y: 0.005, z: 91.4}
+  m_LocalScale: {x: 9.032862, y: 1, z: 27.648415}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 4000010715586828}
+  m_RootOrder: 11
 --- !u!4 &4000010112524956
 Transform:
   m_ObjectHideFlags: 1
@@ -11608,7 +11586,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000010715586828}
-  m_RootOrder: 11
+  m_RootOrder: 10
 --- !u!4 &4000010303239584
 Transform:
   m_ObjectHideFlags: 1
@@ -12583,7 +12561,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012528916838}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 135.52963, y: 67.30624, z: 247.52269}
+  m_LocalPosition: {x: 986.52185, y: 313.7761, z: 73.387344}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -12595,10 +12573,10 @@ Transform:
   - {fileID: 4000014234795010}
   - {fileID: 4000010127773920}
   - {fileID: 4000013001272546}
-  - {fileID: 224000010592094748}
   - {fileID: 4000011876068890}
   - {fileID: 4000011704683790}
   - {fileID: 4000010287693070}
+  - {fileID: 4000010109094386}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &4000010720016318
@@ -14404,7 +14382,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000010715586828}
-  m_RootOrder: 10
+  m_RootOrder: 9
 --- !u!4 &4000011710185918
 Transform:
   m_ObjectHideFlags: 1
@@ -14736,7 +14714,7 @@ Transform:
   m_Children:
   - {fileID: 4000011527534498}
   m_Father: {fileID: 4000010715586828}
-  m_RootOrder: 9
+  m_RootOrder: 8
 --- !u!4 &4000011878838022
 Transform:
   m_ObjectHideFlags: 1
@@ -16477,7 +16455,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013940314092}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -19.5, y: 1, z: -96}
+  m_LocalPosition: {x: -18.86, y: 1, z: -96}
   m_LocalScale: {x: 15, y: 2, z: 6}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -34638,6 +34616,13 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013188292204}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!33 &33000010418211462
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011329596852}
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &33000010425931700
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -37965,6 +37950,18 @@ MeshCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012701010622}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Convex: 0
+  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!64 &64000010147826106
+MeshCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011329596852}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
@@ -45070,14 +45067,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000013940314092}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdc7ccf2f1bc0394ca9fdabc29ebe509, type: 3}
+  m_Script: {fileID: 11500000, guid: 403898b3b6b8d4c8e9afed4147e29246, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keyboard: 1
+  boldTalkingClip: {fileID: 8300000, guid: e7668d0252dfa43eaba923367896696c, type: 3}
   myKeyboardText: Welcome to this tutorial! My name is Bold. Use the WASD-keys to
     move.
-  myControllerText: Welcome to this tutorial! My name is Bold. Use the left stick
-    to move.
+  myControllerText: Welcome to this tutorial! My name is Bold. Use the WASD-keys to
+    move.
 --- !u!114 &114000010391782614
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -45099,14 +45096,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000011743447476}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdc7ccf2f1bc0394ca9fdabc29ebe509, type: 3}
+  m_Script: {fileID: 11500000, guid: 403898b3b6b8d4c8e9afed4147e29246, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keyboard: 0
-  myKeyboardText: 'Torches you come by will get lit to help you navigate. Scoured
-    areas will show up on the minimap. '
-  myControllerText: 'Torches you come by will get lit to help you navigate. Scoured
-    areas will show up on the minimap. '
+  boldTalkingClip: {fileID: 8300000, guid: e33b141468f5a420bb9cf3569a65b19b, type: 3}
+  myKeyboardText: Torches you come by will get lit to help you navigate. Scoured areas
+    will show up on the minimap.
+  myControllerText: Torches you come by will get lit to help you navigate. Scoured
+    areas will show up on the minimap.
 --- !u!114 &114000010515555216
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -45159,27 +45156,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WallTorches:
   - {fileID: 1000011096983940}
---- !u!114 &114000010643286090
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011581491914}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1980459831, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
-  m_ReferencePixelsPerUnit: 100
-  m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
-  m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
-  m_PhysicalUnit: 3
-  m_FallbackScreenDPI: 96
-  m_DefaultSpriteDPI: 96
-  m_DynamicPixelsPerUnit: 1
 --- !u!114 &114000010729511052
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -45231,14 +45207,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000010396493788}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdc7ccf2f1bc0394ca9fdabc29ebe509, type: 3}
+  m_Script: {fileID: 11500000, guid: 403898b3b6b8d4c8e9afed4147e29246, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keyboard: 1
+  boldTalkingClip: {fileID: 8300000, guid: 21642a7a139ac422eb678f80ffe95377, type: 3}
   myKeyboardText: Along the way you will find chests. They may contain torch fuel,
     new weapons or power ups. Press E to open a chest.
   myControllerText: Along the way you will find chests. They may contain torch fuel,
-    new weapons or power ups. Press O to open a chest.
+    new weapons or power ups. Press E to open a chest.
 --- !u!114 &114000011106219378
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -45247,10 +45223,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000010872847956}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdc7ccf2f1bc0394ca9fdabc29ebe509, type: 3}
+  m_Script: {fileID: 11500000, guid: 403898b3b6b8d4c8e9afed4147e29246, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keyboard: 0
+  boldTalkingClip: {fileID: 8300000, guid: 16a7d0682677f44208b6ff333dbc7fac, type: 3}
   myKeyboardText: It is your goal to reach the center of the earth and rekindle its
     fire.
   myControllerText: It is your goal to reach the center of the earth and rekindle
@@ -45276,14 +45252,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000013509501746}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdc7ccf2f1bc0394ca9fdabc29ebe509, type: 3}
+  m_Script: {fileID: 11500000, guid: 403898b3b6b8d4c8e9afed4147e29246, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keyboard: 1
-  myKeyboardText: "Use the numbers on your keyboard to swith weapons, and space or
-    left click to fire! \nNow brace yourself for your first enemy!"
-  myControllerText: "Use the L1 and R1 on your controller to swith weapons, and R2
-    to fire! \nNow brace yourself for your first enemy!"
+  boldTalkingClip: {fileID: 8300000, guid: 42f2e67b4a78943cb92425bba41be584, type: 3}
+  myKeyboardText: Use the numbers on your keyboard to switch weapons and space or
+    left click to fire. Now brace yourself for your first enemy!
+  myControllerText: Use the numbers on your keyboard to switch weapons and space or
+    left click to fire. Now brace yourself for your first enemy!
 --- !u!114 &114000011542644546
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -45292,14 +45268,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000010040618224}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdc7ccf2f1bc0394ca9fdabc29ebe509, type: 3}
+  m_Script: {fileID: 11500000, guid: 403898b3b6b8d4c8e9afed4147e29246, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keyboard: 0
-  myKeyboardText: You will encounter more types of enemies along your quest. As well
+  boldTalkingClip: {fileID: 8300000, guid: 151a7f821d04649e88a882d8c4801a8e, type: 3}
+  myKeyboardText: You will encouter more types of enemies along your quest. As well
     as other challenges.
-  myControllerText: You will encounter more types of enemies along your quest. As
-    well as other challenges.
+  myControllerText: You will encouter more types of enemies along your quest. As well
+    as other challenges.
 --- !u!114 &114000011664571266
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -45321,47 +45297,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000010139770454}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdc7ccf2f1bc0394ca9fdabc29ebe509, type: 3}
+  m_Script: {fileID: 11500000, guid: 403898b3b6b8d4c8e9afed4147e29246, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keyboard: 0
+  boldTalkingClip: {fileID: 8300000, guid: f37659a5859c343cda80efcd62965b79, type: 3}
   myKeyboardText: It is your job to protect the torch you are carrying. Enemies will
     try to quench its fire. It will slowly run out of fuel over time.
   myControllerText: It is your job to protect the torch you are carrying. Enemies
     will try to quench its fire. It will slowly run out of fuel over time.
---- !u!114 &114000011802146406
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010045847094}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 70
-    m_FontStyle: 1
-    m_BestFit: 0
-    m_MinSize: 0
-    m_MaxSize: 142
-    m_Alignment: 4
-    m_AlignByGeometry: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 1
-    m_LineSpacing: 1
-  m_Text: Press E to open
 --- !u!114 &114000012092419964
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -45426,9 +45369,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cab2d55839c9a48e3a699a43883b6d35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  instructionPopUp: {fileID: 1000011581491914}
-  floatingHeight: 2
+  canvasFloatingHeight: 2
   cam: {fileID: 0}
+  canvas: {fileID: 0}
+  activated: 0
   contents:
   - {fileID: 1000013408684720, guid: 50c6de4e46e8f4cc6bb9c5618add169c, type: 2}
   - {fileID: 1000013408684720, guid: 50c6de4e46e8f4cc6bb9c5618add169c, type: 2}
@@ -45443,41 +45387,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000014051409136}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdc7ccf2f1bc0394ca9fdabc29ebe509, type: 3}
+  m_Script: {fileID: 11500000, guid: 403898b3b6b8d4c8e9afed4147e29246, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keyboard: 0
+  boldTalkingClip: {fileID: 8300000, guid: b19affa440edf4118814eda335717832, type: 3}
   myKeyboardText: 'Be ware: the stairs that bring you downward will only open when
     you have collected all keys in the level.'
   myControllerText: 'Be ware: the stairs that bring you downward will only open when
     you have collected all keys in the level.'
---- !u!114 &114000012962824892
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013140502044}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.44}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
 --- !u!114 &114000013141116558
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -45538,10 +45455,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000010416160700}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cdc7ccf2f1bc0394ca9fdabc29ebe509, type: 3}
+  m_Script: {fileID: 11500000, guid: 403898b3b6b8d4c8e9afed4147e29246, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keyboard: 0
+  boldTalkingClip: {fileID: 8300000, guid: 54c617eed595d44dbb6c8697d585aaad, type: 3}
   myKeyboardText: Enemies spawn around you and will do anything to extinguish the
     fire you're carrying.
   myControllerText: Enemies spawn around you and will do anything to extinguish the
@@ -45576,6 +45493,7 @@ MonoBehaviour:
   start_game: 0
   scene: Home
   enabled: 1
+  anim: {fileID: 0}
 --- !u!114 &114000013845293428
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -45628,22 +45546,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WallTorches:
   - {fileID: 1000010229558000}
---- !u!114 &114000014131759218
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011581491914}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1301386320, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
 --- !u!114 &114000014186996548
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -45780,7 +45682,7 @@ ParticleSystem:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010048466036}
-  serializedVersion: 2
+  serializedVersion: 4
   lengthInSec: 5
   startDelay:
     scalar: 0
@@ -45818,12 +45720,13 @@ ParticleSystem:
       m_RotationOrder: 4
     minMaxState: 0
   speed: 1
-  randomSeed: 63433504
   looping: 1
   prewarm: 0
   playOnAwake: 1
   moveWithTransform: 0
+  autoRandomSeed: 0
   scalingMode: 1
+  randomSeed: 63433504
   InitialModule:
     serializedVersion: 2
     enabled: 1
@@ -47503,7 +47406,7 @@ ParticleSystem:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010500986902}
-  serializedVersion: 2
+  serializedVersion: 4
   lengthInSec: 5
   startDelay:
     scalar: 0
@@ -47541,12 +47444,13 @@ ParticleSystem:
       m_RotationOrder: 4
     minMaxState: 0
   speed: 1
-  randomSeed: 63433504
   looping: 1
   prewarm: 0
   playOnAwake: 1
   moveWithTransform: 0
+  autoRandomSeed: 0
   scalingMode: 1
+  randomSeed: 63433504
   InitialModule:
     serializedVersion: 2
     enabled: 1
@@ -49231,7 +49135,7 @@ ParticleSystem:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011361290360}
-  serializedVersion: 2
+  serializedVersion: 4
   lengthInSec: 5
   startDelay:
     scalar: 0
@@ -49269,12 +49173,13 @@ ParticleSystem:
       m_RotationOrder: 4
     minMaxState: 0
   speed: 1
-  randomSeed: 63433504
   looping: 1
   prewarm: 0
   playOnAwake: 1
   moveWithTransform: 0
+  autoRandomSeed: 0
   scalingMode: 1
+  randomSeed: 63433504
   InitialModule:
     serializedVersion: 2
     enabled: 1
@@ -50954,7 +50859,7 @@ ParticleSystem:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012071831144}
-  serializedVersion: 2
+  serializedVersion: 4
   lengthInSec: 5
   startDelay:
     scalar: 0
@@ -50992,12 +50897,13 @@ ParticleSystem:
       m_RotationOrder: 4
     minMaxState: 0
   speed: 1
-  randomSeed: 63433504
   looping: 1
   prewarm: 0
   playOnAwake: 1
   moveWithTransform: 0
+  autoRandomSeed: 0
   scalingMode: 1
+  randomSeed: 63433504
   InitialModule:
     serializedVersion: 2
     enabled: 1
@@ -52682,7 +52588,7 @@ ParticleSystem:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013796763292}
-  serializedVersion: 2
+  serializedVersion: 4
   lengthInSec: 5
   startDelay:
     scalar: 0
@@ -52720,12 +52626,13 @@ ParticleSystem:
       m_RotationOrder: 4
     minMaxState: 0
   speed: 1
-  randomSeed: 63433504
   looping: 1
   prewarm: 0
   playOnAwake: 1
   moveWithTransform: 0
+  autoRandomSeed: 0
   scalingMode: 1
+  randomSeed: 63433504
   InitialModule:
     serializedVersion: 2
     enabled: 1
@@ -54405,7 +54312,7 @@ ParticleSystem:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011320722922}
-  serializedVersion: 2
+  serializedVersion: 4
   lengthInSec: 5
   startDelay:
     scalar: 0
@@ -54443,12 +54350,13 @@ ParticleSystem:
       m_RotationOrder: 4
     minMaxState: 0
   speed: 1
-  randomSeed: 63433504
   looping: 1
   prewarm: 0
   playOnAwake: 1
   moveWithTransform: 0
+  autoRandomSeed: 0
   scalingMode: 1
+  randomSeed: 63433504
   InitialModule:
     serializedVersion: 2
     enabled: 1
@@ -56128,7 +56036,7 @@ ParticleSystem:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011649219370}
-  serializedVersion: 2
+  serializedVersion: 4
   lengthInSec: 5
   startDelay:
     scalar: 0
@@ -56166,12 +56074,13 @@ ParticleSystem:
       m_RotationOrder: 4
     minMaxState: 0
   speed: 1
-  randomSeed: 63433504
   looping: 1
   prewarm: 0
   playOnAwake: 1
   moveWithTransform: 0
+  autoRandomSeed: 0
   scalingMode: 1
+  randomSeed: 63433504
   InitialModule:
     serializedVersion: 2
     enabled: 1
@@ -57856,7 +57765,7 @@ ParticleSystem:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011844105762}
-  serializedVersion: 2
+  serializedVersion: 4
   lengthInSec: 5
   startDelay:
     scalar: 0
@@ -57894,12 +57803,13 @@ ParticleSystem:
       m_RotationOrder: 4
     minMaxState: 0
   speed: 1
-  randomSeed: 63433504
   looping: 1
   prewarm: 0
   playOnAwake: 1
   moveWithTransform: 0
+  autoRandomSeed: 0
   scalingMode: 1
+  randomSeed: 63433504
   InitialModule:
     serializedVersion: 2
     enabled: 1
@@ -59579,7 +59489,7 @@ ParticleSystem:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000014077131328}
-  serializedVersion: 2
+  serializedVersion: 4
   lengthInSec: 5
   startDelay:
     scalar: 0
@@ -59617,12 +59527,13 @@ ParticleSystem:
       m_RotationOrder: 4
     minMaxState: 0
   speed: 1
-  randomSeed: 63433504
   looping: 1
   prewarm: 0
   playOnAwake: 1
   moveWithTransform: 0
+  autoRandomSeed: 0
   scalingMode: 1
+  randomSeed: 63433504
   InitialModule:
     serializedVersion: 2
     enabled: 1
@@ -61302,7 +61213,7 @@ ParticleSystem:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012062405918}
-  serializedVersion: 2
+  serializedVersion: 4
   lengthInSec: 5
   startDelay:
     scalar: 0
@@ -61340,12 +61251,13 @@ ParticleSystem:
       m_RotationOrder: 4
     minMaxState: 0
   speed: 1
-  randomSeed: 63433504
   looping: 1
   prewarm: 0
   playOnAwake: 1
   moveWithTransform: 0
+  autoRandomSeed: 0
   scalingMode: 1
+  randomSeed: 63433504
   InitialModule:
     serializedVersion: 2
     enabled: 1
@@ -63030,7 +62942,7 @@ ParticleSystem:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012306633416}
-  serializedVersion: 2
+  serializedVersion: 4
   lengthInSec: 5
   startDelay:
     scalar: 0
@@ -63068,12 +62980,13 @@ ParticleSystem:
       m_RotationOrder: 4
     minMaxState: 0
   speed: 1
-  randomSeed: 63433504
   looping: 1
   prewarm: 0
   playOnAwake: 1
   moveWithTransform: 0
+  autoRandomSeed: 0
   scalingMode: 1
+  randomSeed: 63433504
   InitialModule:
     serializedVersion: 2
     enabled: 1
@@ -64758,7 +64671,7 @@ ParticleSystem:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011889892502}
-  serializedVersion: 2
+  serializedVersion: 4
   lengthInSec: 5
   startDelay:
     scalar: 0
@@ -64796,12 +64709,13 @@ ParticleSystem:
       m_RotationOrder: 4
     minMaxState: 0
   speed: 1
-  randomSeed: 63433504
   looping: 1
   prewarm: 0
   playOnAwake: 1
   moveWithTransform: 0
+  autoRandomSeed: 0
   scalingMode: 1
+  randomSeed: 63433504
   InitialModule:
     serializedVersion: 2
     enabled: 1
@@ -66486,7 +66400,7 @@ ParticleSystem:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012374312624}
-  serializedVersion: 2
+  serializedVersion: 4
   lengthInSec: 5
   startDelay:
     scalar: 0
@@ -66524,12 +66438,13 @@ ParticleSystem:
       m_RotationOrder: 4
     minMaxState: 0
   speed: 1
-  randomSeed: 63433504
   looping: 1
   prewarm: 0
   playOnAwake: 1
   moveWithTransform: 0
+  autoRandomSeed: 0
   scalingMode: 1
+  randomSeed: 63433504
   InitialModule:
     serializedVersion: 2
     enabled: 1
@@ -68214,7 +68129,7 @@ ParticleSystem:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013835193418}
-  serializedVersion: 2
+  serializedVersion: 4
   lengthInSec: 5
   startDelay:
     scalar: 0
@@ -68252,12 +68167,13 @@ ParticleSystem:
       m_RotationOrder: 4
     minMaxState: 0
   speed: 1
-  randomSeed: 63433504
   looping: 1
   prewarm: 0
   playOnAwake: 1
   moveWithTransform: 0
+  autoRandomSeed: 0
   scalingMode: 1
+  randomSeed: 63433504
   InitialModule:
     serializedVersion: 2
     enabled: 1
@@ -69937,7 +69853,7 @@ ParticleSystem:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000014082246078}
-  serializedVersion: 2
+  serializedVersion: 4
   lengthInSec: 5
   startDelay:
     scalar: 0
@@ -69975,12 +69891,13 @@ ParticleSystem:
       m_RotationOrder: 4
     minMaxState: 0
   speed: 1
-  randomSeed: 63433504
   looping: 1
   prewarm: 0
   playOnAwake: 1
   moveWithTransform: 1
+  autoRandomSeed: 0
   scalingMode: 1
+  randomSeed: 63433504
   InitialModule:
     serializedVersion: 2
     enabled: 1
@@ -71690,7 +71607,7 @@ ParticleSystem:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000014212950686}
-  serializedVersion: 2
+  serializedVersion: 4
   lengthInSec: 5
   startDelay:
     scalar: 0
@@ -71728,12 +71645,13 @@ ParticleSystem:
       m_RotationOrder: 4
     minMaxState: 0
   speed: 1
-  randomSeed: 63433504
   looping: 1
   prewarm: 0
   playOnAwake: 1
   moveWithTransform: 0
+  autoRandomSeed: 0
   scalingMode: 1
+  randomSeed: 63433504
   InitialModule:
     serializedVersion: 2
     enabled: 1
@@ -73418,7 +73336,7 @@ ParticleSystem:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013347507902}
-  serializedVersion: 2
+  serializedVersion: 4
   lengthInSec: 5
   startDelay:
     scalar: 0
@@ -73456,12 +73374,13 @@ ParticleSystem:
       m_RotationOrder: 4
     minMaxState: 0
   speed: 1
-  randomSeed: 63433504
   looping: 1
   prewarm: 0
   playOnAwake: 1
   moveWithTransform: 0
+  autoRandomSeed: 0
   scalingMode: 1
+  randomSeed: 63433504
   InitialModule:
     serializedVersion: 2
     enabled: 1
@@ -81418,90 +81337,3 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: -0.5, z: 0}
   m_TimeToStationary: 0.5
---- !u!222 &222000010840162846
-CanvasRenderer:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010045847094}
---- !u!222 &222000012839506016
-CanvasRenderer:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013140502044}
---- !u!223 &223000012661072664
-Canvas:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011581491914}
-  m_Enabled: 1
-  serializedVersion: 2
-  m_RenderMode: 2
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 0
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 0
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
-  m_TargetDisplay: 0
---- !u!224 &224000010592094748
-RectTransform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011581491914}
-  m_LocalRotation: {x: 0.3748649, y: -0, z: -0, w: 0.9270795}
-  m_LocalPosition: {x: 0, y: 0, z: 71.01}
-  m_LocalScale: {x: 0.008114274, y: 0.005485042, z: 0.01}
-  m_LocalEulerAnglesHint: {x: 44.029003, y: 0, z: 0}
-  m_Children:
-  - {fileID: 224000014218716724}
-  - {fileID: 224000011555079346}
-  m_Father: {fileID: 4000010715586828}
-  m_RootOrder: 8
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 15.48, y: 1.96}
-  m_SizeDelta: {x: 500, y: 500}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!224 &224000011555079346
-RectTransform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010045847094}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.57, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_Children: []
-  m_Father: {fileID: 224000010592094748}
-  m_RootOrder: 1
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 265.48, y: 200}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!224 &224000014218716724
-RectTransform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013140502044}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_Children: []
-  m_Father: {fileID: 224000010592094748}
-  m_RootOrder: 0
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.5, y: 0.0000019073}
-  m_SizeDelta: {x: 176.1, y: 200}
-  m_Pivot: {x: 0.5, y: 0.5}

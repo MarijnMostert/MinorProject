@@ -7,9 +7,9 @@ public class PowerUpPickUp : MonoBehaviour, IPickUp {
 
 	public void OnTriggerEnter(Collider collider){
 		if(collider.gameObject.CompareTag("Player")){
-			GameObject player = collider.gameObject;
-			if (!player.GetComponent<Inventory> ().isFull ()) {
-				player.GetComponent<Inventory> ().AddItemToInventory (PowerUp, player);
+			PowerUpInventory powerUpInventory = collider.GetComponent<PowerUpInventory> ();
+			if (!powerUpInventory.isFull ()) {
+				powerUpInventory.AddItemToInventory (PowerUp);
 				Destroy (transform.parent.gameObject);
 			}
 		}
