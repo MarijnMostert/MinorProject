@@ -205,14 +205,15 @@ public class GameManager : MonoBehaviour {
 		}
 
 		yield return new WaitForSeconds (.1f);
-		RandomizeTextures ();
+		//RandomizeTextures ();
 
 		if (type == 1) {
 			masterGenerator = new MasterGenerator (this.gameObject, width, height, radius, maxlength, timeout, minAmountOfRooms, maxAmountOfRooms, chanceOfRoom, PuzzleRooms);
 			masterGenerator.LoadPrefabs ();
 			masterGenerator.Start ();
 		} else if (type == 0) {
-			tutorialObject = Instantiate(tutorialPrefab);
+			tutorialObject = Instantiate(tutorialPrefab, new Vector3(0,0,0), Quaternion.identity) as GameObject;
+
 		}
 
 		if (UI == null) {
@@ -521,14 +522,13 @@ public class GameManager : MonoBehaviour {
 
 	public void StartTutorial(){
 		if (!tutorialStarted) {
+			requiredCollectedKeys = 1;
 			Time.timeScale = 1f;
 			StartTime = Time.time;
 			loadingScreenCanvas.SetActive (true);
 			homeScreen.SetActive (false);
 			StartCoroutine (CreateLevel (0));
 			tutorialStarted = true;
-
-
 		}
 	}
 

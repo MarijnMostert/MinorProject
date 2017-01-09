@@ -11,6 +11,10 @@ public class Chest : InteractableItem {
 	public float gravity = 9.8f;
 	private bool used = false;
 
+	public bool getUsed() {
+		return used;
+	}
+
 	public override void action(GameObject triggerObject){
 		if (!used) {
 			AudioSource audio = GetComponent<AudioSource> ();

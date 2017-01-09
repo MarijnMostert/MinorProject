@@ -20,21 +20,26 @@ public class DisplayText : MonoBehaviour {
 		BoldSpeechImage = bold.speechImage;
 		BoldText = bold.speechText;
 	}
-
-	void OnTriggerEnter () {
-		BoldSpeechImage.gameObject.SetActive (true);
-		if (!gameManager.playerManagers[0].playerMovement.controllerInput) {
-			BoldText.text =  myKeyboardText;
-		} else {
-			BoldText.text =  myControllerText;
+		
+	void OnTriggerEnter (Collider other) {
+		if (other.gameObject.CompareTag ("Player")) {
+			Debug.Log ("Triggered " + name);
+			BoldSpeechImage.gameObject.SetActive (true);
+			if (!gameManager.playerManagers [0].playerMovement.controllerInput) {
+				BoldText.text = myKeyboardText;
+			} else {
+				BoldText.text = myControllerText;
+			}
+			AudioSource audio = GameManager.Instance.Bold.GetComponent<AudioSource> ();
+			audio.clip = boldTalkingClip;
+			audio.Play ();
 		}
-		AudioSource audio = GameManager.Instance.Bold.GetComponent<AudioSource> ();
-		audio.clip = boldTalkingClip;
-		audio.Play ();
 	}
 
-	void OnTriggerExit() {
-		BoldSpeechImage.gameObject.SetActive (false);
-		BoldText.text =  "";
+	void OnTriggerExit(Collider other) {
+		if (other.gameObject.CompareTag ("Player")) {
+			BoldSpeechImage.gameObject.SetActive (false);
+			BoldText.text = "";
+		}
 	}
 }
