@@ -14,6 +14,7 @@
   <script src="js/jquery.min.js"></script>
   <script src="js/classes.js"></script>
   <script src="js/app.js"></script>
+  <script src="js/ajax.js"></script>
 </head>
 
 <body>
@@ -41,7 +42,6 @@
 			<div class="menu-item settings-menu"><p><a>Settings</a></p></div>
 		</div>
 		
-		<script src="LoadImg-master/assets/js/loadimg.min.js"></script>
 		<script>
 			$(document).ready(function(){
 				$('.home-menu').on('click',function(){window.location.href="home.php";});

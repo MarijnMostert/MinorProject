@@ -1,7 +1,12 @@
 	
 				$(window).ready(function(){
+					importscore();
 					drawCanvas();
 				});
+				
+				var importscore = function(){
+					getAllScores();
+				};
 				
 				var drawCanvas = function(){
 					/*
@@ -13,7 +18,7 @@
 					var canvas_height = $('#myCanvas').height();
 					
 					var scale = scoreList.getScale(canvas_width,canvas_height);
-					console.log("scale = "+scale);
+					//console.log("scale = "+scale);
 					
 					var canvas = document.getElementById('myCanvas');
 					var context = canvas.getContext('2d');
