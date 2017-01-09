@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class Torch : InteractableItem, IDamagable {
+public class Torch : MonoBehaviour, IDamagable {
 
 	public Light torchLight;
 	public float intensityMinimum = 0f;
@@ -35,15 +35,15 @@ public class Torch : InteractableItem, IDamagable {
 	private Image healthBar;
 	public GameObject HealingParticles;
 	public ParticleSystem MainParticles;
+	public float minParticleSize;
+	public float maxParticleSize;
 	[HideInInspector] public Animator TorchFOV;
 
 	[HideInInspector] public GameManager gameManager;
-	public bool equipped = false;
+	public TorchPickUp torchPickUp;
 	public bool isDamagable = true;
 
 	new void Start () {
-		base.Start ();
-
 		health = startingHealth;
 
 		torchLight = transform.GetComponentInChildren<Light> ();
@@ -55,25 +55,12 @@ public class Torch : InteractableItem, IDamagable {
 		randomFactorIntensity = (intensityMaximum - intensityMinimum) / 8f;
 		randomFactorRange = (rangeMaximum - rangeMinimum) / 8f;
 
-		canvas.SetActive (true);
-
-		//If the number of players is 1, the torch is automatically picked up by player 1
-		if (gameManager.numberOfPlayers == 1) {
-			pickUpTorch (gameManager.playerManagers [0].playerInstance);
-		}
-
 		//Coroutine for the flickering of the light.
 		StartCoroutine(TorchFlickering());
 	}
 	
 	void Update () {
 		lightUpdate ();
-		if (Input.GetButtonDown("DropTorch1") && equipped && gameManager.playerManagers[0].playerInstance.GetComponentInChildren<Torch>() != null) {
-			releaseTorch ();
-		}
-		if (Input.GetButtonDown ("DropTorch2") && equipped && gameManager.playerManagers [1].playerInstance.GetComponentInChildren<Torch>() != null) {
-			releaseTorch ();
-		}
 		if (transform.position.y < -12) {
 			Die ();
 		}
@@ -142,55 +129,15 @@ public class Torch : InteractableItem, IDamagable {
 		}
 		healthBar.fillAmount = (float)health / (float)startingHealth * 0.4f + 0.6f;
 
-		MainParticles.startSize = 0.5f + (0.5f * health / startingHealth);
+		MainParticles.startSize = minParticleSize + ((maxParticleSize - minParticleSize) * health / startingHealth);
 	}
 
 	public void Die(){
 		Debug.Log ("Player dies");
 		health = 0;
-		Destroy (canvas);
+		Destroy (torchPickUp.canvas);
 		Destroy (GameObject.FindGameObjectWithTag("CursorPointer"));
 		gameManager.GameOver();
-	}
-
-	public override void action(GameObject triggerObject){
-		pickUpTorch (triggerObject);
-	}
-
-	void pickUpTorch(GameObject triggerObject){
-		Debug.Log ("Torch is picked up");
-		gameManager.WriteTorchPickup ();
-		transform.SetParent (triggerObject.transform.FindChild("Torch Holder"));
-		transform.position = transform.parent.position;
-		transform.rotation = transform.parent.rotation;
-		gameManager.enemyTarget = triggerObject;
-		gameManager.camTarget = triggerObject;
-		canvas.SetActive (false);
-		equipped = true;
-	}
-
-	public void releaseTorch(){
-		activated = false;
-		Debug.Log ("Torch is dropped");
-		transform.parent = null;
-		gameManager.enemyTarget = gameObject;
-		gameManager.camTarget = gameObject;
-		equipped = false;
-		canvas.transform.position = new Vector3 (transform.position.x, canvasFloatingHeight, transform.position.z);
-		canvas.SetActive (true);
-	}
-
-	protected override void OnTriggerStay(Collider other){
-		if (other.gameObject.CompareTag ("Player")&&canvas!=null) {
-			if (Input.GetButtonDown (interactionButton)) {
-				action (other.gameObject);
-				canvas.gameObject.SetActive (false);
-			}
-		}
-	}
-
-	protected override void OnTriggerExit(Collider other){
-		
 	}
 
 	//Coroutine to receive damage over time

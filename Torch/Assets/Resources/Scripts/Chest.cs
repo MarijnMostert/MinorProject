@@ -11,6 +11,15 @@ public class Chest : InteractableItem {
 	public float gravity = 9.8f;
 	private bool used = false;
 
+	void Start(){
+		base.Start ();
+
+		for (int i = 0; i < contents.Length; i++) {
+			contents[i] = Instantiate (contents [i]) as GameObject;
+			contents[i].SetActive (false);
+		}
+	}
+
 	public override void action(GameObject triggerObject){
 		if (!used) {
 			AudioSource audio = GetComponent<AudioSource> ();
@@ -29,7 +38,7 @@ public class Chest : InteractableItem {
 		float randomX = Random.Range (-2f, 2f);
 		float randomZ = Random.Range (-2f, 2f);
 		Vector3 spawnLocation = new Vector3(transform.position.x + randomX, 0f, transform.position.z + randomZ);
-		//Instantiate (obj, spawnLocation, transform.rotation);
+		obj.SetActive (true);
 		StartCoroutine (SimulateProjectile (spawnLocation, obj));
 	}
 
@@ -43,9 +52,7 @@ public class Chest : InteractableItem {
 	{
 		// Short delay added before Projectile is thrown
 		//yield return new WaitForSeconds(1.5f);
-		Projectile = Instantiate(Projectile, transform.position, Quaternion.identity) as GameObject;
 		TogglePickUpScripts (Projectile, false);
-		//Projectile.GetComponent<Collider> ().enabled = false;
 		foreach (Collider col in Projectile.GetComponentsInChildren<Collider> ()) {
 			col.enabled = false;
 		}

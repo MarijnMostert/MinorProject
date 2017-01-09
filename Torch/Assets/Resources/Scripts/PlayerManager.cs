@@ -86,7 +86,7 @@ public class PlayerManager {
 		} else {
 			//Disable player
 			if (playerInstance.gameObject.GetComponentInChildren<Torch> () != null) {
-				gameManager.torch.releaseTorch ();
+				gameManager.torch.torchPickUp.releaseTorch ();
 			}
 			EnableMovement (false);
 			playerInstance.SetActive(false);
