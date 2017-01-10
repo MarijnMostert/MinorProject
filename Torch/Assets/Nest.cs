@@ -71,7 +71,12 @@ public class Nest : MonoBehaviour, IDamagable {
         if (health <= 0)
         {
             //			Debug.Log ("dead");
+            StartCoroutine(spawn());
             Die();
+        }
+        if (Random.value < .3f)
+        {
+            StartCoroutine(spawn());
         }
     }
 
