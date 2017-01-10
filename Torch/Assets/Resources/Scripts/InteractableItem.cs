@@ -4,14 +4,18 @@ using UnityEngine.Networking;
 using System.Collections;
 
 public class InteractableItem : NetworkBehaviour {
+
+	protected GameManager gameManager;
 	
 	public float canvasFloatingHeight = 2f;
 	[HideInInspector] public Camera cam;
 	public GameObject canvas;
 	protected string interactionButton;
+	[SerializeField] protected bool multiUsable = false;
 	[SerializeField] protected bool activated = false;
 
 	public virtual void Start () {
+		gameManager = GameManager.Instance;
 		canvas.gameObject.SetActive (false);
 		cam = Camera.main; 
 		interactionButton = "InteractionButton";
@@ -31,7 +35,9 @@ public class InteractableItem : NetworkBehaviour {
 			if (Input.GetButtonDown (interactionButton)) {
 				action (other.gameObject);
 				canvas.gameObject.SetActive (false);
-				activated = true;
+				if (!multiUsable) {
+					activated = true;
+				}
 			}
 		}
 	}
