@@ -19,6 +19,7 @@ public class BossFight : MonoBehaviour {
 		if (gameManager.dungeonLevel % 5 == 0) {
 			if (boss == false) {
 				if (other.gameObject.CompareTag ("Player")) {
+					DeactivateLever ();
 					Debug.Log ("boss instantiated");
 					boss = true;
 					BossObject = Instantiate (BossPrefab);
@@ -27,6 +28,14 @@ public class BossFight : MonoBehaviour {
 				}
 			}
 		}
+	}
+
+	public void DeactivateLever(){
+		gameObject.GetComponentInChildren<LeverActivator> ().Deactivate ();
+	}
+
+	public void ActivateLever(){
+		gameObject.GetComponentInChildren<LeverActivator> (true).Activate ();
 	}
 
 }

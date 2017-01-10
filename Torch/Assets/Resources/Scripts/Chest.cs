@@ -11,6 +11,10 @@ public class Chest : InteractableItem {
 	public float gravity = 9.8f;
 	private bool used = false;
 
+	public bool getUsed() {
+		return used;
+	}
+
 	void Start(){
 		base.Start ();
 

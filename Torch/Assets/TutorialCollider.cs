@@ -13,7 +13,7 @@ public class TutorialCollider : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other){
-		if(other.gameObject.CompareTag("Player")){
+		if(other.gameObject.CompareTag("Player")) {
 			textObject.SetActive(true);
 		}
 	}

@@ -52,7 +52,9 @@ public class LaserWeapon : Weapon {
 						damage *= 2;
 						crit = true;
 					}
-					hit.collider.gameObject.GetComponent<Enemy> ().takeDamage (damage, crit);
+					if (hit.collider.gameObject.CompareTag ("Enemy") || hit.collider.gameObject.CompareTag ("Boss")) {
+						hit.collider.gameObject.GetComponent<IDamagable> ().takeDamage (damage, crit);
+					}
 				} 
 				lineRenderer.SetPosition (1, hit.point);
 			} else {

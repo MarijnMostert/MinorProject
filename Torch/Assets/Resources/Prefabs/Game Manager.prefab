@@ -22,6 +22,7 @@ GameObject:
   - 114: {fileID: 114000012126162182}
   - 82: {fileID: 82000010765992802}
   - 82: {fileID: 82000013135790204}
+  - 114: {fileID: 114000013406591320}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -203,6 +204,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba31937f569c16b4c92b74bd7ebde82e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  data: {fileID: 114000013406591320}
   playerManagers:
   - spawnPoint: {fileID: 4000013396432608}
     playerColor: {r: 0.27941185, g: 0.9046279, b: 1, a: 1}
@@ -230,6 +232,8 @@ MonoBehaviour:
     gameManager: {fileID: 0}
   playerPrefab: {fileID: 1000010005094228, guid: 96b70f8172a034350bce5e9b0ef6db4d,
     type: 2}
+  homeScreenPlayer: {fileID: 0}
+  homeScreenMovement: {fileID: 0}
   torchPrefab: {fileID: 114000010962005414, guid: 86f8871f16b6e4321a072873febde5a7,
     type: 2}
   torch: {fileID: 0}
@@ -271,6 +275,7 @@ MonoBehaviour:
   - {fileID: -2071217773, guid: 9100c33a71d3bc34297f459ae70777f9, type: 3}
   width: 20
   height: 20
+  startingScreen: {fileID: 0}
   loadingScreenCanvas: {fileID: 1000013625541172, guid: 0ff01cb270ef14af5b80d2ec70ecc88c,
     type: 2}
   deathCanvas: {fileID: 0}
@@ -304,4 +309,20 @@ MonoBehaviour:
   collectedKeys: 0
   requiredCollectedKeys: 0
   Bold: {fileID: 1000010787105900, guid: 34e435e0d20414bb0ad3cd7e62be2d41, type: 2}
+  shop: {fileID: 114000012952452066, guid: e7fffa677a1ce4c29bfc10128f43efa3, type: 2}
+  coins: 99999
   numberOfPlayers: 1
+--- !u!114 &114000013406591320
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012150838060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8577d73ec07e047ac9c9607e2e54dd95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shopItems: 
+  coins: 0
+  dungeonLevel: 0

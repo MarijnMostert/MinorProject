@@ -22,7 +22,7 @@ GameObject:
   - 120: {fileID: 120000010160733730}
   - 108: {fileID: 108000013208735494}
   - 114: {fileID: 114000013941539846}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Laser Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ MonoBehaviour:
   laserTime: 0.05
   collisionMask:
     serializedVersion: 2
-    m_Bits: 4294755839
+    m_Bits: 4294739455
   minDamage: 70
   maxDamage: 90
   critChance: 0.05

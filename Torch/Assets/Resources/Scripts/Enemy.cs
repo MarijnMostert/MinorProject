@@ -30,6 +30,9 @@ public class Enemy : MonoBehaviour, IDamagable {
 	public AudioClip clip_battleCry;
 	protected AudioSource audioSource;
 
+	public int getHealth () {
+		return health;
+	}
 
 	protected virtual void Awake() {
 		navMeshAgent = GetComponent<NavMeshAgent> ();

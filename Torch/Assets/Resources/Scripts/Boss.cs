@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class Boss : MonoBehaviour, IDamagable {
 
+	private GameManager gameManager;
+
 	//Neural Network Attributes
 	public float[,] weights;
 	public float[] input;
@@ -18,94 +20,56 @@ public class Boss : MonoBehaviour, IDamagable {
 	private GameObject BulletA;
 	private GameObject BulletB;
 
-	//Genetic Algorithm Attributes
-	public float timeAlive;
-	public int damageDealt = 0;
-	public int usedAttacks = 0;
-	public int usedSpecAttacks = 0;
-	public int usedBlocks = 0;
-	public float timeAliveFactor;
-	public float damageDealtFactor;
-	public float ratioFactor;
-	public float distMoved = 0;
-	public float distMovedFactor;
-	public float fitness;
-
 	//Boss Attributes
 	public Projectile normalProjectile;
 	public Projectile specialProjectile;
 	public GameObject target;
-	public Vector3 oldPos;
 	public float speed;
 	public int startingHealth;
 	public int health;
-	public Color colorBoss;
 	public int scoreValue = 1000;
 	public GameObject healthBarPrefab;
 	protected GameObject healthBar;
-	protected ScoreManager scoreManager;
 	public bool dead;
 
 	//Initialize Boss and Neural Network weights
 	void Start () {
+		gameManager = GameObject.Find ("Game Manager").GetComponent<GameManager>();
 		dead = false;
-		timeAlive = Time.time;
 		health = startingHealth;
-		//colorBoss = transform.GetComponentInChildren<SkinnedMeshRenderer> ().material.color;
-		colorBoss = transform.GetComponent<MeshRenderer> ().material.color;
 		gameObject.transform.FindChild ("BossShield").gameObject.SetActive (false);
 		initialiseArraySizes ();
-		initialiseThresholds ();
 		initialiseActionThresholds ();
-		initialiseWeights ();
+		initializeBestWeightsAndTresholds();
 		target = GameObject.FindGameObjectWithTag("Player");
-		//		scoreManager = GameObject.Find("Score Manager").GetComponent<ScoreManager> ();
-		StartCoroutine(DistanceMoved());
 	}
 
 	//Keep facing the player. Run the neural network.
 	void Update () {
 		transform.LookAt (new Vector3 (target.transform.position.x, target.transform.position.y, target.transform.position.z));
-		colorBoss = Color.grey;
 		selectInputs ();
 		runNN ();
 		action ();
 	}
-
-	public void initializeWeightsFromChromosome(float[] chromosome){
-		Debug.Log ("initialize weights from chromosome");
-		int counter = 0;
+		
+	public void initializeBestWeightsAndTresholds(){
 		weights = new float[inputNeurons, outputNeurons];
+		threshold = new float[outputNeurons];
+		float[] temp = new float[]{0.5678023f, 0.5750628f, 0.4790469f, 0.5926962f, 0.3444433f, 0.3393099f, 0.9480648f, 0.01853831f, 0.7728073f, 0.6357021f, 0.9657403f, 0.2877342f, 0.3078995f, 0.2167819f, 0.5540775f, 0.9004681f, 0.6841441f, 0.5982641f, 0.9076774f, 0.7365416f, 0.8793281f, 0.5822603f, 0.1047627f, 0.7878622f, 1.005986f, 0.6845614f, 0.06608278f, 0.1070118f,-0.06569222f, 0.7428343f, 0.5287511f, 0.8968663f, 0.4001851f, 0.8392711f, 0.7895258f, 0.00608548f, 0.05639189f, 0.8475735f, 0.2506087f, 0.6174976f, 0.1670547f, 0.5621039f, 0.297895f, 0.2158358f, 0.9671163f, 0.8106396f, 0.3786803f, 0.03473509f, 0.5133829f, 0.5102599f, 0.340109f, 0.2945383f, 0.420847f, 0.9740732f, 0.06681152f, 0.8949148f, 0.02159697f, 0.8221027f, 0.4287531f, 0.366612f, 0.4611591f, 0.6392899f, 0.5363703f}; 
+		int counter = 0;
 		for (int i = 0; i < inputNeurons; i++) {
 			for (int j = 0; j < outputNeurons; j++) {
-				weights [i, j] = chromosome [counter];
+				weights [i, j] = temp [counter];
 				counter++;
 			}
 		}
-	}
-
-	public void initializeThresholdsFromChromosome(float[] chromosome){
-		Debug.Log ("initialize thresholds from chromosome");
-		int counter = inputNeurons * outputNeurons;
-		threshold = new float[outputNeurons];
 		for (int i = 0; i < outputNeurons; i++) {
-			threshold [i] = chromosome [counter];
+			threshold [i] = temp [counter];
 			counter++;
 		}
 	}
-
-
-
-	//Randomly initializes the network tresholds
-	void initialiseThresholds ()
-	{
-		threshold = new float[outputNeurons];
-		for (int i = 0; i < threshold.Length; i++) {
-			threshold [i] = Random.value;
-		}
-	}
-
-	//Randomly initializes action tresholds
+		
+	//initializes action tresholds
 	void initialiseActionThresholds(){
 		actionThreshold = new float[outputNeurons];
 		//Action tresholds for moving
@@ -117,17 +81,7 @@ public class Boss : MonoBehaviour, IDamagable {
 			actionThreshold [i] = 0.8f;
 		}
 	}
-
-	//Randomly initializes network weights
-	void initialiseWeights () {
-		weights = new float[inputNeurons, outputNeurons];
-		for (int i = 0; i < inputNeurons; i++) {
-			for (int j = 0; j < outputNeurons; j++) {
-				weights [i, j] = Random.value;
-			}
-		}
-	}
-
+		
 	//initializes the arrays that will hold environment information and network output
 	void initialiseArraySizes(){
 		input = new float[inputNeurons];
@@ -138,8 +92,8 @@ public class Boss : MonoBehaviour, IDamagable {
 	//Sense the environment and store normalized and capped data
 	void selectInputs () {
 		//normalized player position
-		input [0] = normalize(target.transform.position.x - transform.position.x, 40f);
-		input [1] = normalize(target.transform.position.z - transform.position.z, 40f);
+		input [0] = normalize(target.transform.position.x - transform.position.x, 15f);
+		input [1] = normalize(target.transform.position.z - transform.position.z, 15f);
 
 		//cap player position (-1, 1)
 		if (input [0] > 1f)
@@ -171,8 +125,8 @@ public class Boss : MonoBehaviour, IDamagable {
 		}
 
 		//Distance to the center of the room
-		input [6] = normalize (Mathf.Abs(transform.position.z), 25);
-		input [7] = normalize (Mathf.Abs(transform.position.x), 25);
+		input [6] = normalize (Mathf.Abs(transform.position.z), 16);
+		input [7] = normalize (Mathf.Abs(transform.position.x), 16);
 	}
 
 	//normalize an input to a given value
@@ -220,19 +174,7 @@ public class Boss : MonoBehaviour, IDamagable {
 	float getDist(GameObject other){
 		return (other.transform.position - gameObject.transform.position).magnitude;
 	}
-
-
-	//find the distance moved by the boss
-	private IEnumerator DistanceMoved(){
-		oldPos = transform.position;
-		while (health > 0) {
-			distMoved += (oldPos - transform.position).magnitude;
-			oldPos = transform.position;
-			yield return new WaitForSeconds (1f);
-		}
-	}
-
-
+		
 	//Runs the Neural network
 	void runNN(){
 		for (int i = 0; i < outputNeurons; i++) {
@@ -250,98 +192,55 @@ public class Boss : MonoBehaviour, IDamagable {
 	}
 
 	//Choose one ore more actions based on network output
-
 	void action(){
 		//move Left
 		if (finalOutput [0] > actionThreshold[0]) {
-			if (transform.position.magnitude < 14.0f) {
+			if (transform.position.magnitude < 12.0f) {
 				transform.position = transform.position + speed * Time.deltaTime * new Vector3 (-1f, 0f, 0f);
 			}
 		}
 		//move right
 		if (finalOutput [1] > actionThreshold[1]) {
-			if (transform.position.magnitude < 14.0f) {
+			if (transform.position.magnitude < 12.0f) {
 				transform.position = transform.position + speed * Time.deltaTime * new Vector3 (1f, 0f, 0f);
 			}
 		}
 		//Move Up
 		if (finalOutput [2] > actionThreshold[2]) {
-			if (transform.position.magnitude < 14.0f) {
+			if (transform.position.magnitude < 12.0f) {
 				transform.position = transform.position + speed * Time.deltaTime * new Vector3 (0f, 0f, 1f);
 			}
 		}
 		//Move Down
 		if (finalOutput [3] > actionThreshold[3]) {
-			if (transform.position.magnitude < 14.0f) {
+			if (transform.position.magnitude < 12.0f) {
 				transform.position = transform.position + speed * Time.deltaTime * new Vector3 (0f, 0f, -1f);
 			}
 		}
 		//Normal Attack
 		if (finalOutput [4] > actionThreshold[4]) {
-			colorBoss = Color.red;
 			GetComponent<WeaponController> ().currentWeapon.GetComponent<RangedWeapon> ().setProjectile (normalProjectile, 0.3f, 9);
 			GetComponent<WeaponController> ().Fire ();
-			usedAttacks++;
 		}
 		//Block
 		else if (finalOutput [5] > actionThreshold[5]) {
 			gameObject.GetComponent<BossBlock>().Block();
-			usedBlocks++;
 		}
 		//Special Attack
 		else if (finalOutput [6] > actionThreshold[6]) {
-			colorBoss = Color.blue;
 			GetComponent<WeaponController> ().currentWeapon.GetComponent<RangedWeapon> ().setProjectile (specialProjectile, 1.0f, 30);
 			GetComponent<WeaponController> ().Fire ();
-			usedSpecAttacks++;
 		}
 
 	}
 
-	//Calculate boss fitness and set inactive
+	//set inactive
 	public void Die(){
 		dead = true;
+		gameManager.updateScore (scoreValue);
+		gameObject.GetComponentInParent<BossFight> ().ActivateLever ();
 		Destroy (healthBar.transform.parent.gameObject);
 		Destroy (gameObject);
-	}
-
-	public void CalculateFitness(){
-		//calculate ratio between normal and special attacks. ideal is 5:1.
-		float ratio = CalculateRatio();
-		float diffFromIdealRatio = 5.0f - ratio;
-
-		//Find the amound of damage done to the gladiator
-		damageDealt = target.GetComponent<EnemyTraining>().startingHealth - target.GetComponent<EnemyTraining>().health;
-
-		//time alive
-		timeAlive = Time.time - timeAlive;
-
-		//Actual calculation
-		fitness = distMoved * distMovedFactor + timeAlive * timeAliveFactor + damageDealt * damageDealtFactor;// - diffFromIdealRatio * ratioFactor;
-		Debug.Log ("dist: " + distMoved);
-		Debug.Log ("time: " + timeAlive);
-		Debug.Log ("damage: " + damageDealt);
-		//Debug.Log ("diff ratio: " + diffFromIdealRatio);
-
-		//If no attacks, no blocks or no special attacks have been used, fitness is halved
-		if (usedAttacks == 0 || usedSpecAttacks == 0 || usedBlocks == 0) {
-			fitness = fitness/2;
-		}
-
-		//cap negative fitness to 0
-		if (fitness < 0){
-			fitness = 0;
-		}
-
-		//send fitness to the Trainermanager
-		GameObject.Find ("Ground").GetComponent<TrainerManager> ().TemporaryFitness = fitness;
-	}
-
-	public float CalculateRatio(){
-		if(usedAttacks != 0){
-			return usedSpecAttacks / usedAttacks;
-		}
-		return usedSpecAttacks / (usedAttacks + 1);
 	}
 
 	//For when the enemy object takes damage
