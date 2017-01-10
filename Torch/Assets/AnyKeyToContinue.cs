@@ -6,7 +6,7 @@ public class AnyKeyToContinue : MonoBehaviour {
 
 	void Update(){
 		if (Input.anyKeyDown) {
-			Destroy (gameObject);
+			gameObject.SetActive (false);
 		}
 	}
 }
