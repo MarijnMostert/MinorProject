@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Boss : MonoBehaviour, IDamagable {
 
 	private GameManager gameManager;
+	public Animator anim;
 
 	//Neural Network Attributes
 	public float[,] weights;
@@ -32,9 +33,11 @@ public class Boss : MonoBehaviour, IDamagable {
 	protected GameObject healthBar;
 	public bool dead;
 
+
 	//Initialize Boss and Neural Network weights
 	void Start () {
-		gameManager = GameObject.Find ("Game Manager").GetComponent<GameManager>();
+		//gameManager = GameObject.Find ("Game Manager").GetComponent<GameManager>();
+		gameManager = GameManager.Instance;
 		dead = false;
 		health = startingHealth;
 		gameObject.transform.FindChild ("BossShield").gameObject.SetActive (false);
@@ -50,6 +53,7 @@ public class Boss : MonoBehaviour, IDamagable {
 		selectInputs ();
 		runNN ();
 		action ();
+		gameObject.GetComponent<BossBlock>().Block();
 	}
 		
 	public void initializeBestWeightsAndTresholds(){
@@ -219,16 +223,18 @@ public class Boss : MonoBehaviour, IDamagable {
 		}
 		//Normal Attack
 		if (finalOutput [4] > actionThreshold[4]) {
-			GetComponent<WeaponController> ().currentWeapon.GetComponent<RangedWeapon> ().setProjectile (normalProjectile, 0.3f, 9);
+			anim.SetTrigger ("attack");
+			GetComponent<WeaponController> ().currentWeapon.GetComponent<RangedWeapon> ().setProjectile (normalProjectile, 0.5f, 9);
 			GetComponent<WeaponController> ().Fire ();
 		}
 		//Block
 		else if (finalOutput [5] > actionThreshold[5]) {
-			gameObject.GetComponent<BossBlock>().Block();
+			//gameObject.GetComponent<BossBlock>().Block();
 		}
 		//Special Attack
 		else if (finalOutput [6] > actionThreshold[6]) {
-			GetComponent<WeaponController> ().currentWeapon.GetComponent<RangedWeapon> ().setProjectile (specialProjectile, 1.0f, 30);
+			anim.SetTrigger ("specAttack");
+			GetComponent<WeaponController> ().currentWeapon.GetComponent<RangedWeapon> ().setProjectile (specialProjectile, 2.0f, 25);
 			GetComponent<WeaponController> ().Fire ();
 		}
 
