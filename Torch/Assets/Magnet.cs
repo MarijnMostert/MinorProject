@@ -10,18 +10,14 @@ public class Magnet : MonoBehaviour {
 	public bool stayActivated = false;
 
 	private bool activated = false;
-	private Vector3 target;
+	private Transform targetObj;
+	private Vector3 targetPos;
 	private Vector3 smoothDampVar;
 
 	void OnTriggerEnter(Collider other){
 		if (other.gameObject.CompareTag ("Player")) {
+			targetObj = other.transform;
 			activated = true;
-		}
-	}
-
-	void OnTriggerStay(Collider other){
-		if (other.gameObject.CompareTag ("Player")) {
-			target = (transform.parent.position - other.transform.position).normalized * distanceToKeep + other.transform.position;
 		}
 	}
 
@@ -34,10 +30,12 @@ public class Magnet : MonoBehaviour {
 	void Update(){
 		if (activated) {
 			
-			if ((transform.parent.position - target).magnitude < range || stayActivated) {
-				transform.parent.position = Vector3.SmoothDamp (transform.parent.position, target, ref smoothDampVar, 1/strength);
+			targetPos = (transform.parent.position - targetObj.position).normalized * distanceToKeep + targetObj.position;
+
+			if ((transform.parent.position - targetPos).magnitude < range || stayActivated) {
+				transform.parent.position = Vector3.SmoothDamp (transform.parent.position, targetPos, ref smoothDampVar, 1/strength);
 				if (lookAtTarget) {
-					transform.parent.LookAt (new Vector3 (target.x, transform.parent.position.y, target.z));
+					transform.parent.LookAt (new Vector3 (targetPos.x, transform.parent.position.y, targetPos.z));
 				}
 			}
 		}

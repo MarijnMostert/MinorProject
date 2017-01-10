@@ -6,7 +6,7 @@ public class PowerUpWall : MonoBehaviour, IPowerUp {
 	public GameObject wall;
 
 	public void Use(){
-		wall = Instantiate (wall, (transform.parent.position + transform.parent.forward * 2), transform.parent.rotation) as GameObject;
+		wall = Instantiate (wall, (transform.parent.position + transform.parent.forward * 2), transform.parent.rotation, GameManager.Instance.levelTransform) as GameObject;
 		Destroy (gameObject);
 	}
 }

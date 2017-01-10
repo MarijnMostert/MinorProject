@@ -7,7 +7,7 @@ public class PowerUpDecoy: MonoBehaviour, IPowerUp {
 	public float spawnHeight = -1.5f;
 
 	public void Use(){
-		GameObject decoy = Instantiate(Decoy, transform.parent.position + transform.parent.forward * 2, transform.parent.rotation) as GameObject;
+		GameObject decoy = Instantiate(Decoy, transform.parent.position + transform.parent.forward * 2, transform.parent.rotation, GameManager.Instance.levelTransform) as GameObject;
 		Vector3 temp = decoy.transform.position;
 		temp.y = spawnHeight;
 		decoy.transform.position = temp;

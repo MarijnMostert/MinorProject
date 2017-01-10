@@ -19,7 +19,7 @@ public class Chest : InteractableItem {
 		base.Start ();
 
 		for (int i = 0; i < contents.Length; i++) {
-			contents[i] = Instantiate (contents [i]) as GameObject;
+			contents[i] = Instantiate (contents [i], gameManager.levelTransform) as GameObject;
 			contents[i].SetActive (false);
 		}
 	}
