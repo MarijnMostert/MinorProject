@@ -134,6 +134,7 @@ public class DungeonInstantiate : Object {
 
 		//Instantiate empty Dungeon GameObject
 		Dungeon = new GameObject("Dungeon");
+		GameManager.Instance.levelTransform = Dungeon.transform;
 		WallsParent.transform.SetParent(Dungeon.transform);
 		FloorsParent.transform.SetParent(Dungeon.transform);
 		RoofsParent.transform.SetParent(Dungeon.transform);

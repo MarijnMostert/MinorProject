@@ -82,6 +82,7 @@ public class GameManager : MonoBehaviour {
 	public Camera minimap;
 	private Vector3 homeScreenPlayerPosition;
     MasterGenerator masterGenerator;
+	[HideInInspector] public Transform levelTransform;
     bool gameStarted;
 	bool tutorialStarted;
 	public GameObject tutorialPrefab;
@@ -232,6 +233,7 @@ public class GameManager : MonoBehaviour {
 			masterGenerator.Start ();
 		} else if (type == 0) {
 			tutorialObject = Instantiate(tutorialPrefab, new Vector3(0,0,0), Quaternion.identity) as GameObject;
+			levelTransform = tutorialObject.transform;
 
 		}
 
@@ -243,8 +245,7 @@ public class GameManager : MonoBehaviour {
 
 		TorchFOV = Instantiate (TorchFOVPrefab);
 
-		if(triggerFloorObject == null)
-			triggerFloorObject = Instantiate (triggerFloorPrefab);
+		triggerFloorObject = Instantiate (triggerFloorPrefab, levelTransform) as GameObject;
 
 		torch = Instantiate (torchPrefab) as Torch;
 

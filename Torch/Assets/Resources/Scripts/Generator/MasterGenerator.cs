@@ -81,7 +81,7 @@ public class MasterGenerator : Object {
 
 		List<Room> allrooms = dungeon.getRooms ();
 
-		GameObject.Find ("Game Manager").GetComponent<GameManager> ().requiredCollectedKeys = allrooms.Count - 2;
+		GameManager.Instance.requiredCollectedKeys = allrooms.Count - 2;
 
         this.endMaze = maze;
 
