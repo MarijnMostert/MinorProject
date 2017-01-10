@@ -13,7 +13,7 @@ public class Spawner : MonoBehaviour {
 
 	private string waveButton;
 	private string spawnEnemyButton;
-	private GameManager gameManager;
+	public GameManager gameManager;
 
     Floors floors;
 	public float timeTillSpawning = 5f;
