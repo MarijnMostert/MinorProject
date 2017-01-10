@@ -19,11 +19,14 @@ public class EnemyBomber : Enemy {
     //private Animator anim;
     bool attack_anim;
 
+    float starttime;
+
 	new void Awake(){
 		base.Awake ();
 		weaponController = GetComponent<WeaponController> ();
         anim = GetComponent<Animator>();
         setAnim(anim);
+        starttime = Time.time;
 	}
 
 	// Use this for initialization
@@ -38,16 +41,21 @@ public class EnemyBomber : Enemy {
 
     void Update()
     {
-        if (!dead) {
-            varDistanceToTarget = distanceToTarget();
-            anim.SetBool("attack", false);
-            if (Time.realtimeSinceStartup > .5f && gameManager.enemyTarget != null && varDistanceToTarget <= attackRange && (Time.time - lastAttackTime) > attackCooldown)
-            {
-                StartCoroutine(attack());
-            }
-        } else
+        if (Time.time > starttime + 1.02)
         {
-            anim.SetBool("dead",true);
+            if (!dead)
+            {
+                varDistanceToTarget = distanceToTarget();
+                anim.SetBool("attack", false);
+                if (Time.realtimeSinceStartup > .5f && gameManager.enemyTarget != null && varDistanceToTarget <= attackRange && (Time.time - lastAttackTime) > attackCooldown)
+                {
+                    StartCoroutine(attack());
+                }
+            }
+            else
+            {
+                anim.SetBool("dead", true);
+            }
         }
 	}
 

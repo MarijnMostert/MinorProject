@@ -37,6 +37,8 @@ public class BlockPuzzleRoom : MonoBehaviour {
 		Block1.name = "Block1";
 		Block2.name = "Block2";
 		Block3.name = "Block3";
+
+		DeactivateLever ();
 	}
 
 	void Update(){
@@ -44,6 +46,7 @@ public class BlockPuzzleRoom : MonoBehaviour {
 			if (Pad1.activated && Pad2.activated && Pad3.activated) {
 				activated = true;
 				Debug.Log ("Puzzle room cleared. Open doors");
+				ActivateLever ();
 				//Opening of the doors
 				//Fireworks!
 			}
@@ -55,5 +58,13 @@ public class BlockPuzzleRoom : MonoBehaviour {
 			Debug.Log ("Player entered Block Puzzle Room");
 
 		}
+	}
+
+	public void DeactivateLever(){
+		gameObject.GetComponentInChildren<LeverActivator> ().Deactivate ();
+	}
+
+	public void ActivateLever(){
+		gameObject.GetComponentInChildren<LeverActivator> (true).Activate ();
 	}
 }
