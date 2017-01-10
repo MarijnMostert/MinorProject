@@ -16,7 +16,7 @@ public class DungeonInstantiate : Object {
 	bool[,] maze, import_maze, trapped;
     float chance_trap_straight, chance_trap_crossing,
           chance_side_alt1, chance_side_alt2, step,
-          chance_chest;
+          chance_chest, chance_nest;
     bool start_defined;
     int[] count = new int[2] {0,2};
 	private GameObject Dungeon;
@@ -30,6 +30,7 @@ public class DungeonInstantiate : Object {
 	GameObject WallsParent;
 	GameObject FloorsParent;
 	GameObject RoofsParent;
+    GameObject Spidernests;
 	GameObject BeginningRoom;
 	GameObject EndingRoom;
 
@@ -43,6 +44,8 @@ public class DungeonInstantiate : Object {
 	GameObject WoodenDoors;
 	GameObject PuzzleDoors;
 
+    GameObject spidernest;
+
     public Vector3 startPos;
 
     // Use this for initialization
@@ -52,7 +55,7 @@ public class DungeonInstantiate : Object {
                             GameObject game_manager, GameObject spawner, GameObject torch, GameObject cam, GameObject pointer, 
 		GameObject chest, GameObject coin, GameObject fireball, GameObject iceball, GameObject health, int[] mazeSize, GameObject laser, GameObject shieldPickUp,
 		GameObject stickyPickUp, GameObject roofGroup, GameObject wallPickUp, List<GameObject> puzzleRooms, GameObject wallTorch, GameObject piercingWeapon,
-		GameObject bombPickUp)
+		GameObject bombPickUp, GameObject spidernest)
 
     {
         this.floor = floor;
@@ -81,9 +84,12 @@ public class DungeonInstantiate : Object {
 		this.puzzleCenters = new List<p2D> ();
 		this.puzzleRoomsDG = new List<Room> ();
 
+        this.spidernest = spidernest;
+
 		WallsParent = new GameObject("Walls");
 		FloorsParent = new GameObject("Floors");
 		RoofsParent = new GameObject("Roofs");
+        Spidernests = new GameObject("Spidernests");
 
 		RoofPrefab = Resources.Load ("Prefabs/Blocks/RoofPrefab", typeof(GameObject)) as GameObject;
 		WallPrefab = Resources.Load ("Prefabs/Blocks/WallPrefab", typeof(GameObject)) as GameObject;
@@ -124,9 +130,11 @@ public class DungeonInstantiate : Object {
         */
         step = 6f;
 		chance_chest = 0.5f;
+        chance_nest = 0.08f;
 
 		//Instantiate empty Dungeon GameObject
 		Dungeon = new GameObject("Dungeon");
+		GameManager.Instance.levelTransform = Dungeon.transform;
 		WallsParent.transform.SetParent(Dungeon.transform);
 		FloorsParent.transform.SetParent(Dungeon.transform);
 		RoofsParent.transform.SetParent(Dungeon.transform);
@@ -171,8 +179,12 @@ public class DungeonInstantiate : Object {
 					puzzle = true; } // sla over
 				if (maze[x,y]) {
 					buildOpen (x,y,puzzle);
-				} 
-				else {
+                    if ((!puzzle) && Random.value < chance_nest)
+                    {
+                        nest(x, y);
+                    }
+                }
+                else {
 					buildRoof (x, y);
 				} 
 			}
@@ -375,6 +387,21 @@ public class DungeonInstantiate : Object {
         } else {
             return Quaternion.identity * Quaternion.Euler(0, -90, 0);
         }
+    }
+
+    void nest(int x, int y)
+    {
+        Quaternion rot;
+        if (getSurrounding2(x, y)[0] == 1)
+        {
+             rot = Quaternion.Euler(0, 90, 0);
+        } else
+        {
+            rot = Quaternion.identity;
+        }
+        GameObject trap = GameObject.Instantiate(spidernest, Spidernests.transform) as GameObject;
+        trap.transform.position = new Vector3(x *6+3, 0, y*6+3);
+        trap.transform.rotation = rot;
     }
 
     GameObject trapStraight()

@@ -8,10 +8,16 @@ using UnityEngine.Analytics;
 
 public class GameManager : MonoBehaviour {
 
+	//Stored player preferences and info
+	public Data data;
+
 	//Player data
 	public static GameManager Instance;
 	public PlayerManager[] playerManagers;
 	public GameObject playerPrefab;
+
+	public GameObject homeScreenPlayer;
+	public HomeScreenMovement homeScreenMovement;
 
 	//Torch data
 	public Torch torchPrefab;
@@ -66,6 +72,7 @@ public class GameManager : MonoBehaviour {
 
 
 	//public GameObject homeScreenCanvas;
+	public GameObject startingScreen;
 	public GameObject loadingScreenCanvas;
 	public GameObject deathCanvas;
 	public GameObject endOfRoundCanvas;
@@ -75,6 +82,7 @@ public class GameManager : MonoBehaviour {
 	public Camera minimap;
 	private Vector3 homeScreenPlayerPosition;
     MasterGenerator masterGenerator;
+	[HideInInspector] public Transform levelTransform;
     bool gameStarted;
 	bool tutorialStarted;
 	public GameObject tutorialPrefab;
@@ -98,9 +106,21 @@ public class GameManager : MonoBehaviour {
 	public GameObject Bold;
 	private Bold BoldScript;
 
+	public Shop shop;
+	private bool shopActive = false;
+	public int coins;
+
 	[HideInInspector] public int numberOfPlayers = 1;
 
     void Awake () {
+		data.Load ();
+
+		startingScreen.SetActive (true);
+
+		shop = Instantiate (shop);
+		shop.gameObject.SetActive (false);
+		shopActive = false;
+
         gameStarted = false;
 		tutorialStarted = false;
 		//Makes sure this object is not deleted when another scene is loaded.
@@ -122,7 +142,7 @@ public class GameManager : MonoBehaviour {
 		pauseScreen.SetActive (false);
 		loadingScreenCanvas = Instantiate (loadingScreenCanvas) as GameObject;
 		loadingScreenCanvas.SetActive (false);
-		homeScreenPlayerPosition = GameObject.Find ("HomeScreenPlayer").transform.position;
+		homeScreenPlayerPosition = homeScreenPlayer.transform.position;
 		Bold = Instantiate (Bold, homeScreenPlayerPosition, Quaternion.identity) as GameObject;
 		BoldScript = Bold.GetComponent<Bold> ();
 		BoldScript.speechText.text = "";
@@ -213,6 +233,7 @@ public class GameManager : MonoBehaviour {
 			masterGenerator.Start ();
 		} else if (type == 0) {
 			tutorialObject = Instantiate(tutorialPrefab, new Vector3(0,0,0), Quaternion.identity) as GameObject;
+			levelTransform = tutorialObject.transform;
 
 		}
 
@@ -224,8 +245,7 @@ public class GameManager : MonoBehaviour {
 
 		TorchFOV = Instantiate (TorchFOVPrefab);
 
-		if(triggerFloorObject == null)
-			triggerFloorObject = Instantiate (triggerFloorPrefab);
+		triggerFloorObject = Instantiate (triggerFloorPrefab, levelTransform) as GameObject;
 
 		torch = Instantiate (torchPrefab) as Torch;
 
@@ -350,6 +370,7 @@ public class GameManager : MonoBehaviour {
 				if(PM.playerInstance != null)
 					PM.EnableMovement (false);
 			}
+			homeScreenMovement.enabled = false;
 		} else {
 			Time.timeScale = 1;
 			paused = false;
@@ -358,6 +379,7 @@ public class GameManager : MonoBehaviour {
 				if(PM.playerInstance != null)
 					PM.EnableMovement(true);
 			}
+			homeScreenMovement.enabled = true;
 		}
 	}
 
@@ -432,7 +454,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void resetHomeScreenPlayer(){
-        GameObject.Find ("HomeScreenPlayer").transform.position = homeScreenPlayerPosition;
+		homeScreenPlayer.transform.position = homeScreenPlayerPosition;
 	}
 
 	public void Proceed(){
@@ -602,5 +624,20 @@ public class GameManager : MonoBehaviour {
 	public void playUISound(int soundNumber){
 		audioSourceUI.clip = audioClipsUI [soundNumber];
 		audioSourceUI.Play ();
+	}
+
+	public void ToggleShop(){
+		if (shopActive) {
+			shop.gameObject.SetActive (false);
+			shop.shopCam.gameObject.SetActive (false);
+			homeScreenCam.SetActive (true);
+			homeScreenPlayer.SetActive (true);
+		} else {
+			shop.gameObject.SetActive (true);
+			shop.shopCam.gameObject.SetActive (true);
+			homeScreenCam.SetActive (false);
+			homeScreenPlayer.SetActive (false);
+		}
+		shopActive = !shopActive;
 	}
 }

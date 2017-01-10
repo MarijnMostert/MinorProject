@@ -17,7 +17,7 @@ public class puzzleDoors : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		doors = GetComponentsInChildren<Doors> ();
-		gameManager = GameObject.Find ("Game Manager").GetComponent<GameManager> ();
+		gameManager = GameManager.Instance;
 	}
 
 	void Update () {
@@ -69,7 +69,7 @@ public class puzzleDoors : MonoBehaviour {
 
 		//Instantiate a key
 		Vector3 keyPosition = transform.position + new Vector3(0f, 1f, 0f);
-		Instantiate (key, keyPosition, transform.rotation);
+		Instantiate (key, keyPosition, transform.rotation, gameManager.levelTransform);
 		Destroy (myLever.gameObject);
 	}
 }

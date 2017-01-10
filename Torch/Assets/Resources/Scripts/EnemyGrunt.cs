@@ -7,6 +7,7 @@ public class EnemyGrunt : Enemy {
 	Animator animator;
 	public bool attacknow;
     float starttime;
+    public bool speedy;
 
 	protected override void Awake(){
 		base.Awake ();
@@ -25,10 +26,10 @@ public class EnemyGrunt : Enemy {
 		}
         starttime = Time.time;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-        if (Time.time>starttime+1.03) {
+
+    // Update is called once per frame
+    void Update() {
+        if (speedy|| Time.time>starttime+1.03) {
             if (!agent.enabled) { agent.enabled = true; }
             if (gameManager.enemyTarget != null && distanceToTarget() < attackRange && (Time.time - lastAttackTime) > attackCooldown) {
                 attack();
