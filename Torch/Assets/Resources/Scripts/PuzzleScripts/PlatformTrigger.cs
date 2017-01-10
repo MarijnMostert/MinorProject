@@ -7,6 +7,10 @@ public class PlatformTrigger : MonoBehaviour {
 	public bool stayed = false;
 	public GameObject myParent;
 
+	public void resetEntered() {
+		entered = false;
+	}
+
 	void OnTriggerEnter (Collider other) {
 		if (other.gameObject.CompareTag ("Player")) {
 			entered = true;
