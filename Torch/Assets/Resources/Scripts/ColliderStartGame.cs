@@ -17,7 +17,7 @@ public class ColliderStartGame : MonoBehaviour {
 	void OnTriggerStay(Collider other){
 		if (other.gameObject.CompareTag ("Player")) {
 			textObject.SetActive (true);
-			if (Input.GetButtonDown (interactionButton) && !gameManager.dungeonStartCanvas.activeInHierarchy) {
+			if (Input.GetButtonDown (interactionButton) && !gameManager.dungeonStartCanvas.gameObject.activeInHierarchy) {
 				gameManager.ToggleDungeonStartCanvas ();
 			}
 		}

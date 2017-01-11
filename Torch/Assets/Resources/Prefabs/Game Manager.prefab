@@ -245,7 +245,6 @@ MonoBehaviour:
   score: 0
   totalScore: 0
   dungeonLevel: 0
-  maxAchievedDungeonLevel: 0
   StartTime: 0
   Roomtype: 
   paused: 0
@@ -314,7 +313,9 @@ MonoBehaviour:
   requiredCollectedKeys: 0
   Pet: {fileID: 1000010787105900, guid: 34e435e0d20414bb0ad3cd7e62be2d41, type: 2}
   shop: {fileID: 114000012952452066, guid: e7fffa677a1ce4c29bfc10128f43efa3, type: 2}
-  coins: 0
+  highQualityItems:
+  - {fileID: 0}
+  - {fileID: 0}
   numberOfPlayers: 1
 --- !u!114 &114000013406591320
 MonoBehaviour:
@@ -331,4 +332,5 @@ MonoBehaviour:
   shopItemsOwned: 
   shopItemsEquipped: 
   coins: 0
-  dungeonLevel: 0
+  maxAchievedDungeonLevel: 0
+  highQuality: 0

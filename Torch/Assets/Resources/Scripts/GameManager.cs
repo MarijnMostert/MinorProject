@@ -31,7 +31,6 @@ public class GameManager : MonoBehaviour {
 	public int score = 0;
 	public int totalScore = 0;
 	public int dungeonLevel = 0;
-	public int maxAchievedDungeonLevel = 0;
 	public float StartTime;
 	public string Roomtype;
 
@@ -75,7 +74,7 @@ public class GameManager : MonoBehaviour {
 	public GameObject loadingScreenCanvas;
 	public DeathCanvas deathCanvas;
 	public GameObject endOfRoundCanvas;
-	public GameObject dungeonStartCanvas;
+	public DungeonStartCanvas dungeonStartCanvas;
 	public GameObject dungeonLevelButtonPrefab;
 	private GameObject homeScreen;
 	private GameObject homeScreenCam;
@@ -110,13 +109,14 @@ public class GameManager : MonoBehaviour {
 
 	public Shop shop;
 	private bool shopActive = false;
-	public int coins;
+
+	public List<GameObject> highQualityItems;
 
 	[HideInInspector] public int numberOfPlayers = 1;
 
     void Awake () {
 		data.LoadFileToDataAndVars ();
-		coins = data.coins;
+		setQuality (data.highQuality);
 
 		startingScreen.SetActive (true);
 
@@ -198,10 +198,9 @@ public class GameManager : MonoBehaviour {
 			Time.timeScale = 1f;
 			StartTime = Time.time;
 		//	dungeonLevel = saver.Read ();
-		//	dungeonLevel++;
 			Parameters (dungeonLevel);
 			endOfRoundCanvas.SetActive (false);
-			loadingScreenCanvas.transform.Find ("LevelText").GetComponent<Text> ().text = "Dungeon level: " + (dungeonLevel-1).ToString();
+			loadingScreenCanvas.transform.Find ("LevelText").GetComponent<Text> ().text = "Dungeon level: " + (dungeonLevel).ToString();
             loadingScreenCanvas.SetActive(true);
 			homeScreen.SetActive (false);
             StartCoroutine(CreateLevel(1));
@@ -213,7 +212,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	IEnumerator WaitSpawning(){
-		float wait = 11.0f - dungeonLevel;
+		float wait = 11.0f - .5f * dungeonLevel;
 		if (wait < 1.0f) {
 			wait = 1.0f;
 		}
@@ -400,7 +399,6 @@ public class GameManager : MonoBehaviour {
 		deathCanvas.SetScoreText (totalScore);
 		deathCanvas.gameObject.SetActive (true);
 		RoundEnd ();
-		dungeonLevel = 0;
 	}
 
 	public void RoundEnd(){
@@ -422,7 +420,7 @@ public class GameManager : MonoBehaviour {
 			Destroy (projectile);
 		}
 
-		coins += score;
+		data.coins += score;
 		score = 0;
 	}
 
@@ -480,6 +478,9 @@ public class GameManager : MonoBehaviour {
 		analytics.WriteFinishLevel (dungeonLevel, score, totalScore, StartTime);
 		RoundEnd ();
 		DestroyDungeon ();
+		dungeonLevel++;
+		if (dungeonLevel > data.maxAchievedDungeonLevel)
+			data.maxAchievedDungeonLevel = dungeonLevel;
 		StartGame ();
 	}
 
@@ -597,33 +598,57 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void SetUpDungeonStartCanvas(){
-		for (int i = 0; i < maxAchievedDungeonLevel; i++) {
+		for (int i = 0; i < 40; i++) {
 			GameObject button = Instantiate (dungeonLevelButtonPrefab, dungeonStartCanvas.transform) as GameObject;
-			float x = -520f + (i%8) * 130f;
-			float y = 200f + ((int)(i/8)) * -130f;
+			float x = -590f + (i%10) * 130f;
+			float y = 200f + ((int)(i/10)) * -130f;
 			button.transform.localPosition = new Vector3 (x, y, 0f);
 			button.GetComponent<DungeonLevelButton> ().SetDungeonLevel (i + 1);
 			button.GetComponentInChildren<Text> ().text = (i + 1).ToString();
+			button.SetActive (false);
+			dungeonStartCanvas.buttons.Add (button);
+		}
+		UpdateDungeonStartCanvas ();
+	}
 
-			/*
-			Color color = new Color (255f, 255f - (255 / 30 * i), 255f - (255 / 30 * i));
-			//Debug.Log (color);
-			Color col = button.GetComponent<Image> ().color;
-			col.g = 255f - (255 / 10 * i);
-			col.b = 255f - (255 / 10 * i);
-			button.GetComponent<Image> ().color = col;
-			Debug.Log (col + "\n" + button.GetComponent<Image> ().color);
-*/
+	void UpdateDungeonStartCanvas(){
+		for (int i = 0; i < data.maxAchievedDungeonLevel; i++) {
+			dungeonStartCanvas.buttons [i].SetActive (true);
 		}
 	}
 
 	public void ToggleDungeonStartCanvas(){
-		if (dungeonStartCanvas.activeInHierarchy) {
-			dungeonStartCanvas.SetActive (false);
+		if (dungeonStartCanvas.gameObject.activeInHierarchy) {
+			dungeonStartCanvas.gameObject.SetActive (false);
 			homeScreenMovement.enabled = true;
 		} else {
-			dungeonStartCanvas.SetActive (true);
+			UpdateDungeonStartCanvas ();
+			dungeonStartCanvas.gameObject.SetActive (true);
 			homeScreenMovement.enabled = false;
+		}
+	}
+
+	public void addHighQualityItem(GameObject GO){
+		highQualityItems.Add (GO);
+	}
+
+	public void addHighQualityItem(GameObject[] GOs){
+		foreach (GameObject GO in GOs) {
+			addHighQualityItem (GO);
+		}
+	}
+
+	//highQuality = true and lowQuality = false
+	public void setQuality(bool setHighQuality){
+		data.highQuality = false;
+		if (!setHighQuality) {
+			data.highQuality = false;
+		} else if (setHighQuality) {
+			data.highQuality = true;
+		}
+
+		foreach (GameObject GO in highQualityItems) {
+			GO.SetActive (data.highQuality);
 		}
 	}
 }

@@ -85,14 +85,14 @@ public class Shop : MonoBehaviour {
 	//For updating the text field in the UI of the shop
 	void UpdateCoinText(){
 		if (coinsToSpend != null && gameManager != null) {
-			coinsToSpend.text = "Coins: " + gameManager.coins.ToString ();
+			coinsToSpend.text = "Coins: " + gameManager.data.coins.ToString ();
 		}
 	}
 
 	//This method is probably gonna used by a button in the UI of the shop.
 	public void BuyItem(){
-		if (gameManager.coins >= activeItem.price && !activeItem.owned) {
-			gameManager.coins -= activeItem.price;
+		if (gameManager.data.coins >= activeItem.price && !activeItem.owned) {
+			gameManager.data.coins -= activeItem.price;
 			UpdateCoinText ();
 
 			//Set Equip button to true after purchasing

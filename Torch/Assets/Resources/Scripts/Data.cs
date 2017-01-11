@@ -9,7 +9,8 @@ public class Data : MonoBehaviour {
 	public bool[] shopItemsOwned;
 	public bool[] shopItemsEquipped;
 	public int coins;
-	public int dungeonLevel;
+	public int maxAchievedDungeonLevel;
+	public bool highQuality;
 
 	// Update is called once per frame
 	void Update () {
@@ -28,9 +29,8 @@ public class Data : MonoBehaviour {
 			shopItemsEquipped[i] = intToBool(PlayerPrefs.GetInt(strEquipped));
 		}
 		this.coins = PlayerPrefs.GetInt ("coins");
-		gameManager.coins = this.coins;
-		this.dungeonLevel = PlayerPrefs.GetInt ("dungeonLevel");
-		gameManager.maxAchievedDungeonLevel = this.dungeonLevel;
+		this.maxAchievedDungeonLevel = PlayerPrefs.GetInt ("dungeonLevel");
+		this.highQuality = intToBool(PlayerPrefs.GetInt ("highQuality"));
 
 		Debug.Log ("Loaded data succesfully");
 	}
@@ -43,7 +43,8 @@ public class Data : MonoBehaviour {
 			PlayerPrefs.SetInt (strEquipped, boolToInt (shopItemsEquipped [i]));
 		}
 		PlayerPrefs.SetInt ("coins", coins);
-		PlayerPrefs.SetInt ("dungeonLevel", dungeonLevel);
+		PlayerPrefs.SetInt ("dungeonLevel", maxAchievedDungeonLevel);
+		PlayerPrefs.SetInt ("highQuality", boolToInt(highQuality));
 
 		Debug.Log ("Saved data succesfully");
 	}
@@ -59,6 +60,7 @@ public class Data : MonoBehaviour {
 		}
 		PlayerPrefs.SetInt ("coins", 0);
 		PlayerPrefs.SetInt ("dungeonLevel", 1);
+		PlayerPrefs.SetInt ("highQuality", 1);
 
 		Debug.Log ("Reset data succesfully");
 		LoadFileToDataAndVars ();
@@ -91,17 +93,7 @@ public class Data : MonoBehaviour {
 		}
 	}
 
-	public void CoinsToData(){
-		this.coins = gameManager.coins;
-	}
-
-	public void DungeonLevelToData(){
-		this.dungeonLevel = gameManager.maxAchievedDungeonLevel;
-	}
-
 	public void CollectData(){
 		ShopItemsToData ();
-		CoinsToData ();
-		DungeonLevelToData ();
 	}
 }
