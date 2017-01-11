@@ -8,9 +8,9 @@ public class ColliderStartGame : MonoBehaviour {
 	public GameObject textObject;
 
 	private string interactionButton = "InteractionButton";
-	private GameManager gameManager;
+	[SerializeField] private GameManager gameManager;
 
-	void Awake(){
+	void Start(){
 		gameManager = GameManager.Instance;
 	}
 

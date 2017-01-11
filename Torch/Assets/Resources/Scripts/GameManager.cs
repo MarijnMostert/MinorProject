@@ -605,6 +605,7 @@ public class GameManager : MonoBehaviour {
 			button.GetComponent<DungeonLevelButton> ().SetDungeonLevel (i + 1);
 			button.GetComponentInChildren<Text> ().text = (i + 1).ToString();
 
+			/*
 			Color color = new Color (255f, 255f - (255 / 30 * i), 255f - (255 / 30 * i));
 			//Debug.Log (color);
 			Color col = button.GetComponent<Image> ().color;
@@ -612,7 +613,7 @@ public class GameManager : MonoBehaviour {
 			col.b = 255f - (255 / 10 * i);
 			button.GetComponent<Image> ().color = col;
 			Debug.Log (col + "\n" + button.GetComponent<Image> ().color);
-
+*/
 		}
 	}
 
