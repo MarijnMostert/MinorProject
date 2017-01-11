@@ -16,11 +16,11 @@ public class PlayerDamagable : MonoBehaviour, IDamagable {
 		}
 	}
 
-	public void takeDamage(int damage, bool crit){
+	public void takeDamage(int damage, bool crit, GameObject source){
 		//Debug.Log ("Player is taking damage");
 		//GameObject torch = transform.FindChild ("Torch").gameObject;
 		if (hasTorch ()) {
-			gameObject.GetComponentInChildren<Torch> ().takeDamage (damage, crit);
+			gameObject.GetComponentInChildren<Torch> ().takeDamage (damage, crit, source);
 		}
 	}
 	private IEnumerator respawnPosition(){

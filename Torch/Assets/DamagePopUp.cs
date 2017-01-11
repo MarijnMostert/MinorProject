@@ -27,10 +27,8 @@ public class DamagePopUp : MonoBehaviour {
 		Vector3 location = target.transform.position + new Vector3 (0f, offset, 0f);
 
 			//cam.WorldToScreenPoint (target.transform.position + new Vector3(0f, offset, 0f));
-		GameObject popup = ObjectPooler.current.GetObject();
-		popup.SetActive (true);
+		GameObject popup = ObjectPooler.Instance.GetObject(0, true, location);
 		//GameObject popup = Instantiate (PopUp) as GameObject;
-		popup.transform.position = location;
 		popup.GetComponentInChildren<Text> ().text = damage.ToString();
 		popup.GetComponentInChildren<Text> ().color = color;
 	}

@@ -5,6 +5,7 @@ public class RangedWeapon : Weapon {
 
 	public float cooldown;
 	public Projectile projectile;
+	public int poolObjectIndex;
 	public float projectileSpeed;
 	public AudioClip audioOnFire;
 	public float pitchShiftMinimal = 0.8f;
@@ -27,7 +28,7 @@ public class RangedWeapon : Weapon {
 	//Shooting a projectile
 	public override void Fire(){
 		if ((Time.time - lastFireTime) > cooldown) {
-			Projectile newProjectile = Instantiate (projectile, transform.position, transform.rotation) as Projectile;
+			Projectile newProjectile = ObjectPooler.Instance.GetObject (projectile.ObjectPoolerIndex, true, transform.position, transform.rotation).GetComponent<Projectile>();
 			newProjectile.setSpeed (projectileSpeed);
 			lastFireTime = Time.time;
 

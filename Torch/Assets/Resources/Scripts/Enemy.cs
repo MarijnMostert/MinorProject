@@ -67,7 +67,7 @@ public class Enemy : MonoBehaviour, IDamagable {
 	}
 
 	//For when the enemy object takes damage
-	public void takeDamage(int damage, bool crit){
+	public void takeDamage(int damage, bool crit, GameObject source){
 		//Debug.Log (gameObject + " takes " + damage + " damage.");
 
 		if (healthBar == null) {

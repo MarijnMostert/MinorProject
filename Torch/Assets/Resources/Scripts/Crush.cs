@@ -14,7 +14,7 @@ public class Crush : MonoBehaviour {
 	void OnTriggerStay(Collider other){
 		IDamagable damagableObject = other.gameObject.GetComponent<IDamagable> ();
 		if (damagableObject != null && Time.time - TrapTimer >= timeBetweenDamage) {
-			damagableObject.takeDamage (damage, false);
+			damagableObject.takeDamage (damage, false, gameObject);
 			Debug.Log (damagableObject + " takes " + damage + " from traps");
 			TrapTimer = Time.time;
 		}

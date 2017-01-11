@@ -36,7 +36,7 @@ public class Laserbeam : MonoBehaviour {
 			lineRenderer.SetPosition (1, new Vector3 (0, 0, hit.distance));
 
 			if (hit.collider.gameObject.CompareTag("Player")) {
-				hit.collider.gameObject.GetComponent<IDamagable> ().takeDamage (damage, false);
+				hit.collider.gameObject.GetComponent<IDamagable> ().takeDamage (damage, false, gameObject);
 				timestamp = Time.time;
 			}
 		} else

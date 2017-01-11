@@ -44,17 +44,12 @@ public class puzzleDoors : MonoBehaviour {
 			doors[i].locked = true;
 		}
 		Debug.Log ("SPAWNER STOPPED");
-		gameManager.spawner.dead = true;
+		gameManager.spawner.activated = false;
 		active = true;
 		StartTime = Time.time;
 		for (int i = 0; i < gameManager.playerManagers.Length; i++) {
 			gameManager.playerManagers [i].playerInstance.GetComponent<Rigidbody> ().constraints &= ~RigidbodyConstraints.FreezePositionY;
 		}
-
-		foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy")) {
-			Destroy (enemy);
-		}
-
 	}
 
 	void EndPuzzle () {
@@ -63,7 +58,7 @@ public class puzzleDoors : MonoBehaviour {
 		}
 		done = true;
 		active = false;
-		gameManager.spawner.dead = false;
+		gameManager.spawner.activated = true;
 		gameManager.WritePuzzleComplete (Time.time - StartTime);
 		gameManager.Roomtype = null;
 

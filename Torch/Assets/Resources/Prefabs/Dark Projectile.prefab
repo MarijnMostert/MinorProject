@@ -184,6 +184,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b7416781957a445795c69362da14211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ObjectPoolerIndex: 4
   minDamage: 5
   maxDamage: 15
   critChance: 0.05
@@ -194,13 +195,20 @@ MonoBehaviour:
   speed: 0
   piercing: 0
   particlesOnHit: {fileID: 0}
+  comp:
+    timeOut: 0
+    trailRenderer: {fileID: 0}
+    particles: {fileID: 0}
+    meshRenderer: {fileID: 0}
+    col: {fileID: 0}
+    light: {fileID: 0}
 --- !u!198 &198000010704239226
 ParticleSystem:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012536043794}
-  serializedVersion: 4
+  serializedVersion: 2
   lengthInSec: 5
   startDelay:
     scalar: 0
@@ -238,13 +246,12 @@ ParticleSystem:
       m_RotationOrder: 4
     minMaxState: 0
   speed: 1
+  randomSeed: 63433504
   looping: 1
   prewarm: 0
   playOnAwake: 1
   moveWithTransform: 1
-  autoRandomSeed: 0
   scalingMode: 1
-  randomSeed: 63433504
   InitialModule:
     serializedVersion: 2
     enabled: 1

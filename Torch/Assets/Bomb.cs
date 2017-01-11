@@ -29,7 +29,7 @@ public class Bomb : MonoBehaviour {
 				}
 				if (canHitPlayer || (!collider.gameObject.CompareTag ("Player") && !collider.gameObject.CompareTag ("Torch"))) {
 					Debug.Log (damage + " damage on " + collider.gameObject);
-					damagableObject.takeDamage (damage, false);
+					damagableObject.takeDamage (damage, false, gameObject);
 				}
 			}
 		}
