@@ -28,7 +28,7 @@ public class Magnet : MonoBehaviour {
 	}
 
 	void Update(){
-		if (activated) {
+		if (activated && targetObj != null) {
 			
 			targetPos = (transform.parent.position - targetObj.position).normalized * distanceToKeep + targetObj.position;
 

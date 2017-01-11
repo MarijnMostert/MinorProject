@@ -22,11 +22,13 @@ public class ShopInterfaceButton : MonoBehaviour {
 		this.itemImage.sprite = this.item.icon;
 		this.priceText.text = this.item.price.ToString ();
 		bool owned = this.item.owned;
+		bool equipped = this.item.equipped;
 
 		//Set correct objects active.
 		priceText.gameObject.SetActive (!owned);
 		coinImage.gameObject.SetActive (!owned);
-		ownedText.gameObject.SetActive (owned);
+		ownedText.gameObject.SetActive (owned && !equipped);
+		equippedText.gameObject.SetActive (owned && equipped);
 		//equippedText.gameObject.SetActive (owned);
 	}
 

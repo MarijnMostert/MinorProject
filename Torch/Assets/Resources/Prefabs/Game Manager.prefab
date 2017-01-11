@@ -260,8 +260,9 @@ MonoBehaviour:
   - {fileID: 1000010275947170, guid: 2c69b9685e818ec4f810ceb0a5e12c7d, type: 2}
   - {fileID: 1000013095267004, guid: 5288fcd4fb05339498a5d9c9dc49a76c, type: 2}
   - {fileID: 1000013309580604, guid: 64a22ead90fa46542b9274c81372775a, type: 2}
-  UIHelpItems: []
-  UIHelp: 1
+  - {fileID: 1000010173967298, guid: e72c1f558cafdfb4d8814a1f26d633dc, type: 2}
+  - {fileID: 1000011832919986, guid: fb219ecc626f53d498ba9b7b66e404be, type: 2}
+  - {fileID: 1000011553212682, guid: eb740adea754c4786b778353d8c564d7, type: 2}
   TorchFOVPrefab: {fileID: 1000011320308738, guid: b5c950376b24a4029afee84b9656c78b,
     type: 2}
   spawner: {fileID: 0}
@@ -277,8 +278,12 @@ MonoBehaviour:
     type: 2}
   deathCanvas: {fileID: 0}
   endOfRoundCanvas: {fileID: 0}
+  dungeonStartCanvas: {fileID: 0}
+  dungeonLevelButtonPrefab: {fileID: 1000010447920346, guid: c6595ae6a0eaa44b7ad07bdb038b95a5,
+    type: 2}
   mainCamera: {fileID: 0}
   minimap: {fileID: 20000013463240440, guid: 6ad5bdafd394ffb488ed4b90c059f3bf, type: 2}
+  levelTransform: {fileID: 0}
   tutorialPrefab: {fileID: 1000012528916838, guid: 7c4d6b04a031b484cb4f65bb64d744fa,
     type: 2}
   tutorialTorchPrefab: {fileID: 1000013673994516, guid: 86f8871f16b6e4321a072873febde5a7,
@@ -291,6 +296,7 @@ MonoBehaviour:
   audioDungeon:
   - {fileID: 8300000, guid: 3d02f9a386baf4bea855ca88493ab372, type: 3}
   - {fileID: 8300000, guid: 667c3a85722394921ba0173a0e9b17b3, type: 3}
+  audioPartyTorch: {fileID: 8300000, guid: 4c9633496a19a402590ebb8a163b5b59, type: 3}
   audioMuted: 0
   allWeaponsAvailable:
   - {fileID: 1000013538442878, guid: 3fc544d2b1e1b4b2487700e752433bfb, type: 2}
@@ -305,9 +311,11 @@ MonoBehaviour:
   - {fileID: 1000010896598750, guid: 670d3961a6c704c3f94ef3cea882cbf8, type: 2}
   collectedKeys: 0
   requiredCollectedKeys: 0
-  Bold: {fileID: 1000010787105900, guid: 34e435e0d20414bb0ad3cd7e62be2d41, type: 2}
+  Pet: {fileID: 1000010787105900, guid: 34e435e0d20414bb0ad3cd7e62be2d41, type: 2}
   shop: {fileID: 114000012952452066, guid: e7fffa677a1ce4c29bfc10128f43efa3, type: 2}
-  coins: 99999
+  highQualityItems:
+  - {fileID: 0}
+  - {fileID: 0}
   numberOfPlayers: 1
 --- !u!114 &114000013406591320
 MonoBehaviour:
@@ -320,6 +328,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8577d73ec07e047ac9c9607e2e54dd95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shopItems: 
+  gameManager: {fileID: 114000012126162182}
+  shopItemsOwned: 
+  shopItemsEquipped: 
   coins: 0
-  dungeonLevel: 0
+  maxAchievedDungeonLevel: 0
+  highQuality: 0

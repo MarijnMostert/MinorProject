@@ -8,7 +8,7 @@ public class MiniMapSettings : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		myManager = GameObject.Find("Game Manager").GetComponent<GameManager>();
+		myManager = GameManager.Instance;
 		myCamera = GetComponent<Camera> ();
 
 		myCamera.transform.position = new Vector3((float)myManager.width - 2.5f, 33.0f, (float)myManager.height - 2.5f) * 6 / 2;

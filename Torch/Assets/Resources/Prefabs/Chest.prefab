@@ -23,7 +23,6 @@ GameObject:
   - 65: {fileID: 65000013979463088}
   - 23: {fileID: 23000013175155374}
   - 114: {fileID: 114000010746175292}
-  - 54: {fileID: 54000013251365712}
   - 95: {fileID: 95000010732074914}
   - 82: {fileID: 82000014093689438}
   m_Layer: 13
@@ -43,6 +42,8 @@ GameObject:
   - 4: {fileID: 4000013470409566}
   - 198: {fileID: 198000011111945748}
   - 199: {fileID: 199000012162039804}
+  - 114: {fileID: 114000012138439152}
+  - 135: {fileID: 135000010102560122}
   m_Layer: 13
   m_Name: Particle System
   m_TagString: Untagged
@@ -252,21 +253,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000014214526758}
   m_Mesh: {fileID: 4300002, guid: 32302457263b46549b184946c86bb826, type: 3}
---- !u!54 &54000013251365712
-Rigidbody:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010346143806}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!65 &65000013979463088
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -385,6 +371,7 @@ MonoBehaviour:
   canvasFloatingHeight: 2
   cam: {fileID: 0}
   canvas: {fileID: 1000012823268266}
+  multiUsable: 0
   activated: 0
   contents:
   - {fileID: 1000013408684720, guid: 50c6de4e46e8f4cc6bb9c5618add169c, type: 2}
@@ -413,6 +400,18 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+--- !u!114 &114000012138439152
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011496194240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 942221abe076144cab125e9ca218a548, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particles: {fileID: 198000011111945748}
 --- !u!114 &114000012469794784
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -550,6 +549,18 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!135 &135000010102560122
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011496194240}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 15
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!198 &198000011111945748
 ParticleSystem:
   m_ObjectHideFlags: 1

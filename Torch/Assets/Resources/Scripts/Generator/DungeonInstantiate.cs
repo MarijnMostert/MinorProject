@@ -16,7 +16,7 @@ public class DungeonInstantiate : Object {
 	bool[,] maze, import_maze, trapped;
     float chance_trap_straight, chance_trap_crossing,
           chance_side_alt1, chance_side_alt2, step,
-          chance_chest, chance_nest;
+          chance_chest, chance_nest, chance_particles;
     bool start_defined;
     int[] count = new int[2] {0,2};
 	private GameObject Dungeon;
@@ -45,6 +45,7 @@ public class DungeonInstantiate : Object {
 	GameObject PuzzleDoors;
 
     GameObject spidernest;
+	GameObject[] dungeonParticles;
 
     public Vector3 startPos;
 
@@ -55,7 +56,7 @@ public class DungeonInstantiate : Object {
                             GameObject game_manager, GameObject spawner, GameObject torch, GameObject cam, GameObject pointer, 
 		GameObject chest, GameObject coin, GameObject fireball, GameObject iceball, GameObject health, int[] mazeSize, GameObject laser, GameObject shieldPickUp,
 		GameObject stickyPickUp, GameObject roofGroup, GameObject wallPickUp, List<GameObject> puzzleRooms, GameObject wallTorch, GameObject piercingWeapon,
-		GameObject bombPickUp, GameObject spidernest)
+		GameObject bombPickUp, GameObject spidernest, GameObject stardustParticles, GameObject moondustParticles)
 
     {
         this.floor = floor;
@@ -85,6 +86,7 @@ public class DungeonInstantiate : Object {
 		this.puzzleRoomsDG = new List<Room> ();
 
         this.spidernest = spidernest;
+		this.dungeonParticles = new GameObject[]{ stardustParticles, moondustParticles };
 
 		WallsParent = new GameObject("Walls");
 		FloorsParent = new GameObject("Floors");
@@ -131,6 +133,7 @@ public class DungeonInstantiate : Object {
         step = 6f;
 		chance_chest = 0.5f;
         chance_nest = 0.08f;
+		chance_particles = 0.2f;
 
 		//Instantiate empty Dungeon GameObject
 		Dungeon = new GameObject("Dungeon");
@@ -204,6 +207,7 @@ public class DungeonInstantiate : Object {
 			myplane.transform.position = new Vector3 (x + 0.5f, 0, y + 0.5f);
 			spawnChest (x,y);
 			spawnWallTorch (x, y);
+			spawnParticles (x, y);
 		}
 
 		int[] arrayS = getSurrounding2(x, y);
@@ -355,6 +359,20 @@ public class DungeonInstantiate : Object {
             }
         }
     }
+
+	void spawnParticles(float x, float z)
+	{
+		float random = Random.value;
+		if (random < chance_particles) {
+			GameObject particles = Instantiate (dungeonParticles[Random.Range(0, dungeonParticles.Length)],
+				new Vector3 (x * 6 + Random.Range (0f, 6f), 1.3f, z * 6 + Random.Range (0f, 6f)),
+				Quaternion.Euler (new Vector3 (0f, Random.Range (0f, 360f), 0f)), Dungeon.transform) as GameObject;
+			GameManager.Instance.addHighQualityItem (particles);
+			if (!GameManager.Instance.data.highQuality) {
+				particles.SetActive (false);
+			}
+		}
+	}
 
 	void spawnWallTorch(float x, float z)
 	{
