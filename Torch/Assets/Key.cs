@@ -9,7 +9,7 @@ public class Key : MonoBehaviour {
 	public Collider collideR;
 
 	void Start(){
-		gameManager = GameObject.Find ("Game Manager").GetComponent<GameManager> ();
+		gameManager = GameManager.Instance;
 	}
 
 	void OnTriggerEnter(Collider other){

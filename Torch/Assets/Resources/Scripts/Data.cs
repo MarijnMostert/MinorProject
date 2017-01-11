@@ -3,50 +3,65 @@ using System.Collections;
 
 public class Data : MonoBehaviour {
 
-	public bool[] shopItems;
+	[SerializeField] private GameManager gameManager;
+
+	[Header ("- Data")]
+	public bool[] shopItemsOwned;
+	public bool[] shopItemsEquipped;
 	public int coins;
 	public int dungeonLevel;
 
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetKeyDown (KeyCode.Tab)) {
-			Save ();
+			SaveDataToFile ();
 		}
 	}
 
-	public void Load(){
-		for (int i = 0; i < shopItems.Length; i++) {
-			string str = "shopItem" + i;
-			shopItems [i] = intToBool(PlayerPrefs.GetInt (str));
+	public void LoadFileToDataAndVars(){
+		shopItemsOwned = new bool[20];
+		shopItemsEquipped = new bool[20];
+		for (int i = 0; i < shopItemsOwned.Length; i++) {
+			string strOwned = "shopItem" + i;
+			string strEquipped = "shopItemEquipped" + i;
+			shopItemsOwned [i] = intToBool(PlayerPrefs.GetInt (strOwned));
+			shopItemsEquipped[i] = intToBool(PlayerPrefs.GetInt(strEquipped));
 		}
-		coins = PlayerPrefs.GetInt ("coins");
-		dungeonLevel = PlayerPrefs.GetInt ("dungeonLevel");
+		this.coins = PlayerPrefs.GetInt ("coins");
+		gameManager.coins = this.coins;
+		this.dungeonLevel = PlayerPrefs.GetInt ("dungeonLevel");
+		gameManager.maxAchievedDungeonLevel = this.dungeonLevel;
 
-		Debug.Log ("Loaded succesfully");
+		Debug.Log ("Loaded data succesfully");
 	}
 
-	public void Save(){
-		for (int i = 0; i < shopItems.Length; i++) {
-			string str = "shopItem" + i;
-			PlayerPrefs.SetInt (str, boolToInt (shopItems [i]));
+	public void SaveDataToFile(){
+		for (int i = 0; i < shopItemsOwned.Length; i++) {
+			string strOwned = "shopItem" + i;
+			PlayerPrefs.SetInt (strOwned, boolToInt (shopItemsOwned [i]));
+			string strEquipped = "shopItemEquipped" + i;
+			PlayerPrefs.SetInt (strEquipped, boolToInt (shopItemsEquipped [i]));
 		}
 		PlayerPrefs.SetInt ("coins", coins);
 		PlayerPrefs.SetInt ("dungeonLevel", dungeonLevel);
 
-		Debug.Log ("Saved succesfully");
+		Debug.Log ("Saved data succesfully");
 	}
 
-	public void Reset(){
-		shopItems = new bool[20];
-		for (int i = 0; i < shopItems.Length; i++) {
-			string str = "shopItem" + i;
-			PlayerPrefs.SetInt (str, 0);
+	public void ResetData(){
+		shopItemsOwned = new bool[20];
+		shopItemsEquipped = new bool[20];
+		for (int i = 0; i < shopItemsOwned.Length; i++) {
+			string strOwned = "shopItem" + i;
+			PlayerPrefs.SetInt (strOwned, 0);
+			string strEquipped = "shopItemEquipped" + i;
+			PlayerPrefs.SetInt (strEquipped, 0);
 		}
 		PlayerPrefs.SetInt ("coins", 0);
 		PlayerPrefs.SetInt ("dungeonLevel", 1);
 
 		Debug.Log ("Reset data succesfully");
-		Load ();
+		LoadFileToDataAndVars ();
 	}
 
 	bool intToBool(int integer){
@@ -61,5 +76,32 @@ public class Data : MonoBehaviour {
 			return 0;
 		else
 			return 1;
+	}
+
+	void OnApplicationQuit(){
+		Debug.Log ("Application quitted");
+		CollectData ();
+		SaveDataToFile ();
+	}
+
+	public void ShopItemsToData(){
+		for (int i = 0; i < gameManager.shop.itemsToBuy.Length; i++) {
+			shopItemsOwned [i] = gameManager.shop.itemsToBuy[i].owned;
+			shopItemsEquipped [i] = gameManager.shop.itemsToBuy [i].equipped;
+		}
+	}
+
+	public void CoinsToData(){
+		this.coins = gameManager.coins;
+	}
+
+	public void DungeonLevelToData(){
+		this.dungeonLevel = gameManager.maxAchievedDungeonLevel;
+	}
+
+	public void CollectData(){
+		ShopItemsToData ();
+		CoinsToData ();
+		DungeonLevelToData ();
 	}
 }

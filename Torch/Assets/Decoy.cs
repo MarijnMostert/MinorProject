@@ -8,7 +8,7 @@ public class Decoy : MonoBehaviour {
 	private GameManager gameManager;
 
 	void Start () {
-		gameManager = GameObject.Find ("Game Manager").GetComponent<GameManager> ();
+		gameManager = GameManager.Instance;
 		gameManager.enemyTarget = this.gameObject;
 		Invoke ("Reset", activeTime);
 	}

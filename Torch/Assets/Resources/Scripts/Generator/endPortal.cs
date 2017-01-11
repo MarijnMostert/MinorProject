@@ -63,8 +63,8 @@ public class endPortal : MonoBehaviour {
 		if (gameManager.spawner != null) {
 			gameManager.spawner.activated = false;
 		}
-		gameManager.Bold.GetComponent <Bold> ().speechImage.gameObject.SetActive (false);
-		gameManager.Bold.GetComponent <Bold> ().speechText.text = "";
+		gameManager.Pet.GetComponent <Pet> ().speechImage.gameObject.SetActive (false);
+		gameManager.Pet.GetComponent <Pet> ().speechText.text = "";
 		gameManager.totalScore += gameManager.score;
 		endOfRoundCanvas.transform.Find ("Score").GetComponent<Text> ().text = gameManager.score.ToString();
 		endOfRoundCanvas.transform.Find ("TotalScore").GetComponent<Text> ().text = gameManager.totalScore.ToString();

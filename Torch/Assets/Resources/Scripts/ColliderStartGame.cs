@@ -11,15 +11,14 @@ public class ColliderStartGame : MonoBehaviour {
 	private GameManager gameManager;
 
 	void Awake(){
-		gameManager = GameObject.Find ("Game Manager").GetComponent<GameManager> ();
+		gameManager = GameManager.Instance;
 	}
 
 	void OnTriggerStay(Collider other){
 		if (other.gameObject.CompareTag ("Player")) {
 			textObject.SetActive (true);
-			if (Input.GetButtonDown (interactionButton)) {
-				textObject.SetActive (false);
-				gameManager.StartGame ();
+			if (Input.GetButtonDown (interactionButton) && !gameManager.dungeonStartCanvas.activeInHierarchy) {
+				gameManager.ToggleDungeonStartCanvas ();
 			}
 		}
 	}

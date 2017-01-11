@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class Bold : MonoBehaviour {
+public class Pet : MonoBehaviour {
 
 	public Image speechImage;
 	public Text speechText;
@@ -15,16 +15,24 @@ public class Bold : MonoBehaviour {
 	void Start(){
 		speechImage.gameObject.SetActive (false);
 		speechText.text =  "";
-		StartCoroutine (RandomSayings ());
+		if (clips != null) {
+			StartCoroutine (RandomSayings ());
+		}
 	}
 
 	IEnumerator RandomSayings(){
 		while (true) {
 			if (Random.value < chanceForClip) {
 				audioSource.clip = clips [Random.Range (0, clips.Length)];
-				audioSource.Play ();
+				if (audioSource.clip != null) {
+					audioSource.Play ();
+				}
 			}
 			yield return new WaitForSeconds (interval);
 		}
+	}
+
+	void OnDestroy(){
+		StopAllCoroutines ();
 	}
 }

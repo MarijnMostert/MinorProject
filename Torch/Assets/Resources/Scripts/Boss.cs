@@ -36,7 +36,6 @@ public class Boss : MonoBehaviour, IDamagable {
 
 	//Initialize Boss and Neural Network weights
 	void Start () {
-		//gameManager = GameObject.Find ("Game Manager").GetComponent<GameManager>();
 		gameManager = GameManager.Instance;
 		dead = false;
 		health = startingHealth;

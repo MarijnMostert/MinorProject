@@ -5,12 +5,12 @@ using UnityEngine.UI;
 public class Shop : MonoBehaviour {
 
 	private GameManager gameManager;
+	private Data data;
 	public Camera shopCam;
 	[SerializeField] private ParticleSystem particles;
 	public Transform itemPosition;
 	public BuyableItem[] itemsToBuy;
-	private BuyableItem activeItem;
-	private int activeItemIndex;
+	[SerializeField] private BuyableItem activeItem;
 	[SerializeField] private Text coinsToSpend;
 	[SerializeField] private GameObject BuyButton;
 	[SerializeField] private GameObject EquipButton;
@@ -20,10 +20,16 @@ public class Shop : MonoBehaviour {
 	public Text itemText;
 
 	void Start () {
+		if (gameManager == null) {
+			gameManager = GameManager.Instance;
+		}
+
 		UpdateCoinText ();
 		for(int i = 0; i < itemsToBuy.Length; i++){
 			itemsToBuy [i] = Instantiate (itemsToBuy [i], itemPosition.position, itemPosition.rotation, transform) as BuyableItem;
 			itemsToBuy [i].gameObject.SetActive (false);
+			itemsToBuy [i].owned = gameManager.data.shopItemsOwned [i];
+			itemsToBuy [i].equipped = gameManager.data.shopItemsEquipped [i];
 
 			GameObject interfacePanel = Instantiate (InterfacePanelPrefab, new Vector3(0f,0f,0f), Quaternion.identity, interfaceScreen.transform) as GameObject;
 			interfacePanel.transform.position = interfaceScreen.transform.position;
@@ -43,12 +49,13 @@ public class Shop : MonoBehaviour {
 
 		//Set first item to active
 		activeItem = itemsToBuy [0];
-		activeItemIndex = 0;
 		activeItem.gameObject.SetActive (true);
 
 		//Set the buybutton active on default and the equipbutton inactive.
 		BuyButton.SetActive (!activeItem.owned);
 		EquipButton.SetActive (activeItem.owned);
+
+		EquipActives ();
 	}
 		
 	//Everytime the shop is set active, the available money text is being updated.
@@ -64,18 +71,12 @@ public class Shop : MonoBehaviour {
 		if (!activeItem.Equals (itemsToBuy [itemNumber])) {
 			activeItem.gameObject.SetActive (false);
 			activeItem = itemsToBuy [itemNumber];
-			activeItemIndex = itemNumber;
 			activeItem.gameObject.SetActive (true);
 			particles.Stop ();
 			particles.Play ();
 
-			if (itemsToBuy[itemNumber].owned) {
-				BuyButton.SetActive (false);
-				EquipButton.SetActive (true);
-			} else {
-				BuyButton.SetActive (true);
-				EquipButton.SetActive (false);
-			}
+			BuyButton.SetActive (!itemsToBuy [itemNumber].owned);
+			EquipButton.SetActive (itemsToBuy [itemNumber].owned);
 
 			itemText.text = activeItem.name;
 		}
@@ -90,7 +91,7 @@ public class Shop : MonoBehaviour {
 
 	//This method is probably gonna used by a button in the UI of the shop.
 	public void BuyItem(){
-		if (gameManager.coins >= activeItem.price && !itemsToBuy[activeItemIndex].owned) {
+		if (gameManager.coins >= activeItem.price && !activeItem.owned) {
 			gameManager.coins -= activeItem.price;
 			UpdateCoinText ();
 
@@ -98,21 +99,46 @@ public class Shop : MonoBehaviour {
 			BuyButton.SetActive (false);
 			EquipButton.SetActive (true);
 
-			SetOwned (activeItemIndex);
+			SetOwned (activeItem);
 		}
 	}
 
 	public void EquipItem(){
+		int type = activeItem.type;
+
+		for (int i = 0; i < itemsToBuy.Length; i++) {
+			if (itemsToBuy [i].type == type) {
+				itemsToBuy [i].shopInterfaceButton.setOwned ();
+				itemsToBuy [i].equipped = false;
+			}
+		}
+
 		activeItem.shopInterfaceButton.setEquipped ();
+		activeItem.equipped = true;
+		activeItem.Equip ();
 	}
 
 	//Disable the price in the shop Canvas and enable the OWNED text.
 	public void SetOwned(int itemNumber){
-		ShopInterfaceButton shopInterfaceButton = itemsToBuy [itemNumber].shopInterfaceButton;
+		BuyableItem buyableItem = itemsToBuy [itemNumber];
+		SetOwned (buyableItem);
+	}
+
+	public void SetOwned(BuyableItem buyableItem){
+		ShopInterfaceButton shopInterfaceButton = buyableItem.shopInterfaceButton;
 		shopInterfaceButton.setOwned ();
+		buyableItem.owned = true;
 	}
 
 	public void ToggleShop(){
 		gameManager.ToggleShop ();
+	}
+
+	public void EquipActives(){
+		for (int i = 0; i < itemsToBuy.Length; i++) {
+			if (itemsToBuy [i].equipped) {
+				itemsToBuy [i].Equip ();
+			}
+		}
 	}
 }

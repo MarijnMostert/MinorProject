@@ -1218,8 +1218,10 @@ MonoBehaviour:
   itemPosition: {fileID: 4000012261173426}
   itemsToBuy:
   - {fileID: 114000011318636990, guid: e11f458cc433e487dbd562c014f64b72, type: 2}
-  - {fileID: 114000010664176320, guid: 074bddcbe88144a4ebcbecc509f2a17e, type: 2}
+  - {fileID: 114000010664176320, guid: 4c9aef8f86fc04d26bd0496e66bbbc38, type: 2}
   - {fileID: 114000011318636990, guid: 1915faa1955a641e49e78f3b0e5803c0, type: 2}
+  - {fileID: 114000010664176320, guid: 074bddcbe88144a4ebcbecc509f2a17e, type: 2}
+  activeItem: {fileID: 0}
   coinsToSpend: {fileID: 114000014147068920}
   BuyButton: {fileID: 1000010745299922}
   EquipButton: {fileID: 1000013960780770}
@@ -1312,7 +1314,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.392}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.784}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
