@@ -6,9 +6,6 @@ public class PlayerDamagable : MonoBehaviour, IDamagable {
 
 	private Vector3 lastKnownPosition;
 
-	void Start () {
-		StartCoroutine (respawnPosition());
-	}
 	void Update(){
 		
 		if (transform.position.y < -12) {
@@ -23,14 +20,9 @@ public class PlayerDamagable : MonoBehaviour, IDamagable {
 			gameObject.GetComponentInChildren<Torch> ().takeDamage (damage, crit);
 		}
 	}
-	private IEnumerator respawnPosition(){
-		while (true) {
-			if (transform.position.y>=0.24f){
-				lastKnownPosition = transform.position;
-//				Debug.Log ("lastKnownPosition: " + lastKnownPosition);
-			}
-			yield return new WaitForSeconds (positionIsSavedEveryXSeconds);
-		}
+	public void saveRespawnPosition(){
+		lastKnownPosition = transform.position;
+		Debug.Log ("lastKnownPosition: " + lastKnownPosition);
 	}
 	public void Die(){
 		transform.position = lastKnownPosition;

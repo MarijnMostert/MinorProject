@@ -17,7 +17,7 @@ public class puzzleDoors : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		doors = GetComponentsInChildren<Doors> ();
-		gameManager = GameManager.Instance;
+		gameManager = GameObject.Find ("Game Manager").GetComponent<GameManager> ();
 	}
 
 	void Update () {
@@ -35,6 +35,8 @@ public class puzzleDoors : MonoBehaviour {
 			gameManager.Roomtype = RoomType;
 			gameManager.WritePuzzleStart ();
 			locked = true;
+			PlayerDamagable playerDamagableScript = other.gameObject.GetComponentInChildren<PlayerDamagable>();
+			playerDamagableScript.saveRespawnPosition ();
 		}
 	}
 
@@ -50,11 +52,6 @@ public class puzzleDoors : MonoBehaviour {
 		for (int i = 0; i < gameManager.playerManagers.Length; i++) {
 			gameManager.playerManagers [i].playerInstance.GetComponent<Rigidbody> ().constraints &= ~RigidbodyConstraints.FreezePositionY;
 		}
-
-		foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy")) {
-			Destroy (enemy);
-		}
-
 	}
 
 	void EndPuzzle () {
@@ -69,7 +66,7 @@ public class puzzleDoors : MonoBehaviour {
 
 		//Instantiate a key
 		Vector3 keyPosition = transform.position + new Vector3(0f, 1f, 0f);
-		Instantiate (key, keyPosition, transform.rotation, gameManager.levelTransform);
+		Instantiate (key, keyPosition, transform.rotation);
 		Destroy (myLever.gameObject);
 	}
 }
