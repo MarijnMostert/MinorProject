@@ -1,9 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class Projectile : MonoBehaviour {
 
+	public int ObjectPoolerIndex;
+	public bool hasParticlesOnHit = false;
+	public int ParticlesPoolerIndex;
+	private GameObject particlesOnHit;
 	public int minDamage;
 	public int maxDamage;
 	public float critChance = 0.05f;
@@ -12,20 +17,40 @@ public class Projectile : MonoBehaviour {
 	public float speed;
 	public bool piercing = false;
 	private List<Enemy> enemiesHit;
-	public ParticleSystem particlesOnHit;
+	private bool activated = true;
 
-	void Start () {
+	[Serializable]
+	public struct ComponentsToToggle {
+		public float timeOut;
+		public TrailRenderer trailRenderer;
+		public ParticleSystem particles;
+		public MeshRenderer meshRenderer;
+		public Collider col;
+		public Light light;
+	}
+	public ComponentsToToggle comp;
+
+	void OnEnable () {
 		if (piercing) {
 			enemiesHit = new List<Enemy> ();
 		}
-		//Destroy the bullet after lifeTime seconds
-		Destroy (gameObject, lifeTime);
+		ResetProjectile ();
+		//Set the bullet inactive after lifeTime seconds
+		StartCoroutine (SetInactive ());
+	}
+
+	IEnumerator SetInactive(){
+		yield return new WaitForSeconds (lifeTime);
+		if (!gameObject.activeInHierarchy)
+			DestroyProjectile ();
 	}
 	
 	void FixedUpdate () {
-		float moveDistance = speed * Time.deltaTime;
-		checkCollisions (moveDistance);
-		transform.Translate(Vector3.forward * moveDistance);
+		if (activated) {
+			float moveDistance = speed * Time.deltaTime;
+			checkCollisions (moveDistance);
+			transform.Translate (Vector3.forward * moveDistance);
+		}
 	}
 
 	public void setSpeed(float newSpeed){
@@ -50,14 +75,14 @@ public class Projectile : MonoBehaviour {
 			if (piercing && enemiesHit.Contains(objectHitted.GetComponent<Enemy>())){
 				return;
 			}
-			int damage = Random.Range (minDamage, maxDamage);
+			int damage = UnityEngine.Random.Range (minDamage, maxDamage);
 			bool crit = false;
-			if (Random.value < critChance) {
+			if (UnityEngine.Random.value < critChance) {
 				damage *= 2;
 				crit = true;
 			}
 			
-			damagableObject.takeDamage (damage, crit);
+			damagableObject.takeDamage (damage, crit, gameObject);
 			//Debug.Log ("hit " + damagableObject);
 		}
 
@@ -65,16 +90,52 @@ public class Projectile : MonoBehaviour {
 			return;
 		}
 
-		if (particlesOnHit != null) {
-			ParticleSystem particles = Instantiate (particlesOnHit, hit.point, Quaternion.identity) as ParticleSystem;
-			Destroy (particles.gameObject, particles.duration);
+		if (hasParticlesOnHit) {
+			particlesOnHit = ObjectPooler.Instance.GetObject (ParticlesPoolerIndex, true, hit.point, 
+				Quaternion.Euler(new Vector3(UnityEngine.Random.Range(0f,360f), UnityEngine.Random.Range(0f,360f), UnityEngine.Random.Range(0f,360f))));
 		}
 			
 		if (piercing && objectHitted.CompareTag ("Enemy")) {
 			enemiesHit.Add(objectHitted.GetComponent<Enemy>());
 			return;
 		}
-		
-		Destroy (gameObject);
+
+		DestroyProjectile();
+	}
+
+	void ResetProjectile(){
+		ToggleComponents (true);
+		activated = true;
+	}
+
+	void DestroyProjectile(){
+		ToggleComponents (false);
+		activated = false;
+		StartCoroutine (KillProjectile ());
+	}
+
+	IEnumerator KillProjectile(){
+		yield return new WaitForSeconds (comp.timeOut);
+		gameObject.SetActive (false);
+	}
+
+	void ToggleComponents(bool enable){
+		if (comp.col != null)
+			comp.col.enabled = enable;
+		if (comp.trailRenderer != null)
+			comp.trailRenderer.enabled = enable;
+		if (comp.meshRenderer != null)
+			comp.meshRenderer.enabled = enable;
+		if (comp.particles != null) {
+			if(!enable){
+				comp.particles.Stop ();
+			}
+			else{
+				comp.particles.Play();
+			}
+		}
+		if (comp.light != null) {
+			comp.light.enabled = enable;
+		}
 	}
 }
