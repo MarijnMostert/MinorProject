@@ -3,12 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System;
 
-public class Projectile : MonoBehaviour {
+public class Projectile : AudioObject {
 
 	public int ObjectPoolerIndex;
 	public bool hasParticlesOnHit = false;
 	public int ParticlesPoolerIndex;
 	private GameObject particlesOnHit;
+	public AudioClip clipOnImpact;
 	public int minDamage;
 	public int maxDamage;
 	public float critChance = 0.05f;
@@ -99,6 +100,9 @@ public class Projectile : MonoBehaviour {
 			enemiesHit.Add(objectHitted.GetComponent<Enemy>());
 			return;
 		}
+
+		if(clipOnImpact != null)
+			ObjectPooler.Instance.PlayAudioSource (clipOnImpact, mixerGroup, pitchMin, pitchMax, transform);
 
 		DestroyProjectile();
 	}

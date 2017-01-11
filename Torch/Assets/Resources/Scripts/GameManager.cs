@@ -93,12 +93,13 @@ public class GameManager : MonoBehaviour {
 	public AudioSource audioSourceMusic;
 	public AudioSource audioSourceUI;
 	public AudioClip[] audioClipsUI;
+	public AudioClip loreAudio;
 	public AudioClip audioHomeScreen;
 	public AudioClip[] audioDungeon;
 	public AudioClip audioPartyTorch;
 	public bool audioMuted;
 
-	private GameObject DebuggerPanel;
+	public GameObject DebuggerPanel;
 	public GameObject[] allWeaponsAvailable;
 	public GameObject[] allPowerUpsAvailable;
 
@@ -119,6 +120,10 @@ public class GameManager : MonoBehaviour {
 		setQuality (data.highQuality);
 
 		startingScreen.SetActive (true);
+
+		DebuggerPanel = Instantiate (DebuggerPanel);
+		DebuggerPanel.SetActive (false);
+	
 
 		shop = Instantiate (shop);
 		shop.gameObject.SetActive (false);
@@ -367,6 +372,10 @@ public class GameManager : MonoBehaviour {
 		//Cheatcode to toggle if the torch is damagable or not
 		if (Input.GetKeyDown (KeyCode.J) && torch != null) {
 			torch.ToggleDamagable ();
+		}
+		//Cheatcode to kill all active enemies
+		if(Input.GetKeyDown(KeyCode.LeftBracket)){
+			KillAllEnemies();
 		}
 	}
 
@@ -650,5 +659,13 @@ public class GameManager : MonoBehaviour {
 		foreach (GameObject GO in highQualityItems) {
 			GO.SetActive (data.highQuality);
 		}
+	}
+
+	public void KillAllEnemies(){
+		GameObject[] enemies = GameObject.FindGameObjectsWithTag ("Enemy");
+		foreach (GameObject enemy in enemies) {
+			Destroy (enemy);
+		}
+		Debug.Log ("All enemies have been killed");
 	}
 }

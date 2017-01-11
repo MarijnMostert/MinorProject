@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 
-public class Key : MonoBehaviour {
+public class Key : AudioObject {
 
 	private GameManager gameManager;
-	[SerializeField] private AudioSource audioSource;
+	public AudioClip clip;
 	public Collider collideR;
 
 	void Start(){
@@ -23,10 +24,10 @@ public class Key : MonoBehaviour {
 
 			if (gameManager.collectedKeys == gameManager.requiredCollectedKeys) {
 				//End portal is enabled.
-				EndPortal.enabled = true;
+				EndPortal.activated = true;
 			}
 
-			audioSource.Play ();
+			ObjectPooler.Instance.PlayAudioSource (clip, mixerGroup, 1f, 1f, transform);
 
 			GetComponent<MeshRenderer> ().enabled = false;
 			collideR.enabled = false;

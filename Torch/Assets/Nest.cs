@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 using System.Collections;
 
-public class Nest : MonoBehaviour, IDamagable {
+public class Nest : AudioObject, IDamagable {
     public GameObject enemy;
     Spawner spawner;
     bool player;
@@ -19,12 +20,10 @@ public class Nest : MonoBehaviour, IDamagable {
     public bool dead;
     public AudioClip clip_takeDamage;
     public AudioClip clip_die;
-    protected AudioSource audioSource;
 
     void Awake()
     {
         dead = false;
-        audioSource = GetComponent<AudioSource>();
     }
 
     // Use this for initialization
@@ -63,9 +62,7 @@ public class Nest : MonoBehaviour, IDamagable {
 
         if (clip_takeDamage != null)
         {
-            audioSource.clip = clip_takeDamage;
-            audioSource.pitch = Random.Range(0.9f, 1.1f);
-            audioSource.Play();
+			ObjectPooler.Instance.PlayAudioSource (clip_takeDamage, mixerGroup, pitchMin, pitchMax, transform);
         }
 
         if (health <= 0)
@@ -111,9 +108,7 @@ public class Nest : MonoBehaviour, IDamagable {
     {
         if (clip_die != null)
         {
-            audioSource.clip = clip_die;
-            audioSource.pitch = Random.Range(0.9f, 1.1f);
-            audioSource.Play();
+			ObjectPooler.Instance.PlayAudioSource (clip_die, mixerGroup, pitchMin, pitchMax, transform);
         }
         StartCoroutine(DieThread());
     }

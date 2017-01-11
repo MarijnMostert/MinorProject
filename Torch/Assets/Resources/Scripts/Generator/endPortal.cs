@@ -4,48 +4,42 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
-public class endPortal : MonoBehaviour {
-    public string next_scene;
-    bool toHome;
-    [SerializeField]
-    bool loading, start_game;
-    [SerializeField]
-    string scene;
-    AsyncOperation async;
-    GameObject continueText;
-	GameManager gameManager;
+public class endPortal : InteractableItem {
+    //AsyncOperation async;
 	GameObject endOfRoundCanvas;
-    //Text winText;
-	public bool enabled = false;
+	public bool activated = false;
 	public Animator anim;
 
-    // Use this for initialization
     void Start () {
-        loading = false;
-        start_game = false;
-        continueText = GameObject.Find("ContinueText") as GameObject;
-		gameManager = GameObject.Find ("Game Manager").GetComponent<GameManager> ();
-		anim = gameManager.UI.transform.Find ("Keys Text").GetComponent<Animator> ();
-		endOfRoundCanvas = gameManager.endOfRoundCanvas;
+		if (gameManager == null) {
+			gameManager = GameManager.Instance;
+		}
 		if (gameManager.collectedKeys == gameManager.requiredCollectedKeys) {
-			enabled = true;
+			activated = true;
 		}
 		UpdateKeyText ();
-
-        //winText = GameObject.Find("UI").transform.FindChild("Win Text").GetComponent<Text>();
     }
 
 
-    void OnTriggerEnter(Collider other)
-    {
-		if (enabled && other.gameObject.CompareTag ("Player")) {
-			onWin ();
-		} else {
+	void OnTriggerEnter(Collider other){
+		if(!activated){
+			if (anim == null) {
+				anim = gameManager.UI.transform.Find ("Keys Text").GetComponent<Animator> ();
+			}
 			anim.SetTrigger ("Flash");
 			Debug.Log (gameManager.collectedKeys + " keys out of " + gameManager.requiredCollectedKeys + 
 				" keys are collected.\nYou need " + (gameManager.requiredCollectedKeys - gameManager.collectedKeys) + " more keys.");
 		}
     }
+
+	public override void action (GameObject triggerObject)
+	{
+		if (!activated) {
+			anim.SetTrigger ("Flash");
+		} else {
+			onWin ();
+		}
+	}
 
 	public void UpdateKeyText ()
 	{
@@ -66,9 +60,9 @@ public class endPortal : MonoBehaviour {
 		gameManager.Pet.GetComponent <Pet> ().speechImage.gameObject.SetActive (false);
 		gameManager.Pet.GetComponent <Pet> ().speechText.text = "";
 		gameManager.totalScore += gameManager.score;
-		endOfRoundCanvas.transform.Find ("Score").GetComponent<Text> ().text = gameManager.score.ToString();
-		endOfRoundCanvas.transform.Find ("TotalScore").GetComponent<Text> ().text = gameManager.totalScore.ToString();
-		endOfRoundCanvas.SetActive (true);
+		gameManager.endOfRoundCanvas.transform.Find ("Score").GetComponent<Text> ().text = gameManager.score.ToString();
+		gameManager.endOfRoundCanvas.transform.Find ("TotalScore").GetComponent<Text> ().text = gameManager.totalScore.ToString();
+		gameManager.endOfRoundCanvas.SetActive (true);
 
 		/*
         //winText.gameObject.SetActive(true);
@@ -83,6 +77,8 @@ public class endPortal : MonoBehaviour {
 		*/
     }
 
+	/*
+
     IEnumerator LoadNewScene()
     {
         yield return new WaitForSeconds(1);
@@ -93,4 +89,5 @@ public class endPortal : MonoBehaviour {
             yield return null;
         }
     }
+*/
 }

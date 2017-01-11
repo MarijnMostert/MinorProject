@@ -4,15 +4,18 @@ using UnityEngine.UI;
 
 public class FPSCounter : MonoBehaviour {
 
-	private Text text;
-	private float deltaTime;
+	public Text text;
 	private float fps;
 
-	void Awake(){
-		text = GetComponent<Text> ();
+	void OnEnable(){
+		StartCoroutine (FPS ());
 	}
 
-	IEnumerator Start (){
+	void OnDisable(){
+		StopAllCoroutines ();
+	}
+
+	IEnumerator FPS (){
 		while (true) {
 			if (Time.timeScale == 1) {
 				yield return new WaitForSeconds (0.1f);

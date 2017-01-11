@@ -57,6 +57,9 @@ public class EnemyGrunt : Enemy {
 //			Debug.Log ("jump");
 			animator.SetBool ("Attack", true);
 		}
+
+		ObjectPooler.Instance.PlayAudioSource (clip_attack, mixerGroup, pitchMin, pitchMax, transform);
+
 		IDamagable damagableObject = gameManager.enemyTarget.GetComponent<IDamagable> ();
 		if(damagableObject != null){
 			damagableObject.takeDamage (attackDamage, false, gameObject);

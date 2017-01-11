@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using UnityEngine.Audio;
 
 public class ObjectPooler : MonoBehaviour {
 
@@ -17,6 +18,10 @@ public class ObjectPooler : MonoBehaviour {
 
 	public List<PooledObjects> pooledObjects;
 
+	public AudioSource audioSourcePrefab;
+	public List<AudioSource> audioSources;
+	public int audioPoolAmount;
+	public bool audioWillGrow;
 
 	void Awake(){
 		Instance = this;
@@ -32,6 +37,13 @@ public class ObjectPooler : MonoBehaviour {
 				obj.SetActive (false);
 				pooledObjects[i].objects.Add(obj);
 			}
+		}
+
+		audioSources = new List<AudioSource> ();
+		for (int i = 0; i < audioPoolAmount; i++) {
+			AudioSource AS = Instantiate(audioSourcePrefab, transform) as AudioSource;
+			AS.gameObject.SetActive (false);
+			audioSources.Add (AS);
 		}
 	}
 
@@ -85,6 +97,44 @@ public class ObjectPooler : MonoBehaviour {
 		return obj;
 	}
 
+	/// <summary>
+	/// Gets an audio source
+	/// </summary>
+	/// <returns>An unused audio source</returns>
+	/// <param name="clip">The clip that needs to be played</param>
+	/// <param name="mixerGroup">The output group of the sound</param>
+	/// <param name="transform">The transform where the audiosource needs to be</param>
+	/// 
+	public AudioSource PlayAudioSource (AudioClip clip, AudioMixerGroup mixerGroup, float pitchMin, float pitchMax, Transform targetTransform){
+		for (int i = 0; i < audioSources.Count; i++) {
+			AudioSource AS = audioSources [i];
+			if (!AS.gameObject.activeInHierarchy) {
+				AS.transform.position = targetTransform.position;
+				AS.clip = clip;
+				AS.outputAudioMixerGroup = mixerGroup;
+				AS.pitch = UnityEngine.Random.Range (pitchMin, pitchMax);
+				AS.gameObject.SetActive (true);
+				AS.Play ();
+				return AS;
+			}
+		}
+
+		if (audioWillGrow) {
+			AudioSource AS = Instantiate(audioSourcePrefab, transform) as AudioSource;
+			audioSources.Add (AS);
+			AS.transform.position = targetTransform.position;
+			AS.clip = clip;
+			AS.outputAudioMixerGroup = mixerGroup;
+			AS.pitch = UnityEngine.Random.Range (pitchMin, pitchMax);
+			AS.gameObject.SetActive (false);
+			AS.gameObject.SetActive (true);
+			AS.Play ();
+			return AS;
+		}
+
+		return null;
+	}
+
 	void Update(){
 		if (Input.GetKeyDown (KeyCode.O)) {
 			GetObject (0, true);
@@ -93,5 +143,4 @@ public class ObjectPooler : MonoBehaviour {
 			GetObject (1, true);
 		}
 	}
-
 }

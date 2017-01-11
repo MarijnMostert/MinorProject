@@ -18,6 +18,8 @@ public class LaserWeapon : Weapon {
 	private float lastFireTime;
 	private RaycastHit hit;
 
+	public AudioClip clip;
+
 
 	void Awake(){
 		lastFireTime = Time.time;
@@ -62,6 +64,8 @@ public class LaserWeapon : Weapon {
 			}
 	
 			lastFireTime = Time.time;
+
+			ObjectPooler.Instance.PlayAudioSource (clip, mixerGroup, pitchMin, pitchMax, transform);
 		}
 
 	}

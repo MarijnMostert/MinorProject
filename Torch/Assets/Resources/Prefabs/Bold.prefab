@@ -369,7 +369,7 @@ MonoBehaviour:
   range: 20
   distanceToKeep: 2
   lookAtTarget: 1
-  stayActivated: 0
+  stayActivated: 1
 --- !u!114 &114000013503192460
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -381,6 +381,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29a59f20b1f744d399b341b7b13927a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mixerGroup: {fileID: 0}
+  pitchMin: 0.8
+  pitchMax: 1.1
   speechImage: {fileID: 114000011940765996}
   speechText: {fileID: 114000013663808758}
   clips:
@@ -392,7 +395,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: fbb781310784d4c6ea75d52d61cf1431, type: 3}
   - {fileID: 8300000, guid: 2cefe1d88b1774c67bb603e52f8b3dca, type: 3}
   - {fileID: 8300000, guid: 8d7534468edec409b8a3c2803541e03c, type: 3}
-  audioSource: {fileID: 82000012930394360}
   chanceForClip: 0.05
   interval: 5
 --- !u!114 &114000013663808758
@@ -427,7 +429,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: Now walk down the stairs to start your adventure or walk back to main menu
+    through the door in the back.
 --- !u!135 &135000010202449164
 SphereCollider:
   m_ObjectHideFlags: 1

@@ -1,14 +1,14 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 using System.Collections;
 
-public class Pet : MonoBehaviour {
+public class Pet : AudioObject {
 
 	public Image speechImage;
 	public Text speechText;
 
 	public AudioClip[] clips;
-	public AudioSource audioSource;
 	public float chanceForClip = 0.01f;
 	public float interval = 5f;
 
@@ -23,10 +23,7 @@ public class Pet : MonoBehaviour {
 	IEnumerator RandomSayings(){
 		while (true) {
 			if (Random.value < chanceForClip) {
-				audioSource.clip = clips [Random.Range (0, clips.Length)];
-				if (audioSource.clip != null) {
-					audioSource.Play ();
-				}
+				ObjectPooler.Instance.PlayAudioSource (clips [Random.Range (0, clips.Length)], mixerGroup, pitchMin, pitchMax, transform);
 			}
 			yield return new WaitForSeconds (interval);
 		}

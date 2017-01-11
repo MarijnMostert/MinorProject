@@ -3,14 +3,14 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 using System.Collections;
 
-public class InteractableItem : NetworkBehaviour {
+public class InteractableItem : AudioObject {
 
 	protected GameManager gameManager;
 	
 	public float canvasFloatingHeight = 2f;
 	[HideInInspector] public Camera cam;
 	public GameObject canvas;
-	protected string interactionButton;
+	protected string interactionButton = "InteractionButton";
 	[SerializeField] protected bool multiUsable = false;
 	[SerializeField] protected bool activated = false;
 
