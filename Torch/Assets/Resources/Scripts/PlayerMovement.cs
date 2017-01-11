@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class PlayerMovement : MonoBehaviour {
 
 	public float speed;
+	public float shiftfactor = 0.3f;
 	public LayerMask floorMask;
 	[HideInInspector] public GameObject cursorPointerPrefab;
 	[SerializeField] private GameObject cursorPointer;
@@ -131,6 +132,12 @@ public class PlayerMovement : MonoBehaviour {
 		}
 		if (Input.GetKeyDown (KeyCode.G)) {
 			GodMode ();
+		}
+		if (Input.GetKeyDown(KeyCode.LeftShift)) {
+			speed *= shiftfactor;
+		}
+		if (Input.GetKeyUp(KeyCode.LeftShift)) {
+			speed /= shiftfactor;
 		}
 	}
 	

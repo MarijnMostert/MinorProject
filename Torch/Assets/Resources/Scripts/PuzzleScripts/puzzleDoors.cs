@@ -50,6 +50,11 @@ public class puzzleDoors : MonoBehaviour {
 		for (int i = 0; i < gameManager.playerManagers.Length; i++) {
 			gameManager.playerManagers [i].playerInstance.GetComponent<Rigidbody> ().constraints &= ~RigidbodyConstraints.FreezePositionY;
 		}
+
+		foreach (GameObject enemy in GameObject.FindGameObjectsWithTag("Enemy")) {
+			Destroy (enemy);
+		}
+
 	}
 
 	void EndPuzzle () {
