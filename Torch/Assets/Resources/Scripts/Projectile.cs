@@ -85,10 +85,14 @@ public class Projectile : AudioObject {
 			
 			damagableObject.takeDamage (damage, crit, gameObject);
 			//Debug.Log ("hit " + damagableObject);
-		}
+			}
 
 		if (objectHitted.CompareTag ("Shield")) {
 			return;
+		}
+			
+		if(objectHitted.CompareTag ("Target")) {
+			objectHitted.GetComponent<RotateTarget> ().Rotate (transform.forward);
 		}
 
 		if (hasParticlesOnHit) {
