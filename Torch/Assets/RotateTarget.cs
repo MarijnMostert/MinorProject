@@ -8,16 +8,14 @@ public class RotateTarget : MonoBehaviour {
 	SwitchGround parental;
 
 	void Start () {
-		length = 3.0f;
+		length = 4.0f;
 		parental = GetComponentInParent<SwitchGround> ();
 	}
 
 	public void Rotate (Vector3 direction) {
 
-		Vector3 relativepos = transform.parent.position - transform.position - Vector3.up;
-		Vector3 inproduct = Vector3.Cross (direction, direction);
-
-		Debug.Log (relativepos);
+		Vector3 relativepos = transform.parent.position - transform.position + Vector3.up;
+		Vector3 inproduct = Vector3.Cross (direction, relativepos);
 
 		float rotation = inproduct.y;
 

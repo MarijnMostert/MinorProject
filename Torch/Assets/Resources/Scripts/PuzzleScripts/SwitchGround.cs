@@ -14,7 +14,7 @@ public class SwitchGround : MonoBehaviour {
 
 	void Update () {
 		Quaternion temp = Rotor.transform.rotation;
-		Rotor.transform.rotation = Quaternion.Slerp (Rotor.transform.rotation, target, 0.2f);
+		Rotor.transform.rotation = Quaternion.Slerp (Rotor.transform.rotation, target, 0.15f);
 	}
 
 	public void setTarget(Quaternion trgt) {
