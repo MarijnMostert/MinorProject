@@ -19,6 +19,7 @@ public class Projectile : AudioObject {
 	public bool piercing = false;
 	private List<Enemy> enemiesHit;
 	private bool activated = true;
+	[HideInInspector] public PlayerData PlayerData;
 
 	[Serializable]
 	public struct ComponentsToToggle {

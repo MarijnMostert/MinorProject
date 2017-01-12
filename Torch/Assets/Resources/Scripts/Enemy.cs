@@ -94,6 +94,7 @@ public class Enemy : AudioObject, IDamagable {
 			{
 //				Debug.Log ("animation time");
 				anim.SetTrigger ("Die");
+				Debug.Log (anim.GetCurrentAnimatorClipInfo (0).Length);
 			}
 //			Debug.Log ("dead");
 			Die ();
@@ -125,7 +126,7 @@ public class Enemy : AudioObject, IDamagable {
 //        Debug.Log(anim);
         if (anim != null)
         {
-            yield return new WaitForSeconds(1.25f);//.56f
+			yield return new WaitForSeconds(anim.GetCurrentAnimatorClipInfo(0).Length - 0.02f);//.56f
         }
         //Add a score
         gameManager.updateScore(scoreValue);

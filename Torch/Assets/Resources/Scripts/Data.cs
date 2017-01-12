@@ -30,6 +30,8 @@ public class Data : MonoBehaviour {
 		}
 		this.coins = PlayerPrefs.GetInt ("coins");
 		this.maxAchievedDungeonLevel = PlayerPrefs.GetInt ("dungeonLevel");
+		if (maxAchievedDungeonLevel == 0)
+			maxAchievedDungeonLevel = 1;
 		this.highQuality = intToBool(PlayerPrefs.GetInt ("highQuality"));
 
 		Debug.Log ("Loaded data succesfully");

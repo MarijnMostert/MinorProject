@@ -24,6 +24,7 @@ GameObject:
   - 23: {fileID: 23000010458413816}
   - 114: {fileID: 114000012347710446}
   - 96: {fileID: 96000010015762042}
+  - 114: {fileID: 114000011165237024}
   m_Layer: 11
   m_Name: Dark Projectile
   m_TagString: EnemyProjectile
@@ -153,26 +154,37 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_Time: 1
-  m_StartWidth: 1
-  m_EndWidth: 0.2
+  m_StartWidth: 0.5
+  m_EndWidth: 0.1
   m_Colors:
     m_Color[0]:
       serializedVersion: 2
-      rgba: 4290972533
+      rgba: 4294035061
     m_Color[1]:
       serializedVersion: 2
-      rgba: 4278190080
+      rgba: 3338653799
     m_Color[2]:
       serializedVersion: 2
-      rgba: 4285796934
+      rgba: 2281689191
     m_Color[3]:
       serializedVersion: 2
-      rgba: 4290972533
+      rgba: 989843559
     m_Color[4]:
       serializedVersion: 2
-      rgba: 0
+      rgba: 16765031
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
+--- !u!114 &114000011165237024
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011777544246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c115c139c8e547b0a98a3b53aee82df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114000012347710446
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -184,7 +196,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b7416781957a445795c69362da14211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mixerGroup: {fileID: 243000012618909108, guid: 33975d0ba3fac476cb4987efebc83a81,
+    type: 2}
+  pitchMin: 0.8
+  pitchMax: 1.1
   ObjectPoolerIndex: 4
+  hasParticlesOnHit: 0
+  ParticlesPoolerIndex: 0
+  clipOnImpact: {fileID: 0}
   minDamage: 5
   maxDamage: 15
   critChance: 0.05
@@ -194,7 +213,7 @@ MonoBehaviour:
     m_Bits: 4294452223
   speed: 0
   piercing: 0
-  particlesOnHit: {fileID: 0}
+  PlayerData: {fileID: 0}
   comp:
     timeOut: 0
     trailRenderer: {fileID: 0}

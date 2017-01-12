@@ -75,7 +75,9 @@ public class EnemyGrunt : Enemy {
 			Vector3 targetPosition = new Vector3 (gameManager.enemyTarget.transform.position.x, 0, gameManager.enemyTarget.transform.position.z);
 
 			//Set the target position for the Nav Mesh Agent
-			navMeshAgent.SetDestination (targetPosition);
+			if (navMeshAgent.enabled) {
+				navMeshAgent.SetDestination (targetPosition);
+			}
 
 			//Make sure that the Nav Mesh Agent refreshes not every frame (to spare costs)
 			yield return new WaitForSeconds (refreshTime);

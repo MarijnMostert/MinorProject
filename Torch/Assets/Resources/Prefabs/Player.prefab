@@ -27,6 +27,7 @@ GameObject:
   - 114: {fileID: 114000011222896024}
   - 82: {fileID: 82000010914581714}
   - 114: {fileID: 114000010002503192}
+  - 114: {fileID: 114000011851223194}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -1325,6 +1326,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 10
+  shiftfactor: 0.3
   floorMask:
     serializedVersion: 2
     m_Bits: 262144
@@ -1368,8 +1370,6 @@ MonoBehaviour:
   weaponHolder: {fileID: 4000013804077052}
   playerNumber: 0
   weaponInventory: {fileID: 0}
-  clip_attack: {fileID: 8300000, guid: 1953bdcf99c984a718723504c9b8348d, type: 3}
-  audioSource: {fileID: 82000010914581714}
 --- !u!114 &114000011358515012
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1386,6 +1386,25 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &114000011851223194
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010005094228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6df68c74eb180492c9883a66b5620ff6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthPickedUp: 0
+  distanceTravelled: 0
+  shotsFired: 0
+  shotsLanded: 0
+  accuracy: 0
+  scorePickedUp: 0
+  coinsPickedUp: 0
+  powerUpsUsed: 0
 --- !u!114 &114000013056010426
 MonoBehaviour:
   m_ObjectHideFlags: 1
