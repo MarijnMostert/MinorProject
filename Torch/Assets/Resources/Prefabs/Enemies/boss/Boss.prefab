@@ -1345,9 +1345,9 @@ MonoBehaviour:
     type: 2}
   target: {fileID: 0}
   speed: 0
-  startingHealth: 2000
+  startingHealth: 750
   health: 0
-  scoreValue: 1000
+  scoreValue: 200
   healthBarPrefab: {fileID: 1000011103493978, guid: 0ee5528024a8b489ab0eb87d79456ab4,
     type: 2}
   dead: 0
@@ -1366,7 +1366,6 @@ MonoBehaviour:
     type: 2}
   currentWeapon: {fileID: 0}
   weaponHolder: {fileID: 4000012458473828}
-  audioSource: {fileID: 82000010250458892}
 --- !u!114 &114000012822097258
 MonoBehaviour:
   m_ObjectHideFlags: 1
