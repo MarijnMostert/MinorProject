@@ -30,8 +30,8 @@ public class EnemyBomber : Enemy {
 	}
 
 	// Use this for initialization
-	new void Start () {
-		base.Start ();
+	new void OnEnable () {
+		base.OnEnable ();
 		weaponHolder = transform.FindChild ("Weapon Holder").gameObject;
 		weapon = weaponController.currentWeapon as BomberWeapon;
 		angle = weaponHolder.transform.eulerAngles.x;

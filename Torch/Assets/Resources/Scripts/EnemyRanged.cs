@@ -21,8 +21,8 @@ public class EnemyRanged : Enemy {
 	}
 
 	// Use this for initialization
-	new void Start () {
-		base.Start ();
+	new void OnEnable () {
+		base.OnEnable ();
 		weapon = weaponController.currentWeapon as RangedWeapon;
         anim = GetComponent<Animator>();
         setAnim(anim);

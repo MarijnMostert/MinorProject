@@ -10,7 +10,7 @@ public class MasterGenerator : Object {
                             spawner, torch, cam, pointer, chest,
                             coin, fireball, iceball, health, laser, shieldPickUp,
 							stickyPickUp, roofGroup, wallPickUp, wallTorch, piercingWeapon,
-							bombPickUp, spidernest, stardustParticles, moondustParticles;
+							bombPickUp, spidernest, stardustParticles, moondustParticles, decoyPickUp;
 
 	public List<GameObject> puzzleRooms;
     GameObject game_manager;
@@ -60,7 +60,7 @@ public class MasterGenerator : Object {
                                                                         spawner, torch, cam, pointer, chest, coin, 
 																		fireball, iceball, health, mazeSize, laser, shieldPickUp,
 			stickyPickUp, roofGroup, wallPickUp, puzzleRooms, wallTorch, piercingWeapon, bombPickUp, spidernest, stardustParticles,
-			moondustParticles);
+			moondustParticles, decoyPickUp);
 
 		while (!done) {
 			dungeon = new DungeonGenerator ( width,
@@ -169,6 +169,7 @@ public class MasterGenerator : Object {
 		wallTorch = Resources.Load ("Prefabs/WallTorch", typeof(GameObject)) as GameObject;
 		piercingWeapon = Resources.Load ("Prefabs/PickUps/Piercing Weapon PickUp", typeof(GameObject)) as GameObject;
 		bombPickUp = Resources.Load ("Prefabs/PickUps/Bomb PickUp", typeof(GameObject)) as GameObject;
+		decoyPickUp = Resources.Load ("Prefabs/PickUps/Decoy PickUp", typeof(GameObject)) as GameObject;
 
         spidernest = Resources.Load("Prefabs/nests/spidernest", typeof(GameObject)) as GameObject;
 		stardustParticles = Resources.Load ("Prefabs/Stardust Particles", typeof(GameObject)) as GameObject;

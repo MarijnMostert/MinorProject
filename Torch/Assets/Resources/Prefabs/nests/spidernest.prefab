@@ -149,11 +149,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a67f757c8606f51429811305f1d6c195, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 1000014125432050, guid: e5b9d8e23e2413b44bae87c7a7293d25, type: 2}
+  mixerGroup: {fileID: 0}
+  pitchMin: 0.8
+  pitchMax: 1.1
+  enemy: {fileID: 114000012671087812, guid: e5b9d8e23e2413b44bae87c7a7293d25, type: 2}
   startingHealth: 1000
   scoreValue: 100
-  healthBarPrefab: {fileID: 1000011103493978, guid: 0ee5528024a8b489ab0eb87d79456ab4,
-    type: 2}
   health: 1000
   dead: 0
   clip_takeDamage: {fileID: 0}

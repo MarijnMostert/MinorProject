@@ -14,8 +14,8 @@ public class EnemyGrunt : Enemy {
 	}
 
 	// Use this for initialization
-	protected override void Start () {
-		base.Start ();
+	protected override void OnEnable () {
+		base.OnEnable ();
 		StartCoroutine (UpdatePath ());
 		agent = GetComponent<NavMeshAgent> ();
         agent.enabled = false;
