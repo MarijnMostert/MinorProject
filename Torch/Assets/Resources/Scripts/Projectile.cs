@@ -59,10 +59,14 @@ public class Projectile : MonoBehaviour {
 			
 			damagableObject.takeDamage (damage, crit);
 			//Debug.Log ("hit " + damagableObject);
-		}
+			}
 
 		if (objectHitted.CompareTag ("Shield")) {
 			return;
+		}
+
+		if(objectHitted.CompareTag ("Target")) {
+			objectHitted.GetComponent<RotateTarget> ().Rotate (transform.forward);
 		}
 
 		if (particlesOnHit != null) {
