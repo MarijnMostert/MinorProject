@@ -18,6 +18,8 @@ public class LaserWeapon : Weapon {
 	private float lastFireTime;
 	private RaycastHit hit;
 
+	public AudioClip clip;
+
 
 	void Awake(){
 		lastFireTime = Time.time;
@@ -43,8 +45,8 @@ public class LaserWeapon : Weapon {
 			Ray ray = new Ray(transform.position, transform.forward);
 			lineRenderer.SetPosition (0, transform.position);
 			if (Physics.Raycast (ray, out hit, laserLength, collisionMask)) {
-				ParticleSystem particles = Instantiate (particlesOnHit, hit.point, Quaternion.identity) as ParticleSystem;
-				Destroy (particles.gameObject, 2f);
+				ObjectPooler.Instance.GetObject(8, true, hit.point,
+					Quaternion.Euler(new Vector3(Random.Range(0,360), Random.Range(0,360), Random.Range(0,360))));
 				if (hit.collider.gameObject.CompareTag ("Enemy")) {
 					bool crit = false;
 					int damage = Random.Range (minDamage, maxDamage);
@@ -53,7 +55,7 @@ public class LaserWeapon : Weapon {
 						crit = true;
 					}
 					if (hit.collider.gameObject.CompareTag ("Enemy") || hit.collider.gameObject.CompareTag ("Boss")) {
-						hit.collider.gameObject.GetComponent<IDamagable> ().takeDamage (damage, crit);
+						hit.collider.gameObject.GetComponent<IDamagable> ().takeDamage (damage, crit, gameObject);
 					}
 				} 
 				lineRenderer.SetPosition (1, hit.point);
@@ -62,6 +64,8 @@ public class LaserWeapon : Weapon {
 			}
 	
 			lastFireTime = Time.time;
+
+			ObjectPooler.Instance.PlayAudioSource (clip, mixerGroup, pitchMin, pitchMax, transform);
 		}
 
 	}

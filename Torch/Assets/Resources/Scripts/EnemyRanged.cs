@@ -62,12 +62,7 @@ public class EnemyRanged : Enemy {
 		weapon.gameObject.transform.eulerAngles = newWeaponRot;
 		weapon.Fire ();
 		weapon.gameObject.transform.eulerAngles = weaponRotOriginal;
-/*
-		if (clip_attack != null) {
-			audioSource.clip = clip_attack;
-			audioSource.Play ();
-		}
-*/
+
 		lastAttackTime = Time.time;
         first_attack = false;
         yield return null;

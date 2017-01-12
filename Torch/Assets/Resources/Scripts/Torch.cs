@@ -76,7 +76,7 @@ public class Torch : MonoBehaviour, IDamagable {
 	}
 
 	//For when the torch takes damage
-	public void takeDamage(int damage, bool crit){
+	public void takeDamage(int damage, bool crit, GameObject source){
 		if (isDamagable) {
 //		Debug.Log (gameObject + " takes " + damage + " damage.");
 			health -= damage;
@@ -84,6 +84,7 @@ public class Torch : MonoBehaviour, IDamagable {
 			TorchFOV.SetTrigger ("TakeDamage");
 
 			if (health <= 0) {
+				Debug.Log ("Player dies by taking " + damage + " from " + source.name);
 				Die ();
 			}
 		}
@@ -133,7 +134,6 @@ public class Torch : MonoBehaviour, IDamagable {
 	}
 
 	public void Die(){
-		Debug.Log ("Player dies");
 		health = 0;
 		Destroy (torchPickUp.canvas);
 		Destroy (GameObject.FindGameObjectWithTag("CursorPointer"));
@@ -149,6 +149,7 @@ public class Torch : MonoBehaviour, IDamagable {
 				updateHealth ();
 
 				if (health <= 0) {
+					Debug.Log ("Killed by damage over time on torch");
 					Die ();
 				}
 			}

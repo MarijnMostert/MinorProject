@@ -916,7 +916,6 @@ GameObject:
   - 223: {fileID: 223000011075123886}
   - 114: {fileID: 114000011429824914}
   - 114: {fileID: 114000013732991354}
-  - 114: {fileID: 114000011964149174}
   - 114: {fileID: 114000011730414836}
   m_Layer: 5
   m_Name: Pause Screen
@@ -4964,19 +4963,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: E
---- !u!114 &114000011964149174
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011647558472}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93828427ca6c246c081d896f6845beb5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  button: Pause
-  isActive: 0
 --- !u!114 &114000012005829864
 MonoBehaviour:
   m_ObjectHideFlags: 1

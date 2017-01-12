@@ -169,7 +169,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be7584a2c47a34ae0986ef0a6cad83bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mixerGroup: {fileID: 243000012651205884, guid: 33975d0ba3fac476cb4987efebc83a81,
+    type: 2}
+  pitchMin: 0.8
+  pitchMax: 1.1
   healAmount: 10
+  clip: {fileID: 0}
 --- !u!114 &114000012353362148
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -183,6 +188,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   strength: 0.8
   range: 5
+  distanceToKeep: 0
+  lookAtTarget: 0
+  stayActivated: 0
 --- !u!114 &114000012722395052
 MonoBehaviour:
   m_ObjectHideFlags: 1

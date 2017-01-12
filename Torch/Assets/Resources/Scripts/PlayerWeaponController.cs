@@ -31,8 +31,7 @@ public class PlayerWeaponController : WeaponController {
 		if (Input.GetButton (attackButton)||(Mathf.Abs(Input.GetAxis (attackButton))>0.1f)) {
             if (anim != null)
             {
-                anim.SetBool("Attack",true);
-                anim.SetBool("Attack", false);
+                anim.SetTrigger("attackTrigger");
             }
 			Attack ();
 		}

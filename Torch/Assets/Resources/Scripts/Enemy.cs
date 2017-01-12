@@ -1,8 +1,9 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 using System.Collections;
 
-public class Enemy : MonoBehaviour, IDamagable {
+public class Enemy : AudioObject, IDamagable {
 
 	public int startingHealth;
 	public NavMesh navMesh;
@@ -28,7 +29,6 @@ public class Enemy : MonoBehaviour, IDamagable {
 	public AudioClip clip_spawn;
 	public AudioClip clip_die;
 	public AudioClip clip_battleCry;
-	protected AudioSource audioSource;
 
 	public int getHealth () {
 		return health;
@@ -39,9 +39,6 @@ public class Enemy : MonoBehaviour, IDamagable {
 		gameManager = GameObject.Find ("Game Manager").GetComponent<GameManager>();
 
 		dead = false;
-
-		audioSource = GetComponent<AudioSource> ();
-
 	}
 
 	protected virtual void Start () {
@@ -50,9 +47,7 @@ public class Enemy : MonoBehaviour, IDamagable {
         dead = false;
 
 		if (clip_spawn != null) {
-			audioSource.clip = clip_spawn;
-			audioSource.pitch = Random.Range (0.9f, 1.1f);
-			audioSource.Play ();
+			ObjectPooler.Instance.PlayAudioSource (clip_spawn, mixerGroup, pitchMin, pitchMax, transform);
 		}
 	}
 
@@ -67,7 +62,7 @@ public class Enemy : MonoBehaviour, IDamagable {
 	}
 
 	//For when the enemy object takes damage
-	public void takeDamage(int damage, bool crit){
+	public void takeDamage(int damage, bool crit, GameObject source){
 		//Debug.Log (gameObject + " takes " + damage + " damage.");
 
 		if (healthBar == null) {
@@ -91,9 +86,7 @@ public class Enemy : MonoBehaviour, IDamagable {
 		
 
 		if (clip_takeDamage != null) {
-			audioSource.clip = clip_takeDamage;
-			audioSource.pitch = Random.Range (0.9f, 1.1f);
-			audioSource.Play ();
+			ObjectPooler.Instance.PlayAudioSource (clip_takeDamage, mixerGroup, pitchMin, pitchMax, transform);
 		}
 
 		if (health <= 0) {
@@ -117,9 +110,7 @@ public class Enemy : MonoBehaviour, IDamagable {
     public void Die()
     {
 		if (clip_die != null) {
-			audioSource.clip = clip_die;
-			audioSource.pitch = Random.Range (0.9f, 1.1f);
-			audioSource.Play ();
+			ObjectPooler.Instance.PlayAudioSource (clip_die, mixerGroup, pitchMin, pitchMax, transform);
 		}
         StartCoroutine(DieThread());
     }
