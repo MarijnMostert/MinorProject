@@ -35,7 +35,7 @@ public class createFallFloors : MonoBehaviour {
 				block.SetActive (false);
 			}
 			platform.GetComponent<FallPlatform> ().active = false;
-			Vector3 counter = new Vector3 (4.0f, 11.0f, 1.5f);
+			Vector3 counter = new Vector3 (4.0f, 11.0f, 2.0f);
 			buildOppositeX (counter, false);
 			buildOppositeZ (counter, false);
 			counter *= -1;
