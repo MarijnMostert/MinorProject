@@ -16,7 +16,7 @@ public class BossFight : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other){
-		if (gameManager.dungeonLevel % 5 == 0) {
+		//if (gameManager.dungeonLevel % 5 == 0) {
 			if (boss == false) {
 				if (other.gameObject.CompareTag ("Player")) {
 					DeactivateLever ();
@@ -27,7 +27,7 @@ public class BossFight : MonoBehaviour {
 					BossObject.transform.parent = gameObject.transform;
 				}
 			}
-		}
+		//}
 	}
 
 	public void DeactivateLever(){

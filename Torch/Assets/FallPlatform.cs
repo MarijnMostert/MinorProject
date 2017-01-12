@@ -37,6 +37,7 @@ public class FallPlatform : MonoBehaviour {
 				timeLeft = fallTime;
 				GetComponent<Rigidbody> ().isKinematic = true;
 				movingback = true;
+				transform.rotation = Quaternion.identity;
 			}
 
 			if (movingback) {

@@ -144,7 +144,7 @@ public class GameManager : MonoBehaviour {
 		//homeScreenCanvas = GameObject.Find ("Home Screen Canvas");
 		homeScreen = GameObject.Find ("HomeScreen");
 		homeScreenCam = GameObject.Find ("HomeScreenCam");
-		minimap = Resources.Load ("Prefabs/Minimap", typeof (Camera)) as Camera;
+		minimap = Resources.Load ("Prefabs/minimap2", typeof (Camera)) as Camera;
     }
 
     public void Start(){
@@ -211,8 +211,6 @@ public class GameManager : MonoBehaviour {
             StartCoroutine(CreateLevel(1));
             gameStarted = true;
 			StartCoroutine (WaitSpawning ());
-
-			//Instantiate (minimap);
 		}
 	}
 
@@ -318,6 +316,8 @@ public class GameManager : MonoBehaviour {
 		SetScore (score);
 		homeScreenCam.SetActive (false);
 		loadingScreenCanvas.SetActive (false);
+
+		Instantiate (minimap);
 
 		yield return null;
 	}
