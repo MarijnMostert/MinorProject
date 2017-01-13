@@ -428,6 +428,7 @@ public class GameManager : MonoBehaviour {
 		foreach (GameObject projectile in GameObject.FindGameObjectsWithTag("EnemyProjectile")) {
 			Destroy (projectile);
 		}
+		Destroy (GameObject.FindGameObjectWithTag ("Minimap"));
 
 		data.coins += score;
 		score = 0;
