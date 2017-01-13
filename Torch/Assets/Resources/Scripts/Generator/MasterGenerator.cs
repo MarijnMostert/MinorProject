@@ -14,6 +14,7 @@ public class MasterGenerator : Object {
 
 	public List<GameObject> puzzleRooms;
     GameObject game_manager;
+	DungeonData.DungeonParameters dungeonParameters;
     public DungeonInstantiate dungeon_instantiate;
     int width;// = 100;
 	int height;// = 90;
@@ -26,18 +27,19 @@ public class MasterGenerator : Object {
 
 	int[,] endMaze;
 
-    public MasterGenerator(GameObject game_manager, int width, int height, int radius, int maxlength, 
-		int timeout, int minAmountOfRooms, int maxAmountOfRooms, int chanceOfRoom, List<GameObject> puzzleRooms)
+	public MasterGenerator(GameObject game_manager, DungeonData.DungeonParameters dungeonParameters, int radius, int maxlength, 
+		int timeout, List<GameObject> puzzleRooms)
     {
+		this.dungeonParameters = dungeonParameters;
         this.game_manager = game_manager;
-        this.width = width;
-        this.height = height;
+		this.width = dungeonParameters.width;
+		this.height = dungeonParameters.height;
         this.radius = radius;
         this.maxlength = maxlength;
         this.timeout = timeout;
-        this.minAmountOfRooms = minAmountOfRooms;
-        this.maxAmountOfRooms = maxAmountOfRooms;
-        this.chanceOfRoom = chanceOfRoom;
+		this.minAmountOfRooms = dungeonParameters.minAmountOfRooms;
+		this.maxAmountOfRooms = dungeonParameters.maxAmountOfRooms;
+		this.chanceOfRoom = dungeonParameters.chanceOfRoom;
 		this.puzzleRooms = puzzleRooms;
     }
 
@@ -54,7 +56,7 @@ public class MasterGenerator : Object {
 		List<p2D> allRoomCoords = new List<p2D> ();
 		List<int[]> allDoors = new List<int[]> ();
 
-        dungeon_instantiate = new DungeonInstantiate(floor, side, sideAlt1, sideAlt2, corner, cornerout,
+        dungeon_instantiate = new DungeonInstantiate(dungeonParameters, floor, side, sideAlt1, sideAlt2, corner, cornerout,
                                                                         roof, block, trap_straight, trap_crossing, trap_box,
                                                                         portal, end_portal, player, game_manager,
                                                                         spawner, torch, cam, pointer, chest, coin, 

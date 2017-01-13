@@ -46,11 +46,12 @@ public class DungeonInstantiate : Object {
 
     GameObject spidernest;
 	GameObject[] dungeonParticles;
+	DungeonData.DungeonParameters dungeonParameters;
 
     public Vector3 startPos;
 
     // Use this for initialization
-    public DungeonInstantiate(GameObject floor, GameObject side, GameObject sideAlt1, GameObject sideAlt2, GameObject corner, 
+	public DungeonInstantiate(DungeonData.DungeonParameters dungeonParameters, GameObject floor, GameObject side, GameObject sideAlt1, GameObject sideAlt2, GameObject corner, 
                             GameObject cornerout, GameObject roof, GameObject block, GameObject trap_straight, GameObject trap_crossing, 
                             GameObject trap_box, GameObject portal, GameObject end_portal, GameObject player, 
                             GameObject game_manager, GameObject spawner, GameObject torch, GameObject cam, GameObject pointer, 
@@ -59,6 +60,7 @@ public class DungeonInstantiate : Object {
 		GameObject bombPickUp, GameObject spidernest, GameObject stardustParticles, GameObject moondustParticles, GameObject decoyPickUp)
 
     {
+		this.dungeonParameters = dungeonParameters;
         this.floor = floor;
         this.side = side;
         this.sideAlt1 = sideAlt1;
@@ -147,13 +149,15 @@ public class DungeonInstantiate : Object {
 		//InstantiateStarterPack(starters_pack, new Vector3(0, 0, 0),Quaternion.identity);
         //Instantiate(scene_manager, new Vector3(0, 0, 0), Quaternion.identity);
 
-		spawner.GetComponent<Spawner>().mapMinX = 0;
-        spawner.GetComponent<Spawner>().mapMinZ = 0;
-        spawner.GetComponent<Spawner>().mapMaxX = mazeSize[0]*6;
-        spawner.GetComponent<Spawner>().mapMaxZ = mazeSize[1]*6;
 		spawner = Instantiate(spawner, new Vector3(0, 0, 0), Quaternion.identity, Dungeon.transform) as GameObject;
+		Spawner spawnerScript = spawner.GetComponent<Spawner> ();
+		spawnerScript.mapMinX = 0;
+        spawnerScript.mapMinZ = 0;
+        spawnerScript.mapMaxX = mazeSize[0]*6;
+        spawnerScript.mapMaxZ = mazeSize[1]*6;
+		spawnerScript.Setup (dungeonParameters);
 
-		GameObject.Find ("Game Manager").GetComponent<GameManager> ().spawner = spawner.GetComponent<Spawner> ();
+		GameManager.Instance.spawner = spawner.GetComponent<Spawner> ();
 
         mazeSize = new int[] { mazeSize[0], mazeSize[1]};
         //dungeon = new GameObject[mazeSize[0], mazeSize[1]];

@@ -23,6 +23,7 @@ GameObject:
   - 82: {fileID: 82000010765992802}
   - 82: {fileID: 82000013135790204}
   - 114: {fileID: 114000013406591320}
+  - 114: {fileID: 114000011838373320}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -193,6 +194,42 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &114000011838373320
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012150838060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 577ca7cb19a3041078417fd2e428ac54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amountOfLevels: 40
+  chanceOfRoom: 5
+  spawnRateScaler: 0.2
+  spawnerWarmingUpScaler: 0.3
+  minLevelForMinotaur: 1
+  minLevelForSpider: 3
+  minLevelForGhost: 6
+  minLevelForBomber: 9
+  minLevelForShield: 1
+  minLevelForSticky: 2
+  minLevelForWall: 5
+  minLevelForBomb: 8
+  minLevelForDecoy: 11
+  chanceShield: 0.2
+  chanceSticky: 0.2
+  chanceWall: 0.2
+  chanceBomb: 0.2
+  chanceDecoy: 0.2
+  minLevelIceballWeapon: 7
+  minLevelPiercingWeapon: 3
+  minLevelLaserWeapon: 13
+  chanceIceball: 0.1
+  chancePiercing: 0.1
+  chanceLaser: 0.1
+  dungeonParameters: []
 --- !u!114 &114000012126162182
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -205,6 +242,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 114000013406591320}
+  dungeonData: {fileID: 0}
   playerManagers:
   - spawnPoint: {fileID: 4000013396432608}
     playerColor: {r: 0.27941185, g: 0.9046279, b: 1, a: 1}
@@ -234,6 +272,7 @@ MonoBehaviour:
     gameManager: {fileID: 0}
   playerPrefab: {fileID: 1000010005094228, guid: 96b70f8172a034350bce5e9b0ef6db4d,
     type: 2}
+  RespawnPosition: {x: 0, y: 0, z: 0}
   homeScreenPlayer: {fileID: 0}
   homeScreenMovement: {fileID: 0}
   torchPrefab: {fileID: 114000010962005414, guid: 86f8871f16b6e4321a072873febde5a7,

@@ -43,4 +43,6 @@ public class EndOfRoundCanvas : MonoBehaviour {
 		dataTexts.coinsPickedUp.text = playerData.coinsPickedUp.ToString ();
 		dataTexts.powerUpsUsed.text = playerData.powerUpsUsed.ToString ();
 	}
+
+
 }

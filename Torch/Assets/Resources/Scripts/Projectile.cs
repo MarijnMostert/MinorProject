@@ -20,6 +20,7 @@ public class Projectile : AudioObject {
 	private List<Enemy> enemiesHit;
 	private bool activated = true;
 	[HideInInspector] public PlayerData PlayerData;
+	private bool enemyHit = false;
 
 	[Serializable]
 	public struct ComponentsToToggle {
@@ -83,7 +84,8 @@ public class Projectile : AudioObject {
 				damage *= 2;
 				crit = true;
 			}
-			
+
+			enemyHit = true;
 			damagableObject.takeDamage (damage, crit, gameObject);
 			//Debug.Log ("hit " + damagableObject);
 			}
@@ -118,6 +120,9 @@ public class Projectile : AudioObject {
 	}
 
 	void DestroyProjectile(){
+		if (enemyHit) {
+			PlayerData.IncrementShotsLanded ();
+		}
 		ToggleComponents (false);
 		activated = false;
 		StartCoroutine (KillProjectile ());

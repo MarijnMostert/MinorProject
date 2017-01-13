@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour {
 
 	//Stored player preferences and info
 	public Data data;
+	public DungeonData dungeonData;
 
 	//Player data
 	public static GameManager Instance;
@@ -121,6 +122,8 @@ public class GameManager : MonoBehaviour {
     void Awake () {
 		data.LoadFileToDataAndVars ();
 		setQuality (data.highQuality);
+
+		dungeonData = GetComponent<DungeonData> ();
 
 		startingScreen.SetActive (true);
 
@@ -238,7 +241,7 @@ public class GameManager : MonoBehaviour {
 		//RandomizeTextures ();
 
 		if (type == 1) {
-			masterGenerator = new MasterGenerator (this.gameObject, width, height, radius, maxlength, timeout, minAmountOfRooms, maxAmountOfRooms, chanceOfRoom, PuzzleRooms);
+			masterGenerator = new MasterGenerator (this.gameObject, dungeonData.dungeonParameters[dungeonLevel], radius, maxlength, timeout, PuzzleRooms);
 			masterGenerator.LoadPrefabs ();
 			masterGenerator.Start ();
 		} else if (type == 0) {

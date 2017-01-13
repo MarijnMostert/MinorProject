@@ -18,6 +18,7 @@ public class ScorePickUp : AudioObject, IPickUp {
 			ObjectPooler.Instance.PlayAudioSource (clip, mixerGroup, pitchMin, pitchMax, transform);
 
 			gameManager.updateScore (scoreValue);
+			other.GetComponent<PlayerData> ().IncrementScorePickedUp (scoreValue);
 
 			//Debug.Log ("Score increased with " + scoreValue + " by picking up " + gameObject);
 			transform.parent.GetComponent<MeshRenderer> ().enabled = false;
