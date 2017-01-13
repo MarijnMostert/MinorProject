@@ -28,4 +28,8 @@ public class ColliderStartGame : MonoBehaviour {
 			textObject.SetActive (false);
 		}
 	}
+
+	void OnDisable(){
+		textObject.SetActive (false);
+	}
 }

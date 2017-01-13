@@ -23,7 +23,7 @@ GameObject:
   - 199: {fileID: 199000013252685286}
   m_Layer: 12
   m_Name: Particles
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -44,7 +44,7 @@ GameObject:
   - 114: {fileID: 114000011022256754}
   m_Layer: 12
   m_Name: IceBall Projectile
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -196,18 +196,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b7416781957a445795c69362da14211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mixerGroup: {fileID: 0}
+  pitchMin: 0.8
+  pitchMax: 1.1
   ObjectPoolerIndex: 2
   hasParticlesOnHit: 1
   ParticlesPoolerIndex: 6
+  clipOnImpact: {fileID: 0}
   minDamage: 10
   maxDamage: 20
   critChance: 0.1
   lifeTime: 1
   collisionMask:
     serializedVersion: 2
-    m_Bits: 4294444543
+    m_Bits: 4293395967
   speed: 0
   piercing: 0
+  PlayerData: {fileID: 0}
   comp:
     timeOut: 0.4
     trailRenderer: {fileID: 0}

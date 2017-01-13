@@ -30,6 +30,7 @@ public class Boss : MonoBehaviour, IDamagable {
 	public int health;
 	public int scoreValue = 1000;
 	protected GameObject healthBar;
+	protected Image healthBarImage;
 	public bool dead;
 
 
@@ -254,7 +255,7 @@ public class Boss : MonoBehaviour, IDamagable {
 		}
 
 		health -= damage;
-		healthBar.transform.FindChild("HealthBar").GetComponent<Image>().fillAmount = (float)health / startingHealth;
+		healthBarImage.fillAmount = (float)health / startingHealth;
 		//healthBar.fillAmount = (float)health / startingHealth;
 		if (health <= 0)
 			Die ();
@@ -262,6 +263,7 @@ public class Boss : MonoBehaviour, IDamagable {
 
 	void InstantiateHealthBar (){
 		Vector3 healthBarPosition = transform.position + new Vector3 (0, 2, 0);
-		ObjectPooler.Instance.GetObject (14, true, healthBarPosition, transform);
+		healthBar = ObjectPooler.Instance.GetObject (14, true, healthBarPosition, transform);
+		healthBarImage = healthBar.transform.Find ("HealthBar").GetComponent<Image> ();
 	}
 }

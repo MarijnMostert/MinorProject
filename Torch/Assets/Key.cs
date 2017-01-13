@@ -24,7 +24,7 @@ public class Key : AudioObject {
 
 			if (gameManager.collectedKeys == gameManager.requiredCollectedKeys) {
 				//End portal is enabled.
-				EndPortal.activated = true;
+				EndPortal.endPortalActivated = true;
 			}
 
 			ObjectPooler.Instance.PlayAudioSource (clip, mixerGroup, 1f, 1f, transform);

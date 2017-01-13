@@ -56,7 +56,7 @@ Transform:
   m_GameObject: {fileID: 1000013451348760}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 1, z: 10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000014108396122}
@@ -68,8 +68,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013780005038}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 126.88405, y: 0.34149837, z: 31.101067}
-  m_LocalScale: {x: 0.18, y: 1, z: 0.18}
+  m_LocalPosition: {x: 102.90857, y: 138.56752, z: -163.83574}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 4000012875658340}
@@ -89,6 +89,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_Materials:
   - {fileID: 2100000, guid: cf61102032c8dd44f9a54f840c5393e6, type: 2}
+  - {fileID: 2100000, guid: dd18f7bd2eaa74625a251e5de2398d2a, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
@@ -110,7 +111,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013780005038}
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 4300004, guid: 51100e2ad36ad4bcba09aa4b1d634511, type: 3}
 --- !u!54 &54000012280393526
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -136,8 +137,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 10, y: 0.4, z: 10}
-  m_Center: {x: 0, y: -0.2, z: 0}
+  m_Size: {x: 1.9907091, y: 0.588138, z: 2.064179}
+  m_Center: {x: 0.00013551116, y: -0.3, z: -0.00053048134}
 --- !u!65 &65000013837084266
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -148,8 +149,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 2.17, y: 1.66, z: 2.14}
+  m_Center: {x: 0.0001604557, y: 0.31, z: -0.00062799454}
 --- !u!114 &114000011793368276
 MonoBehaviour:
   m_ObjectHideFlags: 1

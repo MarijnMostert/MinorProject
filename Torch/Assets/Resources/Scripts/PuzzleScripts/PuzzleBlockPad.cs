@@ -45,7 +45,7 @@ public class PuzzleBlockPad : MonoBehaviour {
 				}
 				Destroy (block);
 				foreach (Enemy enemy in enemiesToSpawn) {
-					Instantiate (enemy, desiredPosition, Quaternion.identity);
+					ObjectPooler.Instance.GetObject (enemy.ObjectPoolIndex, true, desiredPosition, Quaternion.Euler (new Vector3 (0, Random.Range (0, 360), 0)));
 				}
 				notDone = false;
 			}

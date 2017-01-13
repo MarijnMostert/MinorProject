@@ -31,12 +31,17 @@ public class EnemyBomber : Enemy {
 
 	// Use this for initialization
 	new void OnEnable () {
-		base.OnEnable ();
-		weaponHolder = transform.FindChild ("Weapon Holder").gameObject;
-		weapon = weaponController.currentWeapon as BomberWeapon;
-		angle = weaponHolder.transform.eulerAngles.x;
-	//	prevPosition = target.transform.position;
-		StartCoroutine (UpdatePath ());
+		if (!firstTimeActive) {
+			base.OnEnable ();
+			weaponHolder = transform.FindChild ("Weapon Holder").gameObject;
+			weapon = weaponController.currentWeapon as BomberWeapon;
+			angle = weaponHolder.transform.eulerAngles.x;
+			//	prevPosition = target.transform.position;
+			StartCoroutine (UpdatePath ());
+		} else {
+			navMeshAgent.enabled = false;
+			firstTimeActive = false;
+		}
 	}
 
     void Update()
