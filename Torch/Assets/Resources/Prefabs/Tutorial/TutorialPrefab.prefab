@@ -14114,7 +14114,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012528916838}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -14.013913, y: -1.2782893, z: 4.9184847}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -48916,10 +48916,12 @@ MonoBehaviour:
   canvas: {fileID: 1000011937247374}
   multiUsable: 0
   activated: 0
+  manualChest: 1
   contents:
   - {fileID: 1000013408684720, guid: 50c6de4e46e8f4cc6bb9c5618add169c, type: 2}
   - {fileID: 1000013408684720, guid: 50c6de4e46e8f4cc6bb9c5618add169c, type: 2}
   - {fileID: 1000011075960422, guid: 59ae5a8caf80e41e6a3fa4a4b001db70, type: 2}
+  - {fileID: 1000013169113146, guid: abd67498e85f64044aeef2120466291d, type: 2}
   clip: {fileID: 8300000, guid: 55f33763d9ee24d68820c8282a271c8c, type: 3}
   animator: {fileID: 95000014011989632}
   firingAngle: 70

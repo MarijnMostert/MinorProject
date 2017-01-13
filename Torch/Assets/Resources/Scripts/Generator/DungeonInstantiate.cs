@@ -8,8 +8,8 @@ public class DungeonInstantiate : Object {
                             roof, block, trap_straight, trap_crossing, 
                             trap_box, portal, end_portal, player, 
                             game_manager, spawner, torch, 
-                            cam, pointer, chest, coin, fireball, 
-                            iceball, health, roofGroup, wallTorch;
+                            cam, pointer, chest, fireball, 
+                            iceball, roofGroup, wallTorch;
     GameObject[] starters_pack, chest_pack;
     //GameObject[,] dungeon;
     int[] mazeSize;
@@ -55,9 +55,9 @@ public class DungeonInstantiate : Object {
                             GameObject cornerout, GameObject roof, GameObject block, GameObject trap_straight, GameObject trap_crossing, 
                             GameObject trap_box, GameObject portal, GameObject end_portal, GameObject player, 
                             GameObject game_manager, GameObject spawner, GameObject torch, GameObject cam, GameObject pointer, 
-		GameObject chest, GameObject coin, GameObject fireball, GameObject iceball, GameObject health, int[] mazeSize, GameObject laser, GameObject shieldPickUp,
-		GameObject stickyPickUp, GameObject roofGroup, GameObject wallPickUp, List<GameObject> puzzleRooms, GameObject wallTorch, GameObject piercingWeapon,
-		GameObject bombPickUp, GameObject spidernest, GameObject stardustParticles, GameObject moondustParticles, GameObject decoyPickUp)
+		GameObject chest, GameObject fireball, GameObject iceball, int[] mazeSize, GameObject laser,
+		GameObject roofGroup, List<GameObject> puzzleRooms, GameObject wallTorch, GameObject piercingWeapon,
+		GameObject spidernest, GameObject stardustParticles, GameObject moondustParticles)
 
     {
 		this.dungeonParameters = dungeonParameters;
@@ -77,7 +77,6 @@ public class DungeonInstantiate : Object {
         this.cam = cam;
         this.pointer = pointer;
         this.chest = chest;
-		this.chest_pack = new GameObject[] { coin, fireball, iceball, health, laser, shieldPickUp, stickyPickUp, wallPickUp, piercingWeapon, bombPickUp, decoyPickUp};
         this.player = player;
         this.mazeSize = new int[2] { mazeSize[0] - 2, mazeSize[1] - 2 };
         this.spawner = spawner;
@@ -373,12 +372,7 @@ public class DungeonInstantiate : Object {
 	        {
 				GameObject chest_instance = Instantiate(chest, new Vector3(x*6 + Random.Range(1f, 5f), 0, z*6 + Random.Range(1f,5f)),
 					Quaternion.Euler(new Vector3(-90f, Random.Range(0f, 360f), 0f)), Dungeon.transform) as GameObject;
-				int number_of_items = Random.Range(0,4);
-	            for (int j = 0; j <= number_of_items; j++)
-	            {
-					int item_number = Random.Range (0, chest_pack.Length);
-	                chest_instance.GetComponent<Chest>().addItem(chest_pack[item_number]);
-	            }
+				chest_instance.GetComponent<Chest> ().SetUp (dungeonParameters);
 	        }
 		}
     }

@@ -2892,7 +2892,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1065719391
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2930,7 +2930,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 1283881148}
   withManualOffset: 1
-  Offset: {x: 8.03, y: 8.48, z: 0}
+  Offset: {x: 8.02, y: 8.76, z: -0.55}
 --- !u!114 &1065719393
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3094,47 +3094,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rotateSpeed: 5
   walkingSpeed: 5
---- !u!1 &1312962111 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1000012150838060, guid: 8e8fb98cee864437995eb9c0b0548acd,
-    type: 2}
-  m_PrefabInternal: {fileID: 1810587749}
---- !u!114 &1312962112
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1312962111}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 577ca7cb19a3041078417fd2e428ac54, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  amountOfLevels: 40
-  chanceOfRoom: 5
-  spawnRateScaler: 0.2
-  spawnerWarmingUpScaler: 0.3
-  minLevelForMinotaur: 1
-  minLevelForSpider: 3
-  minLevelForGhost: 6
-  minLevelForBomber: 9
-  minLevelForShield: 0
-  minLevelForSticky: 2
-  minLevelForWall: 5
-  minLevelForBomb: 8
-  minLevelForDecoy: 11
-  chanceShield: 0.2
-  chanceSticky: 0.2
-  chanceWall: 0.2
-  chanceBomb: 0.2
-  chanceDecoy: 0.2
-  minLevelIceballWeapon: 2
-  minLevelPiercingWeapon: 7
-  minLevelLaserWeapon: 13
-  chanceIceball: 0.1
-  chancePiercing: 0.1
-  chanceLaser: 0.1
-  dungeonParameters: []
 --- !u!1001 &1345425625
 Prefab:
   m_ObjectHideFlags: 0
