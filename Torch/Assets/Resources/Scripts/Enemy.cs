@@ -30,20 +30,20 @@ public class Enemy : AudioObject, IDamagable {
 	public AudioClip clip_die;
 	public AudioClip clip_battleCry;
 
+	protected bool firstTimeActive = true;
+
 	public int getHealth () {
 		return health;
 	}
 
 	protected virtual void Awake() {
 		navMeshAgent = GetComponent<NavMeshAgent> ();
-		gameManager = GameObject.Find ("Game Manager").GetComponent<GameManager>();
+		gameManager = GameManager.Instance;
 	}
 
-	protected virtual void OnEnable(){
-		dead = false;
-		health = startingHealth;
-		speed = navMeshAgent.speed;
-
+	protected virtual void OnEnable(){			
+		
+		Reset ();
 		if (clip_spawn != null) {
 			ObjectPooler.Instance.PlayAudioSource (clip_spawn, mixerGroup, pitchMin, pitchMax, transform);
 		}
@@ -62,7 +62,6 @@ public class Enemy : AudioObject, IDamagable {
 	//For when the enemy object takes damage
 	public void takeDamage(int damage, bool crit, GameObject source){
 		//Debug.Log (gameObject + " takes " + damage + " damage.");
-
 		if (healthBar == null) {
 			InstantiateHealthBar ();
 		}
@@ -121,6 +120,7 @@ public class Enemy : AudioObject, IDamagable {
 		GetComponent<Collider> ().enabled = false;
 		navMeshAgent.enabled = false;
 		healthBar.SetActive (false);
+		healthBar = null;
 //        Debug.Log(anim);
         if (anim != null)
         {
@@ -138,4 +138,12 @@ public class Enemy : AudioObject, IDamagable {
     {
         anim = animator;
     }
+
+	public void Reset(){
+		GetComponent<Collider> ().enabled = true;
+		navMeshAgent.enabled = true;
+		dead = false;
+		health = startingHealth;
+		speed = navMeshAgent.speed;
+	}
 }

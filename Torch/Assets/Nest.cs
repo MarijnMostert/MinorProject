@@ -121,7 +121,7 @@ public class Nest : AudioObject, IDamagable {
 		//Add a score
         gameManager.updateScore(scoreValue);
         StopAllCoroutines();
-        Destroy(gameObject);
+		gameObject.SetActive (false);
         yield return null;
     }
 

@@ -17,7 +17,7 @@ public class BomberWeapon : Weapon {
 	//Shooting a projectile
 	public void fire(){
 		if ((Time.time - lastFireTime) > cooldown) {
-			BomberProjectile obj = Instantiate (projectile, transform.position, Quaternion.identity) as BomberProjectile;
+			BomberProjectile obj = ObjectPooler.Instance.GetObject (projectile.ObjectPoolerIndex, true, transform.position, Quaternion.identity).GetComponent<BomberProjectile>();
 			obj.GetComponent<Rigidbody>().AddForce(force * transform.forward);
 			lastFireTime = Time.time;
 		}

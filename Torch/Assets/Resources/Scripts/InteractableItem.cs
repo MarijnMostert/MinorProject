@@ -18,7 +18,6 @@ public class InteractableItem : AudioObject {
 		gameManager = GameManager.Instance;
 		canvas.gameObject.SetActive (false);
 		cam = Camera.main; 
-		interactionButton = "InteractionButton";
 	}
 
 	void LateUpdate() {

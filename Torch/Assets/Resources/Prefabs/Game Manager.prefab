@@ -217,6 +217,7 @@ MonoBehaviour:
     powerUpInventory: {fileID: 0}
     movementEnabled: 1
     active: 1
+    playerData: {fileID: 0}
     gameManager: {fileID: 0}
   - spawnPoint: {fileID: 4000013396432608}
     playerColor: {r: 1, g: 0.922, b: 0.022058845, a: 1}
@@ -229,6 +230,7 @@ MonoBehaviour:
     powerUpInventory: {fileID: 0}
     movementEnabled: 1
     active: 0
+    playerData: {fileID: 0}
     gameManager: {fileID: 0}
   playerPrefab: {fileID: 1000010005094228, guid: 96b70f8172a034350bce5e9b0ef6db4d,
     type: 2}
@@ -273,6 +275,9 @@ MonoBehaviour:
   - {fileID: -2071217773, guid: 9100c33a71d3bc34297f459ae70777f9, type: 3}
   width: 20
   height: 20
+  homeScreenEnvironmentPrefab: {fileID: 1000012718415468, guid: 4ef94cea375ae45ff83b3370aa956b06,
+    type: 2}
+  homeScreenEnvironment: {fileID: 0}
   startingScreen: {fileID: 0}
   loadingScreenCanvas: {fileID: 1000013625541172, guid: 0ff01cb270ef14af5b80d2ec70ecc88c,
     type: 2}

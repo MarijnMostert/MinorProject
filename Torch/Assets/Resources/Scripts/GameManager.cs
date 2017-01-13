@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour {
 	public static GameManager Instance;
 	public PlayerManager[] playerManagers;
 	public GameObject playerPrefab;
+	public Vector3 RespawnPosition;
 
 	public GameObject homeScreenPlayer;
 	public HomeScreenMovement homeScreenMovement;
@@ -70,6 +71,8 @@ public class GameManager : MonoBehaviour {
 
 
 	//public GameObject homeScreenCanvas;
+	public GameObject homeScreenEnvironmentPrefab;
+	public GameObject homeScreenEnvironment;
 	public GameObject startingScreen;
 	public GameObject loadingScreenCanvas;
 	public DeathCanvas deathCanvas;
@@ -201,12 +204,12 @@ public class GameManager : MonoBehaviour {
 	public void StartGame(){
         if (!gameStarted) {
 			Time.timeScale = 1f;
-			StartTime = Time.time;
 		//	dungeonLevel = saver.Read ();
 			Parameters (dungeonLevel);
 			endOfRoundCanvas.SetActive (false);
 			loadingScreenCanvas.transform.Find ("LevelText").GetComponent<Text> ().text = "Dungeon level: " + (dungeonLevel).ToString();
             loadingScreenCanvas.SetActive(true);
+			Destroy (homeScreenEnvironment);
 			homeScreen.SetActive (false);
             StartCoroutine(CreateLevel(1));
             gameStarted = true;
@@ -292,7 +295,7 @@ public class GameManager : MonoBehaviour {
 			playerManagers [1].playerInstance.transform.position = startpoint + new Vector3 (-2f, 0f, -2f);
 			torch.isDamagable = false;
 		}
-
+		RespawnPosition = startpoint;
 		torch.transform.position = startpoint + new Vector3 (6, .5f, 0);
 		Pet.transform.position = startpoint;
 
@@ -318,6 +321,8 @@ public class GameManager : MonoBehaviour {
 		loadingScreenCanvas.SetActive (false);
 
 		Instantiate (minimap);
+
+		StartTime = Time.time;
 
 		yield return null;
 	}
@@ -463,6 +468,7 @@ public class GameManager : MonoBehaviour {
 		foreach (PlayerManager playermanager in playerManagers){
 			Destroy (playermanager.playerInstance);
 		}
+		homeScreenEnvironment = Instantiate (homeScreenEnvironmentPrefab, homeScreen.transform) as GameObject;
 		homeScreen.SetActive (true);
 		homeScreenCam.SetActive (true);
 		audioSourceMusic.clip = audioHomeScreen;

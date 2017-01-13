@@ -2,14 +2,16 @@
 using System.Collections;
 
 public class PlayerDamagable : MonoBehaviour, IDamagable {
-	public float positionIsSavedEveryXSeconds;
-
+	public GameManager gameManager;
 	private Vector3 lastKnownPosition;
 
+	void Start(){
+		gameManager = GameManager.Instance;
+	}
 	void Update(){
 		
 		if (transform.position.y < -12) {
-			Die ();
+			Respawn ();
 		}
 	}
 
@@ -22,12 +24,18 @@ public class PlayerDamagable : MonoBehaviour, IDamagable {
 	}
 	public void saveRespawnPosition(){
 		lastKnownPosition = transform.position;
+		gameManager.RespawnPosition = lastKnownPosition;
 		Debug.Log ("lastKnownPosition: " + lastKnownPosition);
+		GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+		foreach (GameObject player in players) {
+			player.transform.position = gameManager.RespawnPosition;
+		}
 	}
 	public void Die(){
-		transform.position = lastKnownPosition;
 	}
-		
+	public void Respawn(){
+		transform.position = gameManager.RespawnPosition;
+	}	
 	bool hasTorch(){
 		Transform[] transforms = GetComponentsInChildren<Transform>();
 		foreach(Transform t in transforms)

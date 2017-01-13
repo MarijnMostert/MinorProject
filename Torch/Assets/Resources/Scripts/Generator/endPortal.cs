@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class endPortal : InteractableItem {
     //AsyncOperation async;
 	GameObject endOfRoundCanvas;
-	public bool activated = false;
+	public bool endPortalActivated = false;
 	public Animator anim;
 
     void Start () {
@@ -15,14 +15,14 @@ public class endPortal : InteractableItem {
 			gameManager = GameManager.Instance;
 		}
 		if (gameManager.collectedKeys == gameManager.requiredCollectedKeys) {
-			activated = true;
+			endPortalActivated = true;
 		}
 		UpdateKeyText ();
     }
 
 
 	void OnTriggerEnter(Collider other){
-		if(!activated){
+		if(!endPortalActivated){
 			if (anim == null) {
 				anim = gameManager.UI.transform.Find ("Keys Text").GetComponent<Animator> ();
 			}
@@ -34,7 +34,7 @@ public class endPortal : InteractableItem {
 
 	public override void action (GameObject triggerObject)
 	{
-		if (!activated) {
+		if (!endPortalActivated) {
 			anim.SetTrigger ("Flash");
 		} else {
 			onWin ();

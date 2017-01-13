@@ -22,12 +22,17 @@ public class EnemyRanged : Enemy {
 
 	// Use this for initialization
 	new void OnEnable () {
-		base.OnEnable ();
-		weapon = weaponController.currentWeapon as RangedWeapon;
-        anim = GetComponent<Animator>();
-        setAnim(anim);
-		stoppingDistance = navMeshAgent.stoppingDistance;
-		StartCoroutine (UpdatePath ());
+		if (!firstTimeActive) {
+			base.OnEnable ();
+			weapon = weaponController.currentWeapon as RangedWeapon;
+			anim = GetComponent<Animator> ();
+			setAnim (anim);
+			stoppingDistance = navMeshAgent.stoppingDistance;
+			StartCoroutine (UpdatePath ());
+		} else {
+			navMeshAgent.enabled = false;
+			firstTimeActive = false;
+		}
 	}
 	
 	void Update () {
