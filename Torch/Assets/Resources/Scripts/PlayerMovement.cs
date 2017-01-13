@@ -41,6 +41,7 @@ public class PlayerMovement : MonoBehaviour {
 	private Vector3 prevPos = new Vector3 (0, 0, 0);
 
     Animator anim1;
+	private GameManager gameManager;
 
 	public PlayerWeaponController playerWeaponController;
 
@@ -54,6 +55,7 @@ public class PlayerMovement : MonoBehaviour {
 		keyboardButtons = GameObject.FindGameObjectsWithTag("UI Help Key");
 		*/
         anim1 = GetComponentInChildren<Animator>();
+		gameManager = GameManager.Instance;
 	}
 
 	/*
@@ -130,7 +132,7 @@ public class PlayerMovement : MonoBehaviour {
 		if (Input.GetButtonDown("ToggleInput" + playerNumber)) {
 			ToggleInput ();
 		}
-		if (Input.GetKeyDown (KeyCode.G)) {
+		if (Input.GetKeyDown (KeyCode.G) && gameManager.getCheat()) {
 			GodMode ();
 		}
 		if (Input.GetKeyDown(KeyCode.LeftShift)) {
