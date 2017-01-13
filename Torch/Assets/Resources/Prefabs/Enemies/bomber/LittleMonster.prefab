@@ -248,7 +248,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010060495606}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.41448593, y: -8.445097, z: -5.746854}
+  m_LocalPosition: {x: 237.53682, y: -2.9957676, z: 151.67}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -443,7 +443,6 @@ MonoBehaviour:
     type: 2}
   currentWeapon: {fileID: 0}
   weaponHolder: {fileID: 4000011083287538}
-  audioSource: {fileID: 82000012220841494}
 --- !u!114 &114000012585250292
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -455,14 +454,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f674cd6c5f1624065993b86e8888e7fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mixerGroup: {fileID: 243000011220735294, guid: 33975d0ba3fac476cb4987efebc83a81,
+    type: 2}
+  pitchMin: 0.8
+  pitchMax: 1.1
+  ObjectPoolIndex: 10
   startingHealth: 100
   attackCooldown: 5
   attackDamage: 2
   refreshTime: 0.1
   attackRange: 10
   scoreValue: 15
-  healthBarPrefab: {fileID: 1000011103493978, guid: 0ee5528024a8b489ab0eb87d79456ab4,
-    type: 2}
   speed: 0
   health: 0
   navMeshAgent: {fileID: 0}

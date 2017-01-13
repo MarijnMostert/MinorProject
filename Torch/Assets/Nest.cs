@@ -4,13 +4,12 @@ using UnityEngine.Audio;
 using System.Collections;
 
 public class Nest : AudioObject, IDamagable {
-    public GameObject enemy;
+    public Enemy enemy;
     Spawner spawner;
     bool player;
 
     public int startingHealth;
     public int scoreValue = 100;
-    public GameObject healthBarPrefab;
     [SerializeField]
     protected int health;
     protected GameObject healthBar;
@@ -30,8 +29,8 @@ public class Nest : AudioObject, IDamagable {
     void Start () {
         health = startingHealth;
         player = false;
-        spawner = GameObject.FindGameObjectWithTag("Spawner").GetComponent<Spawner>();
-        gameManager = spawner.gameManager;
+		gameManager = GameManager.Instance;
+		spawner = gameManager.spawner;
 	}
 
     //For when the enemy object takes damage
@@ -80,7 +79,7 @@ public class Nest : AudioObject, IDamagable {
     void InstantiateHealthBar()
     {
         Vector3 healthBarPosition = transform.position + new Vector3(0, 2, 0);
-        healthBar = Instantiate(healthBarPrefab, healthBarPosition, transform.rotation, transform) as GameObject;
+		healthBar = ObjectPooler.Instance.GetObject (14, true, healthBarPosition, transform);
         healthBarImage = healthBar.transform.FindChild("HealthBar").GetComponent<Image>();
         healthBar.transform.localScale.Scale(new Vector3(3, 3, 3));
     }
@@ -118,8 +117,8 @@ public class Nest : AudioObject, IDamagable {
     {
         //Debug.Log(gameObject + " died.");
         dead = true;
-        Destroy(healthBar);
-        //Add a score
+		healthBar.SetActive (false);
+		//Add a score
         gameManager.updateScore(scoreValue);
         StopAllCoroutines();
         Destroy(gameObject);
@@ -135,7 +134,8 @@ public class Nest : AudioObject, IDamagable {
             {
                 for (int i = 0; i < spawner.enemiesPerWave/2; i++)
                 {
-                    Instantiate(enemy, transform.position, Quaternion.identity);
+					ObjectPooler.Instance.GetObject (enemy.ObjectPoolIndex, true, transform.position, 
+						Quaternion.Euler (new Vector3 (0f, Random.Range (0, 360), 0f)));
                     yield return new WaitForSecondsRealtime(spawner.timeBetweenEnemySpawn/50);
                 }
             }

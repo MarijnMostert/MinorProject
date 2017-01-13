@@ -25,6 +25,8 @@ TagManager:
   - PuzzleBlocks
   - Decoy
   - Target
+  - Minimap
+  - NoHomeCamera
   layers:
   - Default
   - TransparentFX
@@ -46,8 +48,8 @@ TagManager:
   - PuzzleRoomCollider
   - TriggerFloor
   - Bold
-  - 
-  - 
+  - NotCollideWithProjectile
+  - NoHomeCamera
   - 
   - 
   - 

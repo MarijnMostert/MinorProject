@@ -5,6 +5,7 @@ using System.Collections;
 
 public class Enemy : AudioObject, IDamagable {
 
+	public int ObjectPoolIndex;
 	public int startingHealth;
 	public NavMesh navMesh;
 	public float attackCooldown;
@@ -12,7 +13,6 @@ public class Enemy : AudioObject, IDamagable {
 	public float refreshTime = 0.3f;
 	public float attackRange = 1f;
 	public int scoreValue = 10;
-	public GameObject healthBarPrefab;
 	[HideInInspector] public float speed;
 
 	[SerializeField] protected int health;
@@ -37,14 +37,12 @@ public class Enemy : AudioObject, IDamagable {
 	protected virtual void Awake() {
 		navMeshAgent = GetComponent<NavMeshAgent> ();
 		gameManager = GameObject.Find ("Game Manager").GetComponent<GameManager>();
-
-		dead = false;
 	}
 
-	protected virtual void Start () {
+	protected virtual void OnEnable(){
+		dead = false;
 		health = startingHealth;
-		speed = gameObject.GetComponent<NavMeshAgent> ().speed;
-        dead = false;
+		speed = navMeshAgent.speed;
 
 		if (clip_spawn != null) {
 			ObjectPooler.Instance.PlayAudioSource (clip_spawn, mixerGroup, pitchMin, pitchMax, transform);
@@ -94,6 +92,7 @@ public class Enemy : AudioObject, IDamagable {
 			{
 //				Debug.Log ("animation time");
 				anim.SetTrigger ("Die");
+				Debug.Log (anim.GetCurrentAnimatorClipInfo (0).Length);
 			}
 //			Debug.Log ("dead");
 			Die ();
@@ -102,7 +101,7 @@ public class Enemy : AudioObject, IDamagable {
 
 	void InstantiateHealthBar (){
 		Vector3 healthBarPosition = transform.position + new Vector3 (0, 2, 0);
-		healthBar = Instantiate (healthBarPrefab, healthBarPosition, transform.rotation, transform) as GameObject;
+		healthBar = ObjectPooler.Instance.GetObject (14, true, healthBarPosition, transform.rotation, transform);
 		healthBarImage = healthBar.transform.FindChild ("HealthBar").GetComponent<Image> ();
 		healthBar.transform.localScale.Scale(new Vector3(3, 3, 3));
 	}
@@ -121,16 +120,16 @@ public class Enemy : AudioObject, IDamagable {
         dead = true;
 		GetComponent<Collider> ().enabled = false;
 		navMeshAgent.enabled = false;
-		Destroy (healthBar);
+		healthBar.SetActive (false);
 //        Debug.Log(anim);
         if (anim != null)
         {
-            yield return new WaitForSeconds(1.25f);//.56f
+			yield return new WaitForSeconds(anim.GetCurrentAnimatorClipInfo(0).Length - 0.02f);//.56f
         }
         //Add a score
         gameManager.updateScore(scoreValue);
         StopAllCoroutines();
-        Destroy(gameObject);
+		gameObject.SetActive (false);
         yield return null;
 
 	}

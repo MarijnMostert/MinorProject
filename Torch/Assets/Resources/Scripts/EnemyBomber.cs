@@ -30,8 +30,8 @@ public class EnemyBomber : Enemy {
 	}
 
 	// Use this for initialization
-	new void Start () {
-		base.Start ();
+	new void OnEnable () {
+		base.OnEnable ();
 		weaponHolder = transform.FindChild ("Weapon Holder").gameObject;
 		weapon = weaponController.currentWeapon as BomberWeapon;
 		angle = weaponHolder.transform.eulerAngles.x;
@@ -87,8 +87,10 @@ public class EnemyBomber : Enemy {
 			targetPosition = new Vector3 (gameManager.enemyTarget.transform.position.x, 0, gameManager.enemyTarget.transform.position.z);
 
 			//Set the target position for the Nav Mesh Agent
-			navMeshAgent.SetDestination (targetPosition);
-			transform.LookAt (new Vector3(targetPosition.x, transform.position.y, targetPosition.z));
+			if (navMeshAgent.enabled) {
+				navMeshAgent.SetDestination (targetPosition);
+				transform.LookAt (new Vector3 (targetPosition.x, transform.position.y, targetPosition.z));
+			}
 
 			//Make sure that the Nav Mesh Agent refreshes not every frame (to spare costs)
 			yield return new WaitForSeconds (refreshTime);

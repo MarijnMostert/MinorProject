@@ -29,7 +29,6 @@ public class Boss : MonoBehaviour, IDamagable {
 	public int startingHealth;
 	public int health;
 	public int scoreValue = 1000;
-	public GameObject healthBarPrefab;
 	protected GameObject healthBar;
 	public bool dead;
 
@@ -244,7 +243,7 @@ public class Boss : MonoBehaviour, IDamagable {
 		dead = true;
 		gameManager.updateScore (scoreValue);
 		gameObject.GetComponentInParent<BossFight> ().ActivateLever ();
-		Destroy (healthBar.transform.parent.gameObject);
+		healthBar.SetActive (false);
 		Destroy (gameObject);
 	}
 
@@ -263,6 +262,6 @@ public class Boss : MonoBehaviour, IDamagable {
 
 	void InstantiateHealthBar (){
 		Vector3 healthBarPosition = transform.position + new Vector3 (0, 2, 0);
-		healthBar = Instantiate (healthBarPrefab, healthBarPosition, transform.rotation, transform) as GameObject;
+		ObjectPooler.Instance.GetObject (14, true, healthBarPosition, transform);
 	}
 }

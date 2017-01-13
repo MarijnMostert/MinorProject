@@ -57,13 +57,21 @@ public class ObjectPooler : MonoBehaviour {
 	/// <para>5 = fireBall particles OnHit</para>
 	/// <para>6 = iceBall particles OnHit</para>
 	/// <para>7 = Piercing particles OnHit</para>
-	/// <para>8 = Dark particles OnHit</para>
+	/// <para>8 = Laser particles OnHit</para>
+	/// <para>9 = Dark particles OnHit</para>
+	/// <para>10 = LittleMonster</para>
+	/// <para>11 = Spider</para>
+	/// <para>12 = Minotaur</para>
+	/// <para>13 = Ghost</para>
+	/// <para>14 = HealthBar</para>
 	/// </summary>
 	/// <returns>The object</returns>
 	public GameObject GetObject(int type, bool setActive){
 		for (int i = 0; i < pooledObjects [type].objects.Count; i++) {
 			GameObject obj = pooledObjects [type].objects [i];
-			if (obj != null && !obj.activeInHierarchy) {
+			if (obj == null) {
+				pooledObjects[type].objects.Remove (obj);
+			} else if (!obj.activeInHierarchy) {
 				if (setActive) {
 					obj.SetActive (true);
 				}
@@ -94,6 +102,18 @@ public class ObjectPooler : MonoBehaviour {
 	public GameObject GetObject(int type, bool setActive, Vector3 position, Quaternion rotation){
 		GameObject obj = GetObject (type, setActive, position);
 		obj.transform.rotation = rotation;
+		return obj;
+	}
+
+	public GameObject GetObject(int type, bool setActive, Vector3 position, Quaternion rotation, Transform parent){
+		GameObject obj = GetObject (type, setActive, position, rotation);
+		obj.transform.SetParent(parent);
+		return obj;
+	}
+
+	public GameObject GetObject(int type, bool setActive, Vector3 position, Transform parent){
+		GameObject obj = GetObject (type, setActive, position);
+		obj.transform.SetParent (parent);
 		return obj;
 	}
 

@@ -3,12 +3,15 @@ using System.Collections;
 
 public class HomeScreenMovement : MonoBehaviour {
 
-
+	public LayerMask layerMask;
     GameObject target;
     public float rotateSpeed = 5f;
 	public float walkingSpeed = .1f;
     Vector3 offset;
     float min_height;
+	Vector3 targetlocation;
+	float idealdistance;
+	Vector3 originalforward;
 
 	bool invertY = false;
 
@@ -28,6 +31,8 @@ public class HomeScreenMovement : MonoBehaviour {
     void Start()
     {
         offset = target.transform.position - transform.position;
+		idealdistance = offset.magnitude;
+		originalforward = transform.forward;
     }
 
 	// Update is called once per frame
@@ -71,7 +76,14 @@ public class HomeScreenMovement : MonoBehaviour {
 		}
         Quaternion rotation = Quaternion.Euler(0, desiredAngle, 0);
         min_height += vertical;
-        transform.position = target.transform.position - (rotation * offset) + new Vector3(0,min_height,0);
+
+		if (min_height < -1) {
+			min_height = -1;
+		} else if (min_height > 2) {
+			min_height = 2;
+		}
+
+		targetlocation = target.transform.position - (rotation * offset) + new Vector3(0,min_height,0);
     }    
 
 	private void Move(){
@@ -109,7 +121,22 @@ public class HomeScreenMovement : MonoBehaviour {
 			Debug.Log ("Y-axis inverted");
 		}
 	}
-    void LateUpdate(){
-		transform.LookAt(target.transform);
+
+	void LateUpdate() {
+		transform.position = Vector3.MoveTowards (targetlocation, transform.position, 0.8f);
+		transform.LookAt (target.transform, Vector3.up * 0.2f);
+
+		float raylength = (transform.position - target.transform.position).magnitude;
+		RaycastHit hit;
+
+		if (Physics.Linecast (target.transform.position, transform.position - transform.forward * 2, out hit, layerMask)) {
+			Debug.Log ("Hit " + hit.collider.gameObject.name + "  " + (raylength - hit.distance));
+			transform.position += transform.forward * 0.5f;
+		}
+	
+		else if (raylength < idealdistance) {
+			transform.position -= transform.forward * 0.25f;
+		}
 	}
+
 }
