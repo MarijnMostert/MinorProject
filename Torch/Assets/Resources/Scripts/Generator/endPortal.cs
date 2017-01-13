@@ -62,6 +62,7 @@ public class endPortal : InteractableItem {
 		gameManager.totalScore += gameManager.score;
 		gameManager.endOfRoundCanvas.transform.Find ("Score").GetComponent<Text> ().text = gameManager.score.ToString();
 		gameManager.endOfRoundCanvas.transform.Find ("TotalScore").GetComponent<Text> ().text = gameManager.totalScore.ToString();
+		gameManager.endOfRoundCanvas.GetComponent<EndOfRoundCanvas> ().Fill ();
 		gameManager.endOfRoundCanvas.SetActive (true);
 
 		/*

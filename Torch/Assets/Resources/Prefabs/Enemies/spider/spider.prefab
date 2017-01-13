@@ -1099,14 +1099,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab2c348252b35437180c959f63919eab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mixerGroup: {fileID: 0}
+  pitchMin: 0.8
+  pitchMax: 1.1
+  ObjectPoolIndex: 11
   startingHealth: 50
   attackCooldown: 1
   attackDamage: 10
   refreshTime: 0.1
   attackRange: 2
   scoreValue: 10
-  healthBarPrefab: {fileID: 1000011103493978, guid: 0ee5528024a8b489ab0eb87d79456ab4,
-    type: 2}
   speed: 0
   health: 0
   navMeshAgent: {fileID: 0}
@@ -1117,9 +1119,6 @@ MonoBehaviour:
   clip_spawn: {fileID: 0}
   clip_die: {fileID: 0}
   clip_battleCry: {fileID: 0}
-  group: {fileID: 243000011220735294, guid: 33975d0ba3fac476cb4987efebc83a81, type: 2}
-  pitchMin: 0.8
-  pitchMax: 1.1
   attacknow: 0
   speedy: 0
 --- !u!137 &137000011260341548

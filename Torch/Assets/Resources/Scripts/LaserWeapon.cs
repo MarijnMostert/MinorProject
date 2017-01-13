@@ -40,6 +40,7 @@ public class LaserWeapon : Weapon {
 	//Shooting a laser
 	public override void Fire(){
 		if ((Time.time - lastFireTime) > cooldown) {
+			base.Fire ();
 			lineRenderer.enabled = true;
 			light.enabled = true;
 			Ray ray = new Ray(transform.position, transform.forward);

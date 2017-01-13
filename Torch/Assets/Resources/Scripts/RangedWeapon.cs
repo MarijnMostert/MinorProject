@@ -26,6 +26,7 @@ public class RangedWeapon : Weapon {
 	//Shooting a projectile
 	public override void Fire(){
 		if ((Time.time - lastFireTime) > cooldown) {
+			base.Fire ();
 			Projectile newProjectile = ObjectPooler.Instance.GetObject (projectile.ObjectPoolerIndex, true, transform.position, transform.rotation).GetComponent<Projectile>();
 			newProjectile.setSpeed (projectileSpeed);
 			lastFireTime = Time.time;
