@@ -135,31 +135,25 @@ public class Chest : InteractableItem {
 			contents.Add (temp [1]);
 		}
 
-		if (dungeonParameters.powerUps.shield.enabled) {
-			if (Random.value < dungeonParameters.powerUps.shield.spawnChance) {
-				contents.Add (temp [2]);
-			}
-		}
-		if (dungeonParameters.powerUps.sticky.enabled) {
-			if (Random.value < dungeonParameters.powerUps.sticky.spawnChance) {
-				contents.Add (temp [3]);
-			}
-		}
-		if (dungeonParameters.powerUps.wall.enabled) {
-			if (Random.value < dungeonParameters.powerUps.wall.spawnChance) {
-				contents.Add (temp [4]);
-			}
-		}
-		if (dungeonParameters.powerUps.bomb.enabled) {
-			if (Random.value < dungeonParameters.powerUps.bomb.spawnChance) {
-				contents.Add (temp [5]);
-			}
-		}
-		if (dungeonParameters.powerUps.decoy.enabled) {
-			if (Random.value < dungeonParameters.powerUps.decoy.spawnChance) {
-				contents.Add (temp [6]);
-			}
-		}
+		//Powerups
+		if (dungeonParameters.powerUps.shield.enabled && Random.value < dungeonParameters.powerUps.shield.spawnChance)
+			contents.Add (temp [2]);
+		if (dungeonParameters.powerUps.sticky.enabled && Random.value < dungeonParameters.powerUps.sticky.spawnChance)
+			contents.Add (temp [3]);
+		if (dungeonParameters.powerUps.wall.enabled && Random.value < dungeonParameters.powerUps.wall.spawnChance)
+			contents.Add (temp [4]);
+		if (dungeonParameters.powerUps.bomb.enabled && Random.value < dungeonParameters.powerUps.bomb.spawnChance)
+			contents.Add (temp [5]);
+		if (dungeonParameters.powerUps.decoy.enabled && Random.value < dungeonParameters.powerUps.decoy.spawnChance)
+			contents.Add (temp [6]);
+
+		//Weapons
+		if (dungeonParameters.powerUps.iceballWeapon.enabled && Random.value < dungeonParameters.powerUps.iceballWeapon.spawnChance)
+			contents.Add (temp [7]);
+		if (dungeonParameters.powerUps.piercingWeapon.enabled && Random.value < dungeonParameters.powerUps.piercingWeapon.spawnChance)
+			contents.Add (temp [8]);
+		if (dungeonParameters.powerUps.laserWeapon.enabled && Random.value < dungeonParameters.powerUps.laserWeapon.spawnChance)
+			contents.Add (temp [9]);
 	}
 
 	public void InstantiateContent(){
