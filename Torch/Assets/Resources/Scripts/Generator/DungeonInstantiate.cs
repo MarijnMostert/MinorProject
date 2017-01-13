@@ -31,6 +31,9 @@ public class DungeonInstantiate : Object {
 	GameObject FloorsParent;
 	GameObject RoofsParent;
     GameObject Spidernests;
+	GameObject PickupsParent;
+	GameObject ChestsParent;
+	GameObject WallTorchParent;
 	GameObject BeginningRoom;
 	GameObject EndingRoom;
 
@@ -93,6 +96,9 @@ public class DungeonInstantiate : Object {
 		FloorsParent = new GameObject("Floors");
 		RoofsParent = new GameObject("Roofs");
         Spidernests = new GameObject("Spidernests");
+		PickupsParent = new GameObject ("PickupsParent");
+		ChestsParent = new GameObject ("ChestsParent");
+		WallTorchParent = new GameObject ("WallTorchParent");
 
 		RoofPrefab = Resources.Load ("Prefabs/Blocks/RoofPrefab", typeof(GameObject)) as GameObject;
 		WallPrefab = Resources.Load ("Prefabs/Blocks/WallPrefab", typeof(GameObject)) as GameObject;
@@ -143,6 +149,10 @@ public class DungeonInstantiate : Object {
 		WallsParent.transform.SetParent(Dungeon.transform);
 		FloorsParent.transform.SetParent(Dungeon.transform);
 		RoofsParent.transform.SetParent(Dungeon.transform);
+		Spidernests.transform.SetParent (Dungeon.transform);
+		PickupsParent.transform.SetParent (Dungeon.transform);
+		ChestsParent.transform.SetParent (Dungeon.transform);
+		WallTorchParent.transform.SetParent (Dungeon.transform);
 
         //import starters pack
 		//InstantiateStarterPack(starters_pack, new Vector3(0, 0, 0),Quaternion.identity);
@@ -371,8 +381,8 @@ public class DungeonInstantiate : Object {
 	        if (random < chance)
 	        {
 				GameObject chest_instance = Instantiate(chest, new Vector3(x*6 + Random.Range(1f, 5f), 0, z*6 + Random.Range(1f,5f)),
-					Quaternion.Euler(new Vector3(-90f, Random.Range(0f, 360f), 0f)), Dungeon.transform) as GameObject;
-				chest_instance.GetComponent<Chest> ().SetUp (dungeonParameters);
+					Quaternion.Euler(new Vector3(-90f, Random.Range(0f, 360f), 0f)), ChestsParent.transform) as GameObject;
+				chest_instance.GetComponent<Chest> ().SetUp (dungeonParameters, PickupsParent.transform);
 	        }
 		}
     }
@@ -418,14 +428,14 @@ public class DungeonInstantiate : Object {
 	{
 		int[] surroundings = getSurrounding2 ((int)x, (int)z);
 		if (surroundings [0] == 0 && surroundings [1] == 1 && surroundings [2] == 0 && surroundings [3] == 1) {
-			GameObject walltorch = Instantiate (wallTorch, new Vector3 (x * 6f + 3f, 0, z * 6f + Random.Range(2f, 4f)), Quaternion.identity, Dungeon.transform) as GameObject;
+			GameObject walltorch = Instantiate (wallTorch, new Vector3 (x * 6f + 3f, 0, z * 6f + Random.Range(2f, 4f)), Quaternion.identity, WallTorchParent.transform) as GameObject;
 			if (Random.value > .5) {
 				walltorch.transform.eulerAngles = new Vector3 (0f, 90f, 0f);
 			} else {
 				walltorch.transform.eulerAngles = new Vector3 (0f, 270f, 0f);
 			}
 		} else if (surroundings [0] == 1 && surroundings [1] == 0 && surroundings [2] == 1 && surroundings [3] == 0) {
-			GameObject walltorch = Instantiate (wallTorch, new Vector3 (x * 6f + Random.Range(2f, 4f), 0, z * 6f + 3f), Quaternion.identity, Dungeon.transform) as GameObject;
+			GameObject walltorch = Instantiate (wallTorch, new Vector3 (x * 6f + Random.Range(2f, 4f), 0, z * 6f + 3f), Quaternion.identity, WallTorchParent.transform) as GameObject;
 			if (Random.value > .5) {
 				walltorch.transform.eulerAngles = new Vector3 (0f, 180f, 0f);
 			}

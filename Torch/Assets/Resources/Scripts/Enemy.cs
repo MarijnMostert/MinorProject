@@ -91,9 +91,14 @@ public class Enemy : AudioObject, IDamagable {
 			{
 //				Debug.Log ("animation time");
 				anim.SetTrigger ("Die");
-				Debug.Log (anim.GetCurrentAnimatorClipInfo (0).Length);
+//				Debug.Log (anim.GetCurrentAnimatorClipInfo (0).Length);
 			}
 //			Debug.Log ("dead");
+
+			PlayerData playerData = source.GetComponent<Projectile> ().PlayerData;
+			if (playerData != null) {
+				playerData.IncrementEnemiesKilled ();
+			}
 			Die ();
 		}
 	}

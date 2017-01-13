@@ -163,8 +163,15 @@ public class Chest : InteractableItem {
 		}
 	}
 
-	public void SetUp(DungeonData.DungeonParameters dungeonParameters){
+	public void InstantiateContent(Transform parent){
+		for (int i = 0; i < contents.Count; i++) {
+			contents [i] = Instantiate (contents [i], transform.position, Quaternion.identity, parent) as GameObject;
+			contents [i].SetActive (false);
+		}
+	}
+
+	public void SetUp(DungeonData.DungeonParameters dungeonParameters, Transform parent){
 		FillChest (dungeonParameters);
-		InstantiateContent ();
+		InstantiateContent (parent);
 	}
 }

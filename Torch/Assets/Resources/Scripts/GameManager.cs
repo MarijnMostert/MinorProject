@@ -667,6 +667,9 @@ public class GameManager : MonoBehaviour {
 		}
 
 		foreach (GameObject GO in highQualityItems) {
+			if (GO == null) {
+				highQualityItems.Remove (GO);
+			}
 			GO.SetActive (data.highQuality);
 		}
 	}

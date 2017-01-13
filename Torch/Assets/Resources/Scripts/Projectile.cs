@@ -120,7 +120,7 @@ public class Projectile : AudioObject {
 	}
 
 	void DestroyProjectile(){
-		if (enemyHit) {
+		if (enemyHit && PlayerData != null) {
 			PlayerData.IncrementShotsLanded ();
 		}
 		ToggleComponents (false);
