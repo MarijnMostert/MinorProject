@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000013110942930}
   - 64: {fileID: 64000011234751252}
+  - 208: {fileID: 208000010019838940}
   m_Layer: 20
   m_Name: door.R
   m_TagString: Untagged
@@ -51,6 +52,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000014135898286}
   - 64: {fileID: 64000010251794582}
+  - 208: {fileID: 208000010105796036}
   m_Layer: 20
   m_Name: door.L
   m_TagString: Untagged
@@ -395,6 +397,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doorOpen: 0
   locked: 0
+--- !u!208 &208000010019838940
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010945432462}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
+--- !u!208 &208000010105796036
+NavMeshObstacle:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012781992502}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!208 &208000013465388900
 NavMeshObstacle:
   m_ObjectHideFlags: 1

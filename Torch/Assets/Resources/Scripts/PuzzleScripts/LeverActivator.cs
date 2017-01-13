@@ -32,10 +32,10 @@ public class LeverActivator : MonoBehaviour {
 
 	void Update () {
 		if (is_on) {
-			handle.transform.rotation = Quaternion.RotateTowards (handle.transform.rotation, Quaternion.Euler (0, 0, -60), 1.5f);
+			handle.transform.rotation = Quaternion.RotateTowards (handle.transform.rotation, Quaternion.Euler (0, 0, -30), 1.5f);
 		}
 		else {
-			handle.transform.rotation = Quaternion.RotateTowards (handle.transform.rotation, Quaternion.Euler (0, 0, 60), 1.5f);
+			handle.transform.rotation = Quaternion.RotateTowards (handle.transform.rotation, Quaternion.Euler (0, 0, 30), 1.5f);
 		}
 	}
 		
