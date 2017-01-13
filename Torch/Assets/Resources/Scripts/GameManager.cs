@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour {
 	public static GameManager Instance;
 	public PlayerManager[] playerManagers;
 	public GameObject playerPrefab;
+	public Vector3 RespawnPosition;
 
 	public GameObject homeScreenPlayer;
 	public HomeScreenMovement homeScreenMovement;
@@ -294,7 +295,7 @@ public class GameManager : MonoBehaviour {
 			playerManagers [1].playerInstance.transform.position = startpoint + new Vector3 (-2f, 0f, -2f);
 			torch.isDamagable = false;
 		}
-
+		RespawnPosition = startpoint;
 		torch.transform.position = startpoint + new Vector3 (6, .5f, 0);
 		Pet.transform.position = startpoint;
 
@@ -432,6 +433,7 @@ public class GameManager : MonoBehaviour {
 		foreach (GameObject projectile in GameObject.FindGameObjectsWithTag("EnemyProjectile")) {
 			Destroy (projectile);
 		}
+		Destroy (GameObject.FindGameObjectWithTag ("Minimap"));
 
 		data.coins += score;
 		score = 0;

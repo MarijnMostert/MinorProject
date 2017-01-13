@@ -36,7 +36,7 @@ public class PowerUpInventory : MonoBehaviour {
 	void Update () {
 		if (Input.GetButtonDown(powerUpButton1)||(Input.GetAxis (powerUpButton1)<-0.1f))
 			UsePowerUp (0);
-		if (Input.GetButtonDown(powerUpButton2)||(Input.GetAxis (powerUpButton2)<-0.1f))
+		if (Input.GetButtonDown(powerUpButton2)||(Input.GetAxis (powerUpButton2)>0.1f))
 			UsePowerUp (1);
 		if (Input.GetButtonDown(powerUpButton3)||(Input.GetAxis (powerUpButton3)<-0.1f))
 			UsePowerUp (2);

@@ -2,8 +2,7 @@
 using System.Collections;
 
 public class PlayerDamagable : MonoBehaviour, IDamagable {
-	public float positionIsSavedEveryXSeconds;
-
+	public GameManager gameManager;
 	private Vector3 lastKnownPosition;
 
 	void Update(){
@@ -22,10 +21,15 @@ public class PlayerDamagable : MonoBehaviour, IDamagable {
 	}
 	public void saveRespawnPosition(){
 		lastKnownPosition = transform.position;
+		gameManager.RespawnPosition = lastKnownPosition;
 		Debug.Log ("lastKnownPosition: " + lastKnownPosition);
+		GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+		foreach (GameObject player in players) {
+			player.transform.position = gameManager.RespawnPosition;
+		}
 	}
 	public void Die(){
-		transform.position = lastKnownPosition;
+		transform.position = gameManager.RespawnPosition;
 	}
 		
 	bool hasTorch(){
