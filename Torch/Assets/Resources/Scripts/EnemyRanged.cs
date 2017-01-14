@@ -30,7 +30,7 @@ public class EnemyRanged : Enemy {
 			stoppingDistance = navMeshAgent.stoppingDistance;
 			StartCoroutine (UpdatePath ());
 		} else {
-			navMeshAgent.enabled = false;
+			navMeshAgent.enabled = true;
 			firstTimeActive = false;
 		}
 	}

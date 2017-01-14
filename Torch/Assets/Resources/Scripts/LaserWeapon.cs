@@ -20,7 +20,6 @@ public class LaserWeapon : Weapon {
 
 	public AudioClip clip;
 
-
 	void Awake(){
 		lastFireTime = Time.time;
 		lineRenderer = GetComponent<LineRenderer> ();
@@ -57,6 +56,7 @@ public class LaserWeapon : Weapon {
 					}
 					if (hit.collider.gameObject.CompareTag ("Enemy") || hit.collider.gameObject.CompareTag ("Boss")) {
 						hit.collider.gameObject.GetComponent<IDamagable> ().takeDamage (damage, crit, gameObject);
+						playerData.IncrementShotsLanded ();
 					}
 				} 
 				lineRenderer.SetPosition (1, hit.point);

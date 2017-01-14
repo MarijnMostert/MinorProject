@@ -95,10 +95,7 @@ public class Enemy : AudioObject, IDamagable {
 			}
 //			Debug.Log ("dead");
 
-			PlayerData playerData = source.GetComponent<Projectile> ().PlayerData;
-			if (playerData != null) {
-				playerData.IncrementEnemiesKilled ();
-			}
+			ReturnPlayerData (source);
 			Die ();
 		}
 	}
@@ -160,6 +157,23 @@ public class Enemy : AudioObject, IDamagable {
 		}
 		if (rand > 0.9) {
 			ObjectPooler.Instance.GetObject (17, true, new Vector3(transform.position.x, 1f, transform.position.z));
+		}
+	}
+
+	public void ReturnPlayerData(GameObject source){
+		Projectile projectile = source.GetComponent<Projectile> ();
+		PlayerData playerData = null;
+		if (projectile != null) {
+			playerData = projectile.PlayerData;
+		} else {
+			LaserWeapon laserWeapon = source.GetComponent<LaserWeapon> ();
+			if (laserWeapon != null) {
+				playerData = laserWeapon.playerData;
+			}
+		}
+
+		if (playerData != null) {
+			playerData.IncrementEnemiesKilled ();
 		}
 	}
 }
