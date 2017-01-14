@@ -115,6 +115,7 @@ public class Enemy : AudioObject, IDamagable {
 		if (clip_die != null) {
 			ObjectPooler.Instance.PlayAudioSource (clip_die, mixerGroup, pitchMin, pitchMax, transform);
 		}
+		Drop ();
         StartCoroutine(DieThread());
     }
 
@@ -150,5 +151,15 @@ public class Enemy : AudioObject, IDamagable {
 		dead = false;
 		health = startingHealth;
 		speed = navMeshAgent.speed;
+	}
+
+	public void Drop(){
+		float rand = Random.value;
+		if (rand > 0.5){
+			ObjectPooler.Instance.GetObject (18, true, new Vector3(transform.position.x, 1f, transform.position.z));
+		}
+		if (rand > 0.9) {
+			ObjectPooler.Instance.GetObject (17, true, new Vector3(transform.position.x, 1f, transform.position.z));
+		}
 	}
 }

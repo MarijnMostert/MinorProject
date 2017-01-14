@@ -34,6 +34,7 @@ public class DungeonInstantiate : Object {
 	GameObject PickupsParent;
 	GameObject ChestsParent;
 	GameObject WallTorchParent;
+	GameObject ParticlesParent;
 	GameObject BeginningRoom;
 	GameObject EndingRoom;
 
@@ -99,6 +100,7 @@ public class DungeonInstantiate : Object {
 		PickupsParent = new GameObject ("PickupsParent");
 		ChestsParent = new GameObject ("ChestsParent");
 		WallTorchParent = new GameObject ("WallTorchParent");
+		ParticlesParent = new GameObject ("ParticlesParent");
 
 		RoofPrefab = Resources.Load ("Prefabs/Blocks/RoofPrefab", typeof(GameObject)) as GameObject;
 		WallPrefab = Resources.Load ("Prefabs/Blocks/WallPrefab", typeof(GameObject)) as GameObject;
@@ -153,6 +155,7 @@ public class DungeonInstantiate : Object {
 		PickupsParent.transform.SetParent (Dungeon.transform);
 		ChestsParent.transform.SetParent (Dungeon.transform);
 		WallTorchParent.transform.SetParent (Dungeon.transform);
+		ParticlesParent.transform.SetParent (Dungeon.transform);
 
         //import starters pack
 		//InstantiateStarterPack(starters_pack, new Vector3(0, 0, 0),Quaternion.identity);
@@ -416,7 +419,7 @@ public class DungeonInstantiate : Object {
 		if (random < chance_particles) {
 			GameObject particles = Instantiate (dungeonParticles[Random.Range(0, dungeonParticles.Length)],
 				new Vector3 (x * 6 + Random.Range (0f, 6f), 1.3f, z * 6 + Random.Range (0f, 6f)),
-				Quaternion.Euler (new Vector3 (0f, Random.Range (0f, 360f), 0f)), Dungeon.transform) as GameObject;
+				Quaternion.Euler (new Vector3 (0f, Random.Range (0f, 360f), 0f)), ParticlesParent.transform) as GameObject;
 			GameManager.Instance.addHighQualityItem (particles);
 			if (!GameManager.Instance.data.highQuality) {
 				particles.SetActive (false);

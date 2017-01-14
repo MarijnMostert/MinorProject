@@ -5,10 +5,13 @@ public class PlayerDamagable : MonoBehaviour, IDamagable {
 	public GameManager gameManager;
 	private Vector3 lastKnownPosition;
 
+	void Start(){
+		gameManager = GameManager.Instance;
+	}
 	void Update(){
 		
 		if (transform.position.y < -12) {
-			Die ();
+			Respawn ();
 		}
 	}
 
@@ -29,9 +32,10 @@ public class PlayerDamagable : MonoBehaviour, IDamagable {
 		}
 	}
 	public void Die(){
-		transform.position = gameManager.RespawnPosition;
 	}
-		
+	public void Respawn(){
+		transform.position = gameManager.RespawnPosition;
+	}	
 	bool hasTorch(){
 		Transform[] transforms = GetComponentsInChildren<Transform>();
 		foreach(Transform t in transforms)

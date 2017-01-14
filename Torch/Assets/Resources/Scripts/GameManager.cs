@@ -60,6 +60,10 @@ public class GameManager : MonoBehaviour {
 
 	public ProceduralMaterial[] substances;
 
+	private bool cheat;
+	int cheatindex;
+	private string[] cheatCode;
+
     //masterGenerator Vars
 	public int width = 20;//40;// = 40;
 	public int height = 20;//40;// = 40;
@@ -147,9 +151,14 @@ public class GameManager : MonoBehaviour {
 			Instance = this;
 		}
 
+		cheat = true; //put this to false in build
+		cheatindex = 0;
+		cheatCode = new string[] { "w", "o", "c", "h", "e", "n", "e", "n", "d", "e" };
+
 		//homeScreenCanvas = GameObject.Find ("Home Screen Canvas");
 		homeScreen = GameObject.Find ("HomeScreen");
 		homeScreenCam = GameObject.Find ("HomeScreenCam");
+		mainCamera = homeScreenCam.GetComponent<Camera> ();
 		minimap = Resources.Load ("Prefabs/minimap2", typeof (Camera)) as Camera;
     }
 
@@ -352,7 +361,21 @@ public class GameManager : MonoBehaviour {
 			obj.transform.position = GameObject.FindGameObjectWithTag ("Player").transform.position;
 		}
 		*/
-		if (Input.GetKeyDown (KeyCode.H)) {
+
+		if (Input.anyKeyDown) {
+			if (Input.GetKeyDown(cheatCode[cheatindex])) {
+				cheatindex++;
+			} else {
+				cheatindex = 0;    
+			}
+		}
+		if (cheatindex == cheatCode.Length) {
+			cheatindex = 0;
+			Debug.Log ("hoch die hande!");
+			cheat = true;
+		}
+
+		if (Input.GetKeyDown (KeyCode.H) && cheat == true) {
 			if (DebuggerPanel != null) {
 				if (DebuggerPanel.activeInHierarchy)
 					DebuggerPanel.SetActive (false);
@@ -362,27 +385,27 @@ public class GameManager : MonoBehaviour {
 		}
 
 		//Cheatcode to spawn all weapons around the torch
-		if (Input.GetKeyDown (KeyCode.N)) {
+		if (Input.GetKeyDown (KeyCode.N) && cheat) {
 			SpawnAllWeapons ();
 		}
 		//Cheatcode to spawn all powerups around the torch
-		if (Input.GetKeyDown (KeyCode.B)) {
+		if (Input.GetKeyDown (KeyCode.B) && cheat) {
 			SpawnAllPowerUps ();
 		}
 		//Cheatcode to proceed to the next level
-		if (Input.GetKeyDown (KeyCode.L)) {
+		if (Input.GetKeyDown (KeyCode.L) && cheat) {
 			Proceed ();
 		}
 		//Cheatcode to get full health
-		if (Input.GetKeyDown (KeyCode.K) && torch != null) {
+		if (Input.GetKeyDown (KeyCode.K) && torch != null && cheat) {
 			torch.HealToStartingHealth ();
 		}
 		//Cheatcode to toggle if the torch is damagable or not
-		if (Input.GetKeyDown (KeyCode.J) && torch != null) {
+		if (Input.GetKeyDown (KeyCode.J) && torch != null && cheat) {
 			torch.ToggleDamagable ();
 		}
 		//Cheatcode to kill all active enemies
-		if(Input.GetKeyDown(KeyCode.LeftBracket)){
+		if(Input.GetKeyDown(KeyCode.LeftBracket) && cheat){
 			KillAllEnemies();
 		}
 	}
@@ -452,6 +475,7 @@ public class GameManager : MonoBehaviour {
 		LoadHomeScreen ();
 		if (paused)
 			Pause ();
+		mainCamera = homeScreenCam.GetComponent<Camera> ();
 	}
 
 	public void DestroyDungeon(){
@@ -680,5 +704,9 @@ public class GameManager : MonoBehaviour {
 			Destroy (enemy);
 		}
 		Debug.Log ("All enemies have been killed");
+	}
+
+	public bool getCheat(){
+		return cheat;
 	}
 }

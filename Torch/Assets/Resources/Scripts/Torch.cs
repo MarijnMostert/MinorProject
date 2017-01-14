@@ -61,9 +61,6 @@ public class Torch : MonoBehaviour, IDamagable {
 	
 	void Update () {
 		lightUpdate ();
-		if (transform.position.y < -12) {
-			Die ();
-		}
 	}
 
 	//Update the light intensity and range according to the health

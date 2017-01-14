@@ -66,6 +66,8 @@ public class ObjectPooler : MonoBehaviour {
 	/// <para>14 = HealthBar</para>
 	/// <para>15 = Bombing Projectile</para>
 	/// <para>16 = Bombing Explosion</para>
+	/// <para>17= Health Pickup</para>
+	/// <para>18= Coin Pickup</para>
 	/// </summary>
 	/// <returns>The object</returns>
 	public GameObject GetObject(int type, bool setActive){
