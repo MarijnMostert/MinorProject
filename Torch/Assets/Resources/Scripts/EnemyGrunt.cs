@@ -14,7 +14,7 @@ public class EnemyGrunt : Enemy {
 
 	// Use this for initialization
 	protected override void OnEnable () {
-		if (!firstTimeActive) {
+		if (!firstTimeActive || InstantiatedByObjectPooler) {
 			base.OnEnable ();
 			StartCoroutine (UpdatePath ());
 			animator = GetComponent<Animator> ();

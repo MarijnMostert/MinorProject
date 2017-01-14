@@ -31,7 +31,7 @@ public class EnemyBomber : Enemy {
 
 	// Use this for initialization
 	new void OnEnable () {
-		if (!firstTimeActive) {
+		if (!firstTimeActive || InstantiatedByObjectPooler) {
 			base.OnEnable ();
 			weaponHolder = transform.FindChild ("Weapon Holder").gameObject;
 			weapon = weaponController.currentWeapon as BomberWeapon;

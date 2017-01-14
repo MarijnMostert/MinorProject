@@ -77,6 +77,10 @@ public class ObjectPooler : MonoBehaviour {
 				pooledObjects[type].objects.Remove (obj);
 			} else if (!obj.activeInHierarchy) {
 				if (setActive) {
+					if (obj.GetComponent<Enemy> () != null) {
+						Enemy enemy = obj.GetComponent<Enemy> ();
+						enemy.InstantiatedByObjectPooler = true;
+					}
 					obj.SetActive (true);
 				}
 				return pooledObjects [type].objects [i];

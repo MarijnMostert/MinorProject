@@ -22,7 +22,7 @@ public class EnemyRanged : Enemy {
 
 	// Use this for initialization
 	new void OnEnable () {
-		if (!firstTimeActive) {
+		if (!firstTimeActive || InstantiatedByObjectPooler) {
 			base.OnEnable ();
 			weapon = weaponController.currentWeapon as RangedWeapon;
 			anim = GetComponent<Animator> ();
@@ -30,7 +30,7 @@ public class EnemyRanged : Enemy {
 			stoppingDistance = navMeshAgent.stoppingDistance;
 			StartCoroutine (UpdatePath ());
 		} else {
-			navMeshAgent.enabled = true;
+			navMeshAgent.enabled = false;
 			firstTimeActive = false;
 		}
 	}

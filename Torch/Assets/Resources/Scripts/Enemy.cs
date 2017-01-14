@@ -5,6 +5,7 @@ using System.Collections;
 
 public class Enemy : AudioObject, IDamagable {
 
+	public bool InstantiatedByObjectPooler = false;
 	public int ObjectPoolIndex;
 	public int startingHealth;
 	public NavMesh navMesh;
