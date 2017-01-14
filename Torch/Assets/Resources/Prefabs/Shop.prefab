@@ -350,7 +350,6 @@ GameObject:
   - 224: {fileID: 224000011891569152}
   - 222: {fileID: 222000012049118152}
   - 114: {fileID: 114000013146835588}
-  - 114: {fileID: 114000010997314456}
   m_Layer: 0
   m_Name: Panel
   m_TagString: Untagged
@@ -484,7 +483,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013055514316}
   m_LocalRotation: {x: -0, y: 0.99998957, z: -0, w: 0.004585429}
-  m_LocalPosition: {x: 0.4, y: 0, z: -30.5}
+  m_LocalPosition: {x: -101.87, y: 8.07, z: -31.44}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 179.49, z: 0}
   m_Children:
@@ -790,20 +789,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114000010997314456
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013697706388}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22fec1b68304b43e1944cb5634316c10, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cam: {fileID: 20000011569809236}
-  withManualOffset: 0
-  Offset: {x: 0, y: 0, z: 0}
 --- !u!114 &114000011025195594
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1221,6 +1206,8 @@ MonoBehaviour:
   - {fileID: 114000010664176320, guid: 4c9aef8f86fc04d26bd0496e66bbbc38, type: 2}
   - {fileID: 114000011318636990, guid: 1915faa1955a641e49e78f3b0e5803c0, type: 2}
   - {fileID: 114000010664176320, guid: 074bddcbe88144a4ebcbecc509f2a17e, type: 2}
+  - {fileID: 114000014043830174, guid: babe4409d9a1b47beaebf5c3cfbaa31e, type: 2}
+  - {fileID: 114000010048534556, guid: 3b9b9eb731ce742f590e3ce01408b5e5, type: 2}
   activeItem: {fileID: 0}
   coinsToSpend: {fileID: 114000014147068920}
   BuyButton: {fileID: 1000010745299922}

@@ -76,11 +76,8 @@ public class ObjectPooler : MonoBehaviour {
 			if (obj == null) {
 				pooledObjects[type].objects.Remove (obj);
 			} else if (!obj.activeInHierarchy) {
+				GetEnemyException (obj);
 				if (setActive) {
-					if (obj.GetComponent<Enemy> () != null) {
-						Enemy enemy = obj.GetComponent<Enemy> ();
-						enemy.InstantiatedByObjectPooler = true;
-					}
 					obj.SetActive (true);
 				}
 				return pooledObjects [type].objects [i];
@@ -90,15 +87,25 @@ public class ObjectPooler : MonoBehaviour {
 		if (pooledObjects[type].willGrow) {
 			GameObject obj = Instantiate (pooledObjects [type].objectToPool, transform) as GameObject;
 			pooledObjects [type].objects.Add (obj);
-			if (!setActive) {
-				obj.SetActive (false);
+			GetEnemyException (obj);
+			obj.SetActive (false);
+			if (setActive) {
+				obj.SetActive (true);
 			}
-			Debug.Log ("Created " + obj);
+			Debug.Log ("Created " + obj.name + " for ObjectPool");
 			return obj;
 		}
 
 		Debug.Log ("The requested object is already being used. \n Consider making this pool larger or growable.");
 		return null;
+	}
+
+	void GetEnemyException(GameObject obj){
+		if (obj.CompareTag("Enemy")) {
+			Enemy enemy = obj.GetComponent<Enemy> ();
+			enemy.InstantiatedByObjectPooler = true;
+			enemy.navMeshAgent.enabled = true;
+		}
 	}
 
 	public GameObject GetObject(int type, bool setActive, Vector3 position){

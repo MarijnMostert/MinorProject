@@ -79,6 +79,8 @@ public class EnemyGrunt : Enemy {
 			//Set the target position for the Nav Mesh Agent
 			if (navMeshAgent.enabled) {
 				navMeshAgent.SetDestination (targetPosition);
+			} else {
+				navMeshAgent.enabled = true;
 			}
 
 			//Make sure that the Nav Mesh Agent refreshes not every frame (to spare costs)
