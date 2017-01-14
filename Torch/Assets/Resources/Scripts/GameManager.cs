@@ -27,7 +27,6 @@ public class GameManager : MonoBehaviour {
 	public Transform torchSpawnPoint;
 	public int torchStartingHealth = 100;
 	public int torchHealth;
-	public int torchHealthMax = 150;
 
 	//Score info
 	public int score = 0;

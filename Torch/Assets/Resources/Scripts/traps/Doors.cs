@@ -27,6 +27,15 @@ public class Doors : MonoBehaviour {
 		}
 	}
 
+	void OnTriggerStay(Collider other)
+	{
+		if (!locked) {
+			if (other.gameObject.CompareTag ("Player")) {
+				Open ();
+			}
+		}
+	}
+
 	void OnTriggerExit(Collider other)
 	{
 		if (!locked) {

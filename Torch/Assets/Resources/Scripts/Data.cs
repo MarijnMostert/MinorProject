@@ -2,7 +2,9 @@
 using System.Collections;
 using System;
 
+[System.Serializable]
 public class Data : MonoBehaviour {
+
 
 	[SerializeField] private GameManager gameManager;
 
@@ -12,13 +14,28 @@ public class Data : MonoBehaviour {
 	public int coins;
 	public int maxAchievedDungeonLevel;
 	public bool highQuality;
-	public PlayerStats[] playerStats;
+	public int playerMaxHealth;
+	public float playerDamageMultiplier;
+	//public PlayerStats[] playerStats;
+	//public PD[] pd;
+
+	/*
+	[Serializable]
+	public struct PD{
+		public bool[] shopItemsOwned;
+		public bool[] shopItemsEquipped;
+		public int coins;
+		public int maxAchievedDungeonLevel;
+		public bool highQuality;
+	}
+
 
 	[Serializable]
 	public struct PlayerStats{
 		public int maxHealth;
 		public float damageMultiplier;
 	}
+	*/
 
 	// Update is called once per frame
 	void Update () {
@@ -41,11 +58,17 @@ public class Data : MonoBehaviour {
 		if (maxAchievedDungeonLevel == 0)
 			maxAchievedDungeonLevel = 1;
 		this.highQuality = intToBool(PlayerPrefs.GetInt ("highQuality"));
+		this.playerMaxHealth = PlayerPrefs.GetInt ("playerMaxHealth");
+		this.playerDamageMultiplier = PlayerPrefs.GetFloat ("playerDamageMultiplier");
+		//playerStats = Serializer.Load<PlayerStats[]> ("playerStats.txt");
+		//pd = Serializer.Load<Data.PD[]> ("PD.txt");
 
 		Debug.Log ("Loaded data succesfully");
 	}
 
 	public void SaveDataToFile(){
+		//Serializer.Save<PlayerStats[]> ("playerStats.txt", playerStats);
+		//Serializer.Save<Data.PD[]> ("PD.txt", pd);
 		for (int i = 0; i < shopItemsOwned.Length; i++) {
 			string strOwned = "shopItem" + i;
 			PlayerPrefs.SetInt (strOwned, boolToInt (shopItemsOwned [i]));
@@ -55,6 +78,8 @@ public class Data : MonoBehaviour {
 		PlayerPrefs.SetInt ("coins", coins);
 		PlayerPrefs.SetInt ("dungeonLevel", maxAchievedDungeonLevel);
 		PlayerPrefs.SetInt ("highQuality", boolToInt(highQuality));
+		PlayerPrefs.SetInt ("playerMaxHealth", playerMaxHealth);
+		PlayerPrefs.SetFloat ("playerDamageMultiplier", playerDamageMultiplier);
 
 		Debug.Log ("Saved data succesfully");
 	}
@@ -71,6 +96,8 @@ public class Data : MonoBehaviour {
 		PlayerPrefs.SetInt ("coins", 0);
 		PlayerPrefs.SetInt ("dungeonLevel", 1);
 		PlayerPrefs.SetInt ("highQuality", 1);
+		PlayerPrefs.SetInt ("playerMaxHealth", 100);
+		PlayerPrefs.SetFloat ("playerDamageMultiplier", 1);
 
 		Debug.Log ("Reset data succesfully");
 		LoadFileToDataAndVars ();

@@ -28,6 +28,10 @@ public class LaserWeapon : Weapon {
 		light.enabled = false;
 	}
 
+	void Start(){
+		damageMultiplier = GameManager.Instance.data.playerDamageMultiplier;
+	}
+
 	void Update(){
 		if (lineRenderer.enabled && Time.time > lastFireTime + laserTime) {
 			lineRenderer.enabled = false;
@@ -49,7 +53,7 @@ public class LaserWeapon : Weapon {
 					Quaternion.Euler(new Vector3(Random.Range(0,360), Random.Range(0,360), Random.Range(0,360))));
 				if (hit.collider.gameObject.CompareTag ("Enemy")) {
 					bool crit = false;
-					int damage = Random.Range (minDamage, maxDamage);
+					int damage = Random.Range ((int)(minDamage*damageMultiplier), (int)(maxDamage*damageMultiplier));
 					if (Random.value < critChance) {
 						damage *= 2;
 						crit = true;

@@ -21,6 +21,7 @@ public class Projectile : AudioObject {
 	private bool activated = true;
 	[HideInInspector] public PlayerData PlayerData;
 	private bool enemyHit = false;
+	[HideInInspector] public float multiplier = 1;
 
 	[Serializable]
 	public struct ComponentsToToggle {
@@ -78,7 +79,7 @@ public class Projectile : AudioObject {
 			if (piercing && enemiesHit.Contains(objectHitted.GetComponent<Enemy>())){
 				return;
 			}
-			int damage = UnityEngine.Random.Range (minDamage, maxDamage);
+			int damage = UnityEngine.Random.Range ((int)(minDamage * multiplier), (int)(maxDamage * multiplier));
 			bool crit = false;
 			if (UnityEngine.Random.value < critChance) {
 				damage *= 2;

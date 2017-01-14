@@ -44,7 +44,9 @@ public class Torch : MonoBehaviour, IDamagable {
 	public bool isDamagable = true;
 
 	new void Start () {
+		startingHealth = GameManager.Instance.data.playerMaxHealth;
 		health = startingHealth;
+		SetupHealthBar ();
 
 		torchLight = transform.GetComponentInChildren<Light> ();
 		HealingParticles.SetActive (false);
@@ -91,8 +93,8 @@ public class Torch : MonoBehaviour, IDamagable {
 	public void heal(int healingAmount){
 //		Debug.Log (gameObject + " heals " + healingAmount + "points");
 		health += healingAmount;
-		if (health > gameManager.torchHealthMax) {
-			health = gameManager.torchHealthMax;
+		if (health > startingHealth) {
+			health = startingHealth;
 		}
 		updateHealth ();
 		StartCoroutine (ParticlesCoroutine ());
@@ -165,5 +167,10 @@ public class Torch : MonoBehaviour, IDamagable {
 	public void ToggleDamagable(){
 		isDamagable = !isDamagable;
 		Debug.Log("Torch isDamagable is set to " + isDamagable);
+	}
+
+	void SetupHealthBar(){
+		updateHealth ();
+		ui.maxHealthText.text = startingHealth.ToString ();
 	}
 }
