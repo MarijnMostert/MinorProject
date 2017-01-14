@@ -30,7 +30,7 @@ public class Torch : MonoBehaviour, IDamagable {
 
 	private float randomValue;
 
-	public GameObject UI;
+	public UI ui;
 	private Text healthText;
 	private Image healthBar;
 	public GameObject HealingParticles;
@@ -117,13 +117,13 @@ public class Torch : MonoBehaviour, IDamagable {
 	//Update the health of the torch.
 	private void updateHealth(){
 		if (healthText == null) {
-			healthText = UI.transform.Find ("Health Text").GetComponent<Text> ();
+			healthText = ui.currentHealthText;
 		}
-		healthText.text = "Health: " + health;
+		healthText.text = health.ToString ();
 		gameManager.torchHealth = health;
 
 		if (healthBar == null) {
-			healthBar = UI.transform.Find ("HealthBar").Find("Torch Healthbar Fill").GetComponent<Image> ();
+			healthBar = ui.healthImage;
 		}
 		healthBar.fillAmount = (float)health / (float)startingHealth * 0.4f + 0.6f;
 
@@ -140,6 +140,7 @@ public class Torch : MonoBehaviour, IDamagable {
 	//Coroutine to receive damage over time
 	IEnumerator DamageOverTime(){
 		while (gameObject.activeSelf) {
+			yield return new WaitForSeconds (damageOverTimeVarTime);
 			if (isDamagable) {
 				//		Debug.Log (gameObject + " takes " + damage + " damage.");
 				health -= damageOverTimeVarDamage;
@@ -150,7 +151,6 @@ public class Torch : MonoBehaviour, IDamagable {
 					Die ();
 				}
 			}
-			yield return new WaitForSeconds (damageOverTimeVarTime);
 		}
 	}
 

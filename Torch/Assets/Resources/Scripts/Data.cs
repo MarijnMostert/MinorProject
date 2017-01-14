@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class Data : MonoBehaviour {
 
@@ -11,6 +12,13 @@ public class Data : MonoBehaviour {
 	public int coins;
 	public int maxAchievedDungeonLevel;
 	public bool highQuality;
+	public PlayerStats[] playerStats;
+
+	[Serializable]
+	public struct PlayerStats{
+		public int maxHealth;
+		public float damageMultiplier;
+	}
 
 	// Update is called once per frame
 	void Update () {
@@ -97,5 +105,9 @@ public class Data : MonoBehaviour {
 
 	public void CollectData(){
 		ShopItemsToData ();
+	}
+
+	public void IncrementCoins(){
+		coins += 1;
 	}
 }

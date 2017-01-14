@@ -24,7 +24,7 @@ public class endPortal : InteractableItem {
 	void OnTriggerEnter(Collider other){
 		if(!endPortalActivated){
 			if (anim == null) {
-				anim = gameManager.UI.transform.Find ("Keys Text").GetComponent<Animator> ();
+				anim = gameManager.ui.keysText.GetComponent<Animator> ();
 			}
 			anim.SetTrigger ("Flash");
 			Debug.Log (gameManager.collectedKeys + " keys out of " + gameManager.requiredCollectedKeys + 
@@ -44,7 +44,7 @@ public class endPortal : InteractableItem {
 	public void UpdateKeyText ()
 	{
 //		Debug.Log (gameManager.collectedKeys + " keys out of " + gameManager.requiredCollectedKeys + " keys are collected.");
-		Text keyText = gameManager.UI.transform.Find ("Keys Text").GetComponent<Text> ();
+		Text keyText = gameManager.ui.keysText;
 		keyText.text = "Keys collected: " + gameManager.collectedKeys + "/" + gameManager.requiredCollectedKeys;
 		if (gameManager.collectedKeys == gameManager.requiredCollectedKeys) {
 			Debug.Log ("Endportal is enabled.");

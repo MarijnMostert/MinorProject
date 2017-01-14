@@ -62,4 +62,8 @@ public class PlayerData : MonoBehaviour {
 	public void IncrementEnemiesKilled(){
 		enemiesKilled += 1;
 	}
+
+	public void IncrementCoinsPickedUp(){
+		coinsPickedUp += 1;
+	}
 }

@@ -28,7 +28,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1000012229378092
 GameObject:
   m_ObjectHideFlags: 0
@@ -162,7 +162,9 @@ MonoBehaviour:
 
     Toggle IsDamagable
 
-    Kill all enemies'
+    Kill all enemies
+
+    Spawn Key'
 --- !u!114 &114000010965429112
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -215,7 +217,9 @@ MonoBehaviour:
 
     J
 
-    ['
+    [
+
+    O'
 --- !u!114 &114000011081191698
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -408,7 +412,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 294, y: 270}
+  m_SizeDelta: {x: 272, y: 287}
   m_Pivot: {x: 1, y: 1}
 --- !u!224 &224000013520629436
 RectTransform:

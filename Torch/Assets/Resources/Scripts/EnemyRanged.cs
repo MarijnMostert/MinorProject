@@ -39,15 +39,17 @@ public class EnemyRanged : Enemy {
 		determineStoppingDistance ();
 		varDistanceToTarget = distanceToTarget ();
 		if (Time.realtimeSinceStartup > .5f && gameManager.enemyTarget != null && varDistanceToTarget <= attackRange && canSeeTarget()) {
-            anim.SetBool("attack", true);
+            anim.SetBool("Attack", true);
             if ((Time.time - lastAttackTime) > attackCooldown) {
                 StartCoroutine(attack());
             }
 		} else
         {
-            anim.SetBool("attack", false);
-            first_attack = true;
-            attack_anim = false;
+			if (anim != null) {
+				anim.SetBool ("Attack", false);
+				first_attack = true;
+				attack_anim = false;
+			}
         }
 	}
 

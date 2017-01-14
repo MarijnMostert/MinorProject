@@ -19,6 +19,9 @@ public class ScorePickUp : AudioObject, IPickUp {
 
 			gameManager.updateScore (scoreValue);
 			other.GetComponent<PlayerData> ().IncrementScorePickedUp (scoreValue);
+			other.GetComponent<PlayerData> ().IncrementCoinsPickedUp ();
+			gameManager.addInGameCoin ();
+			gameManager.data.IncrementCoins ();
 
 			//Debug.Log ("Score increased with " + scoreValue + " by picking up " + gameObject);
 			transform.parent.GetComponent<MeshRenderer> ().enabled = false;
