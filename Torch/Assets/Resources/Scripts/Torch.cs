@@ -83,6 +83,8 @@ public class Torch : MonoBehaviour, IDamagable {
 			TorchFOV.SetTrigger ("TakeDamage");
 
 			if (health <= 0) {
+				health = 0;
+				updateHealth ();
 				Debug.Log ("Player dies by taking " + damage + " from " + source.name);
 				Die ();
 			}

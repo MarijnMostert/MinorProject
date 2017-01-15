@@ -73,6 +73,7 @@ public class GameManager : MonoBehaviour {
 	//public GameObject homeScreenCanvas;
 	public GameObject homeScreenEnvironmentPrefab;
 	public GameObject homeScreenEnvironment;
+	public GameObject HighScoresPanel;
 	public GameObject startingScreen;
 	public GameObject loadingScreenCanvas;
 	public DeathCanvas deathCanvas;
@@ -154,6 +155,8 @@ public class GameManager : MonoBehaviour {
 		homeScreenCam = GameObject.Find ("HomeScreenCam");
 		mainCamera = homeScreenCam.GetComponent<Camera> ();
 		minimap = Resources.Load ("Prefabs/minimap2", typeof (Camera)) as Camera;
+
+		HighScoresPanel = Instantiate (HighScoresPanel) as GameObject;
     }
 
     public void Start(){
@@ -364,9 +367,13 @@ public class GameManager : MonoBehaviour {
 		if(Input.GetKeyDown(KeyCode.LeftBracket) && cheat){
 			KillAllEnemies();
 		}
-
+		//Cheatcode to spawn a key
 		if (Input.GetKeyDown (KeyCode.O) && cheat) {
 			SpawnKey ();
+		}
+		//Cheatcode to spawn to highscores
+		if (Input.GetKeyDown (KeyCode.Alpha0) && cheat) {
+			TeleportToHighScores ();
 		}
 	}
 
@@ -690,5 +697,13 @@ public class GameManager : MonoBehaviour {
 
 	public bool getCheat(){
 		return cheat;
+	}
+
+	public void toggleCheat(){
+		cheat = !cheat;
+	}
+
+	void TeleportToHighScores(){
+		homeScreenPlayer.transform.position = GameObject.Find ("HighScoreTeleport").transform.position;
 	}
 }

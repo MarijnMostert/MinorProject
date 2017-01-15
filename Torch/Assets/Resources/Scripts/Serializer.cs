@@ -24,7 +24,6 @@ public class Serializer
 				Debug.Log(e.Message);
 			}
 		}
-		Debug.Log ("Load");
 
 		return default(T);
 
@@ -37,6 +36,5 @@ public class Serializer
 			BinaryFormatter formatter = new BinaryFormatter();
 			formatter.Serialize(stream, data);
 		}
-		Debug.Log ("Save");
 	}
 }

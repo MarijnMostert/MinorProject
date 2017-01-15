@@ -315,6 +315,8 @@ MonoBehaviour:
   homeScreenEnvironmentPrefab: {fileID: 1000012718415468, guid: 4ef94cea375ae45ff83b3370aa956b06,
     type: 2}
   homeScreenEnvironment: {fileID: 0}
+  HighScoresPanel: {fileID: 1000011698425086, guid: 3af9a424cc2a048529edd2f286b5174b,
+    type: 2}
   startingScreen: {fileID: 0}
   loadingScreenCanvas: {fileID: 1000013625541172, guid: 0ff01cb270ef14af5b80d2ec70ecc88c,
     type: 2}
@@ -381,5 +383,7 @@ MonoBehaviour:
   coins: 0
   maxAchievedDungeonLevel: 0
   highQuality: 0
+  highScoreNames: []
+  highScoreScores: 
   playerMaxHealth: 100
   playerDamageMultiplier: 1
