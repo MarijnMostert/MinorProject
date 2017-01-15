@@ -88,8 +88,7 @@ public class Enemy : AudioObject, IDamagable {
 		}
 
 		if (health <= 0) {
-			if (anim != null)
-			{
+			if (anim != null) {
 //				Debug.Log ("animation time");
 				anim.SetTrigger ("Die");
 //				Debug.Log (anim.GetCurrentAnimatorClipInfo (0).Length);
@@ -98,6 +97,8 @@ public class Enemy : AudioObject, IDamagable {
 
 			ReturnPlayerData (source);
 			Die ();
+		} else if (clip_takeDamage != null) {
+			ObjectPooler.Instance.PlayAudioSource (clip_takeDamage, mixerGroup, pitchMin, pitchMax, transform);
 		}
 	}
 

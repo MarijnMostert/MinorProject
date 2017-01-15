@@ -18,8 +18,6 @@ public class LaserWeapon : Weapon {
 	private float lastFireTime;
 	private RaycastHit hit;
 
-	public AudioClip clip;
-
 	void Awake(){
 		lastFireTime = Time.time;
 		lineRenderer = GetComponent<LineRenderer> ();
@@ -43,6 +41,7 @@ public class LaserWeapon : Weapon {
 	//Shooting a laser
 	public override void Fire(){
 		if ((Time.time - lastFireTime) > cooldown) {
+			ObjectPooler.Instance.PlayAudioSource (fireClip, mixerGroup, pitchMin, pitchMax, transform);
 			base.Fire ();
 			lineRenderer.enabled = true;
 			light.enabled = true;
@@ -70,7 +69,6 @@ public class LaserWeapon : Weapon {
 	
 			lastFireTime = Time.time;
 
-			ObjectPooler.Instance.PlayAudioSource (clip, mixerGroup, pitchMin, pitchMax, transform);
 		}
 
 	}

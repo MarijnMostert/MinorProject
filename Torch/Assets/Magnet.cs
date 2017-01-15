@@ -9,6 +9,7 @@ public class Magnet : MonoBehaviour {
 	public bool lookAtTarget = false;
 	public bool stayActivated = false;
 
+	public bool PowerUp;
 	private bool activated = false;
 	private Transform targetObj;
 	private Vector3 targetPos;
@@ -17,7 +18,19 @@ public class Magnet : MonoBehaviour {
 	void OnTriggerEnter(Collider other){
 		if (other.gameObject.CompareTag ("Player")) {
 			targetObj = other.transform;
-			activated = true;
+			if (!PowerUp || !other.GetComponent<PowerUpInventory> ().isFull ()) {
+				activated = true;
+			}
+		}
+	}
+
+	void OnTriggerStay(Collider other){
+		if (PowerUp && other.CompareTag("Player")) {
+			if (other.GetComponent<PowerUpInventory> ().isFull ()) {
+				activated = false;
+			} else {
+				activated = true;
+			}
 		}
 	}
 

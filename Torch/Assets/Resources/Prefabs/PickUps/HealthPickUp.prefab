@@ -96,8 +96,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011075960422}
-  m_LocalRotation: {x: 0, y: 0.29949927, z: 0, w: 0.95409656}
-  m_LocalPosition: {x: 4.6182375, y: -3.63, z: -12.586396}
+  m_LocalRotation: {x: 0, y: 0.9954652, z: 0, w: -0.09512615}
+  m_LocalPosition: {x: 14.986226, y: 0.07124781, z: 68.15583}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -184,9 +184,9 @@ MonoBehaviour:
   mixerGroup: {fileID: 243000012651205884, guid: 33975d0ba3fac476cb4987efebc83a81,
     type: 2}
   pitchMin: 0.8
-  pitchMax: 1.1
+  pitchMax: 1.4
   healAmount: 10
-  clip: {fileID: 0}
+  clip: {fileID: 8300000, guid: adb15811b296a4efd9ec6b93335e0f60, type: 3}
 --- !u!114 &114000012353362148
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -203,6 +203,7 @@ MonoBehaviour:
   distanceToKeep: 0
   lookAtTarget: 0
   stayActivated: 0
+  PowerUp: 0
 --- !u!114 &114000012722395052
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -215,7 +216,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeedX: 0
-  rotationSpeedY: 0
+  rotationSpeedY: 10
   rotationSpeedZ: 0
 --- !u!135 &135000012842268326
 SphereCollider:

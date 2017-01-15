@@ -458,6 +458,7 @@ MonoBehaviour:
     type: 2}
   pitchMin: 0.8
   pitchMax: 1.1
+  InstantiatedByObjectPooler: 0
   ObjectPoolIndex: 10
   startingHealth: 100
   attackCooldown: 5
@@ -470,10 +471,10 @@ MonoBehaviour:
   navMeshAgent: {fileID: 0}
   anim: {fileID: 0}
   dead: 0
-  clip_takeDamage: {fileID: 8300000, guid: 35c7279c996c04480b2101873c6e465c, type: 3}
-  clip_attack: {fileID: 0}
-  clip_spawn: {fileID: 0}
-  clip_die: {fileID: 0}
+  clip_takeDamage: {fileID: 8300000, guid: 2e7625117abbe43baa2a9de3a73bfb9b, type: 3}
+  clip_attack: {fileID: 8300000, guid: 6df4d5fae0ede4103a90acb48db03dd6, type: 3}
+  clip_spawn: {fileID: 8300000, guid: e583398ac50d246b8afffb584e9f4f99, type: 3}
+  clip_die: {fileID: 8300000, guid: 557bbea7fdaa04d3ab36e7ada7c352d2, type: 3}
   clip_battleCry: {fileID: 0}
   weapon: {fileID: 0}
   lookMask:

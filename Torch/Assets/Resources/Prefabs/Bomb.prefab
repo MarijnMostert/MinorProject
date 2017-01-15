@@ -123,6 +123,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0ca1c014db5f4c7787e44cb395ee0ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mixerGroup: {fileID: 243000012651205884, guid: 33975d0ba3fac476cb4987efebc83a81,
+    type: 2}
+  pitchMin: 0.8
+  pitchMax: 1.1
   timeTillExplode: 3
   maxDamage: 180
   blastRange: 6
@@ -131,3 +135,4 @@ MonoBehaviour:
   ExplosionMark: {fileID: 223000012738086210, guid: e27e7faafb3e34ec48af654296d41a7d,
     type: 2}
   canHitPlayer: 0
+  clip: {fileID: 8300000, guid: cd1dbef2e29b0475cb42c7eaa5c3725d, type: 3}

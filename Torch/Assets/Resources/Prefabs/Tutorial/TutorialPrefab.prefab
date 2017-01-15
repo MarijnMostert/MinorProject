@@ -48686,6 +48686,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boldTalkingClip: {fileID: 8300000, guid: e7668d0252dfa43eaba923367896696c, type: 3}
+  SpiderRoom: 0
+  Spider: {fileID: 0}
   myKeyboardText: Welcome to this tutorial! My name is Bold. Use the WASD-keys to
     move.
   myControllerText: Welcome to this tutorial! My name is Bold. Use the WASD-keys to
@@ -48736,6 +48738,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boldTalkingClip: {fileID: 8300000, guid: e33b141468f5a420bb9cf3569a65b19b, type: 3}
+  SpiderRoom: 0
+  Spider: {fileID: 0}
   myKeyboardText: Torches you come by will get lit to help you navigate. Scoured areas
     will show up on the minimap.
   myControllerText: Torches you come by will get lit to help you navigate. Scoured
@@ -48892,6 +48896,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boldTalkingClip: {fileID: 8300000, guid: 21642a7a139ac422eb678f80ffe95377, type: 3}
+  SpiderRoom: 0
+  Spider: {fileID: 0}
   myKeyboardText: Along the way you will find chests. They may contain torch fuel,
     new weapons or power ups. Press E to open a chest.
   myControllerText: Along the way you will find chests. They may contain torch fuel,
@@ -48938,6 +48944,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boldTalkingClip: {fileID: 8300000, guid: 16a7d0682677f44208b6ff333dbc7fac, type: 3}
+  SpiderRoom: 0
+  Spider: {fileID: 0}
   myKeyboardText: It is your goal to reach the center of the earth and rekindle its
     fire.
   myControllerText: It is your goal to reach the center of the earth and rekindle
@@ -48991,6 +48999,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boldTalkingClip: {fileID: 8300000, guid: 42f2e67b4a78943cb92425bba41be584, type: 3}
+  SpiderRoom: 0
+  Spider: {fileID: 0}
   myKeyboardText: Use the numbers on your keyboard to switch weapons and space or
     left click to fire. Now brace yourself for your first enemy!
   myControllerText: Use the numbers on your keyboard to switch weapons and space or
@@ -49007,6 +49017,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boldTalkingClip: {fileID: 8300000, guid: 151a7f821d04649e88a882d8c4801a8e, type: 3}
+  SpiderRoom: 0
+  Spider: {fileID: 0}
   myKeyboardText: You will encouter more types of enemies along your quest. As well
     as other challenges.
   myControllerText: You will encouter more types of enemies along your quest. As well
@@ -49023,6 +49035,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boldTalkingClip: {fileID: 8300000, guid: b19affa440edf4118814eda335717832, type: 3}
+  SpiderRoom: 0
+  Spider: {fileID: 0}
   myKeyboardText: 'Be ware: the stairs that bring you downward will only open when
     you have collected all keys in the level.'
   myControllerText: 'Be ware: the stairs that bring you downward will only open when
@@ -49066,6 +49080,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boldTalkingClip: {fileID: 8300000, guid: f37659a5859c343cda80efcd62965b79, type: 3}
+  SpiderRoom: 0
+  Spider: {fileID: 0}
   myKeyboardText: It is your job to protect the torch you are carrying. Enemies will
     try to quench its fire. It will slowly run out of fuel over time.
   myControllerText: It is your job to protect the torch you are carrying. Enemies
@@ -49401,6 +49417,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boldTalkingClip: {fileID: 8300000, guid: b19affa440edf4118814eda335717832, type: 3}
+  SpiderRoom: 0
+  Spider: {fileID: 0}
   myKeyboardText: Now walk down the stairs to start your adventure or walk back to
     main menu through the door in the back.
   myControllerText: Now walk down the stairs to start your adventure or walk back
@@ -49515,6 +49533,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boldTalkingClip: {fileID: 8300000, guid: 54c617eed595d44dbb6c8697d585aaad, type: 3}
+  SpiderRoom: 1
+  Spider: {fileID: 1000012769393928}
   myKeyboardText: Enemies spawn around you and will do anything to extinguish the
     fire you're carrying.
   myControllerText: Enemies spawn around you and will do anything to extinguish the
@@ -49592,6 +49612,7 @@ MonoBehaviour:
   mixerGroup: {fileID: 0}
   pitchMin: 0.8
   pitchMax: 1.1
+  InstantiatedByObjectPooler: 1
   ObjectPoolIndex: 0
   startingHealth: 50
   attackCooldown: 1

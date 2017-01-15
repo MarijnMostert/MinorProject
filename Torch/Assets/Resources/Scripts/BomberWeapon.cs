@@ -19,6 +19,7 @@ public class BomberWeapon : Weapon {
 		if ((Time.time - lastFireTime) > cooldown) {
 			BomberProjectile obj = ObjectPooler.Instance.GetObject (projectile.ObjectPoolerIndex, true, transform.position, Quaternion.identity).GetComponent<BomberProjectile>();
 			obj.GetComponent<Rigidbody>().AddForce(force * transform.forward);
+			ObjectPooler.Instance.PlayAudioSource (fireClip, mixerGroup, pitchMin, pitchMax, transform);
 			lastFireTime = Time.time;
 		}
 
