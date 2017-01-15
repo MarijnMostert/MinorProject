@@ -128,7 +128,7 @@ public class Enemy : AudioObject, IDamagable {
 //        Debug.Log(anim);
         if (anim != null)
         {
-			yield return new WaitForSeconds(anim.GetCurrentAnimatorClipInfo(0).Length - 0.02f);//.56f
+			yield return new WaitForSeconds(anim.playbackTime);//.56f
         }
         //Add a score
         gameManager.updateScore(scoreValue);

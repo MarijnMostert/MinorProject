@@ -132,10 +132,13 @@ MonoBehaviour:
   price: 500
   owned: 1
   equipped: 0
+  multiEquippable: 0
   shopInterfaceButton: {fileID: 0}
-  type: 0
+  type: Pet
   equippableObject: {fileID: 1000010787105900, guid: 34e435e0d20414bb0ad3cd7e62be2d41,
     type: 2}
+  multiplier: 0
+  addedMaxHealth: 0
 --- !u!114 &114000012854432128
 MonoBehaviour:
   m_ObjectHideFlags: 1

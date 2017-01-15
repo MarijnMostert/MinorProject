@@ -8,43 +8,24 @@ public class Data : MonoBehaviour {
 
 	[SerializeField] private GameManager gameManager;
 
-	[Header ("- Data")]
+	[Header ("- Saved Data")]
 	public bool[] shopItemsOwned;
 	public bool[] shopItemsEquipped;
 	public int coins;
 	public int maxAchievedDungeonLevel;
 	public bool highQuality;
-	public int playerMaxHealth;
-	public float playerDamageMultiplier;
-	//public PlayerStats[] playerStats;
-	//public PD[] pd;
 
-	/*
-	[Serializable]
-	public struct PD{
-		public bool[] shopItemsOwned;
-		public bool[] shopItemsEquipped;
-		public int coins;
-		public int maxAchievedDungeonLevel;
-		public bool highQuality;
-	}
+	[Header ("- Non-Saved Data")]
+	public int playerMaxHealth = 100;
+	public float playerDamageMultiplier = 1;
 
-
-	[Serializable]
-	public struct PlayerStats{
-		public int maxHealth;
-		public float damageMultiplier;
-	}
-	*/
-
-	// Update is called once per frame
 	void Update () {
 		if (Input.GetKeyDown (KeyCode.Tab)) {
-			SaveDataToFile ();
+			Save ();
 		}
 	}
 
-	public void LoadFileToDataAndVars(){
+	public void Load(){
 		shopItemsOwned = new bool[20];
 		shopItemsEquipped = new bool[20];
 		for (int i = 0; i < shopItemsOwned.Length; i++) {
@@ -58,15 +39,15 @@ public class Data : MonoBehaviour {
 		if (maxAchievedDungeonLevel == 0)
 			maxAchievedDungeonLevel = 1;
 		this.highQuality = intToBool(PlayerPrefs.GetInt ("highQuality"));
-		this.playerMaxHealth = PlayerPrefs.GetInt ("playerMaxHealth");
-		this.playerDamageMultiplier = PlayerPrefs.GetFloat ("playerDamageMultiplier");
+		//this.playerMaxHealth = PlayerPrefs.GetInt ("playerMaxHealth");
+		//this.playerDamageMultiplier = PlayerPrefs.GetFloat ("playerDamageMultiplier");
 		//playerStats = Serializer.Load<PlayerStats[]> ("playerStats.txt");
 		//pd = Serializer.Load<Data.PD[]> ("PD.txt");
 
 		Debug.Log ("Loaded data succesfully");
 	}
 
-	public void SaveDataToFile(){
+	public void Save(){
 		//Serializer.Save<PlayerStats[]> ("playerStats.txt", playerStats);
 		//Serializer.Save<Data.PD[]> ("PD.txt", pd);
 		for (int i = 0; i < shopItemsOwned.Length; i++) {
@@ -78,8 +59,8 @@ public class Data : MonoBehaviour {
 		PlayerPrefs.SetInt ("coins", coins);
 		PlayerPrefs.SetInt ("dungeonLevel", maxAchievedDungeonLevel);
 		PlayerPrefs.SetInt ("highQuality", boolToInt(highQuality));
-		PlayerPrefs.SetInt ("playerMaxHealth", playerMaxHealth);
-		PlayerPrefs.SetFloat ("playerDamageMultiplier", playerDamageMultiplier);
+		//PlayerPrefs.SetInt ("playerMaxHealth", playerMaxHealth);
+		//PlayerPrefs.SetFloat ("playerDamageMultiplier", playerDamageMultiplier);
 
 		Debug.Log ("Saved data succesfully");
 	}
@@ -96,11 +77,11 @@ public class Data : MonoBehaviour {
 		PlayerPrefs.SetInt ("coins", 0);
 		PlayerPrefs.SetInt ("dungeonLevel", 1);
 		PlayerPrefs.SetInt ("highQuality", 1);
-		PlayerPrefs.SetInt ("playerMaxHealth", 100);
-		PlayerPrefs.SetFloat ("playerDamageMultiplier", 1);
+		//PlayerPrefs.SetInt ("playerMaxHealth", 100);
+		//PlayerPrefs.SetFloat ("playerDamageMultiplier", 1);
 
 		Debug.Log ("Reset data succesfully");
-		LoadFileToDataAndVars ();
+		Load ();
 	}
 
 	bool intToBool(int integer){
@@ -119,10 +100,11 @@ public class Data : MonoBehaviour {
 
 	void OnApplicationQuit(){
 		Debug.Log ("Application quitted");
-		CollectData ();
-		SaveDataToFile ();
+		//CollectData ();
+		Save ();
 	}
 
+	/*
 	public void ShopItemsToData(){
 		for (int i = 0; i < gameManager.shop.itemsToBuy.Length; i++) {
 			shopItemsOwned [i] = gameManager.shop.itemsToBuy[i].owned;
@@ -130,9 +112,11 @@ public class Data : MonoBehaviour {
 		}
 	}
 
+
 	public void CollectData(){
 		ShopItemsToData ();
 	}
+	*/
 
 	public void IncrementCoins(){
 		coins += 1;

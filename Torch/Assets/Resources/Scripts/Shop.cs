@@ -11,6 +11,7 @@ public class Shop : MonoBehaviour {
 	public Transform itemPosition;
 	public BuyableItem[] itemsToBuy;
 	[SerializeField] private BuyableItem activeItem;
+	private int activeIndex;
 	[SerializeField] private Text coinsToSpend;
 	[SerializeField] private GameObject BuyButton;
 	[SerializeField] private GameObject EquipButton;
@@ -31,15 +32,7 @@ public class Shop : MonoBehaviour {
 			itemsToBuy [i].owned = gameManager.data.shopItemsOwned [i];
 			itemsToBuy [i].equipped = gameManager.data.shopItemsEquipped [i];
 
-			GameObject interfacePanel = Instantiate (InterfacePanelPrefab, new Vector3(0f,0f,0f), Quaternion.identity, interfaceScreen.transform) as GameObject;
-			interfacePanel.transform.position = interfaceScreen.transform.position;
-			interfacePanel.transform.localRotation = Quaternion.Euler (new Vector3 (0f, 0f, 0f));
-			float x = -160f + 150f * (i % 3);
-			int yFactor = (int)(i / 3);
-			float y = 170f + yFactor * -150;
-			interfacePanel.transform.localPosition = interfacePanel.transform.localPosition + new Vector3 (x, y, 0f);
-			ShopInterfaceButton shopInterfaceButton = interfacePanel.GetComponent<ShopInterfaceButton> ();
-			shopInterfaceButton.Setup (this, i);
+			ShopInterfaceButton shopInterfaceButton = CreateShopInterfaceButton (i);
 
 			itemsToBuy [i].shopInterfaceButton = shopInterfaceButton;
 				
@@ -48,12 +41,13 @@ public class Shop : MonoBehaviour {
 		}
 
 		//Set first item to active
-		activeItem = itemsToBuy [0];
-		activeItem.gameObject.SetActive (true);
+		activeIndex = 0;
+		itemsToBuy[activeIndex].gameObject.SetActive (true);
 
 		//Set the buybutton active on default and the equipbutton inactive.
-		BuyButton.SetActive (!activeItem.owned);
-		EquipButton.SetActive (activeItem.owned);
+		BuyButton.SetActive (!gameManager.data.shopItemsOwned[activeIndex]);
+		SetBuyButtonText ();
+		EquipButton.SetActive (gameManager.data.shopItemsOwned[activeIndex]);
 
 		EquipActives ();
 	}
@@ -66,68 +60,82 @@ public class Shop : MonoBehaviour {
 		UpdateCoinText ();
 	}
 
+	ShopInterfaceButton CreateShopInterfaceButton (int index)
+	{
+		GameObject interfacePanel = Instantiate (InterfacePanelPrefab, new Vector3 (0f, 0f, 0f), Quaternion.identity, interfaceScreen.transform) as GameObject;
+		interfacePanel.transform.position = interfaceScreen.transform.position;
+		interfacePanel.transform.localRotation = Quaternion.Euler (new Vector3 (0f, 0f, 0f));
+		float x = -160f + 150f * (index % 3);
+		int yFactor = (int)(index / 3);
+		float y = 170f + yFactor * -150;
+		interfacePanel.transform.localPosition = interfacePanel.transform.localPosition + new Vector3 (x, y, 0f);
+		ShopInterfaceButton shopInterfaceButton = interfacePanel.GetComponent<ShopInterfaceButton> ();
+		shopInterfaceButton.Setup (this, index);
+		return shopInterfaceButton;
+	}
+
 	//Method is going to be called by UI to show a preview of the item.
 	public void SetItemActive(int itemNumber){
-		if (!activeItem.Equals (itemsToBuy [itemNumber])) {
-			activeItem.gameObject.SetActive (false);
-			activeItem = itemsToBuy [itemNumber];
-			activeItem.gameObject.SetActive (true);
+		if (activeIndex != itemNumber) {
+			itemsToBuy[activeIndex].gameObject.SetActive (false);
+			activeIndex = itemNumber;
+			itemsToBuy[activeIndex].gameObject.SetActive (true);
 			particles.Stop ();
 			particles.Play ();
 
-			BuyButton.SetActive (!itemsToBuy [itemNumber].owned);
-			EquipButton.SetActive (itemsToBuy [itemNumber].owned);
+			BuyButton.SetActive (!gameManager.data.shopItemsOwned[itemNumber]);
+			SetBuyButtonText ();
+			EquipButton.SetActive (gameManager.data.shopItemsOwned [itemNumber]);
 
-			itemText.text = activeItem.name;
+			itemText.text = itemsToBuy[activeIndex].name;
 		}
 	}
 
 	//For updating the text field in the UI of the shop
 	void UpdateCoinText(){
-		if (coinsToSpend != null && gameManager != null) {
-			coinsToSpend.text = "Coins: " + gameManager.data.coins.ToString ();
+		if (coinsToSpend != null) {
+			coinsToSpend.text = "Coins: " + GameManager.Instance.data.coins.ToString ();
 		}
 	}
 
 	//This method is probably gonna used by a button in the UI of the shop.
 	public void BuyItem(){
-		if (gameManager.data.coins >= activeItem.price && !activeItem.owned) {
-			gameManager.data.coins -= activeItem.price;
+		if (gameManager.data.coins >= itemsToBuy[activeIndex].price && !gameManager.data.shopItemsOwned[activeIndex]) {
+			gameManager.data.coins -= itemsToBuy[activeIndex].price;
 			UpdateCoinText ();
 
 			//Set Equip button to true after purchasing
 			BuyButton.SetActive (false);
+			SetBuyButtonText ();
 			EquipButton.SetActive (true);
 
-			SetOwned (activeItem);
+			SetOwned (activeIndex);
 		}
 	}
 
 	public void EquipItem(){
-		int type = activeItem.type;
 
+		//Dequip all other items of the same type (if multi-equippable is disabled)
+		string type = itemsToBuy[activeIndex].type;
 		for (int i = 0; i < itemsToBuy.Length; i++) {
-			if (itemsToBuy [i].type == type) {
-				itemsToBuy [i].shopInterfaceButton.setOwned ();
-				itemsToBuy [i].equipped = false;
+			if (itemsToBuy [i].type.Equals(type) && !itemsToBuy[i].multiEquippable) {
+				if (gameManager.data.shopItemsOwned [i]) {
+					itemsToBuy [i].shopInterfaceButton.setOwned ();
+					gameManager.data.shopItemsEquipped [i] = false;
+				}
 			}
 		}
 
-		activeItem.shopInterfaceButton.setEquipped ();
-		activeItem.equipped = true;
-		activeItem.Equip ();
+		//Set current item equipped
+		itemsToBuy[activeIndex].shopInterfaceButton.setEquipped ();
+		gameManager.data.shopItemsEquipped [activeIndex] = true;
+		itemsToBuy[activeIndex].Equip (activeIndex);
 	}
 
-	//Disable the price in the shop Canvas and enable the OWNED text.
-	public void SetOwned(int itemNumber){
-		BuyableItem buyableItem = itemsToBuy [itemNumber];
-		SetOwned (buyableItem);
-	}
-
-	public void SetOwned(BuyableItem buyableItem){
-		ShopInterfaceButton shopInterfaceButton = buyableItem.shopInterfaceButton;
+	public void SetOwned(int index){
+		ShopInterfaceButton shopInterfaceButton = itemsToBuy [index].shopInterfaceButton;
 		shopInterfaceButton.setOwned ();
-		buyableItem.owned = true;
+		gameManager.data.shopItemsOwned [index] = true;
 	}
 
 	public void ToggleShop(){
@@ -135,10 +143,14 @@ public class Shop : MonoBehaviour {
 	}
 
 	public void EquipActives(){
-		for (int i = 0; i < itemsToBuy.Length; i++) {
-			if (itemsToBuy [i].equipped) {
-				itemsToBuy [i].Equip ();
+		for (int i = 0; i < GameManager.Instance.data.shopItemsEquipped.Length; i++) {
+			if (GameManager.Instance.data.shopItemsEquipped[i]) {
+				itemsToBuy [i].Equip (i);
 			}
 		}
+	}
+
+	public void SetBuyButtonText(){
+		BuyButton.GetComponentInChildren<Text>().text = "BUY\nCOST: " + itemsToBuy [activeIndex].price;
 	}
 }

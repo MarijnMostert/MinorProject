@@ -37,11 +37,11 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000010080326546}
   - 33: {fileID: 33000012608443924}
-  - 65: {fileID: 65000011467444910}
   - 23: {fileID: 23000010458413816}
   - 114: {fileID: 114000010048534556}
+  - 114: {fileID: 114000010881640430}
   m_Layer: 12
-  m_Name: Weapon Upgrade Shop II
+  m_Name: Shop Health Upgrade III
   m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -54,8 +54,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011777544246}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.75, y: 0.42, z: -3.35}
-  m_LocalScale: {x: 0.2990604, y: 0.28274503, z: 0.47365674}
+  m_LocalPosition: {x: 1.5261631, y: -3.072066, z: -16.223917}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 4000012046419340}
@@ -87,7 +87,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 224ef29901e9a4d70bfeed285c829eb9, type: 2}
+  - {fileID: 2100000, guid: 905d085c410ec4f94bb6381bbab9bfb4, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
@@ -109,19 +109,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011777544246}
-  m_Mesh: {fileID: 4300000, guid: 52c9da26de9cb4488851f0ddbd906a2a, type: 3}
---- !u!65 &65000011467444910
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011777544246}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Mesh: {fileID: 4300002, guid: 84bb45eaef925412ebb5d05c58b53b2f, type: 3}
 --- !u!114 &114000010048534556
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -133,14 +121,34 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7af1b7cec75f24401a1cb849c63a7bc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: Weapon Upgrade I
-  icon: {fileID: 21300000, guid: 837e99493b52549dc8b14d709f535eed, type: 3}
-  price: 100
+  name: Health Upgrade I
+  icon: {fileID: 21300000, guid: 080a883e29bc24ed6b995b53a50f69b1, type: 3}
+  price: 1200
   owned: 0
   equipped: 0
+  multiEquippable: 1
   shopInterfaceButton: {fileID: 0}
-  type: 0
+  type: Health Upgrade
   equippableObject: {fileID: 0}
+  multiplier: 0
+  addedMaxHealth: 50
+--- !u!114 &114000010881640430
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011777544246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 372d866bd65cd49c2b50db1b1a4558eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverAmplitudeX: 0
+  hoverSpeedX: 0
+  hoverAmplitudeY: 1
+  hoverSpeedY: 1
+  hoverAmplitudeZ: 0
+  hoverSpeedZ: 0
 --- !u!198 &198000010842255288
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -195,7 +203,7 @@ ParticleSystem:
     serializedVersion: 2
     enabled: 1
     startLifetime:
-      scalar: 1
+      scalar: 3
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -356,7 +364,7 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       minMaxState: 0
     startSize:
-      scalar: 0.31
+      scalar: 0.2
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -565,7 +573,7 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
       minMaxState: 0
-    randomizeRotationDirection: 0.4
+    randomizeRotationDirection: 0
     gravityModifier: 0
     maxNumParticles: 50
     size3D: 0
@@ -573,13 +581,13 @@ ParticleSystem:
   ShapeModule:
     serializedVersion: 2
     enabled: 1
-    type: 0
+    type: 5
     radius: 0.24
     angle: 25
     length: 5
-    boxX: 1
-    boxY: 1
-    boxZ: 1
+    boxX: 1.0294819
+    boxY: 1.85
+    boxZ: 2.23
     arc: 360
     placementMode: 0
     m_Mesh: {fileID: 0}
@@ -589,13 +597,13 @@ ParticleSystem:
     m_MeshNormalOffset: 0
     m_UseMeshMaterialIndex: 0
     m_UseMeshColors: 1
-    randomDirection: 0
+    randomDirection: 1
   EmissionModule:
     enabled: 1
     serializedVersion: 2
     m_Type: 0
     rate:
-      scalar: 15
+      scalar: 2
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -611,7 +619,7 @@ ParticleSystem:
         serializedVersion: 2
         m_Curve:
         - time: 0
-          value: 0.46666667
+          value: 0.5
           inSlope: 0
           outSlope: 0
           tangentMode: 0
@@ -640,9 +648,9 @@ ParticleSystem:
         serializedVersion: 2
         m_Curve:
         - time: 0
-          value: 1
-          inSlope: 0
-          outSlope: 0
+          value: 0
+          inSlope: 5.4444437
+          outSlope: 5.4444437
           tangentMode: 0
         - time: 1
           value: 0
@@ -731,7 +739,7 @@ ParticleSystem:
       minMaxState: 1
     separateAxes: 0
   RotationModule:
-    enabled: 1
+    enabled: 0
     x:
       scalar: 0
       maxCurve:
@@ -1887,7 +1895,7 @@ ParticleSystemRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 2100000, guid: fbdb5e08d95844d76a084ac932bfcbba, type: 2}
+  - {fileID: 2100000, guid: 905d085c410ec4f94bb6381bbab9bfb4, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
@@ -1903,7 +1911,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_RenderMode: 0
+  m_RenderMode: 4
   m_SortMode: 0
   m_MinParticleSize: 0
   m_MaxParticleSize: 0.5
@@ -1914,7 +1922,7 @@ ParticleSystemRenderer:
   m_NormalDirection: 1
   m_RenderAlignment: 0
   m_Pivot: {x: 0, y: 0, z: 0}
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 4300002, guid: 84bb45eaef925412ebb5d05c58b53b2f, type: 3}
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}

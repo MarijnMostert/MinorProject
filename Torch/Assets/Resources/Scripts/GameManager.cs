@@ -114,7 +114,8 @@ public class GameManager : MonoBehaviour {
 	public GameObject Pet;
 	private Pet PetScript;
 
-	public Shop shop;
+	public Shop shopPrefab;
+	private Shop shop;
 	private bool shopActive = false;
 
 	public List<GameObject> highQualityItems;
@@ -122,7 +123,7 @@ public class GameManager : MonoBehaviour {
 	[HideInInspector] public int numberOfPlayers = 1;
 
     void Awake () {
-		data.LoadFileToDataAndVars ();
+		data.Load ();
 		setQuality (data.highQuality);
 
 		dungeonData = GetComponent<DungeonData> ();
@@ -131,11 +132,6 @@ public class GameManager : MonoBehaviour {
 
 		DebuggerPanel = Instantiate (DebuggerPanel);
 		DebuggerPanel.SetActive (false);
-	
-
-		shop = Instantiate (shop);
-		shop.gameObject.SetActive (false);
-		shopActive = false;
 
 		SetUpDungeonStartCanvas ();
 
@@ -170,6 +166,8 @@ public class GameManager : MonoBehaviour {
 		PetScript = Pet.GetComponent<Pet> ();
 		PetScript.speechText.text = "";
 		PetScript.speechImage.gameObject.SetActive (false);
+
+		shopPrefab.EquipActives ();
 	}
 
 	public void StartGame(){
@@ -583,6 +581,12 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void ToggleShop(){
+		if (shop == null) {
+			shop = Instantiate (shopPrefab);
+			shop.gameObject.SetActive (false);
+			shopActive = false;
+		}
+
 		if (shopActive) {
 			shop.gameObject.SetActive (false);
 			shop.shopCam.gameObject.SetActive (false);

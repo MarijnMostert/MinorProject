@@ -9,27 +9,41 @@ public class BuyableItem : MonoBehaviour {
 	public int price;
 	public bool owned;
 	public bool equipped;
+	public bool multiEquippable = false;
 	[HideInInspector] public ShopInterfaceButton shopInterfaceButton;
-	public int type;
+	/// <summary>
+	/// The type.
+	/// "Pet"
+	/// "Torch"
+	/// "Weapon Upgrade"
+	/// "Health Upgrade"
+	/// "Skin"
+	/// </summary>
+	public string type;
+
+	[Header ("If object:")]
 	public GameObject equippableObject;
+	[Header ("If damage multiplier upgrade:")]
+	public float multiplier;
+	[Header ("If max health upgrade:")]
+	public int addedMaxHealth;
 
-	/*
-	 * Type 0 = Pet
-	 * Type 1 = Torch
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 * 
-	 */
+	public void Equip(int index){
+		GameManager.Instance.data.shopItemsEquipped [index] = true;
 
-	public void Equip(){
-		if (type == 0) {
+		switch (type) {
+		case "Pet":
 			GameManager.Instance.ChangePet (equippableObject);
-		} else if (type == 1) {
+			break;
+		case "Torch":
 			GameManager.Instance.ChangeTorch (equippableObject);
+			break;
+		case "Weapon Upgrade":
+			GameManager.Instance.data.playerDamageMultiplier *= multiplier;
+			break;
+		case "Health Upgrade":
+			GameManager.Instance.data.playerMaxHealth += addedMaxHealth;
+			break;
 		}
 	}
 }

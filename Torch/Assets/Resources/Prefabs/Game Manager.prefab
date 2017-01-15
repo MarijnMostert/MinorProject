@@ -282,7 +282,6 @@ MonoBehaviour:
     type: 2}
   torchStartingHealth: 100
   torchHealth: 0
-  torchHealthMax: 150
   score: 0
   totalScore: 0
   coinsInGame: 0
@@ -359,7 +358,8 @@ MonoBehaviour:
   collectedKeys: 0
   requiredCollectedKeys: 0
   Pet: {fileID: 1000010787105900, guid: 34e435e0d20414bb0ad3cd7e62be2d41, type: 2}
-  shop: {fileID: 114000012952452066, guid: e7fffa677a1ce4c29bfc10128f43efa3, type: 2}
+  shopPrefab: {fileID: 114000012952452066, guid: e7fffa677a1ce4c29bfc10128f43efa3,
+    type: 2}
   highQualityItems:
   - {fileID: 0}
   - {fileID: 0}
@@ -381,5 +381,5 @@ MonoBehaviour:
   coins: 0
   maxAchievedDungeonLevel: 0
   highQuality: 0
-  playerMaxHealth: 0
-  playerDamageMultiplier: 0
+  playerMaxHealth: 100
+  playerDamageMultiplier: 1
