@@ -66,7 +66,6 @@ public class HomeScreenMovement : MonoBehaviour {
         target.transform.Rotate(0, horizontal, 0);
 
         float desiredAngle = target.transform.eulerAngles.y;
-		Debug.Log (desiredAngle);
         float vertical = Input.GetAxis("turnVertical1") * rotateSpeed/10f;
 		if (Mathf.Abs(vertical) < .1f){//no controllerinput then use mouse
 			vertical = Input.GetAxis("Mouse Y") * rotateSpeed/10f;
@@ -131,7 +130,6 @@ public class HomeScreenMovement : MonoBehaviour {
 		RaycastHit hit;
 
 		if (Physics.Linecast (target.transform.position, transform.position - transform.forward * 2, out hit, layerMask)) {
-			Debug.Log ("Hit " + hit.collider.gameObject.name + "  " + (raylength - hit.distance));
 			transform.position += transform.forward * 0.5f;
 		}
 	
