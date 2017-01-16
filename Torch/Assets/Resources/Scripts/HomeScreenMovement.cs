@@ -66,6 +66,7 @@ public class HomeScreenMovement : MonoBehaviour {
         target.transform.Rotate(0, horizontal, 0);
 
         float desiredAngle = target.transform.eulerAngles.y;
+		Debug.Log (desiredAngle);
         float vertical = Input.GetAxis("turnVertical1") * rotateSpeed/10f;
 		if (Mathf.Abs(vertical) < .1f){//no controllerinput then use mouse
 			vertical = Input.GetAxis("Mouse Y") * rotateSpeed/10f;
