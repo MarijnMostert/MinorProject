@@ -70,9 +70,10 @@ public class ObjectPooler : MonoBehaviour {
     /// <para>17= Health Pickup</para>
     /// <para>18= Coin Pickup</para>
     /// <para>19 = trap projectile</para>
-    /// </summary>
-    /// <returns>The object</returns>
-    public GameObject GetObject(int type, bool setActive){
+	/// <para>20 = Boss Healthbar</para>
+	/// </summary>
+	/// <returns>The object</returns>
+	public GameObject GetObject(int type, bool setActive){
 		for (int i = 0; i < pooledObjects [type].objects.Count; i++) {
 			GameObject obj = pooledObjects [type].objects [i];
 			if (obj == null) {

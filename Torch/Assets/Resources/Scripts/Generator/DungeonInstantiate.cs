@@ -14,9 +14,21 @@ public class DungeonInstantiate : Object {
     //GameObject[,] dungeon;
     int[] mazeSize;
 	bool[,] maze, import_maze, trapped;
-    float chance_trap_straight, chance_trap_crossing,
-          chance_side_alt1, chance_side_alt2, step,
-          chance_chest_corridors, chance_chest_deadEnd, chance_nest, chance_particles;
+    float chance_trap_straight, 
+          chance_trap_crossing,
+          chance_side_alt1, 
+          chance_side_alt2, 
+          step,
+          chance_chest_corridors, 
+          chance_chest_deadEnd, 
+          chance_nest, 
+          chance_particles,
+          chance_spidernest,
+          chance_wizardnest,
+          chance_wallspikes,
+          chance_spikes,
+          chance_shuriken,
+          chance_wallrush;
     bool start_defined;
     int[] count = new int[2] {0,2};
 	private GameObject Dungeon;
@@ -158,8 +170,34 @@ public class DungeonInstantiate : Object {
         chance_nest = 0.3f;
 		chance_particles = 0.2f;
 
-		//Instantiate empty Dungeon GameObject
-		Dungeon = new GameObject("Dungeon");
+        //Compile Generated chances
+        float norm = dungeonParameters.Traps.spidernest.spawnChance
+            + dungeonParameters.Traps.spikes.spawnChance
+            + dungeonParameters.Traps.wallspikes.spawnChance
+            + dungeonParameters.Traps.wizardnest.spawnChance
+            + dungeonParameters.Traps.wallrush.spawnChance
+            + dungeonParameters.Traps.shuriken.spawnChance;
+        if (norm != 0)
+        {
+            float temp = 0;
+            chance_spidernest = (dungeonParameters.Traps.spidernest.spawnChance / norm); temp = chance_spidernest;
+            chance_spikes = (dungeonParameters.Traps.spikes.spawnChance / norm) + temp; temp = chance_spikes;
+            chance_wallspikes = (dungeonParameters.Traps.wallspikes.spawnChance / norm) + temp; temp = chance_wallspikes;
+            chance_wizardnest = (dungeonParameters.Traps.wizardnest.spawnChance / norm) + temp; temp = chance_wizardnest;
+            chance_wallrush = (dungeonParameters.Traps.wallrush.spawnChance / norm) + temp; temp = chance_wallrush;
+            chance_shuriken = (dungeonParameters.Traps.shuriken.spawnChance / norm) + temp; temp = chance_shuriken;
+        }
+        else {
+            chance_spidernest = 0;
+            chance_spikes = 0;
+            chance_wallspikes = 0;
+            chance_wizardnest = 0;
+            chance_wallrush = 0;
+            chance_shuriken = 0;
+        }
+
+        //Instantiate empty Dungeon GameObject
+        Dungeon = new GameObject("Dungeon");
 		GameManager.Instance.levelTransform = Dungeon.transform;
 		WallsParent.transform.SetParent(Dungeon.transform);
 		FloorsParent.transform.SetParent(Dungeon.transform);
@@ -485,8 +523,45 @@ public class DungeonInstantiate : Object {
     {
         bool nest = false;
         GameObject trapprefab = spidernest;
+        float tmp = Random.value;
+        Debug.Log("tmp: "+tmp);
+        if (tmp < chance_spidernest)
+        {
+            trapprefab = spidernest;
+            nest = true;
+            Debug.Log("spider");
 
-        if (!ArrayCorner(getSurrounding2(x, y))||nest)
+        }
+        else if (tmp < chance_spikes)
+        {
+            trapprefab = spikes;
+            Debug.Log("spikes");
+        }
+        else if (tmp < chance_wallspikes)
+        {
+            trapprefab = wallspikes;
+            Debug.Log("wallspikes");
+        }
+        else if (tmp < chance_wizardnest)
+        {
+            trapprefab = wizardnest;
+            nest = true;
+            Debug.Log("wizardnest");
+        }
+        else if (tmp < chance_wallrush)
+        {
+            trapprefab = wallrush;
+            Debug.Log("wallrush");
+        }
+        else if (tmp < chance_shuriken)
+        {
+            trapprefab = shuriken;
+            Debug.Log("shuriken");
+        }
+        else { Debug.Log("return"); return;  }
+
+
+        if (!ArrayCorner(getSurrounding2(x, y)) || nest)
         {
             Quaternion rot;
             if (getSurrounding2(x, y)[0] == 1)
