@@ -35,7 +35,7 @@ public class Laserbeam : MonoBehaviour {
 	void UpdateLength(){
 		if (Physics.Raycast (myTransform.position, myTransform.forward, out hit, maxLength, layermask) && Time.time - timestamp > cooldown) {
 			lineRenderer.SetPosition (1, new Vector3 (0, 0, hit.distance));
-			Debug.Log (hit.collider.gameObject.name);
+			//Debug.Log (hit.collider.gameObject.name);
 
 			if (hit.collider.gameObject.CompareTag("Player")) {
 				Debug.Log ("Player hit");

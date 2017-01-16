@@ -21,6 +21,10 @@ public class RangedWeapon : Weapon {
 		this.projectileSpeed = projSpeed;
 		this.projectile = newProjectile;
 	}
+
+	public void setCooldown(float cooldown){
+		this.cooldown = cooldown;
+	}
 		
 
 	//Shooting a projectile
