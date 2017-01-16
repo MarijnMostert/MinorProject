@@ -24,11 +24,13 @@ public class puzzleDoors : MonoBehaviour {
 	}
 
 	void Update () {
-		done = myLever.is_on;
-		if (prev != done && done) {
-			EndPuzzle ();
+		if (myLever != null) {
+			done = myLever.is_on;
+			if (prev != done && done) {
+				EndPuzzle ();
+			}
+			prev = done;
 		}
-		prev = done;
 	}
 	
 	// Update is called once per frame
