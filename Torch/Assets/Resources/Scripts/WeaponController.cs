@@ -28,6 +28,7 @@ public class WeaponController : MonoBehaviour {
 		currentWeapon = newWeapon;
 		if (playerData != null) {
 			currentWeapon.playerData = playerData;
+			currentWeapon.damageMultiplier = GameManager.Instance.data.playerDamageMultiplier;
 		}
 		//Debug.Log ("New weapon equipped: " + currentWeapon);
 	}

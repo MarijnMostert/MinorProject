@@ -12,9 +12,9 @@ public class MasterGenerator : Object {
 							stickyPickUp, roofGroup, wallPickUp, wallTorch, piercingWeapon,
 							bombPickUp, spidernest, wizardnest, wallspikes, spikes, shuriken, 
                             wallrush, stardustParticles, moondustParticles, decoyPickUp;
-
 	public List<GameObject> puzzleRooms;
     GameObject game_manager;
+	DungeonData.DungeonParameters dungeonParameters;
     public DungeonInstantiate dungeon_instantiate;
     int width;// = 100;
 	int height;// = 90;
@@ -27,18 +27,19 @@ public class MasterGenerator : Object {
 
 	int[,] endMaze;
 
-    public MasterGenerator(GameObject game_manager, int width, int height, int radius, int maxlength, 
-		int timeout, int minAmountOfRooms, int maxAmountOfRooms, int chanceOfRoom, List<GameObject> puzzleRooms)
+	public MasterGenerator(GameObject game_manager, DungeonData.DungeonParameters dungeonParameters, int radius, int maxlength, 
+		int timeout, List<GameObject> puzzleRooms)
     {
+		this.dungeonParameters = dungeonParameters;
         this.game_manager = game_manager;
-        this.width = width;
-        this.height = height;
+		this.width = dungeonParameters.width;
+		this.height = dungeonParameters.height;
         this.radius = radius;
         this.maxlength = maxlength;
         this.timeout = timeout;
-        this.minAmountOfRooms = minAmountOfRooms;
-        this.maxAmountOfRooms = maxAmountOfRooms;
-        this.chanceOfRoom = chanceOfRoom;
+		this.minAmountOfRooms = dungeonParameters.minAmountOfRooms;
+		this.maxAmountOfRooms = dungeonParameters.maxAmountOfRooms;
+		this.chanceOfRoom = dungeonParameters.chanceOfRoom;
 		this.puzzleRooms = puzzleRooms;
     }
 
@@ -55,14 +56,14 @@ public class MasterGenerator : Object {
 		List<p2D> allRoomCoords = new List<p2D> ();
 		List<int[]> allDoors = new List<int[]> ();
 
-        dungeon_instantiate = new DungeonInstantiate(floor, side, sideAlt1, sideAlt2, corner, cornerout,
+        dungeon_instantiate = new DungeonInstantiate(dungeonParameters, floor, side, sideAlt1, sideAlt2, corner, cornerout,
                                                                         roof, block, trap_straight, trap_crossing, trap_box,
-                                                                        portal, end_portal, player, game_manager,
-                                                                        spawner, torch, cam, pointer, chest, coin, 
-																		fireball, iceball, health, mazeSize, laser, shieldPickUp,
-			                                                            stickyPickUp, roofGroup, wallPickUp, puzzleRooms, wallTorch, 
-                                                                        piercingWeapon, bombPickUp, spidernest, wizardnest, wallspikes, 
+                                                                        portal, end_portal, player, game_manager, spawner, torch, 
+                                                                        cam, pointer, chest, coin, fireball, iceball, health, mazeSize, 
+                                                                        laser, shieldPickUp, stickyPickUp, roofGroup, wallPickUp, puzzleRooms,
+                                                                        wallTorch, piercingWeapon, bombPickUp, spidernest, wizardnest, wallspikes, 
                                                                         spikes, shuriken, wallrush, stardustParticles, moondustParticles, decoyPickUp);
+
 
 		while (!done) {
 			dungeon = new DungeonGenerator ( width,
@@ -158,20 +159,14 @@ public class MasterGenerator : Object {
 //        spawner.GetComponent<Spawner>().mapMinX = 5;
         player = Resources.Load("Prefabs/Player", typeof(GameObject)) as GameObject;
         torch = Resources.Load("Prefabs/Torch", typeof(GameObject)) as GameObject;
-        coin = Resources.Load("Prefabs/PickUps/Coin", typeof(GameObject)) as GameObject;
         fireball = Resources.Load("Prefabs/PickUps/FireBall Weapon PickUp", typeof(GameObject)) as GameObject;
         iceball = Resources.Load("Prefabs/PickUps/IceBall Weapon PickUp", typeof(GameObject)) as GameObject;
-        health = Resources.Load("Prefabs/PickUps/HealthPickUp", typeof(GameObject)) as GameObject;
 		laser = Resources.Load ("Prefabs/PickUps/Laser Weapon PickUp", typeof(GameObject)) as GameObject;
-		shieldPickUp = Resources.Load ("Prefabs/PickUps/Shield PickUp", typeof(GameObject)) as GameObject;
 
-		stickyPickUp = Resources.Load ("Prefabs/PickUps/Sticky PickUp", typeof(GameObject)) as GameObject;
 		roofGroup = Resources.Load ("Prefabs/roofGroup", typeof(GameObject)) as GameObject;
 		wallPickUp = Resources.Load ("Prefabs/PickUps/Wall PickUp", typeof(GameObject)) as GameObject;
 		wallTorch = Resources.Load ("Prefabs/WallTorch", typeof(GameObject)) as GameObject;
 		piercingWeapon = Resources.Load ("Prefabs/PickUps/Piercing Weapon PickUp", typeof(GameObject)) as GameObject;
-		bombPickUp = Resources.Load ("Prefabs/PickUps/Bomb PickUp", typeof(GameObject)) as GameObject;
-		decoyPickUp = Resources.Load ("Prefabs/PickUps/Decoy PickUp", typeof(GameObject)) as GameObject;
 
         wizardnest = Resources.Load("Prefabs/traps/nests/wizardnest/wizardsnest", typeof(GameObject)) as GameObject;
         spidernest = Resources.Load("Prefabs/traps/nests/spidernest/spidernest", typeof(GameObject)) as GameObject;

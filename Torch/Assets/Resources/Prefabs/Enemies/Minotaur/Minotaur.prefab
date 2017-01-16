@@ -635,7 +635,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012211753288}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.9647722, y: 13.52, z: -15.772325}
+  m_LocalPosition: {x: 2.05, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -821,12 +821,13 @@ MonoBehaviour:
     type: 2}
   pitchMin: 0.8
   pitchMax: 1.1
+  InstantiatedByObjectPooler: 0
   ObjectPoolIndex: 12
   startingHealth: 100
   attackCooldown: 1
   attackDamage: 10
   refreshTime: 0.1
-  attackRange: 1
+  attackRange: 1.2
   scoreValue: 10
   speed: 0
   health: 0
@@ -836,7 +837,7 @@ MonoBehaviour:
   clip_takeDamage: {fileID: 8300000, guid: 27fec6b57c7bb4db08cb8c615120a110, type: 3}
   clip_attack: {fileID: 8300000, guid: aa350dc7e443546e3bcb5ecb06a4a8a7, type: 3}
   clip_spawn: {fileID: 8300000, guid: 68fc2169d94d14c219a84b35ab13b342, type: 3}
-  clip_die: {fileID: 0}
+  clip_die: {fileID: 8300000, guid: 27fec6b57c7bb4db08cb8c615120a110, type: 3}
   clip_battleCry: {fileID: 0}
   attacknow: 0
   speedy: 0
@@ -871,10 +872,10 @@ CapsuleCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012211753288}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 1.6
-  m_Height: 4.45
+  m_Radius: 0.8
+  m_Height: 3
   m_Direction: 1
   m_Center: {x: 0, y: 1.05, z: 0}
 --- !u!137 &137000011460442248
@@ -954,6 +955,6 @@ NavMeshAgent:
   m_AutoBraking: 0
   m_AutoRepath: 1
   m_Height: 2
-  m_BaseOffset: -0.1
+  m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4

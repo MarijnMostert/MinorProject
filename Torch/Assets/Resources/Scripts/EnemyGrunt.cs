@@ -14,7 +14,7 @@ public class EnemyGrunt : Enemy {
 
 	// Use this for initialization
 	protected override void OnEnable () {
-		if (!firstTimeActive) {
+		if (!firstTimeActive || InstantiatedByObjectPooler) {
 			base.OnEnable ();
 			StartCoroutine (UpdatePath ());
 			animator = GetComponent<Animator> ();
@@ -79,6 +79,8 @@ public class EnemyGrunt : Enemy {
 			//Set the target position for the Nav Mesh Agent
 			if (navMeshAgent.enabled) {
 				navMeshAgent.SetDestination (targetPosition);
+			} else {
+				navMeshAgent.enabled = true;
 			}
 
 			//Make sure that the Nav Mesh Agent refreshes not every frame (to spare costs)

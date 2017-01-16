@@ -47,34 +47,38 @@ public class ObjectPooler : MonoBehaviour {
 		}
 	}
 
-	/// <summary>
-	/// <para>Gets the object</para>
-	/// <para>0 = damagePopUp</para>
-	/// <para>1 = fireBall projectile</para>
-	/// <para>2 = iceBall projectile</para>
-	/// <para>3 = piercing Projectile</para>
-	/// <para>4 = dark Projectile</para>
-	/// <para>5 = fireBall particles OnHit</para>
-	/// <para>6 = iceBall particles OnHit</para>
-	/// <para>7 = Piercing particles OnHit</para>
-	/// <para>8 = Laser particles OnHit</para>
-	/// <para>9 = Dark particles OnHit</para>
-	/// <para>10 = LittleMonster</para>
-	/// <para>11 = Spider</para>
-	/// <para>12 = Minotaur</para>
-	/// <para>13 = Ghost</para>
-	/// <para>14 = HealthBar</para>
-	/// <para>15 = Bombing Projectile</para>
-	/// <para>16 = Bombing Explosion</para>
-    /// <para>17 = trap projectile</para>
-	/// </summary>
-	/// <returns>The object</returns>
-	public GameObject GetObject(int type, bool setActive){
+    /// <summary>
+    /// <para>Gets the object</para>
+    /// <para>0 = damagePopUp</para>
+    /// <para>1 = fireBall projectile</para>
+    /// <para>2 = iceBall projectile</para>
+    /// <para>3 = piercing Projectile</para>
+    /// <para>4 = dark Projectile</para>
+    /// <para>5 = fireBall particles OnHit</para>
+    /// <para>6 = iceBall particles OnHit</para>
+    /// <para>7 = Piercing particles OnHit</para>
+    /// <para>8 = Laser particles OnHit</para>
+    /// <para>9 = Dark particles OnHit</para>
+    /// <para>10 = LittleMonster</para>
+    /// <para>11 = Spider</para>
+    /// <para>12 = Minotaur</para>
+    /// <para>13 = Ghost</para>
+    /// <para>14 = HealthBar</para>
+    /// <para>15 = Bombing Projectile</para>
+    /// <para>16 = Bombing Explosion</para>
+    /// <para>19 = trap projectile</para>
+    /// <para>17= Health Pickup</para>
+    /// <para>18= Coin Pickup</para>
+    /// <para>19 = trap projectile</para>
+    /// </summary>
+    /// <returns>The object</returns>
+    public GameObject GetObject(int type, bool setActive){
 		for (int i = 0; i < pooledObjects [type].objects.Count; i++) {
 			GameObject obj = pooledObjects [type].objects [i];
 			if (obj == null) {
 				pooledObjects[type].objects.Remove (obj);
 			} else if (!obj.activeInHierarchy) {
+				GetEnemyException (obj);
 				if (setActive) {
 					obj.SetActive (true);
 				}
@@ -85,15 +89,25 @@ public class ObjectPooler : MonoBehaviour {
 		if (pooledObjects[type].willGrow) {
 			GameObject obj = Instantiate (pooledObjects [type].objectToPool, transform) as GameObject;
 			pooledObjects [type].objects.Add (obj);
-			if (!setActive) {
-				obj.SetActive (false);
+			GetEnemyException (obj);
+			obj.SetActive (false);
+			if (setActive) {
+				obj.SetActive (true);
 			}
-			Debug.Log ("Created " + obj);
+			Debug.Log ("Created " + obj.name + " for ObjectPool");
 			return obj;
 		}
 
 		Debug.Log ("The requested object is already being used. \n Consider making this pool larger or growable.");
 		return null;
+	}
+
+	void GetEnemyException(GameObject obj){
+		if (obj.CompareTag("Enemy")) {
+			Enemy enemy = obj.GetComponent<Enemy> ();
+			enemy.InstantiatedByObjectPooler = true;
+			enemy.navMeshAgent.enabled = true;
+		}
 	}
 
 	public GameObject GetObject(int type, bool setActive, Vector3 position){

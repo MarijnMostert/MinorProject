@@ -30,7 +30,7 @@ public class Torch : MonoBehaviour, IDamagable {
 
 	private float randomValue;
 
-	public GameObject UI;
+	public UI ui;
 	private Text healthText;
 	private Image healthBar;
 	public GameObject HealingParticles;
@@ -44,7 +44,9 @@ public class Torch : MonoBehaviour, IDamagable {
 	public bool isDamagable = true;
 
 	new void Start () {
+		startingHealth = GameManager.Instance.data.playerMaxHealth;
 		health = startingHealth;
+		SetupHealthBar ();
 
 		torchLight = transform.GetComponentInChildren<Light> ();
 		HealingParticles.SetActive (false);
@@ -61,9 +63,6 @@ public class Torch : MonoBehaviour, IDamagable {
 	
 	void Update () {
 		lightUpdate ();
-		if (transform.position.y < -12) {
-			Die ();
-		}
 	}
 
 	//Update the light intensity and range according to the health
@@ -84,6 +83,8 @@ public class Torch : MonoBehaviour, IDamagable {
 			TorchFOV.SetTrigger ("TakeDamage");
 
 			if (health <= 0) {
+				health = 0;
+				updateHealth ();
 				Debug.Log ("Player dies by taking " + damage + " from " + source.name);
 				Die ();
 			}
@@ -94,8 +95,8 @@ public class Torch : MonoBehaviour, IDamagable {
 	public void heal(int healingAmount){
 //		Debug.Log (gameObject + " heals " + healingAmount + "points");
 		health += healingAmount;
-		if (health > gameManager.torchHealthMax) {
-			health = gameManager.torchHealthMax;
+		if (health > startingHealth) {
+			health = startingHealth;
 		}
 		updateHealth ();
 		StartCoroutine (ParticlesCoroutine ());
@@ -120,13 +121,13 @@ public class Torch : MonoBehaviour, IDamagable {
 	//Update the health of the torch.
 	private void updateHealth(){
 		if (healthText == null) {
-			healthText = UI.transform.Find ("Health Text").GetComponent<Text> ();
+			healthText = ui.currentHealthText;
 		}
-		healthText.text = "Health: " + health;
+		healthText.text = health.ToString ();
 		gameManager.torchHealth = health;
 
 		if (healthBar == null) {
-			healthBar = UI.transform.Find ("HealthBar").Find("Torch Healthbar Fill").GetComponent<Image> ();
+			healthBar = ui.healthImage;
 		}
 		healthBar.fillAmount = (float)health / (float)startingHealth * 0.4f + 0.6f;
 
@@ -143,6 +144,7 @@ public class Torch : MonoBehaviour, IDamagable {
 	//Coroutine to receive damage over time
 	IEnumerator DamageOverTime(){
 		while (gameObject.activeSelf) {
+			yield return new WaitForSeconds (damageOverTimeVarTime);
 			if (isDamagable) {
 				//		Debug.Log (gameObject + " takes " + damage + " damage.");
 				health -= damageOverTimeVarDamage;
@@ -153,7 +155,6 @@ public class Torch : MonoBehaviour, IDamagable {
 					Die ();
 				}
 			}
-			yield return new WaitForSeconds (damageOverTimeVarTime);
 		}
 	}
 
@@ -168,5 +169,10 @@ public class Torch : MonoBehaviour, IDamagable {
 	public void ToggleDamagable(){
 		isDamagable = !isDamagable;
 		Debug.Log("Torch isDamagable is set to " + isDamagable);
+	}
+
+	void SetupHealthBar(){
+		updateHealth ();
+		ui.maxHealthText.text = startingHealth.ToString ();
 	}
 }

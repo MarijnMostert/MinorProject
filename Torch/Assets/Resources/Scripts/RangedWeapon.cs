@@ -29,6 +29,8 @@ public class RangedWeapon : Weapon {
 			base.Fire ();
 			Projectile newProjectile = ObjectPooler.Instance.GetObject (projectile.ObjectPoolerIndex, true, transform.position, transform.rotation).GetComponent<Projectile>();
 			newProjectile.setSpeed (projectileSpeed);
+			newProjectile.PlayerData = playerData;
+			newProjectile.multiplier = damageMultiplier;
 			lastFireTime = Time.time;
 
 			ObjectPooler.Instance.PlayAudioSource (fireClip, mixerGroup, pitchMin, pitchMax, transform);

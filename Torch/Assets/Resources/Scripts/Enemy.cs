@@ -5,6 +5,7 @@ using System.Collections;
 
 public class Enemy : AudioObject, IDamagable {
 
+	public bool InstantiatedByObjectPooler = false;
 	public int ObjectPoolIndex;
 	public int startingHealth;
 	public NavMesh navMesh;
@@ -16,7 +17,7 @@ public class Enemy : AudioObject, IDamagable {
 	[HideInInspector] public float speed;
 
 	[SerializeField] protected int health;
-	[SerializeField] protected NavMeshAgent navMeshAgent;
+	[SerializeField] public NavMeshAgent navMeshAgent;
 	protected float lastAttackTime = 0f;
 	protected GameObject healthBar;
 	protected Image healthBarImage;
@@ -87,14 +88,17 @@ public class Enemy : AudioObject, IDamagable {
 		}
 
 		if (health <= 0) {
-			if (anim != null)
-			{
+			if (anim != null) {
 //				Debug.Log ("animation time");
 				anim.SetTrigger ("Die");
-				Debug.Log (anim.GetCurrentAnimatorClipInfo (0).Length);
+//				Debug.Log (anim.GetCurrentAnimatorClipInfo (0).Length);
 			}
 //			Debug.Log ("dead");
+
+			ReturnPlayerData (source);
 			Die ();
+		} else if (clip_takeDamage != null) {
+			ObjectPooler.Instance.PlayAudioSource (clip_takeDamage, mixerGroup, pitchMin, pitchMax, transform);
 		}
 	}
 
@@ -110,6 +114,7 @@ public class Enemy : AudioObject, IDamagable {
 		if (clip_die != null) {
 			ObjectPooler.Instance.PlayAudioSource (clip_die, mixerGroup, pitchMin, pitchMax, transform);
 		}
+		Drop ();
         StartCoroutine(DieThread());
     }
 
@@ -124,7 +129,7 @@ public class Enemy : AudioObject, IDamagable {
 //        Debug.Log(anim);
         if (anim != null)
         {
-			yield return new WaitForSeconds(anim.GetCurrentAnimatorClipInfo(0).Length - 0.02f);//.56f
+			yield return new WaitForSeconds(anim.playbackTime);//.56f
         }
         //Add a score
         gameManager.updateScore(scoreValue);
@@ -145,5 +150,32 @@ public class Enemy : AudioObject, IDamagable {
 		dead = false;
 		health = startingHealth;
 		speed = navMeshAgent.speed;
+	}
+
+	public void Drop(){
+		float rand = Random.value;
+		if (rand > 0.5){
+			ObjectPooler.Instance.GetObject (18, true, new Vector3(transform.position.x, 1f, transform.position.z));
+		}
+		if (rand > 0.9) {
+			ObjectPooler.Instance.GetObject (17, true, new Vector3(transform.position.x, 1f, transform.position.z));
+		}
+	}
+
+	public void ReturnPlayerData(GameObject source){
+		Projectile projectile = source.GetComponent<Projectile> ();
+		PlayerData playerData = null;
+		if (projectile != null) {
+			playerData = projectile.PlayerData;
+		} else {
+			LaserWeapon laserWeapon = source.GetComponent<LaserWeapon> ();
+			if (laserWeapon != null) {
+				playerData = laserWeapon.playerData;
+			}
+		}
+
+		if (playerData != null) {
+			playerData.IncrementEnemiesKilled ();
+		}
 	}
 }

@@ -16,6 +16,7 @@ public class EndOfRoundCanvas : MonoBehaviour {
 		public Text scorePickedUp;
 		public Text coinsPickedUp;
 		public Text powerUpsUsed;
+		public Text enemiesKilled;
 	}
 		
 	public PlayerDataText[] playerDataTexts;
@@ -35,12 +36,24 @@ public class EndOfRoundCanvas : MonoBehaviour {
 		PlayerData playerData = gameManager.playerManagers [playerManagerIndex].playerData;
 		PlayerDataText dataTexts = playerDataTexts [playerManagerIndex];
 		dataTexts.healthPickedUp.text = playerData.healthPickedUp.ToString();
-		dataTexts.distanceTravelled.text = playerData.distanceTravelled.ToString();
+		playerData.GetDistanceTravelled ();
+		dataTexts.distanceTravelled.text = DistanceToString(playerData.distanceTravelled);
 		dataTexts.shotsFired.text = playerData.shotsFired.ToString();
 		playerData.CalculateAccuracy ();
-		dataTexts.accuracy.text = playerData.accuracy.ToString () + "%";
+		dataTexts.accuracy.text = ((int)playerData.accuracy).ToString () + "%";
 		dataTexts.scorePickedUp.text = playerData.scorePickedUp.ToString ();
 		dataTexts.coinsPickedUp.text = playerData.coinsPickedUp.ToString ();
 		dataTexts.powerUpsUsed.text = playerData.powerUpsUsed.ToString ();
+		dataTexts.enemiesKilled.text = playerData.enemiesKilled.ToString ();
 	}
+
+	public string DistanceToString(float distanceTravelled){
+		if (distanceTravelled < 1000) {
+			return (int)distanceTravelled + " m";
+		} else {
+			string km = (distanceTravelled / 1000).ToString ("##.0") + " km";
+			return km;
+		}
+	}
+
 }

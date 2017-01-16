@@ -1,25 +1,34 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
+using System.Collections.Generic;
 
+[System.Serializable]
 public class Data : MonoBehaviour {
+
 
 	[SerializeField] private GameManager gameManager;
 
-	[Header ("- Data")]
+	[Header ("- Saved Data")]
 	public bool[] shopItemsOwned;
 	public bool[] shopItemsEquipped;
 	public int coins;
 	public int maxAchievedDungeonLevel;
 	public bool highQuality;
+	public List<string> highScoreNames;
+	public List<int> highScoreScores;
 
-	// Update is called once per frame
+	[Header ("- Non-Saved Data")]
+	public int playerMaxHealth = 100;
+	public float playerDamageMultiplier = 1;
+
 	void Update () {
 		if (Input.GetKeyDown (KeyCode.Tab)) {
-			SaveDataToFile ();
+			Save ();
 		}
 	}
 
-	public void LoadFileToDataAndVars(){
+	public void Load(){
 		shopItemsOwned = new bool[20];
 		shopItemsEquipped = new bool[20];
 		for (int i = 0; i < shopItemsOwned.Length; i++) {
@@ -33,11 +42,15 @@ public class Data : MonoBehaviour {
 		if (maxAchievedDungeonLevel == 0)
 			maxAchievedDungeonLevel = 1;
 		this.highQuality = intToBool(PlayerPrefs.GetInt ("highQuality"));
+		highScoreNames = new List<string> ();
+		highScoreNames = Serializer.Load<List<string>> ("highScoresNames.txt");
+		highScoreScores = new List<int> ();
+		highScoreScores = Serializer.Load<List<int>> ("highScores.txt");
 
 		Debug.Log ("Loaded data succesfully");
 	}
 
-	public void SaveDataToFile(){
+	public void Save(){
 		for (int i = 0; i < shopItemsOwned.Length; i++) {
 			string strOwned = "shopItem" + i;
 			PlayerPrefs.SetInt (strOwned, boolToInt (shopItemsOwned [i]));
@@ -47,6 +60,8 @@ public class Data : MonoBehaviour {
 		PlayerPrefs.SetInt ("coins", coins);
 		PlayerPrefs.SetInt ("dungeonLevel", maxAchievedDungeonLevel);
 		PlayerPrefs.SetInt ("highQuality", boolToInt(highQuality));
+		Serializer.Save<List<string>> ("highScoresNames.txt", highScoreNames);
+		Serializer.Save<List<int>> ("highScores.txt", highScoreScores);
 
 		Debug.Log ("Saved data succesfully");
 	}
@@ -65,7 +80,7 @@ public class Data : MonoBehaviour {
 		PlayerPrefs.SetInt ("highQuality", 1);
 
 		Debug.Log ("Reset data succesfully");
-		LoadFileToDataAndVars ();
+		Load ();
 	}
 
 	bool intToBool(int integer){
@@ -84,18 +99,22 @@ public class Data : MonoBehaviour {
 
 	void OnApplicationQuit(){
 		Debug.Log ("Application quitted");
-		CollectData ();
-		SaveDataToFile ();
+		Save ();
 	}
 
-	public void ShopItemsToData(){
-		for (int i = 0; i < gameManager.shop.itemsToBuy.Length; i++) {
-			shopItemsOwned [i] = gameManager.shop.itemsToBuy[i].owned;
-			shopItemsEquipped [i] = gameManager.shop.itemsToBuy [i].equipped;
+	public void IncrementCoins(){
+		coins += 1;
+	}
+
+	public void SaveHighScore(int score, string name){
+		if (highScoreNames == null) {
+			highScoreNames = new List<string> ();
 		}
-	}
-
-	public void CollectData(){
-		ShopItemsToData ();
+		highScoreNames.Add (name);
+		if (highScoreScores == null) {
+			highScoreScores = new List<int> ();
+		}
+		highScoreScores.Add (score);
+		Debug.Log ("New highscore added: " + score + " : " + name);
 	}
 }

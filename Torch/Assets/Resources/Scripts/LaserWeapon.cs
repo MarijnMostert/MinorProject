@@ -18,15 +18,16 @@ public class LaserWeapon : Weapon {
 	private float lastFireTime;
 	private RaycastHit hit;
 
-	public AudioClip clip;
-
-
 	void Awake(){
 		lastFireTime = Time.time;
 		lineRenderer = GetComponent<LineRenderer> ();
 		lineRenderer.enabled = false;
 		light = GetComponent<Light> ();
 		light.enabled = false;
+	}
+
+	void Start(){
+		damageMultiplier = GameManager.Instance.data.playerDamageMultiplier;
 	}
 
 	void Update(){
@@ -40,6 +41,7 @@ public class LaserWeapon : Weapon {
 	//Shooting a laser
 	public override void Fire(){
 		if ((Time.time - lastFireTime) > cooldown) {
+			ObjectPooler.Instance.PlayAudioSource (fireClip, mixerGroup, pitchMin, pitchMax, transform);
 			base.Fire ();
 			lineRenderer.enabled = true;
 			light.enabled = true;
@@ -50,13 +52,14 @@ public class LaserWeapon : Weapon {
 					Quaternion.Euler(new Vector3(Random.Range(0,360), Random.Range(0,360), Random.Range(0,360))));
 				if (hit.collider.gameObject.CompareTag ("Enemy")) {
 					bool crit = false;
-					int damage = Random.Range (minDamage, maxDamage);
+					int damage = Random.Range ((int)(minDamage*damageMultiplier), (int)(maxDamage*damageMultiplier));
 					if (Random.value < critChance) {
 						damage *= 2;
 						crit = true;
 					}
 					if (hit.collider.gameObject.CompareTag ("Enemy") || hit.collider.gameObject.CompareTag ("Boss")) {
 						hit.collider.gameObject.GetComponent<IDamagable> ().takeDamage (damage, crit, gameObject);
+						playerData.IncrementShotsLanded ();
 					}
 				} 
 				lineRenderer.SetPosition (1, hit.point);
@@ -66,7 +69,6 @@ public class LaserWeapon : Weapon {
 	
 			lastFireTime = Time.time;
 
-			ObjectPooler.Instance.PlayAudioSource (clip, mixerGroup, pitchMin, pitchMax, transform);
 		}
 
 	}

@@ -31,6 +31,7 @@ public class PlayerManager {
         playerMovement.setMoves(playerNumber);
 		playerMovement.cursorPointerPrefab = cursorPointer;
 		playerMovement.playerColor = playerColor;
+		playerMovement.distanceTravelled = 0f;
 
 		//Setup Inventory references
 		powerUpInventory = playerInstance.GetComponent<PowerUpInventory> ();
