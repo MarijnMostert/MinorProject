@@ -26,15 +26,10 @@ public class Spawner : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		gameManager = GameManager.Instance;
-		timeBetweenEnemySpawn = 15.0f - (gameManager.dungeonLevel);
-		if (timeBetweenEnemySpawn < 1.0f) {
-			timeBetweenEnemySpawn = 1.0f;
-		}
         dead = false;
 		activated = false;
 		waveButton = "SpawnWave";
 		spawnEnemyButton = "SpawnEnemy";
-        StartCoroutine(SpawnEnemy());
     }
     
 
@@ -46,7 +41,7 @@ public class Spawner : MonoBehaviour {
 		if (Input.GetButtonDown (waveButton)) {
 			spawnWave ();
 		}
-		if (Input.GetKeyDown (KeyCode.M)) {
+		if (Input.GetKeyDown (KeyCode.M) && gameManager.getCheat()) {
 			if (dead) {
 				dead = false;
 				Debug.Log ("Spawner has been turned on");
@@ -124,5 +119,18 @@ public class Spawner : MonoBehaviour {
 			enemiesToSpawn.Add (temp [2]);
 		if (dungeonParameters.enemies.Bomber)
 			enemiesToSpawn.Add (temp [3]);
+
+		timeBetweenEnemySpawn = dungeonParameters.timeBetweenSpawns;
+		timeTillSpawning = dungeonParameters.timeBeforeSpawning;
+
+		StartCoroutine (WaitSpawning ());
+
+	}
+
+	IEnumerator WaitSpawning(){
+		yield return new WaitForSeconds (timeTillSpawning);
+		activated = true;
+		StartCoroutine (SpawnEnemy ());
+		Debug.Log ("spawner activated");
 	}
 }

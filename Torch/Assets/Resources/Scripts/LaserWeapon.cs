@@ -62,6 +62,10 @@ public class LaserWeapon : Weapon {
 						playerData.IncrementShotsLanded ();
 					}
 				} 
+				if (hit.collider.gameObject.CompareTag ("Target")) {
+					Debug.Log ("Laser hit target");
+					hit.collider.gameObject.GetComponent<RotateTarget> ().Rotate (transform.forward);
+				}
 				lineRenderer.SetPosition (1, hit.point);
 			} else {
 				lineRenderer.SetPosition (1, ray.origin + ray.direction * laserLength);

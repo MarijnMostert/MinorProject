@@ -43,4 +43,8 @@ public class Timer : MonoBehaviour {
 
 		return minutesString + ":" + secondsString;
 	}
+
+	public void Reset(){
+		startingTime = Time.time;
+	}
 }

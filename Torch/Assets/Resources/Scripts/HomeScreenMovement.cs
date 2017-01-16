@@ -130,7 +130,6 @@ public class HomeScreenMovement : MonoBehaviour {
 		RaycastHit hit;
 
 		if (Physics.Linecast (target.transform.position, transform.position - transform.forward * 2, out hit, layerMask)) {
-			Debug.Log ("Hit " + hit.collider.gameObject.name + "  " + (raylength - hit.distance));
 			transform.position += transform.forward * 0.5f;
 		}
 	

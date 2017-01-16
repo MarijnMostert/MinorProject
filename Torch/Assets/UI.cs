@@ -13,4 +13,5 @@ public class UI : MonoBehaviour {
 	public Text currentHealthText;
 	public Text maxHealthText;
 	public Image healthImage;
+	public Timer timer;
 }

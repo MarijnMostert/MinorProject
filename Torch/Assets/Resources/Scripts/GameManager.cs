@@ -183,18 +183,7 @@ public class GameManager : MonoBehaviour {
 			homeScreen.SetActive (false);
             StartCoroutine(CreateLevel(1));
             gameStarted = true;
-			StartCoroutine (WaitSpawning ());
 		}
-	}
-
-	IEnumerator WaitSpawning(){
-		float wait = 11.0f - .5f * dungeonLevel;
-		if (wait < 1.0f) {
-			wait = 1.0f;
-		}
-		yield return new WaitForSeconds (wait);
-		spawner.activated = true;
-		Debug.Log ("spawner activated");
 	}
 
 	//where type 0 is tutorial and type 1 is dungeon.
@@ -284,14 +273,14 @@ public class GameManager : MonoBehaviour {
 		}
 		audioSourceMusic.Play ();
 		score = 0;
-		totalScore = 0;
-		coinsInGame = 0;
-		SetScore (score);
+		SetScore (totalScore);
 		SetInGameCoin (coinsInGame);
 		homeScreenCam.SetActive (false);
 		loadingScreenCanvas.SetActive (false);
 
 		Instantiate (minimap);
+
+		ui.timer.Reset ();
 
 		StartTime = Time.time;
 
@@ -401,7 +390,6 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void GameOver(){
-		totalScore += score;
 		analytics.WriteDeath (totalScore, dungeonLevel);
 		deathCanvas.SetScoreText (totalScore);
 		deathCanvas.SetCoinText (coinsInGame);
@@ -428,12 +416,12 @@ public class GameManager : MonoBehaviour {
 			Destroy (projectile);
 		}
 		Destroy (GameObject.FindGameObjectWithTag ("Minimap"));
-
-		score = 0;
-
 	}
 
 	public void TransitionDeathToMain(){
+		score = 0;
+		totalScore = 0;
+		coinsInGame = 0;
 		RoundEnd ();
 		DestroyDungeon ();
 		if (ui != null)
@@ -474,8 +462,9 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void updateScore(int addedScore){
+		totalScore += addedScore;
 		score += addedScore;
-		ui.scoreText.text = "Score: " + score;
+		ui.scoreText.text = "Score: " + totalScore;
 	}
 
 	public void SetScore(int score){
@@ -496,7 +485,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void Proceed(){
-		saver.ToFile (dungeonLevel);
+		//saver.ToFile (dungeonLevel);
 		analytics.WriteFinishLevel (dungeonLevel, score, totalScore, StartTime);
 		RoundEnd ();
 		DestroyDungeon ();

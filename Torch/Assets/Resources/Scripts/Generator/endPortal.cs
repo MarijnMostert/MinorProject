@@ -58,9 +58,7 @@ public class endPortal : InteractableItem {
 			gameManager.spawner.activated = false;
 		}
 		gameManager.Pet.GetComponent <Pet> ().speechImage.gameObject.SetActive (false);
-		gameManager.Pet.GetComponent <Pet> ().speechText.text = "";
-		gameManager.totalScore += gameManager.score;
-		/*
+		gameManager.Pet.GetComponent <Pet> ().speechText.text = "";		/*
 		gameManager.endOfRoundCanvas.transform.Find ("Score").GetComponent<Text> ().text = gameManager.score.ToString();
 		gameManager.endOfRoundCanvas.transform.Find ("TotalScore").GetComponent<Text> ().text = gameManager.totalScore.ToString();
 		*/

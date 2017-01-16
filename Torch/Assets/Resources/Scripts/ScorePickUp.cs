@@ -17,6 +17,9 @@ public class ScorePickUp : AudioObject, IPickUp {
 		if (other.gameObject.CompareTag ("Player")) {
 			ObjectPooler.Instance.PlayAudioSource (clip, mixerGroup, pitchMin, pitchMax, transform);
 
+			if (gameManager == null) {
+				gameManager = GameManager.Instance;
+			}
 			gameManager.updateScore (scoreValue);
 			other.GetComponent<PlayerData> ().IncrementScorePickedUp (scoreValue);
 			other.GetComponent<PlayerData> ().IncrementCoinsPickedUp ();

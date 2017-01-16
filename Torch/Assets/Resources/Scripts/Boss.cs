@@ -31,6 +31,7 @@ public class Boss : MonoBehaviour, IDamagable {
 	public int scoreValue = 1000;
 	protected GameObject healthBar;
 	protected Image healthBarImage;
+	public string name;
 	public bool dead;
 
 
@@ -254,14 +255,17 @@ public class Boss : MonoBehaviour, IDamagable {
 
 		health -= damage;
 		healthBarImage.fillAmount = (float)health / startingHealth;
-		//healthBar.fillAmount = (float)health / startingHealth;
+		float lerp = (float)health / (float)startingHealth;
+		healthBarImage.color = Color.Lerp(Color.red, Color.magenta, lerp);
+
 		if (health <= 0)
 			Die ();
 	}
 
 	void InstantiateHealthBar (){
-		Vector3 healthBarPosition = transform.position + new Vector3 (0, 2, 0);
-		healthBar = ObjectPooler.Instance.GetObject (14, true, healthBarPosition, transform);
+		Vector3 healthBarPosition = transform.position + new Vector3 (0, 3, 0);
+		healthBar = ObjectPooler.Instance.GetObject (19, true, healthBarPosition, transform);
 		healthBarImage = healthBar.transform.Find ("HealthBar").GetComponent<Image> ();
+		healthBar.GetComponentInChildren<Text> ().text = name;
 	}
 }

@@ -67,7 +67,7 @@ public class Shop : MonoBehaviour {
 		interfacePanel.transform.localRotation = Quaternion.Euler (new Vector3 (0f, 0f, 0f));
 		float x = -160f + 150f * (index % 3);
 		int yFactor = (int)(index / 3);
-		float y = 170f + yFactor * -150;
+		float y = -85f + yFactor * -150;
 		interfacePanel.transform.localPosition = interfacePanel.transform.localPosition + new Vector3 (x, y, 0f);
 		ShopInterfaceButton shopInterfaceButton = interfacePanel.GetComponent<ShopInterfaceButton> ();
 		shopInterfaceButton.Setup (this, index);

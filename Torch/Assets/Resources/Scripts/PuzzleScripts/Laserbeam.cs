@@ -9,6 +9,7 @@ public class Laserbeam : MonoBehaviour {
 	public float cooldown;
 	private float timestamp = 0f;
 	public bool active = true;
+	public LayerMask layermask;
 
 	Transform myTransform;
 	LineRenderer lineRenderer;
@@ -26,16 +27,18 @@ public class Laserbeam : MonoBehaviour {
 
 	void Update() {
 		if (active) {
-			myTransform.Rotate (0, speed, 0);
+			myTransform.Rotate (0, speed*Time.deltaTime/Time.fixedDeltaTime, 0);
 			UpdateLength ();
 		}
 	}
 
 	void UpdateLength(){
-		if (Physics.Raycast (myTransform.position, myTransform.forward, out hit) && Time.time - timestamp > cooldown) {
+		if (Physics.Raycast (myTransform.position, myTransform.forward, out hit, maxLength, layermask) && Time.time - timestamp > cooldown) {
 			lineRenderer.SetPosition (1, new Vector3 (0, 0, hit.distance));
+			//Debug.Log (hit.collider.gameObject.name);
 
 			if (hit.collider.gameObject.CompareTag("Player")) {
+				Debug.Log ("Player hit");
 				hit.collider.gameObject.GetComponent<IDamagable> ().takeDamage (damage, false, gameObject);
 				timestamp = Time.time;
 			}

@@ -14,6 +14,7 @@ public class Nest : AudioObject, IDamagable {
     protected int health;
     protected GameObject healthBar;
     protected Image healthBarImage;
+	public string name;
     protected GameManager gameManager;
 
     public bool dead;
@@ -46,17 +47,9 @@ public class Nest : AudioObject, IDamagable {
         health -= damage;
         healthBarImage.fillAmount = (float)health / startingHealth;
         float lerp = (float)health / (float)startingHealth;
-        if (lerp <= .5f)
-        {
-            lerp *= 2f;
-            healthBarImage.color = Color.Lerp(Color.red, Color.yellow, lerp);
-        }
-        else if (lerp > .5f)
-        {
-            lerp -= .5f;
-            lerp *= 2f;
-            healthBarImage.color = Color.Lerp(Color.yellow, Color.green, lerp);
-        }
+     
+		healthBarImage.color = Color.Lerp(Color.red, Color.magenta, lerp);
+        
         DamagePopUp.CreateDamagePopUp(damage, gameObject, crit);
 
         if (clip_takeDamage != null)
@@ -79,8 +72,9 @@ public class Nest : AudioObject, IDamagable {
     void InstantiateHealthBar()
     {
         Vector3 healthBarPosition = transform.position + new Vector3(0, 2, 0);
-		healthBar = ObjectPooler.Instance.GetObject (14, true, healthBarPosition, transform);
+		healthBar = ObjectPooler.Instance.GetObject (19, true, healthBarPosition, transform);
         healthBarImage = healthBar.transform.FindChild("HealthBar").GetComponent<Image>();
+		healthBar.transform.GetComponentInChildren<Text> ().text = name;
         healthBar.transform.localScale.Scale(new Vector3(3, 3, 3));
     }
 
