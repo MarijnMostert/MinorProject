@@ -10,6 +10,7 @@ public class HealthPickUp : AudioObject, IPickUp {
 	//Heals the torch when picked up
 	public void OnTriggerEnter(Collider other){
 		if (other.gameObject.CompareTag ("Player")) {
+			other.GetComponent<PlayerData> ().IncrementHealthPickedUp (healAmount);
 			GameManager.Instance.torch.heal (healAmount);
 			ObjectPooler.Instance.PlayAudioSource (clip, mixerGroup, pitchMin, pitchMax, transform);
 			Destroy (transform.parent.gameObject);
