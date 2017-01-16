@@ -28,7 +28,7 @@ connection.connect(function(error){
 	}
 });
 
-app.get('/ewi3620tu1/login', function(req,res){
+app.get('/login', function(req,res){
 	connection.query("SELECT * FROM user", function(error, rows, fields){
 		if(!!error){
 			console.log('Error in the query');
