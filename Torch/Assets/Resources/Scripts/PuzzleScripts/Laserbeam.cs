@@ -26,7 +26,7 @@ public class Laserbeam : MonoBehaviour {
 
 	void Update() {
 		if (active) {
-			myTransform.Rotate (0, speed, 0);
+			myTransform.Rotate (0, speed*Time.deltaTime/Time.fixedDeltaTime, 0);
 			UpdateLength ();
 		}
 	}
