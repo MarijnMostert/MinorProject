@@ -27,6 +27,15 @@ public class Doors : MonoBehaviour {
 		}
 	}
 
+	void OnTriggerStay(Collider other)
+	{
+		if (!locked) {
+			if (other.gameObject.CompareTag ("Player")) {
+				Open ();
+			}
+		}
+	}
+
 	void OnTriggerExit(Collider other)
 	{
 		if (!locked) {
@@ -43,6 +52,9 @@ public class Doors : MonoBehaviour {
 		if (doorOpen) {
 			doorOpen = false;
 			DoorController ("Close");
+
+
+
 		}
 	}
 

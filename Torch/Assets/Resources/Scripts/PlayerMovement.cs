@@ -38,9 +38,11 @@ public class PlayerMovement : MonoBehaviour {
 	public bool godMode = false;
 
 	[SerializeField] private float velocity;
-	private Vector3 prevPos = new Vector3 (0, 0, 0);
+	private Vector3 prevPos;
+	public float distanceTravelled;
 
     Animator anim1;
+	private GameManager gameManager;
 
 	public PlayerWeaponController playerWeaponController;
 
@@ -54,6 +56,7 @@ public class PlayerMovement : MonoBehaviour {
 		keyboardButtons = GameObject.FindGameObjectsWithTag("UI Help Key");
 		*/
         anim1 = GetComponentInChildren<Animator>();
+		gameManager = GameManager.Instance;
 	}
 
 	/*
@@ -72,6 +75,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	void OnEnable(){
 		cursorPointer.SetActive (true);
+		prevPos = transform.position;
 	}
 
 	void OnDisable(){
@@ -130,7 +134,7 @@ public class PlayerMovement : MonoBehaviour {
 		if (Input.GetButtonDown("ToggleInput" + playerNumber)) {
 			ToggleInput ();
 		}
-		if (Input.GetKeyDown (KeyCode.G)) {
+		if (Input.GetKeyDown (KeyCode.G) && gameManager.getCheat()) {
 			GodMode ();
 		}
 		if (Input.GetKeyDown(KeyCode.LeftShift)) {
@@ -239,10 +243,10 @@ public class PlayerMovement : MonoBehaviour {
 	}
 
 	void UpdateVelocity(){
-		Vector3 currentPos = transform.position;
-		velocity = (currentPos - prevPos).magnitude / Time.deltaTime;
-
-		prevPos = currentPos;
+		float distance = (transform.position - prevPos).magnitude;
+		distanceTravelled += distance;
+		velocity = distance / Time.deltaTime;
+		prevPos = transform.position;
 	}
 
 	void GodMode(){

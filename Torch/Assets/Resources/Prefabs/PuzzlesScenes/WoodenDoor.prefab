@@ -21,7 +21,7 @@ GameObject:
   - 4: {fileID: 4000013110942930}
   - 64: {fileID: 64000011234751252}
   - 208: {fileID: 208000010019838940}
-  m_Layer: 17
+  m_Layer: 20
   m_Name: door.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,7 +36,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000011526937136}
-  m_Layer: 17
+  m_Layer: 20
   m_Name: WoodenDoor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -53,7 +53,7 @@ GameObject:
   - 4: {fileID: 4000014135898286}
   - 64: {fileID: 64000010251794582}
   - 208: {fileID: 208000010105796036}
-  m_Layer: 17
+  m_Layer: 20
   m_Name: door.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,7 +73,7 @@ GameObject:
   - 95: {fileID: 95000013281873794}
   - 208: {fileID: 208000014035057134}
   - 64: {fileID: 64000011900363730}
-  m_Layer: 17
+  m_Layer: 0
   m_Name: door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,7 +91,7 @@ GameObject:
   - 95: {fileID: 95000012716732690}
   - 114: {fileID: 114000013542405836}
   - 65: {fileID: 65000010622987018}
-  m_Layer: 17
+  m_Layer: 20
   m_Name: Doorcontroller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -111,7 +111,7 @@ GameObject:
   - 95: {fileID: 95000011621167010}
   - 208: {fileID: 208000013465388900}
   - 64: {fileID: 64000014059706688}
-  m_Layer: 17
+  m_Layer: 0
   m_Name: door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -125,7 +125,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011711293966}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 124.95195, y: 0.51771736, z: 32.161488}
+  m_LocalPosition: {x: -5.5264597, y: -5.3356624, z: -9.593612}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -397,6 +397,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doorOpen: 0
   locked: 0
+  doors:
+  - {fileID: 4000013110942930}
+  - {fileID: 4000014135898286}
 --- !u!208 &208000010019838940
 NavMeshObstacle:
   m_ObjectHideFlags: 1

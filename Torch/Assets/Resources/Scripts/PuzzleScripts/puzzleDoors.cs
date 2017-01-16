@@ -13,11 +13,14 @@ public class puzzleDoors : MonoBehaviour {
 	public LeverActivator myLever;
 	private float StartTime;
 	public GameObject key;
+	public GameObject MagicWall;
 
 	// Use this for initialization
 	void Start () {
 		doors = GetComponentsInChildren<Doors> ();
-		gameManager = GameObject.Find ("Game Manager").GetComponent<GameManager> ();
+		gameManager = GameManager.Instance;
+		MagicWall = Instantiate (MagicWall, transform.position, transform.rotation, transform) as GameObject;
+		MagicWall.SetActive (false);
 	}
 
 	void Update () {
@@ -32,6 +35,8 @@ public class puzzleDoors : MonoBehaviour {
 	void OnTriggerEnter (Collider other) {
 		if (!done && !locked && other.gameObject.CompareTag("Player")) {
 			StartPuzzle ();	
+			MagicWall.SetActive (true);
+			MagicWall.GetComponent<Animator> ().SetTrigger ("Start");
 			gameManager.Roomtype = RoomType;
 			gameManager.WritePuzzleStart ();
 			locked = true;
@@ -58,6 +63,8 @@ public class puzzleDoors : MonoBehaviour {
 		for (int i = 0; i < doors.Length; i++) {
 			doors [i].Open ();
 		}
+		MagicWall.SetActive (false);
+		MagicWall.GetComponent<Animator> ().SetTrigger ("Exit");
 		done = true;
 		active = false;
 		gameManager.spawner.activated = true;

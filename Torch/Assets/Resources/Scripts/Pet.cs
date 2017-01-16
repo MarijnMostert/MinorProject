@@ -23,7 +23,10 @@ public class Pet : AudioObject {
 	IEnumerator RandomSayings(){
 		while (true) {
 			if (Random.value < chanceForClip) {
-				ObjectPooler.Instance.PlayAudioSource (clips [Random.Range (0, clips.Length)], mixerGroup, pitchMin, pitchMax, transform);
+				AudioClip clip = clips [Random.Range (0, clips.Length)];
+				if (clip != null) {
+					ObjectPooler.Instance.PlayAudioSource (clip, mixerGroup, pitchMin, pitchMax, transform);
+				}
 			}
 			yield return new WaitForSeconds (interval);
 		}

@@ -3824,7 +3824,7 @@ GameObject:
   m_Component:
   - 224: {fileID: 224000012995271460}
   - 222: {fileID: 222000011210646410}
-  - 114: {fileID: 114000011213437086}
+  - 114: {fileID: 114000011270897580}
   m_Layer: 20
   m_Name: Slash
   m_TagString: Untagged
@@ -4374,7 +4374,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000010069987626}
   - 108: {fileID: 108000011548890304}
-  - 114: {fileID: 114000013945605848}
+  - 114: {fileID: 114000013869958558}
   m_Layer: 0
   m_Name: Light
   m_TagString: Untagged
@@ -7149,7 +7149,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000010980811800}
   - 108: {fileID: 108000011237232292}
-  - 114: {fileID: 114000012834832240}
   m_Layer: 0
   m_Name: Light
   m_TagString: Untagged
@@ -9734,7 +9733,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000012747570540}
   - 108: {fileID: 108000014134286588}
-  - 114: {fileID: 114000013869958558}
   m_Layer: 0
   m_Name: Light
   m_TagString: Untagged
@@ -14531,7 +14529,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012528916838}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -40.478016, y: 79.92802, z: 192.94604}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -49256,6 +49254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce55c1c3f9d62b54599e0d52075305a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
 --- !u!114 &114000010206622614
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -49301,6 +49300,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce55c1c3f9d62b54599e0d52075305a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
 --- !u!114 &114000010333071658
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -49326,6 +49326,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boldTalkingClip: {fileID: 8300000, guid: e7668d0252dfa43eaba923367896696c, type: 3}
+  SpiderRoom: 0
+  Spider: {fileID: 0}
   myKeyboardText: Welcome! I am BOLD. Use the WASD-keys to move.
   myControllerText: Welcome! I am BOLD. Use the LEFT-STICK to move.
 --- !u!114 &114000010391782614
@@ -49353,6 +49355,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boldTalkingClip: {fileID: 8300000, guid: e33b141468f5a420bb9cf3569a65b19b, type: 3}
+  SpiderRoom: 0
+  Spider: {fileID: 0}
   myKeyboardText: There's a MINMAP up right!
   myControllerText: There's a MINMAP up right!
 --- !u!114 &114000010515555216
@@ -49496,6 +49500,7 @@ MonoBehaviour:
   mixerGroup: {fileID: 0}
   pitchMin: 0.8
   pitchMax: 1.1
+  InstantiatedByObjectPooler: 0
   ObjectPoolIndex: 11
   startingHealth: 50
   attackCooldown: 1
@@ -49552,6 +49557,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce55c1c3f9d62b54599e0d52075305a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
 --- !u!114 &114000011055834108
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -49564,6 +49570,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boldTalkingClip: {fileID: 8300000, guid: 21642a7a139ac422eb678f80ffe95377, type: 3}
+  SpiderRoom: 0
+  Spider: {fileID: 0}
   myKeyboardText: "Find COINS and FUEL in chests. \nSometimes even new WEAPONS!"
   myControllerText: "Find COINS and FUEL in chests. \nSometimes even new WEAPONS!"
 --- !u!114 &114000011067076962
@@ -49586,10 +49594,12 @@ MonoBehaviour:
   canvas: {fileID: 1000011937247374}
   multiUsable: 0
   activated: 0
+  manualChest: 1
   contents:
   - {fileID: 1000013408684720, guid: 50c6de4e46e8f4cc6bb9c5618add169c, type: 2}
   - {fileID: 1000013408684720, guid: 50c6de4e46e8f4cc6bb9c5618add169c, type: 2}
   - {fileID: 1000011075960422, guid: 59ae5a8caf80e41e6a3fa4a4b001db70, type: 2}
+  - {fileID: 1000013169113146, guid: abd67498e85f64044aeef2120466291d, type: 2}
   clip: {fileID: 8300000, guid: 55f33763d9ee24d68820c8282a271c8c, type: 3}
   animator: {fileID: 95000014011989632}
   firingAngle: 70
@@ -49606,9 +49616,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boldTalkingClip: {fileID: 8300000, guid: 16a7d0682677f44208b6ff333dbc7fac, type: 3}
+  SpiderRoom: 0
+  Spider: {fileID: 0}
   myKeyboardText: Collect all KEYS and head to the STAIRS to descent further!
   myControllerText: Collect all KEYS and head to the STAIRS to descent further!
---- !u!114 &114000011213437086
+--- !u!114 &114000011270897580
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -49652,6 +49664,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce55c1c3f9d62b54599e0d52075305a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
 --- !u!114 &114000011300330578
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -49706,6 +49719,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boldTalkingClip: {fileID: 8300000, guid: 42f2e67b4a78943cb92425bba41be584, type: 3}
+  SpiderRoom: 0
+  Spider: {fileID: 0}
   myKeyboardText: Use your keyboard numbers to SWITCH WEAPONS.
   myControllerText: Use your bumpers to SWITCH WEAPONS.
 --- !u!114 &114000011542644546
@@ -49720,6 +49735,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boldTalkingClip: {fileID: 8300000, guid: 151a7f821d04649e88a882d8c4801a8e, type: 3}
+  SpiderRoom: 0
+  Spider: {fileID: 0}
   myKeyboardText: More enemies will await you on your DARK DESCENT.
   myControllerText: More enemies will await you on your DARK DESCENT.
 --- !u!114 &114000011573816298
@@ -49734,8 +49751,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boldTalkingClip: {fileID: 8300000, guid: b19affa440edf4118814eda335717832, type: 3}
-  myKeyboardText: Only when you have all KEYS, the stairs will open!
-  myControllerText: Only when you have all KEYS, the stairs will open!
+  SpiderRoom: 0
+  Spider: {fileID: 0}
+  myKeyboardText: 
+  myControllerText: 
 --- !u!114 &114000011593528174
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -49747,6 +49766,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce55c1c3f9d62b54599e0d52075305a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
 --- !u!114 &114000011636151918
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -49785,6 +49805,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce55c1c3f9d62b54599e0d52075305a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
 --- !u!114 &114000011792102392
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -49797,6 +49818,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boldTalkingClip: {fileID: 8300000, guid: f37659a5859c343cda80efcd62965b79, type: 3}
+  SpiderRoom: 0
+  Spider: {fileID: 0}
   myKeyboardText: 'Protect your TORCH!
 
     Enemies and Time will extinguish the fire.'
@@ -49869,6 +49892,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce55c1c3f9d62b54599e0d52075305a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
 --- !u!114 &114000012040559050
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -50139,23 +50163,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boldTalkingClip: {fileID: 8300000, guid: b19affa440edf4118814eda335717832, type: 3}
+  SpiderRoom: 0
+  Spider: {fileID: 0}
   myKeyboardText: Take the stairs to level 1, or through the door in the back to main
     menu.
   myControllerText: Take the stairs to level 1, or through the door in the back to
     main menu.
---- !u!114 &114000012834832240
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012520069900}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b49e8c15136bb4be6b93cc2950027f3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  intensity: 7
-  range: 10
 --- !u!114 &114000013123428414
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -50230,6 +50243,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce55c1c3f9d62b54599e0d52075305a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audioSource: {fileID: 0}
 --- !u!114 &114000013369248376
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -50314,7 +50328,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5a677cfab563d848b7058b69d3ddd29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spider: {fileID: 0}
+  spider: {fileID: 1000014277282776}
 --- !u!114 &114000013546192302
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -50373,6 +50387,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boldTalkingClip: {fileID: 8300000, guid: 54c617eed595d44dbb6c8697d585aaad, type: 3}
+  SpiderRoom: 1
+  Spider: {fileID: 1000014277282776}
   myKeyboardText: Use RIGHT CLICK to fire at enemies!
   myControllerText: Use your RIGHT-STICK to fire at enemies!
 --- !u!114 &114000013619822856
@@ -50415,19 +50431,6 @@ MonoBehaviour:
   intensity: 7
   range: 10
 --- !u!114 &114000013869958558
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013369022982}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b49e8c15136bb4be6b93cc2950027f3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  intensity: 7
-  range: 10
---- !u!114 &114000013945605848
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}

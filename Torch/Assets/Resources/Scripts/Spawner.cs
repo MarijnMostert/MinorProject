@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Spawner : MonoBehaviour {
 
@@ -8,7 +9,7 @@ public class Spawner : MonoBehaviour {
     public float min_radius;
     public float max_radius;
 
-	public Enemy[] enemiesToSpawn;
+	public List<Enemy> enemiesToSpawn;
 	public int enemiesPerWave;
 
 	private string waveButton;
@@ -57,7 +58,7 @@ public class Spawner : MonoBehaviour {
 	}
 
 	public void spawnEnemy(){
-		Enemy enemy = enemiesToSpawn [Random.Range (0, enemiesToSpawn.Length)];
+		Enemy enemy = enemiesToSpawn [Random.Range (0, enemiesToSpawn.Count)];
 		Vector3 position = getPosition ();
 		ObjectPooler.Instance.GetObject (enemy.ObjectPoolIndex, true, position,
 			Quaternion.Euler (new Vector3 (0f, Random.Range (0f, 360f), 0f)));
@@ -111,4 +112,17 @@ public class Spawner : MonoBehaviour {
 
         }
     }
+
+	public void Setup(DungeonData.DungeonParameters dungeonParameters){
+		List<Enemy> temp = enemiesToSpawn;
+		enemiesToSpawn = new List<Enemy> ();
+		if (dungeonParameters.enemies.minoTaur)
+			enemiesToSpawn.Add (temp [0]);
+		if (dungeonParameters.enemies.Spider)
+			enemiesToSpawn.Add (temp [1]);
+		if (dungeonParameters.enemies.Ghost)
+			enemiesToSpawn.Add (temp [2]);
+		if (dungeonParameters.enemies.Bomber)
+			enemiesToSpawn.Add (temp [3]);
+	}
 }

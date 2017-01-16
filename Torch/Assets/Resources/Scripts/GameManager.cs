@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour {
 
 	//Stored player preferences and info
 	public Data data;
+	public DungeonData dungeonData;
 
 	//Player data
 	public static GameManager Instance;
@@ -26,11 +27,11 @@ public class GameManager : MonoBehaviour {
 	public Transform torchSpawnPoint;
 	public int torchStartingHealth = 100;
 	public int torchHealth;
-	public int torchHealthMax = 150;
 
 	//Score info
 	public int score = 0;
 	public int totalScore = 0;
+	public int coinsInGame = 0;
 	public int dungeonLevel = 0;
 	public float StartTime;
 	public string Roomtype;
@@ -41,8 +42,8 @@ public class GameManager : MonoBehaviour {
 	private GameObject inGameCameraObject;
 	public GameObject camTarget;
 	public GameObject enemyTarget;
-	public GameObject UIPrefab;
-	public GameObject UI;
+	public UI UIPrefab;
+	public UI ui;
 	public UIInventory uiInventory;
 
 	public GameAnalytics analytics = new GameAnalytics();
@@ -59,20 +60,20 @@ public class GameManager : MonoBehaviour {
 
 	public ProceduralMaterial[] substances;
 
+	private bool cheat;
+	int cheatindex;
+	private string[] cheatCode;
+
     //masterGenerator Vars
-	public int width = 20;//40;// = 40;
-	public int height = 20;//40;// = 40;
     int radius = 2;// = 2;
     int maxlength = 2;// = 2;
     int timeout = 200;// = 2000;
-	int minAmountOfRooms = 2;//4;// = 4;
-	int maxAmountOfRooms = 4;//47;// = 7;
-    int chanceOfRoom = 5;// = 10; Dit is de 1/n kans op een kamer, dus groter getal is kleinere kans
 
 
 	//public GameObject homeScreenCanvas;
 	public GameObject homeScreenEnvironmentPrefab;
 	public GameObject homeScreenEnvironment;
+	public GameObject HighScoresPanel;
 	public GameObject startingScreen;
 	public GameObject loadingScreenCanvas;
 	public DeathCanvas deathCanvas;
@@ -93,6 +94,7 @@ public class GameManager : MonoBehaviour {
 	public GameObject tutorialTorchPrefab;
 	private GameObject tutorialTorchObject;
 
+	[Header("- Audio")]
 	public AudioSource audioSourceMusic;
 	public AudioSource audioSourceUI;
 	public AudioClip[] audioClipsUI;
@@ -102,16 +104,19 @@ public class GameManager : MonoBehaviour {
 	public AudioClip audioPartyTorch;
 	public bool audioMuted;
 
+	[Header("- Debugging properties")]
 	public GameObject DebuggerPanel;
 	public GameObject[] allWeaponsAvailable;
 	public GameObject[] allPowerUpsAvailable;
+	public GameObject KeyPrefab;
 
 	public int collectedKeys;
 	public int requiredCollectedKeys;
 	public GameObject Pet;
 	private Pet PetScript;
 
-	public Shop shop;
+	public Shop shopPrefab;
+	private Shop shop;
 	private bool shopActive = false;
 
 	public List<GameObject> highQualityItems;
@@ -119,18 +124,15 @@ public class GameManager : MonoBehaviour {
 	[HideInInspector] public int numberOfPlayers = 1;
 
     void Awake () {
-		data.LoadFileToDataAndVars ();
+		data.Load ();
 		setQuality (data.highQuality);
+
+		dungeonData = GetComponent<DungeonData> ();
 
 		startingScreen.SetActive (true);
 
 		DebuggerPanel = Instantiate (DebuggerPanel);
 		DebuggerPanel.SetActive (false);
-	
-
-		shop = Instantiate (shop);
-		shop.gameObject.SetActive (false);
-		shopActive = false;
 
 		SetUpDungeonStartCanvas ();
 
@@ -144,10 +146,17 @@ public class GameManager : MonoBehaviour {
 			Instance = this;
 		}
 
+		cheat = true; //put this to false in build
+		cheatindex = 0;
+		cheatCode = new string[] { "w", "o", "c", "h", "e", "n", "e", "n", "d", "e" };
+
 		//homeScreenCanvas = GameObject.Find ("Home Screen Canvas");
 		homeScreen = GameObject.Find ("HomeScreen");
 		homeScreenCam = GameObject.Find ("HomeScreenCam");
+		mainCamera = homeScreenCam.GetComponent<Camera> ();
 		minimap = Resources.Load ("Prefabs/minimap2", typeof (Camera)) as Camera;
+
+		HighScoresPanel = Instantiate (HighScoresPanel) as GameObject;
     }
 
     public void Start(){
@@ -160,52 +169,13 @@ public class GameManager : MonoBehaviour {
 		PetScript = Pet.GetComponent<Pet> ();
 		PetScript.speechText.text = "";
 		PetScript.speechImage.gameObject.SetActive (false);
-	}
 
-	void Parameters(int level){
-		if (level == 1) {
-			width = 20;
-			height = 20;
-			minAmountOfRooms = 2;
-			maxAmountOfRooms = 3;
-		}
-		if (level == 2) {
-			width = 25;
-			height = 25;
-			minAmountOfRooms = 4;
-			maxAmountOfRooms = 5;
-		}
-		if (level == 3) {
-			width = 30;
-			height = 30;
-			minAmountOfRooms = 5;
-			maxAmountOfRooms = 6;
-		}
-		if (level == 4) {
-			width = 35;
-			height = 35;
-			minAmountOfRooms = 5;
-			maxAmountOfRooms = 8;
-		}
-		if (level == 5) {
-			width = 40;
-			height = 40;
-			minAmountOfRooms = 6;
-			maxAmountOfRooms = 10;
-		}
-		if (level > 5) {
-			width = 50;
-			height = 50;
-			minAmountOfRooms = 7;
-			maxAmountOfRooms = 20;
-		}
+		shopPrefab.EquipActives ();
 	}
 
 	public void StartGame(){
         if (!gameStarted) {
 			Time.timeScale = 1f;
-		//	dungeonLevel = saver.Read ();
-			Parameters (dungeonLevel);
 			endOfRoundCanvas.SetActive (false);
 			loadingScreenCanvas.transform.Find ("LevelText").GetComponent<Text> ().text = "Dungeon level: " + (dungeonLevel).ToString();
             loadingScreenCanvas.SetActive(true);
@@ -238,7 +208,7 @@ public class GameManager : MonoBehaviour {
 		//RandomizeTextures ();
 
 		if (type == 1) {
-			masterGenerator = new MasterGenerator (this.gameObject, width, height, radius, maxlength, timeout, minAmountOfRooms, maxAmountOfRooms, chanceOfRoom, PuzzleRooms);
+			masterGenerator = new MasterGenerator (this.gameObject, dungeonData.dungeonParameters[dungeonLevel], radius, maxlength, timeout, PuzzleRooms);
 			masterGenerator.LoadPrefabs ();
 			masterGenerator.Start ();
 		} else if (type == 0) {
@@ -247,9 +217,9 @@ public class GameManager : MonoBehaviour {
 
 		}
 
-		if (UI == null) {
-			UI = Instantiate (UIPrefab);
-			uiInventory = UI.GetComponentInChildren<UIInventory> ();
+		if (ui == null) {
+			ui = Instantiate (UIPrefab);
+			uiInventory = ui.uiInventory;
 		}
 
 		TorchFOV = Instantiate (TorchFOVPrefab);
@@ -262,7 +232,7 @@ public class GameManager : MonoBehaviour {
 		enemyTarget = torch.gameObject;
 		torch.health = torchStartingHealth;
 		torch.gameManager = this;
-		torch.UI = UI;
+		torch.ui = ui;
 		torch.TorchFOV = TorchFOV.GetComponentInChildren<Animator> ();
 
 		collectedKeys = 0;
@@ -300,11 +270,10 @@ public class GameManager : MonoBehaviour {
 		Pet.transform.position = startpoint;
 
 		torch.torchPickUp.cam = mainCamera;
-		UI.transform.FindChild ("Score Text").GetComponent<Text> ().text = "Score: " + score;
 		if (type == 1) {
-			UI.transform.FindChild ("Dungeon Level").GetComponent<Text> ().text = "Dungeon level " + dungeonLevel;
+			ui.dungeonLevelText.text = "Dungeon level " + dungeonLevel;
 		} else if (type == 0) {
-			UI.transform.FindChild ("Dungeon Level").GetComponent<Text> ().text = "Dungeon Tutorial";
+			ui.dungeonLevelText.text = "Dungeon Tutorial";
 			PetScript.speechText.text = "Welcome to this tutorial! My name is Bold. Use the WASD-keys to move.";
 			PetScript.speechImage.gameObject.SetActive (true);
 		}
@@ -316,7 +285,9 @@ public class GameManager : MonoBehaviour {
 		audioSourceMusic.Play ();
 		score = 0;
 		totalScore = 0;
+		coinsInGame = 0;
 		SetScore (score);
+		SetInGameCoin (coinsInGame);
 		homeScreenCam.SetActive (false);
 		loadingScreenCanvas.SetActive (false);
 
@@ -349,7 +320,21 @@ public class GameManager : MonoBehaviour {
 			obj.transform.position = GameObject.FindGameObjectWithTag ("Player").transform.position;
 		}
 		*/
-		if (Input.GetKeyDown (KeyCode.H)) {
+
+		if (Input.anyKeyDown) {
+			if (Input.GetKeyDown(cheatCode[cheatindex])) {
+				cheatindex++;
+			} else {
+				cheatindex = 0;    
+			}
+		}
+		if (cheatindex == cheatCode.Length) {
+			cheatindex = 0;
+			Debug.Log ("hoch die hande!");
+			cheat = true;
+		}
+
+		if (Input.GetKeyDown (KeyCode.H) && cheat == true) {
 			if (DebuggerPanel != null) {
 				if (DebuggerPanel.activeInHierarchy)
 					DebuggerPanel.SetActive (false);
@@ -359,28 +344,36 @@ public class GameManager : MonoBehaviour {
 		}
 
 		//Cheatcode to spawn all weapons around the torch
-		if (Input.GetKeyDown (KeyCode.N)) {
+		if (Input.GetKeyDown (KeyCode.N) && cheat) {
 			SpawnAllWeapons ();
 		}
 		//Cheatcode to spawn all powerups around the torch
-		if (Input.GetKeyDown (KeyCode.B)) {
+		if (Input.GetKeyDown (KeyCode.B) && cheat) {
 			SpawnAllPowerUps ();
 		}
 		//Cheatcode to proceed to the next level
-		if (Input.GetKeyDown (KeyCode.L)) {
+		if (Input.GetKeyDown (KeyCode.L) && cheat) {
 			Proceed ();
 		}
 		//Cheatcode to get full health
-		if (Input.GetKeyDown (KeyCode.K) && torch != null) {
+		if (Input.GetKeyDown (KeyCode.K) && torch != null && cheat) {
 			torch.HealToStartingHealth ();
 		}
 		//Cheatcode to toggle if the torch is damagable or not
-		if (Input.GetKeyDown (KeyCode.J) && torch != null) {
+		if (Input.GetKeyDown (KeyCode.J) && torch != null && cheat) {
 			torch.ToggleDamagable ();
 		}
 		//Cheatcode to kill all active enemies
-		if(Input.GetKeyDown(KeyCode.LeftBracket)){
+		if(Input.GetKeyDown(KeyCode.LeftBracket) && cheat){
 			KillAllEnemies();
+		}
+		//Cheatcode to spawn a key
+		if (Input.GetKeyDown (KeyCode.O) && cheat) {
+			SpawnKey ();
+		}
+		//Cheatcode to spawn to highscores
+		if (Input.GetKeyDown (KeyCode.Alpha0) && cheat) {
+			TeleportToHighScores ();
 		}
 	}
 
@@ -411,6 +404,7 @@ public class GameManager : MonoBehaviour {
 		totalScore += score;
 		analytics.WriteDeath (totalScore, dungeonLevel);
 		deathCanvas.SetScoreText (totalScore);
+		deathCanvas.SetCoinText (coinsInGame);
 		deathCanvas.gameObject.SetActive (true);
 		RoundEnd ();
 	}
@@ -435,20 +429,21 @@ public class GameManager : MonoBehaviour {
 		}
 		Destroy (GameObject.FindGameObjectWithTag ("Minimap"));
 
-		data.coins += score;
 		score = 0;
+
 	}
 
 	public void TransitionDeathToMain(){
 		RoundEnd ();
 		DestroyDungeon ();
-		if (UI != null)
-			Destroy (UI);
+		if (ui != null)
+			Destroy (ui.gameObject);
 		if (triggerFloorObject != null)
 			Destroy (triggerFloorObject);
 		LoadHomeScreen ();
 		if (paused)
 			Pause ();
+		mainCamera = homeScreenCam.GetComponent<Camera> ();
 	}
 
 	public void DestroyDungeon(){
@@ -468,7 +463,9 @@ public class GameManager : MonoBehaviour {
 		foreach (PlayerManager playermanager in playerManagers){
 			Destroy (playermanager.playerInstance);
 		}
-		homeScreenEnvironment = Instantiate (homeScreenEnvironmentPrefab, homeScreen.transform) as GameObject;
+		if (homeScreenEnvironment == null) {
+			homeScreenEnvironment = Instantiate (homeScreenEnvironmentPrefab, homeScreen.transform) as GameObject;
+		}
 		homeScreen.SetActive (true);
 		homeScreenCam.SetActive (true);
 		audioSourceMusic.clip = audioHomeScreen;
@@ -478,11 +475,20 @@ public class GameManager : MonoBehaviour {
 
 	public void updateScore(int addedScore){
 		score += addedScore;
-		UI.transform.FindChild ("Score Text").GetComponent<Text> ().text = "Score: " + score;
+		ui.scoreText.text = "Score: " + score;
 	}
 
 	public void SetScore(int score){
-		UI.transform.FindChild ("Score Text").GetComponent<Text> ().text = "Score: " + score;
+		ui.scoreText.text = "Score: " + score;
+	}
+
+	public void addInGameCoin(){
+		coinsInGame += 1;
+		ui.coinsText.text = "Coins: " + coinsInGame;
+	}
+
+	public void SetInGameCoin(int coins){
+		ui.coinsText.text = "Coins: " + coins;
 	}
 
 	public void resetHomeScreenPlayer(){
@@ -582,6 +588,12 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void ToggleShop(){
+		if (shop == null) {
+			shop = Instantiate (shopPrefab);
+			shop.gameObject.SetActive (false);
+			shopActive = false;
+		}
+
 		if (shopActive) {
 			shop.gameObject.SetActive (false);
 			shop.shopCam.gameObject.SetActive (false);
@@ -664,6 +676,9 @@ public class GameManager : MonoBehaviour {
 		}
 
 		foreach (GameObject GO in highQualityItems) {
+			if (GO == null) {
+				highQualityItems.Remove (GO);
+			}
 			GO.SetActive (data.highQuality);
 		}
 	}
@@ -674,5 +689,21 @@ public class GameManager : MonoBehaviour {
 			Destroy (enemy);
 		}
 		Debug.Log ("All enemies have been killed");
+	}
+
+	public void SpawnKey(){
+		Instantiate (KeyPrefab, torch.transform.position, Quaternion.identity);
+	}
+
+	public bool getCheat(){
+		return cheat;
+	}
+
+	public void toggleCheat(){
+		cheat = !cheat;
+	}
+
+	void TeleportToHighScores(){
+		homeScreenPlayer.transform.position = GameObject.Find ("HighScoreTeleport").transform.position;
 	}
 }

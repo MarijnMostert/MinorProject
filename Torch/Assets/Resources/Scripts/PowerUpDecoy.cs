@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PowerUpDecoy: MonoBehaviour, IPowerUp {
+public class PowerUpDecoy: PowerUp, IPowerUp {
 
 	public GameObject Decoy;
 	public float spawnHeight = -1.5f;
 
-	public void Use(){
+	override public void Use(){
+		base.Use ();
 		GameObject decoy = Instantiate(Decoy, transform.parent.position + transform.parent.forward * 2, transform.parent.rotation, GameManager.Instance.levelTransform) as GameObject;
 		Vector3 temp = decoy.transform.position;
 		temp.y = spawnHeight;
