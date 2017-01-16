@@ -3,12 +3,18 @@ using System.Collections;
 
 public class HomeScreenMovement : MonoBehaviour {
 
+	public LayerMask layerMask;
+	public float minimalheight = -1.0f;
+	public float maximalheight = 2.5f;
 
     GameObject target;
     public float rotateSpeed = 5f;
 	public float walkingSpeed = .1f;
     Vector3 offset;
     float min_height;
+	Vector3 targetlocation;
+	float idealdistance;
+	Vector3 originalforward;
 
 	bool invertY = false;
 
@@ -28,6 +34,8 @@ public class HomeScreenMovement : MonoBehaviour {
     void Start()
     {
         offset = target.transform.position - transform.position;
+		idealdistance = offset.magnitude;
+		originalforward = transform.forward;
     }
 
 	// Update is called once per frame
@@ -71,7 +79,14 @@ public class HomeScreenMovement : MonoBehaviour {
 		}
         Quaternion rotation = Quaternion.Euler(0, desiredAngle, 0);
         min_height += vertical;
-        transform.position = target.transform.position - (rotation * offset) + new Vector3(0,min_height,0);
+
+		if (min_height < minimalheight) {
+			min_height = minimalheight;
+		} else if (min_height > maximalheight) {
+			min_height = maximalheight;
+		}
+
+		targetlocation = target.transform.position - (rotation * offset) + new Vector3(0,min_height,0);
     }    
 
 	private void Move(){
@@ -109,7 +124,9 @@ public class HomeScreenMovement : MonoBehaviour {
 			Debug.Log ("Y-axis inverted");
 		}
 	}
-    void LateUpdate(){
-		transform.LookAt(target.transform);
+
+	void LateUpdate() {
+		transform.position = Vector3.MoveTowards (targetlocation, transform.position, 0.3f);
+		transform.LookAt (target.transform, Vector3.up * 0.2f);
 	}
 }

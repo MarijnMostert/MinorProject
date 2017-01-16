@@ -9,6 +9,10 @@ public class DisplayText : MonoBehaviour {
 	public AudioClip boldTalkingClip;
 	private GameManager gameManager;
 
+	[Header ("if spider room:")]
+	public bool SpiderRoom = false;
+	public GameObject Spider;
+
 	[TextArea(3,10)]
 	public string myKeyboardText;
 	[TextArea(3,10)]
@@ -16,7 +20,7 @@ public class DisplayText : MonoBehaviour {
 
 	void Start () {
 		gameManager = GameManager.Instance;
-		Bold bold = gameManager.Bold.GetComponent<Bold> ();
+		Pet bold = gameManager.Pet.GetComponent<Pet> ();
 		BoldSpeechImage = bold.speechImage;
 		BoldText = bold.speechText;
 	}
@@ -30,9 +34,14 @@ public class DisplayText : MonoBehaviour {
 			} else {
 				BoldText.text = myControllerText;
 			}
-			AudioSource audio = GameManager.Instance.Bold.GetComponent<AudioSource> ();
+			AudioSource audio = GameManager.Instance.Pet.GetComponent<AudioSource> ();
 			audio.clip = boldTalkingClip;
 			audio.Play ();
+
+			if (SpiderRoom) {
+				Spider.SetActive (false);
+				Spider.SetActive (true);
+			}
 		}
 	}
 

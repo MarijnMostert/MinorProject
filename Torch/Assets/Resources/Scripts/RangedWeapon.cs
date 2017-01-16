@@ -1,14 +1,13 @@
 ﻿using UnityEngine;
+using UnityEngine.Audio;
 using System.Collections;
 
 public class RangedWeapon : Weapon {
 
 	public float cooldown;
 	public Projectile projectile;
+	public int poolObjectIndex;
 	public float projectileSpeed;
-	public AudioClip audioOnFire;
-	public float pitchShiftMinimal = 0.8f;
-	public float pitchShiftMaximal = 1.1f;
 
 	private float lastFireTime;
 
@@ -22,22 +21,23 @@ public class RangedWeapon : Weapon {
 		this.projectileSpeed = projSpeed;
 		this.projectile = newProjectile;
 	}
+
+	public void setCooldown(float cooldown){
+		this.cooldown = cooldown;
+	}
 		
 
 	//Shooting a projectile
 	public override void Fire(){
 		if ((Time.time - lastFireTime) > cooldown) {
-			Projectile newProjectile = Instantiate (projectile, transform.position, transform.rotation) as Projectile;
+			base.Fire ();
+			Projectile newProjectile = ObjectPooler.Instance.GetObject (projectile.ObjectPoolerIndex, true, transform.position, transform.rotation).GetComponent<Projectile>();
 			newProjectile.setSpeed (projectileSpeed);
+			newProjectile.PlayerData = playerData;
+			newProjectile.multiplier = damageMultiplier;
 			lastFireTime = Time.time;
 
-			WeaponController weaponController = transform.parent.parent.GetComponent<WeaponController> ();
-			if (weaponController != null) {
-				weaponController.audioSource.clip = audioOnFire;
-				weaponController.audioSource.pitch = Random.Range (pitchShiftMinimal, pitchShiftMaximal);
-				weaponController.audioSource.Play ();
-			}
+			ObjectPooler.Instance.PlayAudioSource (fireClip, mixerGroup, pitchMin, pitchMax, transform);
 		}
-
 	}
 }

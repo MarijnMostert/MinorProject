@@ -20,8 +20,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000012915741722}
   - 20: {fileID: 20000013463240440}
-  - 124: {fileID: 124000013501929776}
-  - 92: {fileID: 92000012489694314}
   - 81: {fileID: 81000013238931444}
   - 114: {fileID: 114000014167749990}
   m_Layer: 0
@@ -65,7 +63,7 @@ Camera:
   field of view: 60
   orthographic: 1
   orthographic size: 500
-  m_Depth: 0
+  m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 141056
@@ -85,13 +83,6 @@ AudioListener:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010897201058}
   m_Enabled: 0
---- !u!92 &92000012489694314
-Behaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010897201058}
-  m_Enabled: 1
 --- !u!114 &114000014167749990
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -103,10 +94,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06ad342f73896794ea0dfe6f4cadfe6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!124 &124000013501929776
-Behaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010897201058}
-  m_Enabled: 1

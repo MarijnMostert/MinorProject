@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Spawner : MonoBehaviour {
 
@@ -8,7 +9,7 @@ public class Spawner : MonoBehaviour {
     public float min_radius;
     public float max_radius;
 
-	public Enemy[] enemiesToSpawn;
+	public List<Enemy> enemiesToSpawn;
 	public int enemiesPerWave;
 
 	private string waveButton;
@@ -25,15 +26,10 @@ public class Spawner : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		gameManager = GameManager.Instance;
-		timeBetweenEnemySpawn = 15.0f - (gameManager.dungeonLevel);
-		if (timeBetweenEnemySpawn < 1.0f) {
-			timeBetweenEnemySpawn = 1.0f;
-		}
         dead = false;
 		activated = false;
 		waveButton = "SpawnWave";
 		spawnEnemyButton = "SpawnEnemy";
-        StartCoroutine(SpawnEnemy());
     }
     
 
@@ -45,7 +41,7 @@ public class Spawner : MonoBehaviour {
 		if (Input.GetButtonDown (waveButton)) {
 			spawnWave ();
 		}
-		if (Input.GetKeyDown (KeyCode.M)) {
+		if (Input.GetKeyDown (KeyCode.M) && gameManager.getCheat()) {
 			if (dead) {
 				dead = false;
 				Debug.Log ("Spawner has been turned on");
@@ -57,9 +53,10 @@ public class Spawner : MonoBehaviour {
 	}
 
 	public void spawnEnemy(){
-		Enemy enemy = enemiesToSpawn [Random.Range (0, enemiesToSpawn.Length)];
+		Enemy enemy = enemiesToSpawn [Random.Range (0, enemiesToSpawn.Count)];
 		Vector3 position = getPosition ();
-		Instantiate (enemy, position, transform.rotation);
+		ObjectPooler.Instance.GetObject (enemy.ObjectPoolIndex, true, position,
+			Quaternion.Euler (new Vector3 (0f, Random.Range (0f, 360f), 0f)));
 	}
 
     Vector3 getPosition()
@@ -110,4 +107,30 @@ public class Spawner : MonoBehaviour {
 
         }
     }
+
+	public void Setup(DungeonData.DungeonParameters dungeonParameters){
+		List<Enemy> temp = enemiesToSpawn;
+		enemiesToSpawn = new List<Enemy> ();
+		if (dungeonParameters.enemies.minoTaur)
+			enemiesToSpawn.Add (temp [0]);
+		if (dungeonParameters.enemies.Spider)
+			enemiesToSpawn.Add (temp [1]);
+		if (dungeonParameters.enemies.Ghost)
+			enemiesToSpawn.Add (temp [2]);
+		if (dungeonParameters.enemies.Bomber)
+			enemiesToSpawn.Add (temp [3]);
+
+		timeBetweenEnemySpawn = dungeonParameters.timeBetweenSpawns;
+		timeTillSpawning = dungeonParameters.timeBeforeSpawning;
+
+		StartCoroutine (WaitSpawning ());
+
+	}
+
+	IEnumerator WaitSpawning(){
+		yield return new WaitForSeconds (timeTillSpawning);
+		activated = true;
+		StartCoroutine (SpawnEnemy ());
+		Debug.Log ("spawner activated");
+	}
 }

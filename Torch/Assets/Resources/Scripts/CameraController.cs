@@ -20,7 +20,7 @@ public class CameraController : MonoBehaviour {
 	private List<GameObject> targets;
 
 	void Start(){
-		gameManager = GameObject.Find ("Game Manager").GetComponent<GameManager> ();
+		gameManager = GameManager.Instance;
 		targets = new List<GameObject> ();
 	}
 

@@ -1,13 +1,11 @@
 ﻿using UnityEngine;
+using UnityEngine.Audio;
 using System.Collections;
 
-public class ScorePickUp : MonoBehaviour, IPickUp {
+public class ScorePickUp : AudioObject, IPickUp {
 
 	public int scoreValue = 10;
-	public float pitchMin = 0.8f;
-	public float pitchMax = 1.2f;
-	public AudioSource audioSource;
-
+	public AudioClip clip;
 	private GameManager gameManager;
 
 	void Start(){
@@ -17,10 +15,16 @@ public class ScorePickUp : MonoBehaviour, IPickUp {
 	//Update the score with value
 	public void OnTriggerEnter(Collider other){
 		if (other.gameObject.CompareTag ("Player")) {
-			audioSource.pitch = Random.Range (pitchMin, pitchMax);
-			audioSource.Play ();
+			ObjectPooler.Instance.PlayAudioSource (clip, mixerGroup, pitchMin, pitchMax, transform);
 
+			if (gameManager == null) {
+				gameManager = GameManager.Instance;
+			}
 			gameManager.updateScore (scoreValue);
+			other.GetComponent<PlayerData> ().IncrementScorePickedUp (scoreValue);
+			other.GetComponent<PlayerData> ().IncrementCoinsPickedUp ();
+			gameManager.addInGameCoin ();
+			gameManager.data.IncrementCoins ();
 
 			//Debug.Log ("Score increased with " + scoreValue + " by picking up " + gameObject);
 			transform.parent.GetComponent<MeshRenderer> ().enabled = false;

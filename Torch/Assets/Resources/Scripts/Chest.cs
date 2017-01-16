@@ -1,10 +1,15 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Chest : InteractableItem {
 
-	public GameObject[] contents;
+	public bool manualChest;
+	public List<GameObject> contents;
+	public AudioClip clip;
+	public Animator animator;
 
 	[Header ("- Flyout properties")]
 	public float firingAngle = 45.0f;
@@ -18,19 +23,16 @@ public class Chest : InteractableItem {
 	void Start(){
 		base.Start ();
 
-		for (int i = 0; i < contents.Length; i++) {
-			contents[i] = Instantiate (contents [i], gameManager.levelTransform) as GameObject;
-			contents[i].SetActive (false);
+		if (manualChest) {
+			InstantiateContent ();
 		}
 	}
 
 	public override void action(GameObject triggerObject){
 		if (!used) {
-			AudioSource audio = GetComponent<AudioSource> ();
-			audio.pitch = Random.Range (0.8f, 1.1f);
-			audio.Play ();
-			GetComponent<Animator> ().SetTrigger ("Open Chest");
-			for (int i = 0; i < contents.Length; i++) {
+			ObjectPooler.Instance.PlayAudioSource (clip, mixerGroup, pitchMin, pitchMax, transform);
+			animator.SetTrigger ("Open Chest");
+			for (int i = 0; i < contents.Count; i++) {
 				flyOut (contents [i]);
 			}
 			used = true;
@@ -46,11 +48,13 @@ public class Chest : InteractableItem {
 		StartCoroutine (SimulateProjectile (spawnLocation, obj));
 	}
 
+	/*
     public void addItem(GameObject item)
     {
-        System.Array.Resize(ref contents,contents.Length+1);
-        contents[contents.Length-1] = item;
+        System.Array.Resize(ref contents,contents.Count+1);
+        contents[contents.Count-1] = item;
     }
+    */
 
 	IEnumerator SimulateProjectile(Vector3 Target, GameObject Projectile)
 	{
@@ -115,5 +119,59 @@ public class Chest : InteractableItem {
 			Object.GetComponent<RangedWeaponPickUp> ().enabled = boolean;
 		if (Object.GetComponent<ScorePickUp> () != null)
 			Object.GetComponent<ScorePickUp> ().enabled = boolean;
+	}
+
+	public void FillChest(DungeonData.DungeonParameters dungeonParameters){
+		List<GameObject> temp = contents;
+		contents = new List<GameObject> ();
+
+		//coins
+		for (int i = 0; i < Random.Range(1,4); i++) {
+			contents.Add (temp [0]);
+		}
+
+		//health pickup
+		for (int i = 0; i < Random.Range (1, 3); i++) {
+			contents.Add (temp [1]);
+		}
+
+		//Powerups
+		if (dungeonParameters.powerUps.shield.enabled && Random.value < dungeonParameters.powerUps.shield.spawnChance)
+			contents.Add (temp [2]);
+		if (dungeonParameters.powerUps.sticky.enabled && Random.value < dungeonParameters.powerUps.sticky.spawnChance)
+			contents.Add (temp [3]);
+		if (dungeonParameters.powerUps.wall.enabled && Random.value < dungeonParameters.powerUps.wall.spawnChance)
+			contents.Add (temp [4]);
+		if (dungeonParameters.powerUps.bomb.enabled && Random.value < dungeonParameters.powerUps.bomb.spawnChance)
+			contents.Add (temp [5]);
+		if (dungeonParameters.powerUps.decoy.enabled && Random.value < dungeonParameters.powerUps.decoy.spawnChance)
+			contents.Add (temp [6]);
+
+		//Weapons
+		if (dungeonParameters.powerUps.iceballWeapon.enabled && Random.value < dungeonParameters.powerUps.iceballWeapon.spawnChance)
+			contents.Add (temp [7]);
+		if (dungeonParameters.powerUps.piercingWeapon.enabled && Random.value < dungeonParameters.powerUps.piercingWeapon.spawnChance)
+			contents.Add (temp [8]);
+		if (dungeonParameters.powerUps.laserWeapon.enabled && Random.value < dungeonParameters.powerUps.laserWeapon.spawnChance)
+			contents.Add (temp [9]);
+	}
+
+	public void InstantiateContent(){
+		for (int i = 0; i < contents.Count; i++) {
+			contents [i] = Instantiate (contents [i], transform.position, Quaternion.identity) as GameObject;
+			contents [i].SetActive (false);
+		}
+	}
+
+	public void InstantiateContent(Transform parent){
+		for (int i = 0; i < contents.Count; i++) {
+			contents [i] = Instantiate (contents [i], transform.position, Quaternion.identity, parent) as GameObject;
+			contents [i].SetActive (false);
+		}
+	}
+
+	public void SetUp(DungeonData.DungeonParameters dungeonParameters, Transform parent){
+		FillChest (dungeonParameters);
+		InstantiateContent (parent);
 	}
 }

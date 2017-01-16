@@ -280,7 +280,6 @@ GameObject:
   - 195: {fileID: 195000010833276492}
   - 114: {fileID: 114000012613288934}
   - 114: {fileID: 114000012331677126}
-  - 82: {fileID: 82000010732532616}
   m_Layer: 10
   m_Name: gost
   m_TagString: Enemy
@@ -713,81 +712,6 @@ Transform:
   - {fileID: 4000011082052916}
   m_Father: {fileID: 4000010525950518}
   m_RootOrder: 0
---- !u!82 &82000010732532616
-AudioSource:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012827283380}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 243000011220735294, guid: 33975d0ba3fac476cb4987efebc83a81,
-    type: 2}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 0
-  Mute: 0
-  Spatialize: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    - time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 0
 --- !u!95 &95000010155107732
 Animator:
   serializedVersion: 3
@@ -820,7 +744,6 @@ MonoBehaviour:
     type: 2}
   currentWeapon: {fileID: 0}
   weaponHolder: {fileID: 4000012377008898}
-  audioSource: {fileID: 82000010732532616}
 --- !u!114 &114000012613288934
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -832,6 +755,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8ff24006135e463b97ae6fb6873caa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mixerGroup: {fileID: 243000011220735294, guid: 33975d0ba3fac476cb4987efebc83a81,
+    type: 2}
+  pitchMin: 0.8
+  pitchMax: 1.1
   startingHealth: 100
   attackCooldown: 0.5
   attackDamage: 10
@@ -845,9 +772,9 @@ MonoBehaviour:
   navMeshAgent: {fileID: 0}
   anim: {fileID: 0}
   dead: 0
-  clip_takeDamage: {fileID: 8300000, guid: 33cf4facfeeff48cf84eec4722bec847, type: 3}
+  clip_takeDamage: {fileID: 0}
   clip_attack: {fileID: 8300000, guid: fd1303ee1daa24c4bb684d01d65cb0aa, type: 3}
-  clip_spawn: {fileID: 8300000, guid: ba58056094f9b474d8b0bda21777be5a, type: 3}
+  clip_spawn: {fileID: 0}
   clip_die: {fileID: 0}
   clip_battleCry: {fileID: 0}
   lookMask:

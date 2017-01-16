@@ -22,7 +22,7 @@ GameObject:
   - 33: {fileID: 33000011963927756}
   - 23: {fileID: 23000010444651182}
   - 95: {fileID: 95000012816122862}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   - 95: {fileID: 95000011853083004}
   - 114: {fileID: 114000010448761054}
   - 135: {fileID: 135000012225667988}
-  m_Layer: 0
+  m_Layer: 20
   m_Name: Doorcontroller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56,7 +56,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000013229362150}
   - 64: {fileID: 64000011433939554}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: door.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,7 +72,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000013149322480}
   - 64: {fileID: 64000010456457720}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: door.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -90,7 +90,7 @@ GameObject:
   - 33: {fileID: 33000011537784242}
   - 23: {fileID: 23000013984558970}
   - 95: {fileID: 95000010972373756}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -324,6 +324,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e9b9e45745c2e04eaf90496dfdbc58e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  doorOpen: 0
+  locked: 0
 --- !u!135 &135000012225667988
 SphereCollider:
   m_ObjectHideFlags: 1

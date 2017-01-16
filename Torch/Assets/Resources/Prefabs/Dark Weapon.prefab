@@ -51,11 +51,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3cbd9dd7e5654cbf9a45acbe4ddf570, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mixerGroup: {fileID: 243000011220735294, guid: 33975d0ba3fac476cb4987efebc83a81,
+    type: 2}
+  pitchMin: 0.8
+  pitchMax: 1.1
   icon: {fileID: 0}
+  fireClip: {fileID: 8300000, guid: 8fa75a3be37ca42638535661baba242f, type: 3}
+  playerData: {fileID: 0}
+  damageMultiplier: 0
   cooldown: 0.5
   projectile: {fileID: 114000012347710446, guid: 88027f588069f4068b6ac9f7fda2183a,
     type: 2}
+  poolObjectIndex: 0
   projectileSpeed: 7
-  audioOnFire: {fileID: 8300000, guid: fd1303ee1daa24c4bb684d01d65cb0aa, type: 3}
-  pitchShiftMinimal: 0.9
-  pitchShiftMaximal: 1.05

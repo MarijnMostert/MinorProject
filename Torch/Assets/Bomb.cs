@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class Bomb : MonoBehaviour {
+public class Bomb : AudioObject {
 
 	public float timeTillExplode = 3f;
 	public int maxDamage = 120;
@@ -10,6 +10,7 @@ public class Bomb : MonoBehaviour {
 	public ParticlePlayer particles;
 	public Canvas ExplosionMark;
 	public bool canHitPlayer = false;
+	public AudioClip clip;
 
 
 	// Use this for initialization
@@ -28,19 +29,21 @@ public class Bomb : MonoBehaviour {
 					damage = 0;
 				}
 				if (canHitPlayer || (!collider.gameObject.CompareTag ("Player") && !collider.gameObject.CompareTag ("Torch"))) {
-					Debug.Log (damage + " damage on " + collider.gameObject);
-					damagableObject.takeDamage (damage, false);
+//					Debug.Log (damage + " damage on " + collider.gameObject);
+					damagableObject.takeDamage (damage, false, gameObject);
 				}
 			}
 		}
 		particles = Instantiate (particles, transform.position, Quaternion.identity) as ParticlePlayer;
 		particles.Play ();
 
+		ObjectPooler.Instance.PlayAudioSource (clip, mixerGroup, pitchMin, pitchMax, transform);
+
 		Vector3 pos = transform.position;
 		pos.y = 0.01f;
 		Instantiate (ExplosionMark, pos, Quaternion.Euler(new Vector3(-90f, 0f, 0f)));
 
-		Destroy (particles.gameObject, 2f);
+		Destroy (particles.gameObject, 4f);
 		Destroy (gameObject);
 	}
 }

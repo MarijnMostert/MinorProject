@@ -1,24 +1,26 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class SwitchGround : MonoBehaviour {
 
-	public int degrees;
-	LeverActivator lever;
-
-	private bool past;
-	private bool current;
+	public float speed;
+	public GameObject Rotor;
+	private Quaternion target;
 
 	void Start () {
-		lever = GetComponent<myLever> ().lever;
+		target = Rotor.transform.rotation;
 	}
 
 	void Update () {
-		current = lever.is_on;
-		if (current != past) {
-			transform.Rotate (0, degrees, 0);
-		}
-		past = current;
+		Quaternion temp = Rotor.transform.rotation;
+		Rotor.transform.rotation = Quaternion.Slerp (Rotor.transform.rotation, target, 0.15f);
 	}
 
+	public void setTarget(Quaternion trgt) {
+		Debug.Log ("Target is now " + trgt.eulerAngles.ToString ());
+		target = trgt;
+	}
 }
+
+

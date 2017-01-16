@@ -35,7 +35,7 @@ public class createFallFloors : MonoBehaviour {
 				block.SetActive (false);
 			}
 			platform.GetComponent<FallPlatform> ().active = false;
-			Vector3 counter = new Vector3 (4.0f, 11.0f, 1.5f);
+			Vector3 counter = new Vector3 (4.0f, 11.0f, 2.0f);
 			buildOppositeX (counter, false);
 			buildOppositeZ (counter, false);
 			counter *= -1;
@@ -55,15 +55,45 @@ public class createFallFloors : MonoBehaviour {
 
 	void makeList() {
 		places = new List<Vector3> ();
-		int[] array = { 13, 13, 13, 12, 11, 11, 10, 9, 8, 7, 6, 5, 4 };
 
-		int j = 12;
-		for (int i = 0; i < array.Length; i++) {
-			places.Add (new Vector3 (array [i], 0, array [j]));
-			places.Add (new Vector3 (-array [i], 0, array [j]));
-			places.Add (new Vector3 (array [i], 0, -array [j]));
-			places.Add (new Vector3 (-array [i], 0, -array [j]));
-			j--;
+		List<int[]> x_options = new List<int[]> ();
+		List<int[]> y_options = new List<int[]> ();
+
+		int[] optionOne_x = { 4, 6, 8, 10, 12, 12, 12, 10, 8, 8, 8, 10, 12 };
+		int[] optionOne_y = { 12, 12, 12, 12, 12, 10, 8, 8, 8, 6, 4, 4, 4 };
+
+		int[] optionTwo_x = { 14, 14, 14, 14, 12, 10, 10, 8, 6, 6, 6, 4 };
+		int[] optionTwo_y = { 4, 6, 8, 10, 10, 10, 8, 8, 8, 10, 12, 12 };
+
+		int[] optionThr_x = { 4, 6, 8, 10, 10, 12, 14, 14, 14, 12, 12 };
+		int[] optionThr_y = { 12, 12, 12, 12, 10, 10, 10, 8, 6, 6, 4 };
+
+		int[] optionFou_x = { 4, 6, 8, 10, 12, 12, 12, 10, 8, 8, 8, 10, 12, 12 };
+		int[] optionFou_y = { 14, 14, 14, 14, 14, 12, 10, 10, 10, 8, 6, 6, 6, 4 };
+
+		x_options.Add (optionOne_x); 
+		x_options.Add (optionTwo_x); 
+		x_options.Add (optionThr_x); 
+		x_options.Add (optionFou_x);
+		y_options.Add (optionOne_y); 
+		y_options.Add (optionTwo_y); 
+		y_options.Add (optionThr_y); 
+		y_options.Add (optionFou_y);
+
+		for (int i = 0; i < 4; i++) {
+			int number = Random.Range (0, 4);
+			int xfactor = 1;
+			int zfactor = 1;
+			if (i%2 == 0)
+				xfactor = -1;
+			if (i > 1)
+				zfactor = -1;
+			int[] thisx = x_options [number];
+			int[] thisy = y_options [number];
+
+			for (int j = 0; j < thisx.Length; j++) {
+				places.Add(new Vector3(thisx[j] * xfactor, 0, thisy[j]* zfactor));
+			}
 		}
 	}
 
@@ -76,7 +106,7 @@ public class createFallFloors : MonoBehaviour {
 	}
 
 	public void makeOppositeBlocks (Vector3 relativepos) {
-		Vector3 counter = new Vector3 (4.0f, 11.0f, 1.5f);
+		Vector3 counter = new Vector3 (4.0f, 11.0f, 2f);
 		bool negative = false;
 
 		if (relativepos.x > 12 || relativepos.z > 12) {

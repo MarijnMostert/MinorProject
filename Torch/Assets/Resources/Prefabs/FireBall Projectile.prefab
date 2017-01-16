@@ -158,17 +158,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b7416781957a445795c69362da14211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mixerGroup: {fileID: 0}
+  pitchMin: 0.8
+  pitchMax: 1.1
+  ObjectPoolerIndex: 1
+  hasParticlesOnHit: 1
+  ParticlesPoolerIndex: 5
+  clipOnImpact: {fileID: 0}
   minDamage: 20
   maxDamage: 30
   critChance: 0.05
   lifeTime: 2
   collisionMask:
     serializedVersion: 2
-    m_Bits: 4294444543
+    m_Bits: 4293395967
   speed: 0
   piercing: 0
-  particlesOnHit: {fileID: 198000013899694294, guid: 95f154c1346ec4f2c8b0e8930956a437,
-    type: 2}
+  PlayerData: {fileID: 0}
+  comp:
+    timeOut: 0
+    trailRenderer: {fileID: 0}
+    particles: {fileID: 0}
+    meshRenderer: {fileID: 0}
+    col: {fileID: 0}
+    light: {fileID: 0}
 --- !u!135 &135000012826028598
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -187,7 +200,7 @@ ParticleSystem:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011777544246}
-  serializedVersion: 4
+  serializedVersion: 2
   lengthInSec: 2
   startDelay:
     scalar: 0
@@ -225,13 +238,12 @@ ParticleSystem:
       m_RotationOrder: 4
     minMaxState: 0
   speed: 1
+  randomSeed: 63433504
   looping: 1
   prewarm: 0
   playOnAwake: 1
   moveWithTransform: 1
-  autoRandomSeed: 0
   scalingMode: 1
-  randomSeed: 63433504
   InitialModule:
     serializedVersion: 2
     enabled: 1
@@ -1931,7 +1943,7 @@ ParticleSystem:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011417840740}
-  serializedVersion: 4
+  serializedVersion: 2
   lengthInSec: 5
   startDelay:
     scalar: 0
@@ -1969,13 +1981,12 @@ ParticleSystem:
       m_RotationOrder: 4
     minMaxState: 0
   speed: 1
+  randomSeed: 63433504
   looping: 1
   prewarm: 0
   playOnAwake: 1
   moveWithTransform: 0
-  autoRandomSeed: 0
   scalingMode: 1
-  randomSeed: 63433504
   InitialModule:
     serializedVersion: 2
     enabled: 1

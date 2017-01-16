@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class LeverActivator : MonoBehaviour {
+public class LeverActivator : InteractableItem {
 
 	private string interactionButton;
 	public bool is_on = false;
@@ -12,28 +12,29 @@ public class LeverActivator : MonoBehaviour {
 		interactionButton = "InteractionButton";
 	}
 
+	/*
 	void OnTriggerEnter(Collider other) {
 		if (other.gameObject.layer == LayerMask.NameToLayer("PlayerProjectile")) { 
-				SwitchLever (); 
+				//SwitchLever (); 
 		}
 	}
+	*/
 
-	void OnTriggerStay(Collider other){
-		if (other.gameObject.CompareTag ("Player")) {
-			if (Input.GetButtonDown (interactionButton)) {
-				SwitchLever ();
-			}
-		}
+	public override void action(GameObject triggerObject){
+		SwitchLever ();
 	}
 
 	void SwitchLever () {
+		is_on = !is_on;
+	}
+
+	void Update () {
 		if (is_on) {
-			handle.transform.Rotate (0, 0, 60);
+			handle.transform.rotation = Quaternion.RotateTowards (handle.transform.rotation, Quaternion.Euler (0, 0, -30), 1.5f);
 		}
 		else {
-			handle.transform.Rotate (0, 0, -60);
+			handle.transform.rotation = Quaternion.RotateTowards (handle.transform.rotation, Quaternion.Euler (0, 0, 30), 1.5f);
 		}
-		is_on = !is_on;
 	}
 		
 	public void Deactivate(){

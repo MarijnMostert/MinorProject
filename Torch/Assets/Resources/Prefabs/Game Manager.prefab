@@ -23,6 +23,7 @@ GameObject:
   - 82: {fileID: 82000010765992802}
   - 82: {fileID: 82000013135790204}
   - 114: {fileID: 114000013406591320}
+  - 114: {fileID: 114000011838373320}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -53,7 +54,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 243000012027690752, guid: 33975d0ba3fac476cb4987efebc83a81,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: 7e404d8a72ce34ec98bd3c27ed1782f8, type: 3}
+  m_audioClip: {fileID: 8300000, guid: fa3528f977a574dacab94878f9cbc20e, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -193,6 +194,42 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &114000011838373320
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012150838060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 577ca7cb19a3041078417fd2e428ac54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  amountOfLevels: 40
+  chanceOfRoom: 5
+  spawnRateScaler: 0.5
+  spawnerWarmingUpScaler: 0.6
+  minLevelForMinotaur: 1
+  minLevelForSpider: 3
+  minLevelForGhost: 6
+  minLevelForBomber: 9
+  minLevelForShield: 1
+  minLevelForSticky: 2
+  minLevelForWall: 5
+  minLevelForBomb: 8
+  minLevelForDecoy: 11
+  chanceShield: 0.2
+  chanceSticky: 0.2
+  chanceWall: 0.2
+  chanceBomb: 0.2
+  chanceDecoy: 0.2
+  minLevelIceballWeapon: 7
+  minLevelPiercingWeapon: 3
+  minLevelLaserWeapon: 13
+  chanceIceball: 0.1
+  chancePiercing: 0.1
+  chanceLaser: 0.1
+  dungeonParameters: []
 --- !u!114 &114000012126162182
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -205,6 +242,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 114000013406591320}
+  dungeonData: {fileID: 0}
   playerManagers:
   - spawnPoint: {fileID: 4000013396432608}
     playerColor: {r: 0.27941185, g: 0.9046279, b: 1, a: 1}
@@ -217,6 +255,7 @@ MonoBehaviour:
     powerUpInventory: {fileID: 0}
     movementEnabled: 1
     active: 1
+    playerData: {fileID: 0}
     gameManager: {fileID: 0}
   - spawnPoint: {fileID: 4000013396432608}
     playerColor: {r: 1, g: 0.922, b: 0.022058845, a: 1}
@@ -229,9 +268,11 @@ MonoBehaviour:
     powerUpInventory: {fileID: 0}
     movementEnabled: 1
     active: 0
+    playerData: {fileID: 0}
     gameManager: {fileID: 0}
   playerPrefab: {fileID: 1000010005094228, guid: 96b70f8172a034350bce5e9b0ef6db4d,
     type: 2}
+  RespawnPosition: {x: 0, y: 0, z: 0}
   homeScreenPlayer: {fileID: 0}
   homeScreenMovement: {fileID: 0}
   torchPrefab: {fileID: 114000010962005414, guid: 86f8871f16b6e4321a072873febde5a7,
@@ -241,9 +282,9 @@ MonoBehaviour:
     type: 2}
   torchStartingHealth: 100
   torchHealth: 0
-  torchHealthMax: 150
   score: 0
   totalScore: 0
+  coinsInGame: 0
   dungeonLevel: 0
   StartTime: 0
   Roomtype: 
@@ -253,18 +294,16 @@ MonoBehaviour:
     type: 2}
   camTarget: {fileID: 0}
   enemyTarget: {fileID: 0}
-  UIPrefab: {fileID: 1000011980605034, guid: ce12bf815c9354cd38ffdb78d7b15e2b, type: 2}
-  UI: {fileID: 0}
+  UIPrefab: {fileID: 114000014270163232, guid: ce12bf815c9354cd38ffdb78d7b15e2b, type: 2}
+  ui: {fileID: 0}
   uiInventory: {fileID: 0}
   PuzzleRooms:
   - {fileID: 1000010275947170, guid: 2c69b9685e818ec4f810ceb0a5e12c7d, type: 2}
-  - {fileID: 1000011553212682, guid: eb740adea754c4786b778353d8c564d7, type: 2}
   - {fileID: 1000013095267004, guid: 5288fcd4fb05339498a5d9c9dc49a76c, type: 2}
+  - {fileID: 1000013309580604, guid: 64a22ead90fa46542b9274c81372775a, type: 2}
   - {fileID: 1000010173967298, guid: e72c1f558cafdfb4d8814a1f26d633dc, type: 2}
   - {fileID: 1000011832919986, guid: fb219ecc626f53d498ba9b7b66e404be, type: 2}
-  - {fileID: 1000013309580604, guid: 64a22ead90fa46542b9274c81372775a, type: 2}
-  UIHelpItems: []
-  UIHelp: 1
+  - {fileID: 1000011553212682, guid: eb740adea754c4786b778353d8c564d7, type: 2}
   TorchFOVPrefab: {fileID: 1000011320308738, guid: b5c950376b24a4029afee84b9656c78b,
     type: 2}
   spawner: {fileID: 0}
@@ -273,15 +312,22 @@ MonoBehaviour:
   substances:
   - {fileID: -1486117434, guid: de1d36f093b73c943a0a0e67025b5e15, type: 3}
   - {fileID: -2071217773, guid: 9100c33a71d3bc34297f459ae70777f9, type: 3}
-  width: 20
-  height: 20
+  homeScreenEnvironmentPrefab: {fileID: 1000012718415468, guid: 4ef94cea375ae45ff83b3370aa956b06,
+    type: 2}
+  homeScreenEnvironment: {fileID: 0}
+  HighScoresPanel: {fileID: 1000011698425086, guid: 3af9a424cc2a048529edd2f286b5174b,
+    type: 2}
   startingScreen: {fileID: 0}
   loadingScreenCanvas: {fileID: 1000013625541172, guid: 0ff01cb270ef14af5b80d2ec70ecc88c,
     type: 2}
   deathCanvas: {fileID: 0}
   endOfRoundCanvas: {fileID: 0}
+  dungeonStartCanvas: {fileID: 0}
+  dungeonLevelButtonPrefab: {fileID: 1000010447920346, guid: c6595ae6a0eaa44b7ad07bdb038b95a5,
+    type: 2}
   mainCamera: {fileID: 0}
   minimap: {fileID: 20000013463240440, guid: 6ad5bdafd394ffb488ed4b90c059f3bf, type: 2}
+  levelTransform: {fileID: 0}
   tutorialPrefab: {fileID: 1000012528916838, guid: 7c4d6b04a031b484cb4f65bb64d744fa,
     type: 2}
   tutorialTorchPrefab: {fileID: 1000013673994516, guid: 86f8871f16b6e4321a072873febde5a7,
@@ -290,11 +336,15 @@ MonoBehaviour:
   audioSourceUI: {fileID: 82000013135790204}
   audioClipsUI:
   - {fileID: 8300000, guid: 733a8cc43207248d88f596e458742c40, type: 3}
+  loreAudio: {fileID: 0}
   audioHomeScreen: {fileID: 8300000, guid: 7e404d8a72ce34ec98bd3c27ed1782f8, type: 3}
   audioDungeon:
   - {fileID: 8300000, guid: 3d02f9a386baf4bea855ca88493ab372, type: 3}
   - {fileID: 8300000, guid: 667c3a85722394921ba0173a0e9b17b3, type: 3}
+  audioPartyTorch: {fileID: 8300000, guid: 4c9633496a19a402590ebb8a163b5b59, type: 3}
   audioMuted: 0
+  DebuggerPanel: {fileID: 1000012104167014, guid: 62264218f00cc40b2b1f384d6b761f68,
+    type: 2}
   allWeaponsAvailable:
   - {fileID: 1000013538442878, guid: 3fc544d2b1e1b4b2487700e752433bfb, type: 2}
   - {fileID: 1000013538442878, guid: 754b92d26cdd8421fb0eed83baf2fb1a, type: 2}
@@ -306,11 +356,15 @@ MonoBehaviour:
   - {fileID: 1000013169113146, guid: abd67498e85f64044aeef2120466291d, type: 2}
   - {fileID: 1000010896598750, guid: 195fb193ab5204bc893326e9ad2e54b1, type: 2}
   - {fileID: 1000010896598750, guid: 670d3961a6c704c3f94ef3cea882cbf8, type: 2}
+  KeyPrefab: {fileID: 1000012212864896, guid: e8435d5b6d8af4888b1b7bcd6c9e373c, type: 2}
   collectedKeys: 0
   requiredCollectedKeys: 0
-  Bold: {fileID: 1000010787105900, guid: 34e435e0d20414bb0ad3cd7e62be2d41, type: 2}
-  shop: {fileID: 114000012952452066, guid: e7fffa677a1ce4c29bfc10128f43efa3, type: 2}
-  coins: 99999
+  Pet: {fileID: 1000010787105900, guid: 34e435e0d20414bb0ad3cd7e62be2d41, type: 2}
+  shopPrefab: {fileID: 114000012952452066, guid: e7fffa677a1ce4c29bfc10128f43efa3,
+    type: 2}
+  highQualityItems:
+  - {fileID: 0}
+  - {fileID: 0}
   numberOfPlayers: 1
 --- !u!114 &114000013406591320
 MonoBehaviour:
@@ -323,6 +377,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8577d73ec07e047ac9c9607e2e54dd95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shopItems: 
+  gameManager: {fileID: 114000012126162182}
+  shopItemsOwned: 
+  shopItemsEquipped: 
   coins: 0
-  dungeonLevel: 0
+  maxAchievedDungeonLevel: 0
+  highQuality: 0
+  highScoreNames: []
+  highScoreScores: 
+  playerMaxHealth: 100
+  playerDamageMultiplier: 1

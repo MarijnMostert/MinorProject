@@ -10,16 +10,22 @@ public class LookAtCamera : MonoBehaviour {
 
 	void Start(){
 		gameManager = GameManager.Instance;
-		cam = gameManager.mainCamera;
-	}
-
-	void Update(){
+		/*
 		if (cam == null) {
 			cam = gameManager.mainCamera;
 		}
+		*/
+	}
 
-		if (cam != null) {
-			lookAtCamera (cam);
+	void Update(){
+		/*
+		if (cam == null) {
+			cam = gameManager.mainCamera;
+		}
+		*/
+
+		if (gameManager.mainCamera != null) {
+			lookAtCamera (gameManager.mainCamera);
 		}
 	}
 

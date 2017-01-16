@@ -51,8 +51,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3cbd9dd7e5654cbf9a45acbe4ddf570, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mixerGroup: {fileID: 243000012618909108, guid: 33975d0ba3fac476cb4987efebc83a81,
+    type: 2}
+  pitchMin: 0.8
+  pitchMax: 1.1
   icon: {fileID: 21300000, guid: 724a010e6b7364b329857742acd7c7ef, type: 3}
+  fireClip: {fileID: 8300000, guid: 389f3fd743914445cb1da2611ad4a4dd, type: 3}
+  playerData: {fileID: 0}
+  damageMultiplier: 1
   cooldown: 0.4
   projectile: {fileID: 114000012347710446, guid: 770430afaa49b4b13ae2434fa2ef9505,
     type: 2}
+  poolObjectIndex: 0
   projectileSpeed: 20

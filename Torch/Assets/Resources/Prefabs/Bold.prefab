@@ -42,7 +42,7 @@ GameObject:
   - 199: {fileID: 199000010507691906}
   - 198: {fileID: 198000012230919298}
   - 82: {fileID: 82000012930394360}
-  - 114: {fileID: 114000010452038158}
+  - 114: {fileID: 114000013503192460}
   m_Layer: 19
   m_Name: Bold
   m_TagString: Untagged
@@ -86,6 +86,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1000012434752472
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 4000012824981856}
+  - 114: {fileID: 114000013386882654}
+  - 114: {fileID: 114000013761423850}
+  m_Layer: 0
+  m_Name: WeaponHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1000012915149468
 GameObject:
   m_ObjectHideFlags: 1
@@ -102,7 +119,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4000010076098722
 Transform:
   m_ObjectHideFlags: 1
@@ -116,6 +133,7 @@ Transform:
   m_Children:
   - {fileID: 4000010914691434}
   - {fileID: 224000011977500948}
+  - {fileID: 4000012824981856}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!4 &4000010914691434
@@ -131,6 +149,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4000010076098722}
   m_RootOrder: 0
+--- !u!4 &4000012824981856
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012434752472}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 4000010076098722}
+  m_RootOrder: 2
 --- !u!23 &23000013750457146
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -276,29 +307,6 @@ Light:
   m_BounceIntensity: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &114000010452038158
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010787105900}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dbbe13a0932044931881268a0325681e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speechImage: {fileID: 114000011940765996}
-  speechText: {fileID: 114000013663808758}
-  clips:
-  - {fileID: 8300000, guid: ca34341dda6f546b88f7c404509f39b7, type: 3}
-  - {fileID: 8300000, guid: d3813f6bd2f69418ca17e879d1e8ba53, type: 3}
-  - {fileID: 8300000, guid: b0513210774cd4b3db92234a8bf957fa, type: 3}
-  - {fileID: 8300000, guid: fbb781310784d4c6ea75d52d61cf1431, type: 3}
-  - {fileID: 8300000, guid: 2cefe1d88b1774c67bb603e52f8b3dca, type: 3}
-  - {fileID: 8300000, guid: 8d7534468edec409b8a3c2803541e03c, type: 3}
-  audioSource: {fileID: 82000012930394360}
-  chanceForClip: 0.05
-  interval: 5
 --- !u!114 &114000011362134278
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -392,7 +400,59 @@ MonoBehaviour:
   range: 20
   distanceToKeep: 2
   lookAtTarget: 1
-  stayActivated: 0
+  stayActivated: 1
+  PowerUp: 0
+--- !u!114 &114000013386882654
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012434752472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fafb4a7e8469647249b383df1db219e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingWeapon: {fileID: 114000013339538176, guid: d8937ed1cee044faf80b7f9f1f7a39a3,
+    type: 2}
+  currentWeapon: {fileID: 0}
+  weaponHolder: {fileID: 4000012824981856}
+--- !u!114 &114000013503192460
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010787105900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29a59f20b1f744d399b341b7b13927a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mixerGroup: {fileID: 0}
+  pitchMin: 0.8
+  pitchMax: 1.1
+  speechImage: {fileID: 114000011940765996}
+  speechText: {fileID: 114000013663808758}
+  clips:
+  - {fileID: 8300000, guid: 6db592eb1a2634623beb5a5d3b949192, type: 3}
+  - {fileID: 8300000, guid: 7022e4a8e1269451ea9d28418cce0218, type: 3}
+  - {fileID: 8300000, guid: ca34341dda6f546b88f7c404509f39b7, type: 3}
+  - {fileID: 8300000, guid: d3813f6bd2f69418ca17e879d1e8ba53, type: 3}
+  - {fileID: 8300000, guid: b0513210774cd4b3db92234a8bf957fa, type: 3}
+  - {fileID: 8300000, guid: fbb781310784d4c6ea75d52d61cf1431, type: 3}
+  - {fileID: 8300000, guid: 2cefe1d88b1774c67bb603e52f8b3dca, type: 3}
+  - {fileID: 8300000, guid: 8d7534468edec409b8a3c2803541e03c, type: 3}
+  - {fileID: 8300000, guid: 4a329bb29b79d4b1a8d88017cccee7de, type: 3}
+  - {fileID: 8300000, guid: b87009a7781b141b6ad3c364899a9e5b, type: 3}
+  - {fileID: 8300000, guid: 4d475b802cce64ae68c5167ea47e7607, type: 3}
+  - {fileID: 8300000, guid: 500cfb3b3bce143e086844266c81dbce, type: 3}
+  - {fileID: 8300000, guid: d1f7b3232b6c54c7bbd36018af5b721f, type: 3}
+  chanceForClip: 0.05
+  interval: 5
+  weaponController: {fileID: 114000013386882654}
+  targetFinder: {fileID: 114000013761423850}
+  target: {fileID: 0}
+  timeOut: 3
 --- !u!114 &114000013663808758
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -426,6 +486,19 @@ MonoBehaviour:
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: 
+--- !u!114 &114000013761423850
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012434752472}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d84daa265a54a42a283e8ec196450ded, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targets: []
+  radius: 5
 --- !u!135 &135000010202449164
 SphereCollider:
   m_ObjectHideFlags: 1
