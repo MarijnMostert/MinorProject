@@ -129,7 +129,7 @@ public class DungeonData : MonoBehaviour {
 			if(DP.timeBetweenSpawns < 4f){
 				DP.timeBetweenSpawns = 4f;
 			}
-			DP.timeBeforeSpawning = 15f - spawnRateScaler * i;
+			DP.timeBeforeSpawning = 15f - spawnerWarmingUpScaler * i;
 			if (DP.timeBeforeSpawning < 2f) {
 				DP.timeBeforeSpawning = 2f;
 			}

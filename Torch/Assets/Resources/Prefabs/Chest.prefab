@@ -95,7 +95,6 @@ GameObject:
   - 223: {fileID: 223000012450941260}
   - 114: {fileID: 114000012009060050}
   - 114: {fileID: 114000013927985378}
-  - 114: {fileID: 114000013617169448}
   - 114: {fileID: 114000012469794784}
   m_Layer: 20
   m_Name: Chest Instruction PopUp
@@ -430,20 +429,6 @@ MonoBehaviour:
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: E
---- !u!114 &114000013617169448
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012823268266}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22fec1b68304b43e1944cb5634316c10, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cam: {fileID: 0}
-  withManualOffset: 0
-  Offset: {x: 0, y: 0, z: 0}
 --- !u!114 &114000013927985378
 MonoBehaviour:
   m_ObjectHideFlags: 1

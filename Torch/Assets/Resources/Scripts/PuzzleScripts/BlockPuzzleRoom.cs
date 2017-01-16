@@ -25,9 +25,9 @@ public class BlockPuzzleRoom : MonoBehaviour {
 		Pad2.transform.localPosition = positionPad2;
 		Pad3.transform.localPosition = positionPad3;
 
-		positionBlock1 = new Vector3 (Random.Range (-12f, 12f), 1.01f, Random.Range (-12f, 12f));
-		positionBlock2 = new Vector3 (Random.Range (-12f, 12f), 1.01f, Random.Range (-12f, 12f));
-		positionBlock3 = new Vector3 (Random.Range (-12f, 12f), 1.01f, Random.Range (-12f, 12f));
+		positionBlock1 = new Vector3 (Random.Range (-12f, 12f), .01f, Random.Range (-12f, 12f));
+		positionBlock2 = new Vector3 (Random.Range (-12f, 12f), .01f, Random.Range (-12f, 12f));
+		positionBlock3 = new Vector3 (Random.Range (-12f, 12f), .01f, Random.Range (-12f, 12f));
 		Block1 = Instantiate (Block1, transform) as GameObject;
 		Block2 = Instantiate (Block2, transform) as GameObject;
 		Block3 = Instantiate (Block3, transform) as GameObject;

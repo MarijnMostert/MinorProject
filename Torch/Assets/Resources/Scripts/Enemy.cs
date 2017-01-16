@@ -176,6 +176,7 @@ public class Enemy : AudioObject, IDamagable {
 
 		if (playerData != null) {
 			playerData.IncrementEnemiesKilled ();
+			playerData.IncrementScorePickedUp (scoreValue);
 		}
 	}
 }
