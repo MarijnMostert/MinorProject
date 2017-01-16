@@ -52,6 +52,9 @@ public class Doors : MonoBehaviour {
 		if (doorOpen) {
 			doorOpen = false;
 			DoorController ("Close");
+
+
+
 		}
 	}
 
