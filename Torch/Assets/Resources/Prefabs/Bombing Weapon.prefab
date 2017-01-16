@@ -51,7 +51,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d1517e09af4545cbaef5812b183bc9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mixerGroup: {fileID: 243000011220735294, guid: 33975d0ba3fac476cb4987efebc83a81,
+    type: 2}
+  pitchMin: 0.8
+  pitchMax: 1.1
   icon: {fileID: 0}
+  fireClip: {fileID: 0}
   cooldown: 1.5
   projectile: {fileID: 114000014124636786, guid: 01fee43045d4c4346b2843412cf0011d,
     type: 2}

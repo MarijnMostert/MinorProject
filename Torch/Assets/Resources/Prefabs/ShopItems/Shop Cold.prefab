@@ -131,7 +131,11 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 26b706cf1e1b349ed8ab484d0f67dbe6, type: 3}
   price: 2000
   owned: 0
-  InterfaceButton: {fileID: 0}
+  equipped: 0
+  shopInterfaceButton: {fileID: 0}
+  type: 0
+  equippableObject: {fileID: 1000010787105900, guid: fc03e3606c9054cd1a3797f8bda01ab1,
+    type: 2}
 --- !u!114 &114000012854432128
 MonoBehaviour:
   m_ObjectHideFlags: 1

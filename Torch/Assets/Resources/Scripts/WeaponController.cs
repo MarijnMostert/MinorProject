@@ -5,12 +5,13 @@ public class WeaponController : MonoBehaviour {
 
 	public Weapon startingWeapon;
 	public Weapon currentWeapon;
+	private PlayerData playerData;
 
 	public Transform weaponHolder;
 
-	public AudioSource audioSource;
-
 	protected virtual void Start () {
+		//searches for playerdata. Returns null if it is an enemy's weaponcontroller
+		playerData = GetComponent<PlayerData> ();
 		Equip (startingWeapon);
 	}
 
@@ -25,6 +26,9 @@ public class WeaponController : MonoBehaviour {
 		//Instantiate new weapon and equip it.
 		Weapon newWeapon = Instantiate (weapon, weaponHolder.transform.position, weaponHolder.transform.rotation, weaponHolder) as Weapon;
 		currentWeapon = newWeapon;
+		if (playerData != null) {
+			currentWeapon.playerData = playerData;
+		}
 		//Debug.Log ("New weapon equipped: " + currentWeapon);
 	}
 

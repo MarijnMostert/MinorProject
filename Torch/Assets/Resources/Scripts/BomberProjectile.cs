@@ -3,6 +3,8 @@ using System.Collections;
 
 public class BomberProjectile : MonoBehaviour {
 
+	public int ObjectPoolerIndex;
+
 	public LayerMask collisionMask;
 	public int damage;
 	public float lifeTime;
@@ -18,10 +20,14 @@ public class BomberProjectile : MonoBehaviour {
 	private Camera cam;
     public GameObject explosion;
 
-	void Start () {
-		rb = GetComponent<Rigidbody>();		
+	void Awake(){
+		rb = GetComponent<Rigidbody> ();
+	}
+
+	void OnEnable(){
 		cam = Camera.main;
-		Destroy (gameObject, lifeTime);
+		rb.isKinematic = true;
+		rb.isKinematic = false;
 	}
 
 	public void SetForce(float force){
@@ -33,7 +39,12 @@ public class BomberProjectile : MonoBehaviour {
         if (!objectHitted.CompareTag("EnemyProjectile") && !objectHitted.CompareTag("Enemy") && !objectHitted.CompareTag("Wall Torch"))
         {
             cam.transform.GetComponentInParent<CameraShake>().cameraShake(camShakeLength, camShakeIntensity, camShakeIterationTime);
-            GameObject exp = Instantiate(explosion, new Vector3(transform.position.x, 0, transform.position.z), Quaternion.Euler(new Vector3(90, 0, 0))) as GameObject;
+			GameObject exp = ObjectPooler.Instance.GetObject (16, true, transform.position, Quaternion.Euler (new Vector3 (90, 0, 0)));
+			if (exp.transform.position.y < 0) {
+				Vector3 pos = exp.transform.position;
+				pos.y = 0;
+				exp.transform.position = pos;
+			}
             exp.GetComponent<explosion>().damage = damage;
 
             /*IDamagable damagableObject = other.GetComponent<IDamagable> ();
@@ -45,7 +56,7 @@ public class BomberProjectile : MonoBehaviour {
 			    objectHitted.transform.FindChild ("Torch").GetComponent<IDamagable> ().takeDamage (damage);
 		    }
             */
-            Destroy(this.gameObject);
+			gameObject.SetActive (false);
         }
 	}
 

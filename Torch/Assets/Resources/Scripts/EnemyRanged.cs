@@ -21,13 +21,18 @@ public class EnemyRanged : Enemy {
 	}
 
 	// Use this for initialization
-	new void Start () {
-		base.Start ();
-		weapon = weaponController.currentWeapon as RangedWeapon;
-        anim = GetComponent<Animator>();
-        setAnim(anim);
-		stoppingDistance = navMeshAgent.stoppingDistance;
-		StartCoroutine (UpdatePath ());
+	new void OnEnable () {
+		if (!firstTimeActive) {
+			base.OnEnable ();
+			weapon = weaponController.currentWeapon as RangedWeapon;
+			anim = GetComponent<Animator> ();
+			setAnim (anim);
+			stoppingDistance = navMeshAgent.stoppingDistance;
+			StartCoroutine (UpdatePath ());
+		} else {
+			navMeshAgent.enabled = false;
+			firstTimeActive = false;
+		}
 	}
 	
 	void Update () {
@@ -62,12 +67,7 @@ public class EnemyRanged : Enemy {
 		weapon.gameObject.transform.eulerAngles = newWeaponRot;
 		weapon.Fire ();
 		weapon.gameObject.transform.eulerAngles = weaponRotOriginal;
-/*
-		if (clip_attack != null) {
-			audioSource.clip = clip_attack;
-			audioSource.Play ();
-		}
-*/
+
 		lastAttackTime = Time.time;
         first_attack = false;
         yield return null;
@@ -102,8 +102,10 @@ public class EnemyRanged : Enemy {
 			Vector3 targetPosition = new Vector3 (gameManager.enemyTarget.transform.position.x, 0, gameManager.enemyTarget.transform.position.z);
 
 			//Set the target position for the Nav Mesh Agent
-			navMeshAgent.SetDestination (targetPosition);
-			transform.LookAt (new Vector3(targetPosition.x, transform.position.y, targetPosition.z));
+			if (navMeshAgent.enabled) {
+				navMeshAgent.SetDestination (targetPosition);
+				transform.LookAt (new Vector3 (targetPosition.x, transform.position.y, targetPosition.z));
+			}
 
 			//Make sure that the Nav Mesh Agent refreshes not every frame (to spare costs)
 			yield return new WaitForSeconds (refreshTime);

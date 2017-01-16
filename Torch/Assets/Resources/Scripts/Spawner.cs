@@ -59,7 +59,8 @@ public class Spawner : MonoBehaviour {
 	public void spawnEnemy(){
 		Enemy enemy = enemiesToSpawn [Random.Range (0, enemiesToSpawn.Length)];
 		Vector3 position = getPosition ();
-		Instantiate (enemy, position, transform.rotation);
+		ObjectPooler.Instance.GetObject (enemy.ObjectPoolIndex, true, position,
+			Quaternion.Euler (new Vector3 (0f, Random.Range (0f, 360f), 0f)));
 	}
 
     Vector3 getPosition()

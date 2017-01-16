@@ -17,7 +17,7 @@ public class puzzleDoors : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		doors = GetComponentsInChildren<Doors> ();
-		gameManager = GameManager.Instance;
+		gameManager = GameObject.Find ("Game Manager").GetComponent<GameManager> ();
 	}
 
 	void Update () {
@@ -35,6 +35,8 @@ public class puzzleDoors : MonoBehaviour {
 			gameManager.Roomtype = RoomType;
 			gameManager.WritePuzzleStart ();
 			locked = true;
+			PlayerDamagable playerDamagableScript = other.gameObject.GetComponentInChildren<PlayerDamagable>();
+			playerDamagableScript.saveRespawnPosition ();
 		}
 	}
 
@@ -44,7 +46,7 @@ public class puzzleDoors : MonoBehaviour {
 			doors[i].locked = true;
 		}
 		Debug.Log ("SPAWNER STOPPED");
-		gameManager.spawner.dead = true;
+		gameManager.spawner.activated = false;
 		active = true;
 		StartTime = Time.time;
 		for (int i = 0; i < gameManager.playerManagers.Length; i++) {
@@ -58,13 +60,13 @@ public class puzzleDoors : MonoBehaviour {
 		}
 		done = true;
 		active = false;
-		gameManager.spawner.dead = false;
+		gameManager.spawner.activated = true;
 		gameManager.WritePuzzleComplete (Time.time - StartTime);
 		gameManager.Roomtype = null;
 
 		//Instantiate a key
 		Vector3 keyPosition = transform.position + new Vector3(0f, 1f, 0f);
-		Instantiate (key, keyPosition, transform.rotation, gameManager.levelTransform);
+		Instantiate (key, keyPosition, transform.rotation);
 		Destroy (myLever.gameObject);
 	}
 }

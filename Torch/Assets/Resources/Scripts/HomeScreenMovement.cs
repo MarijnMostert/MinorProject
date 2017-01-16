@@ -71,7 +71,10 @@ public class HomeScreenMovement : MonoBehaviour {
 		}
         Quaternion rotation = Quaternion.Euler(0, desiredAngle, 0);
         min_height += vertical;
+
+
         transform.position = target.transform.position - (rotation * offset) + new Vector3(0,min_height,0);
+
     }    
 
 	private void Move(){

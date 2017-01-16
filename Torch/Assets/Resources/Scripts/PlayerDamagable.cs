@@ -2,13 +2,9 @@
 using System.Collections;
 
 public class PlayerDamagable : MonoBehaviour, IDamagable {
-	public float positionIsSavedEveryXSeconds;
-
+	public GameManager gameManager;
 	private Vector3 lastKnownPosition;
 
-	void Start () {
-		StartCoroutine (respawnPosition());
-	}
 	void Update(){
 		
 		if (transform.position.y < -12) {
@@ -16,24 +12,24 @@ public class PlayerDamagable : MonoBehaviour, IDamagable {
 		}
 	}
 
-	public void takeDamage(int damage, bool crit){
+	public void takeDamage(int damage, bool crit, GameObject source){
 		//Debug.Log ("Player is taking damage");
 		//GameObject torch = transform.FindChild ("Torch").gameObject;
 		if (hasTorch ()) {
-			gameObject.GetComponentInChildren<Torch> ().takeDamage (damage, crit);
+			gameObject.GetComponentInChildren<Torch> ().takeDamage (damage, crit, source);
 		}
 	}
-	private IEnumerator respawnPosition(){
-		while (true) {
-			if (transform.position.y>=0.24f){
-				lastKnownPosition = transform.position;
-//				Debug.Log ("lastKnownPosition: " + lastKnownPosition);
-			}
-			yield return new WaitForSeconds (positionIsSavedEveryXSeconds);
+	public void saveRespawnPosition(){
+		lastKnownPosition = transform.position;
+		gameManager.RespawnPosition = lastKnownPosition;
+		Debug.Log ("lastKnownPosition: " + lastKnownPosition);
+		GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+		foreach (GameObject player in players) {
+			player.transform.position = gameManager.RespawnPosition;
 		}
 	}
 	public void Die(){
-		transform.position = lastKnownPosition;
+		transform.position = gameManager.RespawnPosition;
 	}
 		
 	bool hasTorch(){

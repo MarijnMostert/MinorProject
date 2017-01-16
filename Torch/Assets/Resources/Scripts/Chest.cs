@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 using System.Collections;
 
 public class Chest : InteractableItem {
 
 	public GameObject[] contents;
+	public AudioClip clip;
+	public Animator animator;
 
 	[Header ("- Flyout properties")]
 	public float firingAngle = 45.0f;
@@ -26,10 +29,8 @@ public class Chest : InteractableItem {
 
 	public override void action(GameObject triggerObject){
 		if (!used) {
-			AudioSource audio = GetComponent<AudioSource> ();
-			audio.pitch = Random.Range (0.8f, 1.1f);
-			audio.Play ();
-			GetComponent<Animator> ().SetTrigger ("Open Chest");
+			ObjectPooler.Instance.PlayAudioSource (clip, mixerGroup, pitchMin, pitchMax, transform);
+			animator.SetTrigger ("Open Chest");
 			for (int i = 0; i < contents.Length; i++) {
 				flyOut (contents [i]);
 			}

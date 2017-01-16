@@ -8,18 +8,17 @@ public class ColliderStartGame : MonoBehaviour {
 	public GameObject textObject;
 
 	private string interactionButton = "InteractionButton";
-	private GameManager gameManager;
+	[SerializeField] private GameManager gameManager;
 
-	void Awake(){
-		gameManager = GameObject.Find ("Game Manager").GetComponent<GameManager> ();
+	void Start(){
+		gameManager = GameManager.Instance;
 	}
 
 	void OnTriggerStay(Collider other){
 		if (other.gameObject.CompareTag ("Player")) {
 			textObject.SetActive (true);
-			if (Input.GetButtonDown (interactionButton)) {
-				textObject.SetActive (false);
-				gameManager.StartGame ();
+			if (Input.GetButtonDown (interactionButton) && !gameManager.dungeonStartCanvas.gameObject.activeInHierarchy) {
+				gameManager.ToggleDungeonStartCanvas ();
 			}
 		}
 	}
@@ -28,5 +27,9 @@ public class ColliderStartGame : MonoBehaviour {
 		if(other.gameObject.CompareTag("Player")){
 			textObject.SetActive (false);
 		}
+	}
+
+	void OnDisable(){
+		textObject.SetActive (false);
 	}
 }

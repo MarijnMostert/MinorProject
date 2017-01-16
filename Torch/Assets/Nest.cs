@@ -1,15 +1,15 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 using System.Collections;
 
-public class Nest : MonoBehaviour, IDamagable {
-    public GameObject enemy;
+public class Nest : AudioObject {
+    public Enemy enemy;
     Spawner spawner;
     bool player;
 
     public int startingHealth;
     public int scoreValue = 100;
-    public GameObject healthBarPrefab;
     [SerializeField]
     protected int health;
     protected GameObject healthBar;
@@ -19,24 +19,25 @@ public class Nest : MonoBehaviour, IDamagable {
     public bool dead;
     public AudioClip clip_takeDamage;
     public AudioClip clip_die;
-    protected AudioSource audioSource;
+
+    public GameObject spawnpoint;
+    public int numberOfEnemies;
 
     void Awake()
     {
         dead = false;
-        audioSource = GetComponent<AudioSource>();
     }
 
     // Use this for initialization
     void Start () {
         health = startingHealth;
         player = false;
-        spawner = GameObject.FindGameObjectWithTag("Spawner").GetComponent<Spawner>();
-        gameManager = spawner.gameManager;
+		gameManager = GameManager.Instance;
+		spawner = gameManager.spawner;
 	}
 
     //For when the enemy object takes damage
-    public void takeDamage(int damage, bool crit)
+	public void takeDamage(int damage, bool crit, GameObject source)
     {
         //Debug.Log (gameObject + " takes " + damage + " damage.");
 
@@ -63,9 +64,7 @@ public class Nest : MonoBehaviour, IDamagable {
 
         if (clip_takeDamage != null)
         {
-            audioSource.clip = clip_takeDamage;
-            audioSource.pitch = Random.Range(0.9f, 1.1f);
-            audioSource.Play();
+			ObjectPooler.Instance.PlayAudioSource (clip_takeDamage, mixerGroup, pitchMin, pitchMax, transform);
         }
 
         if (health <= 0)
@@ -83,7 +82,7 @@ public class Nest : MonoBehaviour, IDamagable {
     void InstantiateHealthBar()
     {
         Vector3 healthBarPosition = transform.position + new Vector3(0, 2, 0);
-        healthBar = Instantiate(healthBarPrefab, healthBarPosition, transform.rotation, transform) as GameObject;
+		healthBar = ObjectPooler.Instance.GetObject (14, true, healthBarPosition, transform);
         healthBarImage = healthBar.transform.FindChild("HealthBar").GetComponent<Image>();
         healthBar.transform.localScale.Scale(new Vector3(3, 3, 3));
     }
@@ -95,6 +94,7 @@ public class Nest : MonoBehaviour, IDamagable {
         if (other.gameObject.CompareTag("Player"))
         {
             player = true;
+            Debug.Log("spawn triggered");
             StartCoroutine(spawn());
         }
     }
@@ -111,9 +111,7 @@ public class Nest : MonoBehaviour, IDamagable {
     {
         if (clip_die != null)
         {
-            audioSource.clip = clip_die;
-            audioSource.pitch = Random.Range(0.9f, 1.1f);
-            audioSource.Play();
+			ObjectPooler.Instance.PlayAudioSource (clip_die, mixerGroup, pitchMin, pitchMax, transform);
         }
         StartCoroutine(DieThread());
     }
@@ -123,11 +121,11 @@ public class Nest : MonoBehaviour, IDamagable {
     {
         //Debug.Log(gameObject + " died.");
         dead = true;
-        Destroy(healthBar);
-        //Add a score
+		healthBar.SetActive (false);
+		//Add a score
         gameManager.updateScore(scoreValue);
         StopAllCoroutines();
-        Destroy(gameObject);
+		gameObject.SetActive (false);
         yield return null;
     }
 
@@ -138,9 +136,10 @@ public class Nest : MonoBehaviour, IDamagable {
         {
             if (!spawner.dead && !gameManager.paused)
             {
-                for (int i = 0; i < spawner.enemiesPerWave/2; i++)
+                for (int i = 0; i < numberOfEnemies; i++)
                 {
-                    Instantiate(enemy, transform.position, Quaternion.identity);
+					ObjectPooler.Instance.GetObject (enemy.ObjectPoolIndex, true, spawnpoint.gameObject.transform.position, 
+						Quaternion.Euler (new Vector3 (0f, Random.Range (0, 360), 0f)));
                     yield return new WaitForSecondsRealtime(spawner.timeBetweenEnemySpawn/50);
                 }
             }
@@ -149,7 +148,7 @@ public class Nest : MonoBehaviour, IDamagable {
             //    yield return new WaitForSecondsRealtime(spawner.timeBetweenEnemySpawn);
             //} else
            // {
-                yield return new WaitForSecondsRealtime(spawner.timeBetweenEnemySpawn/5);
+                yield return new WaitForSecondsRealtime(spawner.timeBetweenEnemySpawn);
            // }
         }
     }

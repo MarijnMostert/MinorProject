@@ -42,7 +42,7 @@ GameObject:
   - 199: {fileID: 199000010507691906}
   - 198: {fileID: 198000012230919298}
   - 82: {fileID: 82000012930394360}
-  - 114: {fileID: 114000010452038158}
+  - 114: {fileID: 114000013503192460}
   m_Layer: 19
   m_Name: Bold
   m_TagString: Untagged
@@ -276,29 +276,6 @@ Light:
   m_BounceIntensity: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
---- !u!114 &114000010452038158
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010787105900}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dbbe13a0932044931881268a0325681e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speechImage: {fileID: 114000011940765996}
-  speechText: {fileID: 114000013663808758}
-  clips:
-  - {fileID: 8300000, guid: ca34341dda6f546b88f7c404509f39b7, type: 3}
-  - {fileID: 8300000, guid: d3813f6bd2f69418ca17e879d1e8ba53, type: 3}
-  - {fileID: 8300000, guid: b0513210774cd4b3db92234a8bf957fa, type: 3}
-  - {fileID: 8300000, guid: fbb781310784d4c6ea75d52d61cf1431, type: 3}
-  - {fileID: 8300000, guid: 2cefe1d88b1774c67bb603e52f8b3dca, type: 3}
-  - {fileID: 8300000, guid: 8d7534468edec409b8a3c2803541e03c, type: 3}
-  audioSource: {fileID: 82000012930394360}
-  chanceForClip: 0.05
-  interval: 5
 --- !u!114 &114000011362134278
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -392,7 +369,34 @@ MonoBehaviour:
   range: 20
   distanceToKeep: 2
   lookAtTarget: 1
-  stayActivated: 0
+  stayActivated: 1
+--- !u!114 &114000013503192460
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010787105900}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29a59f20b1f744d399b341b7b13927a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mixerGroup: {fileID: 0}
+  pitchMin: 0.8
+  pitchMax: 1.1
+  speechImage: {fileID: 114000011940765996}
+  speechText: {fileID: 114000013663808758}
+  clips:
+  - {fileID: 8300000, guid: 6db592eb1a2634623beb5a5d3b949192, type: 3}
+  - {fileID: 8300000, guid: 7022e4a8e1269451ea9d28418cce0218, type: 3}
+  - {fileID: 8300000, guid: ca34341dda6f546b88f7c404509f39b7, type: 3}
+  - {fileID: 8300000, guid: d3813f6bd2f69418ca17e879d1e8ba53, type: 3}
+  - {fileID: 8300000, guid: b0513210774cd4b3db92234a8bf957fa, type: 3}
+  - {fileID: 8300000, guid: fbb781310784d4c6ea75d52d61cf1431, type: 3}
+  - {fileID: 8300000, guid: 2cefe1d88b1774c67bb603e52f8b3dca, type: 3}
+  - {fileID: 8300000, guid: 8d7534468edec409b8a3c2803541e03c, type: 3}
+  chanceForClip: 0.05
+  interval: 5
 --- !u!114 &114000013663808758
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -425,7 +429,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: Now walk down the stairs to start your adventure or walk back to main menu
+    through the door in the back.
 --- !u!135 &135000010202449164
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -444,7 +449,7 @@ ParticleSystem:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010787105900}
-  serializedVersion: 4
+  serializedVersion: 2
   lengthInSec: 3
   startDelay:
     scalar: 0
@@ -482,13 +487,12 @@ ParticleSystem:
       m_RotationOrder: 4
     minMaxState: 0
   speed: 1
+  randomSeed: 63433504
   looping: 1
   prewarm: 0
   playOnAwake: 1
   moveWithTransform: 0
-  autoRandomSeed: 0
   scalingMode: 1
-  randomSeed: 63433504
   InitialModule:
     serializedVersion: 2
     enabled: 1

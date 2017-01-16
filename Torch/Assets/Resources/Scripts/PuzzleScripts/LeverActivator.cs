@@ -14,7 +14,7 @@ public class LeverActivator : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other) {
 		if (other.gameObject.layer == LayerMask.NameToLayer("PlayerProjectile")) { 
-				SwitchLever (); 
+				//SwitchLever (); 
 		}
 	}
 
@@ -27,13 +27,16 @@ public class LeverActivator : MonoBehaviour {
 	}
 
 	void SwitchLever () {
+		is_on = !is_on;
+	}
+
+	void Update () {
 		if (is_on) {
-			handle.transform.Rotate (0, 0, 60);
+			handle.transform.rotation = Quaternion.RotateTowards (handle.transform.rotation, Quaternion.Euler (0, 0, -60), 1.5f);
 		}
 		else {
-			handle.transform.Rotate (0, 0, -60);
+			handle.transform.rotation = Quaternion.RotateTowards (handle.transform.rotation, Quaternion.Euler (0, 0, 60), 1.5f);
 		}
-		is_on = !is_on;
 	}
 		
 	public void Deactivate(){

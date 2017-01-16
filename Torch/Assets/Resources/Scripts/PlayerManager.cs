@@ -19,6 +19,7 @@ public class PlayerManager {
 	[HideInInspector] public PowerUpInventory powerUpInventory;
 	[HideInInspector] public bool movementEnabled = true;
 	[HideInInspector] public bool active = true;
+	[HideInInspector] public PlayerData playerData;
 	[HideInInspector] public GameManager gameManager;
 
 	public void Setup () {
@@ -39,6 +40,7 @@ public class PlayerManager {
 		//Setup weapon controller script
 		playerWeaponController = playerInstance.GetComponent<PlayerWeaponController>();
 		playerWeaponController.setNumber(playerNumber);
+		playerData = playerInstance.GetComponent<PlayerData> ();
 		active = true;
 		movementEnabled = true;
 	}

@@ -121,6 +121,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f674cd6c5f1624065993b86e8888e7fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mixerGroup: {fileID: 243000011220735294, guid: 33975d0ba3fac476cb4987efebc83a81,
+    type: 2}
+  pitchMin: 0.8
+  pitchMax: 1.1
   startingHealth: 100
   attackCooldown: 1
   attackDamage: 2
@@ -134,7 +138,7 @@ MonoBehaviour:
   navMeshAgent: {fileID: 0}
   anim: {fileID: 0}
   dead: 0
-  clip_takeDamage: {fileID: 0}
+  clip_takeDamage: {fileID: 8300000, guid: 35c7279c996c04480b2101873c6e465c, type: 3}
   clip_attack: {fileID: 0}
   clip_spawn: {fileID: 0}
   clip_die: {fileID: 0}
@@ -158,6 +162,7 @@ MonoBehaviour:
   startingWeapon: {fileID: 114000012534744016, guid: 8c28b42782c3a4b20abb49cf0fdbaae8,
     type: 2}
   currentWeapon: {fileID: 0}
+  weaponHolder: {fileID: 0}
 --- !u!136 &136000014248907464
 CapsuleCollider:
   m_ObjectHideFlags: 1

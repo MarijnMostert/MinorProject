@@ -10,7 +10,8 @@ public class MasterGenerator : Object {
                             spawner, torch, cam, pointer, chest,
                             coin, fireball, iceball, health, laser, shieldPickUp,
 							stickyPickUp, roofGroup, wallPickUp, wallTorch, piercingWeapon,
-							bombPickUp, spidernest;
+							bombPickUp, spidernest, wizardnest, wallspikes, spikes, shuriken, 
+                            wallrush, stardustParticles, moondustParticles, decoyPickUp;
 
 	public List<GameObject> puzzleRooms;
     GameObject game_manager;
@@ -59,7 +60,9 @@ public class MasterGenerator : Object {
                                                                         portal, end_portal, player, game_manager,
                                                                         spawner, torch, cam, pointer, chest, coin, 
 																		fireball, iceball, health, mazeSize, laser, shieldPickUp,
-			stickyPickUp, roofGroup, wallPickUp, puzzleRooms, wallTorch, piercingWeapon, bombPickUp, spidernest);
+			                                                            stickyPickUp, roofGroup, wallPickUp, puzzleRooms, wallTorch, 
+                                                                        piercingWeapon, bombPickUp, spidernest, wizardnest, wallspikes, 
+                                                                        spikes, shuriken, wallrush, stardustParticles, moondustParticles, decoyPickUp);
 
 		while (!done) {
 			dungeon = new DungeonGenerator ( width,
@@ -168,7 +171,15 @@ public class MasterGenerator : Object {
 		wallTorch = Resources.Load ("Prefabs/WallTorch", typeof(GameObject)) as GameObject;
 		piercingWeapon = Resources.Load ("Prefabs/PickUps/Piercing Weapon PickUp", typeof(GameObject)) as GameObject;
 		bombPickUp = Resources.Load ("Prefabs/PickUps/Bomb PickUp", typeof(GameObject)) as GameObject;
+		decoyPickUp = Resources.Load ("Prefabs/PickUps/Decoy PickUp", typeof(GameObject)) as GameObject;
 
-        spidernest = Resources.Load("Prefabs/nests/spidernest", typeof(GameObject)) as GameObject;
+        wizardnest = Resources.Load("Prefabs/traps/nests/wizardnest/wizardsnest", typeof(GameObject)) as GameObject;
+        spidernest = Resources.Load("Prefabs/traps/nests/spidernest/spidernest", typeof(GameObject)) as GameObject;
+        wallrush = Resources.Load("Prefabs/traps/dungeon/wallrush/WallRushPrefab", typeof(GameObject)) as GameObject;
+        shuriken = Resources.Load("Prefabs/traps/dungeon/shuriken/ShurikenPrefab", typeof(GameObject)) as GameObject;
+        spikes = Resources.Load("Prefabs/traps/dungeon/spikes/SpikesPrefab", typeof(GameObject)) as GameObject;
+        wallspikes = Resources.Load("Prefabs/traps/dungeon/wallspikes/WallSpikePrefab", typeof(GameObject)) as GameObject;
+        stardustParticles = Resources.Load ("Prefabs/Stardust Particles", typeof(GameObject)) as GameObject;
+		moondustParticles = Resources.Load ("Prefabs/Moondust Particles", typeof(GameObject)) as GameObject;
     }
 }

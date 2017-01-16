@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Boss : MonoBehaviour, IDamagable {
 
 	private GameManager gameManager;
+	public Animator anim;
 
 	//Neural Network Attributes
 	public float[,] weights;
@@ -28,13 +29,14 @@ public class Boss : MonoBehaviour, IDamagable {
 	public int startingHealth;
 	public int health;
 	public int scoreValue = 1000;
-	public GameObject healthBarPrefab;
 	protected GameObject healthBar;
+	protected Image healthBarImage;
 	public bool dead;
+
 
 	//Initialize Boss and Neural Network weights
 	void Start () {
-		gameManager = GameObject.Find ("Game Manager").GetComponent<GameManager>();
+		gameManager = GameManager.Instance;
 		dead = false;
 		health = startingHealth;
 		gameObject.transform.FindChild ("BossShield").gameObject.SetActive (false);
@@ -50,6 +52,7 @@ public class Boss : MonoBehaviour, IDamagable {
 		selectInputs ();
 		runNN ();
 		action ();
+		gameObject.GetComponent<BossBlock>().Block();
 	}
 		
 	public void initializeBestWeightsAndTresholds(){
@@ -219,16 +222,18 @@ public class Boss : MonoBehaviour, IDamagable {
 		}
 		//Normal Attack
 		if (finalOutput [4] > actionThreshold[4]) {
-			GetComponent<WeaponController> ().currentWeapon.GetComponent<RangedWeapon> ().setProjectile (normalProjectile, 0.3f, 9);
+			anim.SetTrigger ("attack");
+			GetComponent<WeaponController> ().currentWeapon.GetComponent<RangedWeapon> ().setProjectile (normalProjectile, 0.5f, 9);
 			GetComponent<WeaponController> ().Fire ();
 		}
 		//Block
 		else if (finalOutput [5] > actionThreshold[5]) {
-			gameObject.GetComponent<BossBlock>().Block();
+			//gameObject.GetComponent<BossBlock>().Block();
 		}
 		//Special Attack
 		else if (finalOutput [6] > actionThreshold[6]) {
-			GetComponent<WeaponController> ().currentWeapon.GetComponent<RangedWeapon> ().setProjectile (specialProjectile, 1.0f, 30);
+			anim.SetTrigger ("specAttack");
+			GetComponent<WeaponController> ().currentWeapon.GetComponent<RangedWeapon> ().setProjectile (specialProjectile, 2.0f, 25);
 			GetComponent<WeaponController> ().Fire ();
 		}
 
@@ -239,18 +244,18 @@ public class Boss : MonoBehaviour, IDamagable {
 		dead = true;
 		gameManager.updateScore (scoreValue);
 		gameObject.GetComponentInParent<BossFight> ().ActivateLever ();
-		Destroy (healthBar.transform.parent.gameObject);
+		healthBar.SetActive (false);
 		Destroy (gameObject);
 	}
 
 	//For when the enemy object takes damage
-	public void takeDamage(int damage, bool crit){
+	public void takeDamage(int damage, bool crit, GameObject source){
 		if (healthBar == null) {
 			InstantiateHealthBar ();
 		}
 
 		health -= damage;
-		healthBar.transform.FindChild("HealthBar").GetComponent<Image>().fillAmount = (float)health / startingHealth;
+		healthBarImage.fillAmount = (float)health / startingHealth;
 		//healthBar.fillAmount = (float)health / startingHealth;
 		if (health <= 0)
 			Die ();
@@ -258,6 +263,7 @@ public class Boss : MonoBehaviour, IDamagable {
 
 	void InstantiateHealthBar (){
 		Vector3 healthBarPosition = transform.position + new Vector3 (0, 2, 0);
-		healthBar = Instantiate (healthBarPrefab, healthBarPosition, transform.rotation, transform) as GameObject;
+		healthBar = ObjectPooler.Instance.GetObject (14, true, healthBarPosition, transform);
+		healthBarImage = healthBar.transform.Find ("HealthBar").GetComponent<Image> ();
 	}
 }
