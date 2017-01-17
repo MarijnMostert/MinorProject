@@ -9,21 +9,28 @@ public class BossBehaviour : MonoBehaviour, IDamagable {
 	public Animator anim;
 
 	//Boss Attributes
-	public Projectile normalProjectile;
-	public GameObject target;
 	public float speed;
 	public float deviation;
 	public int startingHealth;
 	public int health;
 	private int scoreValue = 250;
+	public bool dead;
+	public string name = "aragog";
+
+	public NavMeshAgent navMeshAgent;
+	public Vector3 targetPosition;
+	private WeaponController weapon;
 	protected GameObject healthBar;
 	protected Image healthBarImage;
-	public bool dead;
-	private WeaponController weapon;
-	public string name = "aragog";
+	public GameObject target;
+	public Projectile normalProjectile;
 
 	private float lastSpecAtt;
 	private float specCooldown;
+
+	void Awake(){
+		navMeshAgent = GetComponent<NavMeshAgent> ();
+	}
 
 	//Initialize Boss
 	void Start () {
@@ -38,6 +45,7 @@ public class BossBehaviour : MonoBehaviour, IDamagable {
 		weapon.currentWeapon.GetComponent<RangedWeapon> ().setProjectile (normalProjectile, 0.4f, 9);
 		StartCoroutine (LookAtPlayer ());
 		StartCoroutine (action ());
+		StartCoroutine (UpdatePath ());
 	}
 
 	//Keep facing the player
@@ -47,6 +55,37 @@ public class BossBehaviour : MonoBehaviour, IDamagable {
 			yield return null;
 		}
 	}
+		
+	private IEnumerator UpdatePath(){
+		while (!dead) {
+			targetPosition = new Vector3 (transform.parent.position.x + Random.Range(-10, 10), 0, transform.parent.position.z + Random.Range(-10, 10));
+			if (navMeshAgent.enabled) {
+				navMeshAgent.SetDestination (targetPosition);
+			} else {
+				navMeshAgent.enabled = true;
+			}
+			yield return new WaitForSeconds (4);
+		}
+	}
+//	private IEnumerator Walk() {
+//		while (dead != true) {
+//			float rand = Random.value;
+//			if (rand > 0.5f && rand < 0.625f) {
+//				transform.Translate (Vector3.left, speed * Time.deltaTime);
+//				transform.Translate (Vector3.left);
+//			}
+//			if (rand > 0.625f && rand < 0.75f) {
+//				transform.Translate (Vector3.right, speed * Time.deltaTime);
+//			}
+//			if (rand > 0.75f && rand < 0.875f) {
+//				transform.Translate (Vector3.up, speed * Time.deltaTime);
+//			}
+//			if (rand > 0.875f) {
+//				transform.Translate (Vector3.down, speed * Time.deltaTime);
+//			}
+//			yield return new WaitForSeconds (1);
+//		}
+//	}
 		
 	//Choose one ore more actions based on network output
 	private IEnumerator action(){
@@ -92,6 +131,7 @@ public class BossBehaviour : MonoBehaviour, IDamagable {
 		weapon.currentWeapon.GetComponent<RangedWeapon> ().setCooldown (0.4f);
 		StartCoroutine (action ());
 		StartCoroutine (LookAtPlayer ());
+		StartCoroutine (UpdatePath ());
 	}
 		
 	private void OnTriggerEnter(Collider other){
