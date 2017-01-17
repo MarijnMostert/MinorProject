@@ -167,7 +167,7 @@ public class DungeonInstantiate : Object {
         step = 6f;
 		chance_chest_corridors = 0.02f;
 		chance_chest_deadEnd = 0.8f;
-        chance_nest = 0.9f;
+        chance_nest = 0.2f;
 		chance_particles = 0.2f;
 
         //Compile Generated chances
