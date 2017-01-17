@@ -1271,7 +1271,7 @@ Light:
   m_Cookie: {fileID: 0}
   m_DrawHalo: 0
   m_Flare: {fileID: 0}
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -1340,6 +1340,7 @@ MonoBehaviour:
   controllerInput: 0
   godMode: 0
   velocity: 0
+  distanceTravelled: 0
   playerWeaponController: {fileID: 0}
 --- !u!114 &114000011222896024
 MonoBehaviour:
@@ -1352,7 +1353,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dd577f0e1303423280e9742fef3a400, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  positionIsSavedEveryXSeconds: 0
+  gameManager: {fileID: 0}
 --- !u!114 &114000011305479762
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1405,6 +1406,7 @@ MonoBehaviour:
   scorePickedUp: 0
   coinsPickedUp: 0
   powerUpsUsed: 0
+  enemiesKilled: 0
 --- !u!114 &114000013056010426
 MonoBehaviour:
   m_ObjectHideFlags: 1

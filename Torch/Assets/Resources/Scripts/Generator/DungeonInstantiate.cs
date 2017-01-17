@@ -524,7 +524,6 @@ public class DungeonInstantiate : Object {
         bool nest = false;
         GameObject trapprefab = spidernest;
         float tmp = Random.value;
-        Debug.Log("tmp: "+tmp);
         if (tmp < chance_spidernest)
         {
             trapprefab = spidernest;
@@ -560,8 +559,8 @@ public class DungeonInstantiate : Object {
             int[] a = getSurrounding2(x, y);
             if (a[0] == 1)
             {
-                rot = Quaternion.Euler(0, -90, 0);
-            } else if(a[1] == 1)
+                rot = Quaternion.Euler(0, 90, 0);
+            } else if(a[3] == 1)
             {
                 rot = Quaternion.Euler(0, 180, 0);
             } else if (a[2] == 1)
