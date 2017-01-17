@@ -557,13 +557,13 @@ public class DungeonInstantiate : Object {
         {
             Quaternion rot;
             int[] a = getSurrounding2(x, y);
-            if (a[2] == 1)
+            if (a[0] == 1)
             {
                 rot = Quaternion.Euler(0, 90, 0);
             } else if(a[3] == 1)
             {
                 rot = Quaternion.Euler(0, 180, 0);
-            } else if (a[0] == 1)
+            } else if (a[2] == 1)
             {
                 rot = Quaternion.Euler(0, 90, 0);
             }
