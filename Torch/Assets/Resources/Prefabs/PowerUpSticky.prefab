@@ -52,7 +52,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08239961db1274f9c9366eb296d949ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mixerGroup: {fileID: 243000012651205884, guid: 33975d0ba3fac476cb4987efebc83a81,
+    type: 2}
+  pitchMin: 0.8
+  pitchMax: 1.1
   scoreValue: 10
+  ClipOnUse: {fileID: 8300000, guid: 37213ae45073f4c92901e275d310d1ed, type: 3}
   Sticky: {fileID: 1000010286330134, guid: 3d95b829b8ea541769d883ff418ccaf4, type: 2}
   spawnHeight: 0
 --- !u!212 &212000010018401704

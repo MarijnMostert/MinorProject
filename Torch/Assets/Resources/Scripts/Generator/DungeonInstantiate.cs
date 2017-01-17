@@ -33,6 +33,7 @@ public class DungeonInstantiate : Object {
 	private GameObject Dungeon;
 
 	List<GameObject> puzzleRooms;
+	List<float> puzzleRoomSpawnChances;
 
 	List<p2D> puzzleCoords;
 	List<p2D> puzzleCenters;
@@ -77,7 +78,7 @@ public class DungeonInstantiate : Object {
                             GameObject trap_box, GameObject portal, GameObject end_portal, GameObject player, 
                             GameObject game_manager, GameObject spawner, GameObject torch, GameObject cam, GameObject pointer, 
 		GameObject chest, GameObject coin, GameObject fireball, GameObject iceball, GameObject health, int[] mazeSize, GameObject laser, GameObject shieldPickUp,
-		GameObject stickyPickUp, GameObject roofGroup, GameObject wallPickUp, List<GameObject> puzzleRooms, GameObject wallTorch, GameObject piercingWeapon,
+		GameObject stickyPickUp, GameObject roofGroup, GameObject wallPickUp, GameObject wallTorch, GameObject piercingWeapon,
 		GameObject bombPickUp, GameObject spidernest, GameObject wizardnest, GameObject wallspikes, GameObject spikes, GameObject shuriken, GameObject wallrush, 
         GameObject stardustParticles, GameObject moondustParticles, GameObject decoyPickUp)
 
@@ -103,7 +104,6 @@ public class DungeonInstantiate : Object {
         this.mazeSize = new int[2] { mazeSize[0] - 2, mazeSize[1] - 2 };
         this.spawner = spawner;
         this.game_manager = game_manager;
-		this.puzzleRooms = puzzleRooms;
 		this.puzzleCoords = new List<p2D> ();
 		this.puzzleCenters = new List<p2D> ();
 		this.puzzleRoomsDG = new List<Room> ();
@@ -140,6 +140,37 @@ public class DungeonInstantiate : Object {
 		this.starters_pack = new GameObject[] {torch};
 		this.roofGroup = roofGroup;
 		this.wallTorch = wallTorch;
+
+		this.puzzleRooms = new List<GameObject> ();
+		this.puzzleRoomSpawnChances = new List<float> ();
+		if (dungeonParameters.puzzleRooms.Blockpuzzleroom.enabled) {
+			puzzleRooms.Add (dungeonParameters.puzzleRooms.Blockpuzzleroom.puzzleRoom);
+			puzzleRoomSpawnChances.Add (dungeonParameters.puzzleRooms.Blockpuzzleroom.spawnChance);
+		}
+		if (dungeonParameters.puzzleRooms.Fliproom.enabled) {
+			puzzleRooms.Add (dungeonParameters.puzzleRooms.Fliproom.puzzleRoom);
+			puzzleRoomSpawnChances.Add (dungeonParameters.puzzleRooms.Fliproom.spawnChance);
+		}
+		if(dungeonParameters.puzzleRooms.Bossroom.enabled){
+			puzzleRooms.Add (dungeonParameters.puzzleRooms.Bossroom.puzzleRoom);
+			puzzleRoomSpawnChances.Add (dungeonParameters.puzzleRooms.Bossroom.spawnChance);
+		}
+		if (dungeonParameters.puzzleRooms.Laserroom.enabled) {
+			puzzleRooms.Add (dungeonParameters.puzzleRooms.Laserroom.puzzleRoom);
+			puzzleRoomSpawnChances.Add (dungeonParameters.puzzleRooms.Laserroom.spawnChance);
+		}
+		if (dungeonParameters.puzzleRooms.Fallblockpuzzle.enabled) {
+			puzzleRooms.Add (dungeonParameters.puzzleRooms.Fallblockpuzzle.puzzleRoom);
+			puzzleRoomSpawnChances.Add (dungeonParameters.puzzleRooms.Fallblockpuzzle.spawnChance);
+		}
+		if (dungeonParameters.puzzleRooms.Movingplatformroom.enabled) {
+			puzzleRooms.Add (dungeonParameters.puzzleRooms.Movingplatformroom.puzzleRoom);
+			puzzleRoomSpawnChances.Add (dungeonParameters.puzzleRooms.Movingplatformroom.spawnChance);
+		}
+		if (dungeonParameters.puzzleRooms.Treasureroom.enabled) {
+			puzzleRooms.Add (dungeonParameters.puzzleRooms.Treasureroom.puzzleRoom);
+			puzzleRoomSpawnChances.Add (dungeonParameters.puzzleRooms.Treasureroom.spawnChance);
+		}
 
     }
 
@@ -377,9 +408,10 @@ public class DungeonInstantiate : Object {
 		foreach (p2D center in puzzleCenters) {
 			Vector3 convCenter = new Vector3 (center.getX () * 6 + 1, 0, center.getY () * 6 + 1);
 			convCenter += new Vector3 (-4f, 0, -4f);
-			int number = Random.Range (0,puzzleRooms.Count);
 
-			GameObject thispuzzle = Instantiate (puzzleRooms [number], convCenter, Quaternion.identity, Dungeon.transform) as GameObject;
+			int x = DeterminePuzzleRoom ();
+
+			GameObject thispuzzle = Instantiate (puzzleRooms [x], convCenter, Quaternion.identity, Dungeon.transform) as GameObject;
 			GameObject thesedoors = Instantiate (PuzzleDoors, convCenter, Quaternion.identity, thispuzzle.transform) as GameObject;
 
 			if (thispuzzle.GetComponent<myLever> () != null) {
@@ -611,24 +643,6 @@ public class DungeonInstantiate : Object {
         return maze;
     }
 
-	/*
-	void InstantiateStarterPack(GameObject[] starters_pack, Vector3 pos, Quaternion rot)
-    {
-		GameManager gameManager = GameObject.Find ("Game Manager").GetComponent<GameManager> ();
-        foreach(GameObject item in starters_pack)
-        {
-			GameObject temp = Instantiate(item, pos, rot, Dungeon.transform) as GameObject;
-			if (temp.CompareTag ("Torch")) {
-				gameManager.torch = temp.GetComponent<Torch> ();
-			} else if (temp.CompareTag ("Camera")) {
-				gameManager.mainCamera = temp.GetComponentInChildren<Camera> ();
-			}
-
-        }
-       // game_manager.GetComponent<GameManager>().mainCamera = cam.GetComponentInChildren<Camera>() as Camera;
-    }
-*/
-
     public string print(bool[,] maze)
     {
         string append = "";
@@ -650,4 +664,27 @@ public class DungeonInstantiate : Object {
         }
         return append;
     }
+
+	int DeterminePuzzleRoom(){
+		float norm = 0;
+		int size = puzzleRoomSpawnChances.Count;
+		for(int i = 0; i < puzzleRoomSpawnChances.Count; i++) {
+			norm += puzzleRoomSpawnChances[i];
+		}
+
+		float temp = 0;
+		for(int i = 0; i < puzzleRoomSpawnChances.Count; i++) {
+			puzzleRoomSpawnChances [i] = (puzzleRoomSpawnChances [i] / norm) + temp;
+			temp = puzzleRoomSpawnChances [i]; 
+		}
+
+		float x = Random.value;
+		for (int i = 0; i < puzzleRoomSpawnChances.Count; i++) {
+			if (puzzleRoomSpawnChances[i] >= x) {
+				return i;
+			}
+		}
+
+		return 0;
+	}
 }

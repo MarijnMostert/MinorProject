@@ -4,10 +4,10 @@ using System.Collections.Generic;
 
 public class CameraController : MonoBehaviour {
 
-	public GameObject target;
 	public Vector3 offset;
 	public Vector3 rotation;
 	public float smoothTime = 0.1f;
+	public float smoothTimeTransition = 1f;
 
 	public int importanceFactorP1;
 	public int importanceFactorP2;
@@ -18,25 +18,100 @@ public class CameraController : MonoBehaviour {
 	private Vector3 cameraPosition;
 	public GameManager gameManager;
 	private List<GameObject> targets;
+	private bool FreeCam = false;
+	private Vector3 smoothDampVar;
+	private Vector3 PuzzleTargetPos;
+	public Vector3 PuzzleOffset;
+	private bool transitionToPuzzle = false;
+	private bool transitionFromPuzzle = false;
+	private float timer;
+	private string Mode;
 
 	void Start(){
 		gameManager = GameManager.Instance;
 		targets = new List<GameObject> ();
+		FreeCam = false;
+		transitionFromPuzzle = false;
+		transitionToPuzzle = false;
+		transform.eulerAngles = rotation;
+		Mode = "default";
 	}
 
 	void FixedUpdate () {
 		//targetPosition = getAveragePosition ();
-		if (gameManager.camTarget != null) {
-			//targetPosition = gameManager.camTarget.transform.position;
-			targetPosition = getAveragePosition();
+		switch (Mode) {
+		case "Normal":
+			targetPosition = getAveragePosition ();
 			cameraPosition = targetPosition + offset;
 
-			//The smoothdamp makes sure the camera follows the target(s) smoothly
 			transform.position = Vector3.SmoothDamp (transform.position, cameraPosition, ref smoothDampVelocity, smoothTime);
-			transform.eulerAngles = rotation;
+			break;
+		case "Puzzle":
+			targetPosition = getAveragePosition ();
+			targetPosition = (targetPosition + (PuzzleTargetPos * 3)) * .25f;
+			cameraPosition = targetPosition + PuzzleOffset;
+
+			transform.position = Vector3.SmoothDamp (transform.position, cameraPosition, ref smoothDampVar, smoothTime);
+			break;
+		case "TransitionToPuzzle":
+			if (Time.time - timer < (smoothTimeTransition + .6f)) {
+				targetPosition = getAveragePosition ();
+				targetPosition = (targetPosition + (PuzzleTargetPos * 3)) * .25f;
+				cameraPosition = targetPosition + PuzzleOffset;
+
+				transform.position = Vector3.SmoothDamp (transform.position, cameraPosition, ref smoothDampVar, smoothTimeTransition);
+			} else {
+				Mode = "Puzzle";
+			}
+			break;
+		case "TransitionFromPuzzle":
+			if(Time.time - timer < (smoothTimeTransition + .6f)){
+				targetPosition = getAveragePosition ();
+				cameraPosition = targetPosition + offset;
+
+				transform.position = Vector3.SmoothDamp (transform.position, cameraPosition, ref smoothDampVelocity, smoothTimeTransition);
+			} else {
+				Mode = "Normal";
+			}
+			break;
+		case "default":
+			break;
 		}
+	
+
+		/*
+		if (gameManager.camTarget != null) {
+			if (!transitionToPuzzle && !transtionFromPuzzle && !FreeCam) {
+				//targetPosition = gameManager.camTarget.transform.position;
+				targetPosition = getAveragePosition ();
+				cameraPosition = targetPosition + offset;
+
+				//The smoothdamp makes sure the camera follows the target(s) smoothly
+				transform.position = Vector3.SmoothDamp (transform.position, cameraPosition, ref smoothDampVelocity, smoothTime);
+				transform.eulerAngles = rotation;
+			} else if (!transition) {
+				targetPosition = getAveragePosition ();
+				targetPosition = (targetPosition + (PuzzleTargetPos * 3)) * .25f;
+				cameraPosition = targetPosition + PuzzleOffset;
+
+				transform.position = Vector3.SmoothDamp (transform.position, cameraPosition, ref smoothDampVar, .25f);
+			} else {
+				targetPosition = getAveragePosition
+			}
+		}
+		*/
 	}
 		
+	public void ActivatePuzzleCam(Transform puzzleTransform){
+		timer = Time.time;
+		Mode = "TransitionToPuzzle";
+		PuzzleTargetPos = puzzleTransform.position;
+	}
+
+	public void DeactivatePuzzleCam(){
+		timer = Time.time;
+		Mode = "TransitionFromPuzzle";
+	}
 
 	//Calculate the average position between all targets (players).
 	private Vector3 getAveragePosition(){
@@ -70,7 +145,7 @@ public class CameraController : MonoBehaviour {
 		}
 
 		//Add torch to the list of targets 3 times. (or player holding the torch).
-		if (gameManager.torch.torchPickUp.equipped) {
+		if (GameManager.Instance.torch.torchPickUp.equipped) {
 			for (int i = 0; i < importanceFactorTorch; i++) {
 				if(gameManager.torch != null && gameManager.torch.transform.parent.parent.gameObject != null)
 					targets.Add (gameManager.torch.transform.parent.parent.gameObject);
@@ -82,5 +157,9 @@ public class CameraController : MonoBehaviour {
 				}
 			}
 		}
+	}
+
+	public void SetMode(string Mode){
+		this.Mode = Mode;
 	}
 }

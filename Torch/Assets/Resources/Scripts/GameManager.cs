@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour {
 	public GameAnalytics analytics = new GameAnalytics();
 	public Save saver = new Save();
 
-	public List<GameObject> PuzzleRooms;
+	//public List<GameObject> PuzzleRooms;
 
 	public GameObject TorchFOVPrefab;
 	private GameObject TorchFOV;
@@ -204,7 +204,7 @@ public class GameManager : MonoBehaviour {
 		//RandomizeTextures ();
 
 		if (type == 1) {
-			masterGenerator = new MasterGenerator (this.gameObject, dungeonData.dungeonParameters[dungeonLevel], radius, maxlength, timeout, PuzzleRooms);
+			masterGenerator = new MasterGenerator (this.gameObject, dungeonData.dungeonParameters[dungeonLevel], radius, maxlength, timeout);
 			masterGenerator.LoadPrefabs ();
 			masterGenerator.Start ();
 		} else if (type == 0) {
@@ -239,7 +239,7 @@ public class GameManager : MonoBehaviour {
 
 		for (int i = 0; i < playerManagers.Length; i++) {
 			if (playerManagers [i].playerInstance == null) {
-				Debug.Log ("Create Player with id:" + i);
+//				Debug.Log ("Create Player with id:" + i);
 				playerManagers [i].playerInstance = Instantiate (playerPrefab) as GameObject;
 				playerManagers [i].playerNumber = i + 1;
 				playerManagers [i].Setup ();
@@ -301,6 +301,7 @@ public class GameManager : MonoBehaviour {
 		ui.timer.Reset ();
 
 		StartTime = Time.time;
+		mainCamera.GetComponent<CameraController> ().SetMode ("Normal");
 
 		yield return null;
 	}

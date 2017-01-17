@@ -242,6 +242,31 @@ MonoBehaviour:
   chanceWallspikes: 1
   chanceWallrush: 1
   chanceShuriken: 1
+  Fliproom: {fileID: 1000011832919986, guid: fb219ecc626f53d498ba9b7b66e404be, type: 2}
+  minLevelFliproom: 8
+  chanceFliproom: 1
+  Blockpuzzleroom: {fileID: 1000011553212682, guid: eb740adea754c4786b778353d8c564d7,
+    type: 2}
+  minLevelBlockpuzzleroom: 10
+  chanceBlockpuzzleroom: 1
+  Fallblockpuzzle: {fileID: 1000013095267004, guid: 5288fcd4fb05339498a5d9c9dc49a76c,
+    type: 2}
+  minLevelFallblockpuzzle: 4
+  chanceFallblockpuzzle: 1
+  Laserroom: {fileID: 1000010173967298, guid: e72c1f558cafdfb4d8814a1f26d633dc, type: 2}
+  minLevelLaserroom: 12
+  chanceLaserroom: 1
+  Movingplatformroom: {fileID: 1000013309580604, guid: 64a22ead90fa46542b9274c81372775a,
+    type: 2}
+  minLevelMovingplatformroom: 1
+  chanceMovingplatformroom: 1
+  Bossroom: {fileID: 1000010275947170, guid: 2c69b9685e818ec4f810ceb0a5e12c7d, type: 2}
+  minLevelBossroom: 5
+  chanceBossroom: 0.3
+  Treasureroom: {fileID: 1000011553212682, guid: da7c3fdde8fec46cb8623911d3a77e41,
+    type: 2}
+  minLevelTreasureroom: 1
+  chanceTreasureroom: 0.1
   dungeonParameters: []
 --- !u!114 &114000012126162182
 MonoBehaviour:
@@ -312,13 +337,6 @@ MonoBehaviour:
   UIPrefab: {fileID: 114000014270163232, guid: ce12bf815c9354cd38ffdb78d7b15e2b, type: 2}
   ui: {fileID: 0}
   uiInventory: {fileID: 0}
-  PuzzleRooms:
-  - {fileID: 1000010275947170, guid: 2c69b9685e818ec4f810ceb0a5e12c7d, type: 2}
-  - {fileID: 1000013095267004, guid: 5288fcd4fb05339498a5d9c9dc49a76c, type: 2}
-  - {fileID: 1000013309580604, guid: 64a22ead90fa46542b9274c81372775a, type: 2}
-  - {fileID: 1000010173967298, guid: e72c1f558cafdfb4d8814a1f26d633dc, type: 2}
-  - {fileID: 1000011832919986, guid: fb219ecc626f53d498ba9b7b66e404be, type: 2}
-  - {fileID: 1000011553212682, guid: eb740adea754c4786b778353d8c564d7, type: 2}
   TorchFOVPrefab: {fileID: 1000011320308738, guid: b5c950376b24a4029afee84b9656c78b,
     type: 2}
   spawner: {fileID: 0}
