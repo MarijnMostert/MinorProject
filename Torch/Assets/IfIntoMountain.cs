@@ -23,8 +23,8 @@ public class IfIntoMountain : MonoBehaviour {
 	void OnTriggerExit (Collider other) {
 		GameObject player = other.gameObject;
 		if (player.CompareTag ("Player")) {
-			homescreencam.minimalheight = -1.0f;
-			homescreencam.maximalheight = 3.5f;
+			homescreencam.minimalheight = -2.0f;
+			homescreencam.maximalheight = 2.5f;
 			isset = false;
 		}
 	}

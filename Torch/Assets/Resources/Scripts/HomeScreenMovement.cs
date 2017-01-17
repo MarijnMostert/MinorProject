@@ -4,7 +4,7 @@ using System.Collections;
 public class HomeScreenMovement : MonoBehaviour {
 
 	public LayerMask layerMask;
-	public float minimalheight = -1.0f;
+	public float minimalheight = -2.0f;
 	public float maximalheight = 2.5f;
 
     GameObject target;
