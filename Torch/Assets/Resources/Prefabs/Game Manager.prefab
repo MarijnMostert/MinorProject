@@ -229,6 +229,7 @@ MonoBehaviour:
   chanceIceball: 0.1
   chancePiercing: 0.1
   chanceLaser: 0.1
+  chanceForTrap: 0.1
   minLevelSpidernest: 2
   minLevelWizardnest: 12
   minLevelSpikes: 6
@@ -346,6 +347,10 @@ MonoBehaviour:
     type: 2}
   tutorialTorchPrefab: {fileID: 1000013673994516, guid: 86f8871f16b6e4321a072873febde5a7,
     type: 2}
+  arenaPrefab: {fileID: 1000012353438950, guid: ccc0d4a945f29a1458f7ee45436e069e,
+    type: 2}
+  arenaTorchPrefab: {fileID: 1000013673994516, guid: 86f8871f16b6e4321a072873febde5a7,
+    type: 2}
   audioSourceMusic: {fileID: 82000010765992802}
   audioSourceUI: {fileID: 82000013135790204}
   audioClipsUI:
@@ -377,6 +382,7 @@ MonoBehaviour:
   shopPrefab: {fileID: 114000012952452066, guid: e7fffa677a1ce4c29bfc10128f43efa3,
     type: 2}
   highQualityItems:
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   numberOfPlayers: 1
