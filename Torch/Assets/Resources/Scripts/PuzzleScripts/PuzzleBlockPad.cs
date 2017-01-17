@@ -10,7 +10,7 @@ public class PuzzleBlockPad : MonoBehaviour {
 	private Vector3 smoothDampVar;
 	private GameObject block;
 	private bool notDone = true;
-	public ParticleSystem[] particlesOnActivate;
+	public ParticleSystem particlesOnActivate;
 	public ParticleSystem Indicator;
 
 	void OnTriggerEnter(Collider other){
@@ -41,9 +41,7 @@ public class PuzzleBlockPad : MonoBehaviour {
 			desiredPosition.y = block.transform.position.y;
 			block.transform.position = Vector3.SmoothDamp (block.transform.position, desiredPosition, ref smoothDampVar, .4f);
 			if ((block.transform.position - desiredPosition).magnitude < 0.1f) {
-				foreach (ParticleSystem PS in particlesOnActivate) {
-					PS.Play ();
-				}
+				particlesOnActivate.Play ();
 				Indicator.Stop ();
 				Destroy (block);
 				foreach (Enemy enemy in enemiesToSpawn) {

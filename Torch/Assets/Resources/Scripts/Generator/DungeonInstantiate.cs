@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Threading;
 using System.Collections;
 using System.Collections.Generic;
@@ -20,8 +20,7 @@ public class DungeonInstantiate : Object {
           chance_side_alt2, 
           step,
           chance_chest_corridors, 
-          chance_chest_deadEnd, 
-          chance_nest, 
+          chance_chest_deadEnd,  
           chance_particles,
           chance_spidernest,
           chance_wizardnest,
@@ -167,7 +166,6 @@ public class DungeonInstantiate : Object {
         step = 6f;
 		chance_chest_corridors = 0.02f;
 		chance_chest_deadEnd = 0.8f;
-        chance_nest = 0.2f;
 		chance_particles = 0.2f;
 
         //Compile Generated chances
@@ -250,7 +248,7 @@ public class DungeonInstantiate : Object {
 					puzzle = true; } // sla over
 				if (maze[x,y]) {
 					buildOpen (x,y,puzzle);
-                    if ((!puzzle) && Random.value < chance_nest)
+					if ((!puzzle) && Random.value < dungeonParameters.Traps.chanceForTrap)
                     {
                         trap(x, y);
                     }

@@ -17,7 +17,7 @@ public class BuyableItem : MonoBehaviour {
 	/// "Torch"
 	/// "Weapon Upgrade"
 	/// "Health Upgrade"
-	/// "Skin"
+	/// "Cape Skin"
 	/// </summary>
 	public string type;
 
@@ -27,6 +27,8 @@ public class BuyableItem : MonoBehaviour {
 	public float multiplier;
 	[Header ("If max health upgrade:")]
 	public int addedMaxHealth;
+	[Header ("If skin:")]
+	public Material skin;
 
 	public void Equip(int index){
 		GameManager.Instance.data.shopItemsEquipped [index] = true;
@@ -43,6 +45,12 @@ public class BuyableItem : MonoBehaviour {
 			break;
 		case "Health Upgrade":
 			GameManager.Instance.data.playerMaxHealth += addedMaxHealth;
+			break;
+		case "Cape Skin":
+			GameManager.Instance.data.playerSkin [0] = skin;
+			break;
+		case "Hat Skin":
+			GameManager.Instance.data.playerSkin [1] = skin;
 			break;
 		}
 	}

@@ -1,0 +1,121 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1000013248654356}
+  m_IsPrefabParent: 1
+--- !u!1 &1000013248654356
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 4000012496389830}
+  - 33: {fileID: 33000012601259856}
+  - 23: {fileID: 23000014023432666}
+  - 114: {fileID: 114000014133317018}
+  - 114: {fileID: 114000012104565408}
+  m_Layer: 0
+  m_Name: Shop Cat
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4000012496389830
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013248654356}
+  m_LocalRotation: {x: -0, y: 0.9539149, z: -0, w: -0.3000775}
+  m_LocalPosition: {x: 0.47588018, y: 3.45, z: -26.779146}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 35.674004, z: 0}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!23 &23000014023432666
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013248654356}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 2100000, guid: e2374d38ad7284d4a9bba301288e94b4, type: 2}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 1
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_SelectedWireframeHidden: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+--- !u!33 &33000012601259856
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013248654356}
+  m_Mesh: {fileID: 4300000, guid: 7e86c3619207a9c429eec4db7f9983ad, type: 3}
+--- !u!114 &114000012104565408
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013248654356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7af1b7cec75f24401a1cb849c63a7bc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  name: Luigi the Cat
+  icon: {fileID: 21300000, guid: 12f7d87c4f67b4fa480d4742bb3456a4, type: 3}
+  price: 700
+  owned: 1
+  equipped: 0
+  multiEquippable: 0
+  shopInterfaceButton: {fileID: 0}
+  type: Pet
+  equippableObject: {fileID: 1000010989155552, guid: 6388624ebe22440139c3daa1fffdb89d,
+    type: 2}
+  multiplier: 0
+  addedMaxHealth: 0
+--- !u!114 &114000014133317018
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013248654356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 372d866bd65cd49c2b50db1b1a4558eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverAmplitudeX: 0
+  hoverSpeedX: 0
+  hoverAmplitudeY: 2
+  hoverSpeedY: 2
+  hoverAmplitudeZ: 0
+  hoverSpeedZ: 0

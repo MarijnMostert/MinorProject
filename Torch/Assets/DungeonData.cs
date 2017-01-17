@@ -40,6 +40,8 @@ public class DungeonData : MonoBehaviour {
 	public float chanceLaser = 0.1f;
 
     [Header("- Minimum values traps")]
+	public float chanceForTrap = .1f;
+
     public int minLevelSpidernest = 1;
     public int minLevelWizardnest = 1;
     public int minLevelSpikes = 1;
@@ -100,6 +102,7 @@ public class DungeonData : MonoBehaviour {
     [Serializable]
     public struct Traps
     {
+		public float chanceForTrap;
         public Trap spidernest;
         public Trap wizardnest;
         public Trap spikes;
@@ -171,6 +174,7 @@ public class DungeonData : MonoBehaviour {
 			DP.powerUps.iceballWeapon.spawnChance = chanceIceball;
 			DP.powerUps.piercingWeapon.spawnChance = chancePiercing;
 			DP.powerUps.laserWeapon.spawnChance = chanceLaser;
+			DP.Traps.chanceForTrap = chanceForTrap;
             DP.Traps.spidernest.spawnChance = chanceSpidernest;
             DP.Traps.wizardnest.spawnChance = chanceWizardnest;
             DP.Traps.spikes.spawnChance = chanceSpikes;
