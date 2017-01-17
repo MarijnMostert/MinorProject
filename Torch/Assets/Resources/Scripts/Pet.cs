@@ -52,7 +52,7 @@ public class Pet : AudioObject {
 			}
 
 			targetFinder.FindTargets ();
-			if ((target == null || target.activeInHierarchy) && targetFinder.targets.Count != 0) {
+			if ((target == null || !target.activeInHierarchy) && targetFinder.targets.Count != 0) {
 				target = targetFinder.targets [Random.Range(0, targetFinder.targets.Count)];
 			}
 
