@@ -48,7 +48,7 @@ public class DungeonData : MonoBehaviour {
     public int minLevelShuriken = 1;
 
     public float chanceSpidernest = 1;
-    public float chanceWizardnest = 1;
+    public float chanceWizardnest = 10;
     public float chanceSpikes = 1;
     public float chanceWallspikes = 1;
     public float chanceWallrush = 1;
@@ -179,7 +179,7 @@ public class DungeonData : MonoBehaviour {
             DP.Traps.shuriken.spawnChance = chanceShuriken;
 
 
-    DP.timeBetweenSpawns = 15f - spawnRateScaler * i;
+            DP.timeBetweenSpawns = 15f - spawnRateScaler * i;
 			if(DP.timeBetweenSpawns < 4f){
 				DP.timeBetweenSpawns = 4f;
 			}

@@ -167,7 +167,7 @@ public class DungeonInstantiate : Object {
         step = 6f;
 		chance_chest_corridors = 0.02f;
 		chance_chest_deadEnd = 0.8f;
-        chance_nest = 0.3f;
+        chance_nest = 0.2f;
 		chance_particles = 0.2f;
 
         //Compile Generated chances
@@ -529,44 +529,44 @@ public class DungeonInstantiate : Object {
         {
             trapprefab = spidernest;
             nest = true;
-            Debug.Log("spider");
-
         }
         else if (tmp < chance_spikes)
         {
             trapprefab = spikes;
-            Debug.Log("spikes");
         }
         else if (tmp < chance_wallspikes)
         {
             trapprefab = wallspikes;
-            Debug.Log("wallspikes");
         }
         else if (tmp < chance_wizardnest)
         {
             trapprefab = wizardnest;
             nest = true;
-            Debug.Log("wizardnest");
         }
         else if (tmp < chance_wallrush)
         {
             trapprefab = wallrush;
-            Debug.Log("wallrush");
         }
         else if (tmp < chance_shuriken)
         {
             trapprefab = shuriken;
-            Debug.Log("shuriken");
         }
-        else { Debug.Log("return"); return;  }
+        else { return;  }
 
 
         if (!ArrayCorner(getSurrounding2(x, y)) || nest)
         {
             Quaternion rot;
-            if (getSurrounding2(x, y)[0] == 1)
+            int[] a = getSurrounding2(x, y);
+            if (a[0] == 1)
             {
                 rot = Quaternion.Euler(0, -90, 0);
+            } else if(a[1] == 1)
+            {
+                rot = Quaternion.Euler(0, 180, 0);
+            } else if (a[2] == 1)
+            {
+                rot = Quaternion.Euler(0, 90, 0);
             }
             else
             {
