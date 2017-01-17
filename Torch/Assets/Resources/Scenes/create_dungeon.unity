@@ -4208,6 +4208,7 @@ MonoBehaviour:
   maximalheight: 2.5
   rotateSpeed: 5
   walkingSpeed: 5
+  smoothing: 0.3
 --- !u!1 &1299199094
 GameObject:
   m_ObjectHideFlags: 0
@@ -4659,11 +4660,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 114000012126162182, guid: 8e8fb98cee864437995eb9c0b0548acd,
-        type: 2}
-      propertyPath: highQualityItems.Array.size
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 4000013396432608, guid: 8e8fb98cee864437995eb9c0b0548acd, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -6690,12 +6686,7 @@ Prefab:
       propertyPath: m_RootOrder
       value: 8
       objectReference: {fileID: 0}
-    - target: {fileID: 114000014249537938, guid: 4ef94cea375ae45ff83b3370aa956b06,
-        type: 2}
-      propertyPath: homescreencam
-      value: 
-      objectReference: {fileID: 1283881149}
-    - target: {fileID: 114000011086335182, guid: 4ef94cea375ae45ff83b3370aa956b06,
+    - target: {fileID: 114000013541569476, guid: 4ef94cea375ae45ff83b3370aa956b06,
         type: 2}
       propertyPath: homescreencam
       value: 
@@ -6705,7 +6696,12 @@ Prefab:
       propertyPath: homescreencam
       value: 
       objectReference: {fileID: 1283881149}
-    - target: {fileID: 114000013541569476, guid: 4ef94cea375ae45ff83b3370aa956b06,
+    - target: {fileID: 114000011086335182, guid: 4ef94cea375ae45ff83b3370aa956b06,
+        type: 2}
+      propertyPath: homescreencam
+      value: 
+      objectReference: {fileID: 1283881149}
+    - target: {fileID: 114000014249537938, guid: 4ef94cea375ae45ff83b3370aa956b06,
         type: 2}
       propertyPath: homescreencam
       value: 
