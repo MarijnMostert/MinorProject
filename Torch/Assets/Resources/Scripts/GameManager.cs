@@ -88,11 +88,18 @@ public class GameManager : MonoBehaviour {
     MasterGenerator masterGenerator;
 	[HideInInspector] public Transform levelTransform;
     bool gameStarted;
+
 	bool tutorialStarted;
 	public GameObject tutorialPrefab;
 	private GameObject tutorialObject;
 	public GameObject tutorialTorchPrefab;
 	private GameObject tutorialTorchObject;
+
+	bool arenaStarted;
+	public GameObject arenaPrefab;
+	private GameObject arenaObject;
+	public GameObject arenaTorchPrefab;
+	private GameObject arenaTorchObject;
 
 	[Header("- Audio")]
 	public AudioSource audioSourceMusic;
@@ -191,7 +198,7 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
-	//where type 0 is tutorial and type 1 is dungeon.
+	//where type 0 is tutorial and type 1 is dungeon and type 2 is arena.
 	IEnumerator CreateLevel(int type){
 		if (inGameCameraObject == null) {
 			inGameCameraObject = Instantiate (inGameCameraPrefab);
@@ -208,6 +215,10 @@ public class GameManager : MonoBehaviour {
 		} else if (type == 0) {
 			tutorialObject = Instantiate(tutorialPrefab, new Vector3(0,0,0), Quaternion.identity) as GameObject;
 			levelTransform = tutorialObject.transform;
+
+		} else if (type == 2) {
+			arenaObject = Instantiate(arenaPrefab, new Vector3(0,0,0), Quaternion.identity) as GameObject;
+			levelTransform = arenaObject.transform;
 
 		}
 
@@ -257,6 +268,11 @@ public class GameManager : MonoBehaviour {
 			torch.isDamagable = true;
 		} else if (type == 0) {
 			startpoint = tutorialObject.transform.Find ("Spawnpoint").transform.position;
+			playerManagers [0].playerInstance.transform.position = startpoint;
+			playerManagers [1].playerInstance.transform.position = startpoint + new Vector3 (-2f, 0f, -2f);
+			torch.isDamagable = false;
+		} else if (type == 2) {
+			startpoint = arenaObject.transform.Find ("Spawnpoint").transform.position;
 			playerManagers [0].playerInstance.transform.position = startpoint;
 			playerManagers [1].playerInstance.transform.position = startpoint + new Vector3 (-2f, 0f, -2f);
 			torch.isDamagable = false;
@@ -462,6 +478,9 @@ public class GameManager : MonoBehaviour {
 		tutorialStarted = false;
 		if (tutorialObject != null)
 			Destroy (tutorialObject);
+		arenaStarted = false;
+		if (arenaObject != null)
+			Destroy (arenaObject);
 	}
 
 	public void LoadHomeScreen(){
@@ -588,6 +607,18 @@ public class GameManager : MonoBehaviour {
 			homeScreen.SetActive (false);
 			StartCoroutine (CreateLevel (0));
 			tutorialStarted = true;
+		}
+	}
+
+	public void StartArena(){
+		if (!arenaStarted) {
+			requiredCollectedKeys = 1;
+			Time.timeScale = 1f;
+			StartTime = Time.time;
+			loadingScreenCanvas.SetActive (true);
+			homeScreen.SetActive (false);
+			StartCoroutine (CreateLevel (2));
+			arenaStarted = true;
 		}
 	}
 
