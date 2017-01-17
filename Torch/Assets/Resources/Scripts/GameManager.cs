@@ -114,6 +114,8 @@ public class GameManager : MonoBehaviour {
 	public int requiredCollectedKeys;
 	public GameObject Pet;
 	private Pet PetScript;
+	public GameObject Bold;
+	private Pet BoldPetScript;
 
 	public Shop shopPrefab;
 	private Shop shop;
@@ -169,6 +171,9 @@ public class GameManager : MonoBehaviour {
 		PetScript = Pet.GetComponent<Pet> ();
 		PetScript.speechText.text = "";
 		PetScript.speechImage.gameObject.SetActive (false);
+		Bold = Instantiate (Bold) as GameObject;
+		BoldPetScript = Bold.GetComponent<Pet> ();
+		Bold.SetActive (false);
 
 		shopPrefab.EquipActives ();
 	}
@@ -258,15 +263,25 @@ public class GameManager : MonoBehaviour {
 		}
 		RespawnPosition = startpoint;
 		torch.transform.position = startpoint + new Vector3 (6, .5f, 0);
-		Pet.transform.position = playerManagers [0].playerInstance.transform.position + new Vector3 (3f, 0f, 0f);
+
+		if (type == 1) {
+			Pet.transform.position = playerManagers [0].playerInstance.transform.position + new Vector3 (3f, 0f, 0f);
+			Pet.SetActive (true);
+			Bold.SetActive (false);
+		}else if (type == 0) {
+			Pet.SetActive (false);
+			Bold.SetActive (true);
+			Bold.transform.position = playerManagers [0].playerInstance.transform.position;
+		}
 
 		torch.torchPickUp.cam = mainCamera;
 		if (type == 1) {
 			ui.dungeonLevelText.text = "Dungeon level " + dungeonLevel;
 		} else if (type == 0) {
 			ui.dungeonLevelText.text = "Dungeon Tutorial";
-			PetScript.speechText.text = "Welcome to this tutorial! My name is Bold. Use the WASD-keys to move.";
-			PetScript.speechImage.gameObject.SetActive (true);
+			BoldPetScript.speechCanvas.SetActive (true);
+			BoldPetScript.speechText.text = "Welcome to this tutorial! My name is Bold. Use the WASD-keys to move.";
+			BoldPetScript.speechImage.gameObject.SetActive (true);
 		}
 
 		audioSourceMusic.clip = audioDungeon [UnityEngine.Random.Range (0, audioDungeon.Length)];
@@ -459,9 +474,15 @@ public class GameManager : MonoBehaviour {
 		}
 		homeScreen.SetActive (true);
 		homeScreenCam.SetActive (true);
+
+
 		audioSourceMusic.clip = audioHomeScreen;
 		audioSourceMusic.Play ();
 		resetHomeScreenPlayer ();
+
+		PetScript.speechCanvas.SetActive (false);
+		Pet.transform.position = homeScreenPlayer.transform.position;
+
 	}
 
 	public void updateScore(int addedScore){
