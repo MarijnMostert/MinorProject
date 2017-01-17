@@ -167,6 +167,10 @@ public class DungeonInstantiate : Object {
 			puzzleRooms.Add (dungeonParameters.puzzleRooms.Movingplatformroom.puzzleRoom);
 			puzzleRoomSpawnChances.Add (dungeonParameters.puzzleRooms.Movingplatformroom.spawnChance);
 		}
+		if (dungeonParameters.puzzleRooms.Treasureroom.enabled) {
+			puzzleRooms.Add (dungeonParameters.puzzleRooms.Treasureroom.puzzleRoom);
+			puzzleRoomSpawnChances.Add (dungeonParameters.puzzleRooms.Treasureroom.spawnChance);
+		}
 
     }
 

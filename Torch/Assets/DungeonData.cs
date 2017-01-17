@@ -81,6 +81,10 @@ public class DungeonData : MonoBehaviour {
 	public int minLevelBossroom;
 	public float chanceBossroom;
 
+	public GameObject Treasureroom;
+	public int minLevelTreasureroom;
+	public float chanceTreasureroom;
+
 	public DungeonParameters[] dungeonParameters;
 
 	[Serializable]
@@ -160,6 +164,7 @@ public class DungeonData : MonoBehaviour {
 		public PuzzleRoom Laserroom;
 		public PuzzleRoom Movingplatformroom;
 		public PuzzleRoom Bossroom;
+		public PuzzleRoom Treasureroom;
 	}
 
 
@@ -221,6 +226,8 @@ public class DungeonData : MonoBehaviour {
 				DP.puzzleRooms.Movingplatformroom.enabled = true;
 			if (i >= minLevelBossroom)
 				DP.puzzleRooms.Bossroom.enabled = true;
+			if (i >= minLevelTreasureroom)
+				DP.puzzleRooms.Treasureroom.enabled = true;
 
             DP.powerUps.shield.spawnChance = chanceShield;
 			DP.powerUps.sticky.spawnChance = chanceSticky;
@@ -249,6 +256,8 @@ public class DungeonData : MonoBehaviour {
 			DP.puzzleRooms.Movingplatformroom.puzzleRoom = Movingplatformroom;
 			DP.puzzleRooms.Fliproom.spawnChance = chanceFliproom;
 			DP.puzzleRooms.Fliproom.puzzleRoom = Fliproom;
+			DP.puzzleRooms.Treasureroom.spawnChance = chanceTreasureroom;
+			DP.puzzleRooms.Treasureroom.puzzleRoom = Treasureroom;
 
             DP.timeBetweenSpawns = 15f - spawnRateScaler * i;
 			if(DP.timeBetweenSpawns < 4f){
