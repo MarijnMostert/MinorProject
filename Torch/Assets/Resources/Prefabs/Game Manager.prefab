@@ -229,6 +229,18 @@ MonoBehaviour:
   chanceIceball: 0.1
   chancePiercing: 0.1
   chanceLaser: 0.1
+  minLevelSpidernest: 2
+  minLevelWizardnest: 12
+  minLevelSpikes: 6
+  minLevelWallspikes: 10
+  minLevelWallrush: 8
+  minLevelShuriken: 4
+  chanceSpidernest: 1
+  chanceWizardnest: 0.5
+  chanceSpikes: 1
+  chanceWallspikes: 1
+  chanceWallrush: 1
+  chanceShuriken: 1
   dungeonParameters: []
 --- !u!114 &114000012126162182
 MonoBehaviour:
@@ -257,6 +269,7 @@ MonoBehaviour:
     active: 1
     playerData: {fileID: 0}
     gameManager: {fileID: 0}
+    playerSkin: {fileID: 0}
   - spawnPoint: {fileID: 4000013396432608}
     playerColor: {r: 1, g: 0.922, b: 0.022058845, a: 1}
     cursorPointer: {fileID: 0}
@@ -270,6 +283,7 @@ MonoBehaviour:
     active: 0
     playerData: {fileID: 0}
     gameManager: {fileID: 0}
+    playerSkin: {fileID: 0}
   playerPrefab: {fileID: 1000010005094228, guid: 96b70f8172a034350bce5e9b0ef6db4d,
     type: 2}
   RespawnPosition: {x: 0, y: 0, z: 0}
@@ -387,3 +401,4 @@ MonoBehaviour:
   highScoreScores: 
   playerMaxHealth: 100
   playerDamageMultiplier: 1
+  playerSkin: []
