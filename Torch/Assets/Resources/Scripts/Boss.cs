@@ -53,7 +53,6 @@ public class Boss : MonoBehaviour, IDamagable {
 		selectInputs ();
 		runNN ();
 		action ();
-		gameObject.GetComponent<BossBlock>().Block();
 	}
 		
 	public void initializeBestWeightsAndTresholds(){
@@ -221,19 +220,18 @@ public class Boss : MonoBehaviour, IDamagable {
 				transform.position = transform.position + speed * Time.deltaTime * new Vector3 (0f, 0f, -1f);
 			}
 		}
-		//Normal Attack
+		//Block
 		if (finalOutput [4] > actionThreshold[4]) {
+			gameObject.GetComponent<BossBlock>().Block();
+		}
+		//Normal Attack
+		else if (finalOutput [5] > actionThreshold[5]) {
 			anim.SetTrigger ("attack");
 			GetComponent<WeaponController> ().currentWeapon.GetComponent<RangedWeapon> ().setProjectile (normalProjectile, 0.5f, 9);
 			GetComponent<WeaponController> ().Fire ();
 		}
-		//Block
-		else if (finalOutput [5] > actionThreshold[5]) {
-			//gameObject.GetComponent<BossBlock>().Block();
-		}
 		//Special Attack
 		else if (finalOutput [6] > actionThreshold[6]) {
-			anim.SetTrigger ("specAttack");
 			GetComponent<WeaponController> ().currentWeapon.GetComponent<RangedWeapon> ().setProjectile (specialProjectile, 2.0f, 25);
 			GetComponent<WeaponController> ().Fire ();
 		}

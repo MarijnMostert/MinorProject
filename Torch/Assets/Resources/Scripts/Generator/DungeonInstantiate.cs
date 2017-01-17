@@ -14,9 +14,21 @@ public class DungeonInstantiate : Object {
     //GameObject[,] dungeon;
     int[] mazeSize;
 	bool[,] maze, import_maze, trapped;
-    float chance_trap_straight, chance_trap_crossing,
-          chance_side_alt1, chance_side_alt2, step,
-          chance_chest_corridors, chance_chest_deadEnd, chance_nest, chance_particles;
+    float chance_trap_straight, 
+          chance_trap_crossing,
+          chance_side_alt1, 
+          chance_side_alt2, 
+          step,
+          chance_chest_corridors, 
+          chance_chest_deadEnd, 
+          chance_nest, 
+          chance_particles,
+          chance_spidernest,
+          chance_wizardnest,
+          chance_wallspikes,
+          chance_spikes,
+          chance_shuriken,
+          chance_wallrush;
     bool start_defined;
     int[] count = new int[2] {0,2};
 	private GameObject Dungeon;
@@ -30,7 +42,7 @@ public class DungeonInstantiate : Object {
 	GameObject WallsParent;
 	GameObject FloorsParent;
 	GameObject RoofsParent;
-    GameObject Spidernests;
+    GameObject Traps;
 	GameObject PickupsParent;
 	GameObject ChestsParent;
 	GameObject WallTorchParent;
@@ -49,6 +61,12 @@ public class DungeonInstantiate : Object {
 	GameObject PuzzleDoors;
 
     GameObject spidernest;
+    GameObject wizardnest;
+    GameObject wallspikes;
+    GameObject spikes;
+    GameObject shuriken;
+    GameObject wallrush;
+
 	GameObject[] dungeonParticles;
 	DungeonData.DungeonParameters dungeonParameters;
 
@@ -59,9 +77,10 @@ public class DungeonInstantiate : Object {
                             GameObject cornerout, GameObject roof, GameObject block, GameObject trap_straight, GameObject trap_crossing, 
                             GameObject trap_box, GameObject portal, GameObject end_portal, GameObject player, 
                             GameObject game_manager, GameObject spawner, GameObject torch, GameObject cam, GameObject pointer, 
-		GameObject chest, GameObject fireball, GameObject iceball, int[] mazeSize, GameObject laser,
-		GameObject roofGroup, List<GameObject> puzzleRooms, GameObject wallTorch, GameObject piercingWeapon,
-		GameObject spidernest, GameObject stardustParticles, GameObject moondustParticles)
+		GameObject chest, GameObject coin, GameObject fireball, GameObject iceball, GameObject health, int[] mazeSize, GameObject laser, GameObject shieldPickUp,
+		GameObject stickyPickUp, GameObject roofGroup, GameObject wallPickUp, List<GameObject> puzzleRooms, GameObject wallTorch, GameObject piercingWeapon,
+		GameObject bombPickUp, GameObject spidernest, GameObject wizardnest, GameObject wallspikes, GameObject spikes, GameObject shuriken, GameObject wallrush, 
+        GameObject stardustParticles, GameObject moondustParticles, GameObject decoyPickUp)
 
     {
 		this.dungeonParameters = dungeonParameters;
@@ -90,13 +109,19 @@ public class DungeonInstantiate : Object {
 		this.puzzleCenters = new List<p2D> ();
 		this.puzzleRoomsDG = new List<Room> ();
 
+        this.wizardnest = wizardnest;
         this.spidernest = spidernest;
+        this.wallspikes = wallspikes;
+        this.spikes = spikes;
+        this.shuriken = shuriken;
+        this.wallrush = wallrush;
+
 		this.dungeonParticles = new GameObject[]{ stardustParticles, moondustParticles };
 
 		WallsParent = new GameObject("Walls");
 		FloorsParent = new GameObject("Floors");
 		RoofsParent = new GameObject("Roofs");
-        Spidernests = new GameObject("Spidernests");
+        Traps = new GameObject("Traps");
 		PickupsParent = new GameObject ("PickupsParent");
 		ChestsParent = new GameObject ("ChestsParent");
 		WallTorchParent = new GameObject ("WallTorchParent");
@@ -142,16 +167,42 @@ public class DungeonInstantiate : Object {
         step = 6f;
 		chance_chest_corridors = 0.02f;
 		chance_chest_deadEnd = 0.8f;
-        chance_nest = 0.08f;
+        chance_nest = 0.9f;
 		chance_particles = 0.2f;
 
-		//Instantiate empty Dungeon GameObject
-		Dungeon = new GameObject("Dungeon");
+        //Compile Generated chances
+        float norm = dungeonParameters.Traps.spidernest.spawnChance
+            + dungeonParameters.Traps.spikes.spawnChance
+            + dungeonParameters.Traps.wallspikes.spawnChance
+            + dungeonParameters.Traps.wizardnest.spawnChance
+            + dungeonParameters.Traps.wallrush.spawnChance
+            + dungeonParameters.Traps.shuriken.spawnChance;
+        if (norm != 0)
+        {
+            float temp = 0;
+            chance_spidernest = (dungeonParameters.Traps.spidernest.spawnChance / norm); temp = chance_spidernest;
+            chance_spikes = (dungeonParameters.Traps.spikes.spawnChance / norm) + temp; temp = chance_spikes;
+            chance_wallspikes = (dungeonParameters.Traps.wallspikes.spawnChance / norm) + temp; temp = chance_wallspikes;
+            chance_wizardnest = (dungeonParameters.Traps.wizardnest.spawnChance / norm) + temp; temp = chance_wizardnest;
+            chance_wallrush = (dungeonParameters.Traps.wallrush.spawnChance / norm) + temp; temp = chance_wallrush;
+            chance_shuriken = (dungeonParameters.Traps.shuriken.spawnChance / norm) + temp; temp = chance_shuriken;
+        }
+        else {
+            chance_spidernest = 0;
+            chance_spikes = 0;
+            chance_wallspikes = 0;
+            chance_wizardnest = 0;
+            chance_wallrush = 0;
+            chance_shuriken = 0;
+        }
+
+        //Instantiate empty Dungeon GameObject
+        Dungeon = new GameObject("Dungeon");
 		GameManager.Instance.levelTransform = Dungeon.transform;
 		WallsParent.transform.SetParent(Dungeon.transform);
 		FloorsParent.transform.SetParent(Dungeon.transform);
 		RoofsParent.transform.SetParent(Dungeon.transform);
-		Spidernests.transform.SetParent (Dungeon.transform);
+		Traps.transform.SetParent (Dungeon.transform);
 		PickupsParent.transform.SetParent (Dungeon.transform);
 		ChestsParent.transform.SetParent (Dungeon.transform);
 		WallTorchParent.transform.SetParent (Dungeon.transform);
@@ -201,7 +252,7 @@ public class DungeonInstantiate : Object {
 					buildOpen (x,y,puzzle);
                     if ((!puzzle) && Random.value < chance_nest)
                     {
-                        nest(x, y);
+                        trap(x, y);
                     }
                 }
                 else {
@@ -367,6 +418,14 @@ public class DungeonInstantiate : Object {
         return a[0] == b[0] && a[1] == b[1] && a[2] == b[2] && a[3] == b[3];
     }
 
+    bool ArrayCorner(int[] a){
+        if (a[0] == a[1]) return true;
+        if (a[1] == a[2]) return true;
+        if (a[2] == a[3]) return true;
+        if (a[3] == a[0]) return true;
+        return false;
+    }
+
     void spawnChest(int x,int z)
     {
 		float chance = 0;
@@ -460,19 +519,62 @@ public class DungeonInstantiate : Object {
         }
     }
 
-    void nest(int x, int y)
+    void trap(int x, int y)
     {
-        Quaternion rot;
-        if (getSurrounding2(x, y)[0] == 1)
+        bool nest = false;
+        GameObject trapprefab = spidernest;
+        float tmp = Random.value;
+        if (tmp < chance_spidernest)
         {
-             rot = Quaternion.Euler(0, 90, 0);
-        } else
-        {
-            rot = Quaternion.identity;
+            trapprefab = spidernest;
+            nest = true;
         }
-        GameObject trap = GameObject.Instantiate(spidernest, Spidernests.transform) as GameObject;
-        trap.transform.position = new Vector3(x *6+3, 0, y*6+3);
-        trap.transform.rotation = rot;
+        else if (tmp < chance_spikes)
+        {
+            trapprefab = spikes;
+        }
+        else if (tmp < chance_wallspikes)
+        {
+            trapprefab = wallspikes;
+        }
+        else if (tmp < chance_wizardnest)
+        {
+            trapprefab = wizardnest;
+            nest = true;
+        }
+        else if (tmp < chance_wallrush)
+        {
+            trapprefab = wallrush;
+        }
+        else if (tmp < chance_shuriken)
+        {
+            trapprefab = shuriken;
+        }
+        else { return;  }
+
+
+        if (!ArrayCorner(getSurrounding2(x, y)) || nest)
+        {
+            Quaternion rot;
+            int[] a = getSurrounding2(x, y);
+            if (a[2] == 1)
+            {
+                rot = Quaternion.Euler(0, 90, 0);
+            } else if(a[3] == 1)
+            {
+                rot = Quaternion.Euler(0, 180, 0);
+            } else if (a[0] == 1)
+            {
+                rot = Quaternion.Euler(0, 90, 0);
+            }
+            else
+            {
+                rot = Quaternion.identity;
+            }
+            GameObject trap = GameObject.Instantiate(trapprefab, Traps.transform) as GameObject;
+            trap.transform.position = new Vector3(x * 6 + 3, 0, y * 6 + 3);
+            trap.transform.rotation = rot;
+        }
     }
 
     GameObject trapStraight()
