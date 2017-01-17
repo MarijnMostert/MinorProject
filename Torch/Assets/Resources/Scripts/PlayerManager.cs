@@ -21,6 +21,7 @@ public class PlayerManager {
 	[HideInInspector] public bool active = true;
 	[HideInInspector] public PlayerData playerData;
 	[HideInInspector] public GameManager gameManager;
+	[HideInInspector] public PlayerSkin playerSkin;
 
 	public void Setup () {
 		cursorPointer = Resources.Load ("Prefabs/Cursor Pointer", typeof(GameObject)) as GameObject;
@@ -42,6 +43,7 @@ public class PlayerManager {
 		playerWeaponController = playerInstance.GetComponent<PlayerWeaponController>();
 		playerWeaponController.setNumber(playerNumber);
 		playerData = playerInstance.GetComponent<PlayerData> ();
+		playerSkin = playerInstance.GetComponent<PlayerSkin> ();
 		active = true;
 		movementEnabled = true;
 	}

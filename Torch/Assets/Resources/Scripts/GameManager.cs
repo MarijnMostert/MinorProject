@@ -241,6 +241,8 @@ public class GameManager : MonoBehaviour {
 			}
 		}
 
+		ApplySkins ();
+
 		SetNumberOfPlayers (numberOfPlayers);
 
 		//Moving players, torch and Bold to the correct place
@@ -694,5 +696,12 @@ public class GameManager : MonoBehaviour {
 
 	void TeleportToHighScores(){
 		homeScreenPlayer.transform.position = GameObject.Find ("HighScoreTeleport").transform.position;
+	}
+
+	void ApplySkins(){
+		foreach (PlayerManager PM in playerManagers) {
+			PM.playerSkin.SetCapeSkin (data.playerSkin [0]);
+			PM.playerSkin.SetHatSkin (data.playerSkin [1]);
+		}
 	}
 }
