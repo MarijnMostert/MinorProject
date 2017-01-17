@@ -58,7 +58,7 @@ public class Pet : AudioObject {
 			}
 
 			if (target != null) {
-				if (!target.activeInHierarchy) {
+				if (target.activeInHierarchy) {
 					Debug.Log (target);
 					weaponController.transform.LookAt (target.transform);
 					weaponController.Fire ();

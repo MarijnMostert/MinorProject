@@ -753,8 +753,8 @@ public class GameManager : MonoBehaviour {
 
 	void ApplySkins(){
 		foreach (PlayerManager PM in playerManagers) {
-			PM.playerSkin.SetCapeSkin (data.playerSkin [0]);
-			PM.playerSkin.SetHatSkin (data.playerSkin [1]);
+			if(data.playerSkin[0] != null) PM.playerSkin.SetCapeSkin (data.playerSkin [0]);
+			if(data.playerSkin[1] != null) PM.playerSkin.SetHatSkin (data.playerSkin [1]);
 		}
 	}
 }

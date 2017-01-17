@@ -47,7 +47,9 @@ public class PowerUpInventory : MonoBehaviour {
 			if (powerUps [i] == emptyPowerUpPrefab) {
 				GameObject powerUpEquipped = Instantiate (powerUp, transform) as GameObject;
 				powerUps [i] = powerUpEquipped;
-				Image icon = UIInventory.Instance.PowerUpImagesP1 [i];
+
+				Image icon = powerUpImages [i];
+
 				icon.sprite = powerUp.GetComponent<SpriteRenderer>().sprite;
 
 				Color temp = icon.GetComponent<Image> ().color;
