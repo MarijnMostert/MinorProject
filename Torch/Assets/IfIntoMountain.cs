@@ -10,11 +10,9 @@ public class IfIntoMountain : MonoBehaviour {
 		GameObject player = other.gameObject;
 		if (player.CompareTag ("Player")) {
 			float ything = player.transform.rotation.eulerAngles.y;
-			Debug.Log (ything);
 			if (ything > 110 && ything < 230) {
 				homescreencam.minimalheight = 4.0f;
 				homescreencam.maximalheight = 5.0f;
-				Debug.Log ("Height set");
 				isset = true;
 			}
 		}
