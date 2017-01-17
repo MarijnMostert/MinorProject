@@ -4,6 +4,9 @@ using System.Collections;
 public class HomeScreenMovement : MonoBehaviour {
 
 	public LayerMask layerMask;
+	public float minimalheight = -2.0f;
+	public float maximalheight = 2.5f;
+
     GameObject target;
     public float rotateSpeed = 5f;
 	public float walkingSpeed = .1f;
@@ -12,6 +15,8 @@ public class HomeScreenMovement : MonoBehaviour {
 	Vector3 targetlocation;
 	float idealdistance;
 	Vector3 originalforward;
+	public float smoothing = 0.3f;
+	Vector3 smoothDampVar;
 
 	bool invertY = false;
 
@@ -77,10 +82,10 @@ public class HomeScreenMovement : MonoBehaviour {
         Quaternion rotation = Quaternion.Euler(0, desiredAngle, 0);
         min_height += vertical;
 
-		if (min_height < -1) {
-			min_height = -1;
-		} else if (min_height > 2) {
-			min_height = 2;
+		if (min_height < minimalheight) {
+			min_height = minimalheight;
+		} else if (min_height > maximalheight) {
+			min_height = maximalheight;
 		}
 
 		targetlocation = target.transform.position - (rotation * offset) + new Vector3(0,min_height,0);
@@ -123,19 +128,7 @@ public class HomeScreenMovement : MonoBehaviour {
 	}
 
 	void LateUpdate() {
-		transform.position = Vector3.MoveTowards (targetlocation, transform.position, 0.8f);
+		transform.position = Vector3.SmoothDamp (transform.position, targetlocation, ref smoothDampVar, smoothing);
 		transform.LookAt (target.transform, Vector3.up * 0.2f);
-
-		float raylength = (transform.position - target.transform.position).magnitude;
-		RaycastHit hit;
-
-		if (Physics.Linecast (target.transform.position, transform.position - transform.forward * 2, out hit, layerMask)) {
-			transform.position += transform.forward * 0.5f;
-		}
-	
-		else if (raylength < idealdistance) {
-			transform.position -= transform.forward * 0.25f;
-		}
 	}
-
 }

@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.Audio;
 using System.Collections;
 
-public class Nest : AudioObject, IDamagable {
+public class Nest : AudioObject {
     public Enemy enemy;
     Spawner spawner;
     bool player;
@@ -20,6 +20,9 @@ public class Nest : AudioObject, IDamagable {
     public bool dead;
     public AudioClip clip_takeDamage;
     public AudioClip clip_die;
+
+    public GameObject spawnpoint;
+    public int numberOfEnemies;
 
     void Awake()
     {
@@ -85,6 +88,7 @@ public class Nest : AudioObject, IDamagable {
         if (other.gameObject.CompareTag("Player"))
         {
             player = true;
+            Debug.Log("spawn triggered");
             StartCoroutine(spawn());
         }
     }
@@ -126,9 +130,9 @@ public class Nest : AudioObject, IDamagable {
         {
             if (!spawner.dead && !gameManager.paused)
             {
-                for (int i = 0; i < spawner.enemiesPerWave/2; i++)
+                for (int i = 0; i < numberOfEnemies; i++)
                 {
-					ObjectPooler.Instance.GetObject (enemy.ObjectPoolIndex, true, transform.position, 
+					ObjectPooler.Instance.GetObject (enemy.ObjectPoolIndex, true, spawnpoint.gameObject.transform.position, 
 						Quaternion.Euler (new Vector3 (0f, Random.Range (0, 360), 0f)));
                     yield return new WaitForSecondsRealtime(spawner.timeBetweenEnemySpawn/50);
                 }
@@ -138,7 +142,7 @@ public class Nest : AudioObject, IDamagable {
             //    yield return new WaitForSecondsRealtime(spawner.timeBetweenEnemySpawn);
             //} else
            // {
-                yield return new WaitForSecondsRealtime(spawner.timeBetweenEnemySpawn/5);
+                yield return new WaitForSecondsRealtime(spawner.timeBetweenEnemySpawn);
            // }
         }
     }

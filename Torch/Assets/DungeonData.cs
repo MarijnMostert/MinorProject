@@ -39,6 +39,23 @@ public class DungeonData : MonoBehaviour {
 	public float chancePiercing = 0.1f;
 	public float chanceLaser = 0.1f;
 
+    [Header("- Minimum values traps")]
+	public float chanceForTrap = .1f;
+
+    public int minLevelSpidernest = 1;
+    public int minLevelWizardnest = 1;
+    public int minLevelSpikes = 1;
+    public int minLevelWallspikes = 1;
+    public int minLevelWallrush = 1;
+    public int minLevelShuriken = 1;
+
+    public float chanceSpidernest = 1;
+    public float chanceWizardnest = 10;
+    public float chanceSpikes = 1;
+    public float chanceWallspikes = 1;
+    public float chanceWallrush = 1;
+    public float chanceShuriken = 1;
+
 	public DungeonParameters[] dungeonParameters;
 
 	[Serializable]
@@ -53,6 +70,7 @@ public class DungeonData : MonoBehaviour {
 		public bool spiderNests;
 		public Enemies enemies;
 		public PowerUps powerUps;
+        public Traps Traps;
 	}
 
 	[Serializable]
@@ -80,6 +98,26 @@ public class DungeonData : MonoBehaviour {
 		public bool enabled;
 		public float spawnChance;
 	}
+
+    [Serializable]
+    public struct Traps
+    {
+		public float chanceForTrap;
+        public Trap spidernest;
+        public Trap wizardnest;
+        public Trap spikes;
+        public Trap wallspikes;
+        public Trap wallrush;
+        public Trap shuriken;
+    }
+
+    [Serializable]
+    public struct Trap
+    {
+        public bool enabled;
+        public float spawnChance;
+    }
+
 
 	void Setup(){
 		dungeonParameters = new DungeonParameters[amountOfLevels];
@@ -115,8 +153,20 @@ public class DungeonData : MonoBehaviour {
 				DP.powerUps.piercingWeapon.enabled = true;
 			if (i >= minLevelLaserWeapon)
 				DP.powerUps.laserWeapon.enabled = true;
+            if (i >= minLevelSpidernest)
+                DP.Traps.spidernest.enabled = true;
+            if (i >= minLevelWizardnest)
+                DP.Traps.wizardnest.enabled = true;
+            if (i >= minLevelSpikes)
+                DP.Traps.spikes.enabled = true;
+            if (i >= minLevelWallspikes)
+                DP.Traps.wallspikes.enabled = true;
+            if (i >= minLevelWallrush)
+                DP.Traps.wallrush.enabled = true;
+            if (i >= minLevelShuriken)
+                DP.Traps.shuriken.enabled = true;
 
-			DP.powerUps.shield.spawnChance = chanceShield;
+            DP.powerUps.shield.spawnChance = chanceShield;
 			DP.powerUps.sticky.spawnChance = chanceSticky;
 			DP.powerUps.wall.spawnChance = chanceWall;
 			DP.powerUps.bomb.spawnChance = chanceBomb;
@@ -124,8 +174,16 @@ public class DungeonData : MonoBehaviour {
 			DP.powerUps.iceballWeapon.spawnChance = chanceIceball;
 			DP.powerUps.piercingWeapon.spawnChance = chancePiercing;
 			DP.powerUps.laserWeapon.spawnChance = chanceLaser;
+			DP.Traps.chanceForTrap = chanceForTrap;
+            DP.Traps.spidernest.spawnChance = chanceSpidernest;
+            DP.Traps.wizardnest.spawnChance = chanceWizardnest;
+            DP.Traps.spikes.spawnChance = chanceSpikes;
+            DP.Traps.wallspikes.spawnChance = chanceWallspikes;
+            DP.Traps.wallrush.spawnChance = chanceWallrush;
+            DP.Traps.shuriken.spawnChance = chanceShuriken;
 
-			DP.timeBetweenSpawns = 15f - spawnRateScaler * i;
+
+            DP.timeBetweenSpawns = 15f - spawnRateScaler * i;
 			if(DP.timeBetweenSpawns < 4f){
 				DP.timeBetweenSpawns = 4f;
 			}
@@ -133,7 +191,6 @@ public class DungeonData : MonoBehaviour {
 			if (DP.timeBeforeSpawning < 2f) {
 				DP.timeBeforeSpawning = 2f;
 			}
-
 
 			dungeonParameters [i] = DP;
 		}

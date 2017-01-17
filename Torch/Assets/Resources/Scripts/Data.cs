@@ -21,6 +21,11 @@ public class Data : MonoBehaviour {
 	[Header ("- Non-Saved Data")]
 	public int playerMaxHealth = 100;
 	public float playerDamageMultiplier = 1;
+	public Material[] playerSkin;
+
+	void Start(){
+		playerSkin = new Material[4];
+	}
 
 	void Update () {
 		if (Input.GetKeyDown (KeyCode.Tab)) {

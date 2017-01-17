@@ -252,6 +252,8 @@ public class GameManager : MonoBehaviour {
 			}
 		}
 
+		ApplySkins ();
+
 		SetNumberOfPlayers (numberOfPlayers);
 
 		//Moving players, torch and Bold to the correct place
@@ -272,7 +274,7 @@ public class GameManager : MonoBehaviour {
 		}
 		RespawnPosition = startpoint;
 		torch.transform.position = startpoint + new Vector3 (6, .5f, 0);
-		Pet.transform.position = startpoint;
+		Pet.transform.position = playerManagers [0].playerInstance.transform.position + new Vector3 (3f, 0f, 0f);
 
 		torch.torchPickUp.cam = mainCamera;
 		if (type == 1) {
@@ -725,5 +727,12 @@ public class GameManager : MonoBehaviour {
 
 	void TeleportToHighScores(){
 		homeScreenPlayer.transform.position = GameObject.Find ("HighScoreTeleport").transform.position;
+	}
+
+	void ApplySkins(){
+		foreach (PlayerManager PM in playerManagers) {
+			PM.playerSkin.SetCapeSkin (data.playerSkin [0]);
+			PM.playerSkin.SetHatSkin (data.playerSkin [1]);
+		}
 	}
 }

@@ -26,6 +26,7 @@ public class Shop : MonoBehaviour {
 		}
 
 		UpdateCoinText ();
+
 		for(int i = 0; i < itemsToBuy.Length; i++){
 			itemsToBuy [i] = Instantiate (itemsToBuy [i], itemPosition.position, itemPosition.rotation, transform) as BuyableItem;
 			itemsToBuy [i].gameObject.SetActive (false);
@@ -67,7 +68,7 @@ public class Shop : MonoBehaviour {
 		interfacePanel.transform.localRotation = Quaternion.Euler (new Vector3 (0f, 0f, 0f));
 		float x = -160f + 150f * (index % 3);
 		int yFactor = (int)(index / 3);
-		float y = 170f + yFactor * -150;
+		float y = -85f + yFactor * -150;
 		interfacePanel.transform.localPosition = interfacePanel.transform.localPosition + new Vector3 (x, y, 0f);
 		ShopInterfaceButton shopInterfaceButton = interfacePanel.GetComponent<ShopInterfaceButton> ();
 		shopInterfaceButton.Setup (this, index);

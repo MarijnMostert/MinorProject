@@ -28,6 +28,7 @@ GameObject:
   - 82: {fileID: 82000010914581714}
   - 114: {fileID: 114000010002503192}
   - 114: {fileID: 114000011851223194}
+  - 114: {fileID: 114000012238943296}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -971,7 +972,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010005094228}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.275073, y: -2.329, z: -8.832888}
+  m_LocalPosition: {x: 7.6376905, y: -7.1405582, z: -1.6769505}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -1340,6 +1341,7 @@ MonoBehaviour:
   controllerInput: 0
   godMode: 0
   velocity: 0
+  distanceTravelled: 0
   playerWeaponController: {fileID: 0}
 --- !u!114 &114000011222896024
 MonoBehaviour:
@@ -1352,7 +1354,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dd577f0e1303423280e9742fef3a400, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  positionIsSavedEveryXSeconds: 0
+  gameManager: {fileID: 0}
 --- !u!114 &114000011305479762
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1405,6 +1407,28 @@ MonoBehaviour:
   scorePickedUp: 0
   coinsPickedUp: 0
   powerUpsUsed: 0
+  enemiesKilled: 0
+--- !u!114 &114000012238943296
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010005094228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aef7d85953c984d3e86e83701820920f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BodyRightHalf: {fileID: 137000012871100430}
+  BodyLeftHalf: {fileID: 137000010302912536}
+  Hat: {fileID: 23000010001443174}
+  Staff: {fileID: 23000010666146262}
+  originalMaterials:
+    clothing: {fileID: 0}
+    skin: {fileID: 0}
+    staff: {fileID: 0}
+    cape: {fileID: 0}
+    hat: {fileID: 0}
 --- !u!114 &114000013056010426
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1479,9 +1503,9 @@ SkinnedMeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
+  - {fileID: 2100000, guid: ed2669404a33449fb85ac89df9b97b2c, type: 2}
   - {fileID: 2100000, guid: 316c6f51246b3451bb144bae01487961, type: 2}
-  - {fileID: 2100000, guid: 316c6f51246b3451bb144bae01487961, type: 2}
-  - {fileID: 2100000, guid: 316c6f51246b3451bb144bae01487961, type: 2}
+  - {fileID: 2100000, guid: ed2669404a33449fb85ac89df9b97b2c, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
@@ -1541,8 +1565,8 @@ SkinnedMeshRenderer:
   m_ReflectionProbeUsage: 1
   m_Materials:
   - {fileID: 2100000, guid: 316c6f51246b3451bb144bae01487961, type: 2}
-  - {fileID: 2100000, guid: 316c6f51246b3451bb144bae01487961, type: 2}
-  - {fileID: 2100000, guid: 316c6f51246b3451bb144bae01487961, type: 2}
+  - {fileID: 2100000, guid: ed2669404a33449fb85ac89df9b97b2c, type: 2}
+  - {fileID: 2100000, guid: ed2669404a33449fb85ac89df9b97b2c, type: 2}
   - {fileID: 2100000, guid: 316c6f51246b3451bb144bae01487961, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
