@@ -15,6 +15,8 @@ public class HomeScreenMovement : MonoBehaviour {
 	Vector3 targetlocation;
 	float idealdistance;
 	Vector3 originalforward;
+	public float smoothing = 0.3f;
+	Vector3 smoothDampVar;
 
 	bool invertY = false;
 
@@ -126,7 +128,7 @@ public class HomeScreenMovement : MonoBehaviour {
 	}
 
 	void LateUpdate() {
-		transform.position = Vector3.MoveTowards (transform.position, targetlocation, 0.9f);
+		transform.position = Vector3.SmoothDamp (transform.position, targetlocation, ref smoothDampVar, smoothing);
 		transform.LookAt (target.transform, Vector3.up * 0.2f);
 	}
 }
