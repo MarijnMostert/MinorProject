@@ -26,6 +26,7 @@ public class Shop : MonoBehaviour {
 		}
 
 		UpdateCoinText ();
+
 		for(int i = 0; i < itemsToBuy.Length; i++){
 			itemsToBuy [i] = Instantiate (itemsToBuy [i], itemPosition.position, itemPosition.rotation, transform) as BuyableItem;
 			itemsToBuy [i].gameObject.SetActive (false);
