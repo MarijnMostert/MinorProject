@@ -126,7 +126,7 @@ public class HomeScreenMovement : MonoBehaviour {
 	}
 
 	void LateUpdate() {
-		transform.position = Vector3.MoveTowards (targetlocation, transform.position, 0.3f);
+		transform.position = Vector3.MoveTowards (transform.position, targetlocation, 0.9f);
 		transform.LookAt (target.transform, Vector3.up * 0.2f);
 	}
 }
