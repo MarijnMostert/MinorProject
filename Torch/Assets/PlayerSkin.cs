@@ -18,28 +18,44 @@ public class PlayerSkin : MonoBehaviour {
 		public Material hat;
 	}
 
+	public Material randomMaterial;
+
 	public OriginalMaterials originalMaterials;
 
-	void Start(){
-		originalMaterials.clothing = BodyRightHalf.materials [3];
-		originalMaterials.skin = BodyRightHalf.materials [1];
-		originalMaterials.staff = Staff.material;
-		originalMaterials.cape = BodyRightHalf.materials [0];
-		originalMaterials.hat = Hat.material;
+	void Update(){
+	/*	if (Input.GetKeyDown (KeyCode.Alpha7)) {
+			ResetMaterials ();
+		}
+		*/
 	}
 
 	public void SetHatSkin(Material material){
 		Hat.material = material;
 	}
 
-	public void SetCapeSkin(Material material){
-		BodyRightHalf.materials [0] = material;
+	/*
+	public void SetCapeSkin(Material material){		
 		Hat.material = material;
-		BodyLeftHalf.materials[0] = material;
-		BodyLeftHalf.materials[1] = material;
-		BodyLeftHalf.materials[2] = material;
+
+		Material materials = BodyRightHalf.materials;
+		materials [0] = material;
+		BodyRightHalf.materials = materials;
+
+		materials = BodyLeftHalf.materials;
+		materials[0] = material;
+		materials[1] = material;
+		materials[2] = material;
+		BodyLeftHalf.materials = materials;
+	}
+	*/
+
+	public void SetCapeSkin(Material material){
+		Material[] materials = BodyRightHalf.materials;
+		materials [0] = material;
+		BodyRightHalf.materials = materials;
 	}
 
+	/*
 	public void SetSkinSkin(Material material){
 		BodyRightHalf.materials [1] = material;
 		BodyRightHalf.materials [2] = material;
@@ -55,16 +71,24 @@ public class PlayerSkin : MonoBehaviour {
 		BodyRightHalf.materials [3] = material;
 		BodyLeftHalf.materials [1] = material;
 	}
+*/
 
 	public void ResetMaterials(){
 		Hat.material = originalMaterials.hat;
-		BodyRightHalf.materials [0] = originalMaterials.cape;
-		BodyRightHalf.materials [1] = originalMaterials.skin;
-		BodyRightHalf.materials [2] = originalMaterials.skin;
-		BodyRightHalf.materials [3] = originalMaterials.clothing;
-		BodyLeftHalf.materials [0] = originalMaterials.skin;
-		BodyLeftHalf.materials [1] = originalMaterials.clothing;
-		BodyLeftHalf.materials [2] = originalMaterials.skin;
+
+		Material[] materials = BodyRightHalf.materials;
+		materials [0] = originalMaterials.cape;
+		materials [1] = originalMaterials.skin;
+		materials [2] = originalMaterials.skin;
+		materials [3] = originalMaterials.clothing;
+		BodyRightHalf.materials = materials;
+
+		materials = BodyLeftHalf.materials;
+		materials [0] = originalMaterials.skin;
+		materials [1] = originalMaterials.clothing;
+		materials [2] = originalMaterials.skin;
+		BodyLeftHalf.materials = materials;
+
 		Staff.material = originalMaterials.hat;
 
 	}

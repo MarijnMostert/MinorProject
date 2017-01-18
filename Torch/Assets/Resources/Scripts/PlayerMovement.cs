@@ -264,6 +264,11 @@ public class PlayerMovement : MonoBehaviour {
 			godMode = false;
 		}
 	}
+
+	public void SetColor(Color color){
+		cursorPointer.GetComponent<SpriteRenderer> ().color = color;
+		playerIndicator.color = color;
+	}
 		
 }
 

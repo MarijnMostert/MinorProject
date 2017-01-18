@@ -68,7 +68,6 @@ GameObject:
   - 4: {fileID: 4000013078369484}
   - 33: {fileID: 33000011773442758}
   - 23: {fileID: 23000013156726174}
-  - 114: {fileID: 114000011516606750}
   - 114: {fileID: 114000010125620170}
   m_Layer: 0
   m_Name: wallspike
@@ -219,15 +218,3 @@ MonoBehaviour:
   startMarker: {fileID: 1000013230322848}
   endMarker: {fileID: 1000012688210170}
   speed: 50
-  shoot: 0
---- !u!114 &114000011516606750
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013569446640}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ee7d7c21985e9d42ab556d40a7fdbb9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
