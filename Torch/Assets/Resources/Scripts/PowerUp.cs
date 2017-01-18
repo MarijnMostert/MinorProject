@@ -11,6 +11,7 @@ public class PowerUp : AudioObject {
 			ObjectPooler.Instance.PlayAudioSource (ClipOnUse, mixerGroup, pitchMin, pitchMax, transform);
 		}
 		GetComponentInParent<PlayerData> ().IncrementScorePickedUp (scoreValue);
+		GetComponentInParent<PlayerData> ().IncrementPowerUpsUsed (1);
 		GameManager.Instance.updateScore (scoreValue);
 	}
 }

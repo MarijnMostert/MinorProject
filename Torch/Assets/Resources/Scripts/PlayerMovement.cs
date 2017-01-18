@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour {
 	[HideInInspector] public GameObject cursorPointerPrefab;
 	[SerializeField] private GameObject cursorPointer;
 	[HideInInspector] public Color playerColor;
+	public GameObject minimapIndicator;
 	public Image playerIndicator;
 	public Camera mainCamera;
 	public int playerNumber;
@@ -92,6 +93,10 @@ public class PlayerMovement : MonoBehaviour {
 		cursorPointer = Instantiate(cursorPointerPrefab);
 		cursorPointer.GetComponent<SpriteRenderer> ().color = playerColor;
 		cursorPointer.SetActive (true);
+
+		minimapIndicator = Instantiate (minimapIndicator, transform.position + new Vector3 (0f, -3f, 0f), Quaternion.Euler (-90f, 180f, 0f), transform) as GameObject;
+		minimapIndicator.GetComponentInChildren<Image> ().color = playerColor;
+
 		playerIndicator.color = playerColor;
 
 		//setup controller and key buttons in UI.
@@ -268,6 +273,7 @@ public class PlayerMovement : MonoBehaviour {
 	public void SetColor(Color color){
 		cursorPointer.GetComponent<SpriteRenderer> ().color = color;
 		playerIndicator.color = color;
+		minimapIndicator.GetComponent<Image> ().color = color;
 	}
 		
 }
