@@ -31,6 +31,12 @@ public class Enemy : AudioObject, IDamagable {
 	public AudioClip clip_die;
 	public AudioClip clip_battleCry;
 
+	public ArenaProps arenaProps;
+	public struct ArenaProps{
+		public bool arenaEnemy;
+		public int index;
+	}
+
 	protected bool firstTimeActive = true;
 
 	public int getHealth () {
@@ -121,6 +127,11 @@ public class Enemy : AudioObject, IDamagable {
 	//When the enemy's health drops below 0.
 	private IEnumerator DieThread(){
         //Debug.Log(gameObject + " died.");
+		if (arenaProps.arenaEnemy) {
+			GameManager.Instance.arenaManager.MarkEnemyKilled (arenaProps.index);
+			arenaProps.arenaEnemy = false;
+		}
+
         dead = true;
 		GetComponent<Collider> ().enabled = false;
 		navMeshAgent.enabled = false;
