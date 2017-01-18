@@ -43,7 +43,8 @@ public class PuzzleBlockPad : MonoBehaviour {
 			if ((block.transform.position - desiredPosition).magnitude < 0.1f) {
 				particlesOnActivate.Play ();
 				Indicator.Stop ();
-				Destroy (block);
+				Indicator.gameObject.SetActive (false);
+				block.SetActive (false);
 				foreach (Enemy enemy in enemiesToSpawn) {
 					ObjectPooler.Instance.GetObject (enemy.ObjectPoolIndex, true, desiredPosition, Quaternion.Euler (new Vector3 (0, Random.Range (0, 360), 0)));
 				}

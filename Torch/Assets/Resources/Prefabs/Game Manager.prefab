@@ -324,7 +324,7 @@ MonoBehaviour:
   Treasureroom: {fileID: 1000011553212682, guid: da7c3fdde8fec46cb8623911d3a77e41,
     type: 2}
   minLevelTreasureroom: 1
-  chanceTreasureroom: 0.1
+  chanceTreasureroom: 0.05
   dungeonParameters: []
 --- !u!114 &114000012126162182
 MonoBehaviour:
@@ -376,6 +376,8 @@ MonoBehaviour:
   torchPrefab: {fileID: 114000010962005414, guid: 86f8871f16b6e4321a072873febde5a7,
     type: 2}
   torch: {fileID: 0}
+  torchMinimapIndicator: {fileID: 1000012989218980, guid: c51f5dbe0ad114f689ffa214d32dc0d1,
+    type: 2}
   torchSpawnPoint: {fileID: 4000010238434374, guid: d3153958a3d7d461c86548c1a70ff1bb,
     type: 2}
   torchStartingHealth: 100

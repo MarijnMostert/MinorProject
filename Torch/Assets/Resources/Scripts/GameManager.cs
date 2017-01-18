@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour {
 	//Torch data
 	public Torch torchPrefab;
 	public Torch torch;
+	public GameObject torchMinimapIndicator;
 	public Transform torchSpawnPoint;
 	public int torchStartingHealth = 100;
 	public int torchHealth;
@@ -84,6 +85,7 @@ public class GameManager : MonoBehaviour {
 	private GameObject homeScreenCam;
 	public Camera mainCamera;
 	public Camera minimap;
+	private int miniMapMode = 0;
 	private Vector3 homeScreenPlayerPosition;
     MasterGenerator masterGenerator;
 	[HideInInspector] public Transform levelTransform;
@@ -235,6 +237,8 @@ public class GameManager : MonoBehaviour {
 		triggerFloorObject = Instantiate (triggerFloorPrefab, levelTransform) as GameObject;
 
 		torch = Instantiate (torchPrefab) as Torch;
+		GameObject torchIndicator = Instantiate (torchMinimapIndicator, torch.transform.position + new Vector3 (0f, -3f, 0f), Quaternion.Euler(new Vector3(90f, 0f, 0f)), torch.transform) as GameObject;
+
 
 		camTarget = torch.gameObject;
 		enemyTarget = torch.gameObject;
@@ -403,6 +407,9 @@ public class GameManager : MonoBehaviour {
 		//Cheatcode to spawn to highscores
 		if (Input.GetKeyDown (KeyCode.Alpha0) && cheat) {
 			TeleportToHighScores ();
+		}
+		if(Input.GetKeyDown(KeyCode.M)){
+			ToggleMiniMap();
 		}
 	}
 
@@ -762,5 +769,11 @@ public class GameManager : MonoBehaviour {
 			if(data.playerSkin[0] != null) PM.playerSkin.SetCapeSkin (data.playerSkin [0]);
 			if(data.playerSkin[1] != null) PM.playerSkin.SetHatSkin (data.playerSkin [1]);
 		}
+	}
+
+	void ToggleMiniMap(){
+		miniMapMode++;
+		miniMapMode = miniMapMode % 3;
+
 	}
 }

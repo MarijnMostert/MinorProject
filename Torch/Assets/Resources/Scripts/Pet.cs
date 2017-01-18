@@ -62,6 +62,7 @@ public class Pet : AudioObject {
 					Debug.Log (target);
 					weaponController.transform.LookAt (target.transform);
 					weaponController.Fire ();
+					target = null;
 				}
 			}
 		}
