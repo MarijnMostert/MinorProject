@@ -5,7 +5,10 @@ public class MinimapHelper : MonoBehaviour {
 
 	public GameObject tile;
 
-	void Start(){
+	void Start() {
+		if (tile == null) {
+			tile = transform.parent.Find("Tile").gameObject as GameObject;
+		}
 		tile.transform.rotation = Quaternion.Euler (0f, 0f, 0f);
 	}
 
