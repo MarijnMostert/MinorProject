@@ -6,7 +6,6 @@ using System.Collections.Generic;
 [System.Serializable]
 public class Data : MonoBehaviour {
 
-
 	[SerializeField] private GameManager gameManager;
 
 	[Header ("- Saved Data")]
@@ -40,7 +39,7 @@ public class Data : MonoBehaviour {
 			string strOwned = "shopItem" + i;
 			string strEquipped = "shopItemEquipped" + i;
 			shopItemsOwned [i] = intToBool(PlayerPrefs.GetInt (strOwned));
-			shopItemsEquipped[i] = intToBool(PlayerPrefs.GetInt(strEquipped));
+			shopItemsEquipped[i] = intToBool(PlayerPrefs.GetInt (strEquipped));
 		}
 		this.coins = PlayerPrefs.GetInt ("coins");
 		this.maxAchievedDungeonLevel = PlayerPrefs.GetInt ("dungeonLevel");

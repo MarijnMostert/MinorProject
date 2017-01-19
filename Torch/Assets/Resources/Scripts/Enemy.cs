@@ -5,6 +5,7 @@ using System.Collections;
 
 public class Enemy : AudioObject, IDamagable {
 
+	public string name;
 	public bool InstantiatedByObjectPooler = false;
 	public int ObjectPoolIndex;
 	public int startingHealth;
@@ -115,12 +116,14 @@ public class Enemy : AudioObject, IDamagable {
 			ObjectPooler.Instance.PlayAudioSource (clip_die, mixerGroup, pitchMin, pitchMax, transform);
 		}
 		Drop ();
-        StartCoroutine(DieThread());
+		gameManager.achievements.enemiesAchievement (name);
+        StartCoroutine (DieThread());
     }
 
 	//When the enemy's health drops below 0.
 	private IEnumerator DieThread(){
         //Debug.Log(gameObject + " died.");
+
         dead = true;
 		GetComponent<Collider> ().enabled = false;
 		navMeshAgent.enabled = false;

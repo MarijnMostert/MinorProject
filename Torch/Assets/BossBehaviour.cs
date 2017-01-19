@@ -65,7 +65,7 @@ public class BossBehaviour : MonoBehaviour, IDamagable {
 
 			//special attack
 			float rand = Random.value;
-			Debug.Log (rand);
+//			Debug.Log (rand);
 			if (rand > 0.8f) {
 				Debug.Log ("special attack");
 				StopAllCoroutines ();
@@ -95,6 +95,7 @@ public class BossBehaviour : MonoBehaviour, IDamagable {
 	//set inactive
 	public void Die(){
 		dead = true;
+		gameManager.achievements.bossAchievement ();
 		gameManager.updateScore (scoreValue);
 		gameObject.GetComponentInParent<BossFight> ().ActivateLever ();
 		healthBar.SetActive (false);

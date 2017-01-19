@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour {
 	//Stored player preferences and info
 	public Data data;
 	public DungeonData dungeonData;
+	public Achievements achievements;
 
 	//Player data
 	public static GameManager Instance;
@@ -35,6 +36,8 @@ public class GameManager : MonoBehaviour {
 	public int dungeonLevel = 0;
 	public float StartTime;
 	public string Roomtype;
+
+	public static int totalKeysCollected = 0;
 
 	public bool paused;
 	public GameObject pauseScreen;
@@ -323,6 +326,10 @@ public class GameManager : MonoBehaviour {
 			cheatindex = 0;
 			Debug.Log ("hoch die hande!");
 			cheat = true;
+
+			if (!achievements.cheats_unlocked) {
+				achievements.cheatsAchievement ();
+			}
 		}
 
 		if (Input.GetKeyDown (KeyCode.H) && cheat == true) {
@@ -494,6 +501,9 @@ public class GameManager : MonoBehaviour {
 		dungeonLevel++;
 		if (dungeonLevel > data.maxAchievedDungeonLevel)
 			data.maxAchievedDungeonLevel = dungeonLevel;
+		
+		achievements.levelAchievement (dungeonLevel);
+
 		StartGame ();
 	}
 

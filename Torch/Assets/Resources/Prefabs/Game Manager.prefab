@@ -24,6 +24,7 @@ GameObject:
   - 82: {fileID: 82000013135790204}
   - 114: {fileID: 114000013406591320}
   - 114: {fileID: 114000011838373320}
+  - 114: {fileID: 114000011697331252}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -194,6 +195,48 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &114000011697331252
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012150838060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9f34bd335738a049be1228a838a0dcc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameManager: {fileID: 0}
+  playerData: {fileID: 0}
+  data: {fileID: 0}
+  tutorial_done: 0
+  spidernest_destroyed: 0
+  wizarnest_destroyed: 0
+  boss_defeated: 0
+  keys_collected_100: 0
+  all_shopitems_bought: 0
+  home_stairs_climbed: 0
+  died_20_times: 0
+  fell_50_times: 0
+  playtime_1_hour: 0
+  km_42_walked: 0
+  powerups_50_used: 0
+  cheats_unlocked: 0
+  enemies_killed_200: 0
+  spider_100: 0
+  bomber_100: 0
+  minota_100: 0
+  ghost_100: 0
+  levels_10: 0
+  levels_20: 0
+  levels_30: 0
+  levels_40: 0
+  spidersKilled: 0
+  minotaurKilled: 0
+  ghostsKilled: 0
+  bomberKilled: 0
+  timesfallen: 0
+  timesdied: 0
 --- !u!114 &114000011838373320
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -229,6 +272,7 @@ MonoBehaviour:
   chanceIceball: 0.1
   chancePiercing: 0.1
   chanceLaser: 0.1
+  chanceForTrap: 0.1
   minLevelSpidernest: 2
   minLevelWizardnest: 12
   minLevelSpikes: 6
@@ -255,6 +299,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data: {fileID: 114000013406591320}
   dungeonData: {fileID: 0}
+  achievements: {fileID: 114000011697331252}
   playerManagers:
   - spawnPoint: {fileID: 4000013396432608}
     playerColor: {r: 0.27941185, g: 0.9046279, b: 1, a: 1}
@@ -377,6 +422,7 @@ MonoBehaviour:
   shopPrefab: {fileID: 114000012952452066, guid: e7fffa677a1ce4c29bfc10128f43efa3,
     type: 2}
   highQualityItems:
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   numberOfPlayers: 1

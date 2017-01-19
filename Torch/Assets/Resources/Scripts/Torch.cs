@@ -138,6 +138,7 @@ public class Torch : MonoBehaviour, IDamagable {
 		health = 0;
 		Destroy (torchPickUp.canvas);
 		Destroy (GameObject.FindGameObjectWithTag("CursorPointer"));
+		gameManager.achievements.diedAchievement ();
 		gameManager.GameOver();
 	}
 
