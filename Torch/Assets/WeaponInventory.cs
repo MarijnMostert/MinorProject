@@ -66,7 +66,7 @@ public class WeaponInventory : MonoBehaviour {
 			CheckAndEquip (4, 1);
 		if (Input.GetKeyDown (KeyCode.Alpha6))
 			CheckAndEquip (5, 1);
-		if (Input.GetKeyDown (KeyCode.Alpha7))
+		/*if (Input.GetKeyDown (KeyCode.Alpha7))
 			CheckAndEquip (6, 1);
 		if (Input.GetKeyDown (KeyCode.Alpha8))
 			CheckAndEquip (7, 1);
@@ -74,6 +74,7 @@ public class WeaponInventory : MonoBehaviour {
 			CheckAndEquip (8, 1);
 		if (Input.GetKeyDown (KeyCode.Alpha0))
 			CheckAndEquip (9, 1);
+			*/
 	}
 
 	public bool AddWeaponToInventory(Weapon weapon, int playerNumber){

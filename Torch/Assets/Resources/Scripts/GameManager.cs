@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour {
 	//Stored player preferences and info
 	public Data data;
 	public DungeonData dungeonData;
+	public Achievements achievements;
 
 	//Player data
 	public static GameManager Instance;
@@ -24,6 +25,7 @@ public class GameManager : MonoBehaviour {
 	//Torch data
 	public Torch torchPrefab;
 	public Torch torch;
+	public GameObject torchMinimapIndicator;
 	public Transform torchSpawnPoint;
 	public int torchStartingHealth = 100;
 	public int torchHealth;
@@ -35,6 +37,8 @@ public class GameManager : MonoBehaviour {
 	public int dungeonLevel = 0;
 	public float StartTime;
 	public string Roomtype;
+
+	public static int totalKeysCollected = 0;
 
 	public bool paused;
 	public GameObject pauseScreen;
@@ -49,7 +53,7 @@ public class GameManager : MonoBehaviour {
 	public GameAnalytics analytics = new GameAnalytics();
 	public Save saver = new Save();
 
-	public List<GameObject> PuzzleRooms;
+	//public List<GameObject> PuzzleRooms;
 
 	public GameObject TorchFOVPrefab;
 	private GameObject TorchFOV;
@@ -84,15 +88,23 @@ public class GameManager : MonoBehaviour {
 	private GameObject homeScreenCam;
 	public Camera mainCamera;
 	public Camera minimap;
+	private int miniMapMode = 0;
 	private Vector3 homeScreenPlayerPosition;
     MasterGenerator masterGenerator;
 	[HideInInspector] public Transform levelTransform;
     bool gameStarted;
+
 	bool tutorialStarted;
 	public GameObject tutorialPrefab;
 	private GameObject tutorialObject;
 	public GameObject tutorialTorchPrefab;
 	private GameObject tutorialTorchObject;
+
+	bool arenaStarted;
+	public GameObject arenaPrefab;
+	private GameObject arenaObject;
+	public GameObject arenaTorchPrefab;
+	private GameObject arenaTorchObject;
 
 	[Header("- Audio")]
 	public AudioSource audioSourceMusic;
@@ -114,12 +126,16 @@ public class GameManager : MonoBehaviour {
 	public int requiredCollectedKeys;
 	public GameObject Pet;
 	private Pet PetScript;
+	public GameObject Bold;
+	private Pet BoldPetScript;
 
 	public Shop shopPrefab;
 	private Shop shop;
 	private bool shopActive = false;
 
 	public List<GameObject> highQualityItems;
+
+	[HideInInspector] public ArenaManager arenaManager;
 
 	[HideInInspector] public int numberOfPlayers = 1;
 
@@ -128,6 +144,8 @@ public class GameManager : MonoBehaviour {
 		setQuality (data.highQuality);
 
 		dungeonData = GetComponent<DungeonData> ();
+
+		arenaManager = GetComponentInChildren<ArenaManager> ();
 
 		startingScreen.SetActive (true);
 
@@ -170,6 +188,9 @@ public class GameManager : MonoBehaviour {
 		PetScript = Pet.GetComponent<Pet> ();
 		PetScript.speechText.text = "";
 		PetScript.speechImage.gameObject.SetActive (false);
+		Bold = Instantiate (Bold) as GameObject;
+		BoldPetScript = Bold.GetComponent<Pet> ();
+		Bold.SetActive (false);
 
 		shopPrefab.EquipActives ();
 	}
@@ -187,7 +208,7 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
-	//where type 0 is tutorial and type 1 is dungeon.
+	//where type 0 is tutorial and type 1 is dungeon and type 2 is arena.
 	IEnumerator CreateLevel(int type){
 		if (inGameCameraObject == null) {
 			inGameCameraObject = Instantiate (inGameCameraPrefab);
@@ -198,13 +219,16 @@ public class GameManager : MonoBehaviour {
 		//RandomizeTextures ();
 
 		if (type == 1) {
-			masterGenerator = new MasterGenerator (this.gameObject, dungeonData.dungeonParameters[dungeonLevel], radius, maxlength, timeout, PuzzleRooms);
+			masterGenerator = new MasterGenerator (this.gameObject, dungeonData.dungeonParameters[dungeonLevel], radius, maxlength, timeout);
 			masterGenerator.LoadPrefabs ();
 			masterGenerator.Start ();
 		} else if (type == 0) {
 			tutorialObject = Instantiate(tutorialPrefab, new Vector3(0,0,0), Quaternion.identity) as GameObject;
 			levelTransform = tutorialObject.transform;
 
+		} else if (type == 2) {
+			arenaObject = Instantiate(arenaPrefab, new Vector3(80f,0f,80f), Quaternion.identity) as GameObject;
+			levelTransform = arenaObject.transform;
 		}
 
 		if (ui == null) {
@@ -217,6 +241,8 @@ public class GameManager : MonoBehaviour {
 		triggerFloorObject = Instantiate (triggerFloorPrefab, levelTransform) as GameObject;
 
 		torch = Instantiate (torchPrefab) as Torch;
+		GameObject torchIndicator = Instantiate (torchMinimapIndicator, torch.transform.position + new Vector3 (0f, -3f, 0f), Quaternion.Euler(new Vector3(90f, 0f, 0f)), torch.transform) as GameObject;
+
 
 		camTarget = torch.gameObject;
 		enemyTarget = torch.gameObject;
@@ -229,7 +255,7 @@ public class GameManager : MonoBehaviour {
 
 		for (int i = 0; i < playerManagers.Length; i++) {
 			if (playerManagers [i].playerInstance == null) {
-				Debug.Log ("Create Player with id:" + i);
+//				Debug.Log ("Create Player with id:" + i);
 				playerManagers [i].playerInstance = Instantiate (playerPrefab) as GameObject;
 				playerManagers [i].playerNumber = i + 1;
 				playerManagers [i].Setup ();
@@ -256,18 +282,36 @@ public class GameManager : MonoBehaviour {
 			playerManagers [0].playerInstance.transform.position = startpoint;
 			playerManagers [1].playerInstance.transform.position = startpoint + new Vector3 (-2f, 0f, -2f);
 			torch.isDamagable = false;
+		} else if (type == 2) {
+			startpoint = arenaObject.transform.Find ("Spawnpoint").transform.position;
+			playerManagers [0].playerInstance.transform.position = startpoint;
+			playerManagers [1].playerInstance.transform.position = startpoint + new Vector3 (-2f, 0f, -2f);
+			torch.isDamagable = false;
 		}
 		RespawnPosition = startpoint;
 		torch.transform.position = startpoint + new Vector3 (6, .5f, 0);
-		Pet.transform.position = playerManagers [0].playerInstance.transform.position + new Vector3 (3f, 0f, 0f);
+
+		if (type == 1 || type == 2) {
+			Pet.transform.position = playerManagers [0].playerInstance.transform.position + new Vector3 (3f, 0f, 0f);
+			Pet.SetActive (true);
+			Bold.SetActive (false);
+		} else if (type == 0) {
+			Pet.SetActive (false);
+			Bold.SetActive (true);
+			Bold.transform.position = playerManagers [0].playerInstance.transform.position;
+		}
 
 		torch.torchPickUp.cam = mainCamera;
 		if (type == 1) {
 			ui.dungeonLevelText.text = "Dungeon level " + dungeonLevel;
 		} else if (type == 0) {
 			ui.dungeonLevelText.text = "Dungeon Tutorial";
-			PetScript.speechText.text = "Welcome to this tutorial! My name is Bold. Use the WASD-keys to move.";
-			PetScript.speechImage.gameObject.SetActive (true);
+			BoldPetScript.speechCanvas.SetActive (true);
+			BoldPetScript.speechText.text = "Welcome to this tutorial! My name is Bold. Use the WASD-keys to move.";
+			BoldPetScript.speechImage.gameObject.SetActive (true);
+		} else if (type == 2) {
+			ui.dungeonLevelText.text = "ArenaMode";
+			arenaManager.StartArena ();
 		}
 
 		audioSourceMusic.clip = audioDungeon [UnityEngine.Random.Range (0, audioDungeon.Length)];
@@ -286,6 +330,7 @@ public class GameManager : MonoBehaviour {
 		ui.timer.Reset ();
 
 		StartTime = Time.time;
+		mainCamera.GetComponent<CameraController> ().SetMode ("Normal");
 
 		yield return null;
 	}
@@ -324,6 +369,10 @@ public class GameManager : MonoBehaviour {
 			cheatindex = 0;
 			Debug.Log ("hoch die hande!");
 			cheat = true;
+
+			if (!achievements.cheats_unlocked) {
+				achievements.cheatsAchievement ();
+			}
 		}
 
 		if (Input.GetKeyDown (KeyCode.H) && cheat == true) {
@@ -366,6 +415,9 @@ public class GameManager : MonoBehaviour {
 		//Cheatcode to spawn to highscores
 		if (Input.GetKeyDown (KeyCode.Alpha0) && cheat) {
 			TeleportToHighScores ();
+		}
+		if(Input.GetKeyDown(KeyCode.M)){
+			ToggleMiniMap();
 		}
 	}
 
@@ -447,6 +499,9 @@ public class GameManager : MonoBehaviour {
 		tutorialStarted = false;
 		if (tutorialObject != null)
 			Destroy (tutorialObject);
+		arenaStarted = false;
+		if (arenaObject != null)
+			Destroy (arenaObject);
 	}
 
 	public void LoadHomeScreen(){
@@ -459,9 +514,15 @@ public class GameManager : MonoBehaviour {
 		}
 		homeScreen.SetActive (true);
 		homeScreenCam.SetActive (true);
+
+
 		audioSourceMusic.clip = audioHomeScreen;
 		audioSourceMusic.Play ();
 		resetHomeScreenPlayer ();
+
+		PetScript.speechCanvas.SetActive (false);
+		Pet.transform.position = homeScreenPlayer.transform.position;
+
 	}
 
 	public void updateScore(int addedScore){
@@ -495,6 +556,9 @@ public class GameManager : MonoBehaviour {
 		dungeonLevel++;
 		if (dungeonLevel > data.maxAchievedDungeonLevel)
 			data.maxAchievedDungeonLevel = dungeonLevel;
+		
+		achievements.levelAchievement (dungeonLevel);
+
 		StartGame ();
 	}
 
@@ -567,6 +631,18 @@ public class GameManager : MonoBehaviour {
 			homeScreen.SetActive (false);
 			StartCoroutine (CreateLevel (0));
 			tutorialStarted = true;
+		}
+	}
+
+	public void StartArena(){
+		if (!arenaStarted) {
+			requiredCollectedKeys = 1;
+			Time.timeScale = 1f;
+			StartTime = Time.time;
+			loadingScreenCanvas.SetActive (true);
+			homeScreen.SetActive (false);
+			StartCoroutine (CreateLevel (2));
+			arenaStarted = true;
 		}
 	}
 
@@ -701,8 +777,14 @@ public class GameManager : MonoBehaviour {
 
 	void ApplySkins(){
 		foreach (PlayerManager PM in playerManagers) {
-			PM.playerSkin.SetCapeSkin (data.playerSkin [0]);
-			PM.playerSkin.SetHatSkin (data.playerSkin [1]);
+			if(data.playerSkin[0] != null) PM.playerSkin.SetCapeSkin (data.playerSkin [0]);
+			if(data.playerSkin[1] != null) PM.playerSkin.SetHatSkin (data.playerSkin [1]);
 		}
+	}
+
+	void ToggleMiniMap(){
+		miniMapMode++;
+		miniMapMode = miniMapMode % 3;
+
 	}
 }

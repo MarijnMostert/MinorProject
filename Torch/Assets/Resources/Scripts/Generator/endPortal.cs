@@ -9,6 +9,7 @@ public class endPortal : InteractableItem {
 	GameObject endOfRoundCanvas;
 	public bool endPortalActivated = false;
 	public Animator anim;
+	public bool tutorial = false;
 
     void Start () {
 		if (gameManager == null) {
@@ -64,6 +65,10 @@ public class endPortal : InteractableItem {
 		*/
 		gameManager.endOfRoundCanvas.GetComponent<EndOfRoundCanvas> ().Fill ();
 		gameManager.endOfRoundCanvas.SetActive (true);
+
+		if (tutorial) {
+			gameManager.achievements.tutortialAchievement ();
+		}
 
 		/*
         //winText.gameObject.SetActive(true);

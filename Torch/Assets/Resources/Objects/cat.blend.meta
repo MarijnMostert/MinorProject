@@ -87,6 +87,7 @@ ModelImporter:
     7400000: Default Take
     7400002: Cat_galop
     7400004: Cat_trot
+    7400006: Cat_trot0
     9500000: //RootNode
     13700000: Cat
   materials:
@@ -109,7 +110,325 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Cat_trot0
+      takeName: Cat_trot
+      firstFrame: 0
+      lastFrame: 60
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/LowerSpine
+        weight: 1
+      - path: Armature/LowerSpine/AfterShoulder_L
+        weight: 1
+      - path: Armature/LowerSpine/AfterShoulder_L/AfterUpperLeg_L
+        weight: 1
+      - path: Armature/LowerSpine/AfterShoulder_L/AfterUpperLeg_L/AfterLowerLeg_L
+        weight: 1
+      - path: Armature/LowerSpine/AfterShoulder_L/AfterUpperLeg_L/AfterLowerLeg_L/AfterUpperPaw_L
+        weight: 1
+      - path: Armature/LowerSpine/AfterShoulder_L/AfterUpperLeg_L/AfterLowerLeg_L/AfterUpperPaw_L/AfterMiddlePaw_L
+        weight: 1
+      - path: Armature/LowerSpine/AfterShoulder_L/AfterUpperLeg_L/AfterLowerLeg_L/AfterUpperPaw_L/AfterMiddlePaw_L/AfterLowerPaw_L
+        weight: 1
+      - path: Armature/LowerSpine/AfterShoulder_R
+        weight: 1
+      - path: Armature/LowerSpine/AfterShoulder_R/AfterUpperLeg_R
+        weight: 1
+      - path: Armature/LowerSpine/AfterShoulder_R/AfterUpperLeg_R/AfterLowerLeg_R
+        weight: 1
+      - path: Armature/LowerSpine/AfterShoulder_R/AfterUpperLeg_R/AfterLowerLeg_R/AfterUpperPaw_R
+        weight: 1
+      - path: Armature/LowerSpine/AfterShoulder_R/AfterUpperLeg_R/AfterLowerLeg_R/AfterUpperPaw_R/AfterMiddlePaw_R
+        weight: 1
+      - path: Armature/LowerSpine/AfterShoulder_R/AfterUpperLeg_R/AfterLowerLeg_R/AfterUpperPaw_R/AfterMiddlePaw_R/AfterLowerPaw_R
+        weight: 1
+      - path: Armature/LowerSpine/TailBone
+        weight: 1
+      - path: Armature/LowerSpine/TailBone/Bone_007
+        weight: 1
+      - path: Armature/LowerSpine/TailBone/Bone_007/Bone_008
+        weight: 1
+      - path: Armature/LowerSpine/TailBone/Bone_007/Bone_008/Bone_009
+        weight: 1
+      - path: Armature/LowerSpine/TailBone/Bone_007/Bone_008/Bone_009/Bone_010
+        weight: 1
+      - path: Armature/LowerSpine/TailBone/Bone_007/Bone_008/Bone_009/Bone_010/Bone_011
+        weight: 1
+      - path: Armature/LowerSpine/TailBone/Bone_007/Bone_008/Bone_009/Bone_010/Bone_011/Bone_012
+        weight: 1
+      - path: Armature/LowerSpine/TailBone/Bone_007/Bone_008/Bone_009/Bone_010/Bone_011/Bone_012/TailTip
+        weight: 1
+      - path: Armature/LowerSpine/UpperSpine
+        weight: 1
+      - path: Armature/LowerSpine/UpperSpine/FrontShoulder_L
+        weight: 1
+      - path: Armature/LowerSpine/UpperSpine/FrontShoulder_L/FrontUpperLeg_L
+        weight: 1
+      - path: Armature/LowerSpine/UpperSpine/FrontShoulder_L/FrontUpperLeg_L/FrontLowerLeg_L
+        weight: 1
+      - path: Armature/LowerSpine/UpperSpine/FrontShoulder_L/FrontUpperLeg_L/FrontLowerLeg_L/FrontUpperPaw_L
+        weight: 1
+      - path: Armature/LowerSpine/UpperSpine/FrontShoulder_L/FrontUpperLeg_L/FrontLowerLeg_L/FrontUpperPaw_L/FrontLowerPaw_L
+        weight: 1
+      - path: Armature/LowerSpine/UpperSpine/FrontShoulder_R
+        weight: 1
+      - path: Armature/LowerSpine/UpperSpine/FrontShoulder_R/FrontUpperLeg_R
+        weight: 1
+      - path: Armature/LowerSpine/UpperSpine/FrontShoulder_R/FrontUpperLeg_R/FrontLowerLeg_R
+        weight: 1
+      - path: Armature/LowerSpine/UpperSpine/FrontShoulder_R/FrontUpperLeg_R/FrontLowerLeg_R/FrontUpperPaw_R
+        weight: 1
+      - path: Armature/LowerSpine/UpperSpine/FrontShoulder_R/FrontUpperLeg_R/FrontLowerLeg_R/FrontUpperPaw_R/FrontLowerPaw_R
+        weight: 1
+      - path: Armature/LowerSpine/UpperSpine/Neck
+        weight: 1
+      - path: Armature/LowerSpine/UpperSpine/Neck/Head
+        weight: 1
+      - path: Armature/LowerSpine/UpperSpine/Neck/Head/Ear_L
+        weight: 1
+      - path: Armature/LowerSpine/UpperSpine/Neck/Head/Ear_R
+        weight: 1
+      - path: Cat
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Cat_galop
+      takeName: Cat_galop
+      firstFrame: 0
+      lastFrame: 60
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/LowerSpine
+        weight: 1
+      - path: Armature/LowerSpine/AfterShoulder_L
+        weight: 1
+      - path: Armature/LowerSpine/AfterShoulder_L/AfterUpperLeg_L
+        weight: 1
+      - path: Armature/LowerSpine/AfterShoulder_L/AfterUpperLeg_L/AfterLowerLeg_L
+        weight: 1
+      - path: Armature/LowerSpine/AfterShoulder_L/AfterUpperLeg_L/AfterLowerLeg_L/AfterUpperPaw_L
+        weight: 1
+      - path: Armature/LowerSpine/AfterShoulder_L/AfterUpperLeg_L/AfterLowerLeg_L/AfterUpperPaw_L/AfterMiddlePaw_L
+        weight: 1
+      - path: Armature/LowerSpine/AfterShoulder_L/AfterUpperLeg_L/AfterLowerLeg_L/AfterUpperPaw_L/AfterMiddlePaw_L/AfterLowerPaw_L
+        weight: 1
+      - path: Armature/LowerSpine/AfterShoulder_R
+        weight: 1
+      - path: Armature/LowerSpine/AfterShoulder_R/AfterUpperLeg_R
+        weight: 1
+      - path: Armature/LowerSpine/AfterShoulder_R/AfterUpperLeg_R/AfterLowerLeg_R
+        weight: 1
+      - path: Armature/LowerSpine/AfterShoulder_R/AfterUpperLeg_R/AfterLowerLeg_R/AfterUpperPaw_R
+        weight: 1
+      - path: Armature/LowerSpine/AfterShoulder_R/AfterUpperLeg_R/AfterLowerLeg_R/AfterUpperPaw_R/AfterMiddlePaw_R
+        weight: 1
+      - path: Armature/LowerSpine/AfterShoulder_R/AfterUpperLeg_R/AfterLowerLeg_R/AfterUpperPaw_R/AfterMiddlePaw_R/AfterLowerPaw_R
+        weight: 1
+      - path: Armature/LowerSpine/TailBone
+        weight: 1
+      - path: Armature/LowerSpine/TailBone/Bone_007
+        weight: 1
+      - path: Armature/LowerSpine/TailBone/Bone_007/Bone_008
+        weight: 1
+      - path: Armature/LowerSpine/TailBone/Bone_007/Bone_008/Bone_009
+        weight: 1
+      - path: Armature/LowerSpine/TailBone/Bone_007/Bone_008/Bone_009/Bone_010
+        weight: 1
+      - path: Armature/LowerSpine/TailBone/Bone_007/Bone_008/Bone_009/Bone_010/Bone_011
+        weight: 1
+      - path: Armature/LowerSpine/TailBone/Bone_007/Bone_008/Bone_009/Bone_010/Bone_011/Bone_012
+        weight: 1
+      - path: Armature/LowerSpine/TailBone/Bone_007/Bone_008/Bone_009/Bone_010/Bone_011/Bone_012/TailTip
+        weight: 1
+      - path: Armature/LowerSpine/UpperSpine
+        weight: 1
+      - path: Armature/LowerSpine/UpperSpine/FrontShoulder_L
+        weight: 1
+      - path: Armature/LowerSpine/UpperSpine/FrontShoulder_L/FrontUpperLeg_L
+        weight: 1
+      - path: Armature/LowerSpine/UpperSpine/FrontShoulder_L/FrontUpperLeg_L/FrontLowerLeg_L
+        weight: 1
+      - path: Armature/LowerSpine/UpperSpine/FrontShoulder_L/FrontUpperLeg_L/FrontLowerLeg_L/FrontUpperPaw_L
+        weight: 1
+      - path: Armature/LowerSpine/UpperSpine/FrontShoulder_L/FrontUpperLeg_L/FrontLowerLeg_L/FrontUpperPaw_L/FrontLowerPaw_L
+        weight: 1
+      - path: Armature/LowerSpine/UpperSpine/FrontShoulder_R
+        weight: 1
+      - path: Armature/LowerSpine/UpperSpine/FrontShoulder_R/FrontUpperLeg_R
+        weight: 1
+      - path: Armature/LowerSpine/UpperSpine/FrontShoulder_R/FrontUpperLeg_R/FrontLowerLeg_R
+        weight: 1
+      - path: Armature/LowerSpine/UpperSpine/FrontShoulder_R/FrontUpperLeg_R/FrontLowerLeg_R/FrontUpperPaw_R
+        weight: 1
+      - path: Armature/LowerSpine/UpperSpine/FrontShoulder_R/FrontUpperLeg_R/FrontLowerLeg_R/FrontUpperPaw_R/FrontLowerPaw_R
+        weight: 1
+      - path: Armature/LowerSpine/UpperSpine/Neck
+        weight: 1
+      - path: Armature/LowerSpine/UpperSpine/Neck/Head
+        weight: 1
+      - path: Armature/LowerSpine/UpperSpine/Neck/Head/Ear_L
+        weight: 1
+      - path: Armature/LowerSpine/UpperSpine/Neck/Head/Ear_R
+        weight: 1
+      - path: Cat
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Cat_trot
+      takeName: Cat_trot
+      firstFrame: 0
+      lastFrame: 60
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Armature
+        weight: 1
+      - path: Armature/LowerSpine
+        weight: 1
+      - path: Armature/LowerSpine/AfterShoulder_L
+        weight: 1
+      - path: Armature/LowerSpine/AfterShoulder_L/AfterUpperLeg_L
+        weight: 1
+      - path: Armature/LowerSpine/AfterShoulder_L/AfterUpperLeg_L/AfterLowerLeg_L
+        weight: 1
+      - path: Armature/LowerSpine/AfterShoulder_L/AfterUpperLeg_L/AfterLowerLeg_L/AfterUpperPaw_L
+        weight: 1
+      - path: Armature/LowerSpine/AfterShoulder_L/AfterUpperLeg_L/AfterLowerLeg_L/AfterUpperPaw_L/AfterMiddlePaw_L
+        weight: 1
+      - path: Armature/LowerSpine/AfterShoulder_L/AfterUpperLeg_L/AfterLowerLeg_L/AfterUpperPaw_L/AfterMiddlePaw_L/AfterLowerPaw_L
+        weight: 1
+      - path: Armature/LowerSpine/AfterShoulder_R
+        weight: 1
+      - path: Armature/LowerSpine/AfterShoulder_R/AfterUpperLeg_R
+        weight: 1
+      - path: Armature/LowerSpine/AfterShoulder_R/AfterUpperLeg_R/AfterLowerLeg_R
+        weight: 1
+      - path: Armature/LowerSpine/AfterShoulder_R/AfterUpperLeg_R/AfterLowerLeg_R/AfterUpperPaw_R
+        weight: 1
+      - path: Armature/LowerSpine/AfterShoulder_R/AfterUpperLeg_R/AfterLowerLeg_R/AfterUpperPaw_R/AfterMiddlePaw_R
+        weight: 1
+      - path: Armature/LowerSpine/AfterShoulder_R/AfterUpperLeg_R/AfterLowerLeg_R/AfterUpperPaw_R/AfterMiddlePaw_R/AfterLowerPaw_R
+        weight: 1
+      - path: Armature/LowerSpine/TailBone
+        weight: 1
+      - path: Armature/LowerSpine/TailBone/Bone_007
+        weight: 1
+      - path: Armature/LowerSpine/TailBone/Bone_007/Bone_008
+        weight: 1
+      - path: Armature/LowerSpine/TailBone/Bone_007/Bone_008/Bone_009
+        weight: 1
+      - path: Armature/LowerSpine/TailBone/Bone_007/Bone_008/Bone_009/Bone_010
+        weight: 1
+      - path: Armature/LowerSpine/TailBone/Bone_007/Bone_008/Bone_009/Bone_010/Bone_011
+        weight: 1
+      - path: Armature/LowerSpine/TailBone/Bone_007/Bone_008/Bone_009/Bone_010/Bone_011/Bone_012
+        weight: 1
+      - path: Armature/LowerSpine/TailBone/Bone_007/Bone_008/Bone_009/Bone_010/Bone_011/Bone_012/TailTip
+        weight: 1
+      - path: Armature/LowerSpine/UpperSpine
+        weight: 1
+      - path: Armature/LowerSpine/UpperSpine/FrontShoulder_L
+        weight: 1
+      - path: Armature/LowerSpine/UpperSpine/FrontShoulder_L/FrontUpperLeg_L
+        weight: 1
+      - path: Armature/LowerSpine/UpperSpine/FrontShoulder_L/FrontUpperLeg_L/FrontLowerLeg_L
+        weight: 1
+      - path: Armature/LowerSpine/UpperSpine/FrontShoulder_L/FrontUpperLeg_L/FrontLowerLeg_L/FrontUpperPaw_L
+        weight: 1
+      - path: Armature/LowerSpine/UpperSpine/FrontShoulder_L/FrontUpperLeg_L/FrontLowerLeg_L/FrontUpperPaw_L/FrontLowerPaw_L
+        weight: 1
+      - path: Armature/LowerSpine/UpperSpine/FrontShoulder_R
+        weight: 1
+      - path: Armature/LowerSpine/UpperSpine/FrontShoulder_R/FrontUpperLeg_R
+        weight: 1
+      - path: Armature/LowerSpine/UpperSpine/FrontShoulder_R/FrontUpperLeg_R/FrontLowerLeg_R
+        weight: 1
+      - path: Armature/LowerSpine/UpperSpine/FrontShoulder_R/FrontUpperLeg_R/FrontLowerLeg_R/FrontUpperPaw_R
+        weight: 1
+      - path: Armature/LowerSpine/UpperSpine/FrontShoulder_R/FrontUpperLeg_R/FrontLowerLeg_R/FrontUpperPaw_R/FrontLowerPaw_R
+        weight: 1
+      - path: Armature/LowerSpine/UpperSpine/Neck
+        weight: 1
+      - path: Armature/LowerSpine/UpperSpine/Neck/Head
+        weight: 1
+      - path: Armature/LowerSpine/UpperSpine/Neck/Head/Ear_L
+        weight: 1
+      - path: Armature/LowerSpine/UpperSpine/Neck/Head/Ear_R
+        weight: 1
+      - path: Cat
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []
@@ -144,7 +463,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    rootMotionBoneName: 
+    rootMotionBoneName: Cat
     hasTranslationDoF: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 2

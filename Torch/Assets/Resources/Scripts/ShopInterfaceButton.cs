@@ -18,7 +18,7 @@ public class ShopInterfaceButton : MonoBehaviour {
 		this.shop = shop;
 		this.item = shop.itemsToBuy [itemIndex];
 		this.index = itemIndex;
-		this.itemText.text = this.item.name;
+		this.itemText.text = this.item.itemName;
 		this.itemImage.sprite = this.item.icon;
 		this.priceText.text = this.item.price.ToString ();
 		bool owned = this.item.owned;

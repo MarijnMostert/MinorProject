@@ -5,7 +5,6 @@ public class BomberProjectile : MonoBehaviour {
 
 	public int ObjectPoolerIndex;
 
-	public LayerMask collisionMask;
 	public int damage;
 	public float lifeTime;
 
@@ -36,6 +35,7 @@ public class BomberProjectile : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other){
         GameObject objectHitted = other.gameObject;
+		//Debug.Log(objectHitted.name + " : " + LayerMask.LayerToName(objectHitted.layer));
         if (!objectHitted.CompareTag("EnemyProjectile") && !objectHitted.CompareTag("Enemy") && !objectHitted.CompareTag("Wall Torch"))
         {
             cam.transform.GetComponentInParent<CameraShake>().cameraShake(camShakeLength, camShakeIntensity, camShakeIterationTime);

@@ -5,6 +5,7 @@ using System.Collections;
 
 public class Pet : AudioObject {
 
+	public GameObject speechCanvas;
 	public Image speechImage;
 	public Text speechText;
 
@@ -52,14 +53,17 @@ public class Pet : AudioObject {
 			}
 
 			targetFinder.FindTargets ();
-			if ((target == null || target.activeInHierarchy) && targetFinder.targets.Count != 0) {
+			if ((target == null || !target.activeInHierarchy) && targetFinder.targets.Count != 0) {
 				target = targetFinder.targets [Random.Range(0, targetFinder.targets.Count)];
 			}
 
 			if (target != null) {
-				Debug.Log (target);
-				weaponController.transform.LookAt (target.transform);
-				weaponController.Fire ();
+				if (target.activeInHierarchy) {
+					Debug.Log (target);
+					weaponController.transform.LookAt (target.transform);
+					weaponController.Fire ();
+					target = null;
+				}
 			}
 		}
 	}

@@ -9,8 +9,8 @@ public class BossBlock : MonoBehaviour {
 	private float LastBlockTime;
 
 	public void Start(){
-		BlockTime = 5.0f;
-		CooldownTime = 9.0f;
+		BlockTime = 3.0f;
+		CooldownTime = 8.0f;
 	}
 
 	public bool Block(){

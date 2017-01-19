@@ -247,7 +247,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7af1b7cec75f24401a1cb849c63a7bc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: Torch
+  itemName: Torch
+  itemDescription: default torch
   icon: {fileID: 21300000, guid: f9ad7232023374e61845a16c137628a9, type: 3}
   price: 0
   owned: 1
@@ -259,6 +260,7 @@ MonoBehaviour:
     type: 2}
   multiplier: 0
   addedMaxHealth: 0
+  skin: {fileID: 0}
 --- !u!136 &136000011271348770
 CapsuleCollider:
   m_ObjectHideFlags: 1

@@ -75,7 +75,7 @@ public class Nest : AudioObject {
     void InstantiateHealthBar()
     {
         Vector3 healthBarPosition = transform.position + new Vector3(0, 2, 0);
-		healthBar = ObjectPooler.Instance.GetObject (19, true, healthBarPosition, transform);
+		healthBar = ObjectPooler.Instance.GetObject (20, true, healthBarPosition, transform);
         healthBarImage = healthBar.transform.FindChild("HealthBar").GetComponent<Image>();
 		healthBar.transform.GetComponentInChildren<Text> ().text = name;
         healthBar.transform.localScale.Scale(new Vector3(3, 3, 3));
@@ -108,6 +108,7 @@ public class Nest : AudioObject {
 			ObjectPooler.Instance.PlayAudioSource (clip_die, mixerGroup, pitchMin, pitchMax, transform);
         }
         StartCoroutine(DieThread());
+		gameManager.achievements.nestAchievement (this.name);
     }
 
     //When the enemy's health drops below 0.

@@ -34,10 +34,12 @@ public class DungeonData : MonoBehaviour {
 	public int minLevelIceballWeapon = 2;
 	public int minLevelPiercingWeapon = 7;
 	public int minLevelLaserWeapon = 13;
+	public int minLevelBloodWeapon = 16;
 
 	public float chanceIceball = 0.1f;
 	public float chancePiercing = 0.1f;
 	public float chanceLaser = 0.1f;
+	public float chanceBlood = 0.1f;
 
     [Header("- Minimum values traps")]
 	public float chanceForTrap = .1f;
@@ -56,6 +58,35 @@ public class DungeonData : MonoBehaviour {
     public float chanceWallrush = 1;
     public float chanceShuriken = 1;
 
+	[Header("- Minimum values PuzzleRooms")]
+	public GameObject Fliproom;
+	public int minLevelFliproom;
+	public float chanceFliproom;
+
+	public GameObject Blockpuzzleroom;
+	public int minLevelBlockpuzzleroom;
+	public float chanceBlockpuzzleroom;
+
+	public GameObject Fallblockpuzzle;
+	public int minLevelFallblockpuzzle;
+	public float chanceFallblockpuzzle;
+
+	public GameObject Laserroom;
+	public int minLevelLaserroom;
+	public float chanceLaserroom;
+
+	public GameObject Movingplatformroom;
+	public int minLevelMovingplatformroom;
+	public float chanceMovingplatformroom;
+
+	public GameObject Bossroom;
+	public int minLevelBossroom;
+	public float chanceBossroom;
+
+	public GameObject Treasureroom;
+	public int minLevelTreasureroom;
+	public float chanceTreasureroom;
+
 	public DungeonParameters[] dungeonParameters;
 
 	[Serializable]
@@ -71,6 +102,7 @@ public class DungeonData : MonoBehaviour {
 		public Enemies enemies;
 		public PowerUps powerUps;
         public Traps Traps;
+		public PuzzleRooms puzzleRooms;
 	}
 
 	[Serializable]
@@ -91,6 +123,7 @@ public class DungeonData : MonoBehaviour {
 		public PowerUp iceballWeapon;
 		public PowerUp piercingWeapon;
 		public PowerUp laserWeapon;
+		public PowerUp bloodWeapon;
 	}
 
 	[Serializable]
@@ -117,6 +150,25 @@ public class DungeonData : MonoBehaviour {
         public bool enabled;
         public float spawnChance;
     }
+
+	[Serializable]
+	public struct PuzzleRoom
+	{
+		public GameObject puzzleRoom;
+		public bool enabled;
+		public float spawnChance;
+	}
+
+	[Serializable]
+	public struct PuzzleRooms{
+		public PuzzleRoom Fliproom;
+		public PuzzleRoom Blockpuzzleroom;
+		public PuzzleRoom Fallblockpuzzle;
+		public PuzzleRoom Laserroom;
+		public PuzzleRoom Movingplatformroom;
+		public PuzzleRoom Bossroom;
+		public PuzzleRoom Treasureroom;
+	}
 
 
 	void Setup(){
@@ -153,6 +205,8 @@ public class DungeonData : MonoBehaviour {
 				DP.powerUps.piercingWeapon.enabled = true;
 			if (i >= minLevelLaserWeapon)
 				DP.powerUps.laserWeapon.enabled = true;
+			if (i >= minLevelBloodWeapon)
+				DP.powerUps.bloodWeapon.enabled = true;
             if (i >= minLevelSpidernest)
                 DP.Traps.spidernest.enabled = true;
             if (i >= minLevelWizardnest)
@@ -165,6 +219,20 @@ public class DungeonData : MonoBehaviour {
                 DP.Traps.wallrush.enabled = true;
             if (i >= minLevelShuriken)
                 DP.Traps.shuriken.enabled = true;
+			if (i >= minLevelFliproom)
+				DP.puzzleRooms.Fliproom.enabled = true;
+			if (i >= minLevelBlockpuzzleroom)
+				DP.puzzleRooms.Blockpuzzleroom.enabled = true;
+			if (i >= minLevelFallblockpuzzle)
+				DP.puzzleRooms.Fallblockpuzzle.enabled = true;
+			if (i >= minLevelLaserroom)
+				DP.puzzleRooms.Laserroom.enabled = true;
+			if (i >= minLevelMovingplatformroom)
+				DP.puzzleRooms.Movingplatformroom.enabled = true;
+			if (i >= minLevelBossroom)
+				DP.puzzleRooms.Bossroom.enabled = true;
+			if (i >= minLevelTreasureroom)
+				DP.puzzleRooms.Treasureroom.enabled = true;
 
             DP.powerUps.shield.spawnChance = chanceShield;
 			DP.powerUps.sticky.spawnChance = chanceSticky;
@@ -181,7 +249,20 @@ public class DungeonData : MonoBehaviour {
             DP.Traps.wallspikes.spawnChance = chanceWallspikes;
             DP.Traps.wallrush.spawnChance = chanceWallrush;
             DP.Traps.shuriken.spawnChance = chanceShuriken;
-
+			DP.puzzleRooms.Blockpuzzleroom.spawnChance = chanceBlockpuzzleroom;
+			DP.puzzleRooms.Blockpuzzleroom.puzzleRoom = Blockpuzzleroom;
+			DP.puzzleRooms.Fallblockpuzzle.spawnChance = chanceFallblockpuzzle;
+			DP.puzzleRooms.Fallblockpuzzle.puzzleRoom = Fallblockpuzzle;
+			DP.puzzleRooms.Laserroom.spawnChance = chanceLaserroom;
+			DP.puzzleRooms.Laserroom.puzzleRoom = Laserroom;
+			DP.puzzleRooms.Bossroom.spawnChance = chanceBossroom;
+			DP.puzzleRooms.Bossroom.puzzleRoom = Bossroom;
+			DP.puzzleRooms.Movingplatformroom.spawnChance = chanceMovingplatformroom;
+			DP.puzzleRooms.Movingplatformroom.puzzleRoom = Movingplatformroom;
+			DP.puzzleRooms.Fliproom.spawnChance = chanceFliproom;
+			DP.puzzleRooms.Fliproom.puzzleRoom = Fliproom;
+			DP.puzzleRooms.Treasureroom.spawnChance = chanceTreasureroom;
+			DP.puzzleRooms.Treasureroom.puzzleRoom = Treasureroom;
 
             DP.timeBetweenSpawns = 15f - spawnRateScaler * i;
 			if(DP.timeBetweenSpawns < 4f){

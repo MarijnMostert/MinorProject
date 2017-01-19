@@ -972,7 +972,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010005094228}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.6376905, y: -7.1405582, z: -1.6769505}
+  m_LocalPosition: {x: 3.911, y: -3.509, z: -3.427}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -1122,7 +1122,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012751484722}
-  m_Mesh: {fileID: 4300000, guid: 99f3454a8aae9e74db96e295607d5f58, type: 3}
+  m_Mesh: {fileID: 4300000, guid: ad5c16cb4f67447c0a9e4fa9068488c0, type: 3}
 --- !u!54 &54000013757574052
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -1335,6 +1335,8 @@ MonoBehaviour:
   cursorPointer: {fileID: 1000012601283098, guid: 23be7f98c9d1a496d96494fde28dc5f9,
     type: 2}
   playerColor: {r: 0, g: 0, b: 0, a: 0}
+  minimapIndicator: {fileID: 1000012989218980, guid: 5e599938041fd428c9b113d2de09d97f,
+    type: 2}
   playerIndicator: {fileID: 114000013056010426}
   mainCamera: {fileID: 0}
   playerNumber: 0
@@ -1399,6 +1401,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6df68c74eb180492c9883a66b5620ff6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  achievements: {fileID: 0}
   healthPickedUp: 0
   distanceTravelled: 0
   shotsFired: 0
@@ -1423,12 +1426,13 @@ MonoBehaviour:
   BodyLeftHalf: {fileID: 137000010302912536}
   Hat: {fileID: 23000010001443174}
   Staff: {fileID: 23000010666146262}
+  randomMaterial: {fileID: 2100000, guid: 14c54ce610a6f4cc5b79fac88de66d20, type: 2}
   originalMaterials:
-    clothing: {fileID: 0}
-    skin: {fileID: 0}
-    staff: {fileID: 0}
-    cape: {fileID: 0}
-    hat: {fileID: 0}
+    clothing: {fileID: 2100000, guid: 316c6f51246b3451bb144bae01487961, type: 2}
+    skin: {fileID: 2100000, guid: ed2669404a33449fb85ac89df9b97b2c, type: 2}
+    staff: {fileID: 2100000, guid: 5d3ea2f5567634b9d8c3fae8a021729d, type: 2}
+    cape: {fileID: 2100000, guid: 316c6f51246b3451bb144bae01487961, type: 2}
+    hat: {fileID: 2100000, guid: 316c6f51246b3451bb144bae01487961, type: 2}
 --- !u!114 &114000013056010426
 MonoBehaviour:
   m_ObjectHideFlags: 1

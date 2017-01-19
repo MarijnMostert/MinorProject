@@ -41,7 +41,7 @@ public class Spawner : MonoBehaviour {
 		if (Input.GetButtonDown (waveButton)) {
 			spawnWave ();
 		}
-		if (Input.GetKeyDown (KeyCode.M) && gameManager.getCheat()) {
+		if (Input.GetKeyDown (KeyCode.Comma) && gameManager.getCheat()) {
 			if (dead) {
 				dead = false;
 				Debug.Log ("Spawner has been turned on");
