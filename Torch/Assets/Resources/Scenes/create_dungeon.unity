@@ -622,6 +622,12 @@ GameObject:
   m_PrefabParentObject: {fileID: 1000013257568420, guid: 4ef94cea375ae45ff83b3370aa956b06,
     type: 2}
   m_PrefabInternal: {fileID: 1983581211}
+--- !u!114 &364256267 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114000011455718412, guid: 8e8fb98cee864437995eb9c0b0548acd,
+    type: 2}
+  m_PrefabInternal: {fileID: 1810587749}
+  m_Script: {fileID: 11500000, guid: b9f34bd335738a049be1228a838a0dcc, type: 3}
 --- !u!1 &401172508
 GameObject:
   m_ObjectHideFlags: 0
@@ -4812,6 +4818,11 @@ Prefab:
       propertyPath: highQualityItems.Array.data[2]
       value: 
       objectReference: {fileID: 350239402}
+    - target: {fileID: 114000012126162182, guid: 8e8fb98cee864437995eb9c0b0548acd,
+        type: 2}
+      propertyPath: achievements
+      value: 
+      objectReference: {fileID: 364256267}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8e8fb98cee864437995eb9c0b0548acd, type: 2}
   m_IsPrefabParent: 0
