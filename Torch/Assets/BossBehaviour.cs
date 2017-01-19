@@ -114,6 +114,7 @@ public class BossBehaviour : MonoBehaviour, IDamagable {
 					StopAllCoroutines ();
 					StartCoroutine (SpecialAttack ());
 				}
+
 			}
 			yield return new WaitForSeconds (1f);;
 		}
@@ -143,6 +144,7 @@ public class BossBehaviour : MonoBehaviour, IDamagable {
 	//set inactive
 	public void Die(){
 		dead = true;
+		gameManager.achievements.bossAchievement ();
 		gameManager.updateScore (scoreValue);
 		gameObject.GetComponentInParent<BossFight> ().ActivateLever ();
 		healthBar.SetActive (false);

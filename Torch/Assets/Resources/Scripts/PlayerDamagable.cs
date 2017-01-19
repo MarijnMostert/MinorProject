@@ -8,9 +8,10 @@ public class PlayerDamagable : MonoBehaviour, IDamagable {
 	void Start(){
 		gameManager = GameManager.Instance;
 	}
+
 	void Update(){
-		
 		if (transform.position.y < -12) {
+			gameManager.achievements.fallenAchievement ();
 			Respawn ();
 		}
 	}
@@ -22,6 +23,7 @@ public class PlayerDamagable : MonoBehaviour, IDamagable {
 			gameObject.GetComponentInChildren<Torch> ().takeDamage (damage, crit, source);
 		}
 	}
+
 	public void saveRespawnPosition(){
 		lastKnownPosition = transform.position;
 		gameManager.RespawnPosition = lastKnownPosition;
@@ -31,8 +33,10 @@ public class PlayerDamagable : MonoBehaviour, IDamagable {
 			player.transform.position = gameManager.RespawnPosition;
 		}
 	}
+
 	public void Die(){
 	}
+
 	public void Respawn(){
 		transform.position = gameManager.RespawnPosition;
 	}	

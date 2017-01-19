@@ -11,6 +11,23 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1000013248654356}
   m_IsPrefabParent: 1
+--- !u!1 &1000010028476016
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 4000011419773876}
+  - 23: {fileID: 23000012836785436}
+  - 33: {fileID: 33000012431982642}
+  m_Layer: 0
+  m_Name: Cat
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1000013248654356
 GameObject:
   m_ObjectHideFlags: 0
@@ -19,10 +36,9 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000012496389830}
-  - 33: {fileID: 33000012601259856}
-  - 23: {fileID: 23000014023432666}
   - 114: {fileID: 114000014133317018}
   - 114: {fileID: 114000012104565408}
+  - 114: {fileID: 114000011696044992}
   m_Layer: 0
   m_Name: Shop Cat
   m_TagString: Untagged
@@ -30,6 +46,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!4 &4000011419773876
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010028476016}
+  m_LocalRotation: {x: -0, y: -0.441357, z: -0, w: 0.89733166}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: -52.115, z: 0}
+  m_Children: []
+  m_Father: {fileID: 4000012496389830}
+  m_RootOrder: 0
 --- !u!4 &4000012496389830
 Transform:
   m_ObjectHideFlags: 1
@@ -37,18 +66,19 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013248654356}
   m_LocalRotation: {x: -0, y: 0.9539149, z: -0, w: -0.3000775}
-  m_LocalPosition: {x: 0.47588018, y: 3.45, z: -26.779146}
+  m_LocalPosition: {x: 1.212818, y: 0.4426751, z: -25.84095}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 35.674004, z: 0}
-  m_Children: []
+  m_Children:
+  - {fileID: 4000011419773876}
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!23 &23000014023432666
+--- !u!23 &23000012836785436
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013248654356}
+  m_GameObject: {fileID: 1000010028476016}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -62,7 +92,7 @@ MeshRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_PreserveUVs: 1
+  m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
   m_SelectedWireframeHidden: 0
@@ -72,13 +102,27 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
---- !u!33 &33000012601259856
+--- !u!33 &33000012431982642
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013248654356}
+  m_GameObject: {fileID: 1000010028476016}
   m_Mesh: {fileID: 4300000, guid: 7e86c3619207a9c429eec4db7f9983ad, type: 3}
+--- !u!114 &114000011696044992
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013248654356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62c1a05ddb15b47868649f23b8545cc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeedX: 0
+  rotationSpeedY: 5
+  rotationSpeedZ: 0
 --- !u!114 &114000012104565408
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -90,7 +134,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7af1b7cec75f24401a1cb849c63a7bc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: Luigi the Cat
+  itemName: Luigi the Cat
+  itemDescription: LASERCAT
   icon: {fileID: 21300000, guid: 12f7d87c4f67b4fa480d4742bb3456a4, type: 3}
   price: 700
   owned: 1
@@ -102,6 +147,7 @@ MonoBehaviour:
     type: 2}
   multiplier: 0
   addedMaxHealth: 0
+  skin: {fileID: 0}
 --- !u!114 &114000014133317018
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -115,7 +161,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hoverAmplitudeX: 0
   hoverSpeedX: 0
-  hoverAmplitudeY: 2
+  hoverAmplitudeY: 1
   hoverSpeedY: 2
   hoverAmplitudeZ: 0
   hoverSpeedZ: 0

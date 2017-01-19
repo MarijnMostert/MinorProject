@@ -34,10 +34,12 @@ public class DungeonData : MonoBehaviour {
 	public int minLevelIceballWeapon = 2;
 	public int minLevelPiercingWeapon = 7;
 	public int minLevelLaserWeapon = 13;
+	public int minLevelBloodWeapon = 16;
 
 	public float chanceIceball = 0.1f;
 	public float chancePiercing = 0.1f;
 	public float chanceLaser = 0.1f;
+	public float chanceBlood = 0.1f;
 
     [Header("- Minimum values traps")]
 	public float chanceForTrap = .1f;
@@ -121,6 +123,7 @@ public class DungeonData : MonoBehaviour {
 		public PowerUp iceballWeapon;
 		public PowerUp piercingWeapon;
 		public PowerUp laserWeapon;
+		public PowerUp bloodWeapon;
 	}
 
 	[Serializable]
@@ -202,6 +205,8 @@ public class DungeonData : MonoBehaviour {
 				DP.powerUps.piercingWeapon.enabled = true;
 			if (i >= minLevelLaserWeapon)
 				DP.powerUps.laserWeapon.enabled = true;
+			if (i >= minLevelBloodWeapon)
+				DP.powerUps.bloodWeapon.enabled = true;
             if (i >= minLevelSpidernest)
                 DP.Traps.spidernest.enabled = true;
             if (i >= minLevelWizardnest)

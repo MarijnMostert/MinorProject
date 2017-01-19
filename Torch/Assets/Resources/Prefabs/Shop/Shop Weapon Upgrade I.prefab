@@ -434,7 +434,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7af1b7cec75f24401a1cb849c63a7bc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: Weapon Upgrade I
+  itemName: Weapon Upgrade I
+  itemDescription: Increases your damage with 10%
   icon: {fileID: 21300000, guid: 837e99493b52549dc8b14d709f535eed, type: 3}
   price: 200
   owned: 0
@@ -445,6 +446,7 @@ MonoBehaviour:
   equippableObject: {fileID: 0}
   multiplier: 1.1
   addedMaxHealth: 0
+  skin: {fileID: 0}
 --- !u!114 &114000014050164566
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -456,7 +458,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7af1b7cec75f24401a1cb849c63a7bc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: Weapon Upgrade I
+  itemName: 
+  itemDescription: 
   icon: {fileID: 21300000, guid: 837e99493b52549dc8b14d709f535eed, type: 3}
   price: 100
   owned: 0
@@ -467,6 +470,7 @@ MonoBehaviour:
   equippableObject: {fileID: 0}
   multiplier: 0
   addedMaxHealth: 0
+  skin: {fileID: 0}
 --- !u!114 &114000014201223286
 MonoBehaviour:
   m_ObjectHideFlags: 1

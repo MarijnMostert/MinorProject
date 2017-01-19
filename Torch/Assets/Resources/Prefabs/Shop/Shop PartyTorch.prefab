@@ -306,7 +306,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7af1b7cec75f24401a1cb849c63a7bc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: Party Torch
+  itemName: Party Torch
+  itemDescription: "HOCH DIE H\xC4NDE!"
   icon: {fileID: 21300000, guid: 508e8a27b72524e509d2d4b3214fcddb, type: 3}
   price: 1000
   owned: 0
@@ -318,6 +319,7 @@ MonoBehaviour:
     type: 2}
   multiplier: 0
   addedMaxHealth: 0
+  skin: {fileID: 0}
 --- !u!136 &136000011271348770
 CapsuleCollider:
   m_ObjectHideFlags: 1

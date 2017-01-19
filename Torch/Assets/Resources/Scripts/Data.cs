@@ -6,7 +6,6 @@ using System.Collections.Generic;
 [System.Serializable]
 public class Data : MonoBehaviour {
 
-
 	[SerializeField] private GameManager gameManager;
 
 	[Header ("- Saved Data")]
@@ -34,13 +33,13 @@ public class Data : MonoBehaviour {
 	}
 
 	public void Load(){
-		shopItemsOwned = new bool[20];
-		shopItemsEquipped = new bool[20];
+		shopItemsOwned = new bool[50];
+		shopItemsEquipped = new bool[50];
 		for (int i = 0; i < shopItemsOwned.Length; i++) {
 			string strOwned = "shopItem" + i;
 			string strEquipped = "shopItemEquipped" + i;
 			shopItemsOwned [i] = intToBool(PlayerPrefs.GetInt (strOwned));
-			shopItemsEquipped[i] = intToBool(PlayerPrefs.GetInt(strEquipped));
+			shopItemsEquipped[i] = intToBool(PlayerPrefs.GetInt (strEquipped));
 		}
 		this.coins = PlayerPrefs.GetInt ("coins");
 		this.maxAchievedDungeonLevel = PlayerPrefs.GetInt ("dungeonLevel");
@@ -72,8 +71,8 @@ public class Data : MonoBehaviour {
 	}
 
 	public void ResetData(){
-		shopItemsOwned = new bool[20];
-		shopItemsEquipped = new bool[20];
+		shopItemsOwned = new bool[50];
+		shopItemsEquipped = new bool[50];
 		for (int i = 0; i < shopItemsOwned.Length; i++) {
 			string strOwned = "shopItem" + i;
 			PlayerPrefs.SetInt (strOwned, 0);
@@ -121,5 +120,7 @@ public class Data : MonoBehaviour {
 		}
 		highScoreScores.Add (score);
 		Debug.Log ("New highscore added: " + score + " : " + name);
+
+		GameManager.Instance.HighScoresPanel.GetComponentInChildren<HighScoresPanel> ().UpdateHighScores ();
 	}
 }

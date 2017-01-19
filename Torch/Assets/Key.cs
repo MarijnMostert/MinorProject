@@ -17,6 +17,8 @@ public class Key : AudioObject {
 		if (other.gameObject.CompareTag ("Player")) {
 			
 			gameManager.collectedKeys++;
+			gameManager.achievements.collectedKeys ();
+
 			Debug.Log ("Key number " + gameManager.collectedKeys + " out of " + gameManager.requiredCollectedKeys + " collected");
 
 			endPortal EndPortal = GameObject.FindGameObjectWithTag ("EndPortal").GetComponentInChildren<endPortal> ();
