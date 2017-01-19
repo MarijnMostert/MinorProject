@@ -21,7 +21,8 @@ public class ArenaManager : MonoBehaviour {
 	private ArenaCanvas arenaCanvas;
 	public GameObject chestPrefab;
 	private int counter;
-
+	private GameObject[] ArenaAreas;
+	private GameObject ArenaAreasParent;
 
 	void Start () {
 		gameManager = GetComponentInParent<GameManager> ();
@@ -36,6 +37,13 @@ public class ArenaManager : MonoBehaviour {
 
 	public void StartArena(){
 		ArenaStarted = true;
+		//find Arena Areas
+		ArenaAreasParent = GameObject.FindGameObjectWithTag ("ArenaArea");
+		Component[] ArenaAreaComponents = ArenaAreasParent.GetComponentsInChildren (typeof(ArenaArea), true);
+		ArenaAreas = new GameObject[ArenaAreaComponents.Length];
+		for(int i = 0; i < ArenaAreaComponents.Length; i++) {
+			ArenaAreas [i] = ArenaAreaComponents [i].gameObject;
+			}
 		StartCoroutine (ArenaMode ());
 	}
 
@@ -46,7 +54,7 @@ public class ArenaManager : MonoBehaviour {
 	IEnumerator ArenaMode(){
 		yield return new WaitForSeconds (timeBetweenRounds);
 		waveNumber++;
-		StartCoroutine(SpawnWave ());
+		StartCoroutine(AreaPicker());
 	}
 
 	IEnumerator SpawnWave(){
@@ -90,6 +98,7 @@ public class ArenaManager : MonoBehaviour {
 		if (counter == enemiesKilled.Length) {
 			Debug.Log ("Wave " + waveNumber + " cleared.");
 			arenaCanvas.WaveCleared (waveNumber);
+			//Turn off ArenaArea
 			StartCoroutine (BetweenRounds ());
 		}
 	}
@@ -105,7 +114,7 @@ public class ArenaManager : MonoBehaviour {
 		//Spawnchests
 		StartCoroutine(SpawnChests());
 		yield return new WaitForSeconds (10f);
-		StartCoroutine (SpawnWave ());
+		StartCoroutine (AreaPicker());
 	}
 
 	Vector3 GetValidSpawnPosition(float minSpawningDistance, float maxSpawningDistance){
@@ -130,5 +139,31 @@ public class ArenaManager : MonoBehaviour {
 			GameObject chest = Instantiate (chestPrefab, spawnPosition, Quaternion.Euler (new Vector3(-90f, Random.Range(0, 360), 0f))) as GameObject;
 			chest.GetComponent<Chest> ().SetUp (gameManager.dungeonData.dungeonParameters [waveNumber], null);
 		}
+	}
+
+	IEnumerator AreaPicker(){
+		//Pick a random area
+		GameObject ArenaAreaPicked = ArenaAreas [Random.Range (0, ArenaAreas.Length)];
+		//Turn on area boundaries
+		ArenaAreaPicked.SetActive(true);
+		if (!ArenaAreaPicked.activeInHierarchy) {
+			Debug.Log ("not activeInHierarchy");
+		} else {
+			Debug.Log ("activeInHierarchy");
+		}
+		if (!ArenaAreaPicked.activeSelf) {
+			Debug.Log ("not activeSelf");
+		} else {
+			Debug.Log ("activeSelf");
+		}
+		//Tell The player to move there GUI wise
+		Debug.Log("Go To "+ ArenaAreaPicked.GetComponent<ArenaArea>().AreaName);
+		//check for player being there
+		while (!ArenaAreaPicked.GetComponent<ArenaArea>().playerinarea) {
+			Debug.Log ("In while loop ArenaAreaPicked.GetComponent<ArenaArea>().playerinarea = "+ArenaAreaPicked.GetComponent<ArenaArea>().playerinarea);
+			yield return null;
+		}
+		//start wave
+		StartCoroutine(SpawnWave ());
 	}
 }
