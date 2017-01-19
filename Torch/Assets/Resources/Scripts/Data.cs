@@ -15,15 +15,41 @@ public class Data : MonoBehaviour {
 	public int coins;
 	public int maxAchievedDungeonLevel;
 	public bool highQuality;
-	public List<string> highScoreNames;
-	public List<int> highScoreScores;
 
 	[Header ("- Non-Saved Data")]
 	public int playerMaxHealth = 100;
 	public float playerDamageMultiplier = 1;
 	public Material[] playerSkin;
 
-	void Start(){
+    [Serializable]
+    public struct Highscore
+    {
+        public string id;
+        public int score;
+        public string name;
+        public DateTime date;
+    }
+
+    [Serializable]
+    public struct WWWHighscore
+    {
+        public Highscore[] Highscore;
+    }
+
+    [Serializable]
+    public class Highscores
+    {
+        public List<Highscore> highscore;
+        public Highscores() { }
+        public Highscores(List<Highscore> highscore)
+        {
+            this.highscore = highscore;
+        }
+    }
+
+    public Highscores highscores;
+
+    void Start(){
 		playerSkin = new Material[4];
 	}
 
@@ -33,7 +59,23 @@ public class Data : MonoBehaviour {
 		}
 	}
 
-	public void Load(){
+    public class JsonHelper
+    {
+        public static T[] getJsonArray<T>(string json)
+        {
+            string newJson = "{ \"array\": " + json + "}";
+            Wrapper<T> wrapper = JsonUtility.FromJson<Wrapper<T>>(newJson);
+            return wrapper.array;
+        }
+
+        [Serializable]
+        private class Wrapper<T>
+        {
+            public T[] array;
+        }
+    }
+
+    public void Load(){
 		shopItemsOwned = new bool[20];
 		shopItemsEquipped = new bool[20];
 		for (int i = 0; i < shopItemsOwned.Length; i++) {
@@ -47,11 +89,11 @@ public class Data : MonoBehaviour {
 		if (maxAchievedDungeonLevel == 0)
 			maxAchievedDungeonLevel = 1;
 		this.highQuality = intToBool(PlayerPrefs.GetInt ("highQuality"));
-		highScoreNames = new List<string> ();
-		highScoreNames = Serializer.Load<List<string>> ("highScoresNames.txt");
-		highScoreScores = new List<int> ();
-		highScoreScores = Serializer.Load<List<int>> ("highScores.txt");
+        highscores = new Highscores();
+        string jsonDataString = Serializer.Load<string>("highScores.txt");
+        highscores = JsonUtility.FromJson<Highscores>(jsonDataString);
 
+        server_communication();
 		Debug.Log ("Loaded data succesfully");
 	}
 
@@ -65,8 +107,7 @@ public class Data : MonoBehaviour {
 		PlayerPrefs.SetInt ("coins", coins);
 		PlayerPrefs.SetInt ("dungeonLevel", maxAchievedDungeonLevel);
 		PlayerPrefs.SetInt ("highQuality", boolToInt(highQuality));
-		Serializer.Save<List<string>> ("highScoresNames.txt", highScoreNames);
-		Serializer.Save<List<int>> ("highScores.txt", highScoreScores);
+		Serializer.Save<string> ("highScores.txt", JsonUtility.ToJson(highscores));
 
 		Debug.Log ("Saved data succesfully");
 	}
@@ -112,14 +153,45 @@ public class Data : MonoBehaviour {
 	}
 
 	public void SaveHighScore(int score, string name){
-		if (highScoreNames == null) {
-			highScoreNames = new List<string> ();
-		}
-		highScoreNames.Add (name);
-		if (highScoreScores == null) {
-			highScoreScores = new List<int> ();
-		}
-		highScoreScores.Add (score);
-		Debug.Log ("New highscore added: " + score + " : " + name);
+        instantiateHighscores();
+        Highscore new_score = new Highscore();
+        new_score.name = name;
+        new_score.score = score;
+        new_score.date = DateTime.Now;
+
+        highscores.highscore.Add(new_score);
+        Debug.Log ("New highscore added: " + score + " : " + name);
 	}
+
+    void server_communication()
+    {
+        WWW website = new WWW("https://insyprojects.ewi.tudelft.nl/ewi3620tu1/unity/scores.php");
+        StartCoroutine(getWWWData(website));
+    }
+
+    IEnumerator getWWWData(WWW website)
+    {
+        yield return website;
+
+        if(website.error == null)
+        {
+            Debug.Log("WWW Ok!: " + website.text);
+            WWWHighscore wwwData = JsonUtility.FromJson<WWWHighscore>(website.text);
+            //Highscore[] wwwData = JsonHelper.getJsonArray<Highscore>(website.text);
+            Debug.Log(wwwData);
+            Debug.Log(wwwData.Highscore.Length);
+        }
+        else
+        {
+            Debug.Log("WWW Error: " + website.error);
+        }
+    }
+
+    void instantiateHighscores()
+    {            
+        if(highscores.highscore == null)
+        {
+            highscores.highscore = new List<Highscore>();
+        }
+    }
 }
