@@ -1,12 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Achievements : MonoBehaviour {
 
 	// // // // // // // // // Scripts to steal from
 	public GameManager gameManager;
-	public PlayerData playerData;
-	public Data data;
+	public Canvas Acanvas;
+	public Text Atext;
+	public Image Aimage;
+
+	public bool AchievenmentTest;
 
 	// // // // // // // // // Achievements
 	public bool tutorial_done;
@@ -34,18 +38,24 @@ public class Achievements : MonoBehaviour {
 	public bool levels_30;
 	public bool levels_40;
 
-	public int spidersKilled;
-	public int minotaurKilled;
-	public int ghostsKilled;
-	public int bomberKilled;
+	int spidersKilled;
+	int minotaurKilled;
+	int ghostsKilled;
+	int bomberKilled;
+	int timesfallen;
+	int timesdied;
+	int totalcollectedkeys;
+	int totalpowerupsused;
 
-	public int timesfallen;
-	public int timesdied;
-	public int totalcollectedkeys;
-	public int totalpowerupsused;
+	public Vector2  hiddenTarget;
+	public Vector2 shownTarget;
+	Vector2 target;
+	Vector2 damping;
 
 	// // // // // // // // // Reset
 	void Awake () {
+		AchievenmentTest = false;
+
 		tutorial_done = false;			//x doet het!
 		spidernest_destroyed = false;	//x doet het!
 		wizarnest_destroyed = false;	//x
@@ -71,19 +81,33 @@ public class Achievements : MonoBehaviour {
 		levels_30 = false;				//x works
 		levels_40 = false;				//x works
 
-		spidersKilled = 0;
-		minotaurKilled = 0;
-		ghostsKilled = 0;
-		bomberKilled = 0;
-
 		timesfallen = 0;
 		timesdied = 0;
 		totalcollectedkeys = 0;
 		totalpowerupsused = 0;
+
+		target = hiddenTarget;
+	}
+
+	void Update () {
+		if (Input.GetKey ("x")) {
+			NewAchievement ("test");
+		}
+		Aimage.rectTransform.anchoredPosition = Vector2.MoveTowards (Aimage.rectTransform.anchoredPosition, target, 5);
 	}
 
 	public void NewAchievement (string text) {
 		Debug.Log("New Achievement: " + text);
+		Atext.text = "New Achievement: " + text;
+		StartCoroutine ("WaitSecs");
+	}
+
+	IEnumerator WaitSecs () {
+		target = shownTarget;
+
+		yield return new WaitForSeconds (2);
+
+		target = hiddenTarget;
 	}
 
 	public void diedAchievement() {
