@@ -110,4 +110,14 @@ public class PlayerManager {
 			img.gameObject.SetActive (Enable);
 		}
 	}
+
+	public void SetPlayerColor(Color color){
+		playerColor = color;
+		if (GameManager.Instance.uiInventory != null) {
+			GameManager.Instance.uiInventory.SetColor (playerNumber, playerColor);
+		}
+		if (playerMovement != null) {
+			playerMovement.SetColor (playerColor);
+		}
+	}
 }

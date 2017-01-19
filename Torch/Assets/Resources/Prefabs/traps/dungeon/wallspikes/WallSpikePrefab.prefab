@@ -138,7 +138,6 @@ GameObject:
   - 4: {fileID: 4000013109654314}
   - 33: {fileID: 33000011205246162}
   - 23: {fileID: 23000013177869064}
-  - 114: {fileID: 114000010834351632}
   - 114: {fileID: 114000010237490016}
   m_Layer: 0
   m_Name: wallspike (4)
@@ -206,7 +205,6 @@ GameObject:
   - 4: {fileID: 4000011609171646}
   - 33: {fileID: 33000012363541728}
   - 23: {fileID: 23000011121114342}
-  - 114: {fileID: 114000014152688306}
   - 114: {fileID: 114000013033137922}
   m_Layer: 0
   m_Name: wallspike (1)
@@ -259,7 +257,6 @@ GameObject:
   - 4: {fileID: 4000011899820366}
   - 33: {fileID: 33000010826976448}
   - 23: {fileID: 23000012315284382}
-  - 114: {fileID: 114000010836376144}
   - 114: {fileID: 114000010930506672}
   m_Layer: 0
   m_Name: wallspike (2)
@@ -293,7 +290,6 @@ GameObject:
   - 4: {fileID: 4000012707755272}
   - 33: {fileID: 33000011835967496}
   - 23: {fileID: 23000012678298554}
-  - 114: {fileID: 114000014017279064}
   - 114: {fileID: 114000010797093446}
   m_Layer: 0
   m_Name: wallspike (3)
@@ -344,7 +340,6 @@ GameObject:
   - 4: {fileID: 4000010943499754}
   - 33: {fileID: 33000013455310600}
   - 23: {fileID: 23000010023765210}
-  - 114: {fileID: 114000011090483106}
   - 114: {fileID: 114000010110576878}
   m_Layer: 0
   m_Name: wallspike
@@ -1138,28 +1133,6 @@ MonoBehaviour:
   startMarker: {fileID: 1000011655522670}
   endMarker: {fileID: 1000014283851434}
   speed: 15
---- !u!114 &114000010834351632
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011542658526}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ee7d7c21985e9d42ab556d40a7fdbb9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114000010836376144
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013043938884}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ee7d7c21985e9d42ab556d40a7fdbb9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114000010930506672
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1175,17 +1148,6 @@ MonoBehaviour:
   startMarker: {fileID: 1000010477465888}
   endMarker: {fileID: 1000010668844594}
   speed: 15
---- !u!114 &114000011090483106
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000014207208884}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ee7d7c21985e9d42ab556d40a7fdbb9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114000011559970932
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1266,28 +1228,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeBetweenDamage: 1
   damage: 15
---- !u!114 &114000014017279064
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013775856772}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ee7d7c21985e9d42ab556d40a7fdbb9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114000014152688306
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012680007348}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ee7d7c21985e9d42ab556d40a7fdbb9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114000014252269596
 MonoBehaviour:
   m_ObjectHideFlags: 1

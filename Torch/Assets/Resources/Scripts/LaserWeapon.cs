@@ -59,7 +59,9 @@ public class LaserWeapon : Weapon {
 					}
 					if (hit.collider.gameObject.CompareTag ("Enemy") || hit.collider.gameObject.CompareTag ("Boss")) {
 						hit.collider.gameObject.GetComponent<IDamagable> ().takeDamage (damage, crit, gameObject);
-						playerData.IncrementShotsLanded ();
+						if (playerData != null) {
+							playerData.IncrementShotsLanded ();
+						}
 					}
 				} 
 				if (hit.collider.gameObject.CompareTag ("Target")) {

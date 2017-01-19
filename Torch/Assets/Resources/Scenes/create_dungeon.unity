@@ -198,6 +198,38 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 4000011199237306, guid: 0d75b378b9e7442b99096e54c7987653, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0.56543666
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000011199237306, guid: 0d75b378b9e7442b99096e54c7987653, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0.449015
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000011199237306, guid: 0d75b378b9e7442b99096e54c7987653, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0.37040818
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000011199237306, guid: 0d75b378b9e7442b99096e54c7987653, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.58434975
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000014163044602, guid: 0d75b378b9e7442b99096e54c7987653, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0.5206691
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000014163044602, guid: 0d75b378b9e7442b99096e54c7987653, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0.4856368
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000014163044602, guid: 0d75b378b9e7442b99096e54c7987653, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: -0.51664925
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000014163044602, guid: 0d75b378b9e7442b99096e54c7987653, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.47553575
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0d75b378b9e7442b99096e54c7987653, type: 2}
   m_IsPrefabParent: 0
@@ -4208,6 +4240,7 @@ MonoBehaviour:
   maximalheight: 2.5
   rotateSpeed: 5
   walkingSpeed: 5
+  smoothing: 0.3
 --- !u!1 &1299199094
 GameObject:
   m_ObjectHideFlags: 0
@@ -6685,12 +6718,7 @@ Prefab:
       propertyPath: m_RootOrder
       value: 8
       objectReference: {fileID: 0}
-    - target: {fileID: 114000014249537938, guid: 4ef94cea375ae45ff83b3370aa956b06,
-        type: 2}
-      propertyPath: homescreencam
-      value: 
-      objectReference: {fileID: 1283881149}
-    - target: {fileID: 114000011086335182, guid: 4ef94cea375ae45ff83b3370aa956b06,
+    - target: {fileID: 114000013541569476, guid: 4ef94cea375ae45ff83b3370aa956b06,
         type: 2}
       propertyPath: homescreencam
       value: 
@@ -6700,7 +6728,12 @@ Prefab:
       propertyPath: homescreencam
       value: 
       objectReference: {fileID: 1283881149}
-    - target: {fileID: 114000013541569476, guid: 4ef94cea375ae45ff83b3370aa956b06,
+    - target: {fileID: 114000011086335182, guid: 4ef94cea375ae45ff83b3370aa956b06,
+        type: 2}
+      propertyPath: homescreencam
+      value: 
+      objectReference: {fileID: 1283881149}
+    - target: {fileID: 114000014249537938, guid: 4ef94cea375ae45ff83b3370aa956b06,
         type: 2}
       propertyPath: homescreencam
       value: 

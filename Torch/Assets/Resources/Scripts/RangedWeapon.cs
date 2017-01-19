@@ -6,7 +6,6 @@ public class RangedWeapon : Weapon {
 
 	public float cooldown;
 	public Projectile projectile;
-	public int poolObjectIndex;
 	public float projectileSpeed;
 
 	private float lastFireTime;

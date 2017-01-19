@@ -14,6 +14,7 @@ public class puzzleDoors : MonoBehaviour {
 	private float StartTime;
 	public GameObject key;
 	public GameObject MagicWall;
+	private CameraController camController;
 
 	// Use this for initialization
 	void Start () {
@@ -21,6 +22,8 @@ public class puzzleDoors : MonoBehaviour {
 		gameManager = GameManager.Instance;
 		MagicWall = Instantiate (MagicWall, transform.position, transform.rotation, transform) as GameObject;
 		MagicWall.SetActive (false);
+		camController = gameManager.mainCamera.GetComponentInChildren<CameraController> ();
+		//camController.transform.parent.position;
 	}
 
 	void Update () {
@@ -42,6 +45,7 @@ public class puzzleDoors : MonoBehaviour {
 			gameManager.Roomtype = RoomType;
 			gameManager.WritePuzzleStart ();
 			locked = true;
+			camController.ActivatePuzzleCam(transform);
 			PlayerDamagable playerDamagableScript = other.gameObject.GetComponentInChildren<PlayerDamagable>();
 			playerDamagableScript.saveRespawnPosition ();
 		}
@@ -72,6 +76,8 @@ public class puzzleDoors : MonoBehaviour {
 		gameManager.spawner.activated = true;
 		gameManager.WritePuzzleComplete (Time.time - StartTime);
 		gameManager.Roomtype = null;
+
+		camController.DeactivatePuzzleCam();
 
 		//Instantiate a key
 		Vector3 keyPosition = transform.position + new Vector3(0f, 1f, 0f);

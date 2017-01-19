@@ -32,6 +32,35 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1000013657230056
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 4000012969327286}
+  - 114: {fileID: 114000011455718412}
+  m_Layer: 0
+  m_Name: Arena Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4000012969327286
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013657230056}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 4000013396432608}
+  m_RootOrder: 0
 --- !u!4 &4000013396432608
 Transform:
   m_ObjectHideFlags: 1
@@ -42,7 +71,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_Children: []
+  m_Children:
+  - {fileID: 4000012969327286}
   m_Father: {fileID: 0}
   m_RootOrder: 0
 --- !u!82 &82000010765992802
@@ -195,7 +225,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!114 &114000011697331252
+--- !u!114 &114000011455718412
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -237,6 +267,29 @@ MonoBehaviour:
   bomberKilled: 0
   timesfallen: 0
   timesdied: 0
+  m_GameObject: {fileID: 1000013657230056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc64c530a6c9b4a58b8f650ad3db859a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeBetweenRounds: 5
+  enemiesToSpawn:
+  - {fileID: 114000012613288934, guid: 7dc7f555e80424c11ba0ea614e084e4f, type: 2}
+  - {fileID: 114000012270521080, guid: 83f910f616c45234eb6bd5f0d5b50775, type: 2}
+  - {fileID: 114000012585250292, guid: 61cb62caa4a78134c8e4de355997cb1c, type: 2}
+  - {fileID: 114000012671087812, guid: e5b9d8e23e2413b44bae87c7a7293d25, type: 2}
+  numberOfEnemiesSpawnTogether: 0100000002000000
+  enemiesPerWave: 10
+  maxSpawningDistanceEnemy: 12
+  minSpawningDistanceEnemy: 10
+  maxSpawningDistanceChest: 5
+  minSpawningDistanceChest: 2
+  enemiesKilled: 
+  arenaCanvasPrefab: {fileID: 114000013086831868, guid: 2dc950523c5014cb7bd6850039d6bbd8,
+    type: 2}
+  chestPrefab: {fileID: 1000010346143806, guid: 72f8fe9cd4ffe43f1b35c8e9fa7e8a37,
+    type: 2}
 --- !u!114 &114000011838373320
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -285,6 +338,31 @@ MonoBehaviour:
   chanceWallspikes: 1
   chanceWallrush: 1
   chanceShuriken: 1
+  Fliproom: {fileID: 1000011832919986, guid: fb219ecc626f53d498ba9b7b66e404be, type: 2}
+  minLevelFliproom: 8
+  chanceFliproom: 1
+  Blockpuzzleroom: {fileID: 1000011553212682, guid: eb740adea754c4786b778353d8c564d7,
+    type: 2}
+  minLevelBlockpuzzleroom: 10
+  chanceBlockpuzzleroom: 1
+  Fallblockpuzzle: {fileID: 1000013095267004, guid: 5288fcd4fb05339498a5d9c9dc49a76c,
+    type: 2}
+  minLevelFallblockpuzzle: 4
+  chanceFallblockpuzzle: 1
+  Laserroom: {fileID: 1000010173967298, guid: e72c1f558cafdfb4d8814a1f26d633dc, type: 2}
+  minLevelLaserroom: 12
+  chanceLaserroom: 1
+  Movingplatformroom: {fileID: 1000013309580604, guid: 64a22ead90fa46542b9274c81372775a,
+    type: 2}
+  minLevelMovingplatformroom: 1
+  chanceMovingplatformroom: 1
+  Bossroom: {fileID: 1000010275947170, guid: 2c69b9685e818ec4f810ceb0a5e12c7d, type: 2}
+  minLevelBossroom: 5
+  chanceBossroom: 0.3
+  Treasureroom: {fileID: 1000011553212682, guid: da7c3fdde8fec46cb8623911d3a77e41,
+    type: 2}
+  minLevelTreasureroom: 1
+  chanceTreasureroom: 0.05
   dungeonParameters: []
 --- !u!114 &114000012126162182
 MonoBehaviour:
@@ -337,6 +415,8 @@ MonoBehaviour:
   torchPrefab: {fileID: 114000010962005414, guid: 86f8871f16b6e4321a072873febde5a7,
     type: 2}
   torch: {fileID: 0}
+  torchMinimapIndicator: {fileID: 1000012989218980, guid: c51f5dbe0ad114f689ffa214d32dc0d1,
+    type: 2}
   torchSpawnPoint: {fileID: 4000010238434374, guid: d3153958a3d7d461c86548c1a70ff1bb,
     type: 2}
   torchStartingHealth: 100
@@ -356,13 +436,6 @@ MonoBehaviour:
   UIPrefab: {fileID: 114000014270163232, guid: ce12bf815c9354cd38ffdb78d7b15e2b, type: 2}
   ui: {fileID: 0}
   uiInventory: {fileID: 0}
-  PuzzleRooms:
-  - {fileID: 1000010275947170, guid: 2c69b9685e818ec4f810ceb0a5e12c7d, type: 2}
-  - {fileID: 1000013095267004, guid: 5288fcd4fb05339498a5d9c9dc49a76c, type: 2}
-  - {fileID: 1000013309580604, guid: 64a22ead90fa46542b9274c81372775a, type: 2}
-  - {fileID: 1000010173967298, guid: e72c1f558cafdfb4d8814a1f26d633dc, type: 2}
-  - {fileID: 1000011832919986, guid: fb219ecc626f53d498ba9b7b66e404be, type: 2}
-  - {fileID: 1000011553212682, guid: eb740adea754c4786b778353d8c564d7, type: 2}
   TorchFOVPrefab: {fileID: 1000011320308738, guid: b5c950376b24a4029afee84b9656c78b,
     type: 2}
   spawner: {fileID: 0}
@@ -390,6 +463,10 @@ MonoBehaviour:
   tutorialPrefab: {fileID: 1000012528916838, guid: 7c4d6b04a031b484cb4f65bb64d744fa,
     type: 2}
   tutorialTorchPrefab: {fileID: 1000013673994516, guid: 86f8871f16b6e4321a072873febde5a7,
+    type: 2}
+  arenaPrefab: {fileID: 1000012353438950, guid: ccc0d4a945f29a1458f7ee45436e069e,
+    type: 2}
+  arenaTorchPrefab: {fileID: 1000013673994516, guid: 86f8871f16b6e4321a072873febde5a7,
     type: 2}
   audioSourceMusic: {fileID: 82000010765992802}
   audioSourceUI: {fileID: 82000013135790204}
@@ -419,12 +496,17 @@ MonoBehaviour:
   collectedKeys: 0
   requiredCollectedKeys: 0
   Pet: {fileID: 1000010787105900, guid: 34e435e0d20414bb0ad3cd7e62be2d41, type: 2}
+  Bold: {fileID: 1000010787105900, guid: 34e435e0d20414bb0ad3cd7e62be2d41, type: 2}
   shopPrefab: {fileID: 114000012952452066, guid: e7fffa677a1ce4c29bfc10128f43efa3,
     type: 2}
   highQualityItems:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+<<<<<<< HEAD
+=======
+  arenaManager: {fileID: 0}
+>>>>>>> master
   numberOfPlayers: 1
 --- !u!114 &114000013406591320
 MonoBehaviour:

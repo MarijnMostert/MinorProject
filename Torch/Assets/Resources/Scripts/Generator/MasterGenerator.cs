@@ -28,7 +28,7 @@ public class MasterGenerator : Object {
 	int[,] endMaze;
 
 	public MasterGenerator(GameObject game_manager, DungeonData.DungeonParameters dungeonParameters, int radius, int maxlength, 
-		int timeout, List<GameObject> puzzleRooms)
+		int timeout)
     {
 		this.dungeonParameters = dungeonParameters;
         this.game_manager = game_manager;
@@ -60,7 +60,7 @@ public class MasterGenerator : Object {
                                                                         roof, block, trap_straight, trap_crossing, trap_box,
                                                                         portal, end_portal, player, game_manager, spawner, torch, 
                                                                         cam, pointer, chest, coin, fireball, iceball, health, mazeSize, 
-                                                                        laser, shieldPickUp, stickyPickUp, roofGroup, wallPickUp, puzzleRooms,
+                                                                        laser, shieldPickUp, stickyPickUp, roofGroup, wallPickUp,
                                                                         wallTorch, piercingWeapon, bombPickUp, spidernest, wizardnest, wallspikes, 
                                                                         spikes, shuriken, wallrush, stardustParticles, moondustParticles, decoyPickUp);
 
