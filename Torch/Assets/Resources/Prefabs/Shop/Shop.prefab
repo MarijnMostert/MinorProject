@@ -1366,6 +1366,9 @@ MonoBehaviour:
   - {fileID: 114000011318636990, guid: 003965f67a505428abb58fb3dea72fa7, type: 2}
   - {fileID: 114000011318636990, guid: 15d0befddea2149eba5e065ff56b2e94, type: 2}
   - {fileID: 114000011318636990, guid: 207053a44f08b4895ba9d001b5cdaecb, type: 2}
+  - {fileID: 114000011318636990, guid: b39ddb681c2cc774e985ec1a26419faf, type: 2}
+  - {fileID: 114000011318636990, guid: b39ddb681c2cc774e985ec1a26419faf, type: 2}
+  - {fileID: 114000011318636990, guid: b39ddb681c2cc774e985ec1a26419faf, type: 2}
   activeItem: {fileID: 0}
   coinsToSpend: {fileID: 114000014147068920}
   BuyButton: {fileID: 1000010745299922}
@@ -1608,7 +1611,7 @@ ParticleSystem:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011461793566}
-  serializedVersion: 2
+  serializedVersion: 4
   lengthInSec: 0.7
   startDelay:
     scalar: 0
@@ -1646,12 +1649,13 @@ ParticleSystem:
       m_RotationOrder: 4
     minMaxState: 0
   speed: 1
-  randomSeed: 63433504
   looping: 0
   prewarm: 0
   playOnAwake: 1
   moveWithTransform: 1
+  autoRandomSeed: 0
   scalingMode: 1
+  randomSeed: 63433504
   InitialModule:
     serializedVersion: 2
     enabled: 1

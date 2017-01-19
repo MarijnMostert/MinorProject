@@ -144,7 +144,7 @@ public class Shop : MonoBehaviour {
 	}
 
 	public void EquipActives(){
-		for (int i = 0; i < GameManager.Instance.data.shopItemsEquipped.Length; i++) {
+		for (int i = 0; i < itemsToBuy.Length; i++) {
 			if (GameManager.Instance.data.shopItemsEquipped[i]) {
 				itemsToBuy [i].Equip (i);
 			}
