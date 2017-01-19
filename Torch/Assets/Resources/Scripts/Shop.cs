@@ -19,6 +19,7 @@ public class Shop : MonoBehaviour {
 	public GameObject InterfacePanelPrefab;
 
 	public Text itemText;
+	public Text descriptionText;
 
 	void Start () {
 		if (gameManager == null) {
@@ -42,13 +43,8 @@ public class Shop : MonoBehaviour {
 		}
 
 		//Set first item to active
-		activeIndex = 0;
-		itemsToBuy[activeIndex].gameObject.SetActive (true);
-
-		//Set the buybutton active on default and the equipbutton inactive.
-		BuyButton.SetActive (!gameManager.data.shopItemsOwned[activeIndex]);
-		SetBuyButtonText ();
-		EquipButton.SetActive (gameManager.data.shopItemsOwned[activeIndex]);
+		activeIndex = 1;
+		SetItemActive (0);
 
 		EquipActives ();
 	}
@@ -88,7 +84,8 @@ public class Shop : MonoBehaviour {
 			SetBuyButtonText ();
 			EquipButton.SetActive (gameManager.data.shopItemsOwned [itemNumber]);
 
-			itemText.text = itemsToBuy[activeIndex].name;
+			itemText.text = itemsToBuy[activeIndex].itemName;
+			descriptionText.text = itemsToBuy [activeIndex].itemDescription;
 		}
 	}
 
@@ -144,7 +141,7 @@ public class Shop : MonoBehaviour {
 	}
 
 	public void EquipActives(){
-		for (int i = 0; i < GameManager.Instance.data.shopItemsEquipped.Length; i++) {
+		for (int i = 0; i < itemsToBuy.Length; i++) {
 			if (GameManager.Instance.data.shopItemsEquipped[i]) {
 				itemsToBuy [i].Equip (i);
 			}

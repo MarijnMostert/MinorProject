@@ -127,7 +127,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7af1b7cec75f24401a1cb849c63a7bc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: Cold
+  itemName: Cold
+  itemDescription: really.....
   icon: {fileID: 21300000, guid: 26b706cf1e1b349ed8ab484d0f67dbe6, type: 3}
   price: 2000
   owned: 0
@@ -139,6 +140,7 @@ MonoBehaviour:
     type: 2}
   multiplier: 0
   addedMaxHealth: 0
+  skin: {fileID: 0}
 --- !u!114 &114000012854432128
 MonoBehaviour:
   m_ObjectHideFlags: 1

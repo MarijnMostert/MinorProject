@@ -4,7 +4,8 @@ using System.Collections;
 
 public class BuyableItem : MonoBehaviour {
 
-	public string name;
+	public string itemName;
+	public string itemDescription;
 	public Sprite icon;
 	public int price;
 	public bool owned;

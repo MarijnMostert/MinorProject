@@ -11,6 +11,23 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1000011214454554}
   m_IsPrefabParent: 1
+--- !u!1 &1000010651475608
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 4000010369244282}
+  - 23: {fileID: 23000011314196640}
+  - 33: {fileID: 33000010008500360}
+  m_Layer: 0
+  m_Name: Cape (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1000011214454554
 GameObject:
   m_ObjectHideFlags: 0
@@ -19,8 +36,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000013504860154}
-  - 33: {fileID: 33000010625999164}
-  - 23: {fileID: 23000013140526754}
   - 114: {fileID: 114000012854432128}
   - 114: {fileID: 114000011318636990}
   - 114: {fileID: 114000012070803800}
@@ -31,6 +46,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!4 &4000010369244282
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010651475608}
+  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 7.000018, y: 7.000013, z: 7.0000153}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 4000013504860154}
+  m_RootOrder: 0
 --- !u!4 &4000013504860154
 Transform:
   m_ObjectHideFlags: 1
@@ -41,15 +69,16 @@ Transform:
   m_LocalPosition: {x: 0.47588018, y: 3.45, z: -26.779146}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_LocalEulerAnglesHint: {x: 0, y: 35.674004, z: 0}
-  m_Children: []
+  m_Children:
+  - {fileID: 4000010369244282}
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!23 &23000013140526754
+--- !u!23 &23000011314196640
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011214454554}
+  m_GameObject: {fileID: 1000010651475608}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -58,12 +87,15 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_Materials:
   - {fileID: 2100000, guid: d6227ea72df664fd5b8b18934ef854ec, type: 2}
+  - {fileID: 2100000, guid: b43f5bbd9d33d4319985ceb45a32b401, type: 2}
+  - {fileID: 2100000, guid: b43f5bbd9d33d4319985ceb45a32b401, type: 2}
+  - {fileID: 2100000, guid: b43f5bbd9d33d4319985ceb45a32b401, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
-  m_PreserveUVs: 1
+  m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
   m_SelectedWireframeHidden: 0
@@ -73,13 +105,13 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
---- !u!33 &33000010625999164
+--- !u!33 &33000010008500360
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011214454554}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  m_GameObject: {fileID: 1000010651475608}
+  m_Mesh: {fileID: 4300000, guid: a1ec367cabe634b6e9341f09f78e0f73, type: 3}
 --- !u!114 &114000011318636990
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -91,8 +123,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7af1b7cec75f24401a1cb849c63a7bc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: CapeSkin Lava
-  icon: {fileID: 21300000, guid: b925c527362954cd3aa6009bf9c71a7f, type: 3}
+  itemName: CapeSkin Lava
+  itemDescription: Feeling hot hot hot
+  icon: {fileID: 21300000, guid: d6471640beed24900affe57b9c600d1a, type: 3}
   price: 500
   owned: 0
   equipped: 0
@@ -115,7 +148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeedX: 0
-  rotationSpeedY: 3
+  rotationSpeedY: 5
   rotationSpeedZ: 0
 --- !u!114 &114000012854432128
 MonoBehaviour:
@@ -130,7 +163,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hoverAmplitudeX: 0
   hoverSpeedX: 0
-  hoverAmplitudeY: 2
+  hoverAmplitudeY: 1
   hoverSpeedY: 2
   hoverAmplitudeZ: 0
   hoverSpeedZ: 0

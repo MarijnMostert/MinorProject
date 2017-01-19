@@ -34,8 +34,8 @@ public class Data : MonoBehaviour {
 	}
 
 	public void Load(){
-		shopItemsOwned = new bool[20];
-		shopItemsEquipped = new bool[20];
+		shopItemsOwned = new bool[50];
+		shopItemsEquipped = new bool[50];
 		for (int i = 0; i < shopItemsOwned.Length; i++) {
 			string strOwned = "shopItem" + i;
 			string strEquipped = "shopItemEquipped" + i;
@@ -72,8 +72,8 @@ public class Data : MonoBehaviour {
 	}
 
 	public void ResetData(){
-		shopItemsOwned = new bool[20];
-		shopItemsEquipped = new bool[20];
+		shopItemsOwned = new bool[50];
+		shopItemsEquipped = new bool[50];
 		for (int i = 0; i < shopItemsOwned.Length; i++) {
 			string strOwned = "shopItem" + i;
 			PlayerPrefs.SetInt (strOwned, 0);
@@ -121,5 +121,7 @@ public class Data : MonoBehaviour {
 		}
 		highScoreScores.Add (score);
 		Debug.Log ("New highscore added: " + score + " : " + name);
+
+		GameManager.Instance.HighScoresPanel.GetComponentInChildren<HighScoresPanel> ().UpdateHighScores ();
 	}
 }

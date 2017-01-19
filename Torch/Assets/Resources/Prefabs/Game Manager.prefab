@@ -281,12 +281,14 @@ MonoBehaviour:
   chanceWall: 0.2
   chanceBomb: 0.2
   chanceDecoy: 0.2
-  minLevelIceballWeapon: 7
+  minLevelIceballWeapon: 9
   minLevelPiercingWeapon: 3
   minLevelLaserWeapon: 13
+  minLevelBloodWeapon: 7
   chanceIceball: 0.1
   chancePiercing: 0.1
   chanceLaser: 0.1
+  chanceBlood: 0.1
   chanceForTrap: 0.1
   minLevelSpidernest: 2
   minLevelWizardnest: 12
@@ -408,7 +410,7 @@ MonoBehaviour:
   homeScreenEnvironmentPrefab: {fileID: 1000012718415468, guid: 4ef94cea375ae45ff83b3370aa956b06,
     type: 2}
   homeScreenEnvironment: {fileID: 0}
-  HighScoresPanel: {fileID: 1000011698425086, guid: 3af9a424cc2a048529edd2f286b5174b,
+  HighScoresPanel: {fileID: 1000013729796936, guid: 3af9a424cc2a048529edd2f286b5174b,
     type: 2}
   startingScreen: {fileID: 0}
   loadingScreenCanvas: {fileID: 1000013625541172, guid: 0ff01cb270ef14af5b80d2ec70ecc88c,
@@ -447,6 +449,7 @@ MonoBehaviour:
   - {fileID: 1000013538442878, guid: 754b92d26cdd8421fb0eed83baf2fb1a, type: 2}
   - {fileID: 1000013906124734, guid: 4ae8fee883fe347bf8306d5ec2e28cc2, type: 2}
   - {fileID: 1000013538442878, guid: ca38a5fb88da24c4e9bc748a2bba3449, type: 2}
+  - {fileID: 1000013538442878, guid: 4701e9e609242400cbc6eec7e4186558, type: 2}
   allPowerUpsAvailable:
   - {fileID: 1000013169113146, guid: 77a8e3449848d4683be3caa21469fc2e, type: 2}
   - {fileID: 1000010896598750, guid: 820740bb2d3134d67bb75e76cdd4b398, type: 2}

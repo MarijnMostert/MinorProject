@@ -40,7 +40,7 @@ public class HighScoresPanel : MonoBehaviour {
 		UpdateHighScores ();
 	}
 
-	void UpdateHighScores(){
+	public void UpdateHighScores(){
 		if (gameManager == null) {
 			gameManager = GameManager.Instance;
 			data = gameManager.data;
