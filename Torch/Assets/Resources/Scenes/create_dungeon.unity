@@ -590,6 +590,12 @@ GameObject:
   m_PrefabParentObject: {fileID: 1000013257568420, guid: 4ef94cea375ae45ff83b3370aa956b06,
     type: 2}
   m_PrefabInternal: {fileID: 1983581211}
+--- !u!114 &364256267 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114000011455718412, guid: 8e8fb98cee864437995eb9c0b0548acd,
+    type: 2}
+  m_PrefabInternal: {fileID: 1810587749}
+  m_Script: {fileID: 11500000, guid: b9f34bd335738a049be1228a838a0dcc, type: 3}
 --- !u!1 &401172508
 GameObject:
   m_ObjectHideFlags: 0
@@ -811,6 +817,39 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 8
   m_Center: {x: 5.62, y: 0, z: 0}
+--- !u!1 &491511319 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1000013657230056, guid: 8e8fb98cee864437995eb9c0b0548acd,
+    type: 2}
+  m_PrefabInternal: {fileID: 1810587749}
+--- !u!114 &491511320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 491511319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc64c530a6c9b4a58b8f650ad3db859a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeBetweenRounds: 5
+  enemiesToSpawn:
+  - {fileID: 114000012613288934, guid: 7dc7f555e80424c11ba0ea614e084e4f, type: 2}
+  - {fileID: 114000012671087812, guid: e5b9d8e23e2413b44bae87c7a7293d25, type: 2}
+  - {fileID: 114000012270521080, guid: 83f910f616c45234eb6bd5f0d5b50775, type: 2}
+  - {fileID: 114000012585250292, guid: 61cb62caa4a78134c8e4de355997cb1c, type: 2}
+  numberOfEnemiesSpawnTogether: 0100000002000000
+  enemiesPerWave: 10
+  maxSpawningDistanceEnemy: 12
+  minSpawningDistanceEnemy: 10
+  maxSpawningDistanceChest: 5
+  minSpawningDistanceChest: 2
+  enemiesKilled: 
+  arenaCanvasPrefab: {fileID: 114000013086831868, guid: 2dc950523c5014cb7bd6850039d6bbd8,
+    type: 2}
+  chestPrefab: {fileID: 1000010346143806, guid: 72f8fe9cd4ffe43f1b35c8e9fa7e8a37,
+    type: 2}
 --- !u!114 &540918109 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114000010009653332, guid: cd5f1f8f72b3345d4bff037206099816,
@@ -2870,7 +2909,7 @@ Prefab:
     - target: {fileID: 224000010218458432, guid: e4d553c3bf0c541e980bd36e3b76a640,
         type: 2}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 224000010218458432, guid: e4d553c3bf0c541e980bd36e3b76a640,
         type: 2}
@@ -4520,7 +4559,7 @@ Transform:
   - {fileID: 1169729187}
   - {fileID: 311794021}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
 --- !u!1 &1773007148
 GameObject:
   m_ObjectHideFlags: 0
@@ -4694,7 +4733,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000013396432608, guid: 8e8fb98cee864437995eb9c0b0548acd, type: 2}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114000012126162182, guid: 8e8fb98cee864437995eb9c0b0548acd,
         type: 2}
@@ -4751,6 +4790,11 @@ Prefab:
       propertyPath: highQualityItems.Array.data[2]
       value: 
       objectReference: {fileID: 350239402}
+    - target: {fileID: 114000012126162182, guid: 8e8fb98cee864437995eb9c0b0548acd,
+        type: 2}
+      propertyPath: achievements
+      value: 
+      objectReference: {fileID: 364256267}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8e8fb98cee864437995eb9c0b0548acd, type: 2}
   m_IsPrefabParent: 0
@@ -6788,7 +6832,7 @@ Prefab:
     - target: {fileID: 224000011599578652, guid: cf3e1c810a2e94ddfa98fdcb76202dbb,
         type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224000011599578652, guid: cf3e1c810a2e94ddfa98fdcb76202dbb,
         type: 2}

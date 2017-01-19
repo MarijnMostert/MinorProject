@@ -3,6 +3,8 @@ using System.Collections;
 
 public class PlayerData : MonoBehaviour {
 
+	public Achievements achievements;
+
 	public int healthPickedUp;
 	public float distanceTravelled;
 	public int shotsFired;
@@ -12,6 +14,12 @@ public class PlayerData : MonoBehaviour {
 	public int coinsPickedUp;
 	public int powerUpsUsed;
 	public int enemiesKilled;
+
+	void Start () {
+		GameObject manager = GameObject.Find ("Game Manager");
+		achievements = manager.GetComponent<Achievements> ();
+		Debug.Log (achievements);
+	}
 
 	public void resetPlayerData(){
 		healthPickedUp = 0;
@@ -37,6 +45,10 @@ public class PlayerData : MonoBehaviour {
 
 	public void IncrementDistanceTravelled(int amount){
 		distanceTravelled += amount;
+
+		if (!achievements.km_42_walked && distanceTravelled >= 4200) {
+			achievements.km42Achievement ();
+		}
 	}
 
 	public void IncrementShotsFired(){
@@ -53,6 +65,7 @@ public class PlayerData : MonoBehaviour {
 
 	public void IncrementPowerUpsUsed(int amount){
 		powerUpsUsed += amount;
+		achievements.powerups50Achievement ();
 	}
 
 	public void GetDistanceTravelled (){
@@ -61,6 +74,10 @@ public class PlayerData : MonoBehaviour {
 
 	public void IncrementEnemiesKilled(){
 		enemiesKilled += 1;
+
+		if (enemiesKilled >= 200) {
+			achievements.enemiesAchievement ();
+		}
 	}
 
 	public void IncrementCoinsPickedUp(){

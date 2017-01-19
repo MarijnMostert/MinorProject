@@ -108,6 +108,7 @@ public class Nest : AudioObject {
 			ObjectPooler.Instance.PlayAudioSource (clip_die, mixerGroup, pitchMin, pitchMax, transform);
         }
         StartCoroutine(DieThread());
+		gameManager.achievements.nestAchievement (this.name);
     }
 
     //When the enemy's health drops below 0.
