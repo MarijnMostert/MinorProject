@@ -7,7 +7,6 @@ public class explosion : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        Destroy(this.gameObject, 1f);
         start_time = Time.time;
     }
 

@@ -447,7 +447,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fafb4a7e8469647249b383df1db219e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingWeapon: {fileID: 114000013339538176, guid: d8937ed1cee044faf80b7f9f1f7a39a3,
+  startingWeapon: {fileID: 114000013339538176, guid: 4bcbf25e62edf43e9b08d88d6bc7a238,
     type: 2}
   currentWeapon: {fileID: 0}
   weaponHolder: {fileID: 4000010067285118}
@@ -628,10 +628,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d1f7b3232b6c54c7bbd36018af5b721f, type: 3}
   chanceForClip: 0.05
   interval: 5
-  weaponController: {fileID: 114000012971442804, guid: 6388624ebe22440139c3daa1fffdb89d,
-    type: 2}
-  targetFinder: {fileID: 114000013112127576, guid: 6388624ebe22440139c3daa1fffdb89d,
-    type: 2}
+  weaponController: {fileID: 114000011118275654}
+  targetFinder: {fileID: 114000012151859930}
   target: {fileID: 0}
   timeOut: 3
 --- !u!135 &135000010083979120

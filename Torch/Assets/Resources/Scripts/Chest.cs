@@ -154,6 +154,8 @@ public class Chest : InteractableItem {
 			contents.Add (temp [8]);
 		if (dungeonParameters.powerUps.laserWeapon.enabled && Random.value < dungeonParameters.powerUps.laserWeapon.spawnChance)
 			contents.Add (temp [9]);
+		if (dungeonParameters.powerUps.bloodWeapon.enabled && Random.value < dungeonParameters.powerUps.bloodWeapon.spawnChance)
+			contents.Add (temp [10]);
 	}
 
 	public void InstantiateContent(){

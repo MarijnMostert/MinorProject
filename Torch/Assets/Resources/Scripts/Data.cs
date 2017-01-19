@@ -120,5 +120,7 @@ public class Data : MonoBehaviour {
 		}
 		highScoreScores.Add (score);
 		Debug.Log ("New highscore added: " + score + " : " + name);
+
+		GameManager.Instance.HighScoresPanel.GetComponentInChildren<HighScoresPanel> ().UpdateHighScores ();
 	}
 }

@@ -20,6 +20,7 @@ public class ArenaManager : MonoBehaviour {
 	public ArenaCanvas arenaCanvasPrefab;
 	private ArenaCanvas arenaCanvas;
 	public GameObject chestPrefab;
+	private int counter;
 
 
 	void Start () {
@@ -75,11 +76,12 @@ public class ArenaManager : MonoBehaviour {
 				break;
 			}
 		}
+		Debug.Log ("End of spawnWave Coroutine");
 	}
 
 	public void CheckIfWaveComplete(){
 		
-		int counter = 0;
+		counter = 0;
 		for (int i = 0; i < enemiesKilled.Length; i++) {
 			if (enemiesKilled [i])
 				counter++;
@@ -94,7 +96,7 @@ public class ArenaManager : MonoBehaviour {
 
 	public void MarkEnemyKilled(int index){
 		enemiesKilled [index] = true;
-		Debug.Log ("Enemy " + index + " is killed");
+		Debug.Log ("Enemy " + index + " is killed\nCounter: " + counter + " out of " + (enemiesKilled.Length-1));
 		CheckIfWaveComplete ();
 	}
 
