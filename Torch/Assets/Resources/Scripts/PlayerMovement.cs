@@ -12,8 +12,10 @@ public class PlayerMovement : MonoBehaviour {
 	[HideInInspector] public Color playerColor;
 	public GameObject minimapIndicator;
 	public Image playerIndicator;
-	public Image arenaPointer;
+	[SerializeField] private GameObject Rotator;
+	[SerializeField] private Image arenaPointer;
 	private bool arenaPointerActive;
+	private GameObject arenaPointerTarget;
 	public Camera mainCamera;
 	public int playerNumber;
 	public bool controllerInput = false;
@@ -60,7 +62,7 @@ public class PlayerMovement : MonoBehaviour {
 		*/
         anim1 = GetComponentInChildren<Animator>();
 		gameManager = GameManager.Instance;
-		//arenaPointer.SetActive (false);
+		arenaPointer.gameObject.SetActive (false);
 	}
 
 	/*
@@ -154,6 +156,8 @@ public class PlayerMovement : MonoBehaviour {
 			speed /= shiftfactor;
 		}
 		if (arenaPointerActive) {
+			Rotator.transform.LookAt (new Vector3 (arenaPointerTarget.transform.position.x, 
+				Rotator.transform.position.y, arenaPointerTarget.transform.position.z));
 			//arenaPointer.transform.LookAt (GameManager.Instance.arenaManager.ArenaAreaPicked);
 		}
 	}
@@ -285,9 +289,10 @@ public class PlayerMovement : MonoBehaviour {
 		arenaPointer.color = color;
 	}
 
-	public void ToggleArenaPointer(bool setActive){
+	public void ToggleArenaPointer(bool setActive, GameObject target){
 		arenaPointer.gameObject.SetActive (setActive);
 		arenaPointerActive = setActive;
+		arenaPointerTarget = target;
 	}
 		
 }

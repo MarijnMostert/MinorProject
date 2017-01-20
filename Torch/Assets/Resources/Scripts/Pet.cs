@@ -12,6 +12,7 @@ public class Pet : AudioObject {
 	public AudioClip[] clips;
 	public float chanceForClip = 0.01f;
 	public float interval = 5f;
+	public bool attacking = true;
 	public WeaponController weaponController;
 	public TargetFinder targetFinder;
 	public GameObject target;
@@ -45,7 +46,7 @@ public class Pet : AudioObject {
 	}
 
 	IEnumerator Attack(){
-		while(true){
+		while(attacking){
 			yield return new WaitForSeconds (timeOut);
 
 			if (weaponController == null) {

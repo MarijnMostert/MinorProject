@@ -70,7 +70,7 @@ public class GameManager : MonoBehaviour {
 
     //masterGenerator Vars
     int radius = 2;// = 2;
-    int maxlength = 2;// = 2;
+    int maxlength = 3;// = 2;
     int timeout = 200;// = 2000;
 
 
@@ -165,7 +165,7 @@ public class GameManager : MonoBehaviour {
 			Instance = this;
 		}
 
-		cheat = true; //put this to false in build
+		cheat = false; //put this to false in build
 		cheatindex = 0;
 		cheatCode = new string[] { "w", "o", "c", "h", "e", "n", "e", "n", "d", "e" };
 
@@ -189,8 +189,9 @@ public class GameManager : MonoBehaviour {
 		PetScript.speechText.text = "";
 		PetScript.speechImage.gameObject.SetActive (false);
 		Bold = Instantiate (Bold) as GameObject;
-	    BoldPetScript = Bold.GetComponent<Pet> ();
-        Bold.SetActive (false);
+		BoldPetScript = Bold.GetComponent<Pet> ();
+		BoldPetScript.attacking = false;
+		Bold.SetActive (false);
 
 		shopPrefab.EquipActives ();
 	}
@@ -227,7 +228,7 @@ public class GameManager : MonoBehaviour {
 			levelTransform = tutorialObject.transform;
 
 		} else if (type == 2) {
-			arenaObject = Instantiate(arenaPrefab, new Vector3(80f,0f,80f), Quaternion.identity) as GameObject;
+			arenaObject = Instantiate(arenaPrefab, new Vector3(-150f,0f,150f), Quaternion.identity) as GameObject;
 			levelTransform = arenaObject.transform;
 		}
 
@@ -286,7 +287,7 @@ public class GameManager : MonoBehaviour {
 			startpoint = arenaObject.transform.Find ("Spawnpoint").transform.position;
 			playerManagers [0].playerInstance.transform.position = startpoint;
 			playerManagers [1].playerInstance.transform.position = startpoint + new Vector3 (-2f, 0f, -2f);
-			torch.isDamagable = false;
+			torch.isDamagable = true;
 		}
 		RespawnPosition = startpoint;
 		torch.transform.position = startpoint + new Vector3 (6, .5f, 0);
@@ -415,6 +416,9 @@ public class GameManager : MonoBehaviour {
 		//Cheatcode to spawn to highscores
 		if (Input.GetKeyDown (KeyCode.Alpha0) && cheat) {
 			TeleportToHighScores ();
+		}
+		if (Input.GetKeyDown (KeyCode.Backslash) && cheat) {
+			data.coins += 1000;
 		}
 		if(Input.GetKeyDown(KeyCode.M)){
 			ToggleMiniMap();

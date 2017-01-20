@@ -11,8 +11,7 @@ public class AchievementsPanel : MonoBehaviour {
 	void Awake(){
 		Instance = this;
 	}
-
-
+		
 	public void SetAchievement(string achievement){
 		for(int i = 0; i < achievements.Length; i++){
 			if (!activated [i]) {

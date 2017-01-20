@@ -178,8 +178,8 @@ public class DungeonData : MonoBehaviour {
 		dungeonParameters = new DungeonParameters[amountOfLevels];
 		for (int i = 0; i < amountOfLevels; i++) {
 			DungeonParameters DP = new DungeonParameters();
-			DP.width = 20 + (i * 2);
-			DP.height = 20 + (i * 2);
+			DP.width = 30 + (i * 3);
+			DP.height = 30 + (i * 3);
 			DP.minAmountOfRooms = 2 + (int)(i * .5);
 			DP.maxAmountOfRooms = 3 + (int)(i * .8);
 			DP.chanceOfRoom = chanceOfRoom;
