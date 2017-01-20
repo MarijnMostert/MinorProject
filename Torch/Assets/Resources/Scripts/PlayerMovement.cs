@@ -12,8 +12,6 @@ public class PlayerMovement : MonoBehaviour {
 	[HideInInspector] public Color playerColor;
 	public GameObject minimapIndicator;
 	public Image playerIndicator;
-	public Image arenaPointer;
-	private bool arenaPointerActive;
 	public Camera mainCamera;
 	public int playerNumber;
 	public bool controllerInput = false;
@@ -60,7 +58,6 @@ public class PlayerMovement : MonoBehaviour {
 		*/
         anim1 = GetComponentInChildren<Animator>();
 		gameManager = GameManager.Instance;
-		//arenaPointer.SetActive (false);
 	}
 
 	/*
@@ -94,15 +91,13 @@ public class PlayerMovement : MonoBehaviour {
 		//moveVertical = "moveVertical" + playerNumber;
 
 		cursorPointer = Instantiate(cursorPointerPrefab);
-		//cursorPointer.GetComponent<SpriteRenderer> ().color = playerColor;
+		cursorPointer.GetComponent<SpriteRenderer> ().color = playerColor;
 		cursorPointer.SetActive (true);
 
-		minimapIndicator = Instantiate (minimapIndicator, transform.position + new Vector3 (0f, -3.5f, 0f), Quaternion.Euler (-90f, 180f, 0f), transform) as GameObject;
-		//minimapIndicator.GetComponentInChildren<Image> ().color = playerColor;
+		minimapIndicator = Instantiate (minimapIndicator, transform.position + new Vector3 (0f, -3f, 0f), Quaternion.Euler (-90f, 180f, 0f), transform) as GameObject;
+		minimapIndicator.GetComponentInChildren<Image> ().color = playerColor;
 
-		//playerIndicator.color = playerColor;
-
-		SetColor (playerColor);
+		playerIndicator.color = playerColor;
 
 		//setup controller and key buttons in UI.
 		uiInventory = UIInventory.Instance;
@@ -152,9 +147,6 @@ public class PlayerMovement : MonoBehaviour {
 		}
 		if (Input.GetKeyUp(KeyCode.LeftShift)) {
 			speed /= shiftfactor;
-		}
-		if (arenaPointerActive) {
-			//arenaPointer.transform.LookAt (GameManager.Instance.arenaManager.ArenaAreaPicked);
 		}
 	}
 	
@@ -281,13 +273,7 @@ public class PlayerMovement : MonoBehaviour {
 	public void SetColor(Color color){
 		cursorPointer.GetComponent<SpriteRenderer> ().color = color;
 		playerIndicator.color = color;
-		minimapIndicator.GetComponentInChildren<Image> ().color = color;
-		arenaPointer.color = color;
-	}
-
-	public void ToggleArenaPointer(bool setActive){
-		arenaPointer.gameObject.SetActive (setActive);
-		arenaPointerActive = setActive;
+		minimapIndicator.GetComponent<Image> ().color = color;
 	}
 		
 }

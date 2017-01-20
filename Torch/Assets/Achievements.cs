@@ -100,7 +100,6 @@ public class Achievements : MonoBehaviour {
 		Debug.Log("New Achievement: " + text);
 		Atext.text = "New Achievement: " + text;
 		StartCoroutine ("WaitSecs");
-		AchievementsPanel.Instance.SetAchievement (text);
 	}
 
 	IEnumerator WaitSecs () {
