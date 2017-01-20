@@ -23,7 +23,7 @@ public class ArenaManager : MonoBehaviour {
 	private int counter;
 	private GameObject[] ArenaAreas;
 	private GameObject ArenaAreasParent;
-	private GameObject ArenaAreaPicked;
+	public GameObject ArenaAreaPicked;
 
 	void Start () {
 		gameManager = GetComponentInParent<GameManager> ();
@@ -107,7 +107,7 @@ public class ArenaManager : MonoBehaviour {
 
 	public void MarkEnemyKilled(int index){
 		enemiesKilled [index] = true;
-		Debug.Log ("Enemy " + index + " is killed\nCounter: " + counter + " out of " + (enemiesKilled.Length-1));
+		Debug.Log ("Enemy " + (index) + " is killed\nCounter: " + counter + " out of " + (enemiesKilled.Length));
 		CheckIfWaveComplete ();
 	}
 
@@ -148,16 +148,7 @@ public class ArenaManager : MonoBehaviour {
 		ArenaAreaPicked = ArenaAreas [Random.Range (0, ArenaAreas.Length)];
 		//Turn on area boundaries
 		ArenaAreaPicked.SetActive (true);
-		if (!ArenaAreaPicked.activeInHierarchy) {
-			Debug.Log ("not activeInHierarchy");
-		} else {
-			Debug.Log ("activeInHierarchy");
-		}
-		if (!ArenaAreaPicked.activeSelf) {
-			Debug.Log ("not activeSelf");
-		} else {
-			Debug.Log ("activeSelf");
-		}
+
 		//Tell The player to move there GUI wise
 		Debug.Log ("Go To " + ArenaAreaPicked.GetComponent<ArenaArea> ().AreaName);
 		//Allow the player in the area by turning off colliders
