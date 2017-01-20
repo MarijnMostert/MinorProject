@@ -70,7 +70,7 @@ public class GameManager : MonoBehaviour {
 
     //masterGenerator Vars
     int radius = 2;// = 2;
-    int maxlength = 2;// = 2;
+    int maxlength = 3;// = 2;
     int timeout = 200;// = 2000;
 
 
@@ -164,7 +164,7 @@ public class GameManager : MonoBehaviour {
 			Instance = this;
 		}
 
-		cheat = true; //put this to false in build
+		cheat = false; //put this to false in build
 		cheatindex = 0;
 		cheatCode = new string[] { "w", "o", "c", "h", "e", "n", "e", "n", "d", "e" };
 
@@ -189,6 +189,7 @@ public class GameManager : MonoBehaviour {
 		PetScript.speechImage.gameObject.SetActive (false);
 		Bold = Instantiate (Bold) as GameObject;
 		BoldPetScript = Bold.GetComponent<Pet> ();
+		BoldPetScript.attacking = false;
 		Bold.SetActive (false);
 
 		shopPrefab.EquipActives ();
@@ -414,6 +415,9 @@ public class GameManager : MonoBehaviour {
 		//Cheatcode to spawn to highscores
 		if (Input.GetKeyDown (KeyCode.Alpha0) && cheat) {
 			TeleportToHighScores ();
+		}
+		if (Input.GetKeyDown (KeyCode.Backslash) && cheat) {
+			data.coins += 1000;
 		}
 		if(Input.GetKeyDown(KeyCode.M)){
 			ToggleMiniMap();

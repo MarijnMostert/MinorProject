@@ -44,6 +44,9 @@ GameObject:
   - 114: {fileID: 114000012687613348}
   - 114: {fileID: 114000010415788138}
   - 114: {fileID: 114000013184997682}
+  - 114: {fileID: 114000012113002226}
+  - 114: {fileID: 114000010751679186}
+  - 114: {fileID: 114000012570612228}
   m_Layer: 0
   m_Name: Arena Manager
   m_TagString: Untagged
@@ -256,6 +259,36 @@ MonoBehaviour:
     type: 2}
   chestPrefab: {fileID: 1000010346143806, guid: 72f8fe9cd4ffe43f1b35c8e9fa7e8a37,
     type: 2}
+  ArenaAreaPicked: {fileID: 0}
+--- !u!114 &114000010751679186
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013657230056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc64c530a6c9b4a58b8f650ad3db859a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeBetweenRounds: 5
+  enemiesToSpawn:
+  - {fileID: 114000012613288934, guid: 7dc7f555e80424c11ba0ea614e084e4f, type: 2}
+  - {fileID: 114000012671087812, guid: e5b9d8e23e2413b44bae87c7a7293d25, type: 2}
+  - {fileID: 114000012270521080, guid: 83f910f616c45234eb6bd5f0d5b50775, type: 2}
+  - {fileID: 114000012585250292, guid: 61cb62caa4a78134c8e4de355997cb1c, type: 2}
+  numberOfEnemiesSpawnTogether: 0100000002000000
+  enemiesPerWave: 10
+  maxSpawningDistanceEnemy: 12
+  minSpawningDistanceEnemy: 10
+  maxSpawningDistanceChest: 5
+  minSpawningDistanceChest: 2
+  enemiesKilled: 
+  arenaCanvasPrefab: {fileID: 114000013086831868, guid: 2dc950523c5014cb7bd6850039d6bbd8,
+    type: 2}
+  chestPrefab: {fileID: 1000010346143806, guid: 72f8fe9cd4ffe43f1b35c8e9fa7e8a37,
+    type: 2}
+  ArenaAreaPicked: {fileID: 0}
 --- !u!114 &114000011455718412
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -267,12 +300,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9f34bd335738a049be1228a838a0dcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 0}
-  playerData: {fileID: 0}
-  data: {fileID: 0}
+  gameManager: {fileID: 114000012126162182}
+  Acanvas: {fileID: 0}
+  Atext: {fileID: 0}
+  Aimage: {fileID: 0}
+  Apanel: {fileID: 0}
+  AchievenmentTest: 0
+  AchievementList: 
   tutorial_done: 0
   spidernest_destroyed: 0
   wizarnest_destroyed: 0
+  first_item_bought: 0
+  first_km_walked: 0
   boss_defeated: 0
   keys_collected_100: 0
   all_shopitems_bought: 0
@@ -292,14 +331,8 @@ MonoBehaviour:
   levels_20: 0
   levels_30: 0
   levels_40: 0
-  spidersKilled: 0
-  minotaurKilled: 0
-  ghostsKilled: 0
-  bomberKilled: 0
-  timesfallen: 0
-  timesdied: 0
-  totalcollectedkeys: 0
-  totalpowerupsused: 0
+  hiddenTarget: {x: -175, y: -48}
+  shownTarget: {x: -175, y: 48}
 --- !u!114 &114000011838373320
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -406,6 +439,36 @@ MonoBehaviour:
     type: 2}
   chestPrefab: {fileID: 1000010346143806, guid: 72f8fe9cd4ffe43f1b35c8e9fa7e8a37,
     type: 2}
+  ArenaAreaPicked: {fileID: 0}
+--- !u!114 &114000012113002226
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013657230056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc64c530a6c9b4a58b8f650ad3db859a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeBetweenRounds: 5
+  enemiesToSpawn:
+  - {fileID: 114000012613288934, guid: 7dc7f555e80424c11ba0ea614e084e4f, type: 2}
+  - {fileID: 114000012671087812, guid: e5b9d8e23e2413b44bae87c7a7293d25, type: 2}
+  - {fileID: 114000012270521080, guid: 83f910f616c45234eb6bd5f0d5b50775, type: 2}
+  - {fileID: 114000012585250292, guid: 61cb62caa4a78134c8e4de355997cb1c, type: 2}
+  numberOfEnemiesSpawnTogether: 0100000002000000
+  enemiesPerWave: 10
+  maxSpawningDistanceEnemy: 12
+  minSpawningDistanceEnemy: 10
+  maxSpawningDistanceChest: 5
+  minSpawningDistanceChest: 2
+  enemiesKilled: 
+  arenaCanvasPrefab: {fileID: 114000013086831868, guid: 2dc950523c5014cb7bd6850039d6bbd8,
+    type: 2}
+  chestPrefab: {fileID: 1000010346143806, guid: 72f8fe9cd4ffe43f1b35c8e9fa7e8a37,
+    type: 2}
+  ArenaAreaPicked: {fileID: 0}
 --- !u!114 &114000012126162182
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -549,6 +612,35 @@ MonoBehaviour:
   - {fileID: 0}
   arenaManager: {fileID: 0}
   numberOfPlayers: 1
+--- !u!114 &114000012570612228
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013657230056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc64c530a6c9b4a58b8f650ad3db859a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeBetweenRounds: 5
+  enemiesToSpawn:
+  - {fileID: 114000012613288934, guid: 7dc7f555e80424c11ba0ea614e084e4f, type: 2}
+  - {fileID: 114000012671087812, guid: e5b9d8e23e2413b44bae87c7a7293d25, type: 2}
+  - {fileID: 114000012270521080, guid: 83f910f616c45234eb6bd5f0d5b50775, type: 2}
+  - {fileID: 114000012585250292, guid: 61cb62caa4a78134c8e4de355997cb1c, type: 2}
+  numberOfEnemiesSpawnTogether: 0100000002000000
+  enemiesPerWave: 10
+  maxSpawningDistanceEnemy: 12
+  minSpawningDistanceEnemy: 10
+  maxSpawningDistanceChest: 5
+  minSpawningDistanceChest: 2
+  enemiesKilled: 
+  arenaCanvasPrefab: {fileID: 114000013086831868, guid: 2dc950523c5014cb7bd6850039d6bbd8,
+    type: 2}
+  chestPrefab: {fileID: 1000010346143806, guid: 72f8fe9cd4ffe43f1b35c8e9fa7e8a37,
+    type: 2}
+  ArenaAreaPicked: {fileID: 0}
 --- !u!114 &114000012687613348
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -577,6 +669,7 @@ MonoBehaviour:
     type: 2}
   chestPrefab: {fileID: 1000010346143806, guid: 72f8fe9cd4ffe43f1b35c8e9fa7e8a37,
     type: 2}
+  ArenaAreaPicked: {fileID: 0}
 --- !u!114 &114000013184997682
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -605,6 +698,7 @@ MonoBehaviour:
     type: 2}
   chestPrefab: {fileID: 1000010346143806, guid: 72f8fe9cd4ffe43f1b35c8e9fa7e8a37,
     type: 2}
+  ArenaAreaPicked: {fileID: 0}
 --- !u!114 &114000013406591320
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -619,6 +713,7 @@ MonoBehaviour:
   gameManager: {fileID: 114000012126162182}
   shopItemsOwned: 
   shopItemsEquipped: 
+  achievementsGotten: 
   coins: 0
   maxAchievedDungeonLevel: 0
   highQuality: 0
