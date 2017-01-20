@@ -164,7 +164,7 @@ public class GameManager : MonoBehaviour {
 			Instance = this;
 		}
 
-		cheat = true; //put this to false in build
+		cheat = false; //put this to false in build
 		cheatindex = 0;
 		cheatCode = new string[] { "w", "o", "c", "h", "e", "n", "e", "n", "d", "e" };
 
@@ -415,6 +415,9 @@ public class GameManager : MonoBehaviour {
 		//Cheatcode to spawn to highscores
 		if (Input.GetKeyDown (KeyCode.Alpha0) && cheat) {
 			TeleportToHighScores ();
+		}
+		if (Input.GetKeyDown (KeyCode.Backslash) && cheat) {
+			data.coins += 1000;
 		}
 		if(Input.GetKeyDown(KeyCode.M)){
 			ToggleMiniMap();
