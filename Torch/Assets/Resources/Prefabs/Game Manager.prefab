@@ -43,6 +43,8 @@ GameObject:
   - 114: {fileID: 114000012099422644}
   - 114: {fileID: 114000012687613348}
   - 114: {fileID: 114000010415788138}
+  - 114: {fileID: 114000013184997682}
+  - 114: {fileID: 114000012113002226}
   - 114: {fileID: 114000010751679186}
   m_Layer: 0
   m_Name: Arena Manager
@@ -256,6 +258,7 @@ MonoBehaviour:
     type: 2}
   chestPrefab: {fileID: 1000010346143806, guid: 72f8fe9cd4ffe43f1b35c8e9fa7e8a37,
     type: 2}
+  ArenaAreaPicked: {fileID: 0}
 --- !u!114 &114000010751679186
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -284,6 +287,7 @@ MonoBehaviour:
     type: 2}
   chestPrefab: {fileID: 1000010346143806, guid: 72f8fe9cd4ffe43f1b35c8e9fa7e8a37,
     type: 2}
+  ArenaAreaPicked: {fileID: 0}
 --- !u!114 &114000011455718412
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -299,6 +303,7 @@ MonoBehaviour:
   Acanvas: {fileID: 0}
   Atext: {fileID: 0}
   Aimage: {fileID: 0}
+  Apanel: {fileID: 0}
   AchievenmentTest: 0
   AchievementList: 
   tutorial_done: 0
@@ -360,10 +365,12 @@ MonoBehaviour:
   minLevelPiercingWeapon: 3
   minLevelLaserWeapon: 13
   minLevelBloodWeapon: 7
+  minLevelBoomerangWeapon: 16
   chanceIceball: 0.1
   chancePiercing: 0.1
   chanceLaser: 0.1
   chanceBlood: 0.1
+  chanceBoomerang: 0.1
   chanceForTrap: 0.1
   minLevelSpidernest: 2
   minLevelWizardnest: 12
@@ -431,6 +438,36 @@ MonoBehaviour:
     type: 2}
   chestPrefab: {fileID: 1000010346143806, guid: 72f8fe9cd4ffe43f1b35c8e9fa7e8a37,
     type: 2}
+  ArenaAreaPicked: {fileID: 0}
+--- !u!114 &114000012113002226
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013657230056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc64c530a6c9b4a58b8f650ad3db859a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeBetweenRounds: 5
+  enemiesToSpawn:
+  - {fileID: 114000012613288934, guid: 7dc7f555e80424c11ba0ea614e084e4f, type: 2}
+  - {fileID: 114000012671087812, guid: e5b9d8e23e2413b44bae87c7a7293d25, type: 2}
+  - {fileID: 114000012270521080, guid: 83f910f616c45234eb6bd5f0d5b50775, type: 2}
+  - {fileID: 114000012585250292, guid: 61cb62caa4a78134c8e4de355997cb1c, type: 2}
+  numberOfEnemiesSpawnTogether: 0100000002000000
+  enemiesPerWave: 10
+  maxSpawningDistanceEnemy: 12
+  minSpawningDistanceEnemy: 10
+  maxSpawningDistanceChest: 5
+  minSpawningDistanceChest: 2
+  enemiesKilled: 
+  arenaCanvasPrefab: {fileID: 114000013086831868, guid: 2dc950523c5014cb7bd6850039d6bbd8,
+    type: 2}
+  chestPrefab: {fileID: 1000010346143806, guid: 72f8fe9cd4ffe43f1b35c8e9fa7e8a37,
+    type: 2}
+  ArenaAreaPicked: {fileID: 0}
 --- !u!114 &114000012126162182
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -554,6 +591,7 @@ MonoBehaviour:
   - {fileID: 1000013906124734, guid: 4ae8fee883fe347bf8306d5ec2e28cc2, type: 2}
   - {fileID: 1000013538442878, guid: ca38a5fb88da24c4e9bc748a2bba3449, type: 2}
   - {fileID: 1000013538442878, guid: 4701e9e609242400cbc6eec7e4186558, type: 2}
+  - {fileID: 1000013538442878, guid: 0d00cf36d81c84b25886e87606da6b24, type: 2}
   allPowerUpsAvailable:
   - {fileID: 1000013169113146, guid: 77a8e3449848d4683be3caa21469fc2e, type: 2}
   - {fileID: 1000010896598750, guid: 820740bb2d3134d67bb75e76cdd4b398, type: 2}
@@ -601,6 +639,36 @@ MonoBehaviour:
     type: 2}
   chestPrefab: {fileID: 1000010346143806, guid: 72f8fe9cd4ffe43f1b35c8e9fa7e8a37,
     type: 2}
+  ArenaAreaPicked: {fileID: 0}
+--- !u!114 &114000013184997682
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013657230056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc64c530a6c9b4a58b8f650ad3db859a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeBetweenRounds: 5
+  enemiesToSpawn:
+  - {fileID: 114000012613288934, guid: 7dc7f555e80424c11ba0ea614e084e4f, type: 2}
+  - {fileID: 114000012671087812, guid: e5b9d8e23e2413b44bae87c7a7293d25, type: 2}
+  - {fileID: 114000012270521080, guid: 83f910f616c45234eb6bd5f0d5b50775, type: 2}
+  - {fileID: 114000012585250292, guid: 61cb62caa4a78134c8e4de355997cb1c, type: 2}
+  numberOfEnemiesSpawnTogether: 0100000002000000
+  enemiesPerWave: 10
+  maxSpawningDistanceEnemy: 12
+  minSpawningDistanceEnemy: 10
+  maxSpawningDistanceChest: 5
+  minSpawningDistanceChest: 2
+  enemiesKilled: 
+  arenaCanvasPrefab: {fileID: 114000013086831868, guid: 2dc950523c5014cb7bd6850039d6bbd8,
+    type: 2}
+  chestPrefab: {fileID: 1000010346143806, guid: 72f8fe9cd4ffe43f1b35c8e9fa7e8a37,
+    type: 2}
+  ArenaAreaPicked: {fileID: 0}
 --- !u!114 &114000013406591320
 MonoBehaviour:
   m_ObjectHideFlags: 1

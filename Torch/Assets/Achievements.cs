@@ -9,6 +9,7 @@ public class Achievements : MonoBehaviour {
 	public Canvas Acanvas;
 	public Text Atext;
 	public Image Aimage;
+	public AchievementsPanel Apanel;
 
 	public bool AchievenmentTest;
 	public bool[] AchievementList;
@@ -60,35 +61,7 @@ public class Achievements : MonoBehaviour {
 	// // // // // // // // // Reset
 	void Start () {
 		AchievementList = gameManager.data.achievementsGotten;
-		AchievenmentTest = false;					//	0
-
-		tutorial_done = false;			//x doet het!	1
-		spidernest_destroyed = false;	//x doet het!	2
-		wizarnest_destroyed = false;	//x				3
-		first_item_bought = false;					//	4
-		first_km_walked = false;					//	5	
-		boss_defeated = false;			//x works		6
-
-		keys_collected_100 = false;		//x works		7
-		all_shopitems_bought = false;	//x works		8
-		home_stairs_climbed = false;				//	9
-		died_20_times = false;			//x doet het!	10
-		fell_50_times = false;			//x doet het!	11
-		playtime_1_hour = false;					//	12
-		km_42_walked = false;			//x works		13
-		powerups_50_used = false;		//x				14
-		cheats_unlocked = false;		//x				15
-
-		enemies_killed_200 = false;		//x works	16
-		spider_100 = false;				//x works	17
-		bomber_100 = false;				//x works	18
-		minota_100 = false;				//x works	19
-		ghost_100 = false;				//x works	20
-
-		levels_10 = false;				//x works 	21
-		levels_20 = false;				//x works	22
-		levels_30 = false;				//x works	23
-		levels_40 = false;				//x works	24
+		AchievenmentTest = false;			
 
 		timesfallen = 0;
 		timesdied = 0;
@@ -148,6 +121,7 @@ public class Achievements : MonoBehaviour {
 		updateAchievement (i, true);
 		Atext.text = "New Achievement:\n" + text;
 		StartCoroutine ("WaitSecs");
+		Apanel.SetAchievement (text);
 	}
 
 	IEnumerator WaitSecs () {
@@ -157,6 +131,13 @@ public class Achievements : MonoBehaviour {
 
 		target = hiddenTarget;
 	}
+
+
+	public void resetAchievements() {
+		AchievementList = gameManager.data.achievementsGotten;
+		initializeAllAchievements ();
+	}
+
 
 	public void firstBoughtAchievement () {
 		if (!first_item_bought) {

@@ -21,7 +21,9 @@ public class ArenaManager : MonoBehaviour {
 	private ArenaCanvas arenaCanvas;
 	public GameObject chestPrefab;
 	private int counter;
-
+	private GameObject[] ArenaAreas;
+	private GameObject ArenaAreasParent;
+	public GameObject ArenaAreaPicked;
 
 	void Start () {
 		gameManager = GetComponentInParent<GameManager> ();
@@ -36,6 +38,13 @@ public class ArenaManager : MonoBehaviour {
 
 	public void StartArena(){
 		ArenaStarted = true;
+		//find Arena Areas
+		ArenaAreasParent = GameObject.FindGameObjectWithTag ("ArenaArea");
+		Component[] ArenaAreaComponents = ArenaAreasParent.GetComponentsInChildren (typeof(ArenaArea), true);
+		ArenaAreas = new GameObject[ArenaAreaComponents.Length];
+		for(int i = 0; i < ArenaAreaComponents.Length; i++) {
+			ArenaAreas [i] = ArenaAreaComponents [i].gameObject;
+			}
 		StartCoroutine (ArenaMode ());
 	}
 
@@ -46,7 +55,7 @@ public class ArenaManager : MonoBehaviour {
 	IEnumerator ArenaMode(){
 		yield return new WaitForSeconds (timeBetweenRounds);
 		waveNumber++;
-		StartCoroutine(SpawnWave ());
+		StartCoroutine(AreaPicker());
 	}
 
 	IEnumerator SpawnWave(){
@@ -90,13 +99,15 @@ public class ArenaManager : MonoBehaviour {
 		if (counter == enemiesKilled.Length) {
 			Debug.Log ("Wave " + waveNumber + " cleared.");
 			arenaCanvas.WaveCleared (waveNumber);
+			//Turn off ArenaArea
+			ArenaAreaPicked.SetActive (false);
 			StartCoroutine (BetweenRounds ());
 		}
 	}
 
 	public void MarkEnemyKilled(int index){
 		enemiesKilled [index] = true;
-		Debug.Log ("Enemy " + index + " is killed\nCounter: " + counter + " out of " + (enemiesKilled.Length-1));
+		Debug.Log ("Enemy " + (index) + " is killed\nCounter: " + counter + " out of " + (enemiesKilled.Length));
 		CheckIfWaveComplete ();
 	}
 
@@ -105,7 +116,7 @@ public class ArenaManager : MonoBehaviour {
 		//Spawnchests
 		StartCoroutine(SpawnChests());
 		yield return new WaitForSeconds (10f);
-		StartCoroutine (SpawnWave ());
+		StartCoroutine (AreaPicker());
 	}
 
 	Vector3 GetValidSpawnPosition(float minSpawningDistance, float maxSpawningDistance){
@@ -130,5 +141,34 @@ public class ArenaManager : MonoBehaviour {
 			GameObject chest = Instantiate (chestPrefab, spawnPosition, Quaternion.Euler (new Vector3(-90f, Random.Range(0, 360), 0f))) as GameObject;
 			chest.GetComponent<Chest> ().SetUp (gameManager.dungeonData.dungeonParameters [waveNumber], null);
 		}
+	}
+
+	IEnumerator AreaPicker(){
+		//Pick a random area
+		ArenaAreaPicked = ArenaAreas [Random.Range (0, ArenaAreas.Length)];
+		//Turn on area boundaries
+		ArenaAreaPicked.SetActive (true);
+
+		//Tell The player to move there GUI wise
+		Debug.Log ("Go To " + ArenaAreaPicked.GetComponent<ArenaArea> ().AreaName);
+		//Allow the player in the area by turning off colliders
+		BoxCollider[] OuterWallColliders = ArenaAreaPicked.GetComponentsInChildren<BoxCollider> ();
+		foreach (BoxCollider OuterWallCollider in OuterWallColliders){
+			OuterWallCollider.enabled = false;
+			Debug.Log ("Outerwalls open");
+		}
+		//check for player being there
+		while (!ArenaAreaPicked.GetComponent<ArenaArea>().playerinarea) {
+			Debug.Log ("In while loop ArenaAreaPicked.GetComponent<ArenaArea>().playerinarea = "+ArenaAreaPicked.GetComponent<ArenaArea>().playerinarea);
+			yield return null;
+		}
+		Debug.Log ("out of while loop ArenaAreaPicked.GetComponent<ArenaArea>().playerinarea = "+ArenaAreaPicked.GetComponent<ArenaArea>().playerinarea);
+		//Turn on the colliders locking in the player
+		foreach (BoxCollider OuterWallCollider in OuterWallColliders){
+			OuterWallCollider.enabled = true;
+			Debug.Log ("Outerwalls closed");
+		}
+		//start wave
+		StartCoroutine(SpawnWave ());
 	}
 }

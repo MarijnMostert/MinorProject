@@ -108,6 +108,7 @@ public class Data : MonoBehaviour {
 		PlayerPrefs.SetInt ("coins", 0);
 		PlayerPrefs.SetInt ("dungeonLevel", 1);
 		PlayerPrefs.SetInt ("highQuality", 1);
+		gameManager.achievements.resetAchievements ();
 
 		Debug.Log ("Reset data succesfully");
 		Load ();
