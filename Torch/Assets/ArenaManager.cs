@@ -49,6 +49,7 @@ public class ArenaManager : MonoBehaviour {
 	}
 
 	public void StopArena(){
+		waveNumber = 0;
 		ArenaStarted = false;
 	}
 
@@ -59,7 +60,7 @@ public class ArenaManager : MonoBehaviour {
 	}
 
 	IEnumerator SpawnWave(){
-
+		counter = 0;
 		Debug.Log ("Wave " + waveNumber + " has started!");
 		arenaCanvas.WaveStarted (waveNumber);
 
@@ -76,7 +77,7 @@ public class ArenaManager : MonoBehaviour {
 				enemy.GetComponent<Enemy> ().arenaProps.arenaEnemy = true;
 				enemy.GetComponent<Enemy> ().arenaProps.index = enemyCounter;
 				enemyCounter++;
-				//Debug.Log ("Spawn enemy on " + spawnPosition);
+				Debug.Log ("Spawn enemy on " + enemy.transform.position);
 		//	}
 
 			if (enemyCounter < enemiesPerWave) {
@@ -90,11 +91,10 @@ public class ArenaManager : MonoBehaviour {
 
 	public void CheckIfWaveComplete(){
 		
-		counter = 0;
-		for (int i = 0; i < enemiesKilled.Length; i++) {
+		/*for (int i = 0; i < enemiesKilled.Length; i++) {
 			if (enemiesKilled [i])
-				counter++;
-		}
+				
+		}*/
 
 		if (counter == enemiesKilled.Length) {
 			Debug.Log ("Wave " + waveNumber + " cleared.");
@@ -107,6 +107,7 @@ public class ArenaManager : MonoBehaviour {
 
 	public void MarkEnemyKilled(int index){
 		enemiesKilled [index] = true;
+		counter++;
 		Debug.Log ("Enemy " + (index) + " is killed\nCounter: " + counter + " out of " + (enemiesKilled.Length));
 		CheckIfWaveComplete ();
 	}
@@ -150,7 +151,7 @@ public class ArenaManager : MonoBehaviour {
 		ArenaAreaPicked.SetActive (true);
 
 		//Tell The player to move there GUI wise
-		Debug.Log ("Go To " + ArenaAreaPicked.GetComponent<ArenaArea> ().AreaName);
+		arenaCanvas.NextArea(ArenaAreaPicked.GetComponent<ArenaArea> ().AreaName);
 		//Allow the player in the area by turning off colliders
 		BoxCollider[] OuterWallColliders = ArenaAreaPicked.GetComponentsInChildren<BoxCollider> ();
 		foreach (BoxCollider OuterWallCollider in OuterWallColliders){
@@ -159,7 +160,7 @@ public class ArenaManager : MonoBehaviour {
 		}
 		//check for player being there
 		while (!ArenaAreaPicked.GetComponent<ArenaArea>().playerinarea) {
-			Debug.Log ("In while loop ArenaAreaPicked.GetComponent<ArenaArea>().playerinarea = "+ArenaAreaPicked.GetComponent<ArenaArea>().playerinarea);
+			Debug.Log ("In while loop Are You in "+ ArenaAreaPicked.GetComponent<ArenaArea>().AreaName +" "+ArenaAreaPicked.GetComponent<ArenaArea>().playerinarea);
 			yield return null;
 		}
 		Debug.Log ("out of while loop ArenaAreaPicked.GetComponent<ArenaArea>().playerinarea = "+ArenaAreaPicked.GetComponent<ArenaArea>().playerinarea);

@@ -226,7 +226,7 @@ public class GameManager : MonoBehaviour {
 			levelTransform = tutorialObject.transform;
 
 		} else if (type == 2) {
-			arenaObject = Instantiate(arenaPrefab, new Vector3(80f,0f,80f), Quaternion.identity) as GameObject;
+			arenaObject = Instantiate(arenaPrefab, new Vector3(900f,0f,900f), Quaternion.identity) as GameObject;
 			levelTransform = arenaObject.transform;
 		}
 
