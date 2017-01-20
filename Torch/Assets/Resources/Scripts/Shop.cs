@@ -142,11 +142,11 @@ public class Shop : MonoBehaviour {
 		if (!gameManager.achievements.all_shopitems_bought) {
 			bool allOwned = true;
 			for (int i = 0; i < itemsToBuy.Length; i++) {
-				Debug.Log (gameManager.data.shopItemsOwned [i]);
+//				Debug.Log (gameManager.data.shopItemsOwned [i]);
 				if (!gameManager.data.shopItemsOwned [i])
 					allOwned = false;
 			}
-			Debug.Log ("================= Ride");
+			//Debug.Log ("================= Ride");
 
 			if (allOwned) {
 				gameManager.achievements.shopAchievement ();
