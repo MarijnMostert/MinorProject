@@ -286,7 +286,7 @@ public class GameManager : MonoBehaviour {
 			startpoint = arenaObject.transform.Find ("Spawnpoint").transform.position;
 			playerManagers [0].playerInstance.transform.position = startpoint;
 			playerManagers [1].playerInstance.transform.position = startpoint + new Vector3 (-2f, 0f, -2f);
-			torch.isDamagable = false;
+			torch.isDamagable = true;
 		}
 		RespawnPosition = startpoint;
 		torch.transform.position = startpoint + new Vector3 (6, .5f, 0);
