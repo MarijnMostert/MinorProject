@@ -70,7 +70,7 @@ public class GameManager : MonoBehaviour {
 
     //masterGenerator Vars
     int radius = 2;// = 2;
-    int maxlength = 2;// = 2;
+    int maxlength = 3;// = 2;
     int timeout = 200;// = 2000;
 
 
@@ -189,6 +189,7 @@ public class GameManager : MonoBehaviour {
 		PetScript.speechImage.gameObject.SetActive (false);
 		Bold = Instantiate (Bold) as GameObject;
 		BoldPetScript = Bold.GetComponent<Pet> ();
+		BoldPetScript.attacking = false;
 		Bold.SetActive (false);
 
 		shopPrefab.EquipActives ();

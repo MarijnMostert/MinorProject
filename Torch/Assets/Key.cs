@@ -27,6 +27,9 @@ public class Key : AudioObject {
 			if (gameManager.collectedKeys == gameManager.requiredCollectedKeys) {
 				//End portal is enabled.
 				EndPortal.endPortalActivated = true;
+				foreach (PlayerManager PM in gameManager.playerManagers) {
+					PM.playerMovement.ToggleArenaPointer (true, EndPortal.gameObject);
+				}
 			}
 
 			ObjectPooler.Instance.PlayAudioSource (clip, mixerGroup, 1f, 1f, transform);

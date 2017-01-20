@@ -17,6 +17,9 @@ public class endPortal : InteractableItem {
 		}
 		if (gameManager.collectedKeys == gameManager.requiredCollectedKeys) {
 			endPortalActivated = true;
+			foreach (PlayerManager PM in gameManager.playerManagers) {
+				PM.playerMovement.ToggleArenaPointer (true, gameObject);
+			}
 		}
 		UpdateKeyText ();
     }
@@ -54,6 +57,9 @@ public class endPortal : InteractableItem {
 
     void onWin()
     {
+		foreach (PlayerManager PM in gameManager.playerManagers) {
+			PM.playerMovement.ToggleArenaPointer (false, null);
+		}
 		Time.timeScale = 0f;
 		if (gameManager.spawner != null) {
 			gameManager.spawner.activated = false;

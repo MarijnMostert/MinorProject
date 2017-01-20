@@ -148,6 +148,9 @@ public class ArenaManager : MonoBehaviour {
 		ArenaAreaPicked = ArenaAreas [Random.Range (0, ArenaAreas.Length)];
 		//Turn on area boundaries
 		ArenaAreaPicked.SetActive (true);
+		foreach (PlayerManager PM in gameManager.playerManagers) {
+			PM.playerMovement.ToggleArenaPointer (true, ArenaAreaPicked);
+		}
 
 		//Tell The player to move there GUI wise
 		Debug.Log ("Go To " + ArenaAreaPicked.GetComponent<ArenaArea> ().AreaName);
@@ -163,6 +166,11 @@ public class ArenaManager : MonoBehaviour {
 			yield return null;
 		}
 		Debug.Log ("out of while loop ArenaAreaPicked.GetComponent<ArenaArea>().playerinarea = "+ArenaAreaPicked.GetComponent<ArenaArea>().playerinarea);
+
+		foreach (PlayerManager PM in gameManager.playerManagers) {
+			PM.playerMovement.ToggleArenaPointer (false, null);
+		}
+
 		//Turn on the colliders locking in the player
 		foreach (BoxCollider OuterWallCollider in OuterWallColliders){
 			OuterWallCollider.enabled = true;
