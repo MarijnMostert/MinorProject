@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Threading;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 
 public class DungeonInstantiate : Object {
     GameObject floor, side, sideAlt1, sideAlt2, corner, cornerout,
@@ -72,7 +73,9 @@ public class DungeonInstantiate : Object {
 	GameObject[] dungeonParticles;
 	DungeonData.DungeonParameters dungeonParameters;
 
-    public Vector3 startPos;
+	public Vector3 startPos;
+
+	StringBuilder sb;
 
     // Use this for initialization
 	public DungeonInstantiate(DungeonData.DungeonParameters dungeonParameters, GameObject floor, GameObject side, GameObject sideAlt1, GameObject sideAlt2, GameObject corner, 
@@ -175,6 +178,14 @@ public class DungeonInstantiate : Object {
 			puzzleRooms.Add (dungeonParameters.puzzleRooms.Treasureroom.puzzleRoom);
 			puzzleRoomSpawnChances.Add (dungeonParameters.puzzleRooms.Treasureroom.spawnChance);
 		}
+
+		sb = new StringBuilder ();
+		sb.Append ("Available puzzles in this dungeon: ");
+		for(int i = 0; i < puzzleRooms.Count; i++) {
+			sb.Append ("\n" + puzzleRooms[i].name + ", chance: " + puzzleRoomSpawnChances[i].ToString());
+		}
+
+		Normalize ();
 
     }
 
@@ -472,6 +483,8 @@ public class DungeonInstantiate : Object {
 		temp2.Add (ending);
 		p2D.myRemove (puzzleCenters, temp2);
 
+		sb.Append ("\n\nPuzzles in this dungeon: ");
+
 		foreach (p2D center in puzzleCenters) {
 			Vector3 convCenter = new Vector3 (center.getX () * 6 + 1, 0, center.getY () * 6 + 1);
 			convCenter += new Vector3 (-4f, 0, -4f);
@@ -489,6 +502,9 @@ public class DungeonInstantiate : Object {
 			buildDoors (center, convCenter, thesedoors);
 			Instantiate (PuzzleMist, convCenter, Quaternion.identity, thispuzzle.transform);
 		}
+
+		sb.Append ("\n\n");
+		Debug.Log (sb.ToString ());
 	} 
 		
 	/// <summary>
@@ -732,26 +748,40 @@ public class DungeonInstantiate : Object {
         return append;
     }
 
-	int DeterminePuzzleRoom(){
+	void Normalize ()
+	{
+		StringBuilder sb2 = new StringBuilder ();
+		sb2.Append ("Raw values: \n");
+		for (int i = 0; i < puzzleRoomSpawnChances.Count; i++) {
+			sb2.Append (puzzleRoomSpawnChances [i] + " ");
+		}
 		float norm = 0;
 		int size = puzzleRoomSpawnChances.Count;
-		for(int i = 0; i < puzzleRoomSpawnChances.Count; i++) {
-			norm += puzzleRoomSpawnChances[i];
+		for (int i = 0; i < puzzleRoomSpawnChances.Count; i++) {
+			norm += puzzleRoomSpawnChances [i];
 		}
-
 		float temp = 0;
-		for(int i = 0; i < puzzleRoomSpawnChances.Count; i++) {
+		for (int i = 0; i < puzzleRoomSpawnChances.Count; i++) {
 			puzzleRoomSpawnChances [i] = (puzzleRoomSpawnChances [i] / norm) + temp;
-			temp = puzzleRoomSpawnChances [i]; 
+			temp = puzzleRoomSpawnChances [i];
+		}
+		sb2.Append ("\n\nNew values: ");
+		for (int i = 0; i < puzzleRoomSpawnChances.Count; i++) {
+			sb2.Append (puzzleRoomSpawnChances [i] + " ");
 		}
 
+		sb2.Append ("\n\n");
+		//Debug.Log (sb2.ToString ());
+	}
+
+	int DeterminePuzzleRoom(){
 		float x = Random.value;
 		for (int i = 0; i < puzzleRoomSpawnChances.Count; i++) {
 			if (puzzleRoomSpawnChances[i] >= x) {
+				sb.Append ("\n" + puzzleRooms [i].ToString ());
 				return i;
 			}
 		}
-
 		return 0;
 	}
 }
