@@ -38,7 +38,7 @@ public class DeathCanvas : MonoBehaviour {
 		string name = InputField.text;
 		int score = GameManager.Instance.totalScore;
 		if (name != null && score != null) {
-			GameManager.Instance.data.SaveHighScore (score, name);
+			GameManager.Instance.data.SaveHighScore (score);
 		}
 	}
 

@@ -23,7 +23,7 @@ public class Data : MonoBehaviour {
     [Serializable]
     public struct Highscore
     {
-        public string id;
+        public int id;
         public int score;
         public string name;
         public DateTime date;
@@ -47,9 +47,32 @@ public class Data : MonoBehaviour {
     }
 
     public Highscores highscores;
+    public GameObject loginCanvas;
+
+    [Serializable]
+    public class Score
+    {
+        public string id;
+        public string date;
+        public Score() { }
+        public Score(string id,string date)
+        {
+            this.id = id;
+            this.date = date;
+        }
+    }
+
+    public int max_score;
 
     void Start(){
 		playerSkin = new Material[4];
+        PlayerPrefs.DeleteKey("id");
+        Debug.Log(PlayerPrefs.GetString("id"));
+        if (PlayerPrefs.GetString("id") == null || !PlayerPrefs.HasKey("id"))
+        {
+            loginCanvas.SetActive(true);
+        }
+        max_score = 0;
 	}
 
 	void Update () {
@@ -76,7 +99,7 @@ public class Data : MonoBehaviour {
         highscores = new Highscores();
         string jsonDataString = Serializer.Load<string>("highScores.txt");
         highscores = JsonUtility.FromJson<Highscores>(jsonDataString);
-
+        max_score = getMaxScore();
         server_communication();
 		Debug.Log ("Loaded data succesfully");
 	}
@@ -96,7 +119,7 @@ public class Data : MonoBehaviour {
 		Debug.Log ("Saved data succesfully");
 	}
 
-	public void ResetData(){
+    public void ResetData(){
 		shopItemsOwned = new bool[50];
 		shopItemsEquipped = new bool[50];
 		for (int i = 0; i < shopItemsOwned.Length; i++) {
@@ -136,22 +159,17 @@ public class Data : MonoBehaviour {
 		coins += 1;
 	}
 
-	public void SaveHighScore(int score, string name){
+	public void SaveHighScore(int score){
         instantiateHighscores();
-        Highscore new_score = new Highscore();
-        new_score.name = name;
-        new_score.score = score;
-        new_score.date = DateTime.Now;
-
-        highscores.highscore.Add(new_score);
-        Debug.Log ("New highscore added: " + score + " : " + name);
-
-		GameManager.Instance.HighScoresPanel.GetComponentInChildren<HighScoresPanel> ().UpdateHighScores ();
+        StartCoroutine(addScoreWWW(score));
 	}
 
     void server_communication()
     {
-        WWW website = new WWW("https://insyprojects.ewi.tudelft.nl/ewi3620tu1/unity/scores.php");
+        WWWForm wwwform = new WWWForm();
+        wwwform.AddField("player_id", PlayerPrefs.GetInt("id"));
+        wwwform.AddField("score_id", max_score);
+        WWW website = new WWW("https://insyprojects.ewi.tudelft.nl/ewi3620tu1/unity/scores.php",wwwform);
         StartCoroutine(getWWWData(website));
     }
 
@@ -159,13 +177,20 @@ public class Data : MonoBehaviour {
     {
         yield return website;
 
-        if(website.error == null)
+        WWWHighscore wwwData;
+        if (website.error == null)
         {
             Debug.Log("WWW Ok!: " + website.text);
-            WWWHighscore wwwData = JsonUtility.FromJson<WWWHighscore>(website.text);
-            //Highscore[] wwwData = JsonHelper.getJsonArray<Highscore>(website.text);
+            wwwData = JsonUtility.FromJson<WWWHighscore>(website.text);
             Debug.Log(wwwData);
             Debug.Log(wwwData.Highscore.Length);
+
+            foreach (Highscore wwwtmp in wwwData.Highscore)
+            {
+                 highscores.highscore.Add(wwwtmp);
+            }
+            GameManager.Instance.HighScoresPanel.GetComponentInChildren<HighScoresPanel>().UpdateHighScores();
+
         }
         else
         {
@@ -179,5 +204,45 @@ public class Data : MonoBehaviour {
         {
             highscores.highscore = new List<Highscore>();
         }
+    }
+
+    IEnumerator addScoreWWW(int score)
+    {
+        WWWForm wwwForm = new WWWForm();
+        wwwForm.AddField("id",PlayerPrefs.GetString("id"));
+        wwwForm.AddField("score",score);
+        DateTime now = DateTime.Now;
+        wwwForm.AddField("date",now.ToString());
+        WWW wwwData = new WWW("https://insyprojects.ewi.tudelft.nl/ewi3620tu1/unity/addscore.php",wwwForm);
+        yield return wwwData;
+
+        Debug.Log(wwwData.text);
+        Score wwwscore = JsonUtility.FromJson<Score>(wwwData.text);
+        Debug.Log("SCORE: "+ wwwscore.id);
+        Debug.Log("DATE: " + wwwscore.date);
+
+        Highscore new_score = new Highscore();
+        new_score.id = Int32.Parse(wwwscore.id);
+        new_score.name = PlayerPrefs.GetString("name");
+        new_score.score = score;
+        new_score.date = now;
+        
+        highscores.highscore.Add(new_score);
+        Debug.Log("New highscore added: " + score + " : " + name);
+
+        GameManager.Instance.HighScoresPanel.GetComponentInChildren<HighScoresPanel>().UpdateHighScores();
+    }
+
+    public int getMaxScore()
+    {
+        int max= 0;
+        foreach (Highscore tmp in highscores.highscore)
+        {
+            if (tmp.id > max)
+            {
+                max = tmp.id;
+            }
+        }
+        return max;
     }
 }

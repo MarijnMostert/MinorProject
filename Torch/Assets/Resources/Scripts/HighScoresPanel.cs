@@ -75,6 +75,7 @@ public class HighScoresPanel : MonoBehaviour {
 		namesText.text = namesTemp;
 		scoresText.text = scoresTemp;
         dateText.text = dateTemp;
+        Debug.Log("updated highscore");
 	}
 
 	void OnTriggerEnter(Collider other){

@@ -175,7 +175,6 @@ public class GameManager : MonoBehaviour {
 		minimap = Resources.Load ("Prefabs/minimap2", typeof (Camera)) as Camera;
 
 		HighScoresPanel = Instantiate (HighScoresPanel) as GameObject;
-        HighScoresPanel.SetActive(true);
     }
 
     public void Start(){
