@@ -61,6 +61,8 @@ public class createPlayerForm : MonoBehaviour {
                 PlayerPrefs.SetString("name",name.text);
                 PlayerPrefs.SetString("password",password.text);
                 PlayerPrefs.SetInt("id", int.Parse(wwwData.message));
+                PlayerPrefs.SetInt("coins",0);
+                PlayerPrefs.SetInt("dungeonLevel",1);
                 Time.timeScale = 1;
                 GameObject highscore = GameManager.Instance.HighScoresPanel;
                 highscore.GetComponentInChildren<HighScoresPanel>().UpdateHighScores();

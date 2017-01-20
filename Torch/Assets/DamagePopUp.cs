@@ -29,7 +29,15 @@ public class DamagePopUp : MonoBehaviour {
 			//cam.WorldToScreenPoint (target.transform.position + new Vector3(0f, offset, 0f));
 		GameObject popup = ObjectPooler.Instance.GetObject(0, true, location);
 		//GameObject popup = Instantiate (PopUp) as GameObject;
-		popup.GetComponentInChildren<Text> ().text = damage.ToString();
+		if (!crit) {
+			popup.GetComponentInChildren<Text> ().text = damage.ToString ();
+		} else if (damage < 70) {
+			popup.GetComponentInChildren<Text> ().text = damage.ToString () + "!";
+		} else if (damage < 150) {
+			popup.GetComponentInChildren<Text> ().text = damage.ToString () + "!!";
+		} else {
+			popup.GetComponentInChildren<Text> ().text = damage.ToString () + "!!!";
+		}
 		popup.GetComponentInChildren<Text> ().color = color;
 	}
 }

@@ -36,8 +36,7 @@ public class Doors : MonoBehaviour {
 		}
 	}
 
-	void OnTriggerExit(Collider other)
-	{
+	void OnTriggerExit(Collider other) {
 		if (!locked) {
 			Close ();
 		}
@@ -52,9 +51,6 @@ public class Doors : MonoBehaviour {
 		if (doorOpen) {
 			doorOpen = false;
 			DoorController ("Close");
-
-
-
 		}
 	}
 

@@ -245,4 +245,13 @@ public class Data : MonoBehaviour {
         }
         return max;
     }
+
+    public void logout()
+    {
+        PlayerPrefs.DeleteKey("name");
+        PlayerPrefs.DeleteKey("password");
+        PlayerPrefs.DeleteKey("id");
+        PlayerPrefs.DeleteKey("coins");
+        PlayerPrefs.DeleteKey("level");
+    }
 }

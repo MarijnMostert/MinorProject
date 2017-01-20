@@ -35,11 +35,13 @@ public class DungeonData : MonoBehaviour {
 	public int minLevelPiercingWeapon = 7;
 	public int minLevelLaserWeapon = 13;
 	public int minLevelBloodWeapon = 16;
+	public int minLevelBoomerangWeapon = 20;
 
 	public float chanceIceball = 0.1f;
 	public float chancePiercing = 0.1f;
 	public float chanceLaser = 0.1f;
 	public float chanceBlood = 0.1f;
+	public float chanceBoomerang = .1f;
 
     [Header("- Minimum values traps")]
 	public float chanceForTrap = .1f;
@@ -124,6 +126,7 @@ public class DungeonData : MonoBehaviour {
 		public PowerUp piercingWeapon;
 		public PowerUp laserWeapon;
 		public PowerUp bloodWeapon;
+		public PowerUp boomerangWeapon;
 	}
 
 	[Serializable]
@@ -207,6 +210,8 @@ public class DungeonData : MonoBehaviour {
 				DP.powerUps.laserWeapon.enabled = true;
 			if (i >= minLevelBloodWeapon)
 				DP.powerUps.bloodWeapon.enabled = true;
+			if (i >= minLevelBoomerangWeapon)
+				DP.powerUps.boomerangWeapon.enabled = true;
             if (i >= minLevelSpidernest)
                 DP.Traps.spidernest.enabled = true;
             if (i >= minLevelWizardnest)
@@ -242,6 +247,8 @@ public class DungeonData : MonoBehaviour {
 			DP.powerUps.iceballWeapon.spawnChance = chanceIceball;
 			DP.powerUps.piercingWeapon.spawnChance = chancePiercing;
 			DP.powerUps.laserWeapon.spawnChance = chanceLaser;
+			DP.powerUps.bloodWeapon.spawnChance = chanceBlood;
+			DP.powerUps.boomerangWeapon.spawnChance = chanceBoomerang;
 			DP.Traps.chanceForTrap = chanceForTrap;
             DP.Traps.spidernest.spawnChance = chanceSpidernest;
             DP.Traps.wizardnest.spawnChance = chanceWizardnest;

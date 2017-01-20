@@ -13,13 +13,17 @@ public class loginForm : MonoBehaviour
     {
         public string succes;
         public string message;
+        public int coins;
+        public int level;
 
         public communication() { }
 
-        public communication(string succes, string message)
+        public communication(string succes, string message, int coins, int level)
         {
             this.succes = succes;
             this.message = message;
+            this.coins = coins;
+            this.level = level;
         }
     }
 
@@ -66,6 +70,8 @@ public class loginForm : MonoBehaviour
                 PlayerPrefs.SetString("name", name.text);
                 PlayerPrefs.SetString("password", password.text);
                 PlayerPrefs.SetInt("id", int.Parse(wwwData.message));
+                PlayerPrefs.SetInt("coins",wwwData.coins);
+                PlayerPrefs.SetInt("level",wwwData.level);
                 Time.timeScale = 1;
                 GameManager.Instance.data.Load();
                 transform.parent.gameObject.SetActive(false);
