@@ -270,7 +270,8 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000014012701652}
-  - 65: {fileID: 65000012327136978}
+  - 135: {fileID: 135000011963925382}
+  - 114: {fileID: 114000011818904466}
   m_Layer: 0
   m_Name: Other Area
   m_TagString: Untagged
@@ -567,8 +568,8 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000010756945798}
-  - 65: {fileID: 65000011179441830}
   - 114: {fileID: 114000011165493834}
+  - 135: {fileID: 135000011640690508}
   m_Layer: 0
   m_Name: Maze Area
   m_TagString: Untagged
@@ -705,7 +706,8 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000012479769244}
-  - 65: {fileID: 65000010425765430}
+  - 135: {fileID: 135000013580256976}
+  - 114: {fileID: 114000011576827924}
   m_Layer: 0
   m_Name: Zoo Area
   m_TagString: Untagged
@@ -757,7 +759,8 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000013046219102}
-  - 65: {fileID: 65000011981497660}
+  - 135: {fileID: 135000011800975084}
+  - 114: {fileID: 114000011178804056}
   m_Layer: 0
   m_Name: Lava Area
   m_TagString: Untagged
@@ -1414,7 +1417,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012353438950}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 500, y: 0, z: 0}
+  m_LocalPosition: {x: 50.03846, y: 31.026522, z: 113.63607}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -3931,18 +3934,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 10, y: 1, z: 9.999999}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &65000010425765430
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012920724960}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 55, y: 10, z: 55}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &65000010451354424
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -3966,18 +3957,6 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 10, y: 1, z: 9.999999}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &65000011179441830
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012033004794}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 55, y: 10, z: 55}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &65000011362652866
 BoxCollider:
@@ -4014,30 +3993,6 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 10, y: 1, z: 10}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &65000011981497660
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013001505936}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 55, y: 10, z: 55}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &65000012327136978
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010965275450}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 55, y: 10, z: 55}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &65000012638396378
 BoxCollider:
@@ -4216,6 +4171,45 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerinarea: 0
   AreaName: Maze Area
+--- !u!114 &114000011178804056
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013001505936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 276adc26d96b6d24bae7257e3d25e891, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerinarea: 0
+  AreaName: Lava Area
+--- !u!114 &114000011576827924
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012920724960}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 276adc26d96b6d24bae7257e3d25e891, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerinarea: 0
+  AreaName: Zoo Area
+--- !u!114 &114000011818904466
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010965275450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 276adc26d96b6d24bae7257e3d25e891, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerinarea: 0
+  AreaName: Other Area
 --- !u!114 &114000013106200666
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4240,4 +4234,52 @@ SphereCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 3
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!135 &135000011640690508
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012033004794}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 25
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!135 &135000011800975084
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013001505936}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 25
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!135 &135000011963925382
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010965275450}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 25
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!135 &135000013580256976
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012920724960}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 25
   m_Center: {x: 0, y: 0, z: 0}

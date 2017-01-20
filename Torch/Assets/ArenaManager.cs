@@ -23,6 +23,7 @@ public class ArenaManager : MonoBehaviour {
 	private int counter;
 	private GameObject[] ArenaAreas;
 	private GameObject ArenaAreasParent;
+	private GameObject ArenaAreaPicked;
 
 	void Start () {
 		gameManager = GetComponentInParent<GameManager> ();
@@ -99,6 +100,7 @@ public class ArenaManager : MonoBehaviour {
 			Debug.Log ("Wave " + waveNumber + " cleared.");
 			arenaCanvas.WaveCleared (waveNumber);
 			//Turn off ArenaArea
+			ArenaAreaPicked.SetActive (false);
 			StartCoroutine (BetweenRounds ());
 		}
 	}
@@ -143,9 +145,9 @@ public class ArenaManager : MonoBehaviour {
 
 	IEnumerator AreaPicker(){
 		//Pick a random area
-		GameObject ArenaAreaPicked = ArenaAreas [Random.Range (0, ArenaAreas.Length)];
+		ArenaAreaPicked = ArenaAreas [Random.Range (0, ArenaAreas.Length)];
 		//Turn on area boundaries
-		ArenaAreaPicked.SetActive(true);
+		ArenaAreaPicked.SetActive (true);
 		if (!ArenaAreaPicked.activeInHierarchy) {
 			Debug.Log ("not activeInHierarchy");
 		} else {
@@ -157,11 +159,23 @@ public class ArenaManager : MonoBehaviour {
 			Debug.Log ("activeSelf");
 		}
 		//Tell The player to move there GUI wise
-		Debug.Log("Go To "+ ArenaAreaPicked.GetComponent<ArenaArea>().AreaName);
+		Debug.Log ("Go To " + ArenaAreaPicked.GetComponent<ArenaArea> ().AreaName);
+		//Allow the player in the area by turning off colliders
+		BoxCollider[] OuterWallColliders = ArenaAreaPicked.GetComponentsInChildren<BoxCollider> ();
+		foreach (BoxCollider OuterWallCollider in OuterWallColliders){
+			OuterWallCollider.enabled = false;
+			Debug.Log ("Outerwalls open");
+		}
 		//check for player being there
 		while (!ArenaAreaPicked.GetComponent<ArenaArea>().playerinarea) {
 			Debug.Log ("In while loop ArenaAreaPicked.GetComponent<ArenaArea>().playerinarea = "+ArenaAreaPicked.GetComponent<ArenaArea>().playerinarea);
 			yield return null;
+		}
+		Debug.Log ("out of while loop ArenaAreaPicked.GetComponent<ArenaArea>().playerinarea = "+ArenaAreaPicked.GetComponent<ArenaArea>().playerinarea);
+		//Turn on the colliders locking in the player
+		foreach (BoxCollider OuterWallCollider in OuterWallColliders){
+			OuterWallCollider.enabled = true;
+			Debug.Log ("Outerwalls closed");
 		}
 		//start wave
 		StartCoroutine(SpawnWave ());
