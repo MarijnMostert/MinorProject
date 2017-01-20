@@ -108,6 +108,8 @@ public class Shop : MonoBehaviour {
 			EquipButton.SetActive (true);
 
 			SetOwned (activeIndex);
+
+			gameManager.achievements.firstBoughtAchievement ();
 		}
 	}
 

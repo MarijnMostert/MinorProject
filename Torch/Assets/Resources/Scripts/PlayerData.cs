@@ -45,10 +45,7 @@ public class PlayerData : MonoBehaviour {
 
 	public void IncrementDistanceTravelled(int amount){
 		distanceTravelled += amount;
-
-		if (!achievements.km_42_walked && distanceTravelled >= 4200) {
-			achievements.km42Achievement ();
-		}
+		achievements.walkAchievement (amount);
 	}
 
 	public void IncrementShotsFired(){

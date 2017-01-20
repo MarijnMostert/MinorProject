@@ -11,12 +11,16 @@ public class Achievements : MonoBehaviour {
 	public Image Aimage;
 
 	public bool AchievenmentTest;
+	public bool[] AchievementList;
 
 	// // // // // // // // // Achievements
 	public bool tutorial_done;
 	public bool spidernest_destroyed;
 	public bool wizarnest_destroyed;
+	public bool first_item_bought;
+	public bool first_km_walked;
 	public bool boss_defeated;
+
 	public bool keys_collected_100;
 	public bool all_shopitems_bought;
 	public bool home_stairs_climbed;
@@ -46,6 +50,7 @@ public class Achievements : MonoBehaviour {
 	int timesdied;
 	int totalcollectedkeys;
 	int totalpowerupsused;
+	float totaldistance;
 
 	public Vector2  hiddenTarget;
 	public Vector2 shownTarget;
@@ -53,68 +58,132 @@ public class Achievements : MonoBehaviour {
 	Vector2 damping;
 
 	// // // // // // // // // Reset
-	void Awake () {
-		AchievenmentTest = false;
+	void Start () {
+		AchievementList = gameManager.data.achievementsGotten;
+		AchievenmentTest = false;					//	0
 
-		tutorial_done = false;			//x doet het!
-		spidernest_destroyed = false;	//x doet het!
-		wizarnest_destroyed = false;	//x
-		boss_defeated = false;			//x works
-		keys_collected_100 = false;		//x works
-		all_shopitems_bought = false;	//x works
-		home_stairs_climbed = false;
-		died_20_times = false;			//x doet het!
-		fell_50_times = false;			//x doet het!
-		playtime_1_hour = false;		
-		km_42_walked = false;			//x works
-		powerups_50_used = false;		//x
-		cheats_unlocked = false;		//x
+		tutorial_done = false;			//x doet het!	1
+		spidernest_destroyed = false;	//x doet het!	2
+		wizarnest_destroyed = false;	//x				3
+		first_item_bought = false;					//	4
+		first_km_walked = false;					//	5	
+		boss_defeated = false;			//x works		6
 
-		enemies_killed_200 = false;		//x works
-		spider_100 = false;				//x works
-		bomber_100 = false;				//x works
-		minota_100 = false;				//x works
-		ghost_100 = false;				//x works
+		keys_collected_100 = false;		//x works		7
+		all_shopitems_bought = false;	//x works		8
+		home_stairs_climbed = false;				//	9
+		died_20_times = false;			//x doet het!	10
+		fell_50_times = false;			//x doet het!	11
+		playtime_1_hour = false;					//	12
+		km_42_walked = false;			//x works		13
+		powerups_50_used = false;		//x				14
+		cheats_unlocked = false;		//x				15
 
-		levels_10 = false;				//x works 
-		levels_20 = false;				//x works
-		levels_30 = false;				//x works
-		levels_40 = false;				//x works
+		enemies_killed_200 = false;		//x works	16
+		spider_100 = false;				//x works	17
+		bomber_100 = false;				//x works	18
+		minota_100 = false;				//x works	19
+		ghost_100 = false;				//x works	20
+
+		levels_10 = false;				//x works 	21
+		levels_20 = false;				//x works	22
+		levels_30 = false;				//x works	23
+		levels_40 = false;				//x works	24
 
 		timesfallen = 0;
 		timesdied = 0;
 		totalcollectedkeys = 0;
 		totalpowerupsused = 0;
+		totaldistance = 0;
 
 		target = hiddenTarget;
+
+		initializeAllAchievements ();
+	}
+
+	void initializeAllAchievements () {
+		tutorial_done = AchievementList [1];			//x doet het!	1
+		spidernest_destroyed = AchievementList [2];		//x doet het!	2
+		wizarnest_destroyed = AchievementList[3];		//x				3
+		first_item_bought = AchievementList[4];						//	4
+		first_km_walked = AchievementList[5];						//	5	
+		boss_defeated = AchievementList[6];				//x works		6
+
+		keys_collected_100 = AchievementList [7];		//x works		7
+		all_shopitems_bought = AchievementList [8];		//x works		8
+		home_stairs_climbed = AchievementList [9];					//	9
+		died_20_times = AchievementList [10];			//x doet het!	10
+		fell_50_times = AchievementList [11];			//x doet het!	11
+		playtime_1_hour = AchievementList [12];						//	12
+		km_42_walked = AchievementList [13];			//x works		13
+		powerups_50_used = AchievementList [14];		//x				14
+		cheats_unlocked = AchievementList [15];			//x				15
+
+		enemies_killed_200 = AchievementList [16];		//x works	16
+		spider_100 = AchievementList [17];				//x works	17
+		bomber_100 = AchievementList [18];				//x works	18
+		minota_100 = AchievementList [19];				//x works	19
+		ghost_100 = AchievementList [20];				//x works	20
+
+		levels_10 = AchievementList [21];				//x works 	21
+		levels_20 = AchievementList [22];				//x works	22
+		levels_30 = AchievementList [23];				//x works	23
+		levels_40 = AchievementList [24];				//x works	24
+	}
+
+	void updateAchievement (int i, bool b) {
+		AchievementList [i] = b;
+		gameManager.data.achievementsGotten [i] = b;
 	}
 
 	void Update () {
 		if (Input.GetKey ("x")) {
-			NewAchievement ("test");
+			NewAchievement ("test", 0);
 		}
 		Aimage.rectTransform.anchoredPosition = Vector2.MoveTowards (Aimage.rectTransform.anchoredPosition, target, 5);
 	}
 
-	public void NewAchievement (string text) {
+	public void NewAchievement (string text, int i) {
 		Debug.Log("New Achievement: " + text);
-		Atext.text = "New Achievement: " + text;
+		updateAchievement (i, true);
+		Atext.text = "New Achievement:\n" + text;
 		StartCoroutine ("WaitSecs");
 	}
 
 	IEnumerator WaitSecs () {
 		target = shownTarget;
 
-		yield return new WaitForSeconds (2);
+		yield return new WaitForSeconds (4);
 
 		target = hiddenTarget;
+	}
+
+	public void firstBoughtAchievement () {
+		if (!first_item_bought) {
+			first_item_bought = true;
+			NewAchievement ("You've bought your first item!", 4);
+		}
+	}
+
+	public void walkAchievement(float adding) {
+		totaldistance += adding;
+
+		if (!first_km_walked && totaldistance >= 1000) {
+			first_km_walked = true;
+			NewAchievement ("You've walked your first km!", 5);
+		}
+
+		if (!km_42_walked && totaldistance >= 4200) {
+			km_42_walked = true;
+			NewAchievement ("4200 m walked this play!", 13);
+		}
 	}
 
 	public void diedAchievement() {
 		timesdied++;
 		if (!died_20_times && timesdied >= 20) {
 			died_20_times = true;
-			NewAchievement ("Congratulations, you've died 50 times!");
+			NewAchievement ("You've died 20 times!", 10);
 		}
 	}
 
@@ -122,14 +191,14 @@ public class Achievements : MonoBehaviour {
 		timesfallen++;
 		if (!fell_50_times && timesfallen >= 50) {
 			fell_50_times = true;
-			NewAchievement ("Congratulations, you've fallen 50 times!");
+			NewAchievement ("You've fallen 50 times!", 11);
 		}
 	}
 
 	public void bossAchievement () {
 		if (!boss_defeated) {
 			boss_defeated = true;
-			NewAchievement ("First boss killed!");
+			NewAchievement ("First boss killed!", 6);
 		}
 	}
 
@@ -138,13 +207,13 @@ public class Achievements : MonoBehaviour {
 		case "SPIDERNEST":
 			if (!spidernest_destroyed) {
 				spidernest_destroyed = true;
-				NewAchievement ("First spidernest destroyed!");
+				NewAchievement ("First spidernest destroyed!", 2);
 			}
 			break;
 		case "WIZARDNEST":
 			if (!wizarnest_destroyed) {
 				wizarnest_destroyed = true;
-				NewAchievement ("First wizardnest destroyed!");
+				NewAchievement ("First wizardnest destroyed!", 3);
 			}
 			break;
 		}
@@ -152,38 +221,33 @@ public class Achievements : MonoBehaviour {
 
 	public void cheatsAchievement () {
 		cheats_unlocked = true;
-		NewAchievement ("Cheats unlocked!");
+		NewAchievement ("Cheats unlocked!", 15);
 	}
 
 	public void powerups50Achievement() {
 		totalpowerupsused++;
 		if (!powerups_50_used && totalpowerupsused >= 50) {
 			powerups_50_used = true;
-			NewAchievement ("50 powerups used!");
+			NewAchievement ("50 powerups used!", 14);
 		}
-	}
-
-	public void km42Achievement() {
-		km_42_walked = true;
-		NewAchievement ("You've walked 4200 m in one level!");
 	}
 
 	public void shopAchievement() {
 		all_shopitems_bought = true;
-		NewAchievement ("You own all shop items!");
+		NewAchievement ("You own all shop items!", 8);
 	}
 
 	public void enemiesAchievement() {
 		if (!enemies_killed_200) {
 			enemies_killed_200 = true;
-			NewAchievement ("You've killed 200 enemies!");
+			NewAchievement ("200 enemies killed!", 16);
 		}
 	}
 
 	public void tutortialAchievement () {
 		if (!tutorial_done) {
 			tutorial_done = true;
-			NewAchievement ("Tutorial completed!");
+			NewAchievement ("Tutorial completed!", 1);
 		}
 	}
 
@@ -191,7 +255,7 @@ public class Achievements : MonoBehaviour {
 		totalcollectedkeys++;
 		if (!keys_collected_100 && totalcollectedkeys >= 100) {
 			keys_collected_100 = true;
-			NewAchievement ("You've collected 100 keys!");
+			NewAchievement ("100 keys collected!", 7);
 		}
 	}
 
@@ -201,28 +265,28 @@ public class Achievements : MonoBehaviour {
 			spidersKilled++;
 			if (!spider_100 && spidersKilled >= 100) {
 				spider_100 = true;
-				NewAchievement ("You've killed 100 spiders!");
+				NewAchievement ("You've killed 100 spiders!", 17);
 			}
 			break;
 		case "minotaur":
 			minotaurKilled++;
 			if (!minota_100 && minotaurKilled >= 100) {
 				minota_100 = true;
-				NewAchievement ("You've killed 100 minotaurs!");
+				NewAchievement ("You've killed 100 minotaurs!", 19);
 			}
 			break;
 		case "ghost":
 			ghostsKilled++;
 			if (!ghost_100 && ghostsKilled >= 100) {
 				ghost_100 = true;
-				NewAchievement ("You've killed 100 ghosts!");
+				NewAchievement ("You've killed 100 ghosts!", 20);
 			}
 			break;
 		case "bomber":
 			bomberKilled++;
 			if (!bomber_100 && bomberKilled >= 100) {
 				bomber_100 = true;
-				NewAchievement ("You've killed 100 bombers!");
+				NewAchievement ("You've killed 100 bombers!", 18);
 			}
 			break;
 		}
@@ -231,19 +295,19 @@ public class Achievements : MonoBehaviour {
 	public void levelAchievement (int level) {
 		if (level >= 10 && !levels_10) {
 			levels_10 = true;
-			NewAchievement ("Level 10 reached!");
+			NewAchievement ("Level 10 reached!", 21);
 		}
 		if (level >= 20 && !levels_20) {
 			levels_20 = true;			
-			NewAchievement ("Level 20 reached!");
+			NewAchievement ("Level 20 reached!", 22);
 		}
 		if (level >= 30 && !levels_30) {
 			levels_30 = true;
-			NewAchievement ("Level 30 reached!");
+			NewAchievement ("Level 30 reached!", 23);
 		}
 		if (level >= 40 && !levels_30) {
 			levels_40 = true;
-			NewAchievement ("Level 40 reached!");
+			NewAchievement ("Level 40 reached!", 24);
 		}
 	}
 

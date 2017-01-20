@@ -11,6 +11,9 @@ public class Data : MonoBehaviour {
 	[Header ("- Saved Data")]
 	public bool[] shopItemsOwned;
 	public bool[] shopItemsEquipped;
+
+	public bool[] achievementsGotten;
+
 	public int coins;
 	public int maxAchievedDungeonLevel;
 	public bool highQuality;
@@ -35,12 +38,21 @@ public class Data : MonoBehaviour {
 	public void Load(){
 		shopItemsOwned = new bool[50];
 		shopItemsEquipped = new bool[50];
+
+		achievementsGotten = new bool[50];
+
 		for (int i = 0; i < shopItemsOwned.Length; i++) {
 			string strOwned = "shopItem" + i;
 			string strEquipped = "shopItemEquipped" + i;
 			shopItemsOwned [i] = intToBool(PlayerPrefs.GetInt (strOwned));
 			shopItemsEquipped[i] = intToBool(PlayerPrefs.GetInt (strEquipped));
 		}
+
+		for (int i = 0; i < achievementsGotten.Length; i++) {
+			string strAch = "achievement" + i;
+			achievementsGotten [i] = intToBool(PlayerPrefs.GetInt(strAch));
+		}
+
 		this.coins = PlayerPrefs.GetInt ("coins");
 		this.maxAchievedDungeonLevel = PlayerPrefs.GetInt ("dungeonLevel");
 		if (maxAchievedDungeonLevel == 0)
@@ -61,6 +73,12 @@ public class Data : MonoBehaviour {
 			string strEquipped = "shopItemEquipped" + i;
 			PlayerPrefs.SetInt (strEquipped, boolToInt (shopItemsEquipped [i]));
 		}
+
+		for (int i = 0; i < achievementsGotten.Length; i++) {
+			string strAch = "achievement" + i;
+			PlayerPrefs.SetInt (strAch, boolToInt (achievementsGotten [i]));
+		}
+
 		PlayerPrefs.SetInt ("coins", coins);
 		PlayerPrefs.SetInt ("dungeonLevel", maxAchievedDungeonLevel);
 		PlayerPrefs.SetInt ("highQuality", boolToInt(highQuality));
@@ -73,12 +91,20 @@ public class Data : MonoBehaviour {
 	public void ResetData(){
 		shopItemsOwned = new bool[50];
 		shopItemsEquipped = new bool[50];
+		achievementsGotten = new bool[50];
+
 		for (int i = 0; i < shopItemsOwned.Length; i++) {
 			string strOwned = "shopItem" + i;
 			PlayerPrefs.SetInt (strOwned, 0);
 			string strEquipped = "shopItemEquipped" + i;
 			PlayerPrefs.SetInt (strEquipped, 0);
 		}
+
+		for (int i = 0; i < achievementsGotten.Length; i++) {
+			string strAch = "achievement" + i;
+			PlayerPrefs.SetInt (strAch, 0);
+		}
+
 		PlayerPrefs.SetInt ("coins", 0);
 		PlayerPrefs.SetInt ("dungeonLevel", 1);
 		PlayerPrefs.SetInt ("highQuality", 1);
