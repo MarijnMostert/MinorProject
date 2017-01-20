@@ -72,7 +72,7 @@ public class Nest : AudioObject {
         }
     }
 
-	void InstantiateHealthBar()AchievementsPanel
+	void InstantiateHealthBar()
     {
         Vector3 healthBarPosition = transform.position + new Vector3(0, 2, 0);
 		healthBar = ObjectPooler.Instance.GetObject (20, true, healthBarPosition, transform);
