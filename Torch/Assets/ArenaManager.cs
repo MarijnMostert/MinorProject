@@ -77,7 +77,7 @@ public class ArenaManager : MonoBehaviour {
 				enemy.GetComponent<Enemy> ().arenaProps.arenaEnemy = true;
 				enemy.GetComponent<Enemy> ().arenaProps.index = enemyCounter;
 				enemyCounter++;
-				Debug.Log ("Spawn enemy on " + enemy.transform.position);
+				//Debug.Log ("Spawn enemy on " + enemy.transform.position);
 		//	}
 
 			if (enemyCounter < enemiesPerWave) {
@@ -156,18 +156,18 @@ public class ArenaManager : MonoBehaviour {
 		BoxCollider[] OuterWallColliders = ArenaAreaPicked.GetComponentsInChildren<BoxCollider> ();
 		foreach (BoxCollider OuterWallCollider in OuterWallColliders){
 			OuterWallCollider.enabled = false;
-			Debug.Log ("Outerwalls open");
+			//Debug.Log ("Outerwalls open");
 		}
 		//check for player being there
 		while (!ArenaAreaPicked.GetComponent<ArenaArea>().playerinarea) {
-			Debug.Log ("In while loop Are You in "+ ArenaAreaPicked.GetComponent<ArenaArea>().AreaName +" "+ArenaAreaPicked.GetComponent<ArenaArea>().playerinarea);
+			//Debug.Log ("In while loop Are You in "+ ArenaAreaPicked.GetComponent<ArenaArea>().AreaName +" "+ArenaAreaPicked.GetComponent<ArenaArea>().playerinarea);
 			yield return null;
 		}
-		Debug.Log ("out of while loop ArenaAreaPicked.GetComponent<ArenaArea>().playerinarea = "+ArenaAreaPicked.GetComponent<ArenaArea>().playerinarea);
+		//Debug.Log ("out of while loop ArenaAreaPicked.GetComponent<ArenaArea>().playerinarea = "+ArenaAreaPicked.GetComponent<ArenaArea>().playerinarea);
 		//Turn on the colliders locking in the player
 		foreach (BoxCollider OuterWallCollider in OuterWallColliders){
 			OuterWallCollider.enabled = true;
-			Debug.Log ("Outerwalls closed");
+			//Debug.Log ("Outerwalls closed");
 		}
 		//start wave
 		StartCoroutine(SpawnWave ());
