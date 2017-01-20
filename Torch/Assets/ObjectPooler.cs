@@ -73,6 +73,8 @@ public class ObjectPooler : MonoBehaviour {
 	/// <para>20 = Boss Healthbar</para>
 	/// <para>21 = Blood Projectile</para>
 	/// <para>22 = Blood Particles OnHit</para>
+	/// <para>23 = Boomerang Projectile</para>
+	/// <para>24 = Boomerang Particles OnHit</para>
 	/// </summary>
 	/// <returns>The object</returns>
 	public GameObject GetObject(int type, bool setActive){

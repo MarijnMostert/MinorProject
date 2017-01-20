@@ -156,6 +156,8 @@ public class Chest : InteractableItem {
 			contents.Add (temp [9]);
 		if (dungeonParameters.powerUps.bloodWeapon.enabled && Random.value < dungeonParameters.powerUps.bloodWeapon.spawnChance)
 			contents.Add (temp [10]);
+		if (dungeonParameters.powerUps.boomerangWeapon.enabled && Random.value < dungeonParameters.powerUps.boomerangWeapon.spawnChance)
+			contents.Add (temp [11]);
 	}
 
 	public void InstantiateContent(){

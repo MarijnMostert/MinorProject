@@ -9,6 +9,7 @@ public class createFallFloors : MonoBehaviour {
 	List<Vector3> places;
 	LeverActivator lever { get; set; }
 	bool current = false;
+	bool started = false;
 	List<GameObject> fallingblocks;
 	bool finished = false;
 
@@ -98,10 +99,13 @@ public class createFallFloors : MonoBehaviour {
 	}
 
 	void OnTriggerEnter (Collider other) {
-		if(other.gameObject.CompareTag("Player")) {
-			Vector3 relativepos = other.gameObject.transform.position - transform.position;
+		if (!started) {
+			if (other.gameObject.CompareTag ("Player")) {
+				Vector3 relativepos = other.gameObject.transform.position - transform.position;
 //			Debug.Log (relativepos.x + " " + relativepos.y + " " + relativepos.z);
-			makeOppositeBlocks (relativepos);
+				makeOppositeBlocks (relativepos);
+				started = true;
+			}
 		}
 	}
 

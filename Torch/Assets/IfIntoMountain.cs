@@ -6,6 +6,12 @@ public class IfIntoMountain : MonoBehaviour {
 	public HomeScreenMovement homescreencam;
 	bool isset = false;
 
+	void Update () {
+		if (homescreencam == null) {
+			homescreencam = GameObject.Find ("HomeScreenCam").GetComponent<HomeScreenMovement> ();
+		}
+	}
+
 	void OnTriggerStay (Collider other) {
 		GameObject player = other.gameObject;
 		if (player.CompareTag ("Player")) {

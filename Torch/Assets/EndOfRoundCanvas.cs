@@ -46,7 +46,7 @@ public class EndOfRoundCanvas : MonoBehaviour {
 		dataTexts.coinsPickedUp.text = playerData.coinsPickedUp.ToString ();
 		dataTexts.powerUpsUsed.text = playerData.powerUpsUsed.ToString ();
 		dataTexts.enemiesKilled.text = playerData.enemiesKilled.ToString ();
-		timeUsed.text = gameManager.ui.timer.timerText.text;
+		timeUsed.text = GameManager.Instance.ui.timer.timerText.text;
 	}
 
 	public string DistanceToString(float distanceTravelled){
