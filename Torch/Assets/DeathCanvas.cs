@@ -7,9 +7,6 @@ public class DeathCanvas : MonoBehaviour {
 	private bool cheatMemory;
 	public Text scoreText;
 	public Text coinText;
-	public Text InputField;
-	public GameObject Input;
-	public GameObject SubmitButton;
 	public GameObject Confirmation;
 
 	public void OnEnable(){
@@ -18,6 +15,7 @@ public class DeathCanvas : MonoBehaviour {
 		if (cheatMemory) {
 			GameManager.Instance.toggleCheat ();
 		}
+        SubmitHighScore();
 	}
 
 	public void OnDisable(){
@@ -35,16 +33,11 @@ public class DeathCanvas : MonoBehaviour {
 	}
 
 	public void SubmitHighScore(){
-		string name = InputField.text;
 		int score = GameManager.Instance.totalScore;
-		if (name != null && score != null) {
-			GameManager.Instance.data.SaveHighScore (score);
-		}
+	    GameManager.Instance.data.SaveHighScore (score);
 	}
 
 	void Reset(){
-		Input.SetActive (true);
-		SubmitButton.SetActive (true);
 		Confirmation.SetActive (false);
 	}
 }

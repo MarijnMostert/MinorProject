@@ -71,7 +71,11 @@ public class loginForm : MonoBehaviour
                 PlayerPrefs.SetString("password", password.text);
                 PlayerPrefs.SetInt("id", int.Parse(wwwData.message));
                 PlayerPrefs.SetInt("coins",wwwData.coins);
-                PlayerPrefs.SetInt("level",wwwData.level);
+                PlayerPrefs.SetInt("dungeonLevel",wwwData.level);
+                GameManager.Instance.SetDungeonLevel(wwwData.level);
+                GameManager.Instance.data.maxAchievedDungeonLevel = wwwData.level;
+                GameManager.Instance.dungeonStartCanvas.buttons.Clear();
+                GameManager.Instance.SetUpDungeonStartCanvas();
                 Time.timeScale = 1;
                 GameManager.Instance.data.Load();
                 transform.parent.gameObject.SetActive(false);

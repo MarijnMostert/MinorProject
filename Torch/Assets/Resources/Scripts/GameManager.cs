@@ -152,7 +152,8 @@ public class GameManager : MonoBehaviour {
 		DebuggerPanel = Instantiate (DebuggerPanel);
 		DebuggerPanel.SetActive (false);
 
-		SetUpDungeonStartCanvas ();
+        if(PlayerPrefs.HasKey("id"))
+    		SetUpDungeonStartCanvas ();
 
         gameStarted = false;
 		tutorialStarted = false;
@@ -188,8 +189,8 @@ public class GameManager : MonoBehaviour {
 		PetScript.speechText.text = "";
 		PetScript.speechImage.gameObject.SetActive (false);
 		Bold = Instantiate (Bold) as GameObject;
-		BoldPetScript = Bold.GetComponent<Pet> ();
-		Bold.SetActive (false);
+	    BoldPetScript = Bold.GetComponent<Pet> ();
+        Bold.SetActive (false);
 
 		shopPrefab.EquipActives ();
 	}
@@ -692,7 +693,7 @@ public class GameManager : MonoBehaviour {
 		this.dungeonLevel = dungeonLevel;
 	}
 
-	void SetUpDungeonStartCanvas(){
+	public void SetUpDungeonStartCanvas(){
 		for (int i = 0; i < 40; i++) {
 			GameObject button = Instantiate (dungeonLevelButtonPrefab, dungeonStartCanvas.transform) as GameObject;
 			float x = -590f + (i%10) * 130f;

@@ -2,6 +2,7 @@
 using System.Collections;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 [System.Serializable]
 public class Data : MonoBehaviour {
@@ -66,9 +67,8 @@ public class Data : MonoBehaviour {
 
     void Start(){
 		playerSkin = new Material[4];
-        PlayerPrefs.DeleteKey("id");
-        Debug.Log(PlayerPrefs.GetString("id"));
-        if (PlayerPrefs.GetString("id") == null || !PlayerPrefs.HasKey("id"))
+        Debug.Log(PlayerPrefs.GetInt("id"));
+        if (!PlayerPrefs.HasKey("id"))
         {
             loginCanvas.SetActive(true);
         }
@@ -115,8 +115,14 @@ public class Data : MonoBehaviour {
 		PlayerPrefs.SetInt ("dungeonLevel", maxAchievedDungeonLevel);
 		PlayerPrefs.SetInt ("highQuality", boolToInt(highQuality));
 		Serializer.Save<string> ("highScores.txt", JsonUtility.ToJson(highscores));
+        WWWForm form = new WWWForm();
+        Debug.Log("id: "+PlayerPrefs.GetInt("id")+", coins: "+coins+", level: "+maxAchievedDungeonLevel);
 
-		Debug.Log ("Saved data succesfully");
+        form.AddField("id",PlayerPrefs.GetInt("id"));
+        form.AddField("coins", coins);
+        form.AddField("level", maxAchievedDungeonLevel);
+        WWW wwwData = new WWW("https://insyprojects.ewi.tudelft.nl/ewi3620tu1/unity/update.php",form);
+        Debug.Log ("Saved data succesfully");
 	}
 
     public void ResetData(){
@@ -209,7 +215,7 @@ public class Data : MonoBehaviour {
     IEnumerator addScoreWWW(int score)
     {
         WWWForm wwwForm = new WWWForm();
-        wwwForm.AddField("id",PlayerPrefs.GetString("id"));
+        wwwForm.AddField("id",PlayerPrefs.GetInt("id"));
         wwwForm.AddField("score",score);
         DateTime now = DateTime.Now;
         wwwForm.AddField("date",now.ToString());
@@ -253,5 +259,7 @@ public class Data : MonoBehaviour {
         PlayerPrefs.DeleteKey("id");
         PlayerPrefs.DeleteKey("coins");
         PlayerPrefs.DeleteKey("level");
+        File.Delete("highScores.txt");
+        Application.Quit();
     }
 }
