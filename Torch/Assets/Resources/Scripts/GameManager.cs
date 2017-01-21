@@ -368,7 +368,7 @@ public class GameManager : MonoBehaviour {
 		if (cheatindex == cheatCode.Length) {
 			cheatindex = 0;
 			Debug.Log ("hoch die hande!");
-			cheat = true;
+			cheat = !cheat;
 
 			if (!achievements.cheats_unlocked) {
 				achievements.cheatsAchievement ();

@@ -30,9 +30,10 @@ public class Data : MonoBehaviour {
 	}
 
 	void Update () {
-		if (Input.GetKeyDown (KeyCode.Tab)) {
+		/*if (Input.GetKeyDown (KeyCode.Tab)) {
 			Save ();
 		}
+		*/
 	}
 
 	public void Load(){
