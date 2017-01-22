@@ -286,6 +286,7 @@ public class Data : MonoBehaviour {
         PlayerPrefs.DeleteKey("id");
         PlayerPrefs.DeleteKey("coins");
         PlayerPrefs.DeleteKey("level");
+        highscores.highscore.Clear();
         File.Delete("highScores.txt");
         Application.Quit();
     }
