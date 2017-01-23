@@ -3,7 +3,7 @@ using System.Collections;
 
 public class LeverActivator : InteractableItem {
 
-	private string interactionButton;
+	//private string interactionButton;
 	public bool is_on = false;
 	public GameObject handle;
 

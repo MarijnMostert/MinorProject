@@ -11,7 +11,6 @@ public class EnemyRanged : Enemy {
 	private float varDistanceToTarget;
 	private float stoppingDistance;
 
-    private Animator anim;
     bool attack_anim;
     bool first_attack;
 
@@ -26,7 +25,6 @@ public class EnemyRanged : Enemy {
 			base.OnEnable ();
 			weapon = weaponController.currentWeapon as RangedWeapon;
 			anim = GetComponent<Animator> ();
-			setAnim (anim);
 			stoppingDistance = navMeshAgent.stoppingDistance;
 			StartCoroutine (UpdatePath ());
 		} else {

@@ -151,12 +151,7 @@ public class Enemy : AudioObject, IDamagable {
         yield return null;
 
 	}
-
-    public void setAnim(Animator animator)
-    {
-        anim = animator;
-    }
-
+		
 	public void Reset(){
 		GetComponent<Collider> ().enabled = true;
 		navMeshAgent.enabled = true;

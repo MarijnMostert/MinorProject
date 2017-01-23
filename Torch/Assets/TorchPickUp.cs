@@ -4,7 +4,6 @@ using System.Collections;
 public class TorchPickUp : InteractableItem {
 
 	public bool equipped = false;
-	private GameManager gameManager;
 
 	void Start () {
 		base.Start ();

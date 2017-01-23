@@ -145,6 +145,7 @@ public class GameManager : MonoBehaviour {
 
 		dungeonData = GetComponent<DungeonData> ();
 
+		//////////////////maar er zitten echt 8 scripts op ???????????????
 		arenaManager = GetComponentInChildren<ArenaManager> ();
 
 		startingScreen.SetActive (true);
@@ -222,7 +223,7 @@ public class GameManager : MonoBehaviour {
 		if (type == 1) {
 			masterGenerator = new MasterGenerator (this.gameObject, dungeonData.dungeonParameters[dungeonLevel], radius, maxlength, timeout);
 			masterGenerator.LoadPrefabs ();
-			masterGenerator.Start ();
+			masterGenerator.Constructing ();
 		} else if (type == 0) {
 			tutorialObject = Instantiate(tutorialPrefab, new Vector3(0,0,0), Quaternion.identity) as GameObject;
 			levelTransform = tutorialObject.transform;

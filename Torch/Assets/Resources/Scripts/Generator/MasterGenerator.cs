@@ -41,10 +41,11 @@ public class MasterGenerator : Object {
 		this.maxAmountOfRooms = dungeonParameters.maxAmountOfRooms;
 		this.chanceOfRoom = dungeonParameters.chanceOfRoom;
 		this.puzzleRooms = puzzleRooms;
+
     }
 
 	// Use this for initialization
-	public void Start ()
+	public void Constructing ()
     {
         bool done = false;
 		int donerooms = 0;
