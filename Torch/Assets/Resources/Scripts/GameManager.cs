@@ -145,6 +145,7 @@ public class GameManager : MonoBehaviour {
 
 		dungeonData = GetComponent<DungeonData> ();
 
+		//////////////////maar er zitten echt 8 scripts op ???????????????
 		arenaManager = GetComponentInChildren<ArenaManager> ();
 
 		startingScreen.SetActive (true);
@@ -222,7 +223,7 @@ public class GameManager : MonoBehaviour {
 		if (type == 1) {
 			masterGenerator = new MasterGenerator (this.gameObject, dungeonData.dungeonParameters[dungeonLevel], radius, maxlength, timeout);
 			masterGenerator.LoadPrefabs ();
-			masterGenerator.Start ();
+			masterGenerator.Constructing ();
 		} else if (type == 0) {
 			tutorialObject = Instantiate(tutorialPrefab, new Vector3(0,0,0), Quaternion.identity) as GameObject;
 			levelTransform = tutorialObject.transform;
@@ -242,7 +243,7 @@ public class GameManager : MonoBehaviour {
 		triggerFloorObject = Instantiate (triggerFloorPrefab, levelTransform) as GameObject;
 
 		torch = Instantiate (torchPrefab) as Torch;
-		GameObject torchIndicator = Instantiate (torchMinimapIndicator, torch.transform.position + new Vector3 (0f, -3f, 0f), Quaternion.Euler(new Vector3(90f, 0f, 0f)), torch.transform) as GameObject;
+		Instantiate (torchMinimapIndicator, torch.transform.position + new Vector3 (0f, -3f, 0f), Quaternion.Euler(new Vector3(90f, 0f, 0f)), torch.transform);
 
 
 		camTarget = torch.gameObject;

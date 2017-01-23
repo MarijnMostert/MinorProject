@@ -78,11 +78,13 @@ public class Data : MonoBehaviour {
         max_score = 0;
 	}
 
+	/*
 	void Update () {
 		if (Input.GetKeyDown (KeyCode.Tab)) {
 			Save ();
 		}
 	}
+	*/
 
 
 	public void Load(){

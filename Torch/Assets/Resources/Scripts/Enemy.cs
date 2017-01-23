@@ -5,7 +5,7 @@ using System.Collections;
 
 public class Enemy : AudioObject, IDamagable {
 
-	public string name;
+	public string _name;
 	public bool InstantiatedByObjectPooler = false;
 	public int ObjectPoolIndex;
 	public int startingHealth;
@@ -122,7 +122,7 @@ public class Enemy : AudioObject, IDamagable {
 			ObjectPooler.Instance.PlayAudioSource (clip_die, mixerGroup, pitchMin, pitchMax, transform);
 		}
 		Drop ();
-		gameManager.achievements.enemiesAchievement (name);
+		gameManager.achievements.enemiesAchievement (_name);
         StartCoroutine (DieThread());
     }
 
@@ -151,12 +151,7 @@ public class Enemy : AudioObject, IDamagable {
         yield return null;
 
 	}
-
-    public void setAnim(Animator animator)
-    {
-        anim = animator;
-    }
-
+		
 	public void Reset(){
 		GetComponent<Collider> ().enabled = true;
 		navMeshAgent.enabled = true;

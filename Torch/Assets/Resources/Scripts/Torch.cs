@@ -43,7 +43,7 @@ public class Torch : MonoBehaviour, IDamagable {
 	public TorchPickUp torchPickUp;
 	public bool isDamagable = true;
 
-	new void Start () {
+	void Start () {
 		startingHealth = GameManager.Instance.data.playerMaxHealth;
 		health = startingHealth;
 		SetupHealthBar ();

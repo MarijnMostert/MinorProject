@@ -3,7 +3,6 @@ using System.Collections;
 
 public class EnemyGrunt : Enemy {
 
-	Animator animator;
 	public bool attacknow;
     float starttime;
     public bool speedy;
@@ -17,7 +16,7 @@ public class EnemyGrunt : Enemy {
 		if (!firstTimeActive || InstantiatedByObjectPooler) {
 			base.OnEnable ();
 			StartCoroutine (UpdatePath ());
-			animator = GetComponent<Animator> ();
+			anim = GetComponent<Animator> ();
 			attacknow = false;
 			if (gameObject.name.Equals ("spider(clone)")) {
 				base.healthBar.transform.localScale.Scale (new Vector3 (3, 3, 3));
@@ -38,16 +37,16 @@ public class EnemyGrunt : Enemy {
                 attacknow = true;
             } else if (attacknow == true && ((Time.time - lastAttackTime) > (0.9f * attackCooldown))) {
                 attacknow = false;
-                if (animator != null) {
+                if (anim != null) {
                     //				Debug.Log ("set false");
-                    animator.SetBool("Attack", false);
+                    anim.SetBool("Attack", false);
                 }
             }
-            if (animator != null) {
+			if (anim != null) {
 				if (navMeshAgent.velocity.magnitude > 0.1f) {
-                    animator.SetBool("Walk", true);
+                    anim.SetBool("Walk", true);
                 } else {
-                    animator.SetBool("Walk", false);
+                    anim.SetBool("Walk", false);
                 }
             }
         }
@@ -55,9 +54,9 @@ public class EnemyGrunt : Enemy {
 
 	//If the player is close enough to the torch it will do damage
 	private void attack(){
-		if (animator != null) {
+		if (anim != null) {
 //			Debug.Log ("jump");
-			animator.SetBool ("Attack", true);
+			anim.SetBool ("Attack", true);
 		}
 
 		ObjectPooler.Instance.PlayAudioSource (clip_attack, mixerGroup, pitchMin, pitchMax, transform);

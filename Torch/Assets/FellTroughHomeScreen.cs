@@ -5,12 +5,12 @@ public class FellTroughHomeScreen : MonoBehaviour {
 
 	Transform originalplayer;
 	Transform originalcamera;
-	GameObject camera;
+	GameObject cam;
 
 	void Start () {
-		camera = GameObject.Find ("HomeScreenCam");
+		cam = GameObject.Find ("HomeScreenCam");
 		originalplayer = GameObject.Find ("HomeScreenPlayer").transform;
-		originalcamera = camera.transform;
+		originalcamera = cam.transform;
 	}
 
 	void OnTriggerEnter (Collider other) {

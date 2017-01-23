@@ -156,8 +156,10 @@ public class PlayerMovement : MonoBehaviour {
 			speed /= shiftfactor;
 		}
 		if (arenaPointerActive) {
-			Rotator.transform.LookAt (new Vector3 (arenaPointerTarget.transform.position.x, 
-				Rotator.transform.position.y, arenaPointerTarget.transform.position.z));
+			if (Rotator != null) {
+				Rotator.transform.LookAt (new Vector3 (arenaPointerTarget.transform.position.x, 
+					Rotator.transform.position.y, arenaPointerTarget.transform.position.z));
+			}
 			//arenaPointer.transform.LookAt (GameManager.Instance.arenaManager.ArenaAreaPicked);
 		}
 	}
