@@ -35,6 +35,10 @@ public class ArenaManager : MonoBehaviour {
 		
 	}
 
+	public void SetWaveNumber(int newWaveNumber){
+		waveNumber = newWaveNumber;
+	}
+
 	public void StartArena(){
 		ArenaStarted = true;
 		//find Arena Areas
