@@ -3,12 +3,13 @@ using System.Collections;
 
 public class LeverActivator : InteractableItem {
 
-	private string interactionButton;
+	//private string interactionButton;
 	public bool is_on = false;
 	public GameObject handle;
 
 	// Use this for initialization
-	void Start () {
+	public override void Start () {
+		base.Start (); 
 		interactionButton = "InteractionButton";
 	}
 

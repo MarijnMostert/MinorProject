@@ -12,15 +12,18 @@ public class HighScoresPanel : MonoBehaviour {
 	public Text indexText;
 	public Text namesText;
 	public Text scoresText;
+    public Text dateText;
 	public List<HighScore> highScores;
 
 	public class HighScore : IComparable<HighScore>{
 		public string name;
 		public int score;
+        public DateTime date;
 
-		public HighScore(string name, int score){
+		public HighScore(string name, int score, DateTime date){
 			this.name = name;
 			this.score = score;
+            this.date = date;
 		}
 
 		public int CompareTo(HighScore other){
@@ -37,7 +40,10 @@ public class HighScoresPanel : MonoBehaviour {
 	}
 
 	void OnEnable(){
-		UpdateHighScores ();
+        if (PlayerPrefs.HasKey("id"))
+        {
+            UpdateHighScores();
+        }
 	}
 
 	public void UpdateHighScores(){
@@ -48,8 +54,8 @@ public class HighScoresPanel : MonoBehaviour {
 
 		highScores = new List<HighScore> ();
 
-		for (int i = 0; i < data.highScoreNames.Count; i++) {
-			highScores.Add (new HighScore (data.highScoreNames [i], data.highScoreScores [i]));
+		foreach (Data.Highscore tmp in data.highscores.highscore) {
+			highScores.Add (new HighScore (tmp.name, tmp.score, tmp.date));
 		}
 
 		highScores.Sort ();
@@ -57,15 +63,22 @@ public class HighScoresPanel : MonoBehaviour {
 		string indexTemp = "";
 		string namesTemp = "";
 		string scoresTemp = "";
+        string dateTemp = "";
 		for (int i = 0; i < highScores.Count; i++) {
 			indexTemp += (i+1) + "\n";
 			namesTemp += highScores [i].name + "\n";
 			scoresTemp += highScores [i].score + "\n";
+            dateTemp += highScores[i].date.Year+"-" +
+                highScores[i].date.Day + " "+
+                highScores[i].date.Hour + ":"+
+                highScores[i].date.Minute+ "\n";
 		}
 
 		indexText.text = indexTemp;
 		namesText.text = namesTemp;
 		scoresText.text = scoresTemp;
+        dateText.text = dateTemp;
+        Debug.Log("updated highscore");
 	}
 
 	void OnTriggerEnter(Collider other){

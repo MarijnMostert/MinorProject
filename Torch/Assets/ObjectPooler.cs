@@ -177,6 +177,7 @@ public class ObjectPooler : MonoBehaviour {
 		return null;
 	}
 
+	/*
 	void Update(){
 		if (Input.GetKeyDown (KeyCode.O)) {
 			GetObject (0, true);
@@ -185,4 +186,5 @@ public class ObjectPooler : MonoBehaviour {
 			GetObject (1, true);
 		}
 	}
+	*/
 }

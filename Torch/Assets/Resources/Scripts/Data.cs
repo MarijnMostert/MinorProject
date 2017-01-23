@@ -2,6 +2,7 @@
 using System.Collections;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 [System.Serializable]
 public class Data : MonoBehaviour {
@@ -17,23 +18,74 @@ public class Data : MonoBehaviour {
 	public int coins;
 	public int maxAchievedDungeonLevel;
 	public bool highQuality;
-	public List<string> highScoreNames;
-	public List<int> highScoreScores;
 
 	[Header ("- Non-Saved Data")]
 	public int playerMaxHealth = 100;
 	public float playerDamageMultiplier = 1;
 	public Material[] playerSkin;
 
-	void Start(){
+    [Serializable]
+    public struct Highscore
+    {
+        public int id;
+        public int score;
+        public string name;
+        public DateTime date;
+    }
+
+    [Serializable]
+    public struct WWWHighscore
+    {
+        public Highscore[] Highscore;
+    }
+
+    [Serializable]
+    public class Highscores
+    {
+        public List<Highscore> highscore;
+        public Highscores() { }
+        public Highscores(List<Highscore> highscore)
+        {
+            this.highscore = highscore;
+        }
+    }
+
+    public Highscores highscores;
+    public GameObject loginCanvas;
+
+    [Serializable]
+    public class Score
+    {
+        public string id;
+        public string date;
+        public Score() { }
+        public Score(string id,string date)
+        {
+            this.id = id;
+            this.date = date;
+        }
+    }
+
+    public int max_score;
+
+    void Start(){
 		playerSkin = new Material[4];
+        Debug.Log(PlayerPrefs.GetInt("id"));
+        if (!PlayerPrefs.HasKey("id"))
+        {
+            loginCanvas.SetActive(true);
+        }
+        max_score = 0;
 	}
 
+	/*
 	void Update () {
 		if (Input.GetKeyDown (KeyCode.Tab)) {
 			Save ();
 		}
 	}
+	*/
+
 
 	public void Load(){
 		shopItemsOwned = new bool[50];
@@ -58,11 +110,11 @@ public class Data : MonoBehaviour {
 		if (maxAchievedDungeonLevel == 0)
 			maxAchievedDungeonLevel = 1;
 		this.highQuality = intToBool(PlayerPrefs.GetInt ("highQuality"));
-		highScoreNames = new List<string> ();
-		highScoreNames = Serializer.Load<List<string>> ("highScoresNames.txt");
-		highScoreScores = new List<int> ();
-		highScoreScores = Serializer.Load<List<int>> ("highScores.txt");
-
+        highscores = new Highscores();
+        string jsonDataString = Serializer.Load<string>("highScores.txt");
+        highscores = JsonUtility.FromJson<Highscores>(jsonDataString);
+        max_score = getMaxScore();
+        server_communication();
 		Debug.Log ("Loaded data succesfully");
 	}
 
@@ -82,13 +134,18 @@ public class Data : MonoBehaviour {
 		PlayerPrefs.SetInt ("coins", coins);
 		PlayerPrefs.SetInt ("dungeonLevel", maxAchievedDungeonLevel);
 		PlayerPrefs.SetInt ("highQuality", boolToInt(highQuality));
-		Serializer.Save<List<string>> ("highScoresNames.txt", highScoreNames);
-		Serializer.Save<List<int>> ("highScores.txt", highScoreScores);
+		Serializer.Save<string> ("highScores.txt", JsonUtility.ToJson(highscores));
+        WWWForm form = new WWWForm();
+        Debug.Log("id: "+PlayerPrefs.GetInt("id")+", coins: "+coins+", level: "+maxAchievedDungeonLevel);
 
-		Debug.Log ("Saved data succesfully");
+        form.AddField("id",PlayerPrefs.GetInt("id"));
+        form.AddField("coins", coins);
+        form.AddField("level", maxAchievedDungeonLevel);
+        WWW wwwData = new WWW("https://insyprojects.ewi.tudelft.nl/ewi3620tu1/unity/update.php",form);
+        Debug.Log ("Saved data succesfully");
 	}
 
-	public void ResetData(){
+    public void ResetData(){
 		shopItemsOwned = new bool[50];
 		shopItemsEquipped = new bool[50];
 		achievementsGotten = new bool[50];
@@ -137,17 +194,104 @@ public class Data : MonoBehaviour {
 		coins += 1;
 	}
 
-	public void SaveHighScore(int score, string name){
-		if (highScoreNames == null) {
-			highScoreNames = new List<string> ();
-		}
-		highScoreNames.Add (name);
-		if (highScoreScores == null) {
-			highScoreScores = new List<int> ();
-		}
-		highScoreScores.Add (score);
-		Debug.Log ("New highscore added: " + score + " : " + name);
-
-		GameManager.Instance.HighScoresPanel.GetComponentInChildren<HighScoresPanel> ().UpdateHighScores ();
+	public void SaveHighScore(int score){
+        instantiateHighscores();
+        StartCoroutine(addScoreWWW(score));
 	}
+
+    void server_communication()
+    {
+        WWWForm wwwform = new WWWForm();
+        wwwform.AddField("player_id", PlayerPrefs.GetInt("id"));
+        wwwform.AddField("score_id", max_score);
+        WWW website = new WWW("https://insyprojects.ewi.tudelft.nl/ewi3620tu1/unity/scores.php",wwwform);
+        StartCoroutine(getWWWData(website));
+    }
+
+    IEnumerator getWWWData(WWW website)
+    {
+        yield return website;
+
+        WWWHighscore wwwData;
+        if (website.error == null)
+        {
+            Debug.Log("WWW Ok!: " + website.text);
+            wwwData = JsonUtility.FromJson<WWWHighscore>(website.text);
+            Debug.Log(wwwData);
+            Debug.Log(wwwData.Highscore.Length);
+
+            foreach (Highscore wwwtmp in wwwData.Highscore)
+            {
+                 highscores.highscore.Add(wwwtmp);
+            }
+            GameManager.Instance.HighScoresPanel.GetComponentInChildren<HighScoresPanel>().UpdateHighScores();
+
+        }
+        else
+        {
+            Debug.Log("WWW Error: " + website.error);
+        }
+    }
+
+    void instantiateHighscores()
+    {            
+        if(highscores.highscore == null)
+        {
+            highscores.highscore = new List<Highscore>();
+        }
+    }
+
+    IEnumerator addScoreWWW(int score)
+    {
+        WWWForm wwwForm = new WWWForm();
+        wwwForm.AddField("id",PlayerPrefs.GetInt("id"));
+        wwwForm.AddField("score",score);
+        DateTime now = DateTime.Now;
+        wwwForm.AddField("date",now.ToString());
+        WWW wwwData = new WWW("https://insyprojects.ewi.tudelft.nl/ewi3620tu1/unity/addscore.php",wwwForm);
+        yield return wwwData;
+
+        Debug.Log(wwwData.text);
+        Score wwwscore = JsonUtility.FromJson<Score>(wwwData.text);
+        Debug.Log("SCORE: "+ wwwscore.id);
+        Debug.Log("DATE: " + wwwscore.date);
+
+        Highscore new_score = new Highscore();
+        new_score.id = Int32.Parse(wwwscore.id);
+        new_score.name = PlayerPrefs.GetString("name");
+        new_score.score = score;
+        new_score.date = now;
+        
+        highscores.highscore.Add(new_score);
+        Debug.Log("New highscore added: " + score + " : " + name);
+
+        GameManager.Instance.HighScoresPanel.GetComponentInChildren<HighScoresPanel>().UpdateHighScores();
+    }
+
+    public int getMaxScore()
+    {
+        int max= 0;
+        if (highscores!=null) {
+            foreach (Highscore tmp in highscores.highscore)
+            {
+                if (tmp.id > max)
+                {
+                    max = tmp.id;
+                }
+            }
+        }
+        return max;
+    }
+
+    public void logout()
+    {
+        PlayerPrefs.DeleteKey("name");
+        PlayerPrefs.DeleteKey("password");
+        PlayerPrefs.DeleteKey("id");
+        PlayerPrefs.DeleteKey("coins");
+        PlayerPrefs.DeleteKey("level");
+        highscores.highscore.Clear();
+        File.Delete("highScores.txt");
+        Application.Quit();
+    }
 }

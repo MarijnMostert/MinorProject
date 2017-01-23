@@ -10,6 +10,8 @@ public class DungeonData : MonoBehaviour {
 	public int chanceOfRoom = 5; //Dit is de 1/n kans op een kamer, dus groter getal is kleinere kans
 	public float spawnRateScaler = .2f;
 	public float spawnerWarmingUpScaler = .3f;
+	public float minAmountOfRoomsScaler = .5f;
+	public float maxAmountOfRoomsScaler = .8f;
 
 	[Header("- Minimum spawn level enemies")]
 	public int minLevelForMinotaur = 1;
@@ -180,9 +182,17 @@ public class DungeonData : MonoBehaviour {
 			DungeonParameters DP = new DungeonParameters();
 			DP.width = 30 + (i * 3);
 			DP.height = 30 + (i * 3);
-			DP.minAmountOfRooms = 2 + (int)(i * .5);
-			DP.maxAmountOfRooms = 3 + (int)(i * .8);
+			DP.minAmountOfRooms = 1 + (int)(i * minAmountOfRoomsScaler);
+			DP.maxAmountOfRooms = 3 + (int)(i * maxAmountOfRoomsScaler);
 			DP.chanceOfRoom = chanceOfRoom;
+
+			if (i == 1) {
+				DP.minAmountOfRooms = 0;
+				DP.maxAmountOfRooms = 0;
+			} else if (i == 2) {
+				DP.minAmountOfRooms = 1;
+				DP.maxAmountOfRooms = 1;
+			}
 
 			if(i>= minLevelForMinotaur)
 				DP.enemies.minoTaur = true;

@@ -455,8 +455,43 @@ public class DungeonInstantiate : Object {
 		surroundings [3] = (maze [x, y - 1]) ? 1 : 0;
 		return surroundings;
 	}
-	
-	void populatePuzzles () {
+
+    int[] getSurrounding8(int x, int y)
+    {
+        int[] surroundings = new int[8];
+        surroundings[0] = (maze[x + 1, y]) ? 1 : 0;
+        surroundings[1] = (maze[x + 1, y+1]) ? 1 : 0;
+        surroundings[2] = (maze[x, y + 1]) ? 1 : 0;
+        surroundings[3] = (maze[x - 1, y + 1]) ? 1 : 0;
+        surroundings[4] = (maze[x - 1, y]) ? 1 : 0;
+        surroundings[5] = (maze[x - 1, y-1]) ? 1 : 0;
+        surroundings[6] = (maze[x, y - 1]) ? 1 : 0;
+        surroundings[7] = (maze[x + 1, y - 1]) ? 1 : 0;
+        return surroundings;
+    }
+
+    bool cornersRoom(int x, int y)
+    {
+        int[] surr = getSurrounding8(x,y);
+        for (int i = 0; i < 8; i++)
+        {
+            if (i == 6)
+            {
+                if (surr[i] == 0 && surr[i + 1] == 0 && surr[0] == 0)
+                    return true;
+            } else if (i == 7)
+            {
+                if (surr[i] == 0 && surr[0] == 0 && surr[1] == 0)
+                    return true;
+            } else if(surr[i]==0 && surr[i+1]==0 && surr[i+2]==0) {
+                return true;
+            }
+            
+        }
+        return false;
+    }
+
+    void populatePuzzles () {
 		int random = 0;
 
 		//Make beginningRoom
@@ -631,9 +666,11 @@ public class DungeonInstantiate : Object {
             return Quaternion.identity * Quaternion.Euler(0, -90, 0);
         }
     }
-
+    
     void trap(int x, int y)
     {
+        if (cornersRoom(x, y))
+            return;
         bool nest = false;
         GameObject trapprefab = spidernest;
         float tmp = Random.value;
@@ -696,8 +733,8 @@ public class DungeonInstantiate : Object {
     }
 
 	void createStartEndPoint() {
-    	GameObject start_GO = Instantiate(portal, startpoint, Quaternion.identity, Dungeon.transform) as GameObject;
-		GameObject end_GO = Instantiate(end_portal, endpoint, Quaternion.identity, Dungeon.transform) as GameObject;
+    	Instantiate(portal, startpoint, Quaternion.identity, Dungeon.transform);
+		Instantiate(end_portal, endpoint, Quaternion.identity, Dungeon.transform);
 
     }      
 

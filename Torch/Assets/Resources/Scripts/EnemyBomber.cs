@@ -25,7 +25,6 @@ public class EnemyBomber : Enemy {
 		base.Awake ();
 		weaponController = GetComponent<WeaponController> ();
         anim = GetComponent<Animator>();
-        setAnim(anim);
         starttime = Time.time;
 	}
 

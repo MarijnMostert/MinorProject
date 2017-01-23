@@ -145,6 +145,7 @@ public class GameManager : MonoBehaviour {
 
 		dungeonData = GetComponent<DungeonData> ();
 
+		//////////////////maar er zitten echt 8 scripts op ???????????????
 		arenaManager = GetComponentInChildren<ArenaManager> ();
 
 		startingScreen.SetActive (true);
@@ -152,7 +153,8 @@ public class GameManager : MonoBehaviour {
 		DebuggerPanel = Instantiate (DebuggerPanel);
 		DebuggerPanel.SetActive (false);
 
-		SetUpDungeonStartCanvas ();
+        if(PlayerPrefs.HasKey("id"))
+    		SetUpDungeonStartCanvas ();
 
         gameStarted = false;
 		tutorialStarted = false;
@@ -221,7 +223,7 @@ public class GameManager : MonoBehaviour {
 		if (type == 1) {
 			masterGenerator = new MasterGenerator (this.gameObject, dungeonData.dungeonParameters[dungeonLevel], radius, maxlength, timeout);
 			masterGenerator.LoadPrefabs ();
-			masterGenerator.Start ();
+			masterGenerator.Constructing ();
 		} else if (type == 0) {
 			tutorialObject = Instantiate(tutorialPrefab, new Vector3(0,0,0), Quaternion.identity) as GameObject;
 			levelTransform = tutorialObject.transform;
@@ -241,7 +243,7 @@ public class GameManager : MonoBehaviour {
 		triggerFloorObject = Instantiate (triggerFloorPrefab, levelTransform) as GameObject;
 
 		torch = Instantiate (torchPrefab) as Torch;
-		GameObject torchIndicator = Instantiate (torchMinimapIndicator, torch.transform.position + new Vector3 (0f, -3f, 0f), Quaternion.Euler(new Vector3(90f, 0f, 0f)), torch.transform) as GameObject;
+		Instantiate (torchMinimapIndicator, torch.transform.position + new Vector3 (0f, -3f, 0f), Quaternion.Euler(new Vector3(90f, 0f, 0f)), torch.transform);
 
 
 		camTarget = torch.gameObject;
@@ -286,7 +288,7 @@ public class GameManager : MonoBehaviour {
 			startpoint = arenaObject.transform.Find ("Spawnpoint").transform.position;
 			playerManagers [0].playerInstance.transform.position = startpoint;
 			playerManagers [1].playerInstance.transform.position = startpoint + new Vector3 (-2f, 0f, -2f);
-			torch.isDamagable = false;
+			torch.isDamagable = true;
 		}
 		RespawnPosition = startpoint;
 		torch.transform.position = startpoint + new Vector3 (6, .5f, 0);
@@ -696,7 +698,7 @@ public class GameManager : MonoBehaviour {
 		this.dungeonLevel = dungeonLevel;
 	}
 
-	void SetUpDungeonStartCanvas(){
+	public void SetUpDungeonStartCanvas(){
 		for (int i = 0; i < 40; i++) {
 			GameObject button = Instantiate (dungeonLevelButtonPrefab, dungeonStartCanvas.transform) as GameObject;
 			float x = -590f + (i%10) * 130f;

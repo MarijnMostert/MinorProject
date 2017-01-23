@@ -11,7 +11,7 @@ public class endPortal : InteractableItem {
 	public Animator anim;
 	public bool tutorial = false;
 
-    void Start () {
+    public override void Start () {
 		if (gameManager == null) {
 			gameManager = GameManager.Instance;
 		}
