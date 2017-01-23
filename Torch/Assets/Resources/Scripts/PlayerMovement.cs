@@ -143,21 +143,23 @@ public class PlayerMovement : MonoBehaviour {
     }
 
 	void Update(){
-		if (Input.GetButtonDown("ToggleInput" + playerNumber)) {
+		if (Input.GetButtonDown("ToggleInput" + playerNumber) && !gameManager.GetTextFieldEnabled()) {
 			ToggleInput ();
 		}
-		if (Input.GetKeyDown (KeyCode.G) && gameManager.getCheat()) {
+		if (Input.GetKeyDown (KeyCode.G) && gameManager.getCheat() && !gameManager.GetTextFieldEnabled()) {
 			GodMode ();
 		}
-		if (Input.GetKeyDown(KeyCode.LeftShift)) {
+		if (Input.GetKeyDown(KeyCode.LeftShift) && !gameManager.GetTextFieldEnabled()) {
 			speed *= shiftfactor;
 		}
-		if (Input.GetKeyUp(KeyCode.LeftShift)) {
+		if (Input.GetKeyUp(KeyCode.LeftShift) && !gameManager.GetTextFieldEnabled()) {
 			speed /= shiftfactor;
 		}
 		if (arenaPointerActive) {
-			Rotator.transform.LookAt (new Vector3 (arenaPointerTarget.transform.position.x, 
-				Rotator.transform.position.y, arenaPointerTarget.transform.position.z));
+			if (Rotator != null) {
+				Rotator.transform.LookAt (new Vector3 (arenaPointerTarget.transform.position.x, 
+					Rotator.transform.position.y, arenaPointerTarget.transform.position.z));
+			}
 			//arenaPointer.transform.LookAt (GameManager.Instance.arenaManager.ArenaAreaPicked);
 		}
 	}

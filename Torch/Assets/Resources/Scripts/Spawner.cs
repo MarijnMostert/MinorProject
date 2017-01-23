@@ -35,13 +35,13 @@ public class Spawner : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-		if (Input.GetButtonDown (spawnEnemyButton)) {
+		if (Input.GetButtonDown (spawnEnemyButton) && !gameManager.GetTextFieldEnabled()) {
 			spawnEnemy ();
 		}
-		if (Input.GetButtonDown (waveButton)) {
+		if (Input.GetButtonDown (waveButton) && !gameManager.GetTextFieldEnabled()) {
 			spawnWave ();
 		}
-		if (Input.GetKeyDown (KeyCode.Comma) && gameManager.getCheat()) {
+		if (Input.GetKeyDown (KeyCode.Comma) && gameManager.getCheat() && !gameManager.GetTextFieldEnabled()) {
 			if (dead) {
 				dead = false;
 				Debug.Log ("Spawner has been turned on");

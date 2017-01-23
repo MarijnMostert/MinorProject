@@ -8,7 +8,7 @@ public class PartyTorch : MonoBehaviour {
 	public Gradient g;
 	public float duration = 2f;
 	private Color defaultColor;
-	public bool enabled = true;
+	public bool Enabled = true;
 
 	void Awake(){
 		defaultColor = torchLight.color;
@@ -16,15 +16,15 @@ public class PartyTorch : MonoBehaviour {
 
 	// Use this for initialization
 	void OnEnable(){
-		enabled = true;
+		Enabled = true;
 	}
 
 	void OnDisable(){
-		enabled = false;
+		Enabled = false;
 	}
 
 	void Update(){
-		if (enabled) {
+		if (Enabled) {
 			float t = Mathf.Repeat (Time.time, duration) / duration;
 			torchLight.color = g.Evaluate (t);
 			particles.startColor = g.Evaluate (1f-t);

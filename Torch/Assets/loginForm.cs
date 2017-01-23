@@ -79,6 +79,7 @@ public class loginForm : MonoBehaviour
                 Time.timeScale = 1;
                 GameManager.Instance.data.Load();
                 transform.parent.gameObject.SetActive(false);
+				GameManager.Instance.SetTextFieldEnabled (false);
             }
             else
             {

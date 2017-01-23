@@ -74,15 +74,18 @@ public class Data : MonoBehaviour {
         if (!PlayerPrefs.HasKey("id"))
         {
             loginCanvas.SetActive(true);
+			GameManager.Instance.SetTextFieldEnabled (true);
         }
         max_score = 0;
 	}
 
+	/*
 	void Update () {
 		if (Input.GetKeyDown (KeyCode.Tab)) {
 			Save ();
 		}
 	}
+	*/
 
 
 	public void Load(){

@@ -14,7 +14,7 @@ public class LaserWeapon : Weapon {
 	public ParticleSystem particlesOnHit;
 
 	private LineRenderer lineRenderer;
-	private Light light;
+	private Light light_;
 	private float lastFireTime;
 	private RaycastHit hit;
 
@@ -22,8 +22,8 @@ public class LaserWeapon : Weapon {
 		lastFireTime = Time.time;
 		lineRenderer = GetComponent<LineRenderer> ();
 		lineRenderer.enabled = false;
-		light = GetComponent<Light> ();
-		light.enabled = false;
+		light_ = GetComponent<Light> ();
+		light_.enabled = false;
 	}
 
 	void Start(){
@@ -33,7 +33,7 @@ public class LaserWeapon : Weapon {
 	void Update(){
 		if (lineRenderer.enabled && Time.time > lastFireTime + laserTime) {
 			lineRenderer.enabled = false;
-			light.enabled = false;
+			light_.enabled = false;
 		}
 
 	}
@@ -44,7 +44,7 @@ public class LaserWeapon : Weapon {
 			ObjectPooler.Instance.PlayAudioSource (fireClip, mixerGroup, pitchMin, pitchMax, transform);
 			base.Fire ();
 			lineRenderer.enabled = true;
-			light.enabled = true;
+			light_.enabled = true;
 			Ray ray = new Ray(transform.position, transform.forward);
 			lineRenderer.SetPosition (0, transform.position);
 			if (Physics.Raycast (ray, out hit, laserLength, collisionMask)) {

@@ -348,6 +348,8 @@ MonoBehaviour:
   chanceOfRoom: 5
   spawnRateScaler: 0.5
   spawnerWarmingUpScaler: 0.6
+  minAmountOfRoomsScaler: 0.5
+  maxAmountOfRoomsScaler: 0.8
   minLevelForMinotaur: 1
   minLevelForSpider: 3
   minLevelForGhost: 6
@@ -722,3 +724,5 @@ MonoBehaviour:
   playerSkin: []
   highscores:
     highscore: []
+  loginCanvas: {fileID: 0}
+  max_score: 0
