@@ -68,6 +68,8 @@ public class GameManager : MonoBehaviour {
 	int cheatindex;
 	private string[] cheatCode;
 
+	private bool TextFieldEnabled = false;
+
     //masterGenerator Vars
     int radius = 2;// = 2;
     int maxlength = 3;// = 2;
@@ -347,7 +349,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void Update () {
-		if (Input.GetButtonDown ("Pause"))
+		if (Input.GetButtonDown ("Pause") && !TextFieldEnabled)
 			Pause ();
 		/*
 		if(Input.GetKeyDown(KeyCode.I)){
@@ -377,7 +379,7 @@ public class GameManager : MonoBehaviour {
 			}
 		}
 
-		if (Input.GetKeyDown (KeyCode.H) && cheat == true) {
+		if (Input.GetKeyDown (KeyCode.H) && cheat == true && !TextFieldEnabled) {
 			if (DebuggerPanel != null) {
 				if (DebuggerPanel.activeInHierarchy)
 					DebuggerPanel.SetActive (false);
@@ -387,41 +389,41 @@ public class GameManager : MonoBehaviour {
 		}
 
 		//Cheatcode to spawn all weapons around the torch
-		if (Input.GetKeyDown (KeyCode.N) && cheat) {
+		if (Input.GetKeyDown (KeyCode.N) && cheat && !TextFieldEnabled) {
 			SpawnAllWeapons ();
 		}
 		//Cheatcode to spawn all powerups around the torch
-		if (Input.GetKeyDown (KeyCode.B) && cheat) {
+		if (Input.GetKeyDown (KeyCode.B) && cheat && !TextFieldEnabled) {
 			SpawnAllPowerUps ();
 		}
 		//Cheatcode to proceed to the next level
-		if (Input.GetKeyDown (KeyCode.L) && cheat) {
+		if (Input.GetKeyDown (KeyCode.L) && cheat && !TextFieldEnabled) {
 			Proceed ();
 		}
 		//Cheatcode to get full health
-		if (Input.GetKeyDown (KeyCode.K) && torch != null && cheat) {
+		if (Input.GetKeyDown (KeyCode.K) && torch != null && cheat && !TextFieldEnabled) {
 			torch.HealToStartingHealth ();
 		}
 		//Cheatcode to toggle if the torch is damagable or not
-		if (Input.GetKeyDown (KeyCode.J) && torch != null && cheat) {
+		if (Input.GetKeyDown (KeyCode.J) && torch != null && cheat && !TextFieldEnabled) {
 			torch.ToggleDamagable ();
 		}
 		//Cheatcode to kill all active enemies
-		if(Input.GetKeyDown(KeyCode.LeftBracket) && cheat){
+		if(Input.GetKeyDown(KeyCode.LeftBracket) && cheat && !TextFieldEnabled){
 			KillAllEnemies();
 		}
 		//Cheatcode to spawn a key
-		if (Input.GetKeyDown (KeyCode.O) && cheat) {
+		if (Input.GetKeyDown (KeyCode.O) && cheat && !TextFieldEnabled) {
 			SpawnKey ();
 		}
 		//Cheatcode to spawn to highscores
-		if (Input.GetKeyDown (KeyCode.Alpha0) && cheat) {
+		if (Input.GetKeyDown (KeyCode.Alpha0) && cheat && !TextFieldEnabled) {
 			TeleportToHighScores ();
 		}
-		if (Input.GetKeyDown (KeyCode.Backslash) && cheat) {
+		if (Input.GetKeyDown (KeyCode.Backslash) && cheat && !TextFieldEnabled) {
 			data.coins += 1000;
 		}
-		if(Input.GetKeyDown(KeyCode.M)){
+		if(Input.GetKeyDown(KeyCode.M) && !TextFieldEnabled){
 			ToggleMiniMap();
 		}
 	}
@@ -791,5 +793,13 @@ public class GameManager : MonoBehaviour {
 		miniMapMode++;
 		miniMapMode = miniMapMode % 3;
 
+	}
+
+	public void SetTextFieldEnabled(bool enabled){
+		TextFieldEnabled = enabled;
+	}
+
+	public bool GetTextFieldEnabled(){
+		return TextFieldEnabled;
 	}
 }

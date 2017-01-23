@@ -28,7 +28,7 @@ public class PlayerWeaponController : WeaponController {
     }
 
     void Update () {
-		if (Input.GetButton (attackButton)||(Mathf.Abs(Input.GetAxis (attackButton))>0.1f)) {
+		if (Input.GetButton (attackButton)||(Mathf.Abs(Input.GetAxis (attackButton))>0.1f) && !GameManager.Instance.GetTextFieldEnabled()) {
             if (anim != null)
             {
                 anim.SetTrigger("attackTrigger");

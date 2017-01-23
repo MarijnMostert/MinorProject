@@ -67,6 +67,7 @@ public class createPlayerForm : MonoBehaviour {
                 GameObject highscore = GameManager.Instance.HighScoresPanel;
                 highscore.GetComponentInChildren<HighScoresPanel>().UpdateHighScores();
                 transform.parent.gameObject.SetActive(false);
+				GameManager.Instance.SetTextFieldEnabled (false);
             } else
             {
                 StartCoroutine(showError(wwwData.message));
