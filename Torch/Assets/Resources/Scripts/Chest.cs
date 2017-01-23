@@ -20,7 +20,7 @@ public class Chest : InteractableItem {
 		return used;
 	}
 
-	void Start(){
+	public override void Start(){
 		base.Start ();
 
 		if (manualChest) {
