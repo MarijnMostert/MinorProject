@@ -269,11 +269,13 @@ public class Data : MonoBehaviour {
     public int getMaxScore()
     {
         int max= 0;
-        foreach (Highscore tmp in highscores.highscore)
-        {
-            if (tmp.id > max)
+        if (highscores!=null) {
+            foreach (Highscore tmp in highscores.highscore)
             {
-                max = tmp.id;
+                if (tmp.id > max)
+                {
+                    max = tmp.id;
+                }
             }
         }
         return max;
