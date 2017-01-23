@@ -8,7 +8,8 @@ public class LeverActivator : InteractableItem {
 	public GameObject handle;
 
 	// Use this for initialization
-	void Start () {
+	public override void Start () {
+		base.Start (); 
 		interactionButton = "InteractionButton";
 	}
 

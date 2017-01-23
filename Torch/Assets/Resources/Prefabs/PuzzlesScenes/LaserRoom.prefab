@@ -125,7 +125,6 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000011625497946}
-  - 114: {fileID: 114000013098708534}
   m_Layer: 8
   m_Name: Floors
   m_TagString: Untagged
@@ -1079,7 +1078,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010173967298}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 372.85895, y: 185.60655, z: -102.30271}
+  m_LocalPosition: {x: 9.895678, y: 53.926773, z: -40.0604}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -2585,19 +2584,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dff42c0fca609214190e6534cba15a5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114000013098708534
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011084449014}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92a172dfa5a32cc4b8656f8fb5728a48, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fallblock: 0
-  timeleft: 0
 --- !u!114 &114000013147452224
 MonoBehaviour:
   m_ObjectHideFlags: 1

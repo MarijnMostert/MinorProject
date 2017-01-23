@@ -1,14 +1,12 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class TorchPickUp : InteractableItem {
 
 	public bool equipped = false;
 
-	void Start () {
-		base.Start ();
-		gameManager = GameManager.Instance;
-
+	public override void Start () {
+		base.Start (); 
 		canvas.SetActive (true);
 
 		//If the number of players is 1, the torch is automatically picked up by player 1
