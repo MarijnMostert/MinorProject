@@ -47,7 +47,6 @@
 				$('.home-menu').on('click',function(){window.location.href="home.php";});
 				$('.statistics-menu').on('click',function(){window.location.href="statistics.php";});
 				$('.settings-menu').on('click',function(){window.location.href="settings.php";});
-				$('#logout_button').on('click',function(){window.location.href="index.php"});
 			});
 		</script>
 		

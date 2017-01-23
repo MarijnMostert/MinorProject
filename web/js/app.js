@@ -7,27 +7,12 @@
 	var id = getCookie("DarkDescent");
 
 	console.log('classes.js loaded');
-	/*
-	 * Generate local tmp data 
-	 */
-	player = new Player(1,'Joran', 'haksdf', 'jrout@tudelft.nl', Date.now(), 143);
-	
-	avatar = 'img/Avatar.jpg';
-	rank = new Rank(4, 45640, '09-12-2016');
-	totalplayers = 6550;
-	
-	/*scoreList.addScore(new Score(1,1,132, 'Joran', new Date(2016,11,1,1,4,51)));
-	scoreList.addScore(new Score(2,3,88, 'Joran', new Date(2016,11,4,14,2,30)));
-	scoreList.addScore(new Score(3,2,114, 'Joran', new Date(2016,11,5,15,5,40)));	
-	scoreList.addScore(new Score(4,4,50, 'Joran', new Date(2016,11,7,20,16,15)));
-*/
 	
 	guild = new Guild(1, 'GuildName', 'Joran');
 	guild.addMember('member1');
 	guild.addMember('member2');
 	/*guild = new Guild('null','null','null','null');*/
 	
-	console.log(player);
 	console.log(guild);
 
 	header()
@@ -73,16 +58,36 @@ var header = function(){
 			$('.GuildForum_menu').on('click',function(){window.location.href="guildforum.php";});
 	}
 	$('.dropdown').on('click',function(){$('dropdown-content').css('display','block')});
-	$('#change-avatar').on('click',function(){window.location.href="settings.php";});
+	$('#change-avatar').on('click',function(){});
+	$('#logout_button').on('click',function(){
+		setCookie("",0);
+		window.location.href="index.php";
+	});
 }
 
 var homepage = function(){
-	$('#avatar img').attr('src',avatar);
-	$('#name').html(player.name);
-	$('#level').html('999+');
-	$('#highscore').html(rank.highscore + ' ©');
-	$('#ranking').html(rank.rank + " /" + totalplayers);
-	$('#playtime').html(player.playtime + " Hours");
+	var id = getCookie("DarkDescent");
+	var player;
+	$.ajax({
+			url: './unity/getplayer.php',
+			type: 'POST',
+			dataType: 'JSON',
+			data: {player_id:id},
+			dataType: 'json',
+			success: function(response){
+				console.log('response:::');
+				console.log(response);
+				player = new Player(response.player_id,response.name, 'haksdf', 'jrout@tudelft.nl', Date.now(), 143);
+				
+			avatar = 'img/Avatar.jpg';
+			$('#avatar img').attr('src',avatar);
+			$('#name').html(player.name);
+			$('#level').html(response.level);
+			$('#highscore').html(response.score);
+			$('#ranking').html(response.rank + " /" + response.total_players);
+			$('#playtime').html(player.playtime + " Hours");
+			}
+		});	
 }
 
 var viewguildpage = function(){
@@ -122,22 +127,27 @@ var statisticspage = function(){
 				}
 				drawCanvas();
 			}
-		});		
-	
+		});
+}
+var setCookie = function(cid,exdays) {
+	var d = new Date();
+	d.setTime(d.getTime() + (exdays*24*60*60*1000));
+	var expires = "expires=" + d.toGMTString();
+	document.cookie = "DarkDescent=" + cid + ";" + expires + ";path=/";
 }
 
 var getCookie = function(cname){
-		var name = cname + "=";
-		var decodedCookie = decodeURIComponent(document.cookie);
-		var ca = decodedCookie.split(';');
-		for(var i = 0; i < ca.length; i++) {
-			var c = ca[i];
-			while (c.charAt(0) == ' ') {
-				c = c.substring(1);
-			}
-			if (c.indexOf(name) == 0) {
-				return c.substring(name.length, c.length);
-			}
+	var name = cname + "=";
+	var decodedCookie = decodeURIComponent(document.cookie);
+	var ca = decodedCookie.split(';');
+	for(var i = 0; i < ca.length; i++) {
+		var c = ca[i];
+		while (c.charAt(0) == ' ') {
+			c = c.substring(1);
 		}
-		return "";
+		if (c.indexOf(name) == 0) {
+			return c.substring(name.length, c.length);
+		}
 	}
+	return "";
+}
