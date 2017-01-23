@@ -31,7 +31,7 @@ public class Boss : MonoBehaviour, IDamagable {
 	public int scoreValue = 1000;
 	protected GameObject healthBar;
 	protected Image healthBarImage;
-	public string name;
+	public string _name;
 	public bool dead;
 
 
@@ -266,6 +266,6 @@ public class Boss : MonoBehaviour, IDamagable {
 		Vector3 healthBarPosition = transform.position + new Vector3 (0, 3, 0);
 		healthBar = ObjectPooler.Instance.GetObject (19, true, healthBarPosition, transform);
 		healthBarImage = healthBar.transform.Find ("HealthBar").GetComponent<Image> ();
-		healthBar.GetComponentInChildren<Text> ().text = name;
+		healthBar.GetComponentInChildren<Text> ().text = _name;
 	}
 }

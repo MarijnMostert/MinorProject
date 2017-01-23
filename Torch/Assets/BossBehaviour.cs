@@ -15,7 +15,7 @@ public class BossBehaviour : MonoBehaviour, IDamagable {
 	public int health;
 	private int scoreValue = 250;
 	public bool dead;
-	public string name = "aragog";
+	public string _name = "Aragog";
 
 	public NavMeshAgent navMeshAgent;
 	public Vector3 targetPosition;
@@ -168,7 +168,7 @@ public class BossBehaviour : MonoBehaviour, IDamagable {
 		Vector3 healthBarPosition = transform.position + new Vector3 (0, 4, 0);
 		healthBar = ObjectPooler.Instance.GetObject (20, true, healthBarPosition, transform);
 		healthBarImage = healthBar.transform.Find ("HealthBar").GetComponent<Image> ();
-		healthBar.transform.GetComponentInChildren<Text> ().text = name;
+		healthBar.transform.GetComponentInChildren<Text> ().text = _name;
 		healthBar.transform.localScale.Scale(new Vector3(3, 3, 3));
 	}
 }

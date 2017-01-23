@@ -27,7 +27,6 @@ public class EndOfRoundCanvas : MonoBehaviour {
 			gameManager = GameManager.Instance;
 		}
 
-		int counter = 0;
 		for (int i = 0; i < gameManager.playerManagers.Length; i++) {
 			fillPlayerDataTexts (i);
 		}

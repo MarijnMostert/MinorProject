@@ -3,25 +3,25 @@ using System.Collections;
 
 public class WallTorchLight : MonoBehaviour {
 
-	private bool enabled = false;
-	private Light light;
+	private bool Enabled = false;
+	private Light Light;
 	public float intensity;
 	public float range;
 	private float smoothDampVar1;
 	private float smoothDampVar2;
 
 	void Awake(){
-		light = GetComponent<Light> ();
+		Light = GetComponent<Light> ();
 	}
 
 	void OnEnable(){
-		enabled = true;
+		Enabled = true;
 	}
 
 	void Update(){
-		if (enabled) {
-			light.intensity = Mathf.SmoothDamp (light.intensity, intensity, ref smoothDampVar1, .5f);
-			light.range = Mathf.SmoothDamp (light.range, range, ref smoothDampVar2, .5f);
+		if (Enabled) {
+			Light.intensity = Mathf.SmoothDamp (Light.intensity, intensity, ref smoothDampVar1, .5f);
+			Light.range = Mathf.SmoothDamp (Light.range, range, ref smoothDampVar2, .5f);
 		}
 	}
 }

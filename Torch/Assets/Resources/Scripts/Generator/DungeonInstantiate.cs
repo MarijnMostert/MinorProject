@@ -733,8 +733,8 @@ public class DungeonInstantiate : Object {
     }
 
 	void createStartEndPoint() {
-    	GameObject start_GO = Instantiate(portal, startpoint, Quaternion.identity, Dungeon.transform) as GameObject;
-		GameObject end_GO = Instantiate(end_portal, endpoint, Quaternion.identity, Dungeon.transform) as GameObject;
+    	Instantiate(portal, startpoint, Quaternion.identity, Dungeon.transform);
+		Instantiate(end_portal, endpoint, Quaternion.identity, Dungeon.transform);
 
     }      
 

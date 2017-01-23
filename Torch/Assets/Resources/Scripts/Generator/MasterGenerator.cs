@@ -12,7 +12,6 @@ public class MasterGenerator : Object {
 							stickyPickUp, roofGroup, wallPickUp, wallTorch, piercingWeapon,
 							bombPickUp, spidernest, wizardnest, wallspikes, spikes, shuriken, 
                             wallrush, stardustParticles, moondustParticles, decoyPickUp;
-	public List<GameObject> puzzleRooms;
     GameObject game_manager;
 	DungeonData.DungeonParameters dungeonParameters;
     public DungeonInstantiate dungeon_instantiate;
@@ -40,7 +39,6 @@ public class MasterGenerator : Object {
 		this.minAmountOfRooms = dungeonParameters.minAmountOfRooms;
 		this.maxAmountOfRooms = dungeonParameters.maxAmountOfRooms;
 		this.chanceOfRoom = dungeonParameters.chanceOfRoom;
-		this.puzzleRooms = puzzleRooms;
 
     }
 

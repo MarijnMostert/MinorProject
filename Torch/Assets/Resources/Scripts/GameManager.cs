@@ -243,7 +243,7 @@ public class GameManager : MonoBehaviour {
 		triggerFloorObject = Instantiate (triggerFloorPrefab, levelTransform) as GameObject;
 
 		torch = Instantiate (torchPrefab) as Torch;
-		GameObject torchIndicator = Instantiate (torchMinimapIndicator, torch.transform.position + new Vector3 (0f, -3f, 0f), Quaternion.Euler(new Vector3(90f, 0f, 0f)), torch.transform) as GameObject;
+		Instantiate (torchMinimapIndicator, torch.transform.position + new Vector3 (0f, -3f, 0f), Quaternion.Euler(new Vector3(90f, 0f, 0f)), torch.transform);
 
 
 		camTarget = torch.gameObject;
