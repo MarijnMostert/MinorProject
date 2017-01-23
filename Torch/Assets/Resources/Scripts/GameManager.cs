@@ -556,6 +556,9 @@ public class GameManager : MonoBehaviour {
 	public void Proceed(){
 		//saver.ToFile (dungeonLevel);
 		analytics.WriteFinishLevel (dungeonLevel, score, totalScore, StartTime);
+
+		achievements.addPlayedTime (Time.time - StartTime);
+
 		RoundEnd ();
 		DestroyDungeon ();
 		dungeonLevel++;

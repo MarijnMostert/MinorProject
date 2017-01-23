@@ -52,6 +52,7 @@ public class Achievements : MonoBehaviour {
 	int totalcollectedkeys;
 	int totalpowerupsused;
 	float totaldistance;
+	float totaltime;
 
 	public Vector2  hiddenTarget;
 	public Vector2 shownTarget;
@@ -68,6 +69,7 @@ public class Achievements : MonoBehaviour {
 		totalcollectedkeys = 0;
 		totalpowerupsused = 0;
 		totaldistance = 0;
+		totaltime = 0;
 
 		target = hiddenTarget;
 
@@ -75,33 +77,33 @@ public class Achievements : MonoBehaviour {
 	}
 
 	void initializeAllAchievements () {
-		tutorial_done = AchievementList [1];			//x doet het!	1
-		spidernest_destroyed = AchievementList [2];		//x doet het!	2
+		tutorial_done = AchievementList [1];			//x  			1
+		spidernest_destroyed = AchievementList [2];		//x 			2
 		wizarnest_destroyed = AchievementList[3];		//x				3
-		first_item_bought = AchievementList[4];						//	4
-		first_km_walked = AchievementList[5];						//	5	
-		boss_defeated = AchievementList[6];				//x works		6
+		first_item_bought = AchievementList[4];			//x		 		4
+		first_km_walked = AchievementList[5];			// 	TEST		5	
+		boss_defeated = AchievementList[6];				//x 			6
 
-		keys_collected_100 = AchievementList [7];		//x works		7
-		all_shopitems_bought = AchievementList [8];		//x works		8
-		home_stairs_climbed = AchievementList [9];					//	9
-		died_20_times = AchievementList [10];			//x doet het!	10
-		fell_50_times = AchievementList [11];			//x doet het!	11
-		playtime_1_hour = AchievementList [12];						//	12
-		km_42_walked = AchievementList [13];			//x works		13
-		powerups_50_used = AchievementList [14];		//x				14
-		cheats_unlocked = AchievementList [15];			//x				15
+		keys_collected_100 = AchievementList [7];		//x 			7
+		all_shopitems_bought = AchievementList [8];		//x 			8
+		home_stairs_climbed = AchievementList [9];		// 	 NOG NIET	9
+		died_20_times = AchievementList [10];			//x 	 		10
+		fell_50_times = AchievementList [11];			//x  			11
+		playtime_1_hour = AchievementList [12];			// 	 TEST		12
+		km_42_walked = AchievementList [13];			//x 			13
+		powerups_50_used = AchievementList [14];		//x	 TEST		14
+		cheats_unlocked = AchievementList [15];			//x	 			15
 
-		enemies_killed_200 = AchievementList [16];		//x works	16
-		spider_100 = AchievementList [17];				//x works	17
-		bomber_100 = AchievementList [18];				//x works	18
-		minota_100 = AchievementList [19];				//x works	19
-		ghost_100 = AchievementList [20];				//x works	20
+		enemies_killed_200 = AchievementList [16];		//x 			16
+		spider_100 = AchievementList [17];				//x 			17
+		bomber_100 = AchievementList [18];				//x 			18
+		minota_100 = AchievementList [19];				//x 			19
+		ghost_100 = AchievementList [20];				//x 			20
 
-		levels_10 = AchievementList [21];				//x works 	21
-		levels_20 = AchievementList [22];				//x works	22
-		levels_30 = AchievementList [23];				//x works	23
-		levels_40 = AchievementList [24];				//x works	24
+		levels_10 = AchievementList [21];				//x 		 	21
+		levels_20 = AchievementList [22];				//x 			22
+		levels_30 = AchievementList [23];				//x 			23
+		levels_40 = AchievementList [24];				//x 			24
 	}
 
 	void updateAchievement (int i, bool b) {
@@ -148,6 +150,15 @@ public class Achievements : MonoBehaviour {
 		}
 	}
 
+	public void addPlayedTime (float addtime) {
+		totaltime += addtime;
+
+		if (!playtime_1_hour && totaltime > 3600) {
+			playtime_1_hour = true;
+			NewAchievement ("Played for 1 hour in 1 sitting!", 12);
+		}
+	}
+
 	public void walkAchievement(float adding) {
 		totaldistance += adding;
 
@@ -159,6 +170,13 @@ public class Achievements : MonoBehaviour {
 		if (!km_42_walked && totaldistance >= 4200) {
 			km_42_walked = true;
 			NewAchievement ("4200 m walked this play!", 13);
+		}
+	}
+
+	public void stairsAchievement () {
+		if (!home_stairs_climbed) {
+			home_stairs_climbed = true;
+			NewAchievement ("Walked up the homescreenstairs!", 9);
 		}
 	}
 
