@@ -1,4 +1,11 @@
-$(document).ready(function(){
+	$(document).ready(function(){
+
+	if(!getCookie("DarkDescent")){
+		window.location.href ='';
+	}
+	
+	var id = getCookie("DarkDescent");
+
 	console.log('classes.js loaded');
 	/*
 	 * Generate local tmp data 
@@ -9,12 +16,11 @@ $(document).ready(function(){
 	rank = new Rank(4, 45640, '09-12-2016');
 	totalplayers = 6550;
 	
-	scoreList = new ScoreList();
-	
-	scoreList.addScore(new Score(1,1,132, 'Joran', new Date(2016,11,1,1,4,51)));
+	/*scoreList.addScore(new Score(1,1,132, 'Joran', new Date(2016,11,1,1,4,51)));
 	scoreList.addScore(new Score(2,3,88, 'Joran', new Date(2016,11,4,14,2,30)));
-	scoreList.addScore(new Score(3,2,114, 'Joran', new Date(2016,11,5,15,5,40)));	scoreList.addScore(new Score(4,4,50, 'Joran', new Date(2016,11,7,20,16,15)));
-
+	scoreList.addScore(new Score(3,2,114, 'Joran', new Date(2016,11,5,15,5,40)));	
+	scoreList.addScore(new Score(4,4,50, 'Joran', new Date(2016,11,7,20,16,15)));
+*/
 	
 	guild = new Guild(1, 'GuildName', 'Joran');
 	guild.addMember('member1');
@@ -22,7 +28,6 @@ $(document).ready(function(){
 	/*guild = new Guild('null','null','null','null');*/
 	
 	console.log(player);
-	console.log(scoreList);
 	console.log(guild);
 
 	header()
@@ -31,6 +36,10 @@ $(document).ready(function(){
 		case '/ewi3620tu1/home.php':
 			console.log('url: home');
 			homepage();
+			break;
+		case '/ewi3620tu1/statistics.php':
+			console.log('url: statistics.php');
+			statisticspage();
 			break;
 		case '/ewi3620tu1/guild.php':
 			console.log('url: guild view');
@@ -94,3 +103,41 @@ var memberpage = function(){
 		document.getElementById('members').appendChild(row);
 	});
 }
+
+var statisticspage = function(){
+	scoreList = new ScoreList();	
+	var id = getCookie("DarkDescent");
+	$.ajax({
+			url: './unity/scores.php',
+			type: 'POST',
+			dataType: 'JSON',
+			data: {player_id:id,score_id:0},
+			dataType: 'json',
+			success: function(response){
+				console.log('response:::');
+				console.log(response.Highscore);
+				for(i=0; i<response.Highscore.length;i++){
+					tmpscore = response.Highscore[i];
+					scoreList.addScore(new Score(tmpscore.id,1,tmpscore.score, tmpscore.name, new Date(tmpscore.date)));
+				}
+				drawCanvas();
+			}
+		});		
+	
+}
+
+var getCookie = function(cname){
+		var name = cname + "=";
+		var decodedCookie = decodeURIComponent(document.cookie);
+		var ca = decodedCookie.split(';');
+		for(var i = 0; i < ca.length; i++) {
+			var c = ca[i];
+			while (c.charAt(0) == ' ') {
+				c = c.substring(1);
+			}
+			if (c.indexOf(name) == 0) {
+				return c.substring(name.length, c.length);
+			}
+		}
+		return "";
+	}

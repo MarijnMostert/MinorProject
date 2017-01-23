@@ -1,13 +1,3 @@
-	
-				$(window).ready(function(){
-					importscore();
-					drawCanvas();
-				});
-				
-				var importscore = function(){
-					getAllScores();
-				};
-				
 				var drawCanvas = function(){
 					/*
 					 * Display graph for scores
