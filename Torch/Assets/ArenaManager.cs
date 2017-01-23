@@ -78,7 +78,7 @@ public class ArenaManager : MonoBehaviour {
 				enemyCounter++;
 
 			if (enemyCounter < enemiesPerWave) {
-				yield return new WaitForSeconds (5f);
+				yield return new WaitForSeconds (2f);
 			} else {
 				break;
 			}
