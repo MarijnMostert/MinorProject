@@ -16,13 +16,14 @@ public class Timer : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+		/*
 		if (Input.GetKeyDown (KeyCode.Equals)) {
 			Time.timeScale += .5f;
 		}
 		if (Input.GetKeyDown (KeyCode.Minus)) {
 			Time.timeScale -= .5f;
 		}
-
+*/
 		timerText.text = "Time: " + timeToString (Time.time - startingTime);
 	}
 

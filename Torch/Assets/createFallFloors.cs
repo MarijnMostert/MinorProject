@@ -21,12 +21,11 @@ public class createFallFloors : MonoBehaviour {
 		platform = Resources.Load("Prefabs/PuzzlesScenes/FallPlatform", typeof(GameObject)) as GameObject;
 		lever = GetComponent<myLever> ().lever;
 
+		platform.GetComponent<FallPlatform> ().fallTime = 1.95f - GameManager.Instance.dungeonLevel * 0.028f;
 		makeList ();
 		makeBlocks ();
 
 		blocks.transform.localPosition = Vector3.zero;
-
-		GetComponent<AllTimes> ().Restart ();
 	}
 
 	void Update () {

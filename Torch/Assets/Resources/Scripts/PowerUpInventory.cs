@@ -34,11 +34,11 @@ public class PowerUpInventory : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetButtonDown(powerUpButton1)||(Input.GetAxis (powerUpButton1)<-0.1f))
+		if ((Input.GetButtonDown(powerUpButton1)||(Input.GetAxis (powerUpButton1)<-0.1f)) && !GameManager.Instance.GetTextFieldEnabled())
 			UsePowerUp (0);
-		if (Input.GetButtonDown(powerUpButton2)||(Input.GetAxis (powerUpButton2)>0.1f))
+		if ((Input.GetButtonDown(powerUpButton2)||(Input.GetAxis (powerUpButton2)>0.1f)) && !GameManager.Instance.GetTextFieldEnabled())
 			UsePowerUp (1);
-		if (Input.GetButtonDown(powerUpButton3)||(Input.GetAxis (powerUpButton3)>0.1f))
+		if ((Input.GetButtonDown(powerUpButton3)||(Input.GetAxis (powerUpButton3)>0.1f)) && !GameManager.Instance.GetTextFieldEnabled())
 			UsePowerUp (2);
 	}
 
