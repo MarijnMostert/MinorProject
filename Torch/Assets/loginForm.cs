@@ -76,6 +76,7 @@ public class loginForm : MonoBehaviour
                 GameManager.Instance.data.maxAchievedDungeonLevel = wwwData.level;
                 GameManager.Instance.dungeonStartCanvas.buttons.Clear();
                 GameManager.Instance.SetUpDungeonStartCanvas();
+				HomeScreenProgress.Instance.UpdateProgress (GameManager.Instance.data.maxAchievedDungeonLevel);
                 Time.timeScale = 1;
                 GameManager.Instance.data.Load();
                 transform.parent.gameObject.SetActive(false);

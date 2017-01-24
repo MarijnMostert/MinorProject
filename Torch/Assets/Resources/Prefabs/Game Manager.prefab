@@ -25,6 +25,7 @@ GameObject:
   - 114: {fileID: 114000013406591320}
   - 114: {fileID: 114000011838373320}
   - 114: {fileID: 114000011455718412}
+  - 114: {fileID: 114000012650298176}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -461,7 +462,7 @@ MonoBehaviour:
   substances:
   - {fileID: -1486117434, guid: de1d36f093b73c943a0a0e67025b5e15, type: 3}
   - {fileID: -2071217773, guid: 9100c33a71d3bc34297f459ae70777f9, type: 3}
-  homeScreenEnvironmentPrefab: {fileID: 1000012718415468, guid: 4ef94cea375ae45ff83b3370aa956b06,
+  homeScreenEnvironmentPrefab: {fileID: 1000012969978390, guid: c76341314f7d24d5aad19ee05e15d798,
     type: 2}
   homeScreenEnvironment: {fileID: 0}
   HighScoresPanel: {fileID: 1000011698425086, guid: 3af9a424cc2a048529edd2f286b5174b,
@@ -524,6 +525,62 @@ MonoBehaviour:
   - {fileID: 0}
   arenaManager: {fileID: 0}
   numberOfPlayers: 1
+--- !u!114 &114000012650298176
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012150838060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e76d7ef1fb724cb893fe7b26669f870, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  progressObjects: []
+  FogOverTime:
+    key0:
+      serializedVersion: 2
+      rgba: 3313656919
+    key1:
+      serializedVersion: 2
+      rgba: 3377950569
+    key2:
+      serializedVersion: 2
+      rgba: 16744448
+    key3:
+      serializedVersion: 2
+      rgba: 16711794
+    key4:
+      serializedVersion: 2
+      rgba: 10027263
+    key5:
+      serializedVersion: 2
+      rgba: 25855
+    key6:
+      serializedVersion: 2
+      rgba: 63743
+    key7:
+      serializedVersion: 2
+      rgba: 0
+    ctime0: 0
+    ctime1: 65535
+    ctime2: 22552
+    ctime3: 33346
+    ctime4: 44525
+    ctime5: 55898
+    ctime6: 65535
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_NumColorKeys: 2
+    m_NumAlphaKeys: 2
+  progress: 0
 --- !u!114 &114000013406591320
 MonoBehaviour:
   m_ObjectHideFlags: 1

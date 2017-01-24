@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour {
 	public Data data;
 	public DungeonData dungeonData;
 	public Achievements achievements;
+	private HomeScreenProgress homeScreenProgress;
 
 	//Player data
 	public static GameManager Instance;
@@ -146,6 +147,7 @@ public class GameManager : MonoBehaviour {
 		setQuality (data.highQuality);
 
 		dungeonData = GetComponent<DungeonData> ();
+		homeScreenProgress = GetComponent<HomeScreenProgress> ();
 
 		//////////////////maar er zitten echt 8 scripts op ???????????????
 		arenaManager = GetComponentInChildren<ArenaManager> ();
@@ -197,6 +199,10 @@ public class GameManager : MonoBehaviour {
 		Bold.SetActive (false);
 
 		shopPrefab.EquipActives ();
+		if (PlayerPrefs.HasKey ("id")) {
+			homeScreenProgress.UpdateProgress (data.maxAchievedDungeonLevel);
+		}
+
 	}
 
 	public void StartGame(){
@@ -521,7 +527,7 @@ public class GameManager : MonoBehaviour {
 		}
 		homeScreen.SetActive (true);
 		homeScreenCam.SetActive (true);
-
+		homeScreenProgress.UpdateProgress (data.maxAchievedDungeonLevel);
 
 		audioSourceMusic.clip = audioHomeScreen;
 		//audioSourceMusic.Play ();
