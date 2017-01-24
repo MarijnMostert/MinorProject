@@ -1248,6 +1248,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114000013406591320, guid: 8e8fb98cee864437995eb9c0b0548acd,
+        type: 2}
+      propertyPath: loginCanvas
+      value: 
+      objectReference: {fileID: 1378400146}
     - target: {fileID: 114000011455718412, guid: 8e8fb98cee864437995eb9c0b0548acd,
         type: 2}
       propertyPath: Acanvas
@@ -1323,60 +1328,6 @@ Prefab:
       propertyPath: highQualityItems.Array.data[2]
       value: 
       objectReference: {fileID: 350239402}
-    - target: {fileID: 114000013406591320, guid: 8e8fb98cee864437995eb9c0b0548acd,
-        type: 2}
-      propertyPath: loginCanvas
-      value: 
-      objectReference: {fileID: 1378400146}
-    - target: {fileID: 1000013657230056, guid: 8e8fb98cee864437995eb9c0b0548acd, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000012099422644, guid: 8e8fb98cee864437995eb9c0b0548acd,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000012687613348, guid: 8e8fb98cee864437995eb9c0b0548acd,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000013184997682, guid: 8e8fb98cee864437995eb9c0b0548acd,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000012113002226, guid: 8e8fb98cee864437995eb9c0b0548acd,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000012570612228, guid: 8e8fb98cee864437995eb9c0b0548acd,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000010415788138, guid: 8e8fb98cee864437995eb9c0b0548acd,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000012126162182, guid: 8e8fb98cee864437995eb9c0b0548acd,
-        type: 2}
-      propertyPath: loreAudio
-      value: 
-      objectReference: {fileID: 8300000, guid: fa3528f977a574dacab94878f9cbc20e, type: 3}
-    - target: {fileID: 82000010765992802, guid: 8e8fb98cee864437995eb9c0b0548acd,
-        type: 2}
-      propertyPath: Mute
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 82000010765992802, guid: 8e8fb98cee864437995eb9c0b0548acd,
-        type: 2}
-      propertyPath: m_audioClip
-      value: 
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8e8fb98cee864437995eb9c0b0548acd, type: 2}
   m_IsPrefabParent: 0
