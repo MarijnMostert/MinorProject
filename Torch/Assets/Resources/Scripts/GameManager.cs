@@ -493,6 +493,7 @@ public class GameManager : MonoBehaviour {
 		LoadHomeScreen ();
 		if (paused)
 			Pause ();
+		homeScreenPlayer.SetActive (true);
 		mainCamera = homeScreenCam.GetComponent<Camera> ();
 	}
 
