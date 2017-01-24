@@ -48,9 +48,9 @@ public class Achievements : MonoBehaviour {
 	int ghostsKilled;
 	int bomberKilled;
 	int timesfallen;
-	int timesdied;
-	int totalcollectedkeys;
-	int totalpowerupsused;
+	public int timesdied;
+	public int totalcollectedkeys;
+	public int totalpowerupsused;
 	float totaldistance;
 	float totaltime;
 
