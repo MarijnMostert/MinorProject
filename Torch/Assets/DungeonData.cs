@@ -12,6 +12,9 @@ public class DungeonData : MonoBehaviour {
 	public float spawnerWarmingUpScaler = .3f;
 	public float minAmountOfRoomsScaler = .5f;
 	public float maxAmountOfRoomsScaler = .8f;
+	public float chanceChestDeadEnd = .8f;
+	public float chanceChestCorridor = .02f;
+	public float chanceParticles = .15f;
 
 	[Header("- Minimum spawn level enemies")]
 	public int minLevelForMinotaur = 1;
@@ -46,7 +49,8 @@ public class DungeonData : MonoBehaviour {
 	public float chanceBoomerang = .1f;
 
     [Header("- Minimum values traps")]
-	public float chanceForTrap = .1f;
+	public float chanceForTrapBase = .1f;
+	public float chanceForTrapScaler = .01f;
 
     public int minLevelSpidernest = 1;
     public int minLevelWizardnest = 1;
@@ -100,9 +104,11 @@ public class DungeonData : MonoBehaviour {
 		public int minAmountOfRooms;
 		public int maxAmountOfRooms;
 		public int chanceOfRoom;
+		public float chanceChestDeadEnd;
+		public float chanceChestCorridor;
+		public float chanceParticles;
 		public float timeBetweenSpawns;
 		public float timeBeforeSpawning;
-		public bool spiderNests;
 		public Enemies enemies;
 		public PowerUps powerUps;
         public Traps Traps;
@@ -194,6 +200,10 @@ public class DungeonData : MonoBehaviour {
 				DP.maxAmountOfRooms = 1;
 			}
 
+			DP.chanceChestDeadEnd = chanceChestDeadEnd;
+			DP.chanceChestCorridor = chanceChestCorridor;
+			DP.chanceParticles = chanceParticles;
+
 			if(i>= minLevelForMinotaur)
 				DP.enemies.minoTaur = true;
 			if (i >= minLevelForSpider)
@@ -259,7 +269,6 @@ public class DungeonData : MonoBehaviour {
 			DP.powerUps.laserWeapon.spawnChance = chanceLaser;
 			DP.powerUps.bloodWeapon.spawnChance = chanceBlood;
 			DP.powerUps.boomerangWeapon.spawnChance = chanceBoomerang;
-			DP.Traps.chanceForTrap = chanceForTrap;
             DP.Traps.spidernest.spawnChance = chanceSpidernest;
             DP.Traps.wizardnest.spawnChance = chanceWizardnest;
             DP.Traps.spikes.spawnChance = chanceSpikes;
@@ -289,6 +298,8 @@ public class DungeonData : MonoBehaviour {
 			if (DP.timeBeforeSpawning < 2f) {
 				DP.timeBeforeSpawning = 2f;
 			}
+
+			DP.Traps.chanceForTrap = chanceForTrapBase + chanceForTrapScaler * i;
 
 			dungeonParameters [i] = DP;
 		}

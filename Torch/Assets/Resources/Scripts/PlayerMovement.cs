@@ -156,7 +156,7 @@ public class PlayerMovement : MonoBehaviour {
 			speed /= shiftfactor;
 		}
 		if (arenaPointerActive) {
-			if (Rotator != null) {
+			if (Rotator != null && arenaPointerTarget != null) {
 				Rotator.transform.LookAt (new Vector3 (arenaPointerTarget.transform.position.x, 
 					Rotator.transform.position.y, arenaPointerTarget.transform.position.z));
 			}
