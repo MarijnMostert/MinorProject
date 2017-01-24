@@ -45,7 +45,6 @@ public class PlayerData : MonoBehaviour {
 
 	public void IncrementDistanceTravelled(int amount){
 		distanceTravelled += amount;
-		achievements.walkAchievement (amount);
 	}
 
 	public void IncrementShotsFired(){

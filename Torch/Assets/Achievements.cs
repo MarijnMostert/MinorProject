@@ -81,17 +81,17 @@ public class Achievements : MonoBehaviour {
 		spidernest_destroyed = AchievementList [2];		//x 			2
 		wizarnest_destroyed = AchievementList[3];		//x				3
 		first_item_bought = AchievementList[4];			//x		 		4
-		first_km_walked = AchievementList[5];			// 	TEST		5	
+		first_km_walked = AchievementList[5];			//x				5	
 		boss_defeated = AchievementList[6];				//x 			6
 
 		keys_collected_100 = AchievementList [7];		//x 			7
 		all_shopitems_bought = AchievementList [8];		//x 			8
-		home_stairs_climbed = AchievementList [9];		// 	 NOG NIET	9
+		home_stairs_climbed = AchievementList [9];		//x		 		9
 		died_20_times = AchievementList [10];			//x 	 		10
 		fell_50_times = AchievementList [11];			//x  			11
 		playtime_1_hour = AchievementList [12];			// 	 TEST		12
 		km_42_walked = AchievementList [13];			//x 			13
-		powerups_50_used = AchievementList [14];		//x	 TEST		14
+		powerups_50_used = AchievementList [14];		//x	 			14
 		cheats_unlocked = AchievementList [15];			//x	 			15
 
 		enemies_killed_200 = AchievementList [16];		//x 			16
@@ -112,11 +112,6 @@ public class Achievements : MonoBehaviour {
 	}
 
 	void Update () {
-		/*
-		if (Input.GetKey ("x")) {
-			NewAchievement ("test", 0);
-		}
-		*/
 		Aimage.rectTransform.anchoredPosition = Vector2.MoveTowards (Aimage.rectTransform.anchoredPosition, target, 5);
 	}
 
@@ -167,9 +162,9 @@ public class Achievements : MonoBehaviour {
 			NewAchievement ("You've walked your first km!", 5);
 		}
 
-		if (!km_42_walked && totaldistance >= 4200) {
+		if (!km_42_walked && totaldistance >= 42000) {
 			km_42_walked = true;
-			NewAchievement ("4200 m walked this play!", 13);
+			NewAchievement ("42000 m walked this play!", 13);
 		}
 	}
 

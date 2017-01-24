@@ -130,7 +130,7 @@ MonoBehaviour:
   itemName: Cold
   itemDescription: really.....
   icon: {fileID: 21300000, guid: 26b706cf1e1b349ed8ab484d0f67dbe6, type: 3}
-  price: 2000
+  price: 333
   owned: 0
   equipped: 0
   multiEquippable: 0
@@ -164,7 +164,7 @@ ParticleSystem:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011214454554}
-  serializedVersion: 2
+  serializedVersion: 4
   lengthInSec: 3
   startDelay:
     scalar: 0
@@ -202,12 +202,13 @@ ParticleSystem:
       m_RotationOrder: 4
     minMaxState: 0
   speed: 1
-  randomSeed: 63433504
   looping: 1
   prewarm: 0
   playOnAwake: 1
   moveWithTransform: 0
+  autoRandomSeed: 0
   scalingMode: 1
+  randomSeed: 63433504
   InitialModule:
     serializedVersion: 2
     enabled: 1

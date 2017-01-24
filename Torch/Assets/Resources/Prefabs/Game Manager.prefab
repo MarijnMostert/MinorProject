@@ -86,7 +86,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 243000012027690752, guid: 33975d0ba3fac476cb4987efebc83a81,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: fa3528f977a574dacab94878f9cbc20e, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -490,12 +490,13 @@ MonoBehaviour:
   audioSourceUI: {fileID: 82000013135790204}
   audioClipsUI:
   - {fileID: 8300000, guid: 733a8cc43207248d88f596e458742c40, type: 3}
-  loreAudio: {fileID: 0}
+  loreAudio: {fileID: 8300000, guid: fa3528f977a574dacab94878f9cbc20e, type: 3}
   audioHomeScreen: {fileID: 8300000, guid: 7e404d8a72ce34ec98bd3c27ed1782f8, type: 3}
   audioDungeon:
   - {fileID: 8300000, guid: 3d02f9a386baf4bea855ca88493ab372, type: 3}
   - {fileID: 8300000, guid: 667c3a85722394921ba0173a0e9b17b3, type: 3}
   audioPartyTorch: {fileID: 8300000, guid: 4c9633496a19a402590ebb8a163b5b59, type: 3}
+  audioGoldenTorch: {fileID: 8300000, guid: eccd80d1925014b86aa5f1b100b41bf3, type: 3}
   audioMuted: 0
   DebuggerPanel: {fileID: 1000012104167014, guid: 62264218f00cc40b2b1f384d6b761f68,
     type: 2}

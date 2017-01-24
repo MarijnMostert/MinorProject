@@ -117,6 +117,7 @@ public class GameManager : MonoBehaviour {
 	public AudioClip audioHomeScreen;
 	public AudioClip[] audioDungeon;
 	public AudioClip audioPartyTorch;
+	public AudioClip audioGoldenTorch;
 	public bool audioMuted;
 
 	[Header("- Debugging properties")]
@@ -328,6 +329,9 @@ public class GameManager : MonoBehaviour {
 		if (torch.GetComponent<PartyTorch> () != null) {
 			audioSourceMusic.clip = audioPartyTorch;
 		}
+		if (torch.GetComponent<GoldenTorch> () != null) {
+			audioSourceMusic.clip = audioGoldenTorch;
+		}
 		audioSourceMusic.Play ();
 		score = 0;
 		SetScore (totalScore);
@@ -499,6 +503,7 @@ public class GameManager : MonoBehaviour {
 		LoadHomeScreen ();
 		if (paused)
 			Pause ();
+		homeScreenPlayer.SetActive (true);
 		mainCamera = homeScreenCam.GetComponent<Camera> ();
 	}
 
