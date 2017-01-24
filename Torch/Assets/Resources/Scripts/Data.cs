@@ -161,6 +161,7 @@ public class Data : MonoBehaviour {
 		for (int i = 0; i < achievementsGotten.Length; i++) {
 			string strAch = "achievement" + i;
 			PlayerPrefs.SetInt (strAch, 0);
+			achievementsGotten [i] = false;
 		}
 
 		PlayerPrefs.SetInt ("coins", 0);
