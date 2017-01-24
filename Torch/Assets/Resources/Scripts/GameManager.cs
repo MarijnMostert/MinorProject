@@ -527,6 +527,9 @@ public class GameManager : MonoBehaviour {
 		//audioSourceMusic.Play ();
 		resetHomeScreenPlayer ();
 
+		Pet.SetActive (true);
+		Bold.SetActive (false);
+
 		PetScript.speechCanvas.SetActive (false);
 		Pet.transform.position = homeScreenPlayer.transform.position;
 
@@ -637,6 +640,7 @@ public class GameManager : MonoBehaviour {
 			requiredCollectedKeys = 1;
 			Time.timeScale = 1f;
 			StartTime = Time.time;
+			loadingScreenCanvas.transform.Find ("LevelText").GetComponent<Text> ().text = "Dungeon level: " + "Tutorial";
 			loadingScreenCanvas.SetActive (true);
 			homeScreen.SetActive (false);
 			StartCoroutine (CreateLevel (0));
@@ -649,6 +653,7 @@ public class GameManager : MonoBehaviour {
 			requiredCollectedKeys = 1;
 			Time.timeScale = 1f;
 			StartTime = Time.time;
+			loadingScreenCanvas.transform.Find ("LevelText").GetComponent<Text> ().text = "Dungeon level: " + "Arena";
 			loadingScreenCanvas.SetActive (true);
 			homeScreen.SetActive (false);
 			StartCoroutine (CreateLevel (2));

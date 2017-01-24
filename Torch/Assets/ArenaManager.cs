@@ -7,7 +7,6 @@ public class ArenaManager : MonoBehaviour {
 	private bool ArenaStarted = false;
 	public float timeBetweenRounds = 5f;
 	public Enemy[] enemiesToSpawn;
-	public int[] numberOfEnemiesSpawnTogether;
 	public int enemiesPerWave;
 	private GameManager gameManager;
 	private Vector3 spawnPosition;
@@ -36,6 +35,10 @@ public class ArenaManager : MonoBehaviour {
 		
 	}
 
+	public void SetWaveNumber(int newWaveNumber){
+		waveNumber = newWaveNumber;
+	}
+
 	public void StartArena(){
 		ArenaStarted = true;
 		//find Arena Areas
@@ -59,7 +62,7 @@ public class ArenaManager : MonoBehaviour {
 		StartCoroutine(AreaPicker());
 	}
 
-	IEnumerator SpawnWave(){
+	IEnumerator SpawnWave(int enemiesPerWave, Enemy[] enemiesToSpawn){
 		counter = 0;
 		Debug.Log ("Wave " + waveNumber + " has started!");
 		arenaCanvas.WaveStarted (waveNumber);
@@ -70,18 +73,16 @@ public class ArenaManager : MonoBehaviour {
 			
 			spawnPosition = GetValidSpawnPosition (minSpawningDistanceEnemy, maxSpawningDistanceEnemy);
 
-		//	for (int i = 0; i < Random.Range (numberOfEnemiesSpawnTogether [0], numberOfEnemiesSpawnTogether [1]); i++) {
+		
 				GameObject enemy = ObjectPooler.Instance.GetObject (enemiesToSpawn [Random.Range (0, enemiesToSpawn.Length)].ObjectPoolIndex, true, 
 					this.spawnPosition, Quaternion.Euler (0f, Random.Range (0, 360), 0f));
 				enemiesKilled [enemyCounter] = enemy;
 				enemy.GetComponent<Enemy> ().arenaProps.arenaEnemy = true;
 				enemy.GetComponent<Enemy> ().arenaProps.index = enemyCounter;
 				enemyCounter++;
-				//Debug.Log ("Spawn enemy on " + enemy.transform.position);
-		//	}
 
 			if (enemyCounter < enemiesPerWave) {
-				yield return new WaitForSeconds (5f);
+				yield return new WaitForSeconds (2f);
 			} else {
 				break;
 			}
@@ -177,7 +178,19 @@ public class ArenaManager : MonoBehaviour {
 			OuterWallCollider.enabled = true;
 			//Debug.Log ("Outerwalls closed");
 		}
+		//Find Wave Data
+		Enemy[] enemiesToSpawnNextWave;
+		if (waveNumber<2){
+			enemiesToSpawnNextWave = new Enemy[]{enemiesToSpawn[0]};
+		}else if (waveNumber<3){
+			enemiesToSpawnNextWave = new Enemy[]{enemiesToSpawn[0],enemiesToSpawn[1]};
+		}else if (waveNumber<4){
+			enemiesToSpawnNextWave = new Enemy[]{enemiesToSpawn[0],enemiesToSpawn[1],enemiesToSpawn[2]};
+		} else {
+			enemiesToSpawnNextWave = enemiesToSpawn;
+		}
+		int enemiesAmountNextWave = waveNumber * 2;
 		//start wave
-		StartCoroutine(SpawnWave ());
+		StartCoroutine(SpawnWave (enemiesAmountNextWave,enemiesToSpawnNextWave));
 	}
 }
