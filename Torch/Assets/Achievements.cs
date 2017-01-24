@@ -112,11 +112,6 @@ public class Achievements : MonoBehaviour {
 	}
 
 	void Update () {
-		/*
-		if (Input.GetKey ("x")) {
-			NewAchievement ("test", 0);
-		}
-		*/
 		Aimage.rectTransform.anchoredPosition = Vector2.MoveTowards (Aimage.rectTransform.anchoredPosition, target, 5);
 	}
 
