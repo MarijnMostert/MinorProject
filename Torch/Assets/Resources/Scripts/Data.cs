@@ -158,6 +158,12 @@ public class Data : MonoBehaviour {
 			PlayerPrefs.SetInt (strEquipped, 0);
 		}
 
+		PlayerPrefs.SetInt ("shopItem5", 1);
+		PlayerPrefs.SetInt ("shopItem8", 1);
+		PlayerPrefs.SetInt ("shopItemEquipped5", 1);
+		PlayerPrefs.SetInt ("shopItemEquipped8", 1);
+
+			
 		for (int i = 0; i < achievementsGotten.Length; i++) {
 			string strAch = "achievement" + i;
 			PlayerPrefs.SetInt (strAch, 0);

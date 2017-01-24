@@ -66,7 +66,7 @@ public class createPlayerForm : MonoBehaviour {
                 PlayerPrefs.SetInt("dungeonLevel",1);
 
 				GameManager.Instance.SetDungeonLevel(1);
-				GameManager.Instance.data.maxAchievedDungeonLevel = 1;
+				GameManager.Instance.data.ResetData ();
 				GameManager.Instance.dungeonStartCanvas.buttons.Clear();
 				GameManager.Instance.SetUpDungeonStartCanvas();
 				HomeScreenProgress.Instance.UpdateProgress (GameManager.Instance.data.maxAchievedDungeonLevel);

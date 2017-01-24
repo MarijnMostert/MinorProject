@@ -21,7 +21,7 @@ public class HomeScreenLore : MonoBehaviour {
 	void OnTriggerStay (Collider other) {
 		if (other.gameObject.CompareTag("Player")) {
 			ActivateOnNear.SetActive (true);
-			if (Input.GetButtonDown (interactionButton)) {
+			if (Input.GetButtonDown (interactionButton) && !gameManager.GetTextFieldEnabled()) {
 				StartLore ();
 				ActivateOnPlay.SetActive (true);
 				ActivateOnStop.SetActive (false);
