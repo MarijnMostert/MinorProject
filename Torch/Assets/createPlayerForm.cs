@@ -33,7 +33,8 @@ public class createPlayerForm : MonoBehaviour {
 
     void OnEnable()
     {
-        Time.timeScale = 0;
+        //Time.timeScale = 0;
+		GameManager.Instance.homeScreenMovement.enabled = false;
     }
 
     public void CreateUser()
@@ -63,11 +64,20 @@ public class createPlayerForm : MonoBehaviour {
                 PlayerPrefs.SetInt("id", int.Parse(wwwData.message));
                 PlayerPrefs.SetInt("coins",0);
                 PlayerPrefs.SetInt("dungeonLevel",1);
+
+				GameManager.Instance.SetDungeonLevel(1);
+				GameManager.Instance.data.maxAchievedDungeonLevel = 1;
+				GameManager.Instance.dungeonStartCanvas.buttons.Clear();
+				GameManager.Instance.SetUpDungeonStartCanvas();
+				HomeScreenProgress.Instance.UpdateProgress (GameManager.Instance.data.maxAchievedDungeonLevel);
+
                 Time.timeScale = 1;
                 GameObject highscore = GameManager.Instance.HighScoresPanel;
                 highscore.GetComponentInChildren<HighScoresPanel>().UpdateHighScores();
                 transform.parent.gameObject.SetActive(false);
 				GameManager.Instance.SetTextFieldEnabled (false);
+				GameManager.Instance.homeScreenMovement.enabled = true;
+
             } else
             {
                 StartCoroutine(showError(wwwData.message));

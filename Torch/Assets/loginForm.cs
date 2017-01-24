@@ -41,7 +41,8 @@ public class loginForm : MonoBehaviour
 
     void OnEnable()
     {
-        Time.timeScale = 0;
+       // Time.timeScale = 0;
+		GameManager.Instance.homeScreenMovement.enabled = false;
     }
 
     public void login()
@@ -81,6 +82,7 @@ public class loginForm : MonoBehaviour
                 GameManager.Instance.data.Load();
                 transform.parent.gameObject.SetActive(false);
 				GameManager.Instance.SetTextFieldEnabled (false);
+				GameManager.Instance.homeScreenMovement.enabled = true;
             }
             else
             {
