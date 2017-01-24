@@ -263,7 +263,8 @@ public class PlayerMovement : MonoBehaviour {
 
 	void UpdateVelocity(){
 		float distance = (transform.position - prevPos).magnitude;
-		distanceTravelled += distance;
+		distanceTravelled += distance;		
+		gameManager.achievements.walkAchievement (distance);
 		velocity = distance / Time.deltaTime;
 		prevPos = transform.position;
 	}

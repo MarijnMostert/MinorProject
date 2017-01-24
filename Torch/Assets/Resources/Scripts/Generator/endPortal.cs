@@ -70,6 +70,7 @@ public class endPortal : InteractableItem {
 		gameManager.endOfRoundCanvas.transform.Find ("TotalScore").GetComponent<Text> ().text = gameManager.totalScore.ToString();
 		*/
 		gameManager.endOfRoundCanvas.GetComponent<EndOfRoundCanvas> ().Fill ();
+		gameManager.endOfRoundCanvas.GetComponent<EndOfRoundCanvas> ().amountOfPlayers(gameManager.numberOfPlayers);
 		gameManager.endOfRoundCanvas.SetActive (true);
 
 		if (tutorial) {
