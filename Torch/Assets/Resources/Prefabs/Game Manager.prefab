@@ -350,6 +350,9 @@ MonoBehaviour:
   spawnerWarmingUpScaler: 0.6
   minAmountOfRoomsScaler: 0.5
   maxAmountOfRoomsScaler: 0.8
+  chanceChestDeadEnd: 0.8
+  chanceChestCorridor: 0.02
+  chanceParticles: 0.15
   minLevelForMinotaur: 1
   minLevelForSpider: 3
   minLevelForGhost: 6
@@ -374,7 +377,8 @@ MonoBehaviour:
   chanceLaser: 0.1
   chanceBlood: 0.1
   chanceBoomerang: 0.1
-  chanceForTrap: 0.1
+  chanceForTrapBase: 0.1
+  chanceForTrapScaler: 0.01
   minLevelSpidernest: 2
   minLevelWizardnest: 12
   minLevelSpikes: 6
