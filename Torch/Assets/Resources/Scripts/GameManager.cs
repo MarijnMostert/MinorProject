@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using System;
 using UnityEngine.Analytics;
+using UnityEditor;
 
 public class GameManager : MonoBehaviour {
 
@@ -90,8 +91,9 @@ public class GameManager : MonoBehaviour {
 	private GameObject homeScreen;
 	private GameObject homeScreenCam;
 	public Camera mainCamera;
+	private Camera minimapPrefab;
 	public Camera minimap;
-	private int miniMapMode = 0;
+	public GameObject minimapUIElement;
 	private Vector3 homeScreenPlayerPosition;
     MasterGenerator masterGenerator;
 	[HideInInspector] public Transform levelTransform;
@@ -179,7 +181,7 @@ public class GameManager : MonoBehaviour {
 		homeScreen = GameObject.Find ("HomeScreen");
 		homeScreenCam = GameObject.Find ("HomeScreenCam");
 		mainCamera = homeScreenCam.GetComponent<Camera> ();
-		minimap = Resources.Load ("Prefabs/minimap2", typeof (Camera)) as Camera;
+		minimapPrefab = Resources.Load ("Prefabs/Minimap", typeof (Camera)) as Camera;
 
 		HighScoresPanel = Instantiate (HighScoresPanel) as GameObject;
     }
@@ -339,7 +341,7 @@ public class GameManager : MonoBehaviour {
 		homeScreenCam.SetActive (false);
 		loadingScreenCanvas.SetActive (false);
 
-		Instantiate (minimap);
+		minimap = Instantiate (minimapPrefab);
 
 		ui.timer.Reset ();
 
@@ -430,9 +432,16 @@ public class GameManager : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.Alpha0) && cheat && !TextFieldEnabled) {
 			TeleportToHighScores ();
 		}
+		//Cheatcode to get 1000 coins
 		if (Input.GetKeyDown (KeyCode.Backslash) && cheat && !TextFieldEnabled) {
 			data.coins += 1000;
 		}
+		//Cheatcode to reveal the whole minimap
+		if (Input.GetKeyDown (KeyCode.V) && cheat && !TextFieldEnabled) {
+			RevealMinimap ();
+		}
+
+		//Toggle minimap
 		if(Input.GetKeyDown(KeyCode.M) && !TextFieldEnabled){
 			ToggleMiniMap();
 		}
@@ -789,6 +798,19 @@ public class GameManager : MonoBehaviour {
 		Instantiate (KeyPrefab, torch.transform.position, Quaternion.identity);
 	}
 
+	void RevealMinimap(){
+		GameObject dungeon = GameObject.Find ("Dungeon");
+		if (dungeon != null) {
+			Transform[] temp = dungeon.GetComponentsInChildren<Transform> (true);
+			foreach (Transform t in temp) {
+				if (LayerMask.LayerToName (t.gameObject.layer).Equals ("Minimap")) {
+					t.gameObject.SetActive (true);
+				}
+			}
+			Debug.Log ("I solemnly swear that I am up to no good...");
+		}	
+	}
+
 	public bool getCheat(){
 		return cheat;
 	}
@@ -809,9 +831,9 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void ToggleMiniMap(){
-		miniMapMode++;
-		miniMapMode = miniMapMode % 3;
-
+		if (ui != null) {
+			ui.toggleMinimap ();
+		}
 	}
 
 	public void SetTextFieldEnabled(bool enabled){
