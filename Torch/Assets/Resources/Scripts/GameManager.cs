@@ -524,7 +524,7 @@ public class GameManager : MonoBehaviour {
 
 
 		audioSourceMusic.clip = audioHomeScreen;
-		audioSourceMusic.Play ();
+		//audioSourceMusic.Play ();
 		resetHomeScreenPlayer ();
 
 		PetScript.speechCanvas.SetActive (false);

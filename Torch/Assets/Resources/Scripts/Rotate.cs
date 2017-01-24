@@ -13,7 +13,7 @@ public class Rotate : MonoBehaviour {
 		rotationSpeedZ *= 5f;
 	}
 
-	void Update () {
+	void FixedUpdate () {
 		transform.Rotate (new Vector3 (rotationSpeedX, rotationSpeedY, rotationSpeedZ) * Time.deltaTime);
 	}
 }
