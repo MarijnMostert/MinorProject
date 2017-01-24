@@ -527,6 +527,9 @@ public class GameManager : MonoBehaviour {
 		audioSourceMusic.Play ();
 		resetHomeScreenPlayer ();
 
+		Pet.SetActive (true);
+		Bold.SetActive (false);
+
 		PetScript.speechCanvas.SetActive (false);
 		Pet.transform.position = homeScreenPlayer.transform.position;
 

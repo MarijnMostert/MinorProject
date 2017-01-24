@@ -1297,7 +1297,6 @@ GameObject:
   - 4: {fileID: 4000013216315394}
   - 33: {fileID: 33000013664176956}
   - 23: {fileID: 23000011796071126}
-  - 64: {fileID: 64000013575784394}
   m_Layer: 0
   m_Name: Lava_Lake
   m_TagString: Untagged
@@ -5459,18 +5458,6 @@ MeshCollider:
   serializedVersion: 2
   m_Convex: 0
   m_Mesh: {fileID: 4300058, guid: 7ff69e5035c4cdf4daf7f63cfcba56b7, type: 3}
---- !u!64 &64000013575784394
-MeshCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013584206780}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Convex: 0
-  m_Mesh: {fileID: 4300020, guid: 7ff69e5035c4cdf4daf7f63cfcba56b7, type: 3}
 --- !u!64 &64000013674996826
 MeshCollider:
   m_ObjectHideFlags: 1

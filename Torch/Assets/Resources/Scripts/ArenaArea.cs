@@ -10,6 +10,10 @@ public class ArenaArea : MonoBehaviour {
 	
 	}
 	
+	void OnTriggerEnter (Collider other) {
+		PlayerDamagable playerDamagableScript = other.gameObject.GetComponentInChildren<PlayerDamagable>();
+		playerDamagableScript.saveRespawnPosition ();
+	}
 
 	void OnTriggerStay (Collider other) {
 		if (other.CompareTag ("Player")) {
