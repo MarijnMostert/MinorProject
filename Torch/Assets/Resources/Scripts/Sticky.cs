@@ -13,7 +13,7 @@ public class Sticky : AudioObject {
 	}
 
 	void OnTriggerEnter(Collider other){
-		if (other.gameObject.CompareTag ("Enemy")) {
+		if (other.gameObject.CompareTag ("Enemy") && !other.gameObject.name.Equals("Ghost(Clone)")) {
 			StartCoroutine (MyCoroutine(other));
 		}
 	}

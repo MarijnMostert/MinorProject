@@ -158,7 +158,9 @@ public class BossBehaviour : MonoBehaviour, IDamagable {
 		}
 
 		health -= damage;
-		healthBarImage.fillAmount = (float)health / startingHealth;
+		float lerp = (float)health / (float)startingHealth;
+		healthBarImage.color = Color.Lerp(Color.red, Color.magenta, lerp);
+		healthBarImage.fillAmount = lerp;
 		//healthBar.fillAmount = (float)health / startingHealth;
 		if (health <= 0)
 			Die ();
