@@ -298,6 +298,10 @@ public class PlayerMovement : MonoBehaviour {
 		arenaPointerTarget = target;
 	}
 		
+
+	public GameObject GetCursorPointer(){
+		return cursorPointer;
+	}
 }
 
 

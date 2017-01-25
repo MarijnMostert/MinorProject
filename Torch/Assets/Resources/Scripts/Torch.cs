@@ -79,6 +79,7 @@ public class Torch : MonoBehaviour, IDamagable {
 		if (isDamagable) {
 //		Debug.Log (gameObject + " takes " + damage + " damage.");
 			health -= damage;
+			DamagePopUp.CreateTorchHealthPopUp (damage, ui, true);
 			updateHealth ();
 			TorchFOV.SetTrigger ("TakeDamage");
 
@@ -98,6 +99,7 @@ public class Torch : MonoBehaviour, IDamagable {
 		if (health > startingHealth) {
 			health = startingHealth;
 		}
+		DamagePopUp.CreateTorchHealthPopUp (healingAmount, ui, false);
 		updateHealth ();
 		StartCoroutine (ParticlesCoroutine ());
 	}
