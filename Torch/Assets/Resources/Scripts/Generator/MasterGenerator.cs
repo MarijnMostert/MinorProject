@@ -104,7 +104,7 @@ public class MasterGenerator : Object {
 
         dungeon_instantiate.createMaze();
 
-        Debug.Log(dungeon_instantiate.print(dungeon_instantiate.getMaze()));
+        //Debug.Log(dungeon_instantiate.print(dungeon_instantiate.getMaze()));
         //spawner.GetComponent<Spawner>().importMaze(dungeon_instantiate.getMaze(),mazeSize);
 
     }

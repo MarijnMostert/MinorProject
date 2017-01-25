@@ -341,7 +341,22 @@ public class DungeonInstantiate : Object {
 					buildOpen (x,y,puzzle);
 					if ((!puzzle) && Random.value < dungeonParameters.Traps.chanceForTrap && trapSpawnChances.Count != 0)
                     {
-                        trap(x, y);
+						StringBuilder sb = new StringBuilder ();
+						sb.Append ("current coordinates: x:" + x + ",y:" + y + "    ");
+						int[] surroundings = getSurrounding8 (x, y);
+						int sum = 0;
+						for (int i = 0; i < surroundings.Length; i++) {
+							sum += surroundings [i];
+							sb.Append (surroundings [i] + "  ");
+						}
+						sb.Append ("\nTotal number of surrounding floors: " + sum);
+						if (sum >= 4) {
+							sb.Append ("\nSo there will be no trap here");
+						} else {
+							sb.Append ("\nSo a trap will be placed here");
+							trap(x, y);
+						}
+						//Debug.Log (sb.ToString ());
                     }
                 }
                 else {
@@ -501,8 +516,18 @@ public class DungeonInstantiate : Object {
 		surroundings [2] = (maze [x - 1, y]) ? 1 : 0;
 		surroundings [3] = (maze [x, y - 1]) ? 1 : 0;
 		return surroundings;
+
 	}
 
+	/// <summary>
+	/// <para>Gets the surrounding tiles where 1 = floor and 0 = roof</para>
+	/// <para>3  2  1</para>
+	/// <para>4  X  0</para>
+	/// <para>5  6  7</para>
+	/// </summary>
+	/// <returns>The surrounding in format:</returns>
+	/// <param name="x">The x coordinate.</param>
+	/// <param name="y">The y coordinate.</param>
     int[] getSurrounding8(int x, int y)
     {
         int[] surroundings = new int[8];
@@ -716,66 +741,33 @@ public class DungeonInstantiate : Object {
     
     void trap(int x, int y)
     {
-        if (cornersRoom(x, y))
+		/*
+		if (cornersRoom (x, y))
+			Debug.Log ("Corner here");
             return;
 
-		GameObject trapprefab = traps [DetermineTrap ()];
-
-		/*
-        bool nest = false;
-        GameObject trapprefab = spidernest;
-        float tmp = Random.value;
-        if (tmp < chance_spidernest)
-        {
-            trapprefab = spidernest;
-            nest = true;
-        }
-        else if (tmp < chance_spikes)
-        {
-            trapprefab = spikes;
-        }
-        else if (tmp < chance_wallspikes)
-        {
-            trapprefab = wallspikes;
-        }
-        else if (tmp < chance_wizardnest)
-        {
-            trapprefab = wizardnest;
-            nest = true;
-        }
-        else if (tmp < chance_wallrush)
-        {
-            trapprefab = wallrush;
-        }
-        else if (tmp < chance_shuriken)
-        {
-            trapprefab = shuriken;
-        }
-        else { return;  }
 */
 
-        if (!ArrayCorner(getSurrounding2(x, y)) /*|| nest*/)
-        {
-            Quaternion rot;
-            int[] a = getSurrounding2(x, y);
-            if (a[0] == 1)
-            {
-                rot = Quaternion.Euler(0, 90, 0);
-            } else if(a[3] == 1)
-            {
-                rot = Quaternion.Euler(0, 180, 0);
-            } else if (a[2] == 1)
-            {
-                rot = Quaternion.Euler(0, 90, 0);
-            }
-            else
-            {
-                rot = Quaternion.identity;
-            }
-            GameObject trap = GameObject.Instantiate(trapprefab, Traps.transform) as GameObject;
-            trap.transform.position = new Vector3(x * 6 + 3, 0, y * 6 + 3);
-            trap.transform.rotation = rot;
-        }
+		if (!ArrayCorner (getSurrounding2 (x, y)) /*|| nest*/) {
+			GameObject trapprefab = traps [DetermineTrap ()];
+			//Debug.Log ("no corner");
+			Quaternion rot;
+			int[] a = getSurrounding2 (x, y);
+			if (a [0] == 1) {
+				rot = Quaternion.Euler (0, 90, 0);
+			} else if (a [3] == 1) {
+				rot = Quaternion.Euler (0, 180, 0);
+			} else if (a [2] == 1) {
+				rot = Quaternion.Euler (0, 90, 0);
+			} else {
+				rot = Quaternion.identity;
+			}
+			GameObject trap = GameObject.Instantiate (trapprefab, Traps.transform) as GameObject;
+			trap.transform.position = new Vector3 (x * 6 + 3, 0, y * 6 + 3);
+			trap.transform.rotation = rot;
+		} else {
+			//Debug.Log ("corner");
+		}
     }
 
 	/*

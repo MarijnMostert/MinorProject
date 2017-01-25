@@ -88,7 +88,7 @@ public class Spawner : MonoBehaviour {
 
     public void importMaze(bool[,] maze, int[] mazeSize)
     {
-        Debug.Log("importMaze: " + mazeSize[0]+" "+mazeSize[1]); 
+        //Debug.Log("importMaze: " + mazeSize[0]+" "+mazeSize[1]); 
         floors = new Floors();
         floors.importFloorList(maze, mazeSize);
         Debug.Log(floors.print());
