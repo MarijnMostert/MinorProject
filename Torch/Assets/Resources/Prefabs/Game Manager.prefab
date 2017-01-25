@@ -290,6 +290,8 @@ MonoBehaviour:
   chanceChestDeadEnd: 0.8
   chanceChestCorridor: 0.02
   chanceParticles: 0.15
+  chanceLavaStream: 0.1
+  chanceSkull: 0.1
   minLevelForMinotaur: 1
   minLevelForSpider: 3
   minLevelForGhost: 6
@@ -346,6 +348,7 @@ MonoBehaviour:
     type: 2}
   minLevelMovingplatformroom: 1
   chanceMovingplatformroom: 1
+  platformSpeedScaler: 0.03
   Bossroom: {fileID: 1000010275947170, guid: 2c69b9685e818ec4f810ceb0a5e12c7d, type: 2}
   minLevelBossroom: 5
   chanceBossroom: 0.3

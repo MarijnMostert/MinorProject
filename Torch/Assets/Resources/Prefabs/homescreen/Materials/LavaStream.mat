@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Torch
+  m_Name: LavaStream
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: _EMISSION
   m_LightmapFlags: 1
@@ -42,17 +42,35 @@ Material:
     - first:
         name: _EmissionMap
       second:
+        m_Texture: {fileID: 2800000, guid: c33851d734ff1584a9fbb9c5c9cdede3, type: 3}
+        m_Scale: {x: 3, y: 3}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _FalloffTex
+      second:
         m_Texture: {fileID: 0}
-        m_Scale: {x: 2, y: 2}
+        m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
         name: _MainTex
       second:
-        m_Texture: {fileID: 2800000, guid: 2cf0b4f53e5674a319cdc27f35839477, type: 3}
-        m_Scale: {x: 2, y: 2}
+        m_Texture: {fileID: 2800000, guid: c33851d734ff1584a9fbb9c5c9cdede3, type: 3}
+        m_Scale: {x: 3, y: 3}
         m_Offset: {x: 0, y: 0}
     - first:
         name: _MetallicGlossMap
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _Normal
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _Occlusion
       second:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -65,6 +83,12 @@ Material:
         m_Offset: {x: 0, y: 0}
     - first:
         name: _ParallaxMap
+      second:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
+        name: _ShadowTex
       second:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -83,17 +107,23 @@ Material:
         name: _DstBlend
       second: 0
     - first:
+        name: _Gloss
+      second: 0.25
+    - first:
         name: _GlossMapScale
       second: 1
     - first:
         name: _Glossiness
-      second: 0
+      second: 1
     - first:
         name: _GlossyReflections
       second: 1
     - first:
+        name: _InvFade
+      second: 1
+    - first:
         name: _Metallic
-      second: 0
+      second: 0.77
     - first:
         name: _Mode
       second: 0
@@ -103,6 +133,12 @@ Material:
     - first:
         name: _Parallax
       second: 0.02
+    - first:
+        name: _Scale_U
+      second: 1
+    - first:
+        name: _Scale_V
+      second: 1
     - first:
         name: _SmoothnessTextureChannel
       second: 0
@@ -121,7 +157,10 @@ Material:
     m_Colors:
     - first:
         name: _Color
-      second: {r: 0.44117647, g: 0.3194726, b: 0, a: 1}
+      second: {r: 1, g: 0.99264705, b: 0.99291426, a: 1}
     - first:
         name: _EmissionColor
-      second: {r: 0, g: 0, b: 0, a: 1}
+      second: {r: 5.92783, g: 1.1038033, b: 0, a: 1}
+    - first:
+        name: _TintColor
+      second: {r: 1, g: 0.2205882, b: 0.2205882, a: 0.5}

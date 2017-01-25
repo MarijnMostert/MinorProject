@@ -440,9 +440,19 @@ public class GameManager : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.V) && cheat && !TextFieldEnabled) {
 			RevealMinimap ();
 		}
+		//MASTER CHEATCODE
+		if (Input.GetKeyDown (KeyCode.Alpha9) && cheat && !TextFieldEnabled) {
+			SpawnAllWeapons ();
+			SpawnAllPowerUps ();
+			torch.HealToStartingHealth ();
+			torch.ToggleDamagable ();
+			KillAllEnemies ();
+			RevealMinimap ();
+			spawner.ToggleSpawner ();
+		}
 
 		//Toggle minimap
-		if(Input.GetKeyDown(KeyCode.M) && !TextFieldEnabled){
+		if(Input.GetKeyDown(KeyCode.Q) && !TextFieldEnabled){
 			ToggleMiniMap();
 		}
 	}
@@ -761,6 +771,8 @@ public class GameManager : MonoBehaviour {
 
 	public void addHighQualityItem(GameObject GO){
 		highQualityItems.Add (GO);
+		GO.SetActive (data.highQuality);
+			
 	}
 
 	public void addHighQualityItem(GameObject[] GOs){
@@ -778,10 +790,15 @@ public class GameManager : MonoBehaviour {
 			data.highQuality = true;
 		}
 
-		foreach (GameObject GO in highQualityItems) {
-			if (GO == null) {
-				highQualityItems.Remove (GO);
+		for (int i = 0; i < highQualityItems.Count; i++) {
+			if (highQualityItems [i] == null) {
+				highQualityItems.RemoveAt (i);
+				Debug.Log ("Removed at index " + i + ". Length: " + highQualityItems.Count);
+				i--;
 			}
+		}
+
+		foreach (GameObject GO in highQualityItems) {
 			GO.SetActive (data.highQuality);
 		}
 	}

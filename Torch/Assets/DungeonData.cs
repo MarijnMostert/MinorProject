@@ -15,6 +15,8 @@ public class DungeonData : MonoBehaviour {
 	public float chanceChestDeadEnd = .8f;
 	public float chanceChestCorridor = .02f;
 	public float chanceParticles = .15f;
+	public float chanceLavaStream = .03f;
+	public float chanceSkull = .5f;
 
 	[Header("- Minimum spawn level enemies")]
 	public int minLevelForMinotaur = 1;
@@ -86,6 +88,7 @@ public class DungeonData : MonoBehaviour {
 	public GameObject Movingplatformroom;
 	public int minLevelMovingplatformroom;
 	public float chanceMovingplatformroom;
+	public float platformSpeedScaler;
 
 	public GameObject Bossroom;
 	public int minLevelBossroom;
@@ -107,6 +110,8 @@ public class DungeonData : MonoBehaviour {
 		public float chanceChestDeadEnd;
 		public float chanceChestCorridor;
 		public float chanceParticles;
+		public float chanceLavaStream;
+		public float chanceSkull;
 		public float timeBetweenSpawns;
 		public float timeBeforeSpawning;
 		public Enemies enemies;
@@ -177,6 +182,7 @@ public class DungeonData : MonoBehaviour {
 		public PuzzleRoom Fallblockpuzzle;
 		public PuzzleRoom Laserroom;
 		public PuzzleRoom Movingplatformroom;
+		public float platformSpeedScaler;
 		public PuzzleRoom Bossroom;
 		public PuzzleRoom Treasureroom;
 	}
@@ -203,6 +209,8 @@ public class DungeonData : MonoBehaviour {
 			DP.chanceChestDeadEnd = chanceChestDeadEnd;
 			DP.chanceChestCorridor = chanceChestCorridor;
 			DP.chanceParticles = chanceParticles;
+			DP.chanceLavaStream = chanceLavaStream;
+			DP.chanceSkull = chanceSkull;
 
 			if(i>= minLevelForMinotaur)
 				DP.enemies.minoTaur = true;
@@ -289,6 +297,10 @@ public class DungeonData : MonoBehaviour {
 			DP.puzzleRooms.Fliproom.puzzleRoom = Fliproom;
 			DP.puzzleRooms.Treasureroom.spawnChance = chanceTreasureroom;
 			DP.puzzleRooms.Treasureroom.puzzleRoom = Treasureroom;
+			DP.puzzleRooms.platformSpeedScaler = 1f + platformSpeedScaler * i;
+			if (DP.puzzleRooms.platformSpeedScaler > 1.8f) {
+				DP.puzzleRooms.platformSpeedScaler = 1.8f;
+			}
 
             DP.timeBetweenSpawns = 15f - spawnRateScaler * i;
 			if(DP.timeBetweenSpawns < 4f){

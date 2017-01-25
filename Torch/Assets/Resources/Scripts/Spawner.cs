@@ -42,13 +42,7 @@ public class Spawner : MonoBehaviour {
 			spawnWave ();
 		}
 		if (Input.GetKeyDown (KeyCode.Comma) && gameManager.getCheat() && !gameManager.GetTextFieldEnabled()) {
-			if (dead) {
-				dead = false;
-				Debug.Log ("Spawner has been turned on");
-			} else {
-				dead = true;
-				Debug.Log ("Spawner has been turned off");
-			}
+			ToggleSpawner ();
 		}
 	}
 
@@ -132,5 +126,15 @@ public class Spawner : MonoBehaviour {
 		activated = true;
 		StartCoroutine (SpawnEnemy ());
 		Debug.Log ("spawner activated");
+	}
+
+	public void ToggleSpawner(){
+		if (dead) {
+			dead = false;
+			Debug.Log ("Spawner has been turned on");
+		} else {
+			dead = true;
+			Debug.Log ("Spawner has been turned off");
+		}
 	}
 }

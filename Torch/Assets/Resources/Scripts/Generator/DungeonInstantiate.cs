@@ -23,6 +23,8 @@ public class DungeonInstantiate : Object {
           chance_chest_corridors, 
           chance_chest_deadEnd,  
           chance_particles,
+	      chance_lavaStream,
+		  chance_skull,
           chance_spidernest,
           chance_wizardnest,
           chance_wallspikes,
@@ -74,6 +76,8 @@ public class DungeonInstantiate : Object {
     GameObject wallrush;
 
 	GameObject[] dungeonParticles;
+	GameObject dungeonLavaStream;
+	GameObject dungeonSkull;
 	DungeonData.DungeonParameters dungeonParameters;
 
 	public Vector3 startPos;
@@ -89,7 +93,7 @@ public class DungeonInstantiate : Object {
 		GameObject chest, GameObject coin, GameObject fireball, GameObject iceball, GameObject health, int[] mazeSize, GameObject laser, GameObject shieldPickUp,
 		GameObject stickyPickUp, GameObject roofGroup, GameObject wallPickUp, GameObject wallTorch, GameObject piercingWeapon,
 		GameObject bombPickUp, GameObject spidernest, GameObject wizardnest, GameObject wallspikes, GameObject spikes, GameObject shuriken, GameObject wallrush, 
-        GameObject stardustParticles, GameObject moondustParticles, GameObject decoyPickUp)
+		GameObject stardustParticles, GameObject moondustParticles, GameObject decoyPickUp, GameObject dungeonLavaStream, GameObject dungeonSkull)
 
     {
 		this.dungeonParameters = dungeonParameters;
@@ -121,6 +125,8 @@ public class DungeonInstantiate : Object {
         this.wallrush = wallrush;
 
 		this.dungeonParticles = new GameObject[]{ stardustParticles, moondustParticles };
+		this.dungeonLavaStream = dungeonLavaStream; 
+		this.dungeonSkull = dungeonSkull;
 
 		WallsParent = new GameObject("Walls");
 		FloorsParent = new GameObject("Floors");
@@ -254,6 +260,8 @@ public class DungeonInstantiate : Object {
 		chance_chest_corridors = dungeonParameters.chanceChestCorridor;
 		chance_chest_deadEnd = dungeonParameters.chanceChestDeadEnd;
 		chance_particles = dungeonParameters.chanceParticles;
+		chance_lavaStream = dungeonParameters.chanceLavaStream;
+		chance_skull = dungeonParameters.chanceSkull;
 
 		/*
         //Compile Generated chances
@@ -381,7 +389,13 @@ public class DungeonInstantiate : Object {
 			myplane.transform.position = new Vector3 (x + 0.5f, 0, y + 0.5f);
 			spawnChest (x, y);
 			spawnWallTorch (x, y);
-			spawnParticles (x, y);
+
+			if(Random.value < chance_particles)
+				spawnParticles (x, y);
+			else if (Random.value < chance_lavaStream)
+				spawnLavaStream (x, y);
+			else if (Random.value < chance_skull)
+				spawnSkull (x, y);
 		}
 
 
@@ -694,15 +708,39 @@ public class DungeonInstantiate : Object {
 
 	void spawnParticles(float x, float z)
 	{
-		float random = Random.value;
-		if (random < chance_particles) {
-			GameObject particles = Instantiate (dungeonParticles[Random.Range(0, dungeonParticles.Length)],
-				new Vector3 (x * 6 + Random.Range (0f, 6f), 1.3f, z * 6 + Random.Range (0f, 6f)),
-				Quaternion.Euler (new Vector3 (0f, Random.Range (0f, 360f), 0f)), ParticlesParent.transform) as GameObject;
-			GameManager.Instance.addHighQualityItem (particles);
-			if (!GameManager.Instance.data.highQuality) {
-				particles.SetActive (false);
+		GameObject particles = Instantiate (dungeonParticles[Random.Range(0, dungeonParticles.Length)],
+			new Vector3 (x * 6 + Random.Range (0f, 6f), 1.3f, z * 6 + Random.Range (0f, 6f)),
+			Quaternion.Euler (new Vector3 (0f, Random.Range (0f, 360f), 0f)), ParticlesParent.transform) as GameObject;
+		GameManager.Instance.addHighQualityItem (particles);
+		if (!GameManager.Instance.data.highQuality) {
+			particles.SetActive (false);
+		}
+	}
+		
+	void spawnLavaStream(float x, float z){
+		
+		int[] surroundings = getSurrounding2 ((int)x, (int)z);
+		if (surroundings [0] == 0 && surroundings [1] == 1 && surroundings [2] == 0 && surroundings [3] == 1) {
+			GameObject lavaStream = Instantiate (dungeonLavaStream, new Vector3 (x * 6f + 3f, 0, z * 6f + Random.Range (2f, 4f)), Quaternion.identity, Dungeon.transform) as GameObject;
+			if (Random.value > .5) {
+				lavaStream.transform.eulerAngles = new Vector3 (0f, 90f, 0f);
+			} else {
+				lavaStream.transform.eulerAngles = new Vector3 (0f, 270f, 0f);
 			}
+			} else if (surroundings [0] == 1 && surroundings [1] == 0 && surroundings [2] == 1 && surroundings [3] == 0) {
+				GameObject lavaStream = Instantiate (dungeonLavaStream, new Vector3 (x * 6f + Random.Range (2f, 4f), 0, z * 6f + 3f), Quaternion.identity, WallTorchParent.transform) as GameObject;
+			if (Random.value > .5) {
+				lavaStream.transform.eulerAngles = new Vector3 (0f, 180f, 0f);
+			}
+		}
+	}
+
+	void spawnSkull(float x, float z){
+
+		float random = Random.value;
+		if (random < chance_skull) {
+			GameObject chest_instance = Instantiate (dungeonSkull, new Vector3 (x * 6 + Random.Range (1f, 5f), 0, z * 6 + Random.Range (1f, 5f)), 
+				Quaternion.Euler (new Vector3 (0f, Random.Range (0f, 360f), 0f)), Dungeon.transform) as GameObject;
 		}
 	}
 

@@ -11,7 +11,7 @@ public class MasterGenerator : Object {
                             coin, fireball, iceball, health, laser, shieldPickUp,
 							stickyPickUp, roofGroup, wallPickUp, wallTorch, piercingWeapon,
 							bombPickUp, spidernest, wizardnest, wallspikes, spikes, shuriken, 
-                            wallrush, stardustParticles, moondustParticles, decoyPickUp;
+                            wallrush, stardustParticles, moondustParticles, decoyPickUp, dungeonLavaStream, dungeonSkull;
     GameObject game_manager;
 	DungeonData.DungeonParameters dungeonParameters;
     public DungeonInstantiate dungeon_instantiate;
@@ -61,7 +61,7 @@ public class MasterGenerator : Object {
                                                                         cam, pointer, chest, coin, fireball, iceball, health, mazeSize, 
                                                                         laser, shieldPickUp, stickyPickUp, roofGroup, wallPickUp,
                                                                         wallTorch, piercingWeapon, bombPickUp, spidernest, wizardnest, wallspikes, 
-                                                                        spikes, shuriken, wallrush, stardustParticles, moondustParticles, decoyPickUp);
+			spikes, shuriken, wallrush, stardustParticles, moondustParticles, decoyPickUp, dungeonLavaStream, dungeonSkull);
 
 
 		while (!done) {
@@ -171,5 +171,7 @@ public class MasterGenerator : Object {
         wallspikes = Resources.Load("Prefabs/traps/dungeon/wallspikes/WallSpikePrefab", typeof(GameObject)) as GameObject;
         stardustParticles = Resources.Load ("Prefabs/Stardust Particles", typeof(GameObject)) as GameObject;
 		moondustParticles = Resources.Load ("Prefabs/Moondust Particles", typeof(GameObject)) as GameObject;
+		dungeonLavaStream = Resources.Load ("Prefabs/LavaStream", typeof(GameObject)) as GameObject;
+		dungeonSkull = Resources.Load ("Prefabs/Skull", typeof(GameObject)) as GameObject;
     }
 }

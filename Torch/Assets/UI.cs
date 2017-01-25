@@ -16,7 +16,7 @@ public class UI : MonoBehaviour {
 	public Timer timer;
 	public GameObject Minimap;
 	public Camera minimapCam;
-	private int minimapMode = 0;
+	private int minimapMode = 1;
 	private Vector3 smoothDampVar1;
 	private float smoothDampVar2;
 	public float minimapSmoothTime = .5f;
