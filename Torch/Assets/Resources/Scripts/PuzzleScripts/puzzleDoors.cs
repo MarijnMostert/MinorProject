@@ -15,6 +15,7 @@ public class puzzleDoors : MonoBehaviour {
 	public GameObject key;
 	public GameObject MagicWall;
 	private CameraController camController;
+	private PartyTorch partyTorch;
 
 	// Use this for initialization
 	void Start () {
@@ -63,6 +64,10 @@ public class puzzleDoors : MonoBehaviour {
 		for (int i = 0; i < gameManager.playerManagers.Length; i++) {
 			gameManager.playerManagers [i].playerInstance.GetComponent<Rigidbody> ().constraints &= ~RigidbodyConstraints.FreezePositionY;
 		}
+		partyTorch = GameManager.Instance.torch.GetComponent<PartyTorch> ();
+		if (partyTorch != null) {
+			partyTorch.puzzleEnter (transform);
+		}
 	}
 
 	void EndPuzzle () {
@@ -78,6 +83,10 @@ public class puzzleDoors : MonoBehaviour {
 		gameManager.Roomtype = null;
 
 		camController.DeactivatePuzzleCam();
+
+		if (partyTorch != null) {
+			partyTorch.puzzleExit (transform);
+		}
 
 		//Instantiate a key
 		Vector3 keyPosition = transform.position + new Vector3(0f, 1f, 0f);
