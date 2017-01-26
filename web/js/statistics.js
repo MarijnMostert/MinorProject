@@ -33,16 +33,13 @@
 					var drawRow = function(score){
 						var rank_table = document.createElement("td");
 						var score_table = document.createElement("td");
-						var player_table = document.createElement("td");
 						var date_table = document.createElement("td");
 						rank_table.innerHTML = score.score.rank;
 						score_table.innerHTML = score.score.score;
-						player_table.innerHTML = score.score.player;
 						date_table.innerHTML = score.score.date.dateLite();
 						var tr = document.createElement('tr');
 						tr.appendChild(rank_table);
 						tr.appendChild(score_table);
-						tr.appendChild(player_table);
 						tr.appendChild(date_table);
 						$('#scoreTable table').append(tr);
 					}

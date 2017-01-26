@@ -248,6 +248,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c2601d4a884042ffb69c6f354a959bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mixerGroup: {fileID: 0}
+  pitchMin: 0.8
+  pitchMax: 1.1
   torchLight: {fileID: 108000014052342862}
   particles: {fileID: 198000012083353850}
   g:
@@ -294,7 +297,12 @@ MonoBehaviour:
     m_NumColorKeys: 7
     m_NumAlphaKeys: 2
   duration: 1
-  enabled: 1
+  Enabled: 1
+  Discoball: {fileID: 0}
+  defaultDiscoballPosition: {x: 0, y: 0, z: 0}
+  confettiParticles: {fileID: 0}
+  cheer: {fileID: 0}
+  fireworks: {fileID: 0}
 --- !u!114 &114000010664176320
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -306,7 +314,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7af1b7cec75f24401a1cb849c63a7bc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemName: Party Torch
+  itemName: Der Party Torch
   itemDescription: "HOCH DIE H\xC4NDE!"
   icon: {fileID: 21300000, guid: 508e8a27b72524e509d2d4b3214fcddb, type: 3}
   price: 1000

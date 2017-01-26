@@ -149,10 +149,10 @@ public class PlayerMovement : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.G) && gameManager.getCheat() && !gameManager.GetTextFieldEnabled()) {
 			GodMode ();
 		}
-		if (Input.GetKeyDown(KeyCode.LeftShift) && !gameManager.GetTextFieldEnabled()) {
+		if (Input.GetButtonDown("SlowWalk" + playerNumber) && !gameManager.GetTextFieldEnabled()) {
 			speed *= shiftfactor;
 		}
-		if (Input.GetKeyUp(KeyCode.LeftShift) && !gameManager.GetTextFieldEnabled()) {
+		if (Input.GetButtonUp("SlowWalk" + playerNumber) && !gameManager.GetTextFieldEnabled()) {
 			speed /= shiftfactor;
 		}
 		if (arenaPointerActive) {
@@ -298,6 +298,10 @@ public class PlayerMovement : MonoBehaviour {
 		arenaPointerTarget = target;
 	}
 		
+
+	public GameObject GetCursorPointer(){
+		return cursorPointer;
+	}
 }
 
 

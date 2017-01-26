@@ -213,7 +213,7 @@ MonoBehaviour:
   minDamage: 40
   maxDamage: 60
   critChance: 0.1
-  lifeTime: 1.15
+  lifeTime: 10
   collisionMask:
     serializedVersion: 2
     m_Bits: 4286580223
@@ -231,6 +231,7 @@ MonoBehaviour:
   sinusOffset: 1.7
   firstRotation: 0
   smoothTime: 1
+  rangedWeapon: {fileID: 0}
   comp:
     timeOut: 0
     trailRenderer: {fileID: 0}

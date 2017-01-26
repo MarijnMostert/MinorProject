@@ -13,7 +13,7 @@ public class AchievementStairs_a : MonoBehaviour {
 	void OnTriggerEnter(Collider other) {
 		if (other.gameObject.CompareTag("Player")) {
 			myparent.setPrevious(number);
-			Debug.Log ("woop");
+			//Debug.Log ("woop");
 		}
 	}
 
