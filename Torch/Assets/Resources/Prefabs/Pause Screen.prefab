@@ -3313,7 +3313,7 @@ GameObject:
   - 224: {fileID: 224000011197452520}
   - 114: {fileID: 114000010636026794}
   m_Layer: 5
-  m_Name: Randomize Textures
+  m_Name: Procedural Textures
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5107,7 +5107,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_MethodName: 
+        m_MethodName: toggleRandomizeTexturesAllowed
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

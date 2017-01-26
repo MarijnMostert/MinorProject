@@ -231,7 +231,7 @@ public class GameManager : MonoBehaviour {
 		}
 
 		yield return new WaitForSeconds (.1f);
-		if (RandomizeTexturesAllowed) {
+		if (RandomizeTexturesAllowed || (dungeonLevel == 1 && type == 1) || type == 2 || type == 0) {
 			RandomizeTextures ();
 		}
 
@@ -355,8 +355,8 @@ public class GameManager : MonoBehaviour {
 		yield return null;
 	}
 
-	public void toggleRandomizeTexturesAllowed () {
-		RandomizeTexturesAllowed = !RandomizeTexturesAllowed;
+	public void toggleRandomizeTexturesAllowed (bool newBool) {
+		RandomizeTexturesAllowed = newBool;
 	}
 
 	public void RandomizeTextures () {
