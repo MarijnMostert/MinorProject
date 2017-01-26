@@ -16,10 +16,10 @@ public class EnemyGrunt : Enemy {
 		if (!firstTimeActive || InstantiatedByObjectPooler) {
 			base.OnEnable ();
 			StartCoroutine (UpdatePath ());
-			anim = GetComponent<Animator> ();
+			//anim = GetComponent<Animator> ();
 			attacknow = false;
 			if (gameObject.name.Equals ("spider(clone)")) {
-				base.healthBar.transform.localScale.Scale (new Vector3 (3, 3, 3));
+				healthBar.transform.localScale.Scale (new Vector3 (3, 3, 3));
 			}
 			starttime = Time.time;
 		} else {
@@ -30,25 +30,11 @@ public class EnemyGrunt : Enemy {
 
     // Update is called once per frame
     void Update() {
-        if (speedy|| Time.time>starttime+1.03) {
+		if (!dead && (speedy|| Time.time>starttime+1.03)) {
             //if (!agent.enabled) { agent.enabled = true; }
-            if (gameManager.enemyTarget != null && distanceToTarget() < attackRange && (Time.time - lastAttackTime) > attackCooldown) {
-                attack();
-                attacknow = true;
-            } else if (attacknow == true && ((Time.time - lastAttackTime) > (0.9f * attackCooldown))) {
-                attacknow = false;
-                if (anim != null) {
-                    //				Debug.Log ("set false");
-                    anim.SetBool("Attack", false);
-                }
-            }
-			if (anim != null) {
-				if (navMeshAgent.velocity.magnitude > 0.1f) {
-                    anim.SetBool("Walk", true);
-                } else {
-                    anim.SetBool("Walk", false);
-                }
-            }
+			if (gameManager.enemyTarget != null && distanceToTarget () < attackRange && (Time.time - lastAttackTime) > attackCooldown) {
+				attack ();
+			}
         }
 	}
 
@@ -56,7 +42,7 @@ public class EnemyGrunt : Enemy {
 	private void attack(){
 		if (anim != null) {
 //			Debug.Log ("jump");
-			anim.SetBool ("Attack", true);
+			anim.SetTrigger ("Attack");
 		}
 
 		ObjectPooler.Instance.PlayAudioSource (clip_attack, mixerGroup, pitchMin, pitchMax, transform);

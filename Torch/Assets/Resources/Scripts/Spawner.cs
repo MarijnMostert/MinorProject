@@ -35,20 +35,14 @@ public class Spawner : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-		if (Input.GetButtonDown (spawnEnemyButton)) {
+		if (Input.GetButtonDown (spawnEnemyButton) && !gameManager.GetTextFieldEnabled()) {
 			spawnEnemy ();
 		}
-		if (Input.GetButtonDown (waveButton)) {
+		if (Input.GetButtonDown (waveButton) && !gameManager.GetTextFieldEnabled()) {
 			spawnWave ();
 		}
-		if (Input.GetKeyDown (KeyCode.Comma) && gameManager.getCheat()) {
-			if (dead) {
-				dead = false;
-				Debug.Log ("Spawner has been turned on");
-			} else {
-				dead = true;
-				Debug.Log ("Spawner has been turned off");
-			}
+		if (Input.GetKeyDown (KeyCode.Comma) && gameManager.getCheat() && !gameManager.GetTextFieldEnabled()) {
+			ToggleSpawner ();
 		}
 	}
 
@@ -88,7 +82,7 @@ public class Spawner : MonoBehaviour {
 
     public void importMaze(bool[,] maze, int[] mazeSize)
     {
-        Debug.Log("importMaze: " + mazeSize[0]+" "+mazeSize[1]); 
+        //Debug.Log("importMaze: " + mazeSize[0]+" "+mazeSize[1]); 
         floors = new Floors();
         floors.importFloorList(maze, mazeSize);
         Debug.Log(floors.print());
@@ -132,5 +126,15 @@ public class Spawner : MonoBehaviour {
 		activated = true;
 		StartCoroutine (SpawnEnemy ());
 		Debug.Log ("spawner activated");
+	}
+
+	public void ToggleSpawner(){
+		if (dead) {
+			dead = false;
+			Debug.Log ("Spawner has been turned on");
+		} else {
+			dead = true;
+			Debug.Log ("Spawner has been turned off");
+		}
 	}
 }

@@ -25,6 +25,7 @@ GameObject:
   - 114: {fileID: 114000013406591320}
   - 114: {fileID: 114000011838373320}
   - 114: {fileID: 114000011455718412}
+  - 114: {fileID: 114000012650298176}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -41,12 +42,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000012969327286}
   - 114: {fileID: 114000012099422644}
-  - 114: {fileID: 114000012687613348}
-  - 114: {fileID: 114000010415788138}
-  - 114: {fileID: 114000013184997682}
-  - 114: {fileID: 114000012113002226}
-  - 114: {fileID: 114000010751679186}
-  - 114: {fileID: 114000012570612228}
   m_Layer: 0
   m_Name: Arena Manager
   m_TagString: Untagged
@@ -91,7 +86,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 243000012027690752, guid: 33975d0ba3fac476cb4987efebc83a81,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: fa3528f977a574dacab94878f9cbc20e, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -231,64 +226,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
---- !u!114 &114000010415788138
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013657230056}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc64c530a6c9b4a58b8f650ad3db859a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeBetweenRounds: 5
-  enemiesToSpawn:
-  - {fileID: 114000012613288934, guid: 7dc7f555e80424c11ba0ea614e084e4f, type: 2}
-  - {fileID: 114000012671087812, guid: e5b9d8e23e2413b44bae87c7a7293d25, type: 2}
-  - {fileID: 114000012270521080, guid: 83f910f616c45234eb6bd5f0d5b50775, type: 2}
-  - {fileID: 114000012585250292, guid: 61cb62caa4a78134c8e4de355997cb1c, type: 2}
-  numberOfEnemiesSpawnTogether: 0100000002000000
-  enemiesPerWave: 10
-  maxSpawningDistanceEnemy: 12
-  minSpawningDistanceEnemy: 10
-  maxSpawningDistanceChest: 5
-  minSpawningDistanceChest: 2
-  enemiesKilled: 
-  arenaCanvasPrefab: {fileID: 114000013086831868, guid: 2dc950523c5014cb7bd6850039d6bbd8,
-    type: 2}
-  chestPrefab: {fileID: 1000010346143806, guid: 72f8fe9cd4ffe43f1b35c8e9fa7e8a37,
-    type: 2}
-  ArenaAreaPicked: {fileID: 0}
---- !u!114 &114000010751679186
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013657230056}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc64c530a6c9b4a58b8f650ad3db859a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeBetweenRounds: 5
-  enemiesToSpawn:
-  - {fileID: 114000012613288934, guid: 7dc7f555e80424c11ba0ea614e084e4f, type: 2}
-  - {fileID: 114000012671087812, guid: e5b9d8e23e2413b44bae87c7a7293d25, type: 2}
-  - {fileID: 114000012270521080, guid: 83f910f616c45234eb6bd5f0d5b50775, type: 2}
-  - {fileID: 114000012585250292, guid: 61cb62caa4a78134c8e4de355997cb1c, type: 2}
-  numberOfEnemiesSpawnTogether: 0100000002000000
-  enemiesPerWave: 10
-  maxSpawningDistanceEnemy: 12
-  minSpawningDistanceEnemy: 10
-  maxSpawningDistanceChest: 5
-  minSpawningDistanceChest: 2
-  enemiesKilled: 
-  arenaCanvasPrefab: {fileID: 114000013086831868, guid: 2dc950523c5014cb7bd6850039d6bbd8,
-    type: 2}
-  chestPrefab: {fileID: 1000010346143806, guid: 72f8fe9cd4ffe43f1b35c8e9fa7e8a37,
-    type: 2}
-  ArenaAreaPicked: {fileID: 0}
 --- !u!114 &114000011455718412
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -350,6 +287,11 @@ MonoBehaviour:
   spawnerWarmingUpScaler: 0.6
   minAmountOfRoomsScaler: 0.5
   maxAmountOfRoomsScaler: 0.8
+  chanceChestDeadEnd: 0.8
+  chanceChestCorridor: 0.02
+  chanceParticles: 0.15
+  chanceLavaStream: 0.1
+  chanceSkull: 0.1
   minLevelForMinotaur: 1
   minLevelForSpider: 3
   minLevelForGhost: 6
@@ -374,7 +316,8 @@ MonoBehaviour:
   chanceLaser: 0.1
   chanceBlood: 0.1
   chanceBoomerang: 0.1
-  chanceForTrap: 0.1
+  chanceForTrapBase: 0.1
+  chanceForTrapScaler: 0.01
   minLevelSpidernest: 2
   minLevelWizardnest: 12
   minLevelSpikes: 6
@@ -405,6 +348,7 @@ MonoBehaviour:
     type: 2}
   minLevelMovingplatformroom: 1
   chanceMovingplatformroom: 1
+  platformSpeedScaler: 0.03
   Bossroom: {fileID: 1000010275947170, guid: 2c69b9685e818ec4f810ceb0a5e12c7d, type: 2}
   minLevelBossroom: 5
   chanceBossroom: 0.3
@@ -426,43 +370,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeBetweenRounds: 5
   enemiesToSpawn:
-  - {fileID: 114000012613288934, guid: 7dc7f555e80424c11ba0ea614e084e4f, type: 2}
-  - {fileID: 114000012671087812, guid: e5b9d8e23e2413b44bae87c7a7293d25, type: 2}
   - {fileID: 114000012270521080, guid: 83f910f616c45234eb6bd5f0d5b50775, type: 2}
-  - {fileID: 114000012585250292, guid: 61cb62caa4a78134c8e4de355997cb1c, type: 2}
-  numberOfEnemiesSpawnTogether: 0100000002000000
-  enemiesPerWave: 10
-  maxSpawningDistanceEnemy: 12
-  minSpawningDistanceEnemy: 10
-  maxSpawningDistanceChest: 5
-  minSpawningDistanceChest: 2
-  enemiesKilled: 
-  arenaCanvasPrefab: {fileID: 114000013086831868, guid: 2dc950523c5014cb7bd6850039d6bbd8,
-    type: 2}
-  chestPrefab: {fileID: 1000010346143806, guid: 72f8fe9cd4ffe43f1b35c8e9fa7e8a37,
-    type: 2}
-  ArenaAreaPicked: {fileID: 0}
---- !u!114 &114000012113002226
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013657230056}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc64c530a6c9b4a58b8f650ad3db859a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeBetweenRounds: 5
-  enemiesToSpawn:
-  - {fileID: 114000012613288934, guid: 7dc7f555e80424c11ba0ea614e084e4f, type: 2}
   - {fileID: 114000012671087812, guid: e5b9d8e23e2413b44bae87c7a7293d25, type: 2}
-  - {fileID: 114000012270521080, guid: 83f910f616c45234eb6bd5f0d5b50775, type: 2}
+  - {fileID: 114000012613288934, guid: 7dc7f555e80424c11ba0ea614e084e4f, type: 2}
   - {fileID: 114000012585250292, guid: 61cb62caa4a78134c8e4de355997cb1c, type: 2}
-  numberOfEnemiesSpawnTogether: 0100000002000000
   enemiesPerWave: 10
-  maxSpawningDistanceEnemy: 12
-  minSpawningDistanceEnemy: 10
+  maxSpawningDistanceEnemy: 10
+  minSpawningDistanceEnemy: 8
   maxSpawningDistanceChest: 5
   minSpawningDistanceChest: 2
   enemiesKilled: 
@@ -551,7 +465,7 @@ MonoBehaviour:
   substances:
   - {fileID: -1486117434, guid: de1d36f093b73c943a0a0e67025b5e15, type: 3}
   - {fileID: -2071217773, guid: 9100c33a71d3bc34297f459ae70777f9, type: 3}
-  homeScreenEnvironmentPrefab: {fileID: 1000012718415468, guid: 4ef94cea375ae45ff83b3370aa956b06,
+  homeScreenEnvironmentPrefab: {fileID: 1000012969978390, guid: c76341314f7d24d5aad19ee05e15d798,
     type: 2}
   homeScreenEnvironment: {fileID: 0}
   HighScoresPanel: {fileID: 1000011698425086, guid: 3af9a424cc2a048529edd2f286b5174b,
@@ -565,7 +479,8 @@ MonoBehaviour:
   dungeonLevelButtonPrefab: {fileID: 1000010447920346, guid: c6595ae6a0eaa44b7ad07bdb038b95a5,
     type: 2}
   mainCamera: {fileID: 0}
-  minimap: {fileID: 20000013463240440, guid: 6ad5bdafd394ffb488ed4b90c059f3bf, type: 2}
+  minimap: {fileID: 0}
+  minimapUIElement: {fileID: 0}
   levelTransform: {fileID: 0}
   tutorialPrefab: {fileID: 1000012528916838, guid: 7c4d6b04a031b484cb4f65bb64d744fa,
     type: 2}
@@ -579,12 +494,13 @@ MonoBehaviour:
   audioSourceUI: {fileID: 82000013135790204}
   audioClipsUI:
   - {fileID: 8300000, guid: 733a8cc43207248d88f596e458742c40, type: 3}
-  loreAudio: {fileID: 0}
+  loreAudio: {fileID: 8300000, guid: fa3528f977a574dacab94878f9cbc20e, type: 3}
   audioHomeScreen: {fileID: 8300000, guid: 7e404d8a72ce34ec98bd3c27ed1782f8, type: 3}
   audioDungeon:
   - {fileID: 8300000, guid: 3d02f9a386baf4bea855ca88493ab372, type: 3}
   - {fileID: 8300000, guid: 667c3a85722394921ba0173a0e9b17b3, type: 3}
   audioPartyTorch: {fileID: 8300000, guid: 4c9633496a19a402590ebb8a163b5b59, type: 3}
+  audioGoldenTorch: {fileID: 8300000, guid: eccd80d1925014b86aa5f1b100b41bf3, type: 3}
   audioMuted: 0
   DebuggerPanel: {fileID: 1000012104167014, guid: 62264218f00cc40b2b1f384d6b761f68,
     type: 2}
@@ -614,93 +530,62 @@ MonoBehaviour:
   - {fileID: 0}
   arenaManager: {fileID: 0}
   numberOfPlayers: 1
---- !u!114 &114000012570612228
+--- !u!114 &114000012650298176
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013657230056}
+  m_GameObject: {fileID: 1000012150838060}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc64c530a6c9b4a58b8f650ad3db859a, type: 3}
+  m_Script: {fileID: 11500000, guid: 2e76d7ef1fb724cb893fe7b26669f870, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeBetweenRounds: 5
-  enemiesToSpawn:
-  - {fileID: 114000012613288934, guid: 7dc7f555e80424c11ba0ea614e084e4f, type: 2}
-  - {fileID: 114000012671087812, guid: e5b9d8e23e2413b44bae87c7a7293d25, type: 2}
-  - {fileID: 114000012270521080, guid: 83f910f616c45234eb6bd5f0d5b50775, type: 2}
-  - {fileID: 114000012585250292, guid: 61cb62caa4a78134c8e4de355997cb1c, type: 2}
-  numberOfEnemiesSpawnTogether: 0100000002000000
-  enemiesPerWave: 10
-  maxSpawningDistanceEnemy: 12
-  minSpawningDistanceEnemy: 10
-  maxSpawningDistanceChest: 5
-  minSpawningDistanceChest: 2
-  enemiesKilled: 
-  arenaCanvasPrefab: {fileID: 114000013086831868, guid: 2dc950523c5014cb7bd6850039d6bbd8,
-    type: 2}
-  chestPrefab: {fileID: 1000010346143806, guid: 72f8fe9cd4ffe43f1b35c8e9fa7e8a37,
-    type: 2}
-  ArenaAreaPicked: {fileID: 0}
---- !u!114 &114000012687613348
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013657230056}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc64c530a6c9b4a58b8f650ad3db859a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeBetweenRounds: 5
-  enemiesToSpawn:
-  - {fileID: 114000012613288934, guid: 7dc7f555e80424c11ba0ea614e084e4f, type: 2}
-  - {fileID: 114000012671087812, guid: e5b9d8e23e2413b44bae87c7a7293d25, type: 2}
-  - {fileID: 114000012270521080, guid: 83f910f616c45234eb6bd5f0d5b50775, type: 2}
-  - {fileID: 114000012585250292, guid: 61cb62caa4a78134c8e4de355997cb1c, type: 2}
-  numberOfEnemiesSpawnTogether: 0100000002000000
-  enemiesPerWave: 10
-  maxSpawningDistanceEnemy: 12
-  minSpawningDistanceEnemy: 10
-  maxSpawningDistanceChest: 5
-  minSpawningDistanceChest: 2
-  enemiesKilled: 
-  arenaCanvasPrefab: {fileID: 114000013086831868, guid: 2dc950523c5014cb7bd6850039d6bbd8,
-    type: 2}
-  chestPrefab: {fileID: 1000010346143806, guid: 72f8fe9cd4ffe43f1b35c8e9fa7e8a37,
-    type: 2}
-  ArenaAreaPicked: {fileID: 0}
---- !u!114 &114000013184997682
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013657230056}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc64c530a6c9b4a58b8f650ad3db859a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeBetweenRounds: 5
-  enemiesToSpawn:
-  - {fileID: 114000012613288934, guid: 7dc7f555e80424c11ba0ea614e084e4f, type: 2}
-  - {fileID: 114000012671087812, guid: e5b9d8e23e2413b44bae87c7a7293d25, type: 2}
-  - {fileID: 114000012270521080, guid: 83f910f616c45234eb6bd5f0d5b50775, type: 2}
-  - {fileID: 114000012585250292, guid: 61cb62caa4a78134c8e4de355997cb1c, type: 2}
-  numberOfEnemiesSpawnTogether: 0100000002000000
-  enemiesPerWave: 10
-  maxSpawningDistanceEnemy: 12
-  minSpawningDistanceEnemy: 10
-  maxSpawningDistanceChest: 5
-  minSpawningDistanceChest: 2
-  enemiesKilled: 
-  arenaCanvasPrefab: {fileID: 114000013086831868, guid: 2dc950523c5014cb7bd6850039d6bbd8,
-    type: 2}
-  chestPrefab: {fileID: 1000010346143806, guid: 72f8fe9cd4ffe43f1b35c8e9fa7e8a37,
-    type: 2}
-  ArenaAreaPicked: {fileID: 0}
+  progressObjects: []
+  FogOverTime:
+    key0:
+      serializedVersion: 2
+      rgba: 3313656919
+    key1:
+      serializedVersion: 2
+      rgba: 3377950569
+    key2:
+      serializedVersion: 2
+      rgba: 16744448
+    key3:
+      serializedVersion: 2
+      rgba: 16711794
+    key4:
+      serializedVersion: 2
+      rgba: 10027263
+    key5:
+      serializedVersion: 2
+      rgba: 25855
+    key6:
+      serializedVersion: 2
+      rgba: 63743
+    key7:
+      serializedVersion: 2
+      rgba: 0
+    ctime0: 0
+    ctime1: 65535
+    ctime2: 22552
+    ctime3: 33346
+    ctime4: 44525
+    ctime5: 55898
+    ctime6: 65535
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_NumColorKeys: 2
+    m_NumAlphaKeys: 2
+  progress: 0
 --- !u!114 &114000013406591320
 MonoBehaviour:
   m_ObjectHideFlags: 1

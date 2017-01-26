@@ -782,6 +782,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c2601d4a884042ffb69c6f354a959bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mixerGroup: {fileID: 243000012651205884, guid: 33975d0ba3fac476cb4987efebc83a81,
+    type: 2}
+  pitchMin: 0.8
+  pitchMax: 1.1
   torchLight: {fileID: 108000010351575378}
   particles: {fileID: 198000010745976690}
   g:
@@ -828,7 +832,13 @@ MonoBehaviour:
     m_NumColorKeys: 7
     m_NumAlphaKeys: 2
   duration: 1
-  enabled: 1
+  Enabled: 1
+  Discoball: {fileID: 1000010363700044}
+  defaultDiscoballPosition: {x: 0, y: 0, z: 0}
+  confettiParticles: {fileID: 114000011709213640, guid: 17ea9ad974753463b83b9baac8468eae,
+    type: 2}
+  cheer: {fileID: 8300000, guid: 6f418fb5566844cfdae408324669f71b, type: 3}
+  fireworks: {fileID: 8300000, guid: 078621739a25a4508a897ae39d799f31, type: 3}
 --- !u!135 &135000012853217158
 SphereCollider:
   m_ObjectHideFlags: 1

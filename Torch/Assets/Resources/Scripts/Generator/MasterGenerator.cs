@@ -4,14 +4,14 @@ using System.Collections.Generic;
 
 public class MasterGenerator : Object {
 
-    public GameObject floor, side, sideAlt1, sideAlt2, corner, cornerout,
+    public GameObject floor, side,
                             roof, block, trap_straight, trap_crossing, trap_box,
                             portal, end_portal, player,
                             spawner, torch, cam, pointer, chest,
                             coin, fireball, iceball, health, laser, shieldPickUp,
 							stickyPickUp, roofGroup, wallPickUp, wallTorch, piercingWeapon,
 							bombPickUp, spidernest, wizardnest, wallspikes, spikes, shuriken, 
-                            wallrush, stardustParticles, moondustParticles, decoyPickUp;
+                            wallrush, stardustParticles, moondustParticles, decoyPickUp, dungeonLavaStream, dungeonSkull;
     GameObject game_manager;
 	DungeonData.DungeonParameters dungeonParameters;
     public DungeonInstantiate dungeon_instantiate;
@@ -55,13 +55,13 @@ public class MasterGenerator : Object {
 		List<p2D> allRoomCoords = new List<p2D> ();
 		List<int[]> allDoors = new List<int[]> ();
 
-        dungeon_instantiate = new DungeonInstantiate(dungeonParameters, floor, side, sideAlt1, sideAlt2, corner, cornerout,
+        dungeon_instantiate = new DungeonInstantiate(dungeonParameters, floor, side,
                                                                         roof, block, trap_straight, trap_crossing, trap_box,
                                                                         portal, end_portal, player, game_manager, spawner, torch, 
                                                                         cam, pointer, chest, coin, fireball, iceball, health, mazeSize, 
                                                                         laser, shieldPickUp, stickyPickUp, roofGroup, wallPickUp,
                                                                         wallTorch, piercingWeapon, bombPickUp, spidernest, wizardnest, wallspikes, 
-                                                                        spikes, shuriken, wallrush, stardustParticles, moondustParticles, decoyPickUp);
+			spikes, shuriken, wallrush, stardustParticles, moondustParticles, decoyPickUp, dungeonLavaStream, dungeonSkull);
 
 
 		while (!done) {
@@ -104,7 +104,7 @@ public class MasterGenerator : Object {
 
         dungeon_instantiate.createMaze();
 
-        Debug.Log(dungeon_instantiate.print(dungeon_instantiate.getMaze()));
+        //Debug.Log(dungeon_instantiate.print(dungeon_instantiate.getMaze()));
         //spawner.GetComponent<Spawner>().importMaze(dungeon_instantiate.getMaze(),mazeSize);
 
     }
@@ -140,10 +140,6 @@ public class MasterGenerator : Object {
     {
         floor = Resources.Load("Prefabs/Blocks/floor", typeof(GameObject)) as GameObject;
         side = Resources.Load("Prefabs/Blocks/side", typeof(GameObject)) as GameObject;
-        sideAlt1 = Resources.Load("Prefabs/Blocks/side_alt1", typeof(GameObject)) as GameObject;
-        sideAlt2 = Resources.Load("Prefabs/Blocks/side_alt2", typeof(GameObject)) as GameObject;
-        corner = Resources.Load("Prefabs/Blocks/corner", typeof(GameObject)) as GameObject;
-        cornerout = Resources.Load("Prefabs/Blocks/cornerout", typeof(GameObject)) as GameObject;
         roof = Resources.Load("Prefabs/Blocks/Roof", typeof(GameObject)) as GameObject;
         block = Resources.Load("Prefabs/Blocks/box", typeof(GameObject)) as GameObject;
         trap_straight = Resources.Load("Prefabs/Blocks/trap_straight", typeof(GameObject)) as GameObject;
@@ -175,5 +171,7 @@ public class MasterGenerator : Object {
         wallspikes = Resources.Load("Prefabs/traps/dungeon/wallspikes/WallSpikePrefab", typeof(GameObject)) as GameObject;
         stardustParticles = Resources.Load ("Prefabs/Stardust Particles", typeof(GameObject)) as GameObject;
 		moondustParticles = Resources.Load ("Prefabs/Moondust Particles", typeof(GameObject)) as GameObject;
+		dungeonLavaStream = Resources.Load ("Prefabs/LavaStream", typeof(GameObject)) as GameObject;
+		dungeonSkull = Resources.Load ("Prefabs/Skull", typeof(GameObject)) as GameObject;
     }
 }

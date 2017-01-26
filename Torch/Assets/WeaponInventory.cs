@@ -46,25 +46,25 @@ public class WeaponInventory : MonoBehaviour {
 	}
 
 	void Update(){
-		if (Input.GetButtonDown ("NextWeapon1"))
+		if (Input.GetButtonDown ("NextWeapon1")  && !gameManager.GetTextFieldEnabled())
 			NextWeapon (1);
-		if (Input.GetButtonDown ("PrevWeapon1"))
+		if (Input.GetButtonDown ("PrevWeapon1") && !gameManager.GetTextFieldEnabled())
 			PrevWeapon (1);
-		if (Input.GetButtonDown ("NextWeapon2"))
+		if (Input.GetButtonDown ("NextWeapon2") && !gameManager.GetTextFieldEnabled())
 			NextWeapon (2);
-		if (Input.GetButtonDown ("PrevWeapon2"))
+		if (Input.GetButtonDown ("PrevWeapon2") && !gameManager.GetTextFieldEnabled())
 			PrevWeapon (2);
-		if (Input.GetKeyDown (KeyCode.Alpha1))
+		if (Input.GetKeyDown (KeyCode.Alpha1) && !gameManager.GetTextFieldEnabled())
 			CheckAndEquip (0, 1);
-		if (Input.GetKeyDown (KeyCode.Alpha2))
+		if (Input.GetKeyDown (KeyCode.Alpha2) && !gameManager.GetTextFieldEnabled())
 			CheckAndEquip (1, 1);
-		if (Input.GetKeyDown (KeyCode.Alpha3))
+		if (Input.GetKeyDown (KeyCode.Alpha3) && !gameManager.GetTextFieldEnabled())
 			CheckAndEquip (2, 1);
-		if (Input.GetKeyDown (KeyCode.Alpha4))
+		if (Input.GetKeyDown (KeyCode.Alpha4) && !gameManager.GetTextFieldEnabled())
 			CheckAndEquip (3, 1);
-		if (Input.GetKeyDown (KeyCode.Alpha5))
+		if (Input.GetKeyDown (KeyCode.Alpha5) && !gameManager.GetTextFieldEnabled())
 			CheckAndEquip (4, 1);
-		if (Input.GetKeyDown (KeyCode.Alpha6))
+		if (Input.GetKeyDown (KeyCode.Alpha6) && !gameManager.GetTextFieldEnabled())
 			CheckAndEquip (5, 1);
 		/*if (Input.GetKeyDown (KeyCode.Alpha7))
 			CheckAndEquip (6, 1);

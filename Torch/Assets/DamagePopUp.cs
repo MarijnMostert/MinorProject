@@ -8,6 +8,7 @@ public class DamagePopUp : MonoBehaviour {
 	//static public Camera cam;
 	static public float offset = 1f;
 
+	/*
 	void Update () {
 		if (Input.GetMouseButtonDown (1)) {
 			Debug.Log ("Click");
@@ -15,6 +16,7 @@ public class DamagePopUp : MonoBehaviour {
 			CreateDamagePopUp (Random.Range (10, 100), player, (Random.value < 0.05f));
 		}
 	}
+	*/
 
 	public static void CreateDamagePopUp(int damage, GameObject target, bool crit){
 		Color color;

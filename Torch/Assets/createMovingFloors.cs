@@ -21,12 +21,12 @@ public class createMovingFloors : MonoBehaviour {
 		platform = Resources.Load("Prefabs/PuzzlesScenes/MovingPlatform", typeof(GameObject)) as GameObject;
 		lever = GetComponent<myLever> ().lever;
 
+		platform.GetComponent<PingPongPlatform> ().maxSpeed = 2.3f + GameManager.Instance.dungeonLevel * 0.038f;
+
 		makeList ();
 		makeBlocks ();
 
 		blocks.transform.localPosition = Vector3.zero;
-
-		GetComponentInParent<AllSpeeds> ().Restart ();
 	}
 
 	void Update () {

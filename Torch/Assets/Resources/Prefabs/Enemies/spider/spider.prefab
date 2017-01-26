@@ -520,7 +520,7 @@ GameObject:
   - 65: {fileID: 65000012656788872}
   - 114: {fileID: 114000012671087812}
   m_Layer: 10
-  m_Name: spider
+  m_Name: Spider
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1102,7 +1102,7 @@ MonoBehaviour:
   mixerGroup: {fileID: 0}
   pitchMin: 0.8
   pitchMax: 1.1
-  name: spider
+  _name: spider
   InstantiatedByObjectPooler: 0
   ObjectPoolIndex: 11
   startingHealth: 50
@@ -1111,10 +1111,10 @@ MonoBehaviour:
   refreshTime: 0.1
   attackRange: 2
   scoreValue: 10
-  speed: 0
+  speed: 5
   health: 0
   navMeshAgent: {fileID: 0}
-  anim: {fileID: 0}
+  anim: {fileID: 95000014116039640}
   dead: 0
   clip_takeDamage: {fileID: 8300000, guid: 579c86620a9324e29985f22474b47814, type: 3}
   clip_attack: {fileID: 8300000, guid: 937c3882e51514e298fab888dffcbdb8, type: 3}

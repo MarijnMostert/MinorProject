@@ -5,12 +5,12 @@ using System.Collections.Generic;
 using System.Text;
 
 public class DungeonInstantiate : Object {
-    GameObject floor, side, sideAlt1, sideAlt2, corner, cornerout,
+    GameObject floor, side,
                             roof, block, trap_straight, trap_crossing, 
                             trap_box, portal, end_portal, player, 
                             game_manager, spawner, torch, 
-                            cam, pointer, chest, fireball, 
-                            iceball, roofGroup, wallTorch;
+                            cam, pointer, chest, 
+                            roofGroup, wallTorch;
     GameObject[] starters_pack, chest_pack;
     //GameObject[,] dungeon;
     int[] mazeSize;
@@ -23,6 +23,8 @@ public class DungeonInstantiate : Object {
           chance_chest_corridors, 
           chance_chest_deadEnd,  
           chance_particles,
+	      chance_lavaStream,
+		  chance_skull,
           chance_spidernest,
           chance_wizardnest,
           chance_wallspikes,
@@ -35,6 +37,9 @@ public class DungeonInstantiate : Object {
 
 	List<GameObject> puzzleRooms;
 	List<float> puzzleRoomSpawnChances;
+
+	List<GameObject> traps;
+	List<float> trapSpawnChances;
 
 	List<p2D> puzzleCoords;
 	List<p2D> puzzleCenters;
@@ -71,30 +76,29 @@ public class DungeonInstantiate : Object {
     GameObject wallrush;
 
 	GameObject[] dungeonParticles;
+	GameObject dungeonLavaStream;
+	GameObject dungeonSkull;
 	DungeonData.DungeonParameters dungeonParameters;
 
 	public Vector3 startPos;
 
-	StringBuilder sb;
+	StringBuilder sbPuzzles;
+	StringBuilder sbTraps;
 
     // Use this for initialization
-	public DungeonInstantiate(DungeonData.DungeonParameters dungeonParameters, GameObject floor, GameObject side, GameObject sideAlt1, GameObject sideAlt2, GameObject corner, 
-                            GameObject cornerout, GameObject roof, GameObject block, GameObject trap_straight, GameObject trap_crossing, 
+	public DungeonInstantiate(DungeonData.DungeonParameters dungeonParameters, GameObject floor, GameObject side, 
+                            GameObject roof, GameObject block, GameObject trap_straight, GameObject trap_crossing, 
                             GameObject trap_box, GameObject portal, GameObject end_portal, GameObject player, 
                             GameObject game_manager, GameObject spawner, GameObject torch, GameObject cam, GameObject pointer, 
 		GameObject chest, GameObject coin, GameObject fireball, GameObject iceball, GameObject health, int[] mazeSize, GameObject laser, GameObject shieldPickUp,
 		GameObject stickyPickUp, GameObject roofGroup, GameObject wallPickUp, GameObject wallTorch, GameObject piercingWeapon,
 		GameObject bombPickUp, GameObject spidernest, GameObject wizardnest, GameObject wallspikes, GameObject spikes, GameObject shuriken, GameObject wallrush, 
-        GameObject stardustParticles, GameObject moondustParticles, GameObject decoyPickUp)
+		GameObject stardustParticles, GameObject moondustParticles, GameObject decoyPickUp, GameObject dungeonLavaStream, GameObject dungeonSkull)
 
     {
 		this.dungeonParameters = dungeonParameters;
         this.floor = floor;
         this.side = side;
-        this.sideAlt1 = sideAlt1;
-        this.sideAlt2 = sideAlt2;
-        this.corner = corner;
-        this.cornerout = cornerout;
         this.roof = roof;
         this.block = block;
         this.trap_straight = trap_straight;
@@ -121,6 +125,8 @@ public class DungeonInstantiate : Object {
         this.wallrush = wallrush;
 
 		this.dungeonParticles = new GameObject[]{ stardustParticles, moondustParticles };
+		this.dungeonLavaStream = dungeonLavaStream; 
+		this.dungeonSkull = dungeonSkull;
 
 		WallsParent = new GameObject("Walls");
 		FloorsParent = new GameObject("Floors");
@@ -179,13 +185,54 @@ public class DungeonInstantiate : Object {
 			puzzleRoomSpawnChances.Add (dungeonParameters.puzzleRooms.Treasureroom.spawnChance);
 		}
 
-		sb = new StringBuilder ();
-		sb.Append ("Available puzzles in this dungeon: ");
+		sbPuzzles = new StringBuilder ();
+		sbPuzzles.Append ("Available puzzles in this dungeon: ");
 		for(int i = 0; i < puzzleRooms.Count; i++) {
-			sb.Append ("\n" + puzzleRooms[i].name + ", chance: " + puzzleRoomSpawnChances[i].ToString());
+			sbPuzzles.Append ("\n" + puzzleRooms[i].name + ", chance: " + puzzleRoomSpawnChances[i].ToString());
 		}
 
-		Normalize ();
+		NormalizePuzzleRoomChances ();
+
+		this.traps = new List<GameObject> ();
+		this.trapSpawnChances = new List<float> ();
+		if (dungeonParameters.Traps.shuriken.enabled) {
+			traps.Add (shuriken);
+			trapSpawnChances.Add (dungeonParameters.Traps.shuriken.spawnChance);
+		}
+		if (dungeonParameters.Traps.spikes.enabled) {
+			traps.Add (spikes);
+			trapSpawnChances.Add (dungeonParameters.Traps.spikes.spawnChance);
+		}
+		if (dungeonParameters.Traps.wallrush.enabled) {
+			traps.Add (wallrush);
+			trapSpawnChances.Add (dungeonParameters.Traps.wallrush.spawnChance);
+		}
+		if (dungeonParameters.Traps.wallspikes.enabled) {
+			traps.Add (wallspikes);
+			trapSpawnChances.Add (dungeonParameters.Traps.wallspikes.spawnChance);
+		}
+		if (dungeonParameters.Traps.spidernest.enabled) {
+			traps.Add (spidernest);
+			trapSpawnChances.Add (dungeonParameters.Traps.spidernest.spawnChance);
+		}
+		if (dungeonParameters.Traps.wizardnest.enabled) {
+			traps.Add (wizardnest);
+			trapSpawnChances.Add (dungeonParameters.Traps.wizardnest.spawnChance);
+		}
+
+		sbTraps = new StringBuilder ();
+		/*sbTraps.Append ("Available traps according to dungeonparameters:\n");
+		if(dungeonParameters.Traps
+
+*/
+
+
+		sbTraps.Append ("Available traps in this dungeon: ");
+		for(int i = 0; i < traps.Count; i++) {
+			sbTraps.Append ("\n" + traps[i].name + ", chance: " + trapSpawnChances[i].ToString());
+		}
+
+		NormalizeTrapChances ();
 
     }
 
@@ -210,10 +257,13 @@ public class DungeonInstantiate : Object {
         start_defined = false;
         */
         step = 6f;
-		chance_chest_corridors = 0.02f;
-		chance_chest_deadEnd = 0.8f;
-		chance_particles = 0.2f;
+		chance_chest_corridors = dungeonParameters.chanceChestCorridor;
+		chance_chest_deadEnd = dungeonParameters.chanceChestDeadEnd;
+		chance_particles = dungeonParameters.chanceParticles;
+		chance_lavaStream = dungeonParameters.chanceLavaStream;
+		chance_skull = dungeonParameters.chanceSkull;
 
+		/*
         //Compile Generated chances
         float norm = dungeonParameters.Traps.spidernest.spawnChance
             + dungeonParameters.Traps.spikes.spawnChance
@@ -239,6 +289,7 @@ public class DungeonInstantiate : Object {
             chance_wallrush = 0;
             chance_shuriken = 0;
         }
+		*/
 
         //Instantiate empty Dungeon GameObject
         Dungeon = new GameObject("Dungeon");
@@ -287,6 +338,8 @@ public class DungeonInstantiate : Object {
 
 
 	void populteMaze2() {
+		sbTraps.Append ("\n\nTraps in this dungeon:");
+
 		for (int x = 0; x < mazeSize[0]; x++) {
 			for (int y = 0; y < mazeSize[1]; y++) {
 				bool puzzle = false;
@@ -294,9 +347,24 @@ public class DungeonInstantiate : Object {
 					puzzle = true; } // sla over
 				if (maze[x,y]) {
 					buildOpen (x,y,puzzle);
-					if ((!puzzle) && Random.value < dungeonParameters.Traps.chanceForTrap)
+					if ((!puzzle) && Random.value < dungeonParameters.Traps.chanceForTrap && trapSpawnChances.Count != 0)
                     {
-                        trap(x, y);
+						StringBuilder sb = new StringBuilder ();
+						sb.Append ("current coordinates: x:" + x + ",y:" + y + "    ");
+						int[] surroundings = getSurrounding8 (x, y);
+						int sum = 0;
+						for (int i = 0; i < surroundings.Length; i++) {
+							sum += surroundings [i];
+							sb.Append (surroundings [i] + "  ");
+						}
+						sb.Append ("\nTotal number of surrounding floors: " + sum);
+						if (sum >= 4) {
+							sb.Append ("\nSo there will be no trap here");
+						} else {
+							sb.Append ("\nSo a trap will be placed here");
+							trap(x, y);
+						}
+						//Debug.Log (sb.ToString ());
                     }
                 }
                 else {
@@ -304,6 +372,8 @@ public class DungeonInstantiate : Object {
 				} 
 			}
 		}
+		sbTraps.Append ("\n\n");
+		Debug.Log (sbTraps.ToString ());
 	}
 
 	void buildRoof (int x, int y){
@@ -319,7 +389,13 @@ public class DungeonInstantiate : Object {
 			myplane.transform.position = new Vector3 (x + 0.5f, 0, y + 0.5f);
 			spawnChest (x, y);
 			spawnWallTorch (x, y);
-			spawnParticles (x, y);
+
+			if(Random.value < chance_particles)
+				spawnParticles (x, y);
+			else if (Random.value < chance_lavaStream)
+				spawnLavaStream (x, y);
+			else if (Random.value < chance_skull)
+				spawnSkull (x, y);
 		}
 
 
@@ -454,8 +530,18 @@ public class DungeonInstantiate : Object {
 		surroundings [2] = (maze [x - 1, y]) ? 1 : 0;
 		surroundings [3] = (maze [x, y - 1]) ? 1 : 0;
 		return surroundings;
+
 	}
 
+	/// <summary>
+	/// <para>Gets the surrounding tiles where 1 = floor and 0 = roof</para>
+	/// <para>3  2  1</para>
+	/// <para>4  X  0</para>
+	/// <para>5  6  7</para>
+	/// </summary>
+	/// <returns>The surrounding in format:</returns>
+	/// <param name="x">The x coordinate.</param>
+	/// <param name="y">The y coordinate.</param>
     int[] getSurrounding8(int x, int y)
     {
         int[] surroundings = new int[8];
@@ -518,7 +604,7 @@ public class DungeonInstantiate : Object {
 		temp2.Add (ending);
 		p2D.myRemove (puzzleCenters, temp2);
 
-		sb.Append ("\n\nPuzzles in this dungeon: ");
+		sbPuzzles.Append ("\n\nPuzzles in this dungeon: ");
 
 		foreach (p2D center in puzzleCenters) {
 			Vector3 convCenter = new Vector3 (center.getX () * 6 + 1, 0, center.getY () * 6 + 1);
@@ -538,8 +624,8 @@ public class DungeonInstantiate : Object {
 			Instantiate (PuzzleMist, convCenter, Quaternion.identity, thispuzzle.transform);
 		}
 
-		sb.Append ("\n\n");
-		Debug.Log (sb.ToString ());
+		sbPuzzles.Append ("\n\n");
+		Debug.Log (sbPuzzles.ToString ());
 	} 
 		
 	/// <summary>
@@ -622,15 +708,39 @@ public class DungeonInstantiate : Object {
 
 	void spawnParticles(float x, float z)
 	{
-		float random = Random.value;
-		if (random < chance_particles) {
-			GameObject particles = Instantiate (dungeonParticles[Random.Range(0, dungeonParticles.Length)],
-				new Vector3 (x * 6 + Random.Range (0f, 6f), 1.3f, z * 6 + Random.Range (0f, 6f)),
-				Quaternion.Euler (new Vector3 (0f, Random.Range (0f, 360f), 0f)), ParticlesParent.transform) as GameObject;
-			GameManager.Instance.addHighQualityItem (particles);
-			if (!GameManager.Instance.data.highQuality) {
-				particles.SetActive (false);
+		GameObject particles = Instantiate (dungeonParticles[Random.Range(0, dungeonParticles.Length)],
+			new Vector3 (x * 6 + Random.Range (0f, 6f), 1.3f, z * 6 + Random.Range (0f, 6f)),
+			Quaternion.Euler (new Vector3 (0f, Random.Range (0f, 360f), 0f)), ParticlesParent.transform) as GameObject;
+		GameManager.Instance.addHighQualityItem (particles);
+		if (!GameManager.Instance.data.highQuality) {
+			particles.SetActive (false);
+		}
+	}
+		
+	void spawnLavaStream(float x, float z){
+		
+		int[] surroundings = getSurrounding2 ((int)x, (int)z);
+		if (surroundings [0] == 0 && surroundings [1] == 1 && surroundings [2] == 0 && surroundings [3] == 1) {
+			GameObject lavaStream = Instantiate (dungeonLavaStream, new Vector3 (x * 6f + 3f, 0, z * 6f + Random.Range (2f, 4f)), Quaternion.identity, Dungeon.transform) as GameObject;
+			if (Random.value > .5) {
+				lavaStream.transform.eulerAngles = new Vector3 (0f, 90f, 0f);
+			} else {
+				lavaStream.transform.eulerAngles = new Vector3 (0f, 270f, 0f);
 			}
+			} else if (surroundings [0] == 1 && surroundings [1] == 0 && surroundings [2] == 1 && surroundings [3] == 0) {
+				GameObject lavaStream = Instantiate (dungeonLavaStream, new Vector3 (x * 6f + Random.Range (2f, 4f), 0, z * 6f + 3f), Quaternion.identity, WallTorchParent.transform) as GameObject;
+			if (Random.value > .5) {
+				lavaStream.transform.eulerAngles = new Vector3 (0f, 180f, 0f);
+			}
+		}
+	}
+
+	void spawnSkull(float x, float z){
+
+		float random = Random.value;
+		if (random < chance_skull) {
+			GameObject chest_instance = Instantiate (dungeonSkull, new Vector3 (x * 6 + Random.Range (1f, 5f), 0, z * 6 + Random.Range (1f, 5f)), 
+				Quaternion.Euler (new Vector3 (0f, Random.Range (0f, 360f), 0f)), Dungeon.transform) as GameObject;
 		}
 	}
 
@@ -669,68 +779,41 @@ public class DungeonInstantiate : Object {
     
     void trap(int x, int y)
     {
-        if (cornersRoom(x, y))
+		/*
+		if (cornersRoom (x, y))
+			Debug.Log ("Corner here");
             return;
-        bool nest = false;
-        GameObject trapprefab = spidernest;
-        float tmp = Random.value;
-        if (tmp < chance_spidernest)
-        {
-            trapprefab = spidernest;
-            nest = true;
-        }
-        else if (tmp < chance_spikes)
-        {
-            trapprefab = spikes;
-        }
-        else if (tmp < chance_wallspikes)
-        {
-            trapprefab = wallspikes;
-        }
-        else if (tmp < chance_wizardnest)
-        {
-            trapprefab = wizardnest;
-            nest = true;
-        }
-        else if (tmp < chance_wallrush)
-        {
-            trapprefab = wallrush;
-        }
-        else if (tmp < chance_shuriken)
-        {
-            trapprefab = shuriken;
-        }
-        else { return;  }
 
+*/
 
-        if (!ArrayCorner(getSurrounding2(x, y)) || nest)
-        {
-            Quaternion rot;
-            int[] a = getSurrounding2(x, y);
-            if (a[0] == 1)
-            {
-                rot = Quaternion.Euler(0, 90, 0);
-            } else if(a[3] == 1)
-            {
-                rot = Quaternion.Euler(0, 180, 0);
-            } else if (a[2] == 1)
-            {
-                rot = Quaternion.Euler(0, 90, 0);
-            }
-            else
-            {
-                rot = Quaternion.identity;
-            }
-            GameObject trap = GameObject.Instantiate(trapprefab, Traps.transform) as GameObject;
-            trap.transform.position = new Vector3(x * 6 + 3, 0, y * 6 + 3);
-            trap.transform.rotation = rot;
-        }
+		if (!ArrayCorner (getSurrounding2 (x, y)) /*|| nest*/) {
+			GameObject trapprefab = traps [DetermineTrap ()];
+			//Debug.Log ("no corner");
+			Quaternion rot;
+			int[] a = getSurrounding2 (x, y);
+			if (a [0] == 1) {
+				rot = Quaternion.Euler (0, 90, 0);
+			} else if (a [3] == 1) {
+				rot = Quaternion.Euler (0, 180, 0);
+			} else if (a [2] == 1) {
+				rot = Quaternion.Euler (0, 90, 0);
+			} else {
+				rot = Quaternion.identity;
+			}
+			GameObject trap = GameObject.Instantiate (trapprefab, Traps.transform) as GameObject;
+			trap.transform.position = new Vector3 (x * 6 + 3, 0, y * 6 + 3);
+			trap.transform.rotation = rot;
+		} else {
+			//Debug.Log ("corner");
+		}
     }
 
+	/*
     GameObject trapStraight()
     {
         return trap_box;
     }
+    */
 
 	void createStartEndPoint() {
     	Instantiate(portal, startpoint, Quaternion.identity, Dungeon.transform);
@@ -785,10 +868,10 @@ public class DungeonInstantiate : Object {
         return append;
     }
 
-	void Normalize ()
+	void NormalizePuzzleRoomChances ()
 	{
 		StringBuilder sb2 = new StringBuilder ();
-		sb2.Append ("Raw values: \n");
+		sb2.Append ("Raw values puzzleRoom chances: \n");
 		for (int i = 0; i < puzzleRoomSpawnChances.Count; i++) {
 			sb2.Append (puzzleRoomSpawnChances [i] + " ");
 		}
@@ -811,11 +894,48 @@ public class DungeonInstantiate : Object {
 		//Debug.Log (sb2.ToString ());
 	}
 
+	void NormalizeTrapChances ()
+	{
+		StringBuilder sb2 = new StringBuilder ();
+		sb2.Append ("Raw values trap chances: \n");
+		for (int i = 0; i < trapSpawnChances.Count; i++) {
+			sb2.Append (trapSpawnChances [i] + " ");
+		}
+		float norm = 0;
+		int size = trapSpawnChances.Count;
+		for (int i = 0; i < trapSpawnChances.Count; i++) {
+			norm += trapSpawnChances [i];
+		}
+		float temp = 0;
+		for (int i = 0; i < trapSpawnChances.Count; i++) {
+			trapSpawnChances [i] = (trapSpawnChances [i] / norm) + temp;
+			temp = trapSpawnChances [i];
+		}
+		sb2.Append ("\n\nNew values: ");
+		for (int i = 0; i < trapSpawnChances.Count; i++) {
+			sb2.Append (trapSpawnChances [i] + " ");
+		}
+
+		sb2.Append ("\n\n");
+		//Debug.Log (sb2.ToString ());
+	}
+
 	int DeterminePuzzleRoom(){
 		float x = Random.value;
 		for (int i = 0; i < puzzleRoomSpawnChances.Count; i++) {
 			if (puzzleRoomSpawnChances[i] >= x) {
-				sb.Append ("\n" + puzzleRooms [i].ToString ());
+				sbPuzzles.Append ("\n" + puzzleRooms [i].ToString ());
+				return i;
+			}
+		}
+		return 0;
+	}
+
+	int DetermineTrap(){
+		float x = Random.value;
+		for (int i = 0; i < trapSpawnChances.Count; i++) {
+			if (trapSpawnChances[i] >= x) {
+				sbTraps.Append ("\n" + traps [i].ToString ());
 				return i;
 			}
 		}

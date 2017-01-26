@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using System;
 using UnityEngine.Analytics;
+using UnityEditor;
 
 public class GameManager : MonoBehaviour {
 
@@ -12,6 +13,7 @@ public class GameManager : MonoBehaviour {
 	public Data data;
 	public DungeonData dungeonData;
 	public Achievements achievements;
+	private HomeScreenProgress homeScreenProgress;
 
 	//Player data
 	public static GameManager Instance;
@@ -68,6 +70,8 @@ public class GameManager : MonoBehaviour {
 	int cheatindex;
 	private string[] cheatCode;
 
+	private bool TextFieldEnabled = false;
+
     //masterGenerator Vars
     int radius = 2;// = 2;
     int maxlength = 3;// = 2;
@@ -87,8 +91,9 @@ public class GameManager : MonoBehaviour {
 	private GameObject homeScreen;
 	private GameObject homeScreenCam;
 	public Camera mainCamera;
+	private Camera minimapPrefab;
 	public Camera minimap;
-	private int miniMapMode = 0;
+	public GameObject minimapUIElement;
 	private Vector3 homeScreenPlayerPosition;
     MasterGenerator masterGenerator;
 	[HideInInspector] public Transform levelTransform;
@@ -114,6 +119,7 @@ public class GameManager : MonoBehaviour {
 	public AudioClip audioHomeScreen;
 	public AudioClip[] audioDungeon;
 	public AudioClip audioPartyTorch;
+	public AudioClip audioGoldenTorch;
 	public bool audioMuted;
 
 	[Header("- Debugging properties")]
@@ -144,6 +150,7 @@ public class GameManager : MonoBehaviour {
 		setQuality (data.highQuality);
 
 		dungeonData = GetComponent<DungeonData> ();
+		homeScreenProgress = GetComponent<HomeScreenProgress> ();
 
 		//////////////////maar er zitten echt 8 scripts op ???????????????
 		arenaManager = GetComponentInChildren<ArenaManager> ();
@@ -174,7 +181,7 @@ public class GameManager : MonoBehaviour {
 		homeScreen = GameObject.Find ("HomeScreen");
 		homeScreenCam = GameObject.Find ("HomeScreenCam");
 		mainCamera = homeScreenCam.GetComponent<Camera> ();
-		minimap = Resources.Load ("Prefabs/minimap2", typeof (Camera)) as Camera;
+		minimapPrefab = Resources.Load ("Prefabs/Minimap", typeof (Camera)) as Camera;
 
 		HighScoresPanel = Instantiate (HighScoresPanel) as GameObject;
     }
@@ -195,6 +202,10 @@ public class GameManager : MonoBehaviour {
 		Bold.SetActive (false);
 
 		shopPrefab.EquipActives ();
+		if (PlayerPrefs.HasKey ("id")) {
+			homeScreenProgress.UpdateProgress (data.maxAchievedDungeonLevel);
+		}
+
 	}
 
 	public void StartGame(){
@@ -320,6 +331,9 @@ public class GameManager : MonoBehaviour {
 		if (torch.GetComponent<PartyTorch> () != null) {
 			audioSourceMusic.clip = audioPartyTorch;
 		}
+		if (torch.GetComponent<GoldenTorch> () != null) {
+			audioSourceMusic.clip = audioGoldenTorch;
+		}
 		audioSourceMusic.Play ();
 		score = 0;
 		SetScore (totalScore);
@@ -327,7 +341,7 @@ public class GameManager : MonoBehaviour {
 		homeScreenCam.SetActive (false);
 		loadingScreenCanvas.SetActive (false);
 
-		Instantiate (minimap);
+		minimap = Instantiate (minimapPrefab);
 
 		ui.timer.Reset ();
 
@@ -347,7 +361,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void Update () {
-		if (Input.GetButtonDown ("Pause"))
+		if (Input.GetButtonDown ("Pause") && !TextFieldEnabled)
 			Pause ();
 		/*
 		if(Input.GetKeyDown(KeyCode.I)){
@@ -370,14 +384,14 @@ public class GameManager : MonoBehaviour {
 		if (cheatindex == cheatCode.Length) {
 			cheatindex = 0;
 			Debug.Log ("hoch die hande!");
-			cheat = true;
+			cheat = !cheat;
 
 			if (!achievements.cheats_unlocked) {
 				achievements.cheatsAchievement ();
 			}
 		}
 
-		if (Input.GetKeyDown (KeyCode.H) && cheat == true) {
+		if (Input.GetKeyDown (KeyCode.H) && cheat == true && !TextFieldEnabled) {
 			if (DebuggerPanel != null) {
 				if (DebuggerPanel.activeInHierarchy)
 					DebuggerPanel.SetActive (false);
@@ -387,41 +401,58 @@ public class GameManager : MonoBehaviour {
 		}
 
 		//Cheatcode to spawn all weapons around the torch
-		if (Input.GetKeyDown (KeyCode.N) && cheat) {
+		if (Input.GetKeyDown (KeyCode.N) && cheat && !TextFieldEnabled) {
 			SpawnAllWeapons ();
 		}
 		//Cheatcode to spawn all powerups around the torch
-		if (Input.GetKeyDown (KeyCode.B) && cheat) {
+		if (Input.GetKeyDown (KeyCode.B) && cheat && !TextFieldEnabled) {
 			SpawnAllPowerUps ();
 		}
 		//Cheatcode to proceed to the next level
-		if (Input.GetKeyDown (KeyCode.L) && cheat) {
+		if (Input.GetKeyDown (KeyCode.L) && cheat && !TextFieldEnabled) {
 			Proceed ();
 		}
 		//Cheatcode to get full health
-		if (Input.GetKeyDown (KeyCode.K) && torch != null && cheat) {
+		if (Input.GetKeyDown (KeyCode.K) && torch != null && cheat && !TextFieldEnabled) {
 			torch.HealToStartingHealth ();
 		}
 		//Cheatcode to toggle if the torch is damagable or not
-		if (Input.GetKeyDown (KeyCode.J) && torch != null && cheat) {
+		if (Input.GetKeyDown (KeyCode.J) && torch != null && cheat && !TextFieldEnabled) {
 			torch.ToggleDamagable ();
 		}
 		//Cheatcode to kill all active enemies
-		if(Input.GetKeyDown(KeyCode.LeftBracket) && cheat){
+		if(Input.GetKeyDown(KeyCode.LeftBracket) && cheat && !TextFieldEnabled){
 			KillAllEnemies();
 		}
 		//Cheatcode to spawn a key
-		if (Input.GetKeyDown (KeyCode.O) && cheat) {
+		if (Input.GetKeyDown (KeyCode.O) && cheat && !TextFieldEnabled) {
 			SpawnKey ();
 		}
 		//Cheatcode to spawn to highscores
-		if (Input.GetKeyDown (KeyCode.Alpha0) && cheat) {
+		if (Input.GetKeyDown (KeyCode.Alpha0) && cheat && !TextFieldEnabled) {
 			TeleportToHighScores ();
 		}
-		if (Input.GetKeyDown (KeyCode.Backslash) && cheat) {
+		//Cheatcode to get 1000 coins
+		if (Input.GetKeyDown (KeyCode.Backslash) && cheat && !TextFieldEnabled) {
 			data.coins += 1000;
 		}
-		if(Input.GetKeyDown(KeyCode.M)){
+		//Cheatcode to reveal the whole minimap
+		if (Input.GetKeyDown (KeyCode.V) && cheat && !TextFieldEnabled) {
+			RevealMinimap ();
+		}
+		//MASTER CHEATCODE
+		if (Input.GetKeyDown (KeyCode.Alpha9) && cheat && !TextFieldEnabled) {
+			SpawnAllWeapons ();
+			SpawnAllPowerUps ();
+			torch.HealToStartingHealth ();
+			torch.ToggleDamagable ();
+			KillAllEnemies ();
+			RevealMinimap ();
+			spawner.ToggleSpawner ();
+		}
+
+		//Toggle minimap
+		if(Input.GetKeyDown(KeyCode.Q) && !TextFieldEnabled){
 			ToggleMiniMap();
 		}
 	}
@@ -491,6 +522,7 @@ public class GameManager : MonoBehaviour {
 		LoadHomeScreen ();
 		if (paused)
 			Pause ();
+		homeScreenPlayer.SetActive (true);
 		mainCamera = homeScreenCam.GetComponent<Camera> ();
 	}
 
@@ -519,11 +551,14 @@ public class GameManager : MonoBehaviour {
 		}
 		homeScreen.SetActive (true);
 		homeScreenCam.SetActive (true);
-
+		homeScreenProgress.UpdateProgress (data.maxAchievedDungeonLevel);
 
 		audioSourceMusic.clip = audioHomeScreen;
-		audioSourceMusic.Play ();
+		//audioSourceMusic.Play ();
 		resetHomeScreenPlayer ();
+
+		Pet.SetActive (true);
+		Bold.SetActive (false);
 
 		PetScript.speechCanvas.SetActive (false);
 		Pet.transform.position = homeScreenPlayer.transform.position;
@@ -556,6 +591,9 @@ public class GameManager : MonoBehaviour {
 	public void Proceed(){
 		//saver.ToFile (dungeonLevel);
 		analytics.WriteFinishLevel (dungeonLevel, score, totalScore, StartTime);
+
+		achievements.addPlayedTime (Time.time - StartTime);
+
 		RoundEnd ();
 		DestroyDungeon ();
 		dungeonLevel++;
@@ -632,6 +670,7 @@ public class GameManager : MonoBehaviour {
 			requiredCollectedKeys = 1;
 			Time.timeScale = 1f;
 			StartTime = Time.time;
+			loadingScreenCanvas.transform.Find ("LevelText").GetComponent<Text> ().text = "Dungeon level: " + "Tutorial";
 			loadingScreenCanvas.SetActive (true);
 			homeScreen.SetActive (false);
 			StartCoroutine (CreateLevel (0));
@@ -644,6 +683,7 @@ public class GameManager : MonoBehaviour {
 			requiredCollectedKeys = 1;
 			Time.timeScale = 1f;
 			StartTime = Time.time;
+			loadingScreenCanvas.transform.Find ("LevelText").GetComponent<Text> ().text = "Dungeon level: " + "Arena";
 			loadingScreenCanvas.SetActive (true);
 			homeScreen.SetActive (false);
 			StartCoroutine (CreateLevel (2));
@@ -731,6 +771,8 @@ public class GameManager : MonoBehaviour {
 
 	public void addHighQualityItem(GameObject GO){
 		highQualityItems.Add (GO);
+		GO.SetActive (data.highQuality);
+			
 	}
 
 	public void addHighQualityItem(GameObject[] GOs){
@@ -748,10 +790,15 @@ public class GameManager : MonoBehaviour {
 			data.highQuality = true;
 		}
 
-		foreach (GameObject GO in highQualityItems) {
-			if (GO == null) {
-				highQualityItems.Remove (GO);
+		for (int i = 0; i < highQualityItems.Count; i++) {
+			if (highQualityItems [i] == null) {
+				highQualityItems.RemoveAt (i);
+				Debug.Log ("Removed at index " + i + ". Length: " + highQualityItems.Count);
+				i--;
 			}
+		}
+
+		foreach (GameObject GO in highQualityItems) {
 			GO.SetActive (data.highQuality);
 		}
 	}
@@ -766,6 +813,19 @@ public class GameManager : MonoBehaviour {
 
 	public void SpawnKey(){
 		Instantiate (KeyPrefab, torch.transform.position, Quaternion.identity);
+	}
+
+	void RevealMinimap(){
+		GameObject dungeon = GameObject.Find ("Dungeon");
+		if (dungeon != null) {
+			Transform[] temp = dungeon.GetComponentsInChildren<Transform> (true);
+			foreach (Transform t in temp) {
+				if (LayerMask.LayerToName (t.gameObject.layer).Equals ("Minimap")) {
+					t.gameObject.SetActive (true);
+				}
+			}
+			Debug.Log ("I solemnly swear that I am up to no good...");
+		}	
 	}
 
 	public bool getCheat(){
@@ -788,8 +848,16 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void ToggleMiniMap(){
-		miniMapMode++;
-		miniMapMode = miniMapMode % 3;
+		if (ui != null) {
+			ui.toggleMinimap ();
+		}
+	}
 
+	public void SetTextFieldEnabled(bool enabled){
+		TextFieldEnabled = enabled;
+	}
+
+	public bool GetTextFieldEnabled(){
+		return TextFieldEnabled;
 	}
 }

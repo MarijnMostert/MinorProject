@@ -57,4 +57,14 @@ public class EndOfRoundCanvas : MonoBehaviour {
 		}
 	}
 
+	public void amountOfPlayers (int number) {
+		GameObject child = transform.Find ("Player 2").gameObject;
+		if (number == 1) {
+			child.SetActive (false);
+		}
+		if (number == 2) {
+			child.SetActive (true);
+		}
+	}
+
 }

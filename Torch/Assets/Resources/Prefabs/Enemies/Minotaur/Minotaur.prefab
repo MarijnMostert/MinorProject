@@ -635,7 +635,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012211753288}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.05, y: 0, z: 0}
+  m_LocalPosition: {x: 96.63793, y: -1.1185722, z: 214.75558}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -821,7 +821,7 @@ MonoBehaviour:
     type: 2}
   pitchMin: 0.8
   pitchMax: 1.1
-  name: minotaur
+  _name: minotaur
   InstantiatedByObjectPooler: 0
   ObjectPoolIndex: 12
   startingHealth: 100
@@ -830,7 +830,7 @@ MonoBehaviour:
   refreshTime: 0.1
   attackRange: 1.2
   scoreValue: 15
-  speed: 0
+  speed: 1.6
   health: 0
   navMeshAgent: {fileID: 195000013801635974}
   anim: {fileID: 95000012295917278}
@@ -875,10 +875,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.8
-  m_Height: 3
+  m_Radius: 0.56
+  m_Height: 2.3
   m_Direction: 1
-  m_Center: {x: 0, y: 1.05, z: 0}
+  m_Center: {x: 0, y: 1.15, z: 0}
 --- !u!137 &137000011460442248
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1

@@ -31,7 +31,7 @@ public class InteractableItem : AudioObject {
 	protected virtual void OnTriggerStay(Collider other){
 		if (other.gameObject.CompareTag ("Player") && canvas!=null && !activated) {
 			canvas.SetActive (true);
-			if (Input.GetButtonDown (interactionButton)) {
+			if (Input.GetButtonDown (interactionButton) && !gameManager.GetTextFieldEnabled()) {
 				action (other.gameObject);
 				canvas.gameObject.SetActive (false);
 				if (!multiUsable) {

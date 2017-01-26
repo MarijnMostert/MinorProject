@@ -71,29 +71,29 @@ public class Inventory : MonoBehaviour {
 	}
 
 	void Update(){
-		if (Input.GetButtonDown ("NextWeapon1"))
+		if (Input.GetButtonDown ("NextWeapon1") && !GameManager.Instance.GetTextFieldEnabled())
 			NextWeapon ();
-		if (Input.GetButtonDown ("PrevWeapon1"))
+		if (Input.GetButtonDown ("PrevWeapon1") && !GameManager.Instance.GetTextFieldEnabled())
 			PrevWeapon ();
-		if (Input.GetKeyDown (KeyCode.Alpha1))
+		if (Input.GetKeyDown (KeyCode.Alpha1) && !GameManager.Instance.GetTextFieldEnabled())
 			CheckAndEquip (0);
-		if (Input.GetKeyDown (KeyCode.Alpha2))
+		if (Input.GetKeyDown (KeyCode.Alpha2) && !GameManager.Instance.GetTextFieldEnabled())
 			CheckAndEquip (1);
-		if (Input.GetKeyDown (KeyCode.Alpha3))
+		if (Input.GetKeyDown (KeyCode.Alpha3) && !GameManager.Instance.GetTextFieldEnabled())
 			CheckAndEquip (2);
-		if (Input.GetKeyDown (KeyCode.Alpha4))
+		if (Input.GetKeyDown (KeyCode.Alpha4) && !GameManager.Instance.GetTextFieldEnabled())
 			CheckAndEquip (3);
-		if (Input.GetKeyDown (KeyCode.Alpha5))
+		if (Input.GetKeyDown (KeyCode.Alpha5) && !GameManager.Instance.GetTextFieldEnabled())
 			CheckAndEquip (4);
-		if (Input.GetKeyDown (KeyCode.Alpha6))
+		if (Input.GetKeyDown (KeyCode.Alpha6) && !GameManager.Instance.GetTextFieldEnabled())
 			CheckAndEquip (5);
-		if (Input.GetKeyDown (KeyCode.Alpha7))
+		if (Input.GetKeyDown (KeyCode.Alpha7) && !GameManager.Instance.GetTextFieldEnabled())
 			CheckAndEquip (6);
-		if (Input.GetKeyDown (KeyCode.Alpha8))
+		if (Input.GetKeyDown (KeyCode.Alpha8) && !GameManager.Instance.GetTextFieldEnabled())
 			CheckAndEquip (7);
-		if (Input.GetKeyDown (KeyCode.Alpha9))
+		if (Input.GetKeyDown (KeyCode.Alpha9) && !GameManager.Instance.GetTextFieldEnabled())
 			CheckAndEquip (8);
-		if (Input.GetKeyDown (KeyCode.Alpha0))
+		if (Input.GetKeyDown (KeyCode.Alpha0) && !GameManager.Instance.GetTextFieldEnabled())
 			CheckAndEquip (9);
 		/*
 		if (Input.GetButtonDown("PowerUpButton1_1")||(Input.GetAxis ("PowerUpButton1_1")<-0.1f))

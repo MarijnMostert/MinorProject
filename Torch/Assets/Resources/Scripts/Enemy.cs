@@ -15,10 +15,10 @@ public class Enemy : AudioObject, IDamagable {
 	public float refreshTime = 0.3f;
 	public float attackRange = 1f;
 	public int scoreValue = 10;
-	[HideInInspector] public float speed;
+	public float speed;
 
 	[SerializeField] protected int health;
-	[SerializeField] public NavMeshAgent navMeshAgent;
+	[HideInInspector] public NavMeshAgent navMeshAgent;
 	protected float lastAttackTime = 0f;
 	protected GameObject healthBar;
 	protected Image healthBarImage;
@@ -137,12 +137,13 @@ public class Enemy : AudioObject, IDamagable {
         dead = true;
 		GetComponent<Collider> ().enabled = false;
 		navMeshAgent.enabled = false;
+		navMeshAgent.speed = 0f;
 		healthBar.SetActive (false);
 		healthBar = null;
 //        Debug.Log(anim);
         if (anim != null)
         {
-			yield return new WaitForSeconds(anim.playbackTime);//.56f
+			yield return new WaitForSeconds(1.5f);//.56f
         }
         //Add a score
         gameManager.updateScore(scoreValue);
@@ -157,7 +158,8 @@ public class Enemy : AudioObject, IDamagable {
 		navMeshAgent.enabled = true;
 		dead = false;
 		health = startingHealth;
-		speed = navMeshAgent.speed;
+		navMeshAgent.speed = speed;
+		anim.SetTrigger ("Reset");
 	}
 
 	public void Drop(){

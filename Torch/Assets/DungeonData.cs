@@ -12,6 +12,11 @@ public class DungeonData : MonoBehaviour {
 	public float spawnerWarmingUpScaler = .3f;
 	public float minAmountOfRoomsScaler = .5f;
 	public float maxAmountOfRoomsScaler = .8f;
+	public float chanceChestDeadEnd = .8f;
+	public float chanceChestCorridor = .02f;
+	public float chanceParticles = .15f;
+	public float chanceLavaStream = .03f;
+	public float chanceSkull = .5f;
 
 	[Header("- Minimum spawn level enemies")]
 	public int minLevelForMinotaur = 1;
@@ -46,7 +51,8 @@ public class DungeonData : MonoBehaviour {
 	public float chanceBoomerang = .1f;
 
     [Header("- Minimum values traps")]
-	public float chanceForTrap = .1f;
+	public float chanceForTrapBase = .1f;
+	public float chanceForTrapScaler = .01f;
 
     public int minLevelSpidernest = 1;
     public int minLevelWizardnest = 1;
@@ -82,6 +88,7 @@ public class DungeonData : MonoBehaviour {
 	public GameObject Movingplatformroom;
 	public int minLevelMovingplatformroom;
 	public float chanceMovingplatformroom;
+	public float platformSpeedScaler;
 
 	public GameObject Bossroom;
 	public int minLevelBossroom;
@@ -100,9 +107,13 @@ public class DungeonData : MonoBehaviour {
 		public int minAmountOfRooms;
 		public int maxAmountOfRooms;
 		public int chanceOfRoom;
+		public float chanceChestDeadEnd;
+		public float chanceChestCorridor;
+		public float chanceParticles;
+		public float chanceLavaStream;
+		public float chanceSkull;
 		public float timeBetweenSpawns;
 		public float timeBeforeSpawning;
-		public bool spiderNests;
 		public Enemies enemies;
 		public PowerUps powerUps;
         public Traps Traps;
@@ -171,6 +182,7 @@ public class DungeonData : MonoBehaviour {
 		public PuzzleRoom Fallblockpuzzle;
 		public PuzzleRoom Laserroom;
 		public PuzzleRoom Movingplatformroom;
+		public float platformSpeedScaler;
 		public PuzzleRoom Bossroom;
 		public PuzzleRoom Treasureroom;
 	}
@@ -193,6 +205,12 @@ public class DungeonData : MonoBehaviour {
 				DP.minAmountOfRooms = 1;
 				DP.maxAmountOfRooms = 1;
 			}
+
+			DP.chanceChestDeadEnd = chanceChestDeadEnd;
+			DP.chanceChestCorridor = chanceChestCorridor;
+			DP.chanceParticles = chanceParticles;
+			DP.chanceLavaStream = chanceLavaStream;
+			DP.chanceSkull = chanceSkull;
 
 			if(i>= minLevelForMinotaur)
 				DP.enemies.minoTaur = true;
@@ -259,7 +277,6 @@ public class DungeonData : MonoBehaviour {
 			DP.powerUps.laserWeapon.spawnChance = chanceLaser;
 			DP.powerUps.bloodWeapon.spawnChance = chanceBlood;
 			DP.powerUps.boomerangWeapon.spawnChance = chanceBoomerang;
-			DP.Traps.chanceForTrap = chanceForTrap;
             DP.Traps.spidernest.spawnChance = chanceSpidernest;
             DP.Traps.wizardnest.spawnChance = chanceWizardnest;
             DP.Traps.spikes.spawnChance = chanceSpikes;
@@ -280,6 +297,10 @@ public class DungeonData : MonoBehaviour {
 			DP.puzzleRooms.Fliproom.puzzleRoom = Fliproom;
 			DP.puzzleRooms.Treasureroom.spawnChance = chanceTreasureroom;
 			DP.puzzleRooms.Treasureroom.puzzleRoom = Treasureroom;
+			DP.puzzleRooms.platformSpeedScaler = 1f + platformSpeedScaler * i;
+			if (DP.puzzleRooms.platformSpeedScaler > 1.8f) {
+				DP.puzzleRooms.platformSpeedScaler = 1.8f;
+			}
 
             DP.timeBetweenSpawns = 15f - spawnRateScaler * i;
 			if(DP.timeBetweenSpawns < 4f){
@@ -289,6 +310,8 @@ public class DungeonData : MonoBehaviour {
 			if (DP.timeBeforeSpawning < 2f) {
 				DP.timeBeforeSpawning = 2f;
 			}
+
+			DP.Traps.chanceForTrap = chanceForTrapBase + chanceForTrapScaler * i;
 
 			dungeonParameters [i] = DP;
 		}

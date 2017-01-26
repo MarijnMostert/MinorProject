@@ -143,20 +143,20 @@ public class PlayerMovement : MonoBehaviour {
     }
 
 	void Update(){
-		if (Input.GetButtonDown("ToggleInput" + playerNumber)) {
+		if (Input.GetButtonDown("ToggleInput" + playerNumber) && !gameManager.GetTextFieldEnabled()) {
 			ToggleInput ();
 		}
-		if (Input.GetKeyDown (KeyCode.G) && gameManager.getCheat()) {
+		if (Input.GetKeyDown (KeyCode.G) && gameManager.getCheat() && !gameManager.GetTextFieldEnabled()) {
 			GodMode ();
 		}
-		if (Input.GetKeyDown(KeyCode.LeftShift)) {
+		if (Input.GetKeyDown(KeyCode.LeftShift) && !gameManager.GetTextFieldEnabled()) {
 			speed *= shiftfactor;
 		}
-		if (Input.GetKeyUp(KeyCode.LeftShift)) {
+		if (Input.GetKeyUp(KeyCode.LeftShift) && !gameManager.GetTextFieldEnabled()) {
 			speed /= shiftfactor;
 		}
 		if (arenaPointerActive) {
-			if (Rotator != null) {
+			if (Rotator != null && arenaPointerTarget != null) {
 				Rotator.transform.LookAt (new Vector3 (arenaPointerTarget.transform.position.x, 
 					Rotator.transform.position.y, arenaPointerTarget.transform.position.z));
 			}
@@ -263,7 +263,8 @@ public class PlayerMovement : MonoBehaviour {
 
 	void UpdateVelocity(){
 		float distance = (transform.position - prevPos).magnitude;
-		distanceTravelled += distance;
+		distanceTravelled += distance;		
+		gameManager.achievements.walkAchievement (distance);
 		velocity = distance / Time.deltaTime;
 		prevPos = transform.position;
 	}
