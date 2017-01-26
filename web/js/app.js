@@ -1,11 +1,17 @@
-	$(document).ready(function(){
-
+$(document).ready(function(){
+	$hamburger = true;
 	if(!getCookie("DarkDescent")){
 		window.location.href ='';
 	}
 	
 	var id = getCookie("DarkDescent");
 
+	$("#name").keyup(function(event){
+		if(event.keyCode == 13){
+			window.location.href ='search.php?name='.$("name").val();
+		}
+	});
+	
 	console.log('classes.js loaded');
 	
 	guild = new Guild(1, 'GuildName', 'Joran');
@@ -34,6 +40,15 @@
 			console.log('url: members');
 			memberpage();
 			break;
+		case '/ewi3620tu1/search.php':
+			console.log('url: search');
+			if (document.location.search.indexOf('name=') >= 0) {
+				var name = document.location.search.substring(6);
+				searchscore(name)
+			} else {
+				searchscore('');
+			}
+			break;
 		default:	
 			console.log('url not recognized');
 			break;
@@ -41,7 +56,7 @@
 });
 
 var header = function(){
-	if (guild.id === 'null'){
+	if (guild === 'null'){
 		var add_guild = document.createElement('p').appendChild(document.createElement('a'));
 		add_guild.innerHTML = 'Add Guild';
 		$('#guilds_dropdown').append(add_guild);
@@ -54,11 +69,19 @@ var header = function(){
 		guild_forum.className = 'GuildForum_menu';
 		guild_forum.innerHTML = 'Guild Forum';
 		$('#guilds_dropdown').append(guild_forum);
-			$('.ViewGuild_menu').on('click',function(){window.location.href="guild.php";});
-			$('.GuildForum_menu').on('click',function(){window.location.href="guildforum.php";});
+		$('.ViewGuild_menu').on('click',function(){window.location.href="guild.php";});
+		$('.GuildForum_menu').on('click',function(){window.location.href="guildforum.php";});
 	}
 	$('.dropdown').on('click',function(){$('dropdown-content').css('display','block')});
 	$('#change-avatar').on('click',function(){});
+	$('.hamburger').on('click',function(){
+		if($hamburger){
+			$('#side-menu').css('display','block');
+		}else{
+			$('#side-menu').css('display','none');
+		}
+		$hamburger = !$hamburger;
+	});
 	$('#logout_button').on('click',function(){
 		setCookie("",0);
 		window.location.href="index.php";
@@ -84,6 +107,7 @@ var homepage = function(){
 			$('#name').html(player.name);
 			$('#level').html(response.level);
 			$('#highscore').html(response.score);
+			$('#coins').html(response.coins + " ©");
 			$('#ranking').html(response.rank + " /" + response.total_players);
 			$('#playtime').html(player.playtime + " Hours");
 			}
@@ -129,6 +153,39 @@ var statisticspage = function(){
 			}
 		});
 }
+
+var searchscore = function($name){
+	$.ajax({
+		url: './unity/getscoresbyname.php',
+		type: 'POST',
+		dataType: 'JSON',
+		data: {name:$name},
+		dataType: 'json',
+		success: function(response){
+			console.log('response:::');
+			console.log(response);
+			response.Highscore.forEach(drawRow);
+		}
+	});
+	
+	var drawRow = function(score){
+		var rank_table = document.createElement("td");
+		var score_table = document.createElement("td");
+		var player_table = document.createElement("td");
+		var date_table = document.createElement("td");
+		rank_table.innerHTML = score.id;
+		score_table.innerHTML = score.score;
+		player_table.innerHTML = score.name;
+		date_table.innerHTML = score.date;
+		var tr = document.createElement('tr');
+		tr.appendChild(rank_table);
+		tr.appendChild(score_table);
+		tr.appendChild(player_table);
+		tr.appendChild(date_table);
+		$('#scoreTable table').append(tr);
+	}
+}
+
 var setCookie = function(cid,exdays) {
 	var d = new Date();
 	d.setTime(d.getTime() + (exdays*24*60*60*1000));

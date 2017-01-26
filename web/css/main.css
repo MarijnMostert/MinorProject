@@ -80,6 +80,16 @@ body {
 	position: relative;
 }
 
+#side-menu {
+	display:none;
+	position:fixed;
+	z-index:15;
+    color: #EAC67A;
+	background-color: #984B43;
+	width:100%;
+	height:100%;
+}
+
 #menu {
 	position: absolute;
 	bottom: 0;
@@ -189,6 +199,29 @@ body {
 }
 
 .button:focus{
+	outline:none;
+}
+
+.leftbutton {
+    background-color: rgba(234,198,122,0); /* Green */
+	background-image: url('../img/hamburger-menu.png'); 
+	background-repeat: no-repeat;
+    background-size: 45px;
+    border: none;
+    color: rgba(234,198,122,1);
+    margin: 7px 0 10px 0;
+    padding: 12px 0px 12px 40px;
+    height: 40px;
+    text-align: center;
+    text-decoration: none;
+    display: none;
+    font-size: 16px;
+    cursor: pointer;
+	z-index: 2;
+    background-position: 5px 0px;
+    float: left;
+}
+.leftbutton:focus{
 	outline:none;
 }
 
@@ -585,4 +618,50 @@ body {
 	background-color: #18121E;
 	color:#EAC67A;
 	text-align: center;
+}
+
+@media screen and (max-width: 650px) {
+    .main {
+		padding: 60px 0 50px 0;
+    }
+	
+	#menu {
+		display: none;
+	}
+	
+	#side-menu {
+		display: none;
+	}
+	
+	.list {
+		width: initial;
+		border: none;
+	}
+	
+	#right-top input[type=text]:focus,.right-top i input[type=text]:hover {
+		width: calc(100% - 170px);
+	}
+	
+	.leftbutton {
+	    display: inline-block;
+	}
+	
+	.menu-item {
+		display: block;
+		width:100%;
+		float:left;
+	}
+	
+	.dropdown-content {
+		margin: 0;
+		width:100%;
+	}
+	
+	.dropdown-content a{
+		border:0;
+		background-color: #984B43;
+		color: #EAC67A;
+		width:100%;
+		text-align:center;
+	}
 }

@@ -12,6 +12,10 @@
 					<td id="highscore"> </td>
 				</tr>
 				<tr>
+					<td>Coins: </td>
+					<td id="coins"> </td>
+				</tr>
+				<tr>
 					<td>World Ranking: </td>
 					<td id="ranking"> </td>
 				</tr>
