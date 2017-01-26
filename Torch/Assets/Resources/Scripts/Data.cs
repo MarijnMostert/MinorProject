@@ -175,7 +175,9 @@ public class Data : MonoBehaviour {
 		PlayerPrefs.SetInt ("highQuality", 1);
 		gameManager.achievements.resetAchievements ();
 
-		Debug.Log ("Reset data succesfully");
+        highscores.highscore.Clear();
+        File.Delete("highScores.txt");
+        Debug.Log ("Reset data succesfully");
 		Load ();
 	}
 
@@ -293,13 +295,14 @@ public class Data : MonoBehaviour {
 
     public void logout()
     {
+        ResetData();
+        clearPersonalData();
+    }
+
+    public void clearPersonalData()
+    {
         PlayerPrefs.DeleteKey("name");
         PlayerPrefs.DeleteKey("password");
         PlayerPrefs.DeleteKey("id");
-        PlayerPrefs.DeleteKey("coins");
-        PlayerPrefs.DeleteKey("level");
-        highscores.highscore.Clear();
-        File.Delete("highScores.txt");
-        Application.Quit();
     }
 }
