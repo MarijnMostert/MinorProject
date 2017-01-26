@@ -30,14 +30,10 @@ public class Projectile : AudioObject {
 
 	[Header ("- If Boomerang:")]
 	public bool Boomerang;
-	public float turningVariable;
-	public float timer;
-	public Vector3 startPosition;
-	public float sinusOffset = 0f;
-	public bool firstRotation = false;
-	private Vector3 smoothDampVar;
-	public float smoothTime = 1f;
-	private float savedRotation = 0f;
+	private bool initialized = false;
+	private bool targetReached = false;
+	private Vector3 boomerangTarget;
+	[HideInInspector] public RangedWeapon rangedWeapon;
 
 	[Serializable]
 	public struct ComponentsToToggle {
@@ -75,68 +71,23 @@ public class Projectile : AudioObject {
 				}
 				transform.Translate (Vector3.forward * moveDistance);
 			} else if (Boomerang) { //Boomerang projectile
+				if (!initialized) {
+					Vector3 cursorPointer = PlayerData.GetComponent<PlayerMovement>().GetCursorPointer().transform.position;
+					boomerangTarget = new Vector3 (cursorPointer.x, transform.position.y, cursorPointer.z);
+					transform.LookAt (boomerangTarget);
+					initialized = true;
+					targetReached = false;
+				}
 
-				/*
-				if (Time.time - timer > .5f && savedRotation < 180f) {
-					transform.Rotate (new Vector3 (0f, 10f, 0f));
+				if (!targetReached && (transform.position - boomerangTarget).magnitude > .5f) {
 					transform.Translate (Vector3.forward * moveDistance);
-					savedRotation += 10f;
-				} else if (Time.time - timer > .5f) {
-					transform.position = Vector3.MoveTowards (transform.position, GameManager.Instance.playerManagers [0].playerInstance.transform.position, 0f);
-				} else {
+				} else if ((transform.position - PlayerData.transform.position).magnitude > .2f) {
+					targetReached = true;
+					transform.LookAt (PlayerData.transform);
 					transform.Translate (Vector3.forward * moveDistance);
-
-				}
-*/
-
-
-				if (!firstRotation) {
-					transform.Rotate (new Vector3 (0f, -90f, 0f));
-					firstRotation = true;
-				}
-
-				float rotationFactor = 3 * (Mathf.Sin (10*(Time.time - timer) + sinusOffset) + 2);
-
-				transform.Rotate (new Vector3 (0f, rotationFactor, 0f));
-				transform.Translate (Vector3.forward * moveDistance);
-
-
-
-
-
-				/*
-				float length = 5;
-
-				if (startPosition == new Vector3(0f,0f,0f)) {
-					startPosition = transform.position - new Vector3(length, 0f, 0f);
-				}
-
-
-				float x = length - ((Time.time - timer)*3);
-
-				if (x <= 0) {
-					x = ((Time.time - timer) * 3) - length;
-					transform.position = startPosition + new Vector3 (x, 0f, -1 * (Mathf.Sqrt (length * x) - x));
-
 				} else {
-
-					transform.position = startPosition + new Vector3 (x, 0f, (Mathf.Sqrt (length * x) - x));
-
+					DestroyProjectile ();
 				}
-
-*/
-				/*
-				transform.Rotate (new Vector3 (0f, turningVariable, 0f));
-				transform.Translate (Vector3.forward * moveDistance);
-				*/
-
-
-
-
-
-
-
-
 			} else { //Normal projectile
 				transform.Translate (Vector3.forward * moveDistance);
 			}
@@ -204,25 +155,21 @@ public class Projectile : AudioObject {
 	void ResetProjectile(){
 		ToggleComponents (true);
 		activated = true;
-		if (Boomerang) {
-			timer = Time.time;
-			transform.Rotate (new Vector3 (0f, 90f, 0f));
-			savedRotation = 0f;
-		}
+		initialized = false;
 	}
 
 	void DestroyProjectile(){
+		if (rangedWeapon != null && rangedWeapon.maxAmountOfBulletsAlive) {
+			rangedWeapon.DecrementBulletsAlive ();
+		}
 		if (enemyHit && PlayerData != null) {
 			PlayerData.IncrementShotsLanded ();
 		}
 		if (TargetFinder) {
 			Target = null;
-		} else if (Boomerang) {
-			firstRotation = false;
 		}
 		ToggleComponents (false);
 		activated = false;
-		startPosition = new Vector3 (0f, 0f, 0f);
 		StopAllCoroutines ();
 		StartCoroutine (KillProjectile ());
 	}

@@ -520,7 +520,7 @@ GameObject:
   - 65: {fileID: 65000012656788872}
   - 114: {fileID: 114000012671087812}
   m_Layer: 10
-  m_Name: Spider
+  m_Name: spider
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1107,7 +1107,6 @@ MonoBehaviour:
   ObjectPoolIndex: 11
   startingHealth: 50
   attackCooldown: 1
-  attackDamage: 10
   refreshTime: 0.1
   attackRange: 2
   scoreValue: 10
@@ -1121,6 +1120,8 @@ MonoBehaviour:
   clip_spawn: {fileID: 8300000, guid: f09febd87d4bb46b8bd2eec7b6fb7d40, type: 3}
   clip_die: {fileID: 8300000, guid: 18f08f39929da4d50bf6e65ffb4e72e7, type: 3}
   clip_battleCry: {fileID: 0}
+  minAttackDamage: 9
+  maxAttackDamage: 15
   attacknow: 0
   speedy: 1
 --- !u!137 &137000011260341548

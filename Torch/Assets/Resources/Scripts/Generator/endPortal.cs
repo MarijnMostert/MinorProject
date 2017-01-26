@@ -17,9 +17,9 @@ public class endPortal : InteractableItem {
 		}
 		if (gameManager.collectedKeys == gameManager.requiredCollectedKeys) {
 			endPortalActivated = true;
-			foreach (PlayerManager PM in gameManager.playerManagers) {
-				PM.playerMovement.ToggleArenaPointer (true, gameObject);
-			}
+		}
+		foreach (PlayerManager PM in gameManager.playerManagers) {
+			PM.playerMovement.ToggleArenaPointer (endPortalActivated, gameObject);
 		}
 		UpdateKeyText ();
     }

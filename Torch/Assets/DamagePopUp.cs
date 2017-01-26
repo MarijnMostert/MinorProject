@@ -42,4 +42,23 @@ public class DamagePopUp : MonoBehaviour {
 		}
 		popup.GetComponentInChildren<Text> ().color = color;
 	}
+
+	public static void CreateTorchHealthPopUp(int changeInHealth, UI ui, bool damage){
+		Color color;
+		string text;
+		if (!damage) {
+			color = Color.green;
+			text = "+" + changeInHealth.ToString ();
+		} else {
+			color = Color.red;
+			text = "-" + changeInHealth.ToString ();
+		}
+
+		Vector3 location = new Vector3 (0f, 0f, 0f);//ui.healthImage.transform.position;
+//		Debug.Log (location);
+		GameObject popup = ObjectPooler.Instance.GetObject(25, true, location, ui.healthImage.transform);
+		popup.transform.localPosition = new Vector3 (0f, 40f, 0f);
+		popup.GetComponentInChildren<Text> ().text = text;
+		popup.GetComponentInChildren<Text> ().color = color;
+	}
 }
