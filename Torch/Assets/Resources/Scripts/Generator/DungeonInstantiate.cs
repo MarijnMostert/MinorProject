@@ -585,7 +585,7 @@ public class DungeonInstantiate : Object {
 		p2D beginning = puzzleCenters [random];
 		startpoint = new Vector3 (beginning.getX () * 6 + 1, 0, beginning.getY () * 6 + 1);
 		startpoint += new Vector3 (-4f, 0, -4f);
-		Instantiate (BeginningRoom, startpoint, Quaternion.Euler(new Vector3(0,Random.Range(0,4)*90,0)), Dungeon.transform);
+		Instantiate (BeginningRoom, startpoint, Quaternion.identity, Dungeon.transform);
 
 		//Remove from list
 		List<p2D> temp1 = new List<p2D> ();

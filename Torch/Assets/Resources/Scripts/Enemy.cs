@@ -11,7 +11,6 @@ public class Enemy : AudioObject, IDamagable {
 	public int startingHealth;
 	public NavMesh navMesh;
 	public float attackCooldown;
-	public int attackDamage;
 	public float refreshTime = 0.3f;
 	public float attackRange = 1f;
 	public int scoreValue = 10;

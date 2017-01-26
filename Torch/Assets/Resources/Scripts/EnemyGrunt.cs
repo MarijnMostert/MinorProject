@@ -3,6 +3,8 @@ using System.Collections;
 
 public class EnemyGrunt : Enemy {
 
+	public int minAttackDamage;
+	public int maxAttackDamage;
 	public bool attacknow;
     float starttime;
     public bool speedy;
@@ -33,26 +35,26 @@ public class EnemyGrunt : Enemy {
 		if (!dead && (speedy|| Time.time>starttime+1.03)) {
             //if (!agent.enabled) { agent.enabled = true; }
 			if (gameManager.enemyTarget != null && distanceToTarget () < attackRange && (Time.time - lastAttackTime) > attackCooldown) {
-				attack ();
+				StartCoroutine(attack ());
 			}
         }
 	}
 
 	//If the player is close enough to the torch it will do damage
-	private void attack(){
+	IEnumerator attack(){
 		if (anim != null) {
 //			Debug.Log ("jump");
 			anim.SetTrigger ("Attack");
 		}
-
+		lastAttackTime = Time.time;
+		yield return new WaitForSeconds (.3f);
 		ObjectPooler.Instance.PlayAudioSource (clip_attack, mixerGroup, pitchMin, pitchMax, transform);
 
 		IDamagable damagableObject = gameManager.enemyTarget.GetComponent<IDamagable> ();
 		if(damagableObject != null){
-			damagableObject.takeDamage (attackDamage, false, gameObject);
+			damagableObject.takeDamage (Random.Range(minAttackDamage, maxAttackDamage), false, gameObject);
 			//Debug.Log (damagableObject);
 		}
-		lastAttackTime = Time.time;
 	}
 
 	//A Coroutine for chasing a target

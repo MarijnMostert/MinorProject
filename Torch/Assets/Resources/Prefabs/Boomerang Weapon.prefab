@@ -59,7 +59,9 @@ MonoBehaviour:
   fireClip: {fileID: 8300000, guid: 389f3fd743914445cb1da2611ad4a4dd, type: 3}
   playerData: {fileID: 0}
   damageMultiplier: 1
-  cooldown: 0.4
+  cooldown: 0.3
   projectile: {fileID: 114000012347710446, guid: ddb5c19d09cf345d8aba28aec73435c4,
     type: 2}
   projectileSpeed: 15
+  maxAmountOfBulletsAlive: 1
+  maxAmountOfBullets: 3

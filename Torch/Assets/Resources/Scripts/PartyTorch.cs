@@ -17,7 +17,9 @@ public class PartyTorch : AudioObject {
 
 	void Awake(){
 		defaultColor = torchLight.color;
-		defaultDiscoballPosition = Discoball.transform.localPosition;
+		if (Discoball != null) {
+			defaultDiscoballPosition = Discoball.transform.localPosition;
+		}
 	}
 
 	// Use this for initialization
