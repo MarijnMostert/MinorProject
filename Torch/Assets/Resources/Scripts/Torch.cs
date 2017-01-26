@@ -86,7 +86,14 @@ public class Torch : MonoBehaviour, IDamagable {
 			if (health <= 0) {
 				health = 0;
 				updateHealth ();
-				Debug.Log ("Player dies by taking " + damage + " from " + source.name);
+
+				string sourceString = source.name;
+				if (sourceString.EndsWith ("(Clone)")) {
+					sourceString = sourceString.Remove (sourceString.Length - 7);
+				}
+				Debug.Log ("Player dies by taking " + damage + " from " + sourceString);
+				gameManager.deathCanvas.SetCauseText ("by taking " + damage + " damage from " + sourceString + ".");
+
 				Die ();
 			}
 		}
@@ -131,12 +138,16 @@ public class Torch : MonoBehaviour, IDamagable {
 		if (healthBar == null) {
 			healthBar = ui.healthImage;
 		}
-		healthBar.fillAmount = (float)health / (float)startingHealth * 0.4f + 0.6f;
+		healthBar.fillAmount = (float)health / (float)startingHealth * 0.37f + 0.63f;
+		//healthBar.transform.localScale = new Vector3(1f,1f,1f) * (float)health / (float)startingHealth;
+
+		ui.healthImageAnimator.SetBool ("LowHealth", health <= 20);
 
 		MainParticles.startSize = minParticleSize + ((maxParticleSize - minParticleSize) * health / startingHealth);
 	}
 
 	public void Die(){
+		ui.healthImageAnimator.SetBool ("LowHealth", false);
 		health = 0;
 		Destroy (torchPickUp.canvas);
 		Destroy (GameObject.FindGameObjectWithTag("CursorPointer"));
@@ -155,6 +166,7 @@ public class Torch : MonoBehaviour, IDamagable {
 
 				if (health <= 0) {
 					Debug.Log ("Killed by damage over time on torch");
+					gameManager.deathCanvas.SetCauseText ("by letting the torch run out of fuel");
 					Die ();
 				}
 			}
