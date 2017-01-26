@@ -3,16 +3,16 @@ using System.Collections;
 
 public class ArenaArea : MonoBehaviour {
 
+	public GameManager gameManager;
 	public bool playerinarea = false;
 	public string AreaName = "Default Area Name";
 	// Use this for initialization
 	void Start () {
-	
+		gameManager = GameManager.Instance;
 	}
 	
 	void OnTriggerEnter (Collider other) {
-		PlayerDamagable playerDamagableScript = other.gameObject.GetComponentInChildren<PlayerDamagable>();
-		playerDamagableScript.saveRespawnPosition ();
+		gameManager.RespawnPosition = transform.position;
 	}
 
 	void OnTriggerStay (Collider other) {
