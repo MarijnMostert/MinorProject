@@ -148,4 +148,14 @@ public class Nest : AudioObject {
         }
     }
 
+	void Drop(){
+		float rand = Random.value;
+		for (int i = 0; i < 7; i++) {
+			if (rand > 0.5)
+				ObjectPooler.Instance.GetObject (18, true, new Vector3 (transform.position.x, 1f, transform.position.z));
+			if (rand > 0.9)
+				ObjectPooler.Instance.GetObject (17, true, new Vector3(transform.position.x, 1f, transform.position.z));
+		}
+	}
+
 }

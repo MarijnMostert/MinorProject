@@ -7,6 +7,7 @@ public class DeathCanvas : MonoBehaviour {
 	private bool cheatMemory;
 	public Text scoreText;
 	public Text coinText;
+	public Text cause;
 	public GameObject Confirmation;
 
 	public void OnEnable(){
@@ -30,6 +31,10 @@ public class DeathCanvas : MonoBehaviour {
 
 	public void SetCoinText(int coins){
 		coinText.text = "Collected coins: " + coins;
+	}
+
+	public void SetCauseText(string cause){
+		this.cause.text = cause;
 	}
 
 	public void SubmitHighScore(){

@@ -482,6 +482,70 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 1389436525}
+    - target: {fileID: 1000010785737664, guid: cf3e1c810a2e94ddfa98fdcb76202dbb, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000011647558472, guid: cf3e1c810a2e94ddfa98fdcb76202dbb, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000013531820812, guid: cf3e1c810a2e94ddfa98fdcb76202dbb,
+        type: 2}
+      propertyPath: m_Text
+      value: 'Home screen music
+
+        Dungeon Music 1
+
+        Dungeon Music 2
+
+        Fireball sound
+
+        UI click sound
+
+        Chest open sound
+
+        Coin pickup sound
+
+        Spider sound
+
+        Laser sound
+
+        Health sound
+
+        Party torch music
+
+        Gold torch music'
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011511109846, guid: cf3e1c810a2e94ddfa98fdcb76202dbb,
+        type: 2}
+      propertyPath: m_Text
+      value: "Unknown (From ourmusicbox.com)\nBrandon Morris\nUnknown (From dl-sounds.com)\nBart
+        K.\nLittle Robot Sound Factory\\\nKenny.nl\nBrandon Morris\nspookeymodem\nKenney.nl\nDoKashiteru\nHans
+        Entertainment \nSpandeau Ballet"
+      objectReference: {fileID: 0}
+    - target: {fileID: 224000013605169542, guid: cf3e1c810a2e94ddfa98fdcb76202dbb,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 74
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010192971402, guid: cf3e1c810a2e94ddfa98fdcb76202dbb,
+        type: 2}
+      propertyPath: m_Text
+      value: "Procedurally generated \n\ttextures\nMagicWall Texture\nMountains Texture"
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000010604351724, guid: cf3e1c810a2e94ddfa98fdcb76202dbb,
+        type: 2}
+      propertyPath: m_Text
+      value: 'Substance Designer by Allegorithmic
+
+
+        Danimal
+
+        Terramorph Workshop
+
+'
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cf3e1c810a2e94ddfa98fdcb76202dbb, type: 2}
   m_IsPrefabParent: 0
@@ -942,6 +1006,29 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1000011311432362, guid: e4d553c3bf0c541e980bd36e3b76a640, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224000011019960548, guid: e4d553c3bf0c541e980bd36e3b76a640,
+        type: 2}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000011358376734, guid: e4d553c3bf0c541e980bd36e3b76a640, type: 2}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 224000012253822570, guid: e4d553c3bf0c541e980bd36e3b76a640,
+        type: 2}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012148796106, guid: e4d553c3bf0c541e980bd36e3b76a640,
+        type: 2}
+      propertyPath: m_Text
+      value: Choose Dungeon level
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e4d553c3bf0c541e980bd36e3b76a640, type: 2}
   m_IsPrefabParent: 0
@@ -1040,6 +1127,10 @@ Prefab:
     - target: {fileID: 224000013986348150, guid: ca5e0ad2c3e72490abafc257c55554f4,
         type: 2}
       propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000013196044612, guid: ca5e0ad2c3e72490abafc257c55554f4, type: 2}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1215,6 +1306,10 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1389436525}
+    - target: {fileID: 1000012401845220, guid: 3fbf441bac8a94ce2b9745104297f9f9, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3fbf441bac8a94ce2b9745104297f9f9, type: 2}
   m_IsPrefabParent: 0

@@ -460,8 +460,18 @@ public class GameManager : MonoBehaviour {
 		}
 
 		//Toggle minimap
-		if(Input.GetKeyDown(KeyCode.Q) && !TextFieldEnabled){
+		if(Input.GetButtonDown("ToggleMinimap") && !TextFieldEnabled){
 			ToggleMiniMap();
+		}
+
+		//Add second player
+		if (Input.GetButtonDown ("ToggleSecondPlayer") && !TextFieldEnabled) {
+			int newNumberOfPlayers;
+			if (numberOfPlayers == 1)
+				newNumberOfPlayers = 2;
+			else
+				newNumberOfPlayers = 1;
+			SetNumberOfPlayers (newNumberOfPlayers);
 		}
 	}
 
@@ -562,7 +572,7 @@ public class GameManager : MonoBehaviour {
 		homeScreenProgress.UpdateProgress (data.maxAchievedDungeonLevel);
 
 		audioSourceMusic.clip = audioHomeScreen;
-		//audioSourceMusic.Play ();
+		audioSourceMusic.Play ();
 		resetHomeScreenPlayer ();
 
 		Pet.SetActive (true);

@@ -13,6 +13,7 @@ public class UI : MonoBehaviour {
 	public Text currentHealthText;
 	public Text maxHealthText;
 	public Image healthImage;
+	public Animator healthImageAnimator;
 	public Timer timer;
 	public GameObject Minimap;
 	public Camera minimapCam;
