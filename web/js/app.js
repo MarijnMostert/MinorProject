@@ -6,9 +6,13 @@ $(document).ready(function(){
 	
 	var id = getCookie("DarkDescent");
 
-	$("#name").keyup(function(event){
-		if(event.keyCode == 13){
-			window.location.href ='search.php?name='.$("name").val();
+	$("#form").on("keyup keypress",function(event){
+		var keyCode = event.keyCode || event.which;
+		if(keyCode === 13){
+			event.preventDefault();
+			var name = $("#name").val();
+			console.log('/search.php?name='+name.toString());
+			window.location.href ='search.php?name='+name;
 		}
 	});
 	
@@ -59,16 +63,16 @@ var header = function(){
 	if (guild === 'null'){
 		var add_guild = document.createElement('p').appendChild(document.createElement('a'));
 		add_guild.innerHTML = 'Add Guild';
-		$('#guilds_dropdown').append(add_guild);
+		$('.guilds_dropdown').append(add_guild);
 	} else {
 		var view_guild = document.createElement('p').appendChild(document.createElement('a'));
 		view_guild.className = 'ViewGuild_menu';
 		view_guild.innerHTML = 'View Guild';
-		$('#guilds_dropdown').append(view_guild);
+		$('.guilds_dropdown').append(view_guild);
 		var guild_forum = document.createElement('p').appendChild(document.createElement('a'));
 		guild_forum.className = 'GuildForum_menu';
 		guild_forum.innerHTML = 'Guild Forum';
-		$('#guilds_dropdown').append(guild_forum);
+		$('.guilds_dropdown').append(guild_forum);
 		$('.ViewGuild_menu').on('click',function(){window.location.href="guild.php";});
 		$('.GuildForum_menu').on('click',function(){window.location.href="guildforum.php";});
 	}

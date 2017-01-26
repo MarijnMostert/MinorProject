@@ -11,9 +11,11 @@ $selected = mysql_select_db("ewi3620tu1",$dbhandle)
     
 if(ISSET($_POST["name"])){
 	$name = mysql_real_escape_string($_POST["name"]);
-
+	
 	//execute the SQL query and return records
-	//$result = mysql_query("SELECT @r := @r+1 , z.* FROM(SELECT * FROM score ORDER BY ordercount DESC)z, (SELECT @r:=0)y");
+	//mysql_query("");
+	//$result = mysql_query("SET @rank=0; SELECT @rank:=@rank+1 AS rank, name, score FROM score ORDER BY score DESC;");
+	
 	$result = mysql_query("SELECT score.id, score.score, name, score.date FROM score JOIN user ON score.player_id = user.id WHERE name LIKE '%".$name."%'");
 	//fetch the data from the database
 	$arr = array();
