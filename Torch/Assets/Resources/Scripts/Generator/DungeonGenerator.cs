@@ -542,7 +542,7 @@ public class DungeonGenerator : Object {
 		p2D translated = coord;
 		//Needs to translate so that it doesn't start at the door itself, but one step further
 		//Otherwise it will say false anyway
-		if(true|| from.Equals ("room")) { translated = p2D.translateDirectional2 (coord, 1, direction); }
+		if(true || from.Equals ("room")) { translated = p2D.translateDirectional2 (coord, 1, direction); }
 		return rectangleFree (translated, direction, 1, corridorLength-loopsAllowedInt);
 	}
 

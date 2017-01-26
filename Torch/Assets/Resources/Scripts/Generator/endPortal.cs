@@ -7,9 +7,16 @@ using UnityEngine.UI;
 public class endPortal : InteractableItem {
     //AsyncOperation async;
 	GameObject endOfRoundCanvas;
+	public GameObject slider;
 	public bool endPortalActivated = false;
 	public Animator anim;
 	public bool tutorial = false;
+	Vector3 targetposition;
+	Vector3 standardposition;
+
+	void Update () {
+		slider.transform.position = Vector3.MoveTowards (slider.transform.position, targetposition, 0.1f);
+	}
 
     public override void Start () {
 		if (gameManager == null) {
@@ -22,19 +29,32 @@ public class endPortal : InteractableItem {
 			PM.playerMovement.ToggleArenaPointer (endPortalActivated, gameObject);
 		}
 		UpdateKeyText ();
+		targetposition = slider.transform.position;
+		standardposition = slider.transform.position;
     }
 
 
 	void OnTriggerEnter(Collider other){
-		if(!endPortalActivated){
-			if (anim == null) {
-				anim = gameManager.ui.keysText.GetComponent<Animator> ();
-			}
-			anim.SetTrigger ("Flash");
-			Debug.Log (gameManager.collectedKeys + " keys out of " + gameManager.requiredCollectedKeys + 
+		if (other.gameObject.CompareTag ("Player")) {
+			if (!endPortalActivated) {
+				if (anim == null) {
+					anim = gameManager.ui.keysText.GetComponent<Animator> ();
+				}
+				anim.SetTrigger ("Flash");
+				Debug.Log (gameManager.collectedKeys + " keys out of " + gameManager.requiredCollectedKeys +
 				" keys are collected.\nYou need " + (gameManager.requiredCollectedKeys - gameManager.collectedKeys) + " more keys.");
+			}
+			if (endPortalActivated) {
+				targetposition = standardposition - Vector3.up * 3;
+			}
 		}
     }
+
+	void OnTriggerExit(Collider other) {
+		if (other.gameObject.CompareTag ("Player")) {
+			targetposition = standardposition;
+		}
+	}
 
 	public override void action (GameObject triggerObject)
 	{
