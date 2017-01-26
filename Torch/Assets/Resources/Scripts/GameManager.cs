@@ -64,6 +64,7 @@ public class GameManager : MonoBehaviour {
 	public GameObject triggerFloorPrefab;
 	private GameObject triggerFloorObject;
 
+	public bool RandomizeTexturesAllowed;
 	public ProceduralMaterial[] substances;
 
 	private bool cheat;
@@ -213,6 +214,7 @@ public class GameManager : MonoBehaviour {
 			Time.timeScale = 1f;
 			endOfRoundCanvas.SetActive (false);
 			loadingScreenCanvas.transform.Find ("LevelText").GetComponent<Text> ().text = "Dungeon level: " + (dungeonLevel).ToString();
+			loadingScreenCanvas.transform.Find ("RandomizingTexturesText").gameObject.SetActive(RandomizeTexturesAllowed);
             loadingScreenCanvas.SetActive(true);
 			Destroy (homeScreenEnvironment);
 			homeScreen.SetActive (false);
@@ -229,7 +231,9 @@ public class GameManager : MonoBehaviour {
 		}
 
 		yield return new WaitForSeconds (.1f);
-		//RandomizeTextures ();
+		if (RandomizeTexturesAllowed) {
+			RandomizeTextures ();
+		}
 
 		if (type == 1) {
 			masterGenerator = new MasterGenerator (this.gameObject, dungeonData.dungeonParameters[dungeonLevel], radius, maxlength, timeout);
@@ -349,6 +353,10 @@ public class GameManager : MonoBehaviour {
 		mainCamera.GetComponent<CameraController> ().SetMode ("Normal");
 
 		yield return null;
+	}
+
+	public void toggleRandomizeTexturesAllowed () {
+		RandomizeTexturesAllowed = !RandomizeTexturesAllowed;
 	}
 
 	public void RandomizeTextures () {
@@ -671,6 +679,7 @@ public class GameManager : MonoBehaviour {
 			Time.timeScale = 1f;
 			StartTime = Time.time;
 			loadingScreenCanvas.transform.Find ("LevelText").GetComponent<Text> ().text = "Dungeon level: " + "Tutorial";
+			loadingScreenCanvas.transform.Find ("RandomizingTexturesText").gameObject.SetActive(RandomizeTexturesAllowed);
 			loadingScreenCanvas.SetActive (true);
 			homeScreen.SetActive (false);
 			StartCoroutine (CreateLevel (0));
@@ -684,6 +693,7 @@ public class GameManager : MonoBehaviour {
 			Time.timeScale = 1f;
 			StartTime = Time.time;
 			loadingScreenCanvas.transform.Find ("LevelText").GetComponent<Text> ().text = "Dungeon level: " + "Arena";
+			loadingScreenCanvas.transform.Find ("RandomizingTexturesText").gameObject.SetActive(RandomizeTexturesAllowed);
 			loadingScreenCanvas.SetActive (true);
 			homeScreen.SetActive (false);
 			StartCoroutine (CreateLevel (2));
