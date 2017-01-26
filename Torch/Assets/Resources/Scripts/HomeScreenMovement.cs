@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class HomeScreenMovement : MonoBehaviour {
 
@@ -18,7 +19,7 @@ public class HomeScreenMovement : MonoBehaviour {
 	public float smoothing = 0.3f;
 	Vector3 smoothDampVar;
 
-	bool invertY = false;
+	public bool invertY = false;
 
 	private string moveHorizontal;
 	private string moveVertical;
@@ -117,14 +118,12 @@ public class HomeScreenMovement : MonoBehaviour {
 		target.transform.Translate(MovementInput * walkingSpeed * Time.deltaTime);
 	}
 
-	public void InvertY(){
-		if (invertY) {
-			invertY = false;
-			Debug.Log ("Y-axis  not inverted");
-		} else {
-			invertY = true;
+	public void InvertY(bool newBool){
+		invertY = newBool;
+		if (invertY)
 			Debug.Log ("Y-axis inverted");
-		}
+		else
+			Debug.Log ("Y-axis not inverted");
 	}
 
 	void LateUpdate() {

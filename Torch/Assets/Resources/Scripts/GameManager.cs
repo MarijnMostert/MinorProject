@@ -120,7 +120,7 @@ public class GameManager : MonoBehaviour {
 	public AudioClip[] audioDungeon;
 	public AudioClip audioPartyTorch;
 	public AudioClip audioGoldenTorch;
-	public bool audioMuted;
+	private bool audioMuted = false;
 
 	[Header("- Debugging properties")]
 	public GameObject DebuggerPanel;
@@ -615,16 +615,13 @@ public class GameManager : MonoBehaviour {
 		StartGame ();
 	}
 
-	public void MuteAudio(){
-		if (audioMuted) {
-			audioSourceMusic.mute = false;
-			audioMuted = false;
-			Debug.Log ("Audio is unmuted");
-		} else {
-			audioSourceMusic.mute = true;
-			audioMuted = true;
+	public void MuteAudio(bool newBool){
+		audioMuted = newBool;
+		audioSourceMusic.mute = newBool;
+		if (audioMuted)
 			Debug.Log ("Audio is muted");
-		}
+		else
+			Debug.Log ("Audio is unmuted");
 	}
 
 
@@ -793,12 +790,10 @@ public class GameManager : MonoBehaviour {
 
 	//highQuality = true and lowQuality = false
 	public void setQuality(bool setHighQuality){
-		data.highQuality = false;
-		if (!setHighQuality) {
+		if (!setHighQuality)
 			data.highQuality = false;
-		} else if (setHighQuality) {
+		else
 			data.highQuality = true;
-		}
 
 		for (int i = 0; i < highQualityItems.Count; i++) {
 			if (highQualityItems [i] == null) {
