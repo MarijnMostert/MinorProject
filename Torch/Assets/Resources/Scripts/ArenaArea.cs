@@ -10,7 +10,7 @@ public class ArenaArea : MonoBehaviour {
 	void Start () {
 		gameManager = GameManager.Instance;
 	}
-	
+
 	void OnTriggerEnter (Collider other) {
 		gameManager.RespawnPosition = transform.position;
 	}
@@ -20,7 +20,7 @@ public class ArenaArea : MonoBehaviour {
 			playerinarea = true;
 		}
 	}
-	
+
 	void OnDisable (){
 		playerinarea = false;
 	}
