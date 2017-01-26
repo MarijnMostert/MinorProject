@@ -414,7 +414,7 @@ GameObject:
   - 114: {fileID: 114000011792102392}
   - 65: {fileID: 65000013344553996}
   m_Layer: 0
-  m_Name: Torch_Health
+  m_Name: Traps
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5412,7 +5412,7 @@ GameObject:
   - 114: {fileID: 114000010483058792}
   - 65: {fileID: 65000011527513404}
   m_Layer: 0
-  m_Name: TorchesOn
+  m_Name: TorchHealth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7112,6 +7112,23 @@ GameObject:
   - 65: {fileID: 65000011188507914}
   m_Layer: 8
   m_Name: RoofPrefab(Clone) (95)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1000012389969500
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 4000011700374120}
+  - 114: {fileID: 114000011800638046}
+  - 65: {fileID: 65000011474905668}
+  m_Layer: 0
+  m_Name: TorchesOn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13528,7 +13545,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
   m_Children: []
   m_Father: {fileID: 4000010908073540}
-  m_RootOrder: 4
+  m_RootOrder: 5
 --- !u!4 &4000010076336638
 Transform:
   m_ObjectHideFlags: 1
@@ -14560,8 +14577,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011743447476}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6.5, y: 1, z: -72}
-  m_LocalScale: {x: 15, y: 2, z: 6}
+  m_LocalPosition: {x: 6, y: 1, z: -77}
+  m_LocalScale: {x: 6, y: 2, z: 12}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000010908073540}
@@ -15305,7 +15322,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012528916838}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 55.41461, y: 75.961296, z: 125.79078}
+  m_LocalPosition: {x: 43.09773, y: 28.211948, z: 16.234749}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -15736,6 +15753,7 @@ Transform:
   - {fileID: 4000012627645236}
   - {fileID: 4000012045177528}
   - {fileID: 4000010457855840}
+  - {fileID: 4000011700374120}
   - {fileID: 4000013455480564}
   - {fileID: 4000010074460806}
   - {fileID: 4000012380939016}
@@ -17406,6 +17424,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4000012174504690}
   m_RootOrder: 337
+--- !u!4 &4000011700374120
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012389969500}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -6.5, y: 1, z: -72}
+  m_LocalScale: {x: 15, y: 2, z: 6}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 4000010908073540}
+  m_RootOrder: 3
 --- !u!4 &4000011710010556
 Transform:
   m_ObjectHideFlags: 1
@@ -17513,7 +17544,7 @@ Transform:
   - {fileID: 4000011677051906}
   - {fileID: 4000010061380628}
   m_Father: {fileID: 4000010908073540}
-  m_RootOrder: 10
+  m_RootOrder: 11
 --- !u!4 &4000011751207306
 Transform:
   m_ObjectHideFlags: 1
@@ -18552,7 +18583,7 @@ Transform:
   m_Children:
   - {fileID: 4000011004702752}
   m_Father: {fileID: 4000010908073540}
-  m_RootOrder: 7
+  m_RootOrder: 8
 --- !u!4 &4000012174504690
 Transform:
   m_ObjectHideFlags: 1
@@ -19444,7 +19475,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000010908073540}
-  m_RootOrder: 5
+  m_RootOrder: 6
 --- !u!4 &4000012384842440
 Transform:
   m_ObjectHideFlags: 1
@@ -19946,7 +19977,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000010908073540}
-  m_RootOrder: 9
+  m_RootOrder: 10
 --- !u!4 &4000012663955974
 Transform:
   m_ObjectHideFlags: 1
@@ -20866,7 +20897,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000010908073540}
-  m_RootOrder: 8
+  m_RootOrder: 9
 --- !u!4 &4000013127001334
 Transform:
   m_ObjectHideFlags: 1
@@ -21508,7 +21539,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000010908073540}
-  m_RootOrder: 3
+  m_RootOrder: 4
 --- !u!4 &4000013456322180
 Transform:
   m_ObjectHideFlags: 1
@@ -22342,7 +22373,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
   m_Children: []
   m_Father: {fileID: 4000010908073540}
-  m_RootOrder: 6
+  m_RootOrder: 7
 --- !u!4 &4000013819942892
 Transform:
   m_ObjectHideFlags: 1
@@ -46503,6 +46534,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 10, y: 2.2204459e-16, z: 10}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65000011474905668
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012389969500}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!65 &65000011496435778
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -51883,6 +51926,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WallTorches:
   - {fileID: 1000010760860732}
+  smokeParticles: {fileID: 0}
 --- !u!114 &114000010344578902
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -51926,8 +51970,12 @@ MonoBehaviour:
   boldTalkingClip: {fileID: 8300000, guid: e33b141468f5a420bb9cf3569a65b19b, type: 3}
   SpiderRoom: 0
   Spider: {fileID: 0}
-  myKeyboardText: There's a MINMAP up right!
-  myControllerText: There's a MINMAP up right!
+  myKeyboardText: 'Protect your TORCH!
+
+    Enemies and Time will extinguish the fire.'
+  myControllerText: 'Protect your TORCH!
+
+    Enemies and Time will extinguish the fire.'
 --- !u!114 &114000010515555216
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -51941,6 +51989,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WallTorches:
   - {fileID: 1000013959465390}
+  smokeParticles: {fileID: 0}
 --- !u!114 &114000010582431618
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -51982,6 +52031,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WallTorches:
   - {fileID: 1000011096983940}
+  smokeParticles: {fileID: 0}
 --- !u!114 &114000010645625018
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -52028,6 +52078,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WallTorches:
   - {fileID: 1000014072491204}
+  smokeParticles: {fileID: 0}
 --- !u!114 &114000010927139864
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -52103,6 +52154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WallTorches:
   - {fileID: 1000012484724314}
+  smokeParticles: {fileID: 0}
 --- !u!114 &114000010970976662
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -52414,12 +52466,24 @@ MonoBehaviour:
   boldTalkingClip: {fileID: 8300000, guid: f37659a5859c343cda80efcd62965b79, type: 3}
   SpiderRoom: 0
   Spider: {fileID: 0}
-  myKeyboardText: 'Protect your TORCH!
-
-    Enemies and Time will extinguish the fire.'
-  myControllerText: 'Protect your TORCH!
-
-    Enemies and Time will extinguish the fire.'
+  myKeyboardText: Careful! There will be TRAPS along the way!
+  myControllerText: Careful! There will be TRAPS along the way!
+--- !u!114 &114000011800638046
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012389969500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 403898b3b6b8d4c8e9afed4147e29246, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boldTalkingClip: {fileID: 8300000, guid: e33b141468f5a420bb9cf3569a65b19b, type: 3}
+  SpiderRoom: 0
+  Spider: {fileID: 0}
+  myKeyboardText: There will be a MINIMAP up right!
+  myControllerText: There will be a MINIMAP up right!
 --- !u!114 &114000011827220634
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -52597,6 +52661,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WallTorches:
   - {fileID: 1000010925641144}
+  smokeParticles: {fileID: 0}
 --- !u!114 &114000012342447340
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -52627,6 +52692,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WallTorches:
   - {fileID: 1000012226177142}
+  smokeParticles: {fileID: 0}
 --- !u!114 &114000012434775846
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -53117,6 +53183,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   WallTorches:
   - {fileID: 1000010229558000}
+  smokeParticles: {fileID: 0}
 --- !u!114 &114000014212952116
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -38,32 +38,13 @@ public class HomeScreenMovement : MonoBehaviour {
         offset = target.transform.position - transform.position;
 		idealdistance = offset.magnitude;
 		originalforward = transform.forward;
+		minimalheight = -2.0f;
+		maximalheight = 2.5f;
     }
 
 	// Update is called once per frame
 	void Update () {
 		Move ();
-        /*anim.SetBool("walking", false);
-        if (Input.GetKey("d"))
-        {
-			target.transform.Translate(new Vector3(0, 0, walkingSpeed));
-            anim.SetBool("walking",true);
-        }
-        if (Input.GetKey("a"))
-        {
-			target.transform.Translate(new Vector3(0, 0, -walkingSpeed));
-            anim.SetBool("walking", true);
-        }
-        if (Input.GetKey("w"))
-        {
-			target.transform.Translate(new Vector3(-walkingSpeed, 0, 0));
-            anim.SetBool("walking", true);
-        }
-        if (Input.GetKey("s"))
-        {
-            target. transform.Translate(new Vector3(walkingSpeed, 0, 0));
-            anim.SetBool("walking", true);
-        }*/
 		float horizontal = Input.GetAxis("turnHorizontal1") * rotateSpeed;
 		if (Mathf.Abs(horizontal) < .1f){//no controllerinput then use mouse
 			horizontal = Input.GetAxis("Mouse X") * rotateSpeed;
@@ -125,6 +106,11 @@ public class HomeScreenMovement : MonoBehaviour {
 			invertY = true;
 			Debug.Log ("Y-axis inverted");
 		}
+	}
+
+	void OnEnable () {
+		minimalheight = -2.0f;
+		maximalheight = 2.5f;
 	}
 
 	void LateUpdate() {
