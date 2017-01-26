@@ -254,6 +254,7 @@ GameObject:
   - 33: {fileID: 33000014196540252}
   - 23: {fileID: 23000012336554046}
   - 64: {fileID: 64000011410051930}
+  - 114: {fileID: 114000010397209870}
   m_Layer: 0
   m_Name: Lava_Waterfall_Passage
   m_TagString: Untagged
@@ -574,6 +575,7 @@ GameObject:
   - 33: {fileID: 33000011507548348}
   - 23: {fileID: 23000012402539894}
   - 64: {fileID: 64000010781778062}
+  - 114: {fileID: 114000013913228892}
   m_Layer: 0
   m_Name: Lava_Waterfall
   m_TagString: Untagged
@@ -1752,8 +1754,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013649619928}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.0000038146973, y: -0.00000017881393, z: 0}
+  m_LocalRotation: {x: -0.011445423, y: 0.22225346, z: 0.0026092287, w: 0.9749183}
+  m_LocalPosition: {x: 1.2769165, y: 1.7918429, z: -2.4357357}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -1792,7 +1794,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012033004794}
   m_LocalRotation: {x: 0, y: 0.46174863, z: 0, w: 0.8870109}
-  m_LocalPosition: {x: -29.69, y: 0, z: 28.97}
+  m_LocalPosition: {x: -30.7, y: 0, z: 27.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 55, z: 0}
   m_Children:
@@ -2408,8 +2410,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012280437314}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.0000038146973, y: -0.00000017881393, z: 0}
+  m_LocalRotation: {x: -0.05094518, y: 0.6589992, z: 0.04481896, w: 0.74907666}
+  m_LocalPosition: {x: -1.5521374, y: 3.8041186, z: 0.71123123}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -2461,7 +2463,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013001505936}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 22.8, y: 0, z: 24.7}
+  m_LocalPosition: {x: 22.8, y: 0, z: 27.3}
   m_LocalScale: {x: 1.0000002, y: 1, z: 1.0000002}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -2622,8 +2624,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013791128812}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.0000038146973, y: -0.00000017881393, z: 0}
+  m_LocalRotation: {x: -0.39236492, y: -0.3876481, z: -0.18711282, w: 0.8128761}
+  m_LocalPosition: {x: -1.62253, y: 2.4176528, z: -1.5523319}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -2687,8 +2689,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011921655294}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.26639557, y: 0.7336044, z: -0.44228384, w: 0.44186315}
+  m_LocalPosition: {x: -0.97356796, y: 1.663734, z: -0.033924103}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -6504,6 +6506,19 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114000010397209870
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010642075888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cbe3f0d93096194db25b227866d704b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrollx: 0
+  scrolly: 0.5
 --- !u!114 &114000011165493834
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6568,7 +6583,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   center: {fileID: 4000012570003356}
-  centerPosition: {x: 0, y: 0, z: 0}
+  centerPosition: {x: 31.2, y: -0.59, z: -20.68}
   maxDistance: 5
   maxWalkTime: 5
   maxWaitTime: 2
@@ -6588,7 +6603,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   center: {fileID: 4000012570003356}
-  centerPosition: {x: 0, y: 0, z: 0}
+  centerPosition: {x: 31.2, y: -0.59, z: -20.68}
   maxDistance: 5
   maxWalkTime: 5
   maxWaitTime: 2
@@ -6608,7 +6623,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   center: {fileID: 4000012570003356}
-  centerPosition: {x: 0, y: 0, z: 0}
+  centerPosition: {x: 31.2, y: -0.59, z: -20.68}
   maxDistance: 5
   maxWalkTime: 5
   maxWaitTime: 2
@@ -6629,6 +6644,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   doorOpen: 0
   locked: 0
+--- !u!114 &114000013913228892
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011386536308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cbe3f0d93096194db25b227866d704b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scrollx: 0
+  scrolly: 0.5
 --- !u!114 &114000014254158682
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -6641,7 +6669,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   center: {fileID: 4000012570003356}
-  centerPosition: {x: 0, y: 0, z: 0}
+  centerPosition: {x: 31.2, y: -0.59, z: -20.68}
   maxDistance: 5
   maxWalkTime: 5
   maxWaitTime: 2
