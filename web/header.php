@@ -24,11 +24,22 @@
 			<img src="img/Avatar.jpg">
 		</div>
 	</div>
+	<div id="side-menu">
+		<div><button class="leftbutton hamburger"></button></div>
+		<div class="menu-item home-menu"><p><a>Home</a></p></div>
+		<div class="menu-item statistics-menu"><p><a>Statistics</a></p></div>
+		<div class="menu-item dropdown">
+			<p><a class="dropbtn">Guilds</a></p>
+			<div id="guilds_dropdown" class="dropdown-content guilds_dropdown"></div>
+		</div>
+		<div class="menu-item settings-menu"><p><a>Settings</a></p></div>
+	</div>
 	<div id="header">
 		<div id="right-top">
+			<button class="leftbutton hamburger"></button> 
 			<button id="logout_button" class="button"></button>
-			<form>	
-				<input type="text" name="search" placeholder="Search..">
+			<form id="form">	
+				<input id="name" type="text" name="name" placeholder="Search..">
 			</form>
 		</div>
 		<div id="menu">
@@ -37,7 +48,7 @@
 			<div class="menu-empty"></div>
 			<div class="menu-item dropdown">
 				<p><a class="dropbtn">Guilds</a></p>
-				<div id="guilds_dropdown" class="dropdown-content"></div>
+				<div id="guilds_dropdown" class="dropdown-content guilds_dropdown"></div>
 			</div>
 			<div class="menu-item settings-menu"><p><a>Settings</a></p></div>
 		</div>
