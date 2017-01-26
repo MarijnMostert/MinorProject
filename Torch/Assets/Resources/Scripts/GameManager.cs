@@ -5,7 +5,6 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using System;
 using UnityEngine.Analytics;
-using UnityEditor;
 
 public class GameManager : MonoBehaviour {
 
