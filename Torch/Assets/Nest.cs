@@ -23,6 +23,7 @@ public class Nest : AudioObject {
 
     public GameObject spawnpoint;
     public int numberOfEnemies;
+	public float chanceSpawnOnHit = .2f;
 
     void Awake()
     {
@@ -41,6 +42,11 @@ public class Nest : AudioObject {
 	public void takeDamage(int damage, bool crit, GameObject source)
     {
         //Debug.Log (gameObject + " takes " + damage + " damage.");
+
+		if (Random.value < chanceSpawnOnHit) {
+			ObjectPooler.Instance.GetObject (enemy.ObjectPoolIndex, true, spawnpoint.gameObject.transform.position, 
+				Quaternion.Euler (new Vector3 (0f, Random.Range (0, 360), 0f)));
+		}
 
         if (healthBar == null)
         {
@@ -65,10 +71,6 @@ public class Nest : AudioObject {
             //			Debug.Log ("dead");
             StartCoroutine(spawn());
             Die();
-        }
-        if (Random.value < .3f)
-        {
-            StartCoroutine(spawn());
         }
     }
 
@@ -114,6 +116,7 @@ public class Nest : AudioObject {
     //When the enemy's health drops below 0.
     private IEnumerator DieThread()
     {
+		Drop ();
         //Debug.Log(gameObject + " died.");
         dead = true;
 		healthBar.SetActive (false);
@@ -149,12 +152,14 @@ public class Nest : AudioObject {
     }
 
 	void Drop(){
-		float rand = Random.value;
 		for (int i = 0; i < 7; i++) {
+			float rand = Random.value;
 			if (rand > 0.5)
-				ObjectPooler.Instance.GetObject (18, true, new Vector3 (transform.position.x, 1f, transform.position.z));
-			if (rand > 0.9)
-				ObjectPooler.Instance.GetObject (17, true, new Vector3(transform.position.x, 1f, transform.position.z));
+				ObjectPooler.Instance.GetObject (18, true, new Vector3 (transform.position.x + Random.Range(-3f, 3f),
+					1f, transform.position.z + Random.Range(-3f, 3f)));
+			if (rand > 0.8)
+				ObjectPooler.Instance.GetObject (17, true, new Vector3(transform.position.x + Random.Range(-3f, 3f),
+					1f, transform.position.z + Random.Range(-3f, 3f)));
 		}
 	}
 

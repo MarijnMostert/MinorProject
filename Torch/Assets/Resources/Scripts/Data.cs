@@ -379,9 +379,13 @@ public class Data : MonoBehaviour {
         }
 
         PlayerPrefs.SetInt("coins", 0);
-        PlayerPrefs.SetInt("dungeonLevel", 0);
+        PlayerPrefs.SetInt("dungeonLevel", 1);
         PlayerPrefs.SetInt("highQuality", 1);
         gameManager.achievements.resetAchievements();
+
+        coins = 0;
+        maxAchievedDungeonLevel = 1;
+        highQuality = true;
 
         highscores.highscore.Clear();
         File.Delete("highScores.txt");

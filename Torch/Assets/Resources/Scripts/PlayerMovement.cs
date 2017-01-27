@@ -181,10 +181,17 @@ public class PlayerMovement : MonoBehaviour {
 		VerticalInput = Input.GetAxis (moveVertical);
 
 		//Make the player move (Where z-axis is forwards/backwards and x-axis is sideways). No movement in Y-axis.
-		Vector3 MovementInput = new Vector3(HorizontalInput, 0, VerticalInput);
+		Vector3 RawMovementInput = new Vector3(HorizontalInput, 0, VerticalInput);
 
 		//Normalize to account for diagonal walking lines
-		MovementInput = MovementInput.normalized;
+		Vector3 NormalizedMovementInput = RawMovementInput.normalized;
+		if (NormalizedMovementInput.x < 0)
+			NormalizedMovementInput.x *= -1f;
+		if (NormalizedMovementInput.z < 0)
+			NormalizedMovementInput.z *= -1f;
+
+		Vector3 MovementInput = new Vector3 (HorizontalInput * NormalizedMovementInput.x, 0f, VerticalInput * NormalizedMovementInput.z);
+//		Debug.Log ("Raw: " + RawMovementInput + ", Normalized: " + NormalizedMovementInput + ", Final: " + MovementInput);
 
         //Move
         if (anim1!=null) {

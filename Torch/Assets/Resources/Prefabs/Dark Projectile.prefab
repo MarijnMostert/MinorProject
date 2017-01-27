@@ -210,10 +210,16 @@ MonoBehaviour:
   lifeTime: 30
   collisionMask:
     serializedVersion: 2
-    m_Bits: 4294452223
+    m_Bits: 4293403647
   speed: 0
   piercing: 0
   PlayerData: {fileID: 0}
+  multiplier: 1
+  TargetFinder: 0
+  col: {fileID: 0}
+  Target: {fileID: 0}
+  Boomerang: 0
+  rangedWeapon: {fileID: 0}
   comp:
     timeOut: 0
     trailRenderer: {fileID: 0}
@@ -227,7 +233,7 @@ ParticleSystem:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012536043794}
-  serializedVersion: 2
+  serializedVersion: 4
   lengthInSec: 5
   startDelay:
     scalar: 0
@@ -265,12 +271,13 @@ ParticleSystem:
       m_RotationOrder: 4
     minMaxState: 0
   speed: 1
-  randomSeed: 63433504
   looping: 1
   prewarm: 0
   playOnAwake: 1
   moveWithTransform: 1
+  autoRandomSeed: 0
   scalingMode: 1
+  randomSeed: 63433504
   InitialModule:
     serializedVersion: 2
     enabled: 1

@@ -5,7 +5,6 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using System;
 using UnityEngine.Analytics;
-using UnityEditor;
 
 public class GameManager : MonoBehaviour {
 
@@ -64,6 +63,7 @@ public class GameManager : MonoBehaviour {
 	public GameObject triggerFloorPrefab;
 	private GameObject triggerFloorObject;
 
+	public bool RandomizeTexturesAllowed;
 	public ProceduralMaterial[] substances;
 
 	private bool cheat;
@@ -120,7 +120,7 @@ public class GameManager : MonoBehaviour {
 	public AudioClip[] audioDungeon;
 	public AudioClip audioPartyTorch;
 	public AudioClip audioGoldenTorch;
-	public bool audioMuted;
+	private bool audioMuted = false;
 
 	[Header("- Debugging properties")]
 	public GameObject DebuggerPanel;
@@ -213,6 +213,7 @@ public class GameManager : MonoBehaviour {
 			Time.timeScale = 1f;
 			endOfRoundCanvas.SetActive (false);
 			loadingScreenCanvas.transform.Find ("LevelText").GetComponent<Text> ().text = "Dungeon level: " + (dungeonLevel).ToString();
+			loadingScreenCanvas.transform.Find ("RandomizingTexturesText").gameObject.SetActive(RandomizeTexturesAllowed);
             loadingScreenCanvas.SetActive(true);
 			Destroy (homeScreenEnvironment);
 			homeScreen.SetActive (false);
@@ -229,7 +230,10 @@ public class GameManager : MonoBehaviour {
 		}
 
 		yield return new WaitForSeconds (.1f);
-		//RandomizeTextures ();
+		if(!PlayerPrefs.HasKey("TexturesRandomized") || RandomizeTexturesAllowed){
+			RandomizeTextures ();
+			PlayerPrefs.SetInt ("TexturesRandomized", 1);
+		}
 
 		if (type == 1) {
 			masterGenerator = new MasterGenerator (this.gameObject, dungeonData.dungeonParameters[dungeonLevel], radius, maxlength, timeout);
@@ -351,6 +355,10 @@ public class GameManager : MonoBehaviour {
 		yield return null;
 	}
 
+	public void toggleRandomizeTexturesAllowed (bool newBool) {
+		RandomizeTexturesAllowed = newBool;
+	}
+
 	public void RandomizeTextures () {
 		foreach (ProceduralMaterial substance in substances){
 			UnityEngine.Random.InitState( (int)Time.time);
@@ -467,7 +475,7 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
-	void Pause(){
+	public void Pause(){
 		if (!paused) {
 			Time.timeScale = 0;
 			paused = true;
@@ -615,16 +623,13 @@ public class GameManager : MonoBehaviour {
 		StartGame ();
 	}
 
-	public void MuteAudio(){
-		if (audioMuted) {
-			audioSourceMusic.mute = false;
-			audioMuted = false;
-			Debug.Log ("Audio is unmuted");
-		} else {
-			audioSourceMusic.mute = true;
-			audioMuted = true;
+	public void MuteAudio(bool newBool){
+		audioMuted = newBool;
+		audioSourceMusic.mute = newBool;
+		if (audioMuted)
 			Debug.Log ("Audio is muted");
-		}
+		else
+			Debug.Log ("Audio is unmuted");
 	}
 
 
@@ -681,6 +686,7 @@ public class GameManager : MonoBehaviour {
 			Time.timeScale = 1f;
 			StartTime = Time.time;
 			loadingScreenCanvas.transform.Find ("LevelText").GetComponent<Text> ().text = "Dungeon level: " + "Tutorial";
+			loadingScreenCanvas.transform.Find ("RandomizingTexturesText").gameObject.SetActive(RandomizeTexturesAllowed);
 			loadingScreenCanvas.SetActive (true);
 			homeScreen.SetActive (false);
 			StartCoroutine (CreateLevel (0));
@@ -694,6 +700,7 @@ public class GameManager : MonoBehaviour {
 			Time.timeScale = 1f;
 			StartTime = Time.time;
 			loadingScreenCanvas.transform.Find ("LevelText").GetComponent<Text> ().text = "Dungeon level: " + "Arena";
+			loadingScreenCanvas.transform.Find ("RandomizingTexturesText").gameObject.SetActive(RandomizeTexturesAllowed);
 			loadingScreenCanvas.SetActive (true);
 			homeScreen.SetActive (false);
 			StartCoroutine (CreateLevel (2));
@@ -793,12 +800,10 @@ public class GameManager : MonoBehaviour {
 
 	//highQuality = true and lowQuality = false
 	public void setQuality(bool setHighQuality){
-		data.highQuality = false;
-		if (!setHighQuality) {
+		if (!setHighQuality)
 			data.highQuality = false;
-		} else if (setHighQuality) {
+		else
 			data.highQuality = true;
-		}
 
 		for (int i = 0; i < highQualityItems.Count; i++) {
 			if (highQualityItems [i] == null) {

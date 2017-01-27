@@ -36,7 +36,7 @@ public class BossBehaviour : MonoBehaviour, IDamagable {
 	void Start () {
 		gameManager = GameManager.Instance;
 		dead = false;
-		health = startingHealth;
+		health = startingHealth + 100 * gameManager.dungeonLevel;
 		lastSpecAtt = 0;
 		specCooldown = 8;
 		gameObject.transform.FindChild ("BossShield").gameObject.SetActive (false);
@@ -112,6 +112,9 @@ public class BossBehaviour : MonoBehaviour, IDamagable {
 			if (Random.value > 0.8f) {
 				if (Time.time - lastSpecAtt > specCooldown) {
 					StopAllCoroutines ();
+					if (navMeshAgent.enabled) {
+						navMeshAgent.SetDestination (transform.position);
+					} 
 					StartCoroutine (SpecialAttack ());
 				}
 
@@ -122,11 +125,11 @@ public class BossBehaviour : MonoBehaviour, IDamagable {
 
 	private IEnumerator SpecialAttack(){
 		weapon.currentWeapon.GetComponent<RangedWeapon> ().setCooldown (0.01f);
-		Transform start = transform;
-		for (int i = 0; i < 35; i++) {
-			transform.Rotate (Vector3.up, 300 * Time.deltaTime);
+		for (int i = 0; i < 36; i++) {
+			transform.Rotate (new Vector3 (0, 10, 0));
+			//transform.Rotate (Vector3.up, 300 * Time.deltaTime);
 			weapon.Fire ();
-			yield return null;
+			yield return new WaitForSeconds(0.05f);
 		}
 		lastSpecAtt = Time.time;
 		weapon.currentWeapon.GetComponent<RangedWeapon> ().setCooldown (0.4f);

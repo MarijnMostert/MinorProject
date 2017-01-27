@@ -268,7 +268,7 @@ MonoBehaviour:
   levels_20: 0
   levels_30: 0
   levels_40: 0
-  hiddenTarget: {x: -175, y: -48}
+  hiddenTarget: {x: -175, y: -70}
   shownTarget: {x: -175, y: 48}
 --- !u!114 &114000011838373320
 MonoBehaviour:
@@ -462,8 +462,8 @@ MonoBehaviour:
   spawner: {fileID: 0}
   triggerFloorPrefab: {fileID: 1000012485642322, guid: e38f8103c4fde44d1a4cf4066fa8ebde,
     type: 2}
+  RandomizeTexturesAllowed: 0
   substances:
-  - {fileID: -1486117434, guid: de1d36f093b73c943a0a0e67025b5e15, type: 3}
   - {fileID: -2071217773, guid: 9100c33a71d3bc34297f459ae70777f9, type: 3}
   homeScreenEnvironmentPrefab: {fileID: 1000012969978390, guid: c76341314f7d24d5aad19ee05e15d798,
     type: 2}
@@ -501,7 +501,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 667c3a85722394921ba0173a0e9b17b3, type: 3}
   audioPartyTorch: {fileID: 8300000, guid: 4c9633496a19a402590ebb8a163b5b59, type: 3}
   audioGoldenTorch: {fileID: 8300000, guid: eccd80d1925014b86aa5f1b100b41bf3, type: 3}
-  audioMuted: 0
   DebuggerPanel: {fileID: 1000012104167014, guid: 62264218f00cc40b2b1f384d6b761f68,
     type: 2}
   allWeaponsAvailable:
@@ -525,6 +524,10 @@ MonoBehaviour:
   shopPrefab: {fileID: 114000012952452066, guid: e7fffa677a1ce4c29bfc10128f43efa3,
     type: 2}
   highQualityItems:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}

@@ -10,6 +10,7 @@ public class BossFight : AudioObject {
 	public AudioClip bossfightClip;
 	AudioSource bossMusic;
 	bool boss = false;
+	private float tempVolume;
 
 	// Use this for initialization
 	void Start () {
@@ -33,6 +34,8 @@ public class BossFight : AudioObject {
 					torches [i].transform.GetChild (3).gameObject.SetActive (true);
 				}
 				bossMusic = ObjectPooler.Instance.PlayAudioSource (bossfightClip, mixerGroup, pitchMin, pitchMax, transform);
+				tempVolume = GameManager.Instance.audioSourceMusic.volume;
+				GameManager.Instance.audioSourceMusic.volume = 0;
 			}
 		}
 		//}
@@ -44,6 +47,7 @@ public class BossFight : AudioObject {
 
 	public void ActivateLever(){
 		bossMusic.Stop ();
+		GameManager.Instance.audioSourceMusic.volume = tempVolume;
 		gameObject.GetComponentInChildren<LeverActivator> (true).Activate ();
 	}
 

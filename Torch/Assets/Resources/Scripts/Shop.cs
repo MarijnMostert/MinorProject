@@ -82,7 +82,7 @@ public class Shop : MonoBehaviour {
 
 			BuyButton.SetActive (!gameManager.data.shopItemsOwned[itemNumber]);
 			SetBuyButtonText ();
-			EquipButton.SetActive (gameManager.data.shopItemsOwned [itemNumber]);
+			EquipButton.SetActive (gameManager.data.shopItemsOwned [itemNumber] && !gameManager.data.shopItemsEquipped [itemNumber]);
 
 			itemText.text = itemsToBuy[activeIndex].itemName;
 			descriptionText.text = itemsToBuy [activeIndex].itemDescription;
@@ -125,7 +125,8 @@ public class Shop : MonoBehaviour {
 				}
 			}
 		}
-
+		//Button is no more active
+		EquipButton.SetActive (false);
 		//Set current item equipped
 		itemsToBuy[activeIndex].shopInterfaceButton.setEquipped ();
 		gameManager.data.shopItemsEquipped [activeIndex] = true;
