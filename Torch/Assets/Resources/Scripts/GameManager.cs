@@ -855,6 +855,10 @@ public class GameManager : MonoBehaviour {
 		}	
 	}
 
+	/// <summary>
+	/// Gets the cheat boolean
+	/// </summary>
+	/// <returns><c>true</c>, if cheat is true, <c>false</c> otherwise.</returns>
 	public bool getCheat(){
 		return cheat;
 	}
