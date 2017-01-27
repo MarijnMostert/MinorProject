@@ -102,7 +102,7 @@ public class Projectile : AudioObject {
 		Ray ray = new Ray (transform.position, transform.forward);
 		RaycastHit hit;
 
-		if (Physics.Raycast (ray, out hit, moveDistance, collisionMask, QueryTriggerInteraction.Collide)) {
+		if (Physics.Raycast (ray, out hit, 2f * moveDistance, collisionMask, QueryTriggerInteraction.Collide)) {
 			onHitObject (hit);
 		}
 
@@ -159,9 +159,6 @@ public class Projectile : AudioObject {
 	}
 
 	void DestroyProjectile(){
-		if (rangedWeapon != null && rangedWeapon.maxAmountOfBulletsAlive) {
-			rangedWeapon.DecrementBulletsAlive ();
-		}
 		if (enemyHit && PlayerData != null) {
 			PlayerData.IncrementShotsLanded ();
 		}
@@ -176,6 +173,9 @@ public class Projectile : AudioObject {
 
 	IEnumerator KillProjectile(){
 		yield return new WaitForSeconds (comp.timeOut);
+		if (rangedWeapon != null && rangedWeapon.maxAmountOfBulletsAlive) {
+			rangedWeapon.DecrementBulletsAlive ();
+		}
 		gameObject.SetActive (false);
 	}
 

@@ -230,8 +230,9 @@ public class GameManager : MonoBehaviour {
 		}
 
 		yield return new WaitForSeconds (.1f);
-		if (RandomizeTexturesAllowed || (dungeonLevel == 1 && type == 1) || type == 2 || type == 0) {
+		if(!PlayerPrefs.HasKey("TexturesRandomized") || RandomizeTexturesAllowed){
 			RandomizeTextures ();
+			PlayerPrefs.SetInt ("TexturesRandomized", 1);
 		}
 
 		if (type == 1) {
@@ -474,7 +475,7 @@ public class GameManager : MonoBehaviour {
 		}
 	}
 
-	void Pause(){
+	public void Pause(){
 		if (!paused) {
 			Time.timeScale = 0;
 			paused = true;

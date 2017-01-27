@@ -5795,7 +5795,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 32b97d020238f419c90f1693506537dc, type: 2}
+  - {fileID: 2100000, guid: 5d3ea2f5567634b9d8c3fae8a021729d, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
@@ -10192,6 +10192,7 @@ MonoBehaviour:
   rotateSpeed: 5
   walkingSpeed: 5
   smoothing: 0.3
+  invertY: 0
 --- !u!114 &114000013610313408
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -10893,8 +10894,8 @@ SkinnedMeshRenderer:
   m_ReflectionProbeUsage: 1
   m_Materials:
   - {fileID: 2100000, guid: 316c6f51246b3451bb144bae01487961, type: 2}
-  - {fileID: 2100000, guid: 316c6f51246b3451bb144bae01487961, type: 2}
-  - {fileID: 2100000, guid: 316c6f51246b3451bb144bae01487961, type: 2}
+  - {fileID: 2100000, guid: ed2669404a33449fb85ac89df9b97b2c, type: 2}
+  - {fileID: 2100000, guid: ed2669404a33449fb85ac89df9b97b2c, type: 2}
   - {fileID: 2100000, guid: 316c6f51246b3451bb144bae01487961, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
@@ -10954,9 +10955,9 @@ SkinnedMeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
+  - {fileID: 2100000, guid: ed2669404a33449fb85ac89df9b97b2c, type: 2}
   - {fileID: 2100000, guid: 316c6f51246b3451bb144bae01487961, type: 2}
-  - {fileID: 2100000, guid: 316c6f51246b3451bb144bae01487961, type: 2}
-  - {fileID: 2100000, guid: 316c6f51246b3451bb144bae01487961, type: 2}
+  - {fileID: 2100000, guid: ed2669404a33449fb85ac89df9b97b2c, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
