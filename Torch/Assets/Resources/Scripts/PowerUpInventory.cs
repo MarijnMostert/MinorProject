@@ -56,6 +56,8 @@ public class PowerUpInventory : MonoBehaviour {
 				temp.a = 1f;
 				icon.GetComponent<Image> ().color = temp;
 
+				icon.GetComponent<Animator> ().SetTrigger ("Blink");
+
 				Debug.Log (powerUp + " added to inventory on key " + i);
 				return;
 			}

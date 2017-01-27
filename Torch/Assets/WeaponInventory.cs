@@ -91,6 +91,8 @@ public class WeaponInventory : MonoBehaviour {
 				temp.a = 1f;
 				icon.GetComponent<Image>().color = temp;
 
+				icon.GetComponent<Animator> ().SetTrigger ("Blink");
+
 				indicator [playerNumber - 1].transform.position = icon.transform.position;
 				if (gameManager.numberOfPlayers == 2) {
 					indicator [playerNumber - 1].transform.position += indicatorOffset [playerNumber - 1];
