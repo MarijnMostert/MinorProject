@@ -36,7 +36,7 @@ public class BossBehaviour : MonoBehaviour, IDamagable {
 	void Start () {
 		gameManager = GameManager.Instance;
 		dead = false;
-		health = startingHealth;
+		health = startingHealth + 100 * gameManager.dungeonLevel;
 		lastSpecAtt = 0;
 		specCooldown = 8;
 		gameObject.transform.FindChild ("BossShield").gameObject.SetActive (false);
