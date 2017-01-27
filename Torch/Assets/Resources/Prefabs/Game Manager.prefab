@@ -281,7 +281,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 577ca7cb19a3041078417fd2e428ac54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  amountOfLevels: 40
+  amountOfLevels: 41
   chanceOfRoom: 5
   spawnRateScaler: 0.5
   spawnerWarmingUpScaler: 0.6
@@ -471,6 +471,8 @@ MonoBehaviour:
   HighScoresPanel: {fileID: 1000011698425086, guid: 3af9a424cc2a048529edd2f286b5174b,
     type: 2}
   startingScreen: {fileID: 0}
+  winCanvasPrefab: {fileID: 1000010486839236, guid: fff669f2145e84bac98e9b10c78658d8,
+    type: 2}
   loadingScreenCanvas: {fileID: 1000013625541172, guid: 0ff01cb270ef14af5b80d2ec70ecc88c,
     type: 2}
   deathCanvas: {fileID: 0}

@@ -83,6 +83,8 @@ public class GameManager : MonoBehaviour {
 	public GameObject homeScreenEnvironment;
 	public GameObject HighScoresPanel;
 	public GameObject startingScreen;
+	public GameObject winCanvasPrefab;
+	private GameObject winCanvas;
 	public GameObject loadingScreenCanvas;
 	public DeathCanvas deathCanvas;
 	public GameObject endOfRoundCanvas;
@@ -236,7 +238,10 @@ public class GameManager : MonoBehaviour {
 		}
 
 		if (type == 1) {
-			masterGenerator = new MasterGenerator (this.gameObject, dungeonData.dungeonParameters[dungeonLevel], radius, maxlength, timeout);
+			int cappedDungeonLevel = dungeonLevel;
+			if (cappedDungeonLevel > 40)
+				cappedDungeonLevel = 40;
+			masterGenerator = new MasterGenerator (this.gameObject, dungeonData.dungeonParameters[cappedDungeonLevel], radius, maxlength, timeout);
 			masterGenerator.LoadPrefabs ();
 			masterGenerator.Constructing ();
 		} else if (type == 0) {
@@ -533,6 +538,8 @@ public class GameManager : MonoBehaviour {
 		coinsInGame = 0;
 		RoundEnd ();
 		DestroyDungeon ();
+		if (winCanvas != null)
+			Destroy (winCanvas);
 		if (ui != null)
 			Destroy (ui.gameObject);
 		if (triggerFloorObject != null)
@@ -541,6 +548,7 @@ public class GameManager : MonoBehaviour {
 		if (paused)
 			Pause ();
 		homeScreenPlayer.SetActive (true);
+		homeScreenMovement.enabled = true;
 		mainCamera = homeScreenCam.GetComponent<Camera> ();
 	}
 
@@ -614,13 +622,17 @@ public class GameManager : MonoBehaviour {
 
 		RoundEnd ();
 		DestroyDungeon ();
-		dungeonLevel++;
-		if (dungeonLevel > data.maxAchievedDungeonLevel)
-			data.maxAchievedDungeonLevel = dungeonLevel;
-		
-		achievements.levelAchievement (dungeonLevel);
-
-		StartGame ();
+		if ((dungeonLevel + 1) <= 50) {
+			dungeonLevel++;
+			if (dungeonLevel > data.maxAchievedDungeonLevel)
+				data.maxAchievedDungeonLevel = dungeonLevel;
+			
+			achievements.levelAchievement (dungeonLevel);
+			StartGame ();
+		} else {
+			endOfRoundCanvas.SetActive (false);
+			winCanvas = Instantiate (winCanvasPrefab);
+		}
 	}
 
 	public void MuteAudio(bool newBool){
@@ -756,7 +768,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void SetUpDungeonStartCanvas(){
-		for (int i = 0; i < 40; i++) {
+		for (int i = 0; i < 51; i++) {
 			GameObject button = Instantiate (dungeonLevelButtonPrefab, dungeonStartCanvas.transform) as GameObject;
 			float x = -590f + (i%10) * 130f;
 			float y = 200f + ((int)(i/10)) * -130f;
