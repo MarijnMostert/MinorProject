@@ -14,7 +14,7 @@ if(ISSET($_POST["id"])&&ISSET($_POST["score"])&&ISSET($_POST["date"])){
 	$id = mysql_real_escape_string($_POST["id"]);
 	$score = mysql_real_escape_string($_POST["score"]);	
 	//date = mysql_real_escape_string($_POST["date"]);
-	= 
+	
 	//execute the SQL query and return records
 	$result = mysql_query("INSERT INTO score (score,player_id,date) VALUES ('".$score."','".$id."',now())");
 	$result = mysql_query("SELECT id,date FROM score WHERE id='".mysql_insert_id()."'");

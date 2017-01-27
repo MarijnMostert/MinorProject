@@ -18,9 +18,9 @@ public class HighScoresPanel : MonoBehaviour {
 	public class HighScore : IComparable<HighScore>{
 		public string name;
 		public int score;
-        public DateTime date;
+        public string date;
 
-		public HighScore(string name, int score, DateTime date){
+		public HighScore(string name, int score, string date){
 			this.name = name;
 			this.score = score;
             this.date = date;
@@ -53,32 +53,30 @@ public class HighScoresPanel : MonoBehaviour {
 		}
 
 		highScores = new List<HighScore> ();
+        if (data.highscores != null || data.highscores.highscore != null) {
+		    foreach (Data.Highscore tmp in data.highscores.highscore) {
+			    highScores.Add (new HighScore (tmp.name, tmp.score, tmp.date));
+		    }
 
-		foreach (Data.Highscore tmp in data.highscores.highscore) {
-			highScores.Add (new HighScore (tmp.name, tmp.score, tmp.date));
-		}
+		    highScores.Sort ();
 
-		highScores.Sort ();
+		    string indexTemp = "";
+		    string namesTemp = "";
+		    string scoresTemp = "";
+            string dateTemp = "";
+		    for (int i = 0; i < highScores.Count; i++) {
+			    indexTemp += (i+1) + "\n";
+			    namesTemp += highScores [i].name + "\n";
+			    scoresTemp += highScores [i].score + "\n";
+                dateTemp += highScores[i].date + "\n";
+		    }
 
-		string indexTemp = "";
-		string namesTemp = "";
-		string scoresTemp = "";
-        string dateTemp = "";
-		for (int i = 0; i < highScores.Count; i++) {
-			indexTemp += (i+1) + "\n";
-			namesTemp += highScores [i].name + "\n";
-			scoresTemp += highScores [i].score + "\n";
-            dateTemp += highScores[i].date.Year+"-" +
-                highScores[i].date.Day + " "+
-                highScores[i].date.Hour + ":"+
-                highScores[i].date.Minute+ "\n";
-		}
-
-		indexText.text = indexTemp;
-		namesText.text = namesTemp;
-		scoresText.text = scoresTemp;
-        dateText.text = dateTemp;
-        Debug.Log("updated highscore");
+		    indexText.text = indexTemp;
+		    namesText.text = namesTemp;
+		    scoresText.text = scoresTemp;
+            dateText.text = dateTemp;
+            Debug.Log("updated highscore");
+        }
 	}
 
 	void OnTriggerEnter(Collider other){
