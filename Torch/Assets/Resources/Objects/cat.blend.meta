@@ -84,7 +84,7 @@ ModelImporter:
     400074: TailTip
     400076: UpperSpine
     4300000: Cat
-    7400000: Default Take
+    7400000: Cat idle
     7400002: Cat_galop
     7400004: Cat_trot
     7400006: Cat_trot0
@@ -112,8 +112,8 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Cat_trot0
-      takeName: Cat_trot
+      name: Cat idle
+      takeName: Default Take
       firstFrame: 0
       lastFrame: 60
       wrapMode: 0
@@ -122,8 +122,8 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
+      loopTime: 1
+      loopBlend: 1
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
@@ -228,7 +228,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -334,7 +334,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
