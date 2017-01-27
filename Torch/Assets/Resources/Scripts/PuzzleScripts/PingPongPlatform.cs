@@ -17,7 +17,10 @@ public class PingPongPlatform : MonoBehaviour {
 
 	void Start () { 
 		offset = (float)Random.Range (1, 9);
-		speed = GameManager.Instance.dungeonData.dungeonParameters[GameManager.Instance.dungeonLevel].puzzleRooms.platformSpeedScaler
+		int dungeonLevel = GameManager.Instance.dungeonLevel;
+		if (dungeonLevel > 40)
+			dungeonLevel = 40;
+		speed = GameManager.Instance.dungeonData.dungeonParameters[dungeonLevel].puzzleRooms.platformSpeedScaler
 			* Random.Range (maxSpeed - 1.5f, maxSpeed);
 
 		startingPos = transform.position;

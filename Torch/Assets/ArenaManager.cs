@@ -141,7 +141,10 @@ public class ArenaManager : MonoBehaviour {
 			yield return new WaitForSeconds (.2f);
 			spawnPosition = GetValidSpawnPosition (minSpawningDistanceChest, maxSpawningDistanceChest);
 			GameObject chest = Instantiate (chestPrefab, spawnPosition, Quaternion.Euler (new Vector3(-90f, Random.Range(0, 360), 0f))) as GameObject;
-			chest.GetComponent<Chest> ().SetUp (gameManager.dungeonData.dungeonParameters [waveNumber], null);
+			int dungeonParameterLevel = waveNumber;
+			if (waveNumber > 40)
+				dungeonParameterLevel = 40;
+			chest.GetComponent<Chest> ().SetUp (gameManager.dungeonData.dungeonParameters [dungeonParameterLevel], null);
 		}
 	}
 
