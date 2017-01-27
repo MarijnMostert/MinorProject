@@ -23,6 +23,7 @@ if (mysql_num_rows($result)) {
  
 $result = mysql_query("INSERT INTO user (name,password,email) VALUES ('".$name."','".$password."','fake@fake.com')");
 $id = mysql_query("SELECT id FROM user WHERE name='".$name."'");
+$result = mysql_query("INSERT INTO savedgames (player_id,achievements,items_owned,items_equiped) VALUES ('".mysql_result($id,0)."','0000000000000000000000000000000000000000000000000','00000000000000000000000000000000000000000000000000','00000000000000000000000000000000000000000000000000')");
 output(1,mysql_result($id,0));
 
 function output($succes,$message){

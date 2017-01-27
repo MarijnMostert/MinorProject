@@ -34,7 +34,6 @@ public class createPlayerForm : MonoBehaviour {
     void OnEnable()
     {
         //Time.timeScale = 0;
-		GameManager.Instance.homeScreenMovement.enabled = false;
     }
 
     public void CreateUser()
@@ -55,9 +54,6 @@ public class createPlayerForm : MonoBehaviour {
         {
             Debug.Log("WWW Ok!: " + login.text);
             communication wwwData = JsonUtility.FromJson<communication>(login.text);
-            Debug.Log(wwwData);
-            Debug.Log("succes: "+ wwwData.succes);
-            Debug.Log("message: "+ wwwData.message);
             if(wwwData.succes.Equals("1")){
                 PlayerPrefs.SetString("name",name.text);
                 PlayerPrefs.SetString("password",password.text);
@@ -71,13 +67,7 @@ public class createPlayerForm : MonoBehaviour {
 				GameManager.Instance.SetUpDungeonStartCanvas();
 				HomeScreenProgress.Instance.UpdateProgress (GameManager.Instance.data.maxAchievedDungeonLevel);
 
-                Time.timeScale = 1;
-                GameObject highscore = GameManager.Instance.HighScoresPanel;
-                highscore.GetComponentInChildren<HighScoresPanel>().UpdateHighScores();
-                transform.parent.gameObject.SetActive(false);
-				GameManager.Instance.SetTextFieldEnabled (false);
-				GameManager.Instance.homeScreenMovement.enabled = true;
-
+                error.GetComponentInChildren<Text>().text = "Account succesfully created. \n Now please log in with your new account.";
             } else
             {
                 StartCoroutine(showError(wwwData.message));
@@ -93,7 +83,7 @@ public class createPlayerForm : MonoBehaviour {
     {
         error.GetComponentInChildren<Text>().text = message;
         error.SetActive(true);
-        yield return new WaitForSecondsRealtime(5f);
+        yield return new WaitForSecondsRealtime(3f);
         error.SetActive(false);
         yield return null;
     }
