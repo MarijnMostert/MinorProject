@@ -93,6 +93,7 @@ public class GameManager : MonoBehaviour {
 	private GameObject homeScreen;
 	private GameObject homeScreenCam;
 	public Camera mainCamera;
+	public bool FirstPerson = false;
 	private Camera minimapPrefab;
 	public Camera minimap;
 	public GameObject minimapUIElement;
@@ -890,5 +891,17 @@ public class GameManager : MonoBehaviour {
 
 	public bool GetTextFieldEnabled(){
 		return TextFieldEnabled;
+	}
+
+	public void ToggleFirstPerson(bool newBool){
+		FirstPerson = newBool;
+		CameraController camController = mainCamera.GetComponent<CameraController> ();
+		if (camController != null)
+			camController.toggleFirstPerson (newBool);
+	}
+
+	public void SetFPSensitivity(float newFloat){
+		if(playerManagers[0].playerMovement != null)
+			playerManagers [0].playerMovement.FPSensitivity = newFloat;
 	}
 }

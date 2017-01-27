@@ -27,6 +27,14 @@ public class CameraController : MonoBehaviour {
 	private float timer;
 	private string Mode;
 
+	public float fpsSmoothingTime = .2f;
+	private Transform fpsTarget;
+	private Quaternion originalRotation;
+
+	void Awake(){
+		originalRotation = transform.rotation;
+	}
+
 	void Start(){
 		gameManager = GameManager.Instance;
 		targets = new List<GameObject> ();
@@ -39,43 +47,52 @@ public class CameraController : MonoBehaviour {
 
 	void FixedUpdate () {
 		//targetPosition = getAveragePosition ();
-		switch (Mode) {
-		case "Normal":
-			targetPosition = getAveragePosition ();
-			cameraPosition = targetPosition + offset;
 
-			transform.position = Vector3.SmoothDamp (transform.position, cameraPosition, ref smoothDampVelocity, smoothTime);
-			break;
-		case "Puzzle":
-			targetPosition = getAveragePosition ();
-			targetPosition = (targetPosition + (PuzzleTargetPos * 3)) * .25f;
-			cameraPosition = targetPosition + PuzzleOffset;
+		if (!gameManager.FirstPerson) {
+			switch (Mode) {
+			case "Normal":
+				targetPosition = getAveragePosition ();
+				cameraPosition = targetPosition + offset;
 
-			transform.position = Vector3.SmoothDamp (transform.position, cameraPosition, ref smoothDampVar, smoothTime);
-			break;
-		case "TransitionToPuzzle":
-			if (Time.time - timer < (smoothTimeTransition + .6f)) {
+				transform.position = Vector3.SmoothDamp (transform.position, cameraPosition, ref smoothDampVelocity, smoothTime);
+				break;
+			case "Puzzle":
 				targetPosition = getAveragePosition ();
 				targetPosition = (targetPosition + (PuzzleTargetPos * 3)) * .25f;
 				cameraPosition = targetPosition + PuzzleOffset;
 
-				transform.position = Vector3.SmoothDamp (transform.position, cameraPosition, ref smoothDampVar, smoothTimeTransition);
-			} else {
-				Mode = "Puzzle";
-			}
-			break;
-		case "TransitionFromPuzzle":
-			if(Time.time - timer < (smoothTimeTransition + .6f)){
-				targetPosition = getAveragePosition ();
-				cameraPosition = targetPosition + offset;
+				transform.position = Vector3.SmoothDamp (transform.position, cameraPosition, ref smoothDampVar, smoothTime);
+				break;
+			case "TransitionToPuzzle":
+				if (Time.time - timer < (smoothTimeTransition + .6f)) {
+					targetPosition = getAveragePosition ();
+					targetPosition = (targetPosition + (PuzzleTargetPos * 3)) * .25f;
+					cameraPosition = targetPosition + PuzzleOffset;
 
-				transform.position = Vector3.SmoothDamp (transform.position, cameraPosition, ref smoothDampVelocity, smoothTimeTransition);
-			} else {
-				Mode = "Normal";
+					transform.position = Vector3.SmoothDamp (transform.position, cameraPosition, ref smoothDampVar, smoothTimeTransition);
+				} else {
+					Mode = "Puzzle";
+				}
+				break;
+			case "TransitionFromPuzzle":
+				if (Time.time - timer < (smoothTimeTransition + .6f)) {
+					targetPosition = getAveragePosition ();
+					cameraPosition = targetPosition + offset;
+
+					transform.position = Vector3.SmoothDamp (transform.position, cameraPosition, ref smoothDampVelocity, smoothTimeTransition);
+				} else {
+					Mode = "Normal";
+				}
+				break;
+			case "default":
+				break;
 			}
-			break;
-		case "default":
-			break;
+		} else {
+			if (fpsTarget == null) {
+				fpsTarget = gameManager.playerManagers [0].playerMovement.fpCamPosition;
+			}
+			transform.position = Vector3.SmoothDamp (transform.position, fpsTarget.position, ref smoothDampVelocity, fpsSmoothingTime);
+			transform.rotation = fpsTarget.rotation;
 		}
 	
 
@@ -161,5 +178,16 @@ public class CameraController : MonoBehaviour {
 
 	public void SetMode(string Mode){
 		this.Mode = Mode;
+	}
+
+	public void toggleFirstPerson(bool firstPerson){
+		if (firstPerson) {
+			transform.localPosition = new Vector3 (0, 2f, -2f);
+			transform.LookAt (transform.position + Vector3.forward);
+			Cursor.lockState = CursorLockMode.Locked;
+		} else {
+			transform.rotation = originalRotation;
+			Cursor.lockState = CursorLockMode.None;
+		}
 	}
 }

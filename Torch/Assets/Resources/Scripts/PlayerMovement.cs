@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class PlayerMovement : MonoBehaviour {
 
 	public float speed;
+	public float FPSensitivity;
 	public float shiftfactor = 0.3f;
 	public LayerMask floorMask;
 	[HideInInspector] public GameObject cursorPointerPrefab;
@@ -50,6 +51,7 @@ public class PlayerMovement : MonoBehaviour {
 	private GameManager gameManager;
 
 	public PlayerWeaponController playerWeaponController;
+	public Transform fpCamPosition;
 
 	void Awake(){
 
@@ -165,12 +167,17 @@ public class PlayerMovement : MonoBehaviour {
 	}
 	
 	void FixedUpdate () {
-		Move ();
-		if (controllerInput) {
-			TurnController ();
-			updateCursorPointer (transform.position + transform.forward * 5f);
+		if (!gameManager.FirstPerson) {
+			Move ();
+			if (controllerInput) {
+				TurnController ();
+				updateCursorPointer (transform.position + transform.forward * 5f);
+			} else {
+				Turn ();
+			}
 		} else {
-			Turn ();
+			MoveFirstPerson ();
+			TurnFirstPerson ();
 		}
 		UpdateVelocity ();
 	}
@@ -205,6 +212,44 @@ public class PlayerMovement : MonoBehaviour {
             }
         }
 		transform.position += (MovementInput * speed * Time.deltaTime);
+	}
+
+	void MoveFirstPerson(){
+		//The input is retrieved and stored
+		HorizontalInput = Input.GetAxis (moveHorizontal);
+		VerticalInput = Input.GetAxis (moveVertical);
+
+		//Make the player move (Where z-axis is forwards/backwards and x-axis is sideways). No movement in Y-axis.
+		Vector3 RawMovementInput = new Vector3(HorizontalInput, 0, VerticalInput);
+
+		//Normalize to account for diagonal walking lines
+		Vector3 NormalizedMovementInput = RawMovementInput.normalized;
+		if (NormalizedMovementInput.x < 0)
+			NormalizedMovementInput.x *= -1f;
+		if (NormalizedMovementInput.z < 0)
+			NormalizedMovementInput.z *= -1f;
+
+		Vector3 MovementInput = new Vector3 (HorizontalInput * NormalizedMovementInput.x, 0f, VerticalInput * NormalizedMovementInput.z);
+		//		Debug.Log ("Raw: " + RawMovementInput + ", Normalized: " + NormalizedMovementInput + ", Final: " + MovementInput);
+
+		transform.position += (transform.forward * MovementInput.z + transform.right * MovementInput.x) * speed * Time.deltaTime;
+
+		//Move
+		if (anim1!=null) {
+			//            Debug.Log((MovementInput * speed * Time.deltaTime).magnitude);
+			if ((MovementInput * speed * Time.deltaTime).magnitude > .1f)
+			{
+				anim1.SetBool("walking",true);
+			} else
+			{
+				anim1.SetBool("walking", false);
+			}
+		}
+	}
+
+	void TurnFirstPerson(){
+		float xInput = Input.GetAxis ("Mouse X") * FPSensitivity;
+		transform.Rotate (new Vector3(0f, xInput, 0f));
 	}
 
 	private void Turn(){
