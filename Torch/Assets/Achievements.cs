@@ -171,7 +171,7 @@ public class Achievements : MonoBehaviour {
 	public void stairsAchievement () {
 		if (!home_stairs_climbed) {
 			home_stairs_climbed = true;
-			NewAchievement ("Walked up the homescreenstairs!", 9);
+			NewAchievement ("Walked up the stairs!", 9);
 		}
 	}
 
