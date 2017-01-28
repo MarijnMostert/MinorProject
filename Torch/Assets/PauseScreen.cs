@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class PauseScreen : MonoBehaviour {
@@ -11,6 +12,7 @@ public class PauseScreen : MonoBehaviour {
 	public GameObject panelControls;
 	public GameObject panelOptions;
 	public GameObject panelAchievements;
+	public Text name;
 
 	public void TurnOffAllPanels(){
 		confirmationMainMenu.SetActive (false);
@@ -21,6 +23,10 @@ public class PauseScreen : MonoBehaviour {
 		panelControls.SetActive (false);
 		panelAchievements.SetActive (false);
 		panelOptions.SetActive (false);
+	}
+
+	public void Start(){
+		name.text = PlayerPrefs.GetString ("name");
 	}
 
 	public void PlayUISound(){

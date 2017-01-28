@@ -17,6 +17,8 @@ public class Pet : AudioObject {
 	public TargetFinder targetFinder;
 	public GameObject target;
 	public float timeOut = 3f;
+	public Animator animator;
+	private Vector3 prevPos;
 
 	void Start(){
 		speechImage.gameObject.SetActive (false);
@@ -27,6 +29,15 @@ public class Pet : AudioObject {
 		weaponController = GetComponent<WeaponController> ();
 		StartCoroutine (Attack ());
 
+	}
+
+	void Update(){
+		if (animator != null) {
+			float velocity = (transform.position - prevPos).sqrMagnitude;
+			Debug.Log (velocity);
+			animator.SetFloat ("Velocity", velocity);
+			prevPos = transform.position;
+		}
 	}
 
 	IEnumerator RandomSayings(){
