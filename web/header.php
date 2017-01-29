@@ -21,7 +21,7 @@
 	<div id="avatar">
 		<div>
 			<div id="change-avatar"></div>
-			<img src="img/Avatar.jpg">
+			<img src="img/Avatar2.jpg">
 		</div>
 	</div>
 	<div id="side-menu">

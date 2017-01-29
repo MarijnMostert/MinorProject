@@ -72,11 +72,13 @@ ScoreList.prototype.DrawGrid = function (ctx, canvas_height, canvas_width){
 	var begin = Math.floor(this.minscore/10)*10;
 	var scal = 100000;
 	do{		
-		var diff = Math.round((this.maxscore-this.minscore)/scal)*15;
+		var diff = Math.round(Math.abs(this.maxscore-this.minscore)/scal)*scal;
 		scal = scal/10;
 		console.log(scal);
 	}
 	while(diff==0);
+	console.log("diff: "+diff);
+
 	for(var height = begin; height<this.maxscore+diff;height+=(diff/5)){
 		ctx.beginPath();		
 		var grid_height = canvas_height-(this.scoreScale*(height-this.minscore));
