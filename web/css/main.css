@@ -51,9 +51,10 @@ body {
 
 #avatar img {
 	position: absolute;
-	left: -60%;
-	top: -5%;
-	z-index:1;
+    left: -24%;
+    top: -20%;
+    height: 300px;
+    z-index: 1;
 }
 
 #change-avatar {
@@ -362,6 +363,15 @@ body {
 #scoreTable td{
 	border: 1px solid #592c27;
 	padding: 10px;
+}
+
+.searchid  tr{
+	cursor:pointer;
+}
+
+.searchid tr:hover{
+	background-color: #EAC67A; 
+	color: #233237;
 }
 
 .ScoreClick {

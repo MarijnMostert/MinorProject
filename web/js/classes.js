@@ -68,20 +68,27 @@ ScoreList.prototype.getLast = function(){
 };
 					
 ScoreList.prototype.DrawGrid = function (ctx, canvas_height, canvas_width){
+
 	var begin = Math.floor(this.minscore/10)*10;
-	var diff = Math.round((this.maxscore-this.minscore)/100)*15;
+	var scal = 100000;
+	do{		
+		var diff = Math.round((this.maxscore-this.minscore)/scal)*15;
+		scal = scal/10;
+		console.log(scal);
+	}
+	while(diff==0);
 	for(var height = begin; height<this.maxscore+diff;height+=(diff/5)){
 		ctx.beginPath();		
 		var grid_height = canvas_height-(this.scoreScale*(height-this.minscore));
-		if ((height-begin)%diff===0){
+		//if ((height-begin)%diff===0){
 			ctx.strokeStyle='#984B43';
 			ctx.fillStyle = '#984B43';
 			ctx.fillText(height,13,grid_height+7);		
 			ctx.moveTo(55,grid_height);
-		} else {
-			ctx.strokeStyle='#CD9B67';
-			ctx.moveTo(5,grid_height);
-		}		
+		//} else {
+		//	ctx.strokeStyle='#CD9B67';
+		//	ctx.moveTo(5,grid_height);
+		//}		
 		ctx.lineTo(canvas_width-5,grid_height);
 		ctx.stroke();
 	}
@@ -160,9 +167,15 @@ Messages.prototype.addMessage = function(message){
  Date.prototype.dateLite = function() {
   var month = this.getMonth() + 1;
   var day = this.getDate();
+  var hours = this.getHours();
+  var minutes = this.getMinutes();
+  var seconds = this.getSeconds();
 
   return [(day>9 ? '' : '0') + day,
           (month>9 ? '' : '0') + month,
 		  this.getFullYear()
-         ].join(' - ');
+         ].join(' - ')+" "+[(hours>9 ? '' : '0') + hours,
+          (minutes>9 ? '' : '0') + minutes,
+		  (seconds>9 ? '' : '0') + seconds
+         ].join(':');
 };

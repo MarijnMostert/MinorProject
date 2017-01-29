@@ -3,7 +3,7 @@ include('header.php');
 ?>
 	<div class="main">
 		<div class="list width-list">
-			<div id="scoreTable">
+			<div id="scoreTable" class="searchid">
 				<table>
 					<thead>
 						<th class="rank_table">Rank</th>

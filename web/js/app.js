@@ -5,7 +5,7 @@ $(document).ready(function(){
 	}
 	
 	var id = getCookie("DarkDescent");
-
+	
 	$("#form").on("keyup keypress",function(event){
 		var keyCode = event.keyCode || event.which;
 		if(keyCode === 13){
@@ -53,6 +53,12 @@ $(document).ready(function(){
 				searchscore('');
 			}
 			break;
+		case '/ewi3620tu1/id.php':
+			if (document.location.search.indexOf('id=') >= 0) {
+				var id = document.location.search.substring(4);
+				searchdata(id)
+			}
+			break;
 		default:	
 			console.log('url not recognized');
 			break;
@@ -90,6 +96,8 @@ var header = function(){
 		setCookie("",0);
 		window.location.href="index.php";
 	});
+	avatar = 'img/Avatar2.jpg';
+	$('#avatar img').attr('src',avatar);
 }
 
 var homepage = function(){
@@ -106,14 +114,17 @@ var homepage = function(){
 				console.log(response);
 				player = new Player(response.player_id,response.name, 'haksdf', 'jrout@tudelft.nl', Date.now(), 143);
 				
-			avatar = 'img/Avatar.jpg';
-			$('#avatar img').attr('src',avatar);
-			$('#name').html(player.name);
-			$('#level').html(response.level);
-			$('#highscore').html(response.score);
-			$('#coins').html(response.coins + " ©");
-			$('#ranking').html(response.rank + " /" + response.total_players);
-			$('#playtime').html(player.playtime + " Hours");
+				avatar = 'img/Avatar2.jpg';
+				$('#avatar img').attr('src',avatar);
+				$('#playername').html(player.name);
+				$('#level').html(response.level);
+				$('#highscore').html(response.score);
+				$('#coins').html(response.coins + " ©");
+				$('#ranking').html(response.rank + " /" + response.total_players);
+				$('#playtime').html(player.playtime + " Hours");
+				},
+			error: function(response){
+				console.log(response);
 			}
 		});	
 }
@@ -141,7 +152,7 @@ var statisticspage = function(){
 	scoreList = new ScoreList();	
 	var id = getCookie("DarkDescent");
 	$.ajax({
-			url: './unity/scores.php',
+			url: './unity/newscore.php',
 			type: 'POST',
 			dataType: 'JSON',
 			data: {player_id:id,score_id:0},
@@ -151,12 +162,56 @@ var statisticspage = function(){
 				console.log(response.Highscore);
 				for(i=0; i<response.Highscore.length;i++){
 					tmpscore = response.Highscore[i];
-					scoreList.addScore(new Score(tmpscore.id,1,tmpscore.score, tmpscore.name, new Date(tmpscore.date)));
+					scoreList.addScore(new Score(tmpscore.id,tmpscore.rank,tmpscore.score, tmpscore.name, new Date(tmpscore.date)));
 				}
 				drawCanvas();
 			}
 		});
 }
+
+var searchdata = function($id){
+	scoreList = new ScoreList();	
+	$.ajax({
+			url: './unity/newscore.php',
+			type: 'POST',
+			dataType: 'JSON',
+			data: {player_id:$id,score_id:0},
+			dataType: 'json',
+			success: function(response){
+				console.log('response:::');
+				console.log(response);
+				console.log(response.Highscore);
+				for(i=0; i<response.Highscore.length;i++){
+					tmpscore = response.Highscore[i];
+					scoreList.addScore(new Score(tmpscore.id,tmpscore.rank,tmpscore.score, tmpscore.name, new Date(tmpscore.date)));
+				}
+				drawCanvas();
+			}
+		});
+	var player;
+	$.ajax({
+			url: './unity/getplayer.php',
+			type: 'POST',
+			dataType: 'JSON',
+			data: {player_id:$id},
+			dataType: 'json',
+			success: function(response){
+				console.log('response:::');
+				console.log(response);
+				player = new Player(response.player_id,response.name, 'haksdf', 'jrout@tudelft.nl', Date.now(), 143);
+				
+			avatar = 'img/Avatar2.jpg';
+			$('#avatar img').attr('src',avatar);
+			$('#playername').html(player.name);
+			$('#level').html(response.level);
+			$('#highscore').html(response.score);
+			$('#coins').html(response.coins + " ©");
+			$('#ranking').html(response.rank + " /" + response.total_players);
+			$('#playtime').html(player.playtime + " Hours");
+			}
+		});	
+}
+
 
 var searchscore = function($name){
 	$.ajax({
@@ -177,7 +232,7 @@ var searchscore = function($name){
 		var score_table = document.createElement("td");
 		var player_table = document.createElement("td");
 		var date_table = document.createElement("td");
-		rank_table.innerHTML = score.id;
+		rank_table.innerHTML = score.rank;
 		score_table.innerHTML = score.score;
 		player_table.innerHTML = score.name;
 		date_table.innerHTML = score.date;
@@ -186,6 +241,9 @@ var searchscore = function($name){
 		tr.appendChild(score_table);
 		tr.appendChild(player_table);
 		tr.appendChild(date_table);
+		tr.addEventListener('click',function(){
+			window.location.href="id.php?id="+score.player_id;
+		});
 		$('#scoreTable table').append(tr);
 	}
 }
