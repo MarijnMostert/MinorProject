@@ -35,10 +35,10 @@ public class Spawner : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-		if (Input.GetButtonDown (spawnEnemyButton) && !gameManager.GetTextFieldEnabled()) {
+		if (Input.GetButtonDown (spawnEnemyButton) && gameManager.getCheat() && !gameManager.GetTextFieldEnabled()) {
 			spawnEnemy ();
 		}
-		if (Input.GetButtonDown (waveButton) && !gameManager.GetTextFieldEnabled()) {
+		if (Input.GetButtonDown (waveButton) && gameManager.getCheat() && !gameManager.GetTextFieldEnabled()) {
 			spawnWave ();
 		}
 		if (Input.GetKeyDown (KeyCode.Comma) && gameManager.getCheat() && !gameManager.GetTextFieldEnabled()) {

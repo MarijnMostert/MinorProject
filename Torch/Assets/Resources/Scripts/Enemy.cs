@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
 using System.Collections;
+using UnityEngine.AI;
 
 public class Enemy : AudioObject, IDamagable {
 

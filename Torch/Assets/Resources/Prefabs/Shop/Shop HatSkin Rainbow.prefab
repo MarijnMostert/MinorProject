@@ -16,12 +16,11 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 4000013504860154}
-  - 114: {fileID: 114000012854432128}
-  - 114: {fileID: 114000011318636990}
-  - 114: {fileID: 114000013450944212}
+  - component: {fileID: 4000013504860154}
+  - component: {fileID: 114000011318636990}
+  - component: {fileID: 114000013450944212}
   m_Layer: 0
   m_Name: Shop HatSkin Rainbow
   m_TagString: Untagged
@@ -34,11 +33,11 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 4000013352829072}
-  - 23: {fileID: 23000011365144028}
-  - 33: {fileID: 33000011603518926}
+  - component: {fileID: 4000013352829072}
+  - component: {fileID: 23000011365144028}
+  - component: {fileID: 33000011603518926}
   m_Layer: 0
   m_Name: Hat (1)
   m_TagString: Untagged
@@ -55,10 +54,10 @@ Transform:
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: -0.030000001, y: -0.45000002, z: -0.10499992}
   m_LocalScale: {x: 2, y: 2, z: 2}
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000013504860154}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!4 &4000013504860154
 Transform:
   m_ObjectHideFlags: 1
@@ -68,11 +67,11 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.47588018, y: 3.45, z: -26.779146}
   m_LocalScale: {x: 10, y: 10, z: 10}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 4000013352829072}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &23000011365144028
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -87,7 +86,9 @@ MeshRenderer:
   m_ReflectionProbeUsage: 1
   m_Materials:
   - {fileID: 2100000, guid: 7917fe68be42b4bc98745f17d420a49d, type: 2}
-  m_SubsetIndices: 
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
@@ -95,7 +96,7 @@ MeshRenderer:
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
-  m_SelectedWireframeHidden: 0
+  m_SelectedEditorRenderState: 3
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -133,23 +134,6 @@ MonoBehaviour:
   multiplier: 0
   addedMaxHealth: 0
   skin: {fileID: 2100000, guid: 7917fe68be42b4bc98745f17d420a49d, type: 2}
---- !u!114 &114000012854432128
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011214454554}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 372d866bd65cd49c2b50db1b1a4558eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hoverAmplitudeX: 0
-  hoverSpeedX: 0
-  hoverAmplitudeY: 1
-  hoverSpeedY: 2
-  hoverAmplitudeZ: 0
-  hoverSpeedZ: 0
 --- !u!114 &114000013450944212
 MonoBehaviour:
   m_ObjectHideFlags: 1

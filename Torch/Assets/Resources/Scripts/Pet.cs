@@ -34,7 +34,7 @@ public class Pet : AudioObject {
 	void Update(){
 		if (animator != null) {
 			float velocity = (transform.position - prevPos).sqrMagnitude;
-			Debug.Log (velocity);
+//			Debug.Log (velocity);
 			animator.SetFloat ("Velocity", velocity);
 			prevPos = transform.position;
 		}
