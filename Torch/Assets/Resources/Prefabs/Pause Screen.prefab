@@ -5290,9 +5290,9 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: toggleRandomizeTexturesAllowed
-        m_Mode: 0
+      - m_Target: {fileID: 114000011730414836}
+        m_MethodName: PlayUISound
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -5302,8 +5302,8 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 114000011730414836}
-        m_MethodName: PlayUISound
-        m_Mode: 1
+        m_MethodName: toggleRandomizeTexturesAllowed
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -5417,7 +5417,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 114000011730414836}
         m_MethodName: MuteAudio
         m_Mode: 0
         m_Arguments:
@@ -5779,7 +5779,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 114000011730414836}
         m_MethodName: SetNumberOfPlayers
         m_Mode: 3
         m_Arguments:
@@ -5993,7 +5993,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 114000011730414836}
         m_MethodName: SetNumberOfPlayers
         m_Mode: 3
         m_Arguments:
@@ -10450,7 +10450,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 114000011730414836}
         m_MethodName: InvertY
         m_Mode: 0
         m_Arguments:
@@ -11612,8 +11612,8 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: setQuality
+      - m_Target: {fileID: 114000011730414836}
+        m_MethodName: SetQuality
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

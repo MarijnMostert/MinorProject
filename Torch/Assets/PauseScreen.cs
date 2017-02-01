@@ -32,4 +32,24 @@ public class PauseScreen : MonoBehaviour {
 	public void PlayUISound(){
 		GameManager.Instance.playUISound (0);
 	}
+
+	public void SetNumberOfPlayers(int number){
+		GameManager.Instance.SetNumberOfPlayers (number);
+	}
+
+	public void MuteAudio(bool mute){
+		GameManager.Instance.MuteAudio (mute);
+	}
+
+	public void toggleRandomizeTexturesAllowed (bool newBool) {
+		GameManager.Instance.toggleRandomizeTexturesAllowed (newBool);
+	}
+
+	public void InvertY(bool newBool){
+		GameManager.Instance.homeScreenMovement.InvertY (newBool);
+	}
+
+	public void SetQuality(bool highQuality){
+		GameManager.Instance.setQuality (highQuality);
+	}
 }
