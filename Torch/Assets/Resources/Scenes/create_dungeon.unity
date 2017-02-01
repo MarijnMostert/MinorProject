@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.35215163, g: 0.38616857, b: 0.48949742, a: 1}
+  m_IndirectSpecularColor: {r: 0.4710238, g: 0.5376623, b: 0.66065264, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -1021,12 +1021,7 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114000011303179932, guid: cf3e1c810a2e94ddfa98fdcb76202dbb,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1389436525}
-    - target: {fileID: 114000012107769834, guid: cf3e1c810a2e94ddfa98fdcb76202dbb,
+    - target: {fileID: 114000013776895918, guid: cf3e1c810a2e94ddfa98fdcb76202dbb,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
@@ -1036,14 +1031,19 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 702297201}
+    - target: {fileID: 114000012107769834, guid: cf3e1c810a2e94ddfa98fdcb76202dbb,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1389436525}
     - target: {fileID: 114000011537776270, guid: cf3e1c810a2e94ddfa98fdcb76202dbb,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 702297201}
-    - target: {fileID: 114000013776895918, guid: cf3e1c810a2e94ddfa98fdcb76202dbb,
+    - target: {fileID: 114000011303179932, guid: cf3e1c810a2e94ddfa98fdcb76202dbb,
         type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1389436525}
     m_RemovedComponents: []
