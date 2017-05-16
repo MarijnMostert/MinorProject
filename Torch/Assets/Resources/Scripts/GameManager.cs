@@ -194,7 +194,9 @@ public class GameManager : MonoBehaviour {
 		loadingScreenCanvas = Instantiate (loadingScreenCanvas) as GameObject;
 		loadingScreenCanvas.SetActive (false);
 		homeScreenPlayerPosition = homeScreenPlayer.transform.position;
-		Pet = Instantiate (Pet, homeScreenPlayerPosition, Quaternion.identity) as GameObject;
+		if (Pet != null){
+			Pet = Instantiate (Pet, homeScreenPlayerPosition, Quaternion.identity) as GameObject;
+		}
 		PetScript = Pet.GetComponent<Pet> ();
 		PetScript.speechText.text = "";
 		PetScript.speechImage.gameObject.SetActive (false);
@@ -469,7 +471,7 @@ public class GameManager : MonoBehaviour {
 			ToggleMiniMap();
 		}
 
-		//Add second player
+		/*//Add second player
 		if (Input.GetButtonDown ("ToggleSecondPlayer") && !TextFieldEnabled) {
 			int newNumberOfPlayers;
 			if (numberOfPlayers == 1)
@@ -477,7 +479,7 @@ public class GameManager : MonoBehaviour {
 			else
 				newNumberOfPlayers = 1;
 			SetNumberOfPlayers (newNumberOfPlayers);
-		}
+		}*/
 	}
 
 	public void Pause(){
