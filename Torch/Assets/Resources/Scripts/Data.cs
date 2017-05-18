@@ -233,6 +233,22 @@ public class Data : MonoBehaviour {
         StartCoroutine(addScoreWWW(score));
 	}
 
+	public void SaveHighScore(int score,string name){
+		instantiateHighscores();
+		Highscore new_score = new Highscore();
+		new_score.name = name;
+		new_score.score = score;
+
+		DateTime tmpdate = DateTime.Now;
+
+		new_score.date = tmpdate.Day + "-" + tmpdate.Month + "-" + tmpdate.Year + " " + tmpdate.Hour + ":" + tmpdate.Minute;
+		highscores.highscore.Add(new_score);
+		Debug.Log("New highscore added: " + score + " : " + name);
+
+
+		GameManager.Instance.HighScoresPanel.GetComponentInChildren<HighScoresPanel>().UpdateHighScores();
+	}
+
     void server_communication()
     {
         StartCoroutine(getWWWData());

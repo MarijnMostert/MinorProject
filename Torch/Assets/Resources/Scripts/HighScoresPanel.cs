@@ -40,10 +40,9 @@ public class HighScoresPanel : MonoBehaviour {
 	}
 
 	void OnEnable(){
-        if (PlayerPrefs.HasKey("id"))
-        {
+        
             UpdateHighScores();
-        }
+        
 	}
 
 	public void UpdateHighScores(){
