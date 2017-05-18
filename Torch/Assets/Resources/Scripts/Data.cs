@@ -76,12 +76,12 @@ public class Data : MonoBehaviour {
             highscores.highscore = new List<Highscore>();
         }
 		playerSkin = new Material[4];
-        Debug.Log(PlayerPrefs.GetInt("id"));
+        /*Debug.Log(PlayerPrefs.GetInt("id"));
         if (!PlayerPrefs.HasKey("id"))
         {
             loginCanvas.SetActive(true);
 			GameManager.Instance.SetTextFieldEnabled (true);
-        }
+        }*/
         max_score = 0;
 	}
 
@@ -199,8 +199,8 @@ public class Data : MonoBehaviour {
 		PlayerPrefs.SetInt ("highQuality", 1);
 		gameManager.achievements.resetAchievements ();
 
-        highscores.highscore.Clear();
-        File.Delete("highScores.txt");
+        /*highscores.highscore.Clear();
+        File.Delete("highScores.txt");*/
         Debug.Log ("Reset data succesfully");
 		Load ();
 	}

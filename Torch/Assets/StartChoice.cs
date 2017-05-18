@@ -11,6 +11,8 @@ public class StartChoice : MonoBehaviour {
 	}
 
 	public void ContinueGame(){
+		GameManager.Instance.dungeonStartCanvas.buttons.Clear();
+		GameManager.Instance.SetUpDungeonStartCanvas();
 		this.gameObject.SetActive(false);
 	}
 	public void NewGame (string choice){
@@ -68,6 +70,9 @@ public class StartChoice : MonoBehaviour {
 			break;
 
 		}/**/
+
+		GameManager.Instance.SetUpDungeonStartCanvas();
+		HomeScreenProgress.Instance.UpdateProgress(GameManager.Instance.data.maxAchievedDungeonLevel);
 
 		gameManager.Start ();
 		this.gameObject.SetActive(false);

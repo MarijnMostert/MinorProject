@@ -41,6 +41,8 @@ public class GameManager : MonoBehaviour {
 
 	public static int totalKeysCollected = 0;
 
+	public GameObject StartChoiceCanvas;
+
 	public bool paused;
 	public GameObject pauseScreen;
 	public GameObject inGameCameraPrefab;
@@ -195,6 +197,7 @@ public class GameManager : MonoBehaviour {
 		loadingScreenCanvas.SetActive (false);
 		homeScreenPlayerPosition = homeScreenPlayer.transform.position;
 		if (Pet != null){
+			Destroy (Pet);
 			Pet = Instantiate (Pet, homeScreenPlayerPosition, Quaternion.identity) as GameObject;
 		}
 		PetScript = Pet.GetComponent<Pet> ();
@@ -552,6 +555,7 @@ public class GameManager : MonoBehaviour {
 		homeScreenPlayer.SetActive (true);
 		homeScreenMovement.enabled = true;
 		mainCamera = homeScreenCam.GetComponent<Camera> ();
+		StartChoiceCanvas.SetActive (true);
 	}
 
 	public void DestroyDungeon(){
@@ -770,22 +774,29 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void SetUpDungeonStartCanvas(){
-		for (int i = 0; i < 51; i++) {
-			GameObject button = Instantiate (dungeonLevelButtonPrefab, dungeonStartCanvas.transform) as GameObject;
-			float x = -590f + (i%10) * 130f;
-			float y = 200f + ((int)(i/10)) * -130f;
-			button.transform.localPosition = new Vector3 (x, y, 0f);
-			button.GetComponent<DungeonLevelButton> ().SetDungeonLevel (i + 1);
-			button.GetComponentInChildren<Text> ().text = (i + 1).ToString();
-			button.SetActive (false);
-			dungeonStartCanvas.buttons.Add (button);
+		if (GameManager.Instance.dungeonStartCanvas.buttons.Count==0) {
+			for (int i = 0; i < 51; i++) {
+				GameObject button = Instantiate (dungeonLevelButtonPrefab, dungeonStartCanvas.transform) as GameObject;
+				float x = -590f + (i % 10) * 130f;
+				float y = 200f + ((int)(i / 10)) * -130f;
+				button.transform.localPosition = new Vector3 (x, y, 0f);
+				button.GetComponent<DungeonLevelButton> ().SetDungeonLevel (i + 1);
+				button.GetComponentInChildren<Text> ().text = (i + 1).ToString ();
+				button.SetActive (false);
+				dungeonStartCanvas.buttons.Add (button);
+
+			}
 		}
+
 		UpdateDungeonStartCanvas ();
 	}
 
-	void UpdateDungeonStartCanvas(){
+	public void UpdateDungeonStartCanvas(){
 		for (int i = 0; i < data.maxAchievedDungeonLevel; i++) {
 			dungeonStartCanvas.buttons [i].SetActive (true);
+		}
+		for (int i = data.maxAchievedDungeonLevel; i < 51; i++) {
+			dungeonStartCanvas.buttons [i].SetActive (false);
 		}
 	}
 
