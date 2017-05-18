@@ -143,9 +143,9 @@ public class PlayerMovement : MonoBehaviour {
     }
 
 	void Update(){
-		if (Input.GetButtonDown("ToggleInput" + playerNumber) && !gameManager.GetTextFieldEnabled()) {
+		/*if (Input.GetButtonDown("ToggleInput" + playerNumber) && !gameManager.GetTextFieldEnabled()) {
 			ToggleInput ();
-		}
+		}*/
 		if (Input.GetKeyDown (KeyCode.G) && gameManager.getCheat() && !gameManager.GetTextFieldEnabled()) {
 			GodMode ();
 		}
