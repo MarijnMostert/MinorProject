@@ -448,6 +448,7 @@ MonoBehaviour:
   dungeonLevel: 0
   StartTime: 0
   Roomtype: 
+  StartChoiceCanvas: {fileID: 0}
   paused: 0
   pauseScreen: {fileID: 0}
   inGameCameraPrefab: {fileID: 1000010527591912, guid: 2f0d8300580bb4db9b1240053b57aeaf,
@@ -521,8 +522,10 @@ MonoBehaviour:
   KeyPrefab: {fileID: 1000012212864896, guid: e8435d5b6d8af4888b1b7bcd6c9e373c, type: 2}
   collectedKeys: 0
   requiredCollectedKeys: 0
-  Pet: {fileID: 1000010787105900, guid: 34e435e0d20414bb0ad3cd7e62be2d41, type: 2}
-  Bold: {fileID: 1000010787105900, guid: 34e435e0d20414bb0ad3cd7e62be2d41, type: 2}
+  PetPrefab: {fileID: 1000010787105900, guid: 34e435e0d20414bb0ad3cd7e62be2d41, type: 2}
+  Pet: {fileID: 0}
+  BoldPrefab: {fileID: 1000010787105900, guid: 34e435e0d20414bb0ad3cd7e62be2d41, type: 2}
+  Bold: {fileID: 0}
   shopPrefab: {fileID: 114000012952452066, guid: e7fffa677a1ce4c29bfc10128f43efa3,
     type: 2}
   highQualityItems:

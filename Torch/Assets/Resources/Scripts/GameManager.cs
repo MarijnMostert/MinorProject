@@ -134,8 +134,10 @@ public class GameManager : MonoBehaviour {
 
 	public int collectedKeys;
 	public int requiredCollectedKeys;
+	public GameObject PetPrefab;
 	public GameObject Pet;
 	private Pet PetScript;
+	public GameObject BoldPrefab;
 	public GameObject Bold;
 	private Pet BoldPetScript;
 
@@ -198,12 +200,16 @@ public class GameManager : MonoBehaviour {
 		homeScreenPlayerPosition = homeScreenPlayer.transform.position;
 		if (Pet != null){
 			Destroy (Pet);
-			Pet = Instantiate (Pet, homeScreenPlayerPosition, Quaternion.identity) as GameObject;
 		}
+		Pet = Instantiate (PetPrefab, homeScreenPlayerPosition, Quaternion.identity) as GameObject;
+
 		PetScript = Pet.GetComponent<Pet> ();
 		PetScript.speechText.text = "";
 		PetScript.speechImage.gameObject.SetActive (false);
-		Bold = Instantiate (Bold) as GameObject;
+		if (Bold != null){
+			Destroy (Bold);
+		}
+		Bold = Instantiate (BoldPrefab) as GameObject;
 		BoldPetScript = Bold.GetComponent<Pet> ();
 		BoldPetScript.attacking = false;
 		Bold.SetActive (false);
