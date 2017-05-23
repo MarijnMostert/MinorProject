@@ -25,7 +25,7 @@ public class PauseScreen : MonoBehaviour {
 		panelOptions.SetActive (false);
 	}
 
-	public void Start(){
+	public void OnEnable(){
 		name.text = PlayerPrefs.GetString ("name");
 	}
 

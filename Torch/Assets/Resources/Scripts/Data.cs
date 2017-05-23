@@ -233,10 +233,10 @@ public class Data : MonoBehaviour {
         StartCoroutine(addScoreWWW(score));
 	}
 
-	public void SaveHighScore(int score,string name){
+	public void SaveHighScore(int score, bool offline){
 		instantiateHighscores();
 		Highscore new_score = new Highscore();
-		new_score.name = name;
+		new_score.name = PlayerPrefs.GetString("name");;
 		new_score.score = score;
 
 		DateTime tmpdate = DateTime.Now;

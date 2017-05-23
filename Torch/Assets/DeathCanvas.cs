@@ -8,7 +8,6 @@ public class DeathCanvas : MonoBehaviour {
 	public Text scoreText;
 	public Text coinText;
 	public Text cause;
-	public InputField NameInputField;
 	public GameObject HighScoreSubmitText;
 	public GameObject HighScoreDeniedText;
 
@@ -33,9 +32,8 @@ public class DeathCanvas : MonoBehaviour {
 
 	public void SubmitHighScore(){
 		int score = GameManager.Instance.totalScore;
-		string name = NameInputField.text;
 		if (!GameManager.Instance.getCheat ()) {
-			GameManager.Instance.data.SaveHighScore (score, name);
+			GameManager.Instance.data.SaveHighScore (score, true);
 			HighScoreSubmitText.SetActive (!GameManager.Instance.getCheat ());
 		}
 	}

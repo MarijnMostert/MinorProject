@@ -542,6 +542,7 @@ public class GameManager : MonoBehaviour {
 		totalScore = 0;
 		coinsInGame = 0;
 		RoundEnd ();
+		arenaManager.StopArena ();
 		DestroyDungeon ();
 		if (winCanvas != null)
 			Destroy (winCanvas);

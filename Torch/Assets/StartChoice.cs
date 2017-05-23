@@ -1,13 +1,21 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class StartChoice : MonoBehaviour {
 	public GameManager gameManager;
+	public InputField NameInputField;
+	public Text continuegametext;
 	private Data data;
 
 	void Start () {
 		gameManager = GameManager.Instance;
 		data = gameManager.data;
+	}
+
+	void OnEnable () {
+		continuegametext.text = "Continue your game, " + PlayerPrefs.GetString ("name");
+		NameInputField.text = "";
 	}
 
 	public void ContinueGame(){
@@ -17,6 +25,8 @@ public class StartChoice : MonoBehaviour {
 	}
 	public void NewGame (string choice){
 		data.ResetData ();
+		string name = NameInputField.text;
+		PlayerPrefs.SetString("name",name);
 		switch (choice) {
 		case "FromScratch":
 			break;
@@ -25,9 +35,9 @@ public class StartChoice : MonoBehaviour {
 			data.shopItemsOwned = new bool[]{
 				true, false, true, false, false,
 				false, false, false, false, false,
-				true, false, false, false, false,
+				true, false, false, false, true,
 				false, false, true, false, false,
-				false, false, true, false, false,
+				false, false, false, false, false,
 
 				false, false, false, false, false,
 				false, false, false, false, false,
@@ -37,9 +47,9 @@ public class StartChoice : MonoBehaviour {
 			data.shopItemsEquipped = new bool[]{
 				true, false, true, false, false,
 				false, false, false, false, false,
-				true, false, false, false, false,
+				true, false, false, false, true,
 				false, false, true, false, false,
-				false, false, true, false, false,
+				false, false, false, false, false,
 
 				false, false, false, false, false,
 				false, false, false, false, false,
