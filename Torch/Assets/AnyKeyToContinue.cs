@@ -10,6 +10,7 @@ public class AnyKeyToContinue : MonoBehaviour {
 			GameManager gameManager = GameManager.Instance;
 			gameManager.audioSourceMusic.clip = gameManager.audioHomeScreen;
 			gameManager.audioSourceMusic.Play ();
+			gameManager.StartChoiceCanvas.SetActive (true);
 		}
 	}
 }

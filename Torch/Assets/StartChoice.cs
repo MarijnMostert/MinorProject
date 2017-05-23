@@ -16,6 +16,25 @@ public class StartChoice : MonoBehaviour {
 	void OnEnable () {
 		continuegametext.text = "Continue your game, " + PlayerPrefs.GetString ("name");
 		NameInputField.text = "";
+
+		gameManager.SetTextFieldEnabled (true);
+
+		Time.timeScale = 0;
+		foreach (PlayerManager PM in gameManager.playerManagers) {
+			if(PM.playerInstance != null)
+				PM.EnableMovement (false);
+		}
+		gameManager.homeScreenMovement.enabled = false;
+	}
+	void OnDisable () {
+		gameManager.SetTextFieldEnabled (false);
+
+		Time.timeScale = 1;
+		foreach (PlayerManager PM in gameManager.playerManagers) {
+			if(PM.playerInstance != null)
+				PM.EnableMovement(true);
+		}
+		gameManager.homeScreenMovement.enabled = true;
 	}
 
 	public void ContinueGame(){
