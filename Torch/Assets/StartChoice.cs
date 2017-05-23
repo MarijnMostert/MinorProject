@@ -19,7 +19,7 @@ public class StartChoice : MonoBehaviour {
 
 		gameManager.SetTextFieldEnabled (true);
 
-		Time.timeScale = 0;
+
 		foreach (PlayerManager PM in gameManager.playerManagers) {
 			if(PM.playerInstance != null)
 				PM.EnableMovement (false);
@@ -29,7 +29,7 @@ public class StartChoice : MonoBehaviour {
 	void OnDisable () {
 		gameManager.SetTextFieldEnabled (false);
 
-		Time.timeScale = 1;
+
 		foreach (PlayerManager PM in gameManager.playerManagers) {
 			if(PM.playerInstance != null)
 				PM.EnableMovement(true);
