@@ -891,6 +891,10 @@ public class GameManager : MonoBehaviour {
 		homeScreenPlayer.transform.position = GameObject.Find ("HighScoreTeleport").transform.position;
 	}
 
+	public void SetHighscoresActive(bool active){
+		HighScoresPanel.transform.Find("HighScores Panel").gameObject.SetActive (active);
+	}
+
 	void ApplySkins(){
 		foreach (PlayerManager PM in playerManagers) {
 			if(data.playerSkin[0] != null) PM.playerSkin.SetCapeSkin (data.playerSkin [0]);
